@@ -2,16 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WatchedIt.Api.Models.Film;
+using WatchedIt.Api.Models.FilmModels;
 
 namespace WatchedIt.Api.Services.FilmService
 {
     public interface IFilmService
     {
-        Task<List<GetFilmDto>> GetAll();
+        Task<List<GetFilmOverviewDto>> GetAll();
         Task<GetFilmDto> GetById(int id);
-        Task<GetFilmDto> Add(AddFilmDto newFilm);
-        Task<GetFilmDto> Update(int id ,UpdateFilmDto updatedFilm);
+        Task<GetFilmOverviewDto> Add(AddFilmDto newFilm);
+        Task<GetFilmOverviewDto> Update(int id ,UpdateFilmDto updatedFilm);
         void Delete(int id);
 
     }

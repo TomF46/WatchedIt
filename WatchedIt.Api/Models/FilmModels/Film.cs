@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using WatchedIt.Api.Models.CreditModels;
 
-namespace WatchedIt.Api.Models.Film
+namespace WatchedIt.Api.Models.FilmModels
 {
     public class Film
     {
@@ -17,5 +14,6 @@ namespace WatchedIt.Api.Models.Film
         [StringLength(800, ErrorMessage = "Full description can't be longer than 800 characters.")]
         public string? FullDescription {get;set;}
         public int Runtime {get;set;}
+        public ICollection<Credit> Credits { get; set; } = new List<Credit>();
     }
 }

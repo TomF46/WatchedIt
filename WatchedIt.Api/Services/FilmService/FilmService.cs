@@ -2,51 +2,49 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WatchedIt.Api.Models.Film;
+using WatchedIt.Api.Models.FilmModels;
+using WatchedIt.Api.Services.Mapping;
 
 namespace WatchedIt.Api.Services.FilmService
 {
     public class FilmService : IFilmService
     {
-        private readonly IMapper _mapper;
         public readonly WatchedItContext _context;
-        public FilmService(IMapper mapper, WatchedItContext context)
+        public FilmService(WatchedItContext context)
         {
             _context = context;
-            _mapper = mapper;
-            
         }
-        public async Task<List<GetFilmDto>> GetAll()
+        public async Task<List<GetFilmOverviewDto>> GetAll()
         {
             var films = await _context.Films.ToListAsync();
-            return films.Select(f => _mapper.Map<GetFilmDto>(f)).ToList();
+            return films.Select(f => FilmMapper.MapOverview(f)).ToList();
         }
 
         public async Task<GetFilmDto> GetById(int id)
         {
             var film = await _context.Films.FirstOrDefaultAsync(f => f.Id == id);
-            return _mapper.Map<GetFilmDto>(film);
+            if(film is null) throw new NotFoundException($"Film with Id '{id}' not found.");
+            return FilmMapper.Map(film);
         }
 
-        public async Task<GetFilmDto> Add(AddFilmDto newFilm)
+        public async Task<GetFilmOverviewDto> Add(AddFilmDto newFilm)
         {
-            var film = _mapper.Map<Film>(newFilm);
+            var film = FilmMapper.MapForAdding(newFilm);
             await _context.Films.AddAsync(film);
             await _context.SaveChangesAsync();
-            return _mapper.Map<GetFilmDto>(film);
+            return FilmMapper.MapOverview(film);
         }
 
-        public async Task<GetFilmDto> Update(int id, UpdateFilmDto updatedFilm)
+        public async Task<GetFilmOverviewDto> Update(int id, UpdateFilmDto updatedFilm)
         {
             var film = await _context.Films.FirstOrDefaultAsync(f => f.Id == id);
             if(film is null) throw new NotFoundException($"Film with Id '{id}' not found.");
-            // film = _mapper.Map<Film>(updatedFilm);
             film.Name = updatedFilm.Name;
             film.ShortDescription = updatedFilm.ShortDescription;
             film.FullDescription = updatedFilm.FullDescription;
             film.Runtime = updatedFilm.Runtime;
             await _context.SaveChangesAsync();
-            return _mapper.Map<GetFilmDto>(film);
+            return FilmMapper.MapOverview(film);
         }
 
         public void Delete(int id)

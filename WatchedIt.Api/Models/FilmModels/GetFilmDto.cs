@@ -2,14 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WatchedIt.Api.Models.CreditModels;
 
-namespace WatchedIt.Api.Models.Film
+namespace WatchedIt.Api.Models.FilmModels
 {
-    public class UpdateFilmDto
+    public class GetFilmDto
     {
+        public int Id {get;set;}
         public string? Name {get;set;}
         public string? ShortDescription {get;set;}
         public string? FullDescription {get;set;}
         public int Runtime {get;set;}
+        // public ICollection<Credit> Credits { get; set; } = new List<Credit>();
     }
 }

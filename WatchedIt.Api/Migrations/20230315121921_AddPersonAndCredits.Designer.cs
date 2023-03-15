@@ -3,6 +3,7 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WatchedIt.Api.Migrations
 {
     [DbContext(typeof(WatchedItContext))]
-    partial class WatchedItContextModelSnapshot : ModelSnapshot
+    [Migration("20230315121921_AddPersonAndCredits")]
+    partial class AddPersonAndCredits
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,7 +51,7 @@ namespace WatchedIt.Api.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("Credits");
+                    b.ToTable("Credit");
                 });
 
             modelBuilder.Entity("WatchedIt.Api.Models.FilmModels.Film", b =>
@@ -115,7 +118,7 @@ namespace WatchedIt.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("People");
+                    b.ToTable("Person");
                 });
 
             modelBuilder.Entity("WatchedIt.Api.Models.CreditModels.Credit", b =>
