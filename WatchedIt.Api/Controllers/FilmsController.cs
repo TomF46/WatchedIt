@@ -28,7 +28,7 @@ namespace WatchedIt.Api.Controllers
         public async Task<ActionResult<GetFilmDto>> GetSingle(int id){
             var film = await _filmService.GetById(id);
 
-            if(film is null) return NotFound($"Film with Id '{id}' not found.");
+            if(film is null) throw new NotFoundException($"Film with Id '{id}' not found.");
 
             return Ok(film);
         }

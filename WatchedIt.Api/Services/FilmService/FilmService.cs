@@ -39,7 +39,7 @@ namespace WatchedIt.Api.Services.FilmService
         public async Task<GetFilmDto> Update(int id, UpdateFilmDto updatedFilm)
         {
             var film = await _context.Films.FirstOrDefaultAsync(f => f.Id == id);
-            if(film is null) throw new Exception($"Film with Id '{id}' not found.");
+            if(film is null) throw new NotFoundException($"Film with Id '{id}' not found.");
             // film = _mapper.Map<Film>(updatedFilm);
             film.Name = updatedFilm.Name;
             film.ShortDescription = updatedFilm.ShortDescription;
@@ -52,7 +52,7 @@ namespace WatchedIt.Api.Services.FilmService
         public void Delete(int id)
         {
             var film = _context.Films.FirstOrDefault(f => f.Id == id);
-            if(film is null) throw new Exception($"Film with Id '{id}' not found.");
+            if(film is null) throw new NotFoundException($"Film with Id '{id}' not found.");
             _context.Films.Remove(film);
             _context.SaveChangesAsync();
             return;

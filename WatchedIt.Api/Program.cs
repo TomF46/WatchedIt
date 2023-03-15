@@ -2,7 +2,10 @@ global using WatchedIt.Api.Models;
 global using AutoMapper;
 global using Microsoft.EntityFrameworkCore;
 global using Data;
+global using WatchedIt.Api.Exceptions;
 using WatchedIt.Api.Services.FilmService;
+using WatchedIt.Api.Middleware;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +18,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IFilmService, FilmService>();
+builder.Services.AddTransient<ExceptionMiddleware>();
 
 var app = builder.Build();
+app.UseGlobalExceptionHandler();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -26,7 +31,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
-
 app.MapControllers();
+
+var log = new LoggerConfiguration()
+    .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
 
 app.Run();
