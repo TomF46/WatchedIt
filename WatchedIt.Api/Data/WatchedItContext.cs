@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using WatchedIt.Api.Models.CreditModels;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.PersonModels;
@@ -27,6 +28,10 @@ namespace Data
                 .WithMany(f => f.Credits)
                 .HasForeignKey(gr => gr.PersonId);
         }
+
+         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder
+        .ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.NavigationBaseIncludeIgnored, CoreEventId.NavigationBaseIncluded));
 
 
         public DbSet<Film> Films => Set<Film>();

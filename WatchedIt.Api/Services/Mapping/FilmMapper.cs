@@ -14,7 +14,8 @@ namespace WatchedIt.Api.Services.Mapping
                 Name = film.Name,
                 ShortDescription = film.ShortDescription,
                 FullDescription = film.FullDescription,
-                Runtime = film.Runtime
+                Runtime = film.Runtime,
+                Credits = film.Credits.Select(c => CreditMapper.mapForFilm(c)).ToList()
             };
         }
 
@@ -32,7 +33,7 @@ namespace WatchedIt.Api.Services.Mapping
                 Name = film.Name
             };
         }
-        
+
         public static Film MapForAdding(AddFilmDto newFilm){
             return new Film {
                 Name = newFilm.Name,

@@ -22,7 +22,7 @@ namespace WatchedIt.Api.Services.FilmService
 
         public async Task<GetFilmDto> GetById(int id)
         {
-            var film = await _context.Films.FirstOrDefaultAsync(f => f.Id == id);
+            var film = await _context.Films.Include(f => f.Credits).ThenInclude(c => c.Film).Include(f => f.Credits).ThenInclude(c => c.Person).FirstOrDefaultAsync(f => f.Id == id);
             if(film is null) throw new NotFoundException($"Film with Id '{id}' not found.");
             return FilmMapper.Map(film);
         }

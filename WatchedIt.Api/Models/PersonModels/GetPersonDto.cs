@@ -15,6 +15,6 @@ namespace WatchedIt.Api.Models.PersonModels
         public string? StageName {get;set;}
         public int Age {get;set;}
         public string? Description {get;set;}
-        public ICollection<GetCreditDto> Credits { get; set; } = new List<GetCreditDto>();
+        public ICollection<GetCreditForPersonDto> Credits { get; set; } = new List<GetCreditForPersonDto>();
     }
 }

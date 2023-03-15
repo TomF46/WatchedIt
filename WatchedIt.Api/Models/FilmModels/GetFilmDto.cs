@@ -13,6 +13,6 @@ namespace WatchedIt.Api.Models.FilmModels
         public string? ShortDescription {get;set;}
         public string? FullDescription {get;set;}
         public int Runtime {get;set;}
-        // public ICollection<Credit> Credits { get; set; } = new List<Credit>();
+        public ICollection<GetCreditForFilmDto> Credits { get; set; } = new List<GetCreditForFilmDto>();
     }
 }
