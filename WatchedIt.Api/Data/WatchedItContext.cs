@@ -37,6 +37,5 @@ namespace Data
         public DbSet<Film> Films => Set<Film>();
         public DbSet<Person> People => Set<Person>();
         public DbSet<Credit> Credits => Set<Credit>();
-
     }
 }

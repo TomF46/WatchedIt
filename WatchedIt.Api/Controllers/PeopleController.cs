@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Services.PersonService;
 
@@ -45,6 +46,18 @@ namespace WatchedIt.Api.Controllers
         public ActionResult DeletePerson(int id){
             _personService.Delete(id);
             return Ok();
+        }
+
+        [HttpPost("watched/{id}")]
+        public async Task<ActionResult<GetPersonDto>> AddWatchedFilm(int id, AddWatchedFilmDto watchedFilm)
+        {
+            return Ok(await _personService.AddWatchedFilm(id, watchedFilm));
+        }
+
+        [HttpDelete("watched/{id}")]
+        public async Task<ActionResult<GetPersonDto>> RemoveWatchedFilm(int id, RemoveWatchedFilmDto removedFilm)
+        {
+            return Ok(await _personService.RemoveWatchedFilm(id, removedFilm));
         }
     }
 }

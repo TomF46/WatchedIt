@@ -9,6 +9,7 @@ namespace WatchedIt.Api.Services.Mapping
     public static class PersonMapper
     {
         public static GetPersonDto Map(Person person){
+            
             return new GetPersonDto{
                 Id = person.Id,
                 FirstName = person.FirstName,
@@ -17,7 +18,8 @@ namespace WatchedIt.Api.Services.Mapping
                 StageName = person.StageName,
                 Age = person.Age,
                 Description = person.Description,
-                Credits = person.Credits.Select(c => CreditMapper.mapForPerson(c)).ToList()
+                Credits = person.Credits.Select(c => CreditMapper.mapForPerson(c)).ToList(),
+                Watched = person.Watched.Select(f => FilmMapper.MapWatchedFilm(f)).ToList()
             };
         }
 

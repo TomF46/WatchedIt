@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Data;
 using NUnit.Framework;
 using WatchedIt.Api.Exceptions;
+using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Services.PersonService;
 
@@ -139,6 +140,74 @@ namespace WatchedIt.Tests.ServiceTests
 
             Assert.That(personFromDB.Id, Is.EqualTo(person.Id));
             Assert.That(personFromDB.FirstName, Is.EqualTo(newName));
+        }
+
+        [Test]
+        public async  Task CanAddWatchedFilm(){
+            var person = new Person
+            {
+                FirstName = "Joe",
+                LastName = "Bloggs",
+                Age = 25,
+                Description = "A young actor"
+            };
+
+            var film = new Film
+            {
+                Name = "Jaws",
+                ShortDescription = "Its about a shark",
+                FullDescription = "A full description for a film about a shark.",
+                Runtime = 100
+            };
+
+            _context.Films.Add(film);
+            _context.People.Add(person);
+            _context.SaveChanges();
+
+            await _personService.AddWatchedFilm(person.Id, new AddWatchedFilmDto {
+                Id = film.Id
+            });
+
+            var personFromDB = await _personService.GetById(person.Id);
+            Assert.That(personFromDB.Watched.Count(), Is.EqualTo(1));
+
+        }
+
+        [Test]
+        public async  Task CanRemoveWatchedFilm(){
+            var person = new Person
+            {
+                FirstName = "Joe",
+                LastName = "Bloggs",
+                Age = 25,
+                Description = "A young actor"
+            };
+
+            var film = new Film
+            {
+                Name = "Jaws",
+                ShortDescription = "Its about a shark",
+                FullDescription = "A full description for a film about a shark.",
+                Runtime = 100
+            };
+
+            _context.Films.Add(film);
+            _context.People.Add(person);
+            _context.SaveChanges();
+
+            await _personService.AddWatchedFilm(person.Id, new AddWatchedFilmDto {
+                Id = film.Id
+            });
+
+            var personFromDB = await _personService.GetById(person.Id);
+            Assert.That(personFromDB.Watched.Count(), Is.EqualTo(1));
+
+            await _personService.RemoveWatchedFilm(person.Id, new RemoveWatchedFilmDto {
+                Id = film.Id
+            });
+
+            personFromDB = await _personService.GetById(person.Id);
+            Assert.That(personFromDB.Watched.Count(), Is.EqualTo(0));
         }
     }
 }

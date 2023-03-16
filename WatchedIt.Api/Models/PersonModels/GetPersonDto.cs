@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WatchedIt.Api.Models.CreditModels;
+using WatchedIt.Api.Models.FilmModels;
 
 namespace WatchedIt.Api.Models.PersonModels
 {
@@ -16,5 +17,7 @@ namespace WatchedIt.Api.Models.PersonModels
         public int Age {get;set;}
         public string? Description {get;set;}
         public ICollection<GetCreditForPersonDto> Credits { get; set; } = new List<GetCreditForPersonDto>();
+        public ICollection<GetWatchedFilmDto> Watched { get; set; } = new List<GetWatchedFilmDto>();
+
     }
 }

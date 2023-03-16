@@ -21,5 +21,6 @@ namespace WatchedIt.Api.Models.PersonModels
         [StringLength(800, ErrorMessage = "Full description can't be longer than 800 characters.")]
         public string? Description {get;set;}
         public ICollection<Credit> Credits { get; set; } = new List<Credit>();
+        public ICollection<Film> Watched { get; set; } = new List<Film>();
     }
 }
