@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WatchedIt.Api.Services.AuthenticationService;
 using Microsoft.OpenApi.Models;
+using WatchedIt.Api.Services.UserService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -93,6 +94,7 @@ builder.Services.AddScoped<IFilmService, FilmService>();
 builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<ICreditService, CreditService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddTransient<ExceptionMiddleware>();
 
 var app = builder.Build();
