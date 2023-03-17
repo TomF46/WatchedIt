@@ -24,7 +24,7 @@ namespace WatchedIt.Api.Services.PersonService
 
         public async Task<GetPersonDto> GetById(int id)
         {
-            var person = await _context.People.Include(f => f.Watched).Include(f => f.Credits).ThenInclude(c => c.Film).Include(f => f.Credits).ThenInclude(c => c.Person).FirstOrDefaultAsync(p => p.Id == id);
+            var person = await _context.People.Include(f => f.Credits).ThenInclude(c => c.Film).Include(f => f.Credits).ThenInclude(c => c.Person).FirstOrDefaultAsync(p => p.Id == id);
             if(person is null) throw new NotFoundException($"Person with Id '{id}' not found.");
             return PersonMapper.Map(person);
         }
@@ -58,40 +58,6 @@ namespace WatchedIt.Api.Services.PersonService
             _context.People.Remove(person);
             _context.SaveChangesAsync();
             return;
-        }
-
-        public async Task<GetPersonDto> AddWatchedFilm(int id, AddWatchedFilmDto watchedFilm)
-        {
-            var person = await _context.People.FirstOrDefaultAsync(p => p.Id == id);
-            if(person is null) throw new NotFoundException($"Person with Id '{id}' not found.");
-
-            var film = await _context.Films.FirstOrDefaultAsync(f => f.Id == watchedFilm.Id);
-            if(film is null) throw new BadRequestException($"Film with Id '{watchedFilm.Id} does not exist");
-
-            person.Watched.Add(film);
-            await _context.SaveChangesAsync();
-            return PersonMapper.Map(person);
-
-        }
-
-        public async Task<GetPersonDto> RemoveWatchedFilm(int id, RemoveWatchedFilmDto watchedFilm)
-        {
-            var person = await _context.People.Include(p => p.Watched).FirstOrDefaultAsync(p => p.Id == id);
-            if(person is null) throw new NotFoundException($"Person with Id '{id}' not found.");
-
-            var film = await _context.Films.FirstOrDefaultAsync(f => f.Id == watchedFilm.Id);
-            if(film is null) throw new BadRequestException($"Film with Id '{watchedFilm.Id} does not exist");
-
-            person.Watched.Remove(film);
-            await _context.SaveChangesAsync();
-            return PersonMapper.Map(person);
-        }
-
-        public async Task<List<GetSimpleFilmDto>> GetWatchedFilms(int id)
-        {
-            var person = await _context.People.Include(f => f.Watched).FirstOrDefaultAsync(p => p.Id == id);
-            if(person is null) throw new NotFoundException($"Person with Id '{id}' not found.");
-            return  person.Watched.Select(f => FilmMapper.MapSimple(f)).ToList();
         }
     }
 }

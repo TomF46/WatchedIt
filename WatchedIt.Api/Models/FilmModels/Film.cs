@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using WatchedIt.Api.Models.Authentication;
 using WatchedIt.Api.Models.CreditModels;
-using WatchedIt.Api.Models.PersonModels;
 
 namespace WatchedIt.Api.Models.FilmModels
 {
@@ -16,6 +16,6 @@ namespace WatchedIt.Api.Models.FilmModels
         public string? FullDescription {get;set;}
         public int Runtime {get;set;}
         public ICollection<Credit> Credits { get; set; } = new List<Credit>();
-        public ICollection<Person> WatchedBy { get; set; } = new List<Person>();
+        public ICollection<User> WatchedBy { get; set; } = new List<User>();
     }
 }

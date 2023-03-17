@@ -7,6 +7,6 @@ namespace WatchedIt.Api.Models.FilmModels
 {
     public class AddWatchedFilmDto
     {
-       public int Id {get;set;} 
+       public int FilmId {get;set;} 
     }
 }

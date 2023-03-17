@@ -17,6 +17,5 @@ namespace WatchedIt.Api.Models.PersonModels
         public int Age {get;set;}
         public string? Description {get;set;}
         public ICollection<GetCreditForPersonDto> Credits { get; set; } = new List<GetCreditForPersonDto>();
-        public int WatchedFilmCount {get;set;}
     }
 }
