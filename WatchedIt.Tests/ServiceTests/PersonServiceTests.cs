@@ -8,6 +8,7 @@ using WatchedIt.Api.Exceptions;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Services.PersonService;
+using WatchedIt.Tests.ServiceTests.Helpers;
 
 namespace WatchedIt.Tests.ServiceTests
 {
@@ -53,36 +54,23 @@ namespace WatchedIt.Tests.ServiceTests
         [Test]
         public async Task CanGetExistingPerson()
         {
-            var person = new AddPersonDto {
-                FirstName = "Joe",
-                LastName = "Bloggs",
-                Age = 25,
-                Description = "A young actor"
-            };
+            var person = RandomDataGenerator.GeneratePerson();
+            await _context.People.AddAsync(person);
+            await _context.SaveChangesAsync();
 
-            var existingPerson =await _personService.Add(person);
+            var personFromDb = await _personService.GetById(person.Id);
 
-            var personFromDb = await _personService.GetById(existingPerson.Id);
-
-            Assert.That(personFromDb.Id, Is.EqualTo(existingPerson.Id));
+            Assert.That(personFromDb.Id, Is.EqualTo(person.Id));
         }
 
         [Test]
         public async Task CanGetMultiplePeople()
         {
-            await _personService.Add(new AddPersonDto {
-                FirstName = "Joe",
-                LastName = "Bloggs",
-                Age = 25,
-                Description = "A young actor"
-            });
-
-            await _personService.Add(new AddPersonDto {
-                FirstName = "Dave",
-                LastName = "Davison",
-                Age = 99,
-                Description = "An old actor"
-            });
+            var person = RandomDataGenerator.GeneratePerson();
+            var person2 = RandomDataGenerator.GeneratePerson();
+            await _context.People.AddAsync(person);
+            await _context.People.AddAsync(person2);
+            await _context.SaveChangesAsync();
 
             var allPeople = await _personService.GetAll();
 
@@ -90,18 +78,11 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public void CanDeletePerson()
+        public async Task CanDeletePerson()
         {
-            var person = new Person
-            {
-                FirstName = "Joe",
-                LastName = "Bloggs",
-                Age = 25,
-                Description = "A young actor"
-            };
-
-            _context.People.Add(person);
-            _context.SaveChanges();
+            var person = RandomDataGenerator.GeneratePerson();
+            await _context.People.AddAsync(person);
+            await _context.SaveChangesAsync();
 
             _personService.Delete(person.Id);
 
@@ -114,16 +95,10 @@ namespace WatchedIt.Tests.ServiceTests
         [Test]
         public async Task CanUpdatePerson()
         {
-            var person = new Person
-            {
-                FirstName = "Joe",
-                LastName = "Bloggs",
-                Age = 25,
-                Description = "A young actor"
-            };
-
-            _context.People.Add(person);
-            _context.SaveChanges();
+            var person = RandomDataGenerator.GeneratePerson();
+            person.FirstName = "Joe";
+            await _context.People.AddAsync(person);
+            await _context.SaveChangesAsync();
 
             var newName = "Joel";
 

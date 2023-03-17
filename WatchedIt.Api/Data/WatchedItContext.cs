@@ -7,6 +7,7 @@ using WatchedIt.Api.Models.Authentication;
 using WatchedIt.Api.Models.CreditModels;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.PersonModels;
+using WatchedIt.Api.Models.ReviewModels;
 
 namespace Data
 {
@@ -38,5 +39,6 @@ namespace Data
         public DbSet<Film> Films => Set<Film>();
         public DbSet<Person> People => Set<Person>();
         public DbSet<Credit> Credits => Set<Credit>();
+        public DbSet<Review> Reviews => Set<Review>();
     }
 }

@@ -6,6 +6,7 @@ using Data;
 using WatchedIt.Api.Models.Authentication;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Services.UserService;
+using WatchedIt.Tests.ServiceTests.Helpers;
 
 namespace WatchedIt.Tests.ServiceTests
 {
@@ -35,23 +36,12 @@ namespace WatchedIt.Tests.ServiceTests
 
         [Test]
         public async  Task CanAddWatchedFilm(){
-            var user = new User
-            {
-                Email = "test@email.com",
-                Username = "TestUser1"
-            };
+            var user = RandomDataGenerator.GenerateUser();
+            var film = RandomDataGenerator.GenerateFilm();
 
-            var film = new Film
-            {
-                Name = "Jaws",
-                ShortDescription = "Its about a shark",
-                FullDescription = "A full description for a film about a shark.",
-                Runtime = 100
-            };
-
-            _context.Films.Add(film);
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            await _context.Films.AddAsync(film);
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
 
             await _userService.AddWatchedFilm(user.Id, new AddWatchedFilmDto {
                 FilmId = film.Id
@@ -64,23 +54,12 @@ namespace WatchedIt.Tests.ServiceTests
 
         [Test]
         public async  Task CanRemoveWatchedFilm(){
-            var user = new User
-            {
-                Email = "test@email.com",
-                Username = "TestUser1"
-            };
+            var user = RandomDataGenerator.GenerateUser();
+            var film = RandomDataGenerator.GenerateFilm();
 
-            var film = new Film
-            {
-                Name = "Jaws",
-                ShortDescription = "Its about a shark",
-                FullDescription = "A full description for a film about a shark.",
-                Runtime = 100
-            };
-
-            _context.Films.Add(film);
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            await _context.Films.AddAsync(film);
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
 
             await _userService.AddWatchedFilm(user.Id, new AddWatchedFilmDto {
                 FilmId = film.Id
@@ -99,23 +78,12 @@ namespace WatchedIt.Tests.ServiceTests
 
         [Test]
         public async  Task CanCalculateWatchedFilmCount(){
-            var user = new User
-            {
-                Email = "test@email.com",
-                Username = "TestUser1"
-            };
+            var user = RandomDataGenerator.GenerateUser();
+            var film = RandomDataGenerator.GenerateFilm();
 
-            var film = new Film
-            {
-                Name = "Jaws",
-                ShortDescription = "Its about a shark",
-                FullDescription = "A full description for a film about a shark.",
-                Runtime = 100
-            };
-
-            _context.Films.Add(film);
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            await _context.Films.AddAsync(film);
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
 
             await _userService.AddWatchedFilm(user.Id, new AddWatchedFilmDto {
                 FilmId = film.Id

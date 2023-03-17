@@ -7,6 +7,7 @@ using NUnit.Framework;
 using WatchedIt.Api.Exceptions;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Services.FilmService;
+using WatchedIt.Tests.ServiceTests.Helpers;
 
 namespace WatchedIt.Tests.ServiceTests
 {
@@ -53,36 +54,23 @@ namespace WatchedIt.Tests.ServiceTests
         [Test]
         public async Task CanGetExistingFilm()
         {
-            var film = new AddFilmDto {
-                Name = "Jaws 2 ",
-                ShortDescription = "Its about a shark 2",
-                FullDescription = "A full description for a film about a shark 2.",
-                Runtime = 100
-            };
+            var film = RandomDataGenerator.GenerateFilm();
+            await _context.Films.AddAsync(film);
+            await _context.SaveChangesAsync();
 
-            var existingFilm =await _filmService.Add(film);
+            var filmFromDb = await _filmService.GetById(film.Id);
 
-            var filmFromDb = await _filmService.GetById(existingFilm.Id);
-
-            Assert.That(filmFromDb.Id, Is.EqualTo(existingFilm.Id));
+            Assert.That(filmFromDb.Id, Is.EqualTo(film.Id));
         }
 
         [Test]
         public async Task CanGetMultipleFilms()
         {
-            await _filmService.Add(new AddFilmDto {
-                Name = "Jaws",
-                ShortDescription = "Its about a shark",
-                FullDescription = "A full description for a film about a shark.",
-                Runtime = 100
-            });
-
-            await _filmService.Add(new AddFilmDto {
-                Name = "Jaws 2 ",
-                ShortDescription = "Its about a shark 2",
-                FullDescription = "A full description for a film about a shark 2.",
-                Runtime = 100
-            });
+            var film = RandomDataGenerator.GenerateFilm();
+            var film2 = RandomDataGenerator.GenerateFilm();
+            await _context.Films.AddAsync(film);
+            await _context.Films.AddAsync(film2);
+            await _context.SaveChangesAsync();
 
             var allFilms = await _filmService.GetAll();
 
@@ -90,18 +78,11 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public void CanDeleteFilm()
+        public async Task CanDeleteFilm()
         {
-            var film = new Film
-            {
-                Name = "Jaws",
-                ShortDescription = "Its about a shark",
-                FullDescription = "A full description for a film about a shark.",
-                Runtime = 100
-            };
-
-            _context.Films.Add(film);
-            _context.SaveChanges();
+            var film = RandomDataGenerator.GenerateFilm();
+            await _context.Films.AddAsync(film);
+            await _context.SaveChangesAsync();
 
             _filmService.Delete(film.Id);
 
@@ -114,16 +95,10 @@ namespace WatchedIt.Tests.ServiceTests
         [Test]
         public async Task CanUpdateFilm()
         {
-            var film = new Film
-            {
-                Name = "Jaws",
-                ShortDescription = "Its about a shark",
-                FullDescription = "A full description for a film about a shark.",
-                Runtime = 100
-            };
-
-            _context.Films.Add(film);
-            _context.SaveChanges();
+            var film = RandomDataGenerator.GenerateFilm();
+            film.Name = "Jaws";
+            await _context.Films.AddAsync(film);
+            await _context.SaveChangesAsync();
 
             var newName = "Jaws 3";
 
