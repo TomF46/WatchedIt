@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WatchedIt.Api.Models.CreditModels;
 using WatchedIt.Api.Services.CreditService;
@@ -33,18 +34,20 @@ namespace WatchedIt.Api.Controllers
             return Ok(credit);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<GetCreditDto>> AddCredit(AddCreditDto newCredit)
         {
             return Ok(await _creditService.Add(newCredit));
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult<GetCreditDto>> UpdateCredit(int id, UpdatedCreditDto updatedCredit){
             return Ok(await _creditService.Update(id, updatedCredit));
         }
 
-        
+        [Authorize]    
         [HttpDelete("{id}")]
         public ActionResult DeleteCredit(int id){
             _creditService.Delete(id);

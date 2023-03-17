@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.PersonModels;
@@ -30,18 +31,20 @@ namespace WatchedIt.Api.Controllers
             return Ok(person);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<GetPersonOverviewDto>> AddPerson(AddPersonDto newPerson)
         {
             return Ok(await _personService.Add(newPerson));
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult<GetPersonOverviewDto>> UpdatePerson(int id, UpdatePersonDto updatedPerson){
             return Ok(await _personService.Update(id, updatedPerson));
         }
 
-        
+        [Authorize]
         [HttpDelete("{id}")]
         public ActionResult DeletePerson(int id){
             _personService.Delete(id);
