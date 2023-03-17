@@ -19,7 +19,7 @@ namespace WatchedIt.Api.Services.Mapping
                 Age = person.Age,
                 Description = person.Description,
                 Credits = person.Credits.Select(c => CreditMapper.mapForPerson(c)).ToList(),
-                Watched = person.Watched.Select(f => FilmMapper.MapWatchedFilm(f)).ToList()
+                WatchedFilmCount = person.Watched.Count()
             };
         }
 

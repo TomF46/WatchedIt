@@ -14,6 +14,7 @@ namespace WatchedIt.Api.Services.PersonService
         Task<GetPersonOverviewDto> Add(AddPersonDto newPerson);
         Task<GetPersonOverviewDto> Update(int id ,UpdatePersonDto updatedPerson);
         void Delete(int id);
+        Task<List<GetSimpleFilmDto>> GetWatchedFilms(int id);
         Task<GetPersonDto> AddWatchedFilm(int id, AddWatchedFilmDto watchedFilm);
         Task<GetPersonDto> RemoveWatchedFilm(int id, RemoveWatchedFilmDto watchedFilm);
 

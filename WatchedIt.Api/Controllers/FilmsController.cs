@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WatchedIt.Api.Models.FilmModels;
+using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Services.FilmService;
 
 namespace WatchedIt.Api.Controllers
@@ -47,5 +48,11 @@ namespace WatchedIt.Api.Controllers
             _filmService.Delete(id);
             return Ok();
         }
+
+        // [HttpGet("watched/{id}")]
+        // public async Task<ActionResult<GetSimplePersonDto>> GetWatchedFilms(int id)
+        // {
+        //     return Ok(await _personService.GetWatchedFilms(id));
+        // }
     }
 }

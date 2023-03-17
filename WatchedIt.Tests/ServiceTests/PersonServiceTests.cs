@@ -168,8 +168,8 @@ namespace WatchedIt.Tests.ServiceTests
                 Id = film.Id
             });
 
-            var personFromDB = await _personService.GetById(person.Id);
-            Assert.That(personFromDB.Watched.Count(), Is.EqualTo(1));
+            var watchedFilms = await _personService.GetWatchedFilms(person.Id);
+            Assert.That(watchedFilms.Count(), Is.EqualTo(1));
 
         }
 
@@ -199,15 +199,46 @@ namespace WatchedIt.Tests.ServiceTests
                 Id = film.Id
             });
 
-            var personFromDB = await _personService.GetById(person.Id);
-            Assert.That(personFromDB.Watched.Count(), Is.EqualTo(1));
+            var watchedFilms = await _personService.GetWatchedFilms(person.Id);
+            Assert.That(watchedFilms.Count(), Is.EqualTo(1));
 
             await _personService.RemoveWatchedFilm(person.Id, new RemoveWatchedFilmDto {
                 Id = film.Id
             });
 
-            personFromDB = await _personService.GetById(person.Id);
-            Assert.That(personFromDB.Watched.Count(), Is.EqualTo(0));
+            watchedFilms = await _personService.GetWatchedFilms(person.Id);
+            Assert.That(watchedFilms.Count(), Is.EqualTo(0));
+        }
+
+        [Test]
+        public async  Task CanCalculateWatchedFilmCount(){
+            var person = new Person
+            {
+                FirstName = "Joe",
+                LastName = "Bloggs",
+                Age = 25,
+                Description = "A young actor"
+            };
+
+            var film = new Film
+            {
+                Name = "Jaws",
+                ShortDescription = "Its about a shark",
+                FullDescription = "A full description for a film about a shark.",
+                Runtime = 100
+            };
+
+            _context.Films.Add(film);
+            _context.People.Add(person);
+            _context.SaveChanges();
+
+            await _personService.AddWatchedFilm(person.Id, new AddWatchedFilmDto {
+                Id = film.Id
+            });
+
+            var personFromDB = await _personService.GetById(person.Id);
+            Assert.That(personFromDB.WatchedFilmCount, Is.EqualTo(1));
+
         }
     }
 }

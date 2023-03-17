@@ -48,6 +48,12 @@ namespace WatchedIt.Api.Controllers
             return Ok();
         }
 
+        [HttpGet("watched/{id}")]
+        public async Task<ActionResult<GetSimpleFilmDto>> GetWatchedFilms(int id)
+        {
+            return Ok(await _personService.GetWatchedFilms(id));
+        }
+
         [HttpPost("watched/{id}")]
         public async Task<ActionResult<GetPersonDto>> AddWatchedFilm(int id, AddWatchedFilmDto watchedFilm)
         {

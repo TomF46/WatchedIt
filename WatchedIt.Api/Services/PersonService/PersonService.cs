@@ -86,5 +86,12 @@ namespace WatchedIt.Api.Services.PersonService
             await _context.SaveChangesAsync();
             return PersonMapper.Map(person);
         }
+
+        public async Task<List<GetSimpleFilmDto>> GetWatchedFilms(int id)
+        {
+            var person = await _context.People.Include(f => f.Watched).FirstOrDefaultAsync(p => p.Id == id);
+            if(person is null) throw new NotFoundException($"Person with Id '{id}' not found.");
+            return  person.Watched.Select(f => FilmMapper.MapSimple(f)).ToList();
+        }
     }
 }

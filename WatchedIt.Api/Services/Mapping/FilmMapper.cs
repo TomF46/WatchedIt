@@ -42,12 +42,5 @@ namespace WatchedIt.Api.Services.Mapping
                 Runtime = newFilm.Runtime
             };
         }
-
-        public static GetWatchedFilmDto MapWatchedFilm(Film film){
-            return new GetWatchedFilmDto {
-                Id = film.Id,
-                Name = film.Name
-            };
-        }
     }
 }
