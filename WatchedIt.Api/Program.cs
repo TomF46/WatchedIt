@@ -18,6 +18,16 @@ using WatchedIt.Api.Services.ReviewService;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var corsPolicyName = "_corsPolicy";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: corsPolicyName,
+                      policy  =>
+                      {
+                          policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                      });
+});
+
 // Add services to the container.
 builder.Services.AddDbContext<WatchedItContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
@@ -108,6 +118,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors(corsPolicyName);
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
