@@ -1,38 +1,27 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-const pages = import.meta.glob("./pages/**/*.jsx", { eager: true });
-
-const routes = [];
-
-for (const path of Object.keys(pages)) {
-  const fileName = path.match(/\.\/pages\/(.*)\.jsx$/)?.[1];
-  if (!fileName) {
-    continue;
-  }
-
-  const normalizedPathName = fileName.includes("$")
-    ? fileName.replace("$", ":")
-    : fileName.replace(/\/index/, "");
-
-  routes.push({
-    path: fileName === "index" ? "/" : `/${normalizedPathName.toLowerCase()}`,
-    Element: pages[path].default,
-    loader: pages[path]?.loader,
-    action: pages[path]?.action,
-    ErrorBoundary: pages[path]?.ErrorBoundary,
-  });
-}
-
-const router = createBrowserRouter(
-    routes.map(({ Element, ErrorBoundary, ...rest }) => ({
-      ...rest,
-      element: <Element />,
-      ...(ErrorBoundary && { errorElement: <ErrorBoundary /> }),
-    }))
-  );
+import { Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Header from "./components/Header/Header";
+import Film from "./pages/films/Film";
+import Films from "./pages/films/Films";
+import Home from "./pages/Home";
   
   const App = () => {
-    return <RouterProvider router={router} />;
+    return (
+      <>
+      <div className="bg-background">
+        <Header />
+        <div className="app-container container mx-auto">
+          <Routes>
+            <Route path="/" element={<Home />}/>
+            <Route path="/films/:id" element={<Film />}/>
+            <Route path="/films" element={<Films />}/>
+          </Routes>
+        </div>
+      </div>
+      <ToastContainer autoClose={3000} hideProgressBar />
+      </>
+    )
   };
   
   export default App;
