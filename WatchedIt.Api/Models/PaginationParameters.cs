@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WatchedIt.Api.Models.FilmModels
+namespace WatchedIt.Api.Models
 {
-    public class FilmParameters
+    public class PaginationParameters
     {
         const int maxPageSize = 50;
         public int PageNumber { get; set; } = 1;

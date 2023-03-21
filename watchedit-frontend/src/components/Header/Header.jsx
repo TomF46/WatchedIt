@@ -17,21 +17,6 @@ function Header({ login, userIsAuthenticated }) {
   function toggleMobileNavigation() {
     setMobileIsOpen(!mobileIsOpen);
   }
-  function handleLogin() {
-    let payload = {
-      email: "tom@email.com",
-      password: "Password123!",
-    };
-
-    login(payload)
-      .then(() => {
-        navigate("/films");
-      })
-      .catch((err) => {
-        console.log(err);
-        alert(err);
-      });
-  }
 
   return (
     <nav className="flex items-center justify-between flex-wrap bg-backgroundOffset px-4 py-2 shadow-lg">
@@ -65,6 +50,12 @@ function Header({ login, userIsAuthenticated }) {
                         className="block mt-4 md:inline-block md:mt-0 text-primary hover:text-secondary md:mx-4"
                     >
                         Films
+                    </Link>
+                    <Link
+                        to="/people"
+                        className="block mt-4 md:inline-block md:mt-0 text-primary hover:text-secondary md:mx-4"
+                    >
+                        People
                     </Link>
                 </div>
                 <div className="border-t mt-2 md:border-0 md:mt-0">

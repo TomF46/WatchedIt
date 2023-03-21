@@ -1,28 +1,28 @@
 import { React, useState, useEffect } from "react";
-import { getFilmsPaginated } from "../../api/filmsApi";
-import FilmGrid from "../../components/Films/FilmGrid";
+import { getPeoplePaginated } from "../../api/peopleApi";
+import PersonGrid from "../../components/People/PersonGrid";
 import PaginationControls from "../../components/PaginationControls";
 
-function Films() {
-  const [films, setFilms] = useState(null);
+function People() {
+  const [people, setPeople] = useState(null);
   const [page, setPage] = useState(1);
-  const [filmsPerPage, setFilmsPerPage] = useState(20);
+  const [peoplePerPage, setPeoplePerPage] = useState(2);
   const [isLastPage, setIsLastPage] = useState(false);
 
   useEffect(() => {
-    if (!films) {
-      getFilms();
+    if (!people) {
+      getPeople();
     }
-  }, [films]);
+  }, [people]);
 
   useEffect(() => {
-    getFilms()
+    getPeople()
   }, [page]);
 
-  function getFilms(){
-    getFilmsPaginated(page, filmsPerPage).then(res => {
-      setFilms(res);
-      let lastPage = res.length != filmsPerPage;
+  function getPeople(){
+    getPeoplePaginated(page, peoplePerPage).then(res => {
+      setPeople(res);
+      let lastPage = res.length != peoplePerPage;
       setIsLastPage(lastPage);
     }).catch(err => {
       console.log(err);
@@ -40,12 +40,12 @@ function Films() {
   }
 
   return (
-    <div className="films-page">
-      {!films ? (
-        <p>Loading films....</p>
+    <div className="people-page">
+      {!people ? (
+        <p>Loading people....</p>
       ) : (
         <div className="mt-4">
-          <FilmGrid films={films} />
+          <PersonGrid people={people} />
           <PaginationControls currentPage={page} onNext={handleNextPage} onPrevious={handlePreviousPage} isLastPage={isLastPage} />
         </div>
       )}
@@ -53,4 +53,4 @@ function Films() {
   )
 }
 
-export default Films;
+export default People;

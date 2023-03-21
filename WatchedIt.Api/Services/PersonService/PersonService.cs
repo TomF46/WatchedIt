@@ -16,9 +16,9 @@ namespace WatchedIt.Api.Services.PersonService
             _context = context;       
         }
 
-        public async Task<List<GetPersonOverviewDto>> GetAll()
+        public async Task<List<GetPersonOverviewDto>> GetAll(PaginationParameters paginationParameters)
         {
-            var people = await _context.People.ToListAsync();
+            var people = await _context.People.Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).ToListAsync();
             return people.Select(p => PersonMapper.MapOverview(p)).ToList();
         }
 

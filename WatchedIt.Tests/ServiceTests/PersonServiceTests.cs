@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Data;
 using NUnit.Framework;
 using WatchedIt.Api.Exceptions;
+using WatchedIt.Api.Models;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Services.PersonService;
@@ -72,7 +73,12 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.People.AddAsync(person2);
             await _context.SaveChangesAsync();
 
-            var allPeople = await _personService.GetAll();
+            var pagination = new PaginationParameters{
+                PageNumber = 1,
+                PageSize = 20
+            };
+
+            var allPeople = await _personService.GetAll(pagination);
 
             Assert.That(allPeople.Count(), Is.EqualTo(2));
         }

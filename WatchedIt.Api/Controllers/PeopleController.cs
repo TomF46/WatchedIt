@@ -21,8 +21,8 @@ namespace WatchedIt.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GetPersonOverviewDto>>> Get(){
-            return Ok(await _personService.GetAll());
+        public async Task<ActionResult<List<GetPersonOverviewDto>>> Get([FromQuery] PaginationParameters paginationParameters){
+            return Ok(await _personService.GetAll(paginationParameters));
         }
 
         [HttpGet("{id}")]

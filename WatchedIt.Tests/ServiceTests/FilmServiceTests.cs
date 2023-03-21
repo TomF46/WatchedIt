@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Data;
 using NUnit.Framework;
 using WatchedIt.Api.Exceptions;
+using WatchedIt.Api.Models;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Services.FilmService;
 using WatchedIt.Tests.ServiceTests.Helpers;
@@ -72,7 +73,12 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.Films.AddAsync(film2);
             await _context.SaveChangesAsync();
 
-            var allFilms = await _filmService.GetAll();
+            var pagination = new PaginationParameters{
+                PageNumber = 1,
+                PageSize = 20
+            };
+
+            var allFilms = await _filmService.GetAll(pagination);
 
             Assert.That(allFilms.Count(), Is.EqualTo(2));
         }

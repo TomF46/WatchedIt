@@ -5,6 +5,8 @@ import Header from "./components/Header/Header";
 import Film from "./pages/films/Film";
 import Films from "./pages/films/Films";
 import Home from "./pages/Home";
+import People from "./pages/people/People";
+import Person from "./pages/people/Person";
   
   const App = () => {
     return (
@@ -16,6 +18,8 @@ import Home from "./pages/Home";
             <Route path="/" element={<Home />}/>
             <Route path="/films/:id" element={<Film />}/>
             <Route path="/films" element={<Films />}/>
+            <Route path="/people/:id" element={<Person />}/>
+            <Route path="/people" element={<People />}/>
           </Routes>
         </div>
       </div>
