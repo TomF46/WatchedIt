@@ -2,7 +2,7 @@ import client from './client';
 
 export function login(userLoginDetails) {
     return client
-        .post("/api/authentication/authenticate", userLoginDetails)
+        .post("/api/auth/login", userLoginDetails)
         .then(response => {
             return response.data;
         })
@@ -13,7 +13,7 @@ export function login(userLoginDetails) {
 
 export function register(userRegistrationDetails) {
     return client
-        .post("/api/authentication/register", userRegistrationDetails)
+        .post("/api/auth/register", userRegistrationDetails)
         .then(response => {
             return response.data;
         })

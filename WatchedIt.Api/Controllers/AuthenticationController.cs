@@ -13,7 +13,7 @@ using WatchedIt.Api.Services.AuthenticationService;
 namespace WatchedIt.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/auth")]
     public class AuthenticationController : ControllerBase
     {
         private readonly IAuthenticationService _authenticationService;
@@ -24,7 +24,7 @@ namespace WatchedIt.Api.Controllers
             _authenticationService = authenticationService;
         }
 
-        [HttpPost("authenticate")]
+        [HttpPost("login")]
         public IActionResult Authenticate([FromBody] UserLoginDto userLoginDto)
         {
             var user = _authenticationService.Authenticate(userLoginDto.Email, userLoginDto.Password);

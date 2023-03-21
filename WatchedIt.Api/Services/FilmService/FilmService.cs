@@ -14,9 +14,9 @@ namespace WatchedIt.Api.Services.FilmService
         {
             _context = context;
         }
-        public async Task<List<GetFilmOverviewDto>> GetAll()
+        public async Task<List<GetFilmOverviewDto>> GetAll(FilmParameters filmParameters)
         {
-            var films = await _context.Films.ToListAsync();
+            var films = await _context.Films.Skip((filmParameters.PageNumber - 1) * filmParameters.PageSize).Take(filmParameters.PageSize).ToListAsync();
             return films.Select(f => FilmMapper.MapOverview(f)).ToList();
         }
 

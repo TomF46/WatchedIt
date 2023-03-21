@@ -1,8 +1,8 @@
 import client from './client';
 
-export function getAllFilms() {
+export function getFilmsPaginated(pageNumber, pageSize) {
     return client
-        .get(`/api/films`)
+        .get(`/api/films?PageNumber=${pageNumber}&PageSize=${pageSize}`)
         .then(response => {
             return response.data
         })
