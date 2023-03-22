@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import { getFilmsPaginated } from "../../api/filmsApi";
 import FilmGrid from "../../components/Films/FilmGrid";
 import PaginationControls from "../../components/PaginationControls";
@@ -8,6 +9,7 @@ function Films() {
   const [page, setPage] = useState(1);
   const [filmsPerPage, setFilmsPerPage] = useState(20);
   const [isLastPage, setIsLastPage] = useState(false);
+  const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
   useEffect(() => {
     if (!films) {
@@ -16,7 +18,7 @@ function Films() {
   }, [films]);
 
   useEffect(() => {
-    getFilms()
+    if(lastPageLoaded != null) getFilms();
   }, [page]);
 
   function getFilms(){
@@ -24,8 +26,12 @@ function Films() {
       setFilms(res);
       let lastPage = res.length != filmsPerPage;
       setIsLastPage(lastPage);
+      setLastPageLoaded(page);
     }).catch(err => {
       console.log(err);
+      toast.error(`Error getting films ${err.message}`, {
+          autoClose: false,
+      });
     })
   }
 
