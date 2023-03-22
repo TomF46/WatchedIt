@@ -1,8 +1,11 @@
 import client from './client';
 
-export function getUserById(id) {
+
+export function setFilmWatchedById(id){
     return client
-        .get(`/api/users/${id}`)
+        .post(`/api/users/me/watchedFilms`, {
+            filmId: id
+        })
         .then(response => {
             return response.data
         })
@@ -11,9 +14,9 @@ export function getUserById(id) {
         });
 }
 
-export function getWatchedListByUserId(id, pageNumber, pageSize) {
+export function setFilmNotWatchedById(id){
     return client
-        .get(`/api/users/${id}/watchedFilms?PageNumber=${pageNumber}&PageSize=${pageSize}`)
+        .delete(`/api/users/me/watchedFilms/${id}`)
         .then(response => {
             return response.data
         })
@@ -21,4 +24,3 @@ export function getWatchedListByUserId(id, pageNumber, pageSize) {
             throw error;
         });
 }
-

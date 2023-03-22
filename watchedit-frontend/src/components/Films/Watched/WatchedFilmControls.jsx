@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import { getCurrentUserHasWatchedFilmById, setNotWatchedFilmById, setWatchedFilmById } from "../../../api/filmsApi";
+import { setFilmNotWatchedById, setFilmWatchedById } from "../../../api/watchedFilmsApi";
 import { toast } from "react-toastify";
 
 const WatchedFilmControls = ({ film }) => {
@@ -9,24 +9,11 @@ const WatchedFilmControls = ({ film }) => {
     const [hasWatched, setHasWatched] = useState(null);
 
     useEffect(() => {
-        getIsFilmWatched();
+        setHasWatched(film.isWatchedByUser);
     }, [film]);
 
-    function getIsFilmWatched(){
-        console.log("Call");
-        getCurrentUserHasWatchedFilmById(film.id).then(res => {
-            setHasWatched(res.watched);
-            console.log(res.watched);
-            console.log()
-        }).catch(err => {
-            toast.error(`Error getting film watched status ${err.message}`, {
-                autoClose: false,
-            });
-        });
-    }
-
     function setWatched(){
-        setWatchedFilmById(film.id).then(res => {
+        setFilmWatchedById(film.id).then(res => {
             setHasWatched(res.watched);
         }).catch(err => {
             toast.error(`Error setting film watched${err.message}`, {
@@ -36,7 +23,7 @@ const WatchedFilmControls = ({ film }) => {
     }
 
     function setNotWatched(){
-        setNotWatchedFilmById(film.id).then(res => {
+        setFilmNotWatchedById(film.id).then(res => {
             setHasWatched(res.watched);
         }).catch(err => {
             toast.error(`Error setting film not watched${err.message}`, {

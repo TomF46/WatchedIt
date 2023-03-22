@@ -9,8 +9,8 @@ namespace WatchedIt.Api.Services.WatchedFilmsService
 {
     public interface IWatchedFilmsService
     {
-        Task<GetHasWatchedFilmDto> CurrentUserHasWatchedFilmWithId(int id, int userId);
+        Task<bool> CurrentUserHasWatchedFilmWithId(int id, int userId);
         Task<GetHasWatchedFilmDto> AddWatchedFilm(int id, AddWatchedFilmDto watchedFilm);
-        Task<GetHasWatchedFilmDto> RemoveWatchedFilm(int id, RemoveWatchedFilmDto watchedFilm);
+        Task<GetHasWatchedFilmDto> RemoveWatchedFilm(int id, int filmId);
     }
 }

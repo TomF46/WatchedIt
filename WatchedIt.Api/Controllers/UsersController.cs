@@ -33,7 +33,7 @@ namespace WatchedIt.Api.Controllers
             return Ok(user);
         }
 
-        [HttpGet("{id}/watched")]
+        [HttpGet("{id}/watchedFilms")]
         public async Task<ActionResult<GetSimpleFilmDto>> GetWatchedFilms(int id, [FromQuery] PaginationParameters paginationParameters)
         {
             return Ok(await _userService.GetWatchedFilms(id, paginationParameters));

@@ -8,6 +8,7 @@ using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Services.FilmService;
 using WatchedIt.Api.Services.Mapping;
+using WatchedIt.Api.Services.WatchedFilmsService;
 
 namespace WatchedIt.Api.Controllers
 {
@@ -16,9 +17,11 @@ namespace WatchedIt.Api.Controllers
     public class FilmsController : ControllerBase
     {
         private readonly IFilmService _filmService;
+        public readonly IWatchedFilmsService _watchedFilmService;
 
-        public FilmsController(IFilmService filmService)
+        public FilmsController(IFilmService filmService, IWatchedFilmsService watchedFilmService)
         {
+            _watchedFilmService = watchedFilmService;
             _filmService = filmService;
         }
 
@@ -30,6 +33,9 @@ namespace WatchedIt.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<GetFilmDto>> GetSingle(int id){
             var film = await _filmService.GetById(id);
+            if(!HttpContext.User.Identity.IsAuthenticated) return Ok(film);
+            var userId = AuthMapper.MapLoggedInUserId(HttpContext);
+            film.IsWatchedByUser = await _watchedFilmService.CurrentUserHasWatchedFilmWithId(film.Id, userId);
             return Ok(film);
         }
 

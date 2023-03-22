@@ -12,7 +12,7 @@ namespace WatchedIt.Api.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/films/watched")]
+    [Route("api/Users/me/watchedFilms")]
     public class WatchedFilmsController : ControllerBase
     {
         private readonly IWatchedFilmsService _watchedFilmsService;
@@ -22,13 +22,6 @@ namespace WatchedIt.Api.Controllers
             _watchedFilmsService = watchedFilmsService;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<GetHasWatchedFilmDto>> GetIsWatchedFilm(int id)
-        {
-            var userId = AuthMapper.MapLoggedInUserId(HttpContext);
-            return Ok(await _watchedFilmsService.CurrentUserHasWatchedFilmWithId(id, userId));
-        }
-
         [HttpPost]
         public async Task<ActionResult<GetHasWatchedFilmDto>> AddWatchedFilm(AddWatchedFilmDto watchedFilm)
         {
@@ -36,11 +29,11 @@ namespace WatchedIt.Api.Controllers
             return Ok(await _watchedFilmsService.AddWatchedFilm(userId, watchedFilm));
         }
 
-        [HttpPost("delete")]
-        public async Task<ActionResult<GetHasWatchedFilmDto>> RemoveWatchedFilm(RemoveWatchedFilmDto removedFilm)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<GetHasWatchedFilmDto>> RemoveWatchedFilm(int id)
         {
             var userId = AuthMapper.MapLoggedInUserId(HttpContext);
-            return Ok(await _watchedFilmsService.RemoveWatchedFilm(userId, removedFilm));
+            return Ok(await _watchedFilmsService.RemoveWatchedFilm(userId, id));
         }
     }
 }
