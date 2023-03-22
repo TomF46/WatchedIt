@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmById } from "../../api/filmsApi";
+import WatchedFilmControls from "../../components/Films/Watched/WatchedFilmControls";
 
 function Film() {
     const { id } = useParams();
@@ -30,7 +31,10 @@ function Film() {
             {!film ? (
                 <p>Loading...</p>
             ) : (
-                 <p className="text-primary text-xl">{film.name}</p>
+                <>
+                <p className="text-primary text-xl">{film.name}</p>
+                <WatchedFilmControls film={film} />
+                </>
             )}
         </div>
     );

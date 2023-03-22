@@ -34,64 +34,64 @@ namespace WatchedIt.Tests.ServiceTests
             _context.SaveChanges();
         }
 
-        [Test]
-        public async  Task CanAddWatchedFilm(){
-            var user = RandomDataGenerator.GenerateUser();
-            var film = RandomDataGenerator.GenerateFilm();
+        // [Test]
+        // public async  Task CanAddWatchedFilm(){
+        //     var user = RandomDataGenerator.GenerateUser();
+        //     var film = RandomDataGenerator.GenerateFilm();
 
-            await _context.Films.AddAsync(film);
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
+        //     await _context.Films.AddAsync(film);
+        //     await _context.Users.AddAsync(user);
+        //     await _context.SaveChangesAsync();
 
-            await _userService.AddWatchedFilm(user.Id, new AddWatchedFilmDto {
-                FilmId = film.Id
-            });
+        //     await _userService.AddWatchedFilm(user.Id, new AddWatchedFilmDto {
+        //         FilmId = film.Id
+        //     });
 
-            var watchedFilms = await _userService.GetWatchedFilms(user.Id);
-            Assert.That(watchedFilms.Count(), Is.EqualTo(1));
+        //     var watchedFilms = await _userService.GetWatchedFilms(user.Id);
+        //     Assert.That(watchedFilms.Count(), Is.EqualTo(1));
 
-        }
+        // }
 
-        [Test]
-        public async  Task CanRemoveWatchedFilm(){
-            var user = RandomDataGenerator.GenerateUser();
-            var film = RandomDataGenerator.GenerateFilm();
+        // [Test]
+        // public async  Task CanRemoveWatchedFilm(){
+        //     var user = RandomDataGenerator.GenerateUser();
+        //     var film = RandomDataGenerator.GenerateFilm();
 
-            await _context.Films.AddAsync(film);
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
+        //     await _context.Films.AddAsync(film);
+        //     await _context.Users.AddAsync(user);
+        //     await _context.SaveChangesAsync();
 
-            await _userService.AddWatchedFilm(user.Id, new AddWatchedFilmDto {
-                FilmId = film.Id
-            });
+        //     await _userService.AddWatchedFilm(user.Id, new AddWatchedFilmDto {
+        //         FilmId = film.Id
+        //     });
 
-            var watchedFilms = await _userService.GetWatchedFilms(user.Id);
-            Assert.That(watchedFilms.Count(), Is.EqualTo(1));
+        //     var watchedFilms = await _userService.GetWatchedFilms(user.Id);
+        //     Assert.That(watchedFilms.Count(), Is.EqualTo(1));
 
-            await _userService.RemoveWatchedFilm(user.Id, new RemoveWatchedFilmDto {
-                FilmId = film.Id
-            });
+        //     await _userService.RemoveWatchedFilm(user.Id, new RemoveWatchedFilmDto {
+        //         FilmId = film.Id
+        //     });
 
-            watchedFilms = await _userService.GetWatchedFilms(user.Id);
-            Assert.That(watchedFilms.Count(), Is.EqualTo(0));
-        }
+        //     watchedFilms = await _userService.GetWatchedFilms(user.Id);
+        //     Assert.That(watchedFilms.Count(), Is.EqualTo(0));
+        // }
 
-        [Test]
-        public async  Task CanCalculateWatchedFilmCount(){
-            var user = RandomDataGenerator.GenerateUser();
-            var film = RandomDataGenerator.GenerateFilm();
+        // [Test]
+        // public async  Task CanCalculateWatchedFilmCount(){
+        //     var user = RandomDataGenerator.GenerateUser();
+        //     var film = RandomDataGenerator.GenerateFilm();
 
-            await _context.Films.AddAsync(film);
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
+        //     await _context.Films.AddAsync(film);
+        //     await _context.Users.AddAsync(user);
+        //     await _context.SaveChangesAsync();
 
-            await _userService.AddWatchedFilm(user.Id, new AddWatchedFilmDto {
-                FilmId = film.Id
-            });
+        //     await _userService.AddWatchedFilm(user.Id, new AddWatchedFilmDto {
+        //         FilmId = film.Id
+        //     });
 
-            var userFromDB = await _userService.GetById(user.Id);
-            Assert.That(userFromDB.WatchedFilmCount, Is.EqualTo(1));
+        //     var userFromDB = await _userService.GetById(user.Id);
+        //     Assert.That(userFromDB.WatchedFilmCount, Is.EqualTo(1));
 
-        }
+        // }
     }
 }

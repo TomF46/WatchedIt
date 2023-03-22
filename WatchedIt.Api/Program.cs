@@ -15,6 +15,7 @@ using WatchedIt.Api.Services.AuthenticationService;
 using Microsoft.OpenApi.Models;
 using WatchedIt.Api.Services.UserService;
 using WatchedIt.Api.Services.ReviewService;
+using WatchedIt.Api.Services.WatchedFilmsService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -108,6 +109,7 @@ builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddTransient<ExceptionMiddleware>();
+builder.Services.AddScoped<IWatchedFilmsService, WatchedFilmsService>();
 
 var app = builder.Build();
 app.UseGlobalExceptionHandler();

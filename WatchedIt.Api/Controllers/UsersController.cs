@@ -12,10 +12,10 @@ namespace WatchedIt.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         public readonly IUserService _userService;
-        public UserController(IUserService userService)
+        public UsersController(IUserService userService)
         {
             _userService = userService;
         }
@@ -34,23 +34,9 @@ namespace WatchedIt.Api.Controllers
         }
 
         [HttpGet("{id}/watched")]
-        public async Task<ActionResult<GetSimpleFilmDto>> GetWatchedFilms(int id)
+        public async Task<ActionResult<GetSimpleFilmDto>> GetWatchedFilms(int id, [FromQuery] PaginationParameters paginationParameters)
         {
-            return Ok(await _userService.GetWatchedFilms(id));
-        }
-
-        [HttpPost("me/watched")]
-        public async Task<ActionResult<GetUserDto>> AddWatchedFilm(AddWatchedFilmDto watchedFilm)
-        {
-            var userId = AuthMapper.MapLoggedInUserId(HttpContext);
-            return Ok(await _userService.AddWatchedFilm(userId, watchedFilm));
-        }
-
-        [HttpDelete("me/watched")]
-        public async Task<ActionResult<GetUserDto>> RemoveWatchedFilm(RemoveWatchedFilmDto removedFilm)
-        {
-            var userId = AuthMapper.MapLoggedInUserId(HttpContext);
-            return Ok(await _userService.RemoveWatchedFilm(userId, removedFilm));
+            return Ok(await _userService.GetWatchedFilms(id, paginationParameters));
         }
     }
 }

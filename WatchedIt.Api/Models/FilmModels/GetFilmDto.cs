@@ -14,5 +14,6 @@ namespace WatchedIt.Api.Models.FilmModels
         public string? FullDescription {get;set;}
         public int Runtime {get;set;}
         public ICollection<GetCreditForFilmDto> Credits { get; set; } = new List<GetCreditForFilmDto>();
+        public bool IsWatchedByUser {get; set;}
     }
 }

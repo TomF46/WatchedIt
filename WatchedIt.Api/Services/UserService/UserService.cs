@@ -23,38 +23,11 @@ namespace WatchedIt.Api.Services.UserService
             return UserMapper.Map(user);
         }
 
-        public async Task<GetUserDto> AddWatchedFilm(int id, AddWatchedFilmDto watchedFilm)
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(p => p.Id == id);
-            if(user is null) throw new NotFoundException($"User with Id '{id}' not found.");
-
-            var film = await _context.Films.FirstOrDefaultAsync(f => f.Id == watchedFilm.FilmId);
-            if(film is null) throw new BadRequestException($"Film with Id '{watchedFilm.FilmId} does not exist");
-
-            user.Watched.Add(film);
-            await _context.SaveChangesAsync();
-            return UserMapper.Map(user);
-
-        }
-
-        public async Task<GetUserDto> RemoveWatchedFilm(int id, RemoveWatchedFilmDto watchedFilm)
-        {
-            var user = await _context.Users.Include(p => p.Watched).FirstOrDefaultAsync(p => p.Id == id);
-            if(user is null) throw new NotFoundException($"User with Id '{id}' not found.");
-
-            var film = await _context.Films.FirstOrDefaultAsync(f => f.Id == watchedFilm.FilmId);
-            if(film is null) throw new BadRequestException($"Film with Id '{watchedFilm.FilmId} does not exist");
-
-            user.Watched.Remove(film);
-            await _context.SaveChangesAsync();
-            return UserMapper.Map(user);
-        }
-
-        public async Task<List<GetSimpleFilmDto>> GetWatchedFilms(int id)
+        public async Task<List<GetSimpleFilmDto>> GetWatchedFilms(int id, PaginationParameters paginationParameters)
         {
             var user = await _context.Users.Include(f => f.Watched).FirstOrDefaultAsync(p => p.Id == id);
             if(user is null) throw new NotFoundException($"User with Id '{id}' not found.");
-            return  user.Watched.Select(f => FilmMapper.MapSimple(f)).ToList();
+            return  user.Watched.Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).Select(f => FilmMapper.MapSimple(f)).ToList();
         }
     }
 }

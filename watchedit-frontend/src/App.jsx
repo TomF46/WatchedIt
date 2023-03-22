@@ -7,6 +7,8 @@ import Films from "./pages/films/Films";
 import Home from "./pages/Home";
 import People from "./pages/people/People";
 import Person from "./pages/people/Person";
+import Profile from "./pages/profile/Profile";
+import WatchedList from "./pages/profile/WatchedList";
   
   const App = () => {
     return (
@@ -20,6 +22,10 @@ import Person from "./pages/people/Person";
             <Route path="/films" element={<Films />}/>
             <Route path="/people/:id" element={<Person />}/>
             <Route path="/people" element={<People />}/>
+            <Route path="/profile/:id/watched" element={<WatchedList />}/>
+            <Route path="/profile/watched" element={<WatchedList />}/>
+            <Route path="/profile/:id" element={<Profile />}/>
+            <Route path="/profile" element={<Profile />}/>
           </Routes>
         </div>
       </div>
