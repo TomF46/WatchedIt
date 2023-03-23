@@ -68,5 +68,23 @@ namespace WatchedIt.Api.Services.CreditService
             _context.SaveChangesAsync();
             return;
         }
+
+        public async Task<List<GetCreditForFilmDto>> GetCreditsForFilmById(int id)
+        {
+            var film = await _context.Films.FirstOrDefaultAsync(f => f.Id == id);
+            if(film is null) throw new BadRequestException($"Film with Id '{id} does not exist");
+
+            var credits = await _context.Credits.Include(c => c.Person).Where(c => c.FilmId == film.Id).ToListAsync();
+            return credits.Select(c => CreditMapper.mapForFilm(c)).ToList();
+        }
+
+        public async Task<List<GetCreditForPersonDto>> GetCreditsForPersonById(int id)
+        {
+            var person = await _context.People.FirstOrDefaultAsync(p => p.Id == id);
+            if(person is null) throw new BadRequestException($"Person with Id '{id} does not exist");
+
+            var credits = await _context.Credits.Include(c => c.Film).Where(c => c.PersonId == person.Id).ToListAsync();
+            return credits.Select(c => CreditMapper.mapForPerson(c)).ToList();
+        }
     }
 }

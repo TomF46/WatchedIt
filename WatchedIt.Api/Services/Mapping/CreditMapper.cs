@@ -35,5 +35,23 @@ namespace WatchedIt.Api.Services.Mapping
                 Type = credit.Type
             };
         }
+
+        public static AddCreditDto MapToAddCreditDto(int id, AddFilmCreditDto addCredit){
+            return new AddCreditDto{
+                FilmId = id,
+                PersonId = addCredit.PersonId,
+                Role = addCredit.Role,
+                Type = addCredit.Type
+            };
+        }
+
+        public static AddCreditDto MapToAddCreditDto(int id, AddPersonCreditDto addCredit){
+            return new AddCreditDto{
+                FilmId = addCredit.FilmId,
+                PersonId = id,
+                Role = addCredit.Role,
+                Type = addCredit.Type
+            };
+        }
     }
 }

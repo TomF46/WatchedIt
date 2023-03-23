@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 function People() {
     const [people, setPeople] = useState(null);
     const [page, setPage] = useState(1);
-    const [peoplePerPage, setPeoplePerPage] = useState(2);
+    const [peoplePerPage, setPeoplePerPage] = useState(20);
     const [isLastPage, setIsLastPage] = useState(false);
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
 

@@ -66,7 +66,12 @@ function Header({ login, userIsAuthenticated }) {
                     )}
                     {userIsAuthenticated && (
                         <>
-                            <p>User is logged in</p>
+                            <Link
+                                to="/profile"
+                                className="block mt-4 md:inline-block md:mt-0 text-primary hover:text-secondary md:mx-4"
+                            >
+                                Profile
+                            </Link>
                         </>
                     )}
                 </div>
