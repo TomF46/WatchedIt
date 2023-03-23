@@ -15,6 +15,7 @@ namespace WatchedIt.Api.Services.Mapping
                 ShortDescription = film.ShortDescription,
                 FullDescription = film.FullDescription,
                 Runtime = film.Runtime,
+                ReleaseDate = film.ReleaseDate,
                 Credits = film.Credits.Select(c => CreditMapper.mapForFilm(c)).ToList()
             };
         }
@@ -39,7 +40,8 @@ namespace WatchedIt.Api.Services.Mapping
                 Name = newFilm.Name,
                 ShortDescription = newFilm.ShortDescription,
                 FullDescription = newFilm.FullDescription,
-                Runtime = newFilm.Runtime
+                Runtime = newFilm.Runtime,
+                ReleaseDate = newFilm.ReleaseDate
             };
         }
     }

@@ -43,6 +43,7 @@ namespace WatchedIt.Api.Services.FilmService
             film.ShortDescription = updatedFilm.ShortDescription;
             film.FullDescription = updatedFilm.FullDescription;
             film.Runtime = updatedFilm.Runtime;
+            film.ReleaseDate = updatedFilm.ReleaseDate;
             await _context.SaveChangesAsync();
             return FilmMapper.MapOverview(film);
         }

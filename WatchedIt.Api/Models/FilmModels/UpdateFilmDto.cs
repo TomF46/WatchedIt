@@ -11,5 +11,6 @@ namespace WatchedIt.Api.Models.FilmModels
         public string? ShortDescription {get;set;}
         public string? FullDescription {get;set;}
         public int Runtime {get;set;}
+        public DateTime ReleaseDate {get; set;}
     }
 }

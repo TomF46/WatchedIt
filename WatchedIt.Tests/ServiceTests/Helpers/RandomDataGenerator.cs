@@ -23,7 +23,8 @@ namespace WatchedIt.Tests.ServiceTests.Helpers
                 Name = Faker.Name.FullName(),
                 ShortDescription = Faker.Lorem.Sentence(),
                 FullDescription = Faker.Lorem.Paragraph(),
-                Runtime = Faker.RandomNumber.Next(180)
+                Runtime = Faker.RandomNumber.Next(180),
+                ReleaseDate = new DateTime().Date
             };
         }
 

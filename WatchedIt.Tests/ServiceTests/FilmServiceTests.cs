@@ -45,7 +45,8 @@ namespace WatchedIt.Tests.ServiceTests
                     Name = "Jaws",
                     ShortDescription = "Its about a shark",
                     FullDescription = "A full description for a film about a shark.",
-                    Runtime = 100
+                    Runtime = 100,
+                    ReleaseDate = new DateTime().Date
                 };
 
                 _filmService.Add(film);
@@ -112,7 +113,8 @@ namespace WatchedIt.Tests.ServiceTests
                 Name = newName,
                 ShortDescription = "Its still a film about a shark",
                 FullDescription ="A full description for a film about a shark.",
-                Runtime = 100
+                Runtime = 100,
+                ReleaseDate = new DateTime().Date
             };
 
             await _filmService.Update(film.Id, updatedFilm);
