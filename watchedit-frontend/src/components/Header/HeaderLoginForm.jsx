@@ -4,10 +4,10 @@ import { connect } from "react-redux";
 import { login } from "../../redux/actions/authenticationActions";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import EmailInput from "../inputs/EmailInput";
-import PasswordInput from "../inputs/PasswordInput";
+import EmailInput from "../Inputs/EmailInput";
+import PasswordInput from "../Inputs/PasswordInput";
 
-const LoginForm = ({ login}) => {
+const HeaderLoginForm = ({ login}) => {
     const [user, setUser] = useState({
         email: "",
         password: ""
@@ -73,7 +73,7 @@ const LoginForm = ({ login}) => {
     );
 };
 
-LoginForm.propTypes = {
+HeaderLoginForm.propTypes = {
     login: PropTypes.func.isRequired
 };
 
@@ -87,4 +87,4 @@ const mapDispatchToProps = {
     login
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderLoginForm);

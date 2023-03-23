@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmById } from "../../api/filmsApi";
 import WatchedFilmControls from "../../components/Films/Watched/WatchedFilmControls";
 
-function Film() {
+function Film({userIsAuthenticated}) {
     const { id } = useParams();
     const [film, setFilm] = useState(null);
 
@@ -33,11 +35,22 @@ function Film() {
             ) : (
                 <>
                 <p className="text-primary text-xl">{film.name}</p>
-                <WatchedFilmControls film={film} />
+                    {userIsAuthenticated && (<WatchedFilmControls film={film} />)}
                 </>
             )}
         </div>
     );
 }
 
-export default Film;
+Film.propTypes = {
+    userIsAuthenticated: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        userIsAuthenticated: state.tokens != null
+    };
+};
+
+export default connect(mapStateToProps)(Film);
+

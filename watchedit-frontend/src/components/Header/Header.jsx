@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { login } from "../../redux/actions/authenticationActions";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import LoginForm from "./LoginForm";
+import HeaderLoginForm from "./HeaderLoginForm";
 
 function Header({ login, userIsAuthenticated }) {
   const [mobileIsOpen, setMobileIsOpen] = useState(null);
@@ -61,7 +61,7 @@ function Header({ login, userIsAuthenticated }) {
                 <div className="border-t mt-2 md:border-0 md:mt-0">
                     {!userIsAuthenticated && (
                         <>
-                            <LoginForm  />
+                            <HeaderLoginForm  />
                         </>
                     )}
                     {userIsAuthenticated && (
