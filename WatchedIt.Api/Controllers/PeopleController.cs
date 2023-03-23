@@ -31,20 +31,20 @@ namespace WatchedIt.Api.Controllers
             return Ok(person);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public async Task<ActionResult<GetPersonOverviewDto>> AddPerson(AddPersonDto newPerson)
         {
             return Ok(await _personService.Add(newPerson));
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpPut("{id}")]
         public async Task<ActionResult<GetPersonOverviewDto>> UpdatePerson(int id, UpdatePersonDto updatedPerson){
             return Ok(await _personService.Update(id, updatedPerson));
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id}")]
         public ActionResult DeletePerson(int id){
             _personService.Delete(id);

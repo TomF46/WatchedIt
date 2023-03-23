@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WatchedIt.Api.Models.Enums;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Services.FilmService;
@@ -39,20 +40,20 @@ namespace WatchedIt.Api.Controllers
             return Ok(film);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public async Task<ActionResult<GetFilmOverviewDto>> AddFilm(AddFilmDto newFilm)
         {
             return Ok(await _filmService.Add(newFilm));
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpPut("{id}")]
         public async Task<ActionResult<GetFilmOverviewDto>> UpdateFilm(int id, UpdateFilmDto updatedFilm){
             return Ok(await _filmService.Update(id, updatedFilm));
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id}")]
         public ActionResult DeleteFilm(int id){
             _filmService.Delete(id);

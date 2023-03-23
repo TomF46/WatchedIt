@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using WatchedIt.Api.Models.Authentication;
+using WatchedIt.Api.Models.Enums;
 using WatchedIt.Api.Services.AuthenticationService;
 
 namespace WatchedIt.Api.Controllers
@@ -39,7 +40,10 @@ namespace WatchedIt.Api.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                    new Claim(ClaimTypes.Name, user.Id.ToString()),
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Role, user.Role.ToString())
+
                 }),
                 Expires = tokenExpiryTime,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

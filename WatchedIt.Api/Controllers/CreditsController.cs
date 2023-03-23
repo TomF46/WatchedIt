@@ -34,20 +34,20 @@ namespace WatchedIt.Api.Controllers
             return Ok(credit);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public async Task<ActionResult<GetCreditDto>> AddCredit(AddCreditDto newCredit)
         {
             return Ok(await _creditService.Add(newCredit));
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpPut("{id}")]
         public async Task<ActionResult<GetCreditDto>> UpdateCredit(int id, UpdatedCreditDto updatedCredit){
             return Ok(await _creditService.Update(id, updatedCredit));
         }
 
-        [Authorize]    
+        [Authorize(Roles = "Administrator")]   
         [HttpDelete("{id}")]
         public ActionResult DeleteCredit(int id){
             _creditService.Delete(id);
