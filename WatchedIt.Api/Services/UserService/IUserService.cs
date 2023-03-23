@@ -12,5 +12,6 @@ namespace WatchedIt.Api.Services.UserService
     {
         Task<GetUserDto> GetById(int id);
         Task<List<GetSimpleFilmDto>> GetWatchedFilms(int id, PaginationParameters paginationParameters);
+        Task<GetIsAdminDto> GetIsUserAdmin(int id);
     }
 }

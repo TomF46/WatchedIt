@@ -22,3 +22,13 @@ export function getWatchedListByUserId(id, pageNumber, pageSize) {
         });
 }
 
+export function getCurrentUserIsAdmin(){
+    return client
+        .get(`/api/users/me/admin`)
+        .then(response => {
+            return response.data
+        })
+        .catch(error => {
+            throw error;
+        });
+}

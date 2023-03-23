@@ -38,5 +38,11 @@ namespace WatchedIt.Api.Controllers
         {
             return Ok(await _userService.GetWatchedFilms(id, paginationParameters));
         }
+
+        [HttpGet("me/admin")]
+        public async Task<ActionResult<GetIsAdminDto>> GetIsAdmin(){
+            var userId = AuthMapper.MapLoggedInUserId(HttpContext);
+            return Ok(await _userService.GetIsUserAdmin(userId));
+        }
     }
 }

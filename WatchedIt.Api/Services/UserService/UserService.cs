@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WatchedIt.Api.Models.Enums;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.UserModels;
 using WatchedIt.Api.Services.Mapping;
@@ -21,6 +22,16 @@ namespace WatchedIt.Api.Services.UserService
             var user = await _context.Users.FindAsync(id);
             if(user is null) throw new NotFoundException($"user with Id '{id}' not found.");
             return UserMapper.Map(user);
+        }
+
+        public async Task<GetIsAdminDto> GetIsUserAdmin(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if(user is null) throw new NotFoundException($"user with Id '{id}' not found.");
+
+            return new GetIsAdminDto{
+                isAdmin = user.Role == Role.Administrator
+            };
         }
 
         public async Task<List<GetSimpleFilmDto>> GetWatchedFilms(int id, PaginationParameters paginationParameters)
