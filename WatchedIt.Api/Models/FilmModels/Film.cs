@@ -18,6 +18,7 @@ namespace WatchedIt.Api.Models.FilmModels
         public string? FullDescription {get;set;}
         public int Runtime {get;set;}
         public DateTime ReleaseDate {get; set;}
+        public string? PosterUrl {get;set;}
         public ICollection<Credit> Credits { get; set; } = new List<Credit>();
         public ICollection<User> WatchedBy { get; set; } = new List<User>();
         public ICollection<Review> Reviews { get; set; } = new List<Review>();

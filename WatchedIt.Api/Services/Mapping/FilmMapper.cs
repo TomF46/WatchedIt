@@ -16,6 +16,7 @@ namespace WatchedIt.Api.Services.Mapping
                 FullDescription = film.FullDescription,
                 Runtime = film.Runtime,
                 ReleaseDate = film.ReleaseDate,
+                PosterUrl = film.PosterUrl,
                 Credits = film.Credits.Select(c => CreditMapper.mapForFilm(c)).ToList()
             };
         }
@@ -25,13 +26,15 @@ namespace WatchedIt.Api.Services.Mapping
                 Id = film.Id,
                 Name = film.Name,
                 ShortDescription = film.ShortDescription,
+                PosterUrl = film.PosterUrl
             };
         }
 
         public static GetSimpleFilmDto MapSimple(Film film){
             return new GetSimpleFilmDto{
                 Id = film.Id,
-                Name = film.Name
+                Name = film.Name,
+                PosterUrl = film.PosterUrl
             };
         }
 
@@ -41,7 +44,8 @@ namespace WatchedIt.Api.Services.Mapping
                 ShortDescription = newFilm.ShortDescription,
                 FullDescription = newFilm.FullDescription,
                 Runtime = newFilm.Runtime,
-                ReleaseDate = newFilm.ReleaseDate
+                ReleaseDate = newFilm.ReleaseDate,
+                PosterUrl = newFilm.PosterUrl
             };
         }
     }

@@ -12,5 +12,7 @@ namespace WatchedIt.Api.Models.FilmModels
         public string? FullDescription {get;set;}
         public int Runtime {get;set;}
         public DateTime ReleaseDate {get; set;}
+        public string? PosterUrl {get;set;}
+
     }
 }
