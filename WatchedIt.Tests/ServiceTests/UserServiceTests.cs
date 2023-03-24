@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Data;
+using WatchedIt.Api.Models;
 using WatchedIt.Api.Models.Authentication;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Services.UserService;
@@ -33,6 +34,55 @@ namespace WatchedIt.Tests.ServiceTests
             _context.Users.RemoveRange(_context.Users);
             _context.SaveChanges();
         }
+
+        [Test]
+        public async Task CanGetExistingUser()
+        {
+            var user = RandomDataGenerator.GenerateUser();
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+
+            var userFromDb = await _userService.GetById(user.Id);
+
+            Assert.That(userFromDb.Id, Is.EqualTo(user.Id));
+        }
+
+        [Test]
+        public async Task ReturnsUserNotAdminWhenNotAdmin(){
+            var user = RandomDataGenerator.GenerateUser();
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+
+            var isAdmin = await _userService.GetIsUserAdmin(user.Id);
+            Assert.IsFalse(isAdmin.isAdmin);
+        }
+
+        [Test]
+        public async Task ReturnsUserIsAdminWhenIsAdmin(){
+            var user = RandomDataGenerator.GenerateAdminUser();
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+
+            var isAdmin = await _userService.GetIsUserAdmin(user.Id);
+            Assert.IsTrue(isAdmin.isAdmin);
+        }
+
+        [Test]
+        public async Task CanGetWatchedFilms(){
+            var user = RandomDataGenerator.GenerateUser();
+            var film = RandomDataGenerator.GenerateFilm();
+            var film2 = RandomDataGenerator.GenerateFilm();
+            await _context.Users.AddAsync(user);
+            await _context.Films.AddAsync(film);
+            await _context.Films.AddAsync(film2);
+            user.Watched.Add(film);
+            user.Watched.Add(film2);
+            await _context.SaveChangesAsync();
+
+            var watchedFilms = await _userService.GetWatchedFilms(user.Id, new PaginationParameters());
+            Assert.IsTrue(watchedFilms.Count() == 2);
+        }
+
 
         // [Test]
         // public async  Task CanAddWatchedFilm(){

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WatchedIt.Api.Models.Authentication;
+using WatchedIt.Api.Models.CreditModels;
+using WatchedIt.Api.Models.Enums;
+using WatchedIt.Api.Models.FilmListModels;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Models.ReviewModels;
@@ -14,7 +17,16 @@ namespace WatchedIt.Tests.ServiceTests.Helpers
         public static User GenerateUser(){
             return new User{
                 Email = Faker.Internet.Email(),
-                Username = Faker.Internet.UserName()
+                Username = Faker.Internet.UserName(),
+                Role = Role.User
+            };
+        }
+
+        public static User GenerateAdminUser(){
+            return new User{
+                Email = Faker.Internet.Email(),
+                Username = Faker.Internet.UserName(),
+                Role = Role.Administrator
             };
         }
 
@@ -42,6 +54,23 @@ namespace WatchedIt.Tests.ServiceTests.Helpers
                 Rating = Faker.RandomNumber.Next(10),
                 Text = Faker.Lorem.Sentence()
             };
-        } 
+        }
+
+        public static Credit GenerateCredit(Person person, Film film){
+            return new Credit{
+                Person = person,
+                Film = film,
+                Role = Faker.Name.FullName(),
+                Type = CreditType.Cast
+            };
+        }
+
+        public static FilmList GenerateFilmList(User user){
+            return new FilmList{
+                Name = Faker.Name.First(),
+                Description = Faker.Lorem.Sentence(),
+                CreatedBy = user
+            };
+        }
     }
 }
