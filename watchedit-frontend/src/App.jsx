@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AdminRoute from "./adminRoute";
 import AuthenticatedRoute from "./authenticatedRoute";
 import Header from "./components/Header/Header";
+import List from "./components/Lists/List";
 import Admin from "./pages/admin/Admin";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
@@ -11,6 +12,7 @@ import FilmCredits from "./pages/films/credits/FilmCredits";
 import Film from "./pages/films/Film";
 import Films from "./pages/films/Films";
 import Home from "./pages/Home";
+import Lists from "./pages/lists/Lists";
 import PersonCredits from "./pages/people/credits/PersonCredits";
 import People from "./pages/people/People";
 import Person from "./pages/people/Person";
@@ -34,6 +36,8 @@ import NotFound from "./pages/status/NotFound";
             <Route path="/people/:id/credits" element={<PersonCredits />}/>
             <Route path="/people/:id" element={<Person />}/>
             <Route path="/people" element={<People />}/>
+            <Route path="/lists/:id" element={<List />}/>
+            <Route path="/lists" element={<Lists />}/>
             <Route path="/profile/:id/watched" element={<AuthenticatedRoute><WatchedList /></AuthenticatedRoute>}/>
             <Route path="/profile/watched" element={<AuthenticatedRoute><WatchedList /></AuthenticatedRoute>}/>
             <Route path="/profile/:id" element={<AuthenticatedRoute><Profile /></AuthenticatedRoute>}/>
