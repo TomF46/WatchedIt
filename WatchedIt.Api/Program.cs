@@ -16,6 +16,7 @@ using Microsoft.OpenApi.Models;
 using WatchedIt.Api.Services.UserService;
 using WatchedIt.Api.Services.ReviewService;
 using WatchedIt.Api.Services.WatchedFilmsService;
+using WatchedIt.Api.Services.FilmListService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -102,14 +103,15 @@ builder.Services.AddSwaggerGen(c =>
                 });
             });
 
+builder.Services.AddTransient<ExceptionMiddleware>();
 builder.Services.AddScoped<IFilmService, FilmService>();
 builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<ICreditService, CreditService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
-builder.Services.AddTransient<ExceptionMiddleware>();
 builder.Services.AddScoped<IWatchedFilmsService, WatchedFilmsService>();
+builder.Services.AddScoped<IFilmListService, FilmListService>();
 
 var app = builder.Build();
 app.UseGlobalExceptionHandler();

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using WatchedIt.Api.Models.Enums;
+using WatchedIt.Api.Models.FilmListModels;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.ReviewModels;
 
@@ -22,5 +23,6 @@ namespace WatchedIt.Api.Models.Authentication
         public ICollection<Film> Watched { get; set; } = new List<Film>();
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
         public Role Role {get; set;} =  Role.User;
+        public ICollection<FilmList> Lists {get;set;} = new List<FilmList>();
     }
 }

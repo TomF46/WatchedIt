@@ -17,5 +17,12 @@ namespace WatchedIt.Api.Services.Mapping
                 WatchedFilmCount = user.Watched.Count()
             };
         }
+
+        public static GetSimpleUserDto MapSimpleUser(User user){
+            return new GetSimpleUserDto {
+                Id = user.Id,
+                Username = user.Username
+            };
+        }
     }
 }

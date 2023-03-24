@@ -6,7 +6,7 @@ using WatchedIt.Api.Models.CreditModels;
 
 namespace WatchedIt.Api.Services.Mapping
 {
-    public class CreditMapper
+    public static class CreditMapper
     {
         public static GetCreditDto map(Credit credit){
             return new GetCreditDto {

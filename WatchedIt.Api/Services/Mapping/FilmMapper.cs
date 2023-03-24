@@ -6,7 +6,7 @@ using WatchedIt.Api.Models.FilmModels;
 
 namespace WatchedIt.Api.Services.Mapping
 {
-    public class FilmMapper
+    public static class FilmMapper
     {
         public static GetFilmDto Map(Film film){
             return new GetFilmDto{
