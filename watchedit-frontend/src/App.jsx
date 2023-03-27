@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "react-datepicker/dist/react-datepicker.css";
 import AdminRoute from "./adminRoute";
 import AuthenticatedRoute from "./authenticatedRoute";
 import Header from "./components/Header/Header";
@@ -12,8 +13,7 @@ import AddFilmCredit from "./pages/films/credits/AddFilmCredit";
 import FilmCredits from "./pages/films/credits/FilmCredits";
 import Film from "./pages/films/Film";
 import Films from "./pages/films/Films";
-import AddFilm from "./pages/films/manage/AddFilm";
-import EditFilm from "./pages/films/manage/EditFilm";
+import ManageFilm from "./pages/films/manage/ManageFilm";
 import Home from "./pages/Home";
 import Lists from "./pages/lists/Lists";
 import AddList from "./pages/lists/manage/AddList";
@@ -40,8 +40,8 @@ import NotFound from "./pages/status/NotFound";
             <Route path="/login" element={<Login />}/>
             <Route path="/films/:id/credits/add" element={<AdminRoute><AddFilmCredit /></AdminRoute>}/>
             <Route path="/films/:id/credits" element={<FilmCredits />}/>
-            <Route path="/films/:id/edit" element={<AdminRoute><EditFilm /></AdminRoute>}/>
-            <Route path="/films/add" element={<AdminRoute><AddFilm /></AdminRoute>}/>
+            <Route path="/films/:id/edit" element={<AdminRoute><ManageFilm /></AdminRoute>}/>
+            <Route path="/films/add" element={<AdminRoute><ManageFilm /></AdminRoute>}/>
             <Route path="/films/:id" element={<Film />}/>
             <Route path="/films" element={<Films />}/>
             <Route path="/people/:id/credits/add" element={<AdminRoute><AddPersonCredit /></AdminRoute>}/>
