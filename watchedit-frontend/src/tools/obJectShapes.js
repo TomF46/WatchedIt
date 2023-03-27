@@ -15,3 +15,8 @@ export const newPerson = {
     age: null,
     description: null,
 }
+
+export const newList = {
+    name: "",
+    description: "",
+}

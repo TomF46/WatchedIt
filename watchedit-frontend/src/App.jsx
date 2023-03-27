@@ -16,8 +16,7 @@ import Films from "./pages/films/Films";
 import ManageFilm from "./pages/films/manage/ManageFilm";
 import Home from "./pages/Home";
 import Lists from "./pages/lists/Lists";
-import AddList from "./pages/lists/manage/AddList";
-import EditList from "./pages/lists/manage/EditList";
+import ManageList from "./pages/lists/manage/ManageList";
 import AddPersonCredit from "./pages/people/credits/AddPersonCredit";
 import PersonCredits from "./pages/people/credits/PersonCredits";
 import ManagePerson from "./pages/people/manage/ManagePerson";
@@ -49,8 +48,8 @@ import NotFound from "./pages/status/NotFound";
             <Route path="/people/add" element={<AdminRoute><ManagePerson /></AdminRoute>}/>
             <Route path="/people/:id" element={<Person />}/>
             <Route path="/people" element={<People />}/>
-            <Route path="/lists/:id/edit" element={<AuthenticatedRoute><EditList /></AuthenticatedRoute>}/>
-            <Route path="/lists/add" element={<AuthenticatedRoute><AddList /></AuthenticatedRoute>}/>
+            <Route path="/lists/:id/edit" element={<AuthenticatedRoute><ManageList /></AuthenticatedRoute>}/>
+            <Route path="/lists/add" element={<AuthenticatedRoute><ManageList /></AuthenticatedRoute>}/>
             <Route path="/lists/:id" element={<List />}/>
             <Route path="/lists" element={<Lists />}/>
             <Route path="/profile/:id/watched" element={<AuthenticatedRoute><WatchedList /></AuthenticatedRoute>}/>

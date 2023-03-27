@@ -1,5 +1,9 @@
 import client from './client';
 
+export function saveFilmList(filmList) {
+    return filmList.id ? updateFilmList(filmList) : addFilmList(filmList);
+}
+
 export function getFilmListsPaginated(pageNumber, pageSize) {
     return client
         .get(`/api/filmLists?PageNumber=${pageNumber}&PageSize=${pageSize}`)
@@ -26,18 +30,18 @@ export function addFilmList(filmList){
     return client
         .post('/api/filmLists', filmList)
         .then(response => {
-            response.data;
+            return response.data;
         })
         .catch(error => {
             throw error;
         })
 }
 
-export function updateFilmList(id, filmList){
+export function updateFilmList(filmList){
     return client
-        .put(`/api/filmLists/${id}`, filmList)
+        .put(`/api/filmLists/${filmList.id}`, filmList)
         .then(response => {
-            response.data;
+            return response.data;
         })
         .catch(error => {
             throw error;
@@ -48,7 +52,7 @@ export function deleteFilmList(id){
     return client
         .delete(`/api/filmLists/${id}`)
         .then(response => {
-            response.data;
+            return response.data;
         })
         .catch(error => {
             throw error;
