@@ -6,3 +6,12 @@ export const newFilm = {
     releaseDate: new Date(),
     posterUrl: null
 }
+
+export const newPerson = {
+    firstName: "",
+    lastName: "",
+    middleNames: null,
+    stageName: null,
+    age: null,
+    description: null,
+}

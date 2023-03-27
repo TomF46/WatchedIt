@@ -10,7 +10,7 @@ function ManageFilm() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [film, setFilm] = useState({ ...newFilm });
-    const [errors, setErrors] = useState({ questions: [] });
+    const [errors, setErrors] = useState({});
     const [saving, setSaving] = useState(false);
     const [editing, setEditing] = useState(false);
 
@@ -23,7 +23,6 @@ function ManageFilm() {
                     setEditing(true);
                 })
                 .catch(error => {
-                    console.log(error);
                     toast.error(`Error fetching film ${error.message}`, {
                         autoClose: false
                     }
@@ -31,7 +30,6 @@ function ManageFilm() {
                 });
         } else {
             setFilm({ ...newFilm});
-            console.log(film);
         }
     }, [id]);
 
