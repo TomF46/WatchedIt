@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import SelectInput from "../../Inputs/SelectInput";
 import TextInput from "../../Inputs/TextInput";
 
-const AddCreditForm = ({ selectedFilm, onFilmDeselected, onSave, saving }) => {
+const AddPersonCreditForm = ({ selectedFilm, onFilmDeselected, onSave, saving }) => {
     const roleTypes = [{value :"Cast", text: "Cast"}, {value :"Crew", text: "Crew"}];
     const [credit, setCredit] = useState({role: "", type: null});
     const [errors, setErrors] = useState({});
@@ -83,11 +83,11 @@ const AddCreditForm = ({ selectedFilm, onFilmDeselected, onSave, saving }) => {
     );
 };
 
-AddCreditForm.propTypes = {
+AddPersonCreditForm.propTypes = {
     selectedFilm: PropTypes.object.isRequired,
     onFilmDeselected: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     saving: PropTypes.bool,
 };
 
-export default AddCreditForm;
+export default AddPersonCreditForm;

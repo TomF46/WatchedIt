@@ -16,9 +16,20 @@ namespace WatchedIt.Api.Services.PersonService
             _context = context;       
         }
 
-        public async Task<List<GetPersonOverviewDto>> GetAll(PaginationParameters paginationParameters)
+        public async Task<List<GetPersonOverviewDto>> GetAll(SearchWithPaginationParameters parameters)
         {
-            var people = await _context.People.Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).ToListAsync();
+            var query = _context.People.AsQueryable();
+
+            if(!string.IsNullOrWhiteSpace(parameters.SearchTerm)){
+                var searchTerm = parameters.SearchTerm.Trim().ToLower();
+                query = query.Where(
+                    f => f.FirstName.ToLower().Contains(searchTerm) || 
+                    f.LastName.ToLower().Contains(searchTerm) ||
+                    f.StageName.ToLower().Contains(searchTerm)
+                );
+            }
+
+            var people = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
             return people.Select(p => PersonMapper.MapOverview(p)).ToList();
         }
 

@@ -7,7 +7,7 @@ import { searchFilmsPaginated } from "../../../api/filmsApi";
 import { getPersonById } from "../../../api/peopleApi";
 import SelectFilmCreditListWSearch from "../../../components/Films/Credits/SelectFilmCreditListWSearch";
 import PaginationControls from "../../../components/PaginationControls";
-import AddCreditForm from "../../../components/Films/Credits/AddCreditForm";
+import AddPersonCreditForm from "../../../components/Films/Credits/AddPersonCreditForm";
 
 function AddPersonCredit() {
     const navigate = useNavigate();
@@ -121,11 +121,11 @@ function AddPersonCredit() {
                             <div className="mt-4">
                                 {!selectedFilm ? (
                                     <>
-                                        <SelectFilmCreditListWSearch films={films} currentCredits={person.credits} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange} onFilmSelected={handleFilmSelected}/>
+                                        <SelectFilmCreditListWSearch films={films} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange} onFilmSelected={handleFilmSelected}/>
                                         <PaginationControls currentPage={page} onNext={handleNextPage} onPrevious={handlePreviousPage} isLastPage={isLastPage} />
                                     </>
                                 ) : (
-                                    <AddCreditForm selectedFilm={selectedFilm} onSave={handleSave} onFilmDeselected={handleFilmSelected} saving={saving} />
+                                    <AddPersonCreditForm selectedFilm={selectedFilm} onSave={handleSave} onFilmDeselected={handleFilmSelected} saving={saving} />
                                 )}
                             </div>
                         )
