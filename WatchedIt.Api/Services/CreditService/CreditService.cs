@@ -52,7 +52,7 @@ namespace WatchedIt.Api.Services.CreditService
 
         public async Task<GetCreditDto> Update(int id, UpdatedCreditDto updatedCredit)
         {
-            var credit = await _context.Credits.FirstOrDefaultAsync(c => c.Id == id);
+            var credit = await _context.Credits.Include(c => c.Film).Include(c => c.Person).FirstOrDefaultAsync(c => c.Id == id);
             if(credit is null) throw new NotFoundException($"Credit with Id '{id}' not found.");
             credit.Role = updatedCredit.Role;
             credit.Type = updatedCredit.Type;

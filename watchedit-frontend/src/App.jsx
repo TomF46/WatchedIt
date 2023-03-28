@@ -26,6 +26,8 @@ import Profile from "./pages/profile/Profile";
 import WatchedList from "./pages/profile/WatchedList";
 import NotFound from "./pages/status/NotFound";
 import AddFilmToList from "./pages/lists/manage/AddFilmToList";
+import Credit from "./pages/credits/credit";
+import EditCredit from "./pages/credits/manage/EditCredit";
   
   const App = () => {
     return (
@@ -58,6 +60,8 @@ import AddFilmToList from "./pages/lists/manage/AddFilmToList";
             <Route path="/profile/watched" element={<AuthenticatedRoute><WatchedList /></AuthenticatedRoute>}/>
             <Route path="/profile/:id" element={<AuthenticatedRoute><Profile /></AuthenticatedRoute>}/>
             <Route path="/profile" element={<AuthenticatedRoute><Profile /></AuthenticatedRoute>}/>
+            <Route path="/credits/:id/edit" element={<AdminRoute><EditCredit /></AdminRoute>}/>
+            <Route path="/credits/:id" element={<AdminRoute><Credit /></AdminRoute>}/>
             <Route path="/admin" element={<AdminRoute><Admin /></AdminRoute>}/>
             <Route path="/404" element={<NotFound />}/>
             <Route path="*" element={<NotFound />}/>

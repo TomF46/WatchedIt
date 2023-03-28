@@ -1,5 +1,16 @@
 import client from './client';
 
+export function getCreditById(id) {
+    return client
+        .get(`/api/credits/${id}`)
+        .then(response => {
+            return response.data
+        })
+        .catch(error => {
+            throw error;
+        });
+}
+
 export function getCreditsForFilmById(id) {
     return client
         .get(`/api/films/${id}/credits`)
