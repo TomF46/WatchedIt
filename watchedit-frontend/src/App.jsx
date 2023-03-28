@@ -9,7 +9,7 @@ import List from "./pages/lists/List";
 import Admin from "./pages/admin/Admin";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
-import AddFilmCredit from "./pages/films/credits/AddFilmCredit";
+import AddCreditForFilm from "./pages/films/credits/AddCreditForFilm";
 import FilmCredits from "./pages/films/credits/FilmCredits";
 import Film from "./pages/films/Film";
 import Films from "./pages/films/Films";
@@ -17,7 +17,7 @@ import ManageFilm from "./pages/films/manage/ManageFilm";
 import Home from "./pages/Home";
 import Lists from "./pages/lists/Lists";
 import ManageList from "./pages/lists/manage/ManageList";
-import AddPersonCredit from "./pages/people/credits/AddPersonCredit";
+import AddCreditForPerson from "./pages/people/credits/AddCreditForPerson";
 import PersonCredits from "./pages/people/credits/PersonCredits";
 import ManagePerson from "./pages/people/manage/ManagePerson";
 import People from "./pages/people/People";
@@ -37,13 +37,13 @@ import AddFilmToList from "./pages/lists/manage/AddFilmToList";
             <Route path="/" element={<Home />}/>
             <Route path="/register" element={<Register />}/>
             <Route path="/login" element={<Login />}/>
-            <Route path="/films/:id/credits/add" element={<AdminRoute><AddFilmCredit /></AdminRoute>}/>
+            <Route path="/films/:id/credits/add" element={<AdminRoute><AddCreditForFilm /></AdminRoute>}/>
             <Route path="/films/:id/credits" element={<FilmCredits />}/>
             <Route path="/films/:id/edit" element={<AdminRoute><ManageFilm /></AdminRoute>}/>
             <Route path="/films/add" element={<AdminRoute><ManageFilm /></AdminRoute>}/>
             <Route path="/films/:id" element={<Film />}/>
             <Route path="/films" element={<Films />}/>
-            <Route path="/people/:id/credits/add" element={<AdminRoute><AddPersonCredit /></AdminRoute>}/>
+            <Route path="/people/:id/credits/add" element={<AdminRoute><AddCreditForPerson /></AdminRoute>}/>
             <Route path="/people/:id/credits" element={<PersonCredits />}/>
             <Route path="/people/:id/edit" element={<AdminRoute><ManagePerson /></AdminRoute>}/>
             <Route path="/people/add" element={<AdminRoute><ManagePerson /></AdminRoute>}/>

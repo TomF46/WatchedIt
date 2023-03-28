@@ -7,9 +7,9 @@ import { getFilmById } from "../../../api/filmsApi";
 import { searchPeoplePaginated } from "../../../api/peopleApi";
 import PaginationControls from "../../../components/PaginationControls";
 import SelectPersonCreditListWSearch from "../../../components/People/Credits/SelectPersonCreditListWSearch";
-import AddFilmCreditForm from "../../../components/People/Credits/AddFilmCreditForm";
+import AddCreditForm from "../../../components/Credits/AddCreditForm";
 
-function AddFilmCredit() {
+function AddCreditForFilm() {
     const navigate = useNavigate();
     const { id } = useParams();
     const [film, setFilm] = useState(null);
@@ -125,7 +125,12 @@ function AddFilmCredit() {
                                     <PaginationControls currentPage={page} onNext={handleNextPage} onPrevious={handlePreviousPage} isLastPage={isLastPage} />  
                                 </>  
                             ) : (
-                                <AddFilmCreditForm selectedPerson={selectedPerson}  onPersonDeselected={handlePersonSelected} onSave={handleSave} saving={saving} />
+                                <div>
+                                    <div className="mb-2">
+                                        <p>Person: {selectedPerson.firstName} {selectedPerson.lastName}  <span className="cursor-pointer" onClick={() => {handlePersonSelected(null)}}>(Change)</span></p>
+                                    </div>
+                                    <AddCreditForm  onSave={handleSave} saving={saving} />
+                                </div>
                             )}
                         </div>
                     )}
@@ -135,4 +140,4 @@ function AddFilmCredit() {
     );
 }
 
-export default AddFilmCredit;
+export default AddCreditForFilm;

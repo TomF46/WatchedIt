@@ -1,10 +1,9 @@
 import { React, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
-import SelectInput from "../../Inputs/SelectInput";
-import TextInput from "../../Inputs/TextInput";
+import SelectInput from "../Inputs/SelectInput";
+import TextInput from "../Inputs/TextInput";
 
-const AddPersonCreditForm = ({ selectedFilm, onFilmDeselected, onSave, saving }) => {
+const AddCreditForm = ({ onSave, saving }) => {
     const roleTypes = [{value :"Cast", text: "Cast"}, {value :"Crew", text: "Crew"}];
     const [credit, setCredit] = useState({role: "", type: null});
     const [errors, setErrors] = useState({});
@@ -40,10 +39,6 @@ const AddPersonCreditForm = ({ selectedFilm, onFilmDeselected, onSave, saving })
                     {errors.onSave}
                 </div>
             )}
-
-            <div className="mb-2">
-                <p>Film: {selectedFilm.name}  <span className="cursor-pointer" onClick={() => {onFilmDeselected(null)}}>(Change)</span></p>
-            </div>
 
             <div className="mb-2">
                 <TextInput
@@ -83,11 +78,9 @@ const AddPersonCreditForm = ({ selectedFilm, onFilmDeselected, onSave, saving })
     );
 };
 
-AddPersonCreditForm.propTypes = {
-    selectedFilm: PropTypes.object.isRequired,
-    onFilmDeselected: PropTypes.func.isRequired,
+AddCreditForm.propTypes = {
     onSave: PropTypes.func.isRequired,
     saving: PropTypes.bool,
 };
 
-export default AddPersonCreditForm;
+export default AddCreditForm;
