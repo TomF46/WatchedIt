@@ -57,6 +57,12 @@ function Header({ login, userIsAuthenticated }) {
                     >
                         People
                     </Link>
+                    <Link
+                        to="/lists"
+                        className="block mt-4 md:inline-block md:mt-0 text-primary hover:text-secondary md:mx-4"
+                    >
+                        Lists
+                    </Link>
                 </div>
                 <div className="border-t mt-2 md:border-0 md:mt-0">
                     {!userIsAuthenticated && (

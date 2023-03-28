@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmListById } from "../../api/filmListsApi";
-import FilmGrid from "../Films/FilmGrid";
+import FilmGrid from "../../components/Films/FilmGrid";
 
 
 function List() {

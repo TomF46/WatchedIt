@@ -14,9 +14,13 @@ namespace WatchedIt.Api.Services.FilmService
         {
             _context = context;
         }
-        public async Task<List<GetFilmOverviewDto>> GetAll(PaginationParameters paginationParameters)
+        public async Task<List<GetFilmOverviewDto>> GetAll(SearchWithPaginationParameters parameters)
         {
-            var films = await _context.Films.Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).ToListAsync();
+            var query =  _context.Films.AsQueryable();
+
+            if(!string.IsNullOrWhiteSpace(parameters.SearchTerm)) query = query.Where(f => f.Name.ToLower().Contains(parameters.SearchTerm.Trim().ToLower()));
+            
+            var films = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
             return films.Select(f => FilmMapper.MapOverview(f)).ToList();
         }
 

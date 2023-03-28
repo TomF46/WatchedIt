@@ -61,7 +61,7 @@ export function deleteFilmList(id){
 
 export function addFilmToFilmList(id, film){
     return client
-        .post(`/api/filmLists/${id}/films`, film)
+        .post(`/api/filmLists/${id}/films`, {filmId: film.id})
         .then(response => {
             response.data;
         })
@@ -72,7 +72,7 @@ export function addFilmToFilmList(id, film){
 
 export function removeFilmFromFilmList(id, film){
     return client
-        .post(`/api/filmLists/${id}/films/remove`, film)
+        .post(`/api/filmLists/${id}/films/remove`, {filmId: film.id})
         .then(response => {
             response.data;
         })

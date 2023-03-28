@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import AdminRoute from "./adminRoute";
 import AuthenticatedRoute from "./authenticatedRoute";
 import Header from "./components/Header/Header";
-import List from "./components/Lists/List";
+import List from "./pages/lists/List";
 import Admin from "./pages/admin/Admin";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
@@ -25,6 +25,7 @@ import Person from "./pages/people/Person";
 import Profile from "./pages/profile/Profile";
 import WatchedList from "./pages/profile/WatchedList";
 import NotFound from "./pages/status/NotFound";
+import AddFilmToList from "./pages/lists/manage/AddFilmToList";
   
   const App = () => {
     return (
@@ -48,6 +49,7 @@ import NotFound from "./pages/status/NotFound";
             <Route path="/people/add" element={<AdminRoute><ManagePerson /></AdminRoute>}/>
             <Route path="/people/:id" element={<Person />}/>
             <Route path="/people" element={<People />}/>
+            <Route path="/lists/:id/add" element={<AuthenticatedRoute><AddFilmToList /></AuthenticatedRoute>}/>
             <Route path="/lists/:id/edit" element={<AuthenticatedRoute><ManageList /></AuthenticatedRoute>}/>
             <Route path="/lists/add" element={<AuthenticatedRoute><ManageList /></AuthenticatedRoute>}/>
             <Route path="/lists/:id" element={<List />}/>
