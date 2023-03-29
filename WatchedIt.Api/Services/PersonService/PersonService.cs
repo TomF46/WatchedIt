@@ -58,6 +58,7 @@ namespace WatchedIt.Api.Services.PersonService
             person.StageName = updatedPerson.StageName;
             person.Age = updatedPerson.Age;
             person.Description = updatedPerson.Description;
+            person.ImageUrl = updatedPerson.ImageUrl;
             await _context.SaveChangesAsync();
             return PersonMapper.MapOverview(person);
         }

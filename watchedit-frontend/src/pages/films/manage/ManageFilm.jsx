@@ -55,7 +55,6 @@ function ManageFilm() {
     }
 
     function handleDateChange(date){
-        console.log(date);
         film.releaseDate = date;
         setFilm({ ...film});
     }

@@ -14,6 +14,7 @@ export const newPerson = {
     stageName: null,
     age: null,
     description: null,
+    imageUrl: null
 }
 
 export const newList = {

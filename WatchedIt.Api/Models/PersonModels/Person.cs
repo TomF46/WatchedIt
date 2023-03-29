@@ -20,6 +20,7 @@ namespace WatchedIt.Api.Models.PersonModels
         public int Age {get;set;}
         [StringLength(800, ErrorMessage = "Full description can't be longer than 800 characters.")]
         public string? Description {get;set;}
+        public string? ImageUrl {get;set;}
         public ICollection<Credit> Credits { get; set; } = new List<Credit>();
     }
 }

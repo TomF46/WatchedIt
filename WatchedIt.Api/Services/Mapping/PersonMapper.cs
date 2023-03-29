@@ -18,6 +18,7 @@ namespace WatchedIt.Api.Services.Mapping
                 StageName = person.StageName,
                 Age = person.Age,
                 Description = person.Description,
+                ImageUrl = person.ImageUrl,
                 Credits = person.Credits.Select(c => CreditMapper.mapForPerson(c)).ToList()
             };
         }
@@ -30,7 +31,8 @@ namespace WatchedIt.Api.Services.Mapping
                 MiddleNames = person.MiddleNames,
                 StageName = person.StageName,
                 Age = person.Age,
-                Description = person.Description
+                Description = person.Description,
+                ImageUrl = person.ImageUrl
             };
         }
 
@@ -38,7 +40,8 @@ namespace WatchedIt.Api.Services.Mapping
             return new GetSimplePersonDto {
                 Id = person.Id,
                 FirstName = person.FirstName,
-                LastName = person.LastName
+                LastName = person.LastName,
+                ImageUrl = person.ImageUrl
             };
         }
 
@@ -49,7 +52,8 @@ namespace WatchedIt.Api.Services.Mapping
                 MiddleNames = newPerson.MiddleNames,
                 StageName = newPerson.StageName,
                 Age = newPerson.Age,
-                Description = newPerson.Description
+                Description = newPerson.Description,
+                ImageUrl = newPerson.ImageUrl
             };
         }
     }

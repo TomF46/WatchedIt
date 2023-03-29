@@ -86,6 +86,17 @@ const PersonManageForm = ({
                 />
             </div>
 
+            <div className="mb-2">
+                <TextInput
+                    name="imageUrl"
+                    label="Image"
+                    value={person.imageUrl}
+                    onChange={onChange}
+                    error={errors.imageUrl}
+                    required={true}
+                />
+            </div>
+
             <div className="flex justify-center">
                 <button
                     type="submit"

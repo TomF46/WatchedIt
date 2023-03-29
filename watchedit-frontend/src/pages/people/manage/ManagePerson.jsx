@@ -41,6 +41,7 @@ function ManagePerson() {
             stageName: data.stageName,
             age: data.age,
             description: data.description,
+            imageUrl: data.imageUrl
         });
     }
 
@@ -53,12 +54,14 @@ function ManagePerson() {
     }
 
     function formIsValid(){
-        const { firstName, lastName, age, description } = person;
+        const { firstName, lastName, age, description, imageUrl } = person;
         const errors = {};
-        if(!firstName) errors.name = "First name is required";
-        if(!lastName) errors.name = "Last name is required";
+        if(!firstName) errors.firstName = "First name is required";
+        if(!lastName) errors.lastName = "Last name is required";
         if(!age) errors.age = "Age is required";
         if(!description) errors.shortDescription = "Description is required";
+        if(!imageUrl) errors.imageUrl = "Image url is required";
+
         setErrors(errors);
         return Object.keys(errors).length === 0;
     }
