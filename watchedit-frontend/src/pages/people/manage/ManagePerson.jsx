@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { uploadImage } from "../../../api/imageApi";
 import { getPersonById, savePerson } from "../../../api/peopleApi";
 import PersonManageForm from "../../../components/People/Manage/PersonManageForm";
 import { newPerson } from "../../../tools/obJectShapes";
@@ -12,6 +13,8 @@ function ManagePerson() {
     const [errors, setErrors] = useState({});
     const [saving, setSaving] = useState(false);
     const [editing, setEditing] = useState(false);
+    const [imageUploading, setImageUploading] = useState(false);
+
 
     useEffect(() => {
         if (id) {
@@ -53,6 +56,28 @@ function ManagePerson() {
         }));
     }
 
+    function handleImageChange(event){
+        if(event == null){
+            person.imageUrl = null;
+            setPerson({ ...person});
+            return;
+        }
+
+        let file = event.target.files[0];
+        setImageUploading(true);
+        uploadImage(file, "people").then(res => {
+            person.imageUrl = res.url;
+            setPerson({ ...person});
+            setImageUploading(false);
+        }).catch(error => {
+            setImageUploading(false);
+            toast.error(`Error uploading image ${error.message}`, {
+                autoClose: false
+            }
+            );
+        });
+    }
+
     function formIsValid(){
         const { firstName, lastName, age, description, imageUrl } = person;
         const errors = {};
@@ -87,7 +112,7 @@ function ManagePerson() {
         <div className="manage-person-page">
             <p>{editing ? `Editing ${id}` : "Adding"} person page</p>
             {person ? (
-                <PersonManageForm person={person} onChange={handleChange} onSave={handleSave} errors={errors} saving={saving} />
+                <PersonManageForm person={person} onChange={handleChange} onImageChange={handleImageChange} onSave={handleSave} errors={errors} saving={saving} uploadingImage={imageUploading} />
             ) : (
                 <p>Loading form</p>
             )}

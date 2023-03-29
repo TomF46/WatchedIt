@@ -3,6 +3,7 @@ import { React, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmById, saveFilm } from "../../../api/filmsApi";
+import { uploadImage } from "../../../api/imageApi";
 import FilmManageForm from "../../../components/Films/Manage/FilmManageForm";
 import { newFilm } from "../../../tools/obJectShapes";
 
@@ -13,6 +14,7 @@ function ManageFilm() {
     const [errors, setErrors] = useState({});
     const [saving, setSaving] = useState(false);
     const [editing, setEditing] = useState(false);
+    const [imageUploading, setImageUploading] = useState(false);
 
 
     useEffect(() => {
@@ -59,6 +61,28 @@ function ManageFilm() {
         setFilm({ ...film});
     }
 
+    function handleImageChange(event){
+        if(event == null){
+            film.posterUrl = null;
+            setFilm({ ...film});
+            return;
+        }
+
+        let file = event.target.files[0];
+        setImageUploading(true);
+        uploadImage(file, "films").then(res => {
+            film.posterUrl = res.url;
+            setFilm({ ...film});
+            setImageUploading(false);
+        }).catch(error => {
+            setImageUploading(false);
+            toast.error(`Error uploading image ${error.message}`, {
+                autoClose: false
+            }
+            );
+        });
+    }
+
     function formIsValid(){
         const { name, shortDescription, fullDescription, runtime, posterUrl } = film;
         const errors = {};
@@ -90,7 +114,7 @@ function ManageFilm() {
         <div className="manage-film-page">
             <p>{editing ? `Editing ${id}` : "Adding"} film page</p>
             {film ? (
-                <FilmManageForm film={film} onChange={handleChange} onDateChange={handleDateChange} onSave={handleSave} errors={errors} saving={saving} />
+                <FilmManageForm film={film} onChange={handleChange} onDateChange={handleDateChange} onImageChange={handleImageChange} onSave={handleSave} errors={errors} saving={saving}  uploadingImage={imageUploading}/>
             ) : (
                 <p>Loading form</p>
             )}

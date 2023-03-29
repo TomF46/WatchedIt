@@ -17,6 +17,8 @@ using WatchedIt.Api.Services.UserService;
 using WatchedIt.Api.Services.ReviewService;
 using WatchedIt.Api.Services.WatchedFilmsService;
 using WatchedIt.Api.Services.FilmListService;
+using Amazon.S3;
+using WatchedIt.Api.Services.File;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -103,6 +105,9 @@ builder.Services.AddSwaggerGen(c =>
                 });
             });
 
+builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
+builder.Services.AddAWSService<IAmazonS3>();
+
 builder.Services.AddTransient<ExceptionMiddleware>();
 builder.Services.AddScoped<IFilmService, FilmService>();
 builder.Services.AddScoped<IPersonService, PersonService>();
@@ -112,6 +117,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<IWatchedFilmsService, WatchedFilmsService>();
 builder.Services.AddScoped<IFilmListService, FilmListService>();
+builder.Services.AddScoped<IS3FileService, S3FileService>();
 
 var app = builder.Build();
 app.UseGlobalExceptionHandler();
