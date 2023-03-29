@@ -4,11 +4,16 @@ import { connect } from "react-redux";
 import { login } from "../../redux/actions/authenticationActions";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import HeaderLoginForm from "./HeaderLoginForm";
+import { checkUserIsAdmin } from "../../redux/actions/isAdminActions";
 
-function Header({ login, userIsAuthenticated }) {
+function Header({ login, checkUserIsAdmin , userIsAuthenticated }) {
   const [mobileIsOpen, setMobileIsOpen] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
+
+    useEffect(() => {
+        checkUserIsAdmin();
+    }, [userIsAuthenticated])
 
   useEffect(() => {
     setMobileIsOpen(false);
@@ -88,16 +93,19 @@ function Header({ login, userIsAuthenticated }) {
 
 Header.propTypes = {
   userIsAuthenticated: PropTypes.bool.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
   return {
     userIsAuthenticated: state.tokens != null,
+    isAdmin: state.isAdmin,
   };
 };
 
 const mapDispatchToProps = {
+    checkUserIsAdmin,
   login,
 };
 

@@ -57,7 +57,8 @@ namespace WatchedIt.Api.Services.FilmService
             var film = _context.Films.FirstOrDefault(f => f.Id == id);
             if(film is null) throw new NotFoundException($"Film with Id '{id}' not found.");
             _context.Films.Remove(film);
-            _context.SaveChangesAsync();
+            _context.Entry(film).State = EntityState.Deleted;
+            _context.SaveChanges();
             return;
         }
     }

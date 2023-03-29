@@ -68,7 +68,8 @@ namespace WatchedIt.Api.Services.PersonService
             var person = _context.People.FirstOrDefault(p => p.Id == id);
             if(person is null) throw new NotFoundException($"Person with Id '{id}' not found.");
             _context.People.Remove(person);
-            _context.SaveChangesAsync();
+            _context.Entry(person).State = EntityState.Deleted;
+            _context.SaveChanges();
             return;
         }
     }

@@ -1,10 +1,13 @@
-import { React, useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { getPeoplePaginated } from "../../api/peopleApi";
 import PersonGrid from "../../components/People/PersonGrid";
 import PaginationControls from "../../components/PaginationControls";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
-function People() {
+function People({ isAdmin }) {
     const [people, setPeople] = useState(null);
     const [page, setPage] = useState(1);
     const [peoplePerPage, setPeoplePerPage] = useState(20);
@@ -49,6 +52,23 @@ function People() {
 
     return (
         <div className="people-page">
+            {isAdmin && (
+                <div className="admin-controls bg-backgroundOffset mt-4 rounded-md">
+                    <div className="bg-primary rounded-t-md">
+                        <p className="text-white font-bold text-lg px-2 py-1">
+                            Admin controls
+                        </p>
+                    </div>
+                    <div className="px-2 py-2">
+                        <Link
+                            to={"/people/add"}
+                            className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block"
+                        >
+                            Add person
+                        </Link>
+                    </div>
+                </div>
+            )}
             {!people ? (
                 <p>Loading people....</p>
             ) : (
@@ -66,4 +86,14 @@ function People() {
     );
 }
 
-export default People;
+People.propTypes = {
+    isAdmin: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        isAdmin: state.isAdmin,
+    };
+};
+
+export default connect(mapStateToProps)(People);

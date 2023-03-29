@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-datepicker/dist/react-datepicker.css";
+import "react-confirm-alert/src/react-confirm-alert.css";
 import AdminRoute from "./adminRoute";
 import AuthenticatedRoute from "./authenticatedRoute";
 import Header from "./components/Header/Header";

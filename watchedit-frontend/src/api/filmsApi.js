@@ -58,3 +58,14 @@ export function editFilm(film){
             throw error;
         });
 }
+
+export function removeFilm(film){
+    return client
+        .delete(`/api/films/${film.id}`)
+        .then(response => {
+            return response.data
+        })
+        .catch(error => {
+            throw error;
+        });
+}

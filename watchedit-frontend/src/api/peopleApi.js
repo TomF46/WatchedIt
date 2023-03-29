@@ -58,3 +58,15 @@ export function editPerson(person){
             throw error;
         });
 }
+
+export function removePerson(person){
+    return client
+        .delete(`/api/people/${person.id}`)
+        .then(response => {
+            return response.data
+        })
+        .catch(error => {
+            throw error;
+        });
+}
+
