@@ -4,10 +4,11 @@ import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmById } from "../../../api/filmsApi";
-import { getCreditsForFilmById } from "../../../api/creditsApi";
+import { getCreditsForFilmById, removeCredit } from "../../../api/creditsApi";
 import FilmCreditsList from "../../../components/Films/Credits/FilmCreditsList";
+import { confirmAlert } from "react-confirm-alert";
 
-function FilmCredits({userIsAuthenticated}) {
+function FilmCredits({userIsAuthenticated, isAdmin}) {
     const { id } = useParams();
     const [film, setFilm] = useState(null);
     const [credits, setCredits] = useState(null);
@@ -43,6 +44,34 @@ function FilmCredits({userIsAuthenticated}) {
             });
     }
 
+    function handleRemoveCredit(credit){
+        confirmAlert({
+            title : "Confirm removal",
+            message: `Are you sure you want to remove this credit?`,
+            buttons: [
+                {
+                  label: 'Yes',
+                  onClick: () => deleteCredit(credit)
+                },
+                {
+                  label: 'No',
+                  onClick: () => {}
+                }
+            ]
+        })
+    }
+
+    function deleteCredit(credit){
+        removeCredit(credit.id).then(() => {
+            toast.success("Credit removed");
+            getCredits();
+        }).catch((err) => {
+            toast.error(`Error removing film credit ${err.message}`, {
+                autoClose: false,
+            });
+        });
+    }
+
     return (
         <div className="film-credits-page">
             {!film ? (
@@ -50,7 +79,7 @@ function FilmCredits({userIsAuthenticated}) {
             ) : (
                 <>
                     <p className="text-primary text-xl">{film.name} credits</p>
-                    {credits && (<FilmCreditsList credits={credits} />)}
+                    {credits && (<FilmCreditsList credits={credits} canEdit={isAdmin}  onRemove={handleRemoveCredit} />)}
                 </>
             )}
         </div>
@@ -59,11 +88,13 @@ function FilmCredits({userIsAuthenticated}) {
 
 FilmCredits.propTypes = {
     userIsAuthenticated: PropTypes.bool.isRequired,
+    isAdmin: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        userIsAuthenticated: state.tokens != null
+        userIsAuthenticated: state.tokens != null,
+        isAdmin: state.isAdmin
     };
 };
 

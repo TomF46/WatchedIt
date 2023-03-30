@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { confirmAlert } from "react-confirm-alert";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { getCreditsForPersonById } from "../../../api/creditsApi";
+import { getCreditsForPersonById, removeCredit } from "../../../api/creditsApi";
 import { getPersonById } from "../../../api/peopleApi";
 import PersonCreditsList from "../../../components/People/Credits/PersonCreditsList";
 
 
-function PersonCredits() {
+function PersonCredits({isAdmin}) {
     const { id } = useParams();
     const [person, setPerson] = useState(null);
     const [credits, setCredits] = useState(null);
@@ -42,6 +45,34 @@ function PersonCredits() {
             });
     }
 
+    function handleRemoveCredit(credit){
+        confirmAlert({
+            title : "Confirm removal",
+            message: `Are you sure you want to remove this credit?`,
+            buttons: [
+                {
+                  label: 'Yes',
+                  onClick: () => deleteCredit(credit)
+                },
+                {
+                  label: 'No',
+                  onClick: () => {}
+                }
+            ]
+        })
+    }
+
+    function deleteCredit(credit){
+        removeCredit(credit.id).then(() => {
+            toast.success("Credit removed");
+            getCredits();
+        }).catch((err) => {
+            toast.error(`Error removing persons credit ${err.message}`, {
+                autoClose: false,
+            });
+        });
+    }
+
     return (
         <div className="person-page">
             {!person ? (
@@ -49,12 +80,22 @@ function PersonCredits() {
             ) : (
                 <>
                     <p className="text-primary text-xl">{person.firstName} {person.lastName} credits</p>
-                    {credits && (<PersonCreditsList credits={credits} />)}
+                    {credits && (<PersonCreditsList credits={credits} canEdit={isAdmin} onRemove={handleRemoveCredit} />)}
                 </>
             )}
         </div>
     );
   }
   
-  export default PersonCredits;
-  
+  PersonCredits.propTypes = {
+    isAdmin: PropTypes.bool.isRequired
+};
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        isAdmin: state.isAdmin
+    };
+};
+
+export default connect(mapStateToProps)(PersonCredits);
+

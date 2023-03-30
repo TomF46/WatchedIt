@@ -65,7 +65,7 @@ namespace WatchedIt.Api.Services.CreditService
             var credit = _context.Credits.FirstOrDefault(c => c.Id == id);
             if(credit is null) throw new NotFoundException($"Credit with Id '{id}' not found.");
             _context.Credits.Remove(credit);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
             return;
         }
 

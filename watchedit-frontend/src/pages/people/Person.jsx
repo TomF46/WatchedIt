@@ -86,6 +86,12 @@ function Person({isAdmin}) {
                         </div>
                     )}
                     <p className="text-primary text-xl">{person.firstName} {person.lastName}</p>
+                    <Link
+                        to={`/people/${id}/credits`}
+                        className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4"
+                    >
+                        Credits
+                    </Link>
                 </>
             )}
         </div>

@@ -65,27 +65,31 @@ function Film({userIsAuthenticated, isAdmin}) {
             ) : (
                 <>
                     {isAdmin && (
-                    <div className="admin-controls bg-backgroundOffset mt-4 rounded-md">
-                        <div className="bg-primary rounded-t-md">
-                            <p className="text-white font-bold text-lg px-2 py-1">
-                                Admin controls
-                            </p>
+                        <div className="admin-controls bg-backgroundOffset mt-4 rounded-md">
+                            <div className="bg-primary rounded-t-md">
+                                <p className="text-white font-bold text-lg px-2 py-1">
+                                    Admin controls
+                                </p>
+                            </div>
+                            <div className="px-2 py-2">
+                                <Link
+                                    to={`/films/${id}/edit`}
+                                    className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block"
+                                >
+                                    Edit film
+                                </Link>
+                                <button onClick={() => {confirmDeleteFilm()}} className="bg-red-400 text-white rounded py-2 px-4 hover:opacity-75 inline-block ml-2">
+                                    Remove
+                                </button>
+                            </div>
                         </div>
-                        <div className="px-2 py-2">
-                            <Link
-                                to={`/films/${id}/edit`}
-                                className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block"
-                            >
-                                Edit film
-                            </Link>
-                            <button onClick={() => {confirmDeleteFilm()}} className="bg-red-400 text-white rounded py-2 px-4 hover:opacity-75 inline-block ml-2">
-                                Remove
-                            </button>
-                        </div>
-                    </div>
-                )}
-                <p className="text-primary text-xl">{film.name}</p>
+                    )}
+                    <p className="text-primary text-xl">{film.name}</p>
                     {userIsAuthenticated && (<WatchedFilmControls film={film} />)}
+                    <Link to={`/films/${id}/credits`}
+                    className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4">
+                        Cast / Crew
+                    </Link>
                 </>
             )}
         </div>
