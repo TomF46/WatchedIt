@@ -54,7 +54,7 @@ function WatchedList({id}) {
         <p>Loading watched films....</p>
       ) : (
         <div className="mt-4">
-          <FilmGrid films={films} />
+          <FilmGrid films={films} editable={false} />
           <PaginationControls currentPage={page} onNext={handleNextPage} onPrevious={handlePreviousPage} isLastPage={isLastPage} />
         </div>
       )}

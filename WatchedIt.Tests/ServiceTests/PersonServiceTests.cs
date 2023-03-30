@@ -73,7 +73,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.People.AddAsync(person2);
             await _context.SaveChangesAsync();
 
-            var pagination = new PaginationParameters{
+            var pagination = new SearchWithPaginationParameters{
                 PageNumber = 1,
                 PageSize = 20
             };

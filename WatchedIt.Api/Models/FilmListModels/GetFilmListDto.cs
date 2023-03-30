@@ -14,5 +14,6 @@ namespace WatchedIt.Api.Models.FilmListModels
         public string? Description {get; set;}
         public GetSimpleUserDto CreatedBy {get; set;}
         public ICollection<GetSimpleFilmDto> Films { get; set; } = new List<GetSimpleFilmDto>();
+        public bool userCanEdit {get; set;} = false;
     }
 }

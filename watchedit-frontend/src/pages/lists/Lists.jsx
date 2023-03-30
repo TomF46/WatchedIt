@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmListsPaginated,  } from "../../api/filmListsApi";
 import FilmListList from "../../components/Lists/FilmListList";
@@ -50,10 +51,27 @@ function Lists() {
       {!lists ? (
         <p>Loading lists....</p>
       ) : (
-        <div className="mt-4">
-          <FilmListList lists={lists} />
-          <PaginationControls currentPage={page} onNext={handleNextPage} onPrevious={handlePreviousPage} isLastPage={isLastPage} />
-        </div>
+        <>
+          <div className="lists-controls bg-backgroundOffset mt-4 rounded-md">
+              <div className="bg-primary rounded-t-md">
+                  <p className="text-white font-bold text-lg px-2 py-1">
+                      Lists controls
+                  </p>
+              </div>
+              <div className="px-2 py-2">
+                  <Link
+                      to={"/lists/add"}
+                      className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block"
+                  >
+                      Add list
+                  </Link>
+              </div>
+          </div>
+          <div className="mt-4">
+            <FilmListList lists={lists} />
+            <PaginationControls currentPage={page} onNext={handleNextPage} onPrevious={handlePreviousPage} isLastPage={isLastPage} />
+          </div>
+        </>
       )}
     </div>
   )

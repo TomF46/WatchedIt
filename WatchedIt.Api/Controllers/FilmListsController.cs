@@ -27,7 +27,8 @@ namespace WatchedIt.Api.Controllers
 
         [HttpGet("{id}")]
         public async Task<ActionResult<GetFilmListDto>> GetSingle(int id){
-            return Ok(await _filmListService.GetById(id));
+            var userId = AuthMapper.MapLoggedInUserId(HttpContext);
+            return Ok(await _filmListService.GetById(id, userId));
         }
 
         [Authorize]

@@ -65,7 +65,7 @@ namespace WatchedIt.Tests.ServiceTests
             _context.FilmLists.Add(list);
             await _context.SaveChangesAsync();
 
-            var listFromDb = await _filmListService.GetById(list.Id);
+            var listFromDb = await _filmListService.GetById(list.Id, user.Id);
             Assert.That(listFromDb.Id, Is.EqualTo(list.Id));
         }
 
@@ -96,7 +96,7 @@ namespace WatchedIt.Tests.ServiceTests
                 Description = "With a new description"
             };
             await _filmListService.Update(list.Id, user.Id, updatedList);
-            var listFromDb = await _filmListService.GetById(list.Id);
+            var listFromDb = await _filmListService.GetById(list.Id, user.Id);
             Assert.That(listFromDb.Name, Is.EqualTo(updatedList.Name));
 
         }
@@ -113,7 +113,7 @@ namespace WatchedIt.Tests.ServiceTests
             
             Assert.ThrowsAsync<NotFoundException>(async () =>
             {
-                await _filmListService.GetById(list.Id);
+                await _filmListService.GetById(list.Id, user.Id);
             });
         }
 
@@ -158,6 +158,29 @@ namespace WatchedIt.Tests.ServiceTests
             await _filmListService.RemoveFilmFromListById(list.Id, user.Id, toRemove);
             
             Assert.That(list.Films.Count(), Is.EqualTo(0));
+        }
+
+        [Test]
+        public async Task cantAddFilmToFilmListNotOwnedByUser(){
+            var user = RandomDataGenerator.GenerateUser();
+            var user2 = RandomDataGenerator.GenerateUser();
+            var list = RandomDataGenerator.GenerateFilmList(user);
+            var film = RandomDataGenerator.GenerateFilm();
+            _context.Users.Add(user);
+            _context.Users.Add(user2);
+            _context.FilmLists.Add(list);
+            _context.Films.Add(film);
+            await _context.SaveChangesAsync();
+
+            var toAdd = new AddFilmToFilmListDto{
+                FilmId = film.Id
+            };
+
+
+            Assert.ThrowsAsync<Api.Exceptions.UnauthorizedAccessException>(async () =>
+            {
+                await _filmListService.AddFilmToListById(list.Id, user2.Id, toAdd);
+            });
         }
 
         

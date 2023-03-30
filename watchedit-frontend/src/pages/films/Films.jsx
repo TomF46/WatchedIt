@@ -73,7 +73,7 @@ function Films({ isAdmin }) {
                 <p>Loading films....</p>
             ) : (
                 <div className="mt-4">
-                    <FilmGrid films={films} />
+                    <FilmGrid films={films} editable={false} />
                     <PaginationControls
                         currentPage={page}
                         onNext={handleNextPage}

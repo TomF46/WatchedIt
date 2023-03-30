@@ -9,7 +9,7 @@ namespace WatchedIt.Api.Services.FilmListService
     public interface IFilmListService
     {
         Task<List<GetFilmListOverviewDto>> GetAll(PaginationParameters paginationParameters);
-        Task<GetFilmListDto> GetById(int id);
+        Task<GetFilmListDto> GetById(int id, int userId);
         Task<GetFilmListOverviewDto> Add(int userId, AddFilmListDto newFilmList);
         Task<GetFilmListOverviewDto> Update(int id, int userId, UpdateFilmListDto updatedFilmList);
         void Delete(int id, int userId);

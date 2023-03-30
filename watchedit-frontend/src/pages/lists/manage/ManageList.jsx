@@ -18,6 +18,7 @@ function ManageList() {
             getFilmListById(id)
                 .then(data => {
                     mapForEditing(data);
+                    if(!data.userCanEdit) navigate(`/lists/${data.id}`);
                     setEditing(true);
                 })
                 .catch(error => {

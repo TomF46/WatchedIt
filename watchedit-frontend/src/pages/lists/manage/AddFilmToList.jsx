@@ -47,7 +47,7 @@ function AddFilmToList() {
     function getList() {
         getFilmListById(id)
             .then((res) => {
-                console.log(res);
+                if(!res.userCanEdit) navigate(`/lists/${res.id}`);
                 setList(res);
             })
             .catch((err) => {

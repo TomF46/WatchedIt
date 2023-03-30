@@ -21,11 +21,11 @@ namespace WatchedIt.Api.Services.FilmListService
             return lists.Select(l => FilmListMapper.mapOverview(l)).ToList();
         }
 
-        public async Task<GetFilmListDto> GetById(int id)
+        public async Task<GetFilmListDto> GetById(int id, int userId)
         {
             var list = await _context.FilmLists.Include(f => f.CreatedBy).Include(f => f.Films).FirstOrDefaultAsync(x => x.Id == id);
             if(list is null) throw new NotFoundException($"Film list with Id '{id} not found.");
-            return FilmListMapper.map(list);
+            return FilmListMapper.map(list, userId);
         }
 
         public async Task<GetFilmListOverviewDto> Add(int userId, AddFilmListDto newFilmList)
@@ -79,7 +79,7 @@ namespace WatchedIt.Api.Services.FilmListService
 
             list.Films.Add(film);
             await _context.SaveChangesAsync();
-            return FilmListMapper.map(list);
+            return FilmListMapper.map(list, userId);
         }
 
         public async Task<GetFilmListDto> RemoveFilmFromListById(int id, int userId, RemoveFilmForFilmListDto filmToRemove)
@@ -93,8 +93,8 @@ namespace WatchedIt.Api.Services.FilmListService
             if(film is null) throw new BadRequestException($"Film with Id '{id}' not found.");
 
             list.Films.Remove(film);
-            await _context.SaveChangesAsync();
-            return FilmListMapper.map(list);
+            _context.SaveChanges();
+            return FilmListMapper.map(list, userId);
         }
     }
 }
