@@ -29,6 +29,9 @@ import NotFound from "./pages/status/NotFound";
 import AddFilmToList from "./pages/lists/manage/AddFilmToList";
 import Credit from "./pages/credits/credit";
 import EditCredit from "./pages/credits/manage/EditCredit";
+import Reviews from "./pages/films/reviews/reviews";
+import ManageReview from "./pages/films/reviews/ManageReview";
+import Review from "./pages/films/reviews/Review";
   
   const App = () => {
     return (
@@ -40,6 +43,10 @@ import EditCredit from "./pages/credits/manage/EditCredit";
             <Route path="/" element={<Home />}/>
             <Route path="/register" element={<Register />}/>
             <Route path="/login" element={<Login />}/>
+            <Route path="/films/:id/reviews/:reviewId/edit" element={<AuthenticatedRoute><ManageReview /></AuthenticatedRoute>}/>
+            <Route path="/films/:id/reviews/add" element={<AuthenticatedRoute><ManageReview /></AuthenticatedRoute>}/>
+            <Route path="/films/:id/reviews/:reviewId" element={<AuthenticatedRoute><Review /></AuthenticatedRoute>}/>
+            <Route path="/films/:id/reviews" element={<Reviews />}/>
             <Route path="/films/:id/credits/add" element={<AdminRoute><AddCreditForFilm /></AdminRoute>}/>
             <Route path="/films/:id/credits" element={<FilmCredits />}/>
             <Route path="/films/:id/edit" element={<AdminRoute><ManageFilm /></AdminRoute>}/>

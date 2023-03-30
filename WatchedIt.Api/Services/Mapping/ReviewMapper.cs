@@ -8,8 +8,19 @@ namespace WatchedIt.Api.Services.Mapping
 {
     public static class ReviewMapper
     {
-        public static GetReviewDto Map(Review review){
+        public static GetReviewDto Map(Review review, int userId){
             return new GetReviewDto{
+                Id = review.Id,
+                User = UserMapper.Map(review.User),
+                Film = FilmMapper.MapSimple(review.Film),
+                Rating = review.Rating,
+                Text = review.Text,
+                userCanEdit = review.User.Id == userId
+            };
+        }
+
+        public static GetReviewOverviewDto MapOverview(Review review){
+            return new GetReviewOverviewDto{
                 Id = review.Id,
                 User = UserMapper.Map(review.User),
                 Film = FilmMapper.MapSimple(review.Film),

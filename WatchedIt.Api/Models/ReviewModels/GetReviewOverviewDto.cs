@@ -7,13 +7,12 @@ using WatchedIt.Api.Models.UserModels;
 
 namespace WatchedIt.Api.Models.ReviewModels
 {
-    public class GetReviewDto
+    public class GetReviewOverviewDto
     {
         public int Id {get; set;}
         public GetUserDto? User {get; set;}
         public GetSimpleFilmDto? Film {get; set;}
         public double Rating {get; set;}
         public string? Text {get; set;}
-        public bool userCanEdit {get; set;}
     }
 }

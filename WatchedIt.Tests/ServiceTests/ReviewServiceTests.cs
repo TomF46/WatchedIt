@@ -12,6 +12,7 @@
 
 // namespace WatchedIt.Tests.ServiceTests
 // {
+//     [TestFixture]
 //     public class ReviewServiceTests
 //     {
 //         private readonly WatchedItContext _context;
@@ -27,6 +28,8 @@
 //         public void Setup()
 //         {
 //             _context.Reviews.RemoveRange(_context.Reviews);
+//             _context.Films.RemoveRange(_context.Films);
+//             _context.People.RemoveRange(_context.People);
 //             _context.SaveChanges();
 //         }
 
@@ -34,6 +37,8 @@
 //         public void dispose()
 //         {
 //             _context.Reviews.RemoveRange(_context.Reviews);
+//             _context.Films.RemoveRange(_context.Films);
+//             _context.People.RemoveRange(_context.People);
 //             _context.SaveChanges();
 //         }
 
@@ -48,22 +53,23 @@
 
 //             Assert.DoesNotThrow(() => {
 //                 var review = new AddReviewDto{
-//                     FilmId = film.Id,
 //                     Rating = 5,
 //                     Text = "It was good."
 //                 };
 
-//                 _reviewService.Add(user.Id, review);
+//                 _reviewService.Add(film.Id,user.Id, review);
 //             });
 //         }
 
 //         [Test]
 //         public async Task canGetSingleReview(){
 //             var review = RandomDataGenerator.GenerateReview();
+//             var user = RandomDataGenerator.GenerateUser();
 //             await _context.Reviews.AddAsync(review);
+//             await _context.Users.AddAsync(user);
 //             await _context.SaveChangesAsync();
 
-//             var reviewFromDb = _reviewService.GetById(review.Id);
+//             var reviewFromDb = _reviewService.GetById(review.Id, user.Id);
 //             Assert.That(reviewFromDb.Id, Is.EqualTo(review.Id)); 
 //         }
 //     }

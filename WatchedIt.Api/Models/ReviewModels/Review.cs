@@ -17,7 +17,7 @@ namespace WatchedIt.Api.Models.ReviewModels
         public Film? Film {get; set;}
         [Required]
         [Range(0, 10, ErrorMessage = "Value for {0} must be between {1} and {2}.")]
-        public int Rating {get; set;}
+        public double Rating {get; set;}
         [StringLength(8000, ErrorMessage = "Full description can't be longer than 8000 characters.")]
         public string? Text {get; set;}
     }

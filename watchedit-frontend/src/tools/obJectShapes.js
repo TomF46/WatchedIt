@@ -21,3 +21,8 @@ export const newList = {
     name: "",
     description: "",
 }
+
+export const newReview = {
+    rating: null,
+    text: ""
+}

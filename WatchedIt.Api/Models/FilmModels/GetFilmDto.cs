@@ -15,6 +15,7 @@ namespace WatchedIt.Api.Models.FilmModels
         public int Runtime {get;set;}
         public DateTime? ReleaseDate {get; set;}
         public string? PosterUrl {get;set;}
+        public string? AverageRating {get; set;}
 
         public ICollection<GetCreditForFilmDto> Credits { get; set; } = new List<GetCreditForFilmDto>();
         public bool IsWatchedByUser {get; set;} = false;
