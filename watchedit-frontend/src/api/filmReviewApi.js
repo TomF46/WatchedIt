@@ -4,9 +4,9 @@ export function saveReview(filmId, review) {
     return review.id ? updateReview(filmId, review) : addReview(filmId, review);
 }
 
-export function getReviewsByFilmId(filmId) {
+export function getReviewsByFilmId(filmId, pageNumber, pageSize) {
     return client
-        .get(`/api/films/${filmId}/reviews`)
+        .get(`/api/films/${filmId}/reviews?PageNumber=${pageNumber}&PageSize=${pageSize}`)
         .then(response => {
             return response.data;
         })

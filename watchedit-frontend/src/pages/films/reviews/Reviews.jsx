@@ -6,12 +6,17 @@ import { toast } from "react-toastify";
 import { getFilmById } from "../../../api/filmsApi";
 import { getReviewsByFilmId } from "../../../api/filmReviewApi";
 import ReviewOverviewList from "../../../components/Films/Reviews/ReviewOverviewList";
+import PaginationControls from "../../../components/PaginationControls";
 
 function Reviews({userIsAuthenticated, isAdmin}) {
     const { id } = useParams();
     const navigate = useNavigate();
     const [film, setFilm] = useState(null);
     const [reviews, setReviews] = useState(null);
+    const [page, setPage] = useState(1);
+    const [reviewsPerPage, setReviewsPerPage] = useState(20);
+    const [isLastPage, setIsLastPage] = useState(false);
+    const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
     useEffect(() => {
         if (!film) {
@@ -19,6 +24,10 @@ function Reviews({userIsAuthenticated, isAdmin}) {
             getReviews();
         }
     }, [id, film]);
+
+    useEffect(() => {
+        if (lastPageLoaded != null) getReviews();
+    }, [page]);
 
     function getFilm() {
         getFilmById(id)
@@ -33,16 +42,29 @@ function Reviews({userIsAuthenticated, isAdmin}) {
     }
 
     function getReviews() {
-        getReviewsByFilmId(id)
+        getReviewsByFilmId(id, page, reviewsPerPage)
             .then((res) => {
                 setReviews(res);
-                console.log(res);
+                let lastPage = res.length != filmsPerPage;
+                setIsLastPage(lastPage);
+                setLastPageLoaded(page);
             })
             .catch((err) => {
                 toast.error(`Error getting film reviews ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });
+    }
+
+    function handleNextPage() {
+        var newPage = page + 1;
+        setPage(newPage);
+    }
+
+    function handlePreviousPage() {
+        var newPage = page - 1;
+        setPage(newPage);
+        console.log(page);
     }
 
     return (
@@ -70,7 +92,15 @@ function Reviews({userIsAuthenticated, isAdmin}) {
                         <p>Show {film.name} reviews...</p>
                         <p>Average rating: {film.averageRating}</p>
                         {reviews ? (
-                            <ReviewOverviewList reviews={reviews} />
+                            <>
+                                <ReviewOverviewList reviews={reviews} />
+                                <PaginationControls
+                                    currentPage={page}
+                                    onNext={handleNextPage}
+                                    onPrevious={handlePreviousPage}
+                                    isLastPage={isLastPage}
+                                />
+                            </>
                         ):(
                             <p>Loading reviews...</p>
                         )}

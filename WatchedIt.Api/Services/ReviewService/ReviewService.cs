@@ -26,10 +26,12 @@ namespace WatchedIt.Api.Services.ReviewService
 
         public async Task<List<GetReviewOverviewDto>> GetAllForFilm(int id, PaginationParameters parameters)
         {
-            var film = await _context.Films.Include(f => f.Reviews).ThenInclude(r => r.Film).Include(r=> r.Reviews).ThenInclude(r => r.User).Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).FirstOrDefaultAsync(f => f.Id == id);
+            var film = await _context.Films.FirstOrDefaultAsync(f => f.Id == id);
             if(film is null) throw new NotFoundException($"Film with Id '{id}' not found.");
 
-            return film.Reviews.Select(r => ReviewMapper.MapOverview(r)).ToList();
+            var reviews = await _context.Reviews.Include(r => r.Film).Include(r=> r.User).Where(x => x.Film.Id == film.Id).Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
+
+            return reviews.Select(r => ReviewMapper.MapOverview(r)).ToList();
         }
 
         public async Task<GetReviewDto> GetById(int id, int userId)

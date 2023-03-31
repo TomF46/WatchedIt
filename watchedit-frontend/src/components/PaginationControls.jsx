@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const PaginationControls = ({ onNext, onPrevious, currentPage, isLastPage }) => {
     return (
         <div className="pagination-controls p-2">
-            <div className="flex justify-between">
+            <div className="flex flex-row-reverse">
                 <div>
                     {currentPage > 1 &&
                         <button
