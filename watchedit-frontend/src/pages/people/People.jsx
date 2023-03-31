@@ -34,7 +34,7 @@ function People({ isAdmin }) {
             })
             .catch((err) => {
                 console.log(err);
-                toast.error(`Error getting people ${err.message}`, {
+                toast.error(`Error getting people ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });

@@ -7,7 +7,7 @@ export function getCreditById(id) {
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }
 
@@ -18,7 +18,7 @@ export function getCreditsForFilmById(id) {
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }
 
@@ -29,7 +29,7 @@ export function getCreditsForPersonById(id) {
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }
 
@@ -40,7 +40,7 @@ export function addCreditForFilm(id, credit) {
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }
 
@@ -51,7 +51,7 @@ export function addCreditForPerson(id, credit) {
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }
 
@@ -62,7 +62,7 @@ export function removeCredit(id) {
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }
 
@@ -73,6 +73,6 @@ export function updateCredit(id, credit) {
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }

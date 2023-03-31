@@ -24,7 +24,7 @@ function Person({isAdmin}) {
                 setPerson(res);
             })
             .catch((err) => {
-                toast.error(`Error getting person ${err.message}`, {
+                toast.error(`Error getting person ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });
@@ -52,7 +52,7 @@ function Person({isAdmin}) {
             toast.success("Person removed");
             navigate("/people");
         }).catch((err) => {
-            toast.error(`Error removing person ${err.message}`, {
+            toast.error(`Error removing person ${err.data.Exception}`, {
                 autoClose: false,
             });
         });

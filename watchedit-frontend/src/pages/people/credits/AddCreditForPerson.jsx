@@ -34,7 +34,7 @@ function AddCreditForPerson() {
                 setPerson(res);
             })
             .catch((err) => {
-                toast.error(`Error getting person ${err.message}`, {
+                toast.error(`Error getting person ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });
@@ -63,7 +63,7 @@ function AddCreditForPerson() {
           setLastPageLoaded(page);
         }).catch(err => {
           console.log(err);
-          toast.error(`Error getting films ${err.message}`, {
+          toast.error(`Error getting films ${err.data.Exception}`, {
               autoClose: false,
           });
         })
@@ -102,7 +102,7 @@ function AddCreditForPerson() {
         }).catch(err => {
             console.log(err);
             setSaving(false);
-            toast.error(`Error adding film credit ${err.message}`, {
+            toast.error(`Error adding film credit ${err.data.Exception}`, {
                 autoClose: false,
             });
           })

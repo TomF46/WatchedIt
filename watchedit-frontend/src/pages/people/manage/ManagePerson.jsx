@@ -79,14 +79,18 @@ function ManagePerson() {
     }
 
     function formIsValid(){
-        const { firstName, lastName, age, description, imageUrl } = person;
+        const { firstName, lastName, middleNames, stageName, age, description, imageUrl } = person;
         const errors = {};
         if(!firstName) errors.firstName = "First name is required";
+        if(firstName.length > 50) errors.firstName = "First name cant be longer than 50 characters";
         if(!lastName) errors.lastName = "Last name is required";
+        if(lastName.length > 50) errors.lastName = "Last name cant be longer than 50 characters";
+        if(middleNames && middleNames.length > 80) errors.middleNames = "Middle names cant be longer than 80 characters";
+        if(stageName && stageName.length > 50) errors.stageName = "Stage name cant be longer than 50 characters";
         if(!age) errors.age = "Age is required";
-        if(!description) errors.shortDescription = "Description is required";
+        if(!description) errors.description = "Description is required";
+        if(description.length > 800) errors.description = "Description cant be longer than 800 characters";
         if(!imageUrl) errors.imageUrl = "Image url is required";
-
         setErrors(errors);
         return Object.keys(errors).length === 0;
     }

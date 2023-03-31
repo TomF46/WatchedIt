@@ -16,7 +16,7 @@ const WatchedFilmControls = ({ film }) => {
         setFilmWatchedById(film.id).then(res => {
             setHasWatched(res.watched);
         }).catch(err => {
-            toast.error(`Error setting film watched${err.message}`, {
+            toast.error(`Error setting film watched${err.data.Exception}`, {
                 autoClose: false,
             });
         });
@@ -26,7 +26,7 @@ const WatchedFilmControls = ({ film }) => {
         setFilmNotWatchedById(film.id).then(res => {
             setHasWatched(res.watched);
         }).catch(err => {
-            toast.error(`Error setting film not watched${err.message}`, {
+            toast.error(`Error setting film not watched${err.data.Exception}`, {
                 autoClose: false,
             });
         });

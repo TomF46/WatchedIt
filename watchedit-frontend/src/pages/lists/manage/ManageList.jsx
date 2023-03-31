@@ -52,7 +52,9 @@ function ManageList() {
         const { name, description} = list;
         const errors = {};
         if(!name) errors.name = "Name is required";
+        if(name.length > 60) errors.name = "Name can't be longer than 60 characters.";
         if(!description) errors.description = "Description is required";
+        if(description.length > 400) errors.description = "Description can't be longer than 400 characters.";
         setErrors(errors);
         return Object.keys(errors).length === 0;
     }

@@ -31,7 +31,7 @@ namespace WatchedIt.Api.Controllers
             var user = _authenticationService.Authenticate(userLoginDto.Email, userLoginDto.Password);
 
             if (user == null)
-                return BadRequest("Username or password is incorrect");
+                throw new BadRequestException("Username or password is incorrect");
 
             var tokenExpiryTime = DateTime.UtcNow.AddDays(365);
             var tokenHandler = new JwtSecurityTokenHandler();

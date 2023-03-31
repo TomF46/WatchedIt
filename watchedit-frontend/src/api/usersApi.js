@@ -7,7 +7,7 @@ export function getUserById(id) {
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }
 
@@ -18,7 +18,7 @@ export function getWatchedListByUserId(id, pageNumber, pageSize) {
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }
 
@@ -29,6 +29,6 @@ export function getCurrentUserIsAdmin(){
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }

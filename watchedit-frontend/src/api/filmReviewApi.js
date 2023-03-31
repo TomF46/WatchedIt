@@ -11,7 +11,7 @@ export function getReviewsByFilmId(filmId) {
             return response.data;
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         })
 }
 
@@ -22,7 +22,7 @@ export function getReviewById(filmId, reviewId) {
             return response.data;
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         })
 }
 
@@ -33,7 +33,7 @@ export function addReview(filmId, review){
             return response.data;
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         })
 }
 
@@ -44,7 +44,7 @@ export function updateReview(filmId, review){
             return response.data;
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         })
 }
 
@@ -55,7 +55,7 @@ export function deleteReview(filmId, review){
             return response.data;
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         })
 }
 

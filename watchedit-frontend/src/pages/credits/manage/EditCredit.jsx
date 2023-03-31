@@ -27,7 +27,7 @@ function EditCredit({userIsAuthenticated}) {
                 mapForEditing(res);
             })
             .catch((err) => {
-                toast.error(`Error getting credit ${err.message}`, {
+                toast.error(`Error getting credit ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });
@@ -66,7 +66,7 @@ function EditCredit({userIsAuthenticated}) {
         updateCredit(credit.id, creditUpdate).then(res => {
             navigate(`/credits/${credit.id}`);
         }).catch((err) => {
-            toast.error(`Error getting credit ${err.message}`, {
+            toast.error(`Error getting credit ${err.data.Exception}`, {
                 autoClose: false,
             });
             setSaving(false);

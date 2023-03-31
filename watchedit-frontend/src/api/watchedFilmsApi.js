@@ -10,7 +10,7 @@ export function setFilmWatchedById(id){
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }
 
@@ -21,6 +21,6 @@ export function setFilmNotWatchedById(id){
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }

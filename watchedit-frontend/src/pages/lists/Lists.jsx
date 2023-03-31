@@ -30,7 +30,7 @@ function Lists() {
       setLastPageLoaded(page);
     }).catch(err => {
       console.log(err);
-      toast.error(`Error getting lists ${err.message}`, {
+      toast.error(`Error getting lists ${err.data.Exception}`, {
           autoClose: false,
       });
     })

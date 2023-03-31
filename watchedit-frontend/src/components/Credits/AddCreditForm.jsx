@@ -18,9 +18,11 @@ const AddCreditForm = ({ onSave, saving }) => {
         const { role, type } = credit;
         const errors = {};
         if (!role) errors.role = "Role is required";
+        if (role.length > 60) errors.role = "Role cant be longer than 60 characters.";
         if (!type) errors.type = "Role type is required";
 
         setErrors(errors);
+        console.log(errors);
         return Object.keys(errors).length === 0;
     }
 

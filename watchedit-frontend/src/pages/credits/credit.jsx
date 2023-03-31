@@ -22,7 +22,7 @@ function Credit({userIsAuthenticated}) {
                 console.log(res);
             })
             .catch((err) => {
-                toast.error(`Error getting credit ${err.message}`, {
+                toast.error(`Error getting credit ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });

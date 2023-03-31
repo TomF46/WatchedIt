@@ -11,7 +11,7 @@ export function getPeoplePaginated(pageNumber, pageSize) {
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }
 
@@ -22,7 +22,7 @@ export function searchPeoplePaginated(searchTerm, pageNumber, pageSize) {
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }
 
@@ -33,7 +33,7 @@ export function getPersonById(id) {
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }
 
@@ -44,7 +44,7 @@ export function addPerson(person){
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }
 
@@ -55,7 +55,7 @@ export function editPerson(person){
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }
 
@@ -66,7 +66,7 @@ export function removePerson(person){
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }
 

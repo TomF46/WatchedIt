@@ -26,7 +26,7 @@ function FilmCredits({userIsAuthenticated, isAdmin}) {
                 setFilm(res);
             })
             .catch((err) => {
-                toast.error(`Error getting film ${err.message}`, {
+                toast.error(`Error getting film ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });
@@ -38,7 +38,7 @@ function FilmCredits({userIsAuthenticated, isAdmin}) {
                 setCredits(res);
             })
             .catch((err) => {
-                toast.error(`Error getting film credits ${err.message}`, {
+                toast.error(`Error getting film credits ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });
@@ -66,7 +66,7 @@ function FilmCredits({userIsAuthenticated, isAdmin}) {
             toast.success("Credit removed");
             getCredits();
         }).catch((err) => {
-            toast.error(`Error removing film credit ${err.message}`, {
+            toast.error(`Error removing film credit ${err.data.Exception}`, {
                 autoClose: false,
             });
         });

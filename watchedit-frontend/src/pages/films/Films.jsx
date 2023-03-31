@@ -34,7 +34,7 @@ function Films({ isAdmin }) {
             })
             .catch((err) => {
                 console.log(err);
-                toast.error(`Error getting films ${err.message}`, {
+                toast.error(`Error getting films ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });

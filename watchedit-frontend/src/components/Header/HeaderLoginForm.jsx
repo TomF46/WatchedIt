@@ -19,7 +19,6 @@ const HeaderLoginForm = ({ login}) => {
 
     function handleChange(event) {
         const { name, value} = event.target;
-        console.log(value);
         setUser(prevUser => ({
             ...prevUser,
             [name]: value
@@ -46,7 +45,8 @@ const HeaderLoginForm = ({ login}) => {
             })
             .catch(err => {
                 setSaving(false);
-                toast.error(`${err.statusText} please try again.`, {
+                console.log(err);
+                toast.error(`${err.data.Exception} please try again.`, {
                     autoClose: false,
                 });
             });

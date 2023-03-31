@@ -22,10 +22,9 @@ function Review({userIsAuthenticated, isAdmin}) {
         getReviewById(id, reviewId)
             .then((res) => {
                 setReview(res);
-                console.log(res);
             })
             .catch((err) => {
-                toast.error(`Error getting review ${err.message}`, {
+                toast.error(`Error getting review ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });
@@ -53,7 +52,7 @@ function Review({userIsAuthenticated, isAdmin}) {
             toast.success("Review removed");
             navigate(`/films/${id}/reviews`);
         }).catch((err) => {
-            toast.error(`Error removing review ${err.message}`, {
+            toast.error(`Error removing review ${err.data.Exception}`, {
                 autoClose: false,
             });
         });

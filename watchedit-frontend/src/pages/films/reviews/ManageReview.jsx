@@ -45,7 +45,7 @@ function ManageReview({userIsAuthenticated, isAdmin}) {
                 setFilm(res);
             })
             .catch((err) => {
-                toast.error(`Error getting film ${err.message}`, {
+                toast.error(`Error getting film ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });
@@ -72,7 +72,8 @@ function ManageReview({userIsAuthenticated, isAdmin}) {
         const errors = {};
         if(!rating) errors.rating = "Rating is required";
         if(rating < 0 || rating > 10) errors.rating = "Rating must be between 0 and 10";
-        if(!text) errors.shortDescription = "Review text is required";
+        if(!text) errors.text = "Review text is required";
+        if(text.length > 8000) errors.text = "Review text can be longer than 8000 characters";
         setErrors(errors);
         return Object.keys(errors).length === 0;
     }

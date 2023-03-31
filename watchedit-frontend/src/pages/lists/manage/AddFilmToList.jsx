@@ -51,7 +51,7 @@ function AddFilmToList() {
                 setList(res);
             })
             .catch((err) => {
-                toast.error(`Error getting list ${err.message}`, {
+                toast.error(`Error getting list ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });
@@ -65,7 +65,7 @@ function AddFilmToList() {
           setLastPageLoaded(page);
         }).catch(err => {
           console.log(err);
-          toast.error(`Error getting films ${err.message}`, {
+          toast.error(`Error getting films ${err.data.Exception}`, {
               autoClose: false,
           });
         })
@@ -91,7 +91,7 @@ function AddFilmToList() {
             navigate(`/lists/${list.id}`);
         }).catch(err => {
           console.log(err);
-          toast.error(`Error adding film to list ${err.message}`, {
+          toast.error(`Error adding film to list ${err.data.Exception}`, {
               autoClose: false,
           });
         })

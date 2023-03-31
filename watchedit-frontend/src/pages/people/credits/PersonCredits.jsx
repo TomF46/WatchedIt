@@ -27,7 +27,7 @@ function PersonCredits({isAdmin}) {
                 setPerson(res);
             })
             .catch((err) => {
-                toast.error(`Error getting person ${err.message}`, {
+                toast.error(`Error getting person ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });
@@ -39,7 +39,7 @@ function PersonCredits({isAdmin}) {
                 setCredits(res);
             })
             .catch((err) => {
-                toast.error(`Error getting persons credits ${err.message}`, {
+                toast.error(`Error getting persons credits ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });
@@ -67,7 +67,7 @@ function PersonCredits({isAdmin}) {
             toast.success("Credit removed");
             getCredits();
         }).catch((err) => {
-            toast.error(`Error removing persons credit ${err.message}`, {
+            toast.error(`Error removing persons credit ${err.data.Exception}`, {
                 autoClose: false,
             });
         });

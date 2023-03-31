@@ -11,7 +11,7 @@ export function getFilmsPaginated(pageNumber, pageSize) {
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }
 
@@ -22,7 +22,7 @@ export function searchFilmsPaginated(searchTerm, pageNumber, pageSize) {
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }
 
@@ -33,7 +33,7 @@ export function getFilmById(id) {
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }
 
@@ -44,7 +44,7 @@ export function addFilm(film){
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }
 
@@ -55,7 +55,7 @@ export function editFilm(film){
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }
 
@@ -66,6 +66,6 @@ export function removeFilm(film){
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }

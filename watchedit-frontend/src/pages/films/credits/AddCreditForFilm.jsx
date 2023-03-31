@@ -35,7 +35,7 @@ function AddCreditForFilm() {
                 setFilm(res);
             })
             .catch((err) => {
-                toast.error(`Error getting film ${err.message}`, {
+                toast.error(`Error getting film ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });
@@ -63,7 +63,7 @@ function AddCreditForFilm() {
             setLastPageLoaded(page);
           }).catch(err => {
             console.log(err);
-            toast.error(`Error getting films ${err.message}`, {
+            toast.error(`Error getting films ${err.data.Exception}`, {
                 autoClose: false,
             });
           })
@@ -102,7 +102,7 @@ function AddCreditForFilm() {
         }).catch(err => {
             console.log(err);
             setSaving(false);
-            toast.error(`Error adding credit ${err.message}`, {
+            toast.error(`Error adding credit ${err.data.Exception}`, {
                 autoClose: false,
             });
           })

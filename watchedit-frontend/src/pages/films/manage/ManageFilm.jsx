@@ -84,13 +84,18 @@ function ManageFilm() {
     }
 
     function formIsValid(){
-        const { name, shortDescription, fullDescription, runtime, posterUrl } = film;
+        const { name, shortDescription, fullDescription, runtime, posterUrl, releaseDate } = film;
         const errors = {};
         if(!name) errors.name = "Name is required";
+        if(name.length > 60) errors.name = "Name cant be longer then 60 characters";
         if(!shortDescription) errors.shortDescription = "Short description is required";
+        if(shortDescription.length > 200) errors.shortDescription = "Short description cant be longer than 200 characters";
         if(!fullDescription) errors.fullDescription = "Full description is required";
+        if(fullDescription.length > 200) errors.fullDescription = "Full description cant be longer than 200 characters";
         if(!runtime) errors.runtime = "Runtime is required";
         if(!posterUrl) errors.posterUrl = "Poster Url is required";
+        if(!releaseDate) errors.releaseDate = "Release date is required";
+        console.log(errors);
         setErrors(errors);
         return Object.keys(errors).length === 0;
     }

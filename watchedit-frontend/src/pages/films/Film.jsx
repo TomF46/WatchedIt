@@ -24,7 +24,8 @@ function Film({userIsAuthenticated, isAdmin}) {
                 setFilm(res);
             })
             .catch((err) => {
-                toast.error(`Error getting film ${err.message}`, {
+                console.log(err);
+                toast.error(`Error getting film ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });
@@ -52,7 +53,7 @@ function Film({userIsAuthenticated, isAdmin}) {
             toast.success("Film removed");
             navigate("/films");
         }).catch((err) => {
-            toast.error(`Error removing film ${err.message}`, {
+            toast.error(`Error removing film ${err.data.Exception}`, {
                 autoClose: false,
             });
         });

@@ -23,7 +23,7 @@ function List() {
                 setList(res);
             })
             .catch((err) => {
-                toast.error(`Error getting list ${err.message}`, {
+                toast.error(`Error getting list ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });
@@ -52,7 +52,7 @@ function List() {
             toast.success("Film removed");
             navigate("/lists");
         }).catch((err) => {
-            toast.error(`Error removing list ${err.message}`, {
+            toast.error(`Error removing list ${err.data.Exception}`, {
                 autoClose: false,
             });
         });
@@ -80,7 +80,7 @@ function List() {
             toast.success("Film removed from list");
             getList();
         }).catch((err) => {
-            toast.error(`Error removing film from list ${err.message}`, {
+            toast.error(`Error removing film from list ${err.data.Exception}`, {
                 autoClose: false,
             });
         });

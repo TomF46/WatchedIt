@@ -20,7 +20,7 @@ function Profile({id}) {
                 setUser(res);
             })
             .catch((err) => {
-                toast.error(`Error getting user ${err.message}`, {
+                toast.error(`Error getting user ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });

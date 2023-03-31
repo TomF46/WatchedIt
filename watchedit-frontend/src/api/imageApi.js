@@ -10,6 +10,6 @@ export function uploadImage(file, prefix) {
             return response.data
         })
         .catch(error => {
-            throw error;
+            throw error.response;
         });
 }
