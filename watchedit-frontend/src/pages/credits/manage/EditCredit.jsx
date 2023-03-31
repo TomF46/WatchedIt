@@ -79,7 +79,7 @@ function EditCredit({userIsAuthenticated}) {
                 <p>Loading...</p>
             ) : (
                 <>
-                    <p className="text-primary text-xl">Edit role {credit.role} - {credit.person.firstName} {credit.person.lastName} - {credit.film.name} - {credit.film.name}</p>
+                    <p className="text-primary text-xl">Edit role {credit.role} - {credit.person.fullName} - {credit.film.name} - {credit.film.name}</p>
                     <ManageCreditForm credit={creditUpdate} onChange={handleChange} onSubmit={handleSubmit} errors={errors} saving={saving} />
                 </>
             )}

@@ -10,8 +10,11 @@ const PersonGrid = ({ people }) => {
             {people.map((person) => {
                 return (
                     <div key={person.id} className="col-span-2">
-                        <div onClick={() => {navigate(`/people/${person.id}`)}} className="p-4 mx-2 bg-backgroundOffset cursor-pointer">
-                            <p>{person.firstName} {person.lastName}</p>
+                        <div onClick={() => {navigate(`/people/${person.id}`)}} className="mx-2 bg-backgroundOffset cursor-pointer">
+                            <img src={person.imageUrl} className="w-full headshot" />
+                            <div className="p-4">
+                                <p className="text-center">{person.fullName}</p>
+                            </div>
                         </div>
                     </div>
                 )

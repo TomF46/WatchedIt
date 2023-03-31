@@ -27,3 +27,11 @@
 .react-datepicker-wrapper input{
   background-color: #474345;
 }
+
+.poster{
+  aspect-ratio: 2 / 3;
+}
+
+.headshot{
+  aspect-ratio: 1/1;
+}

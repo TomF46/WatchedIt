@@ -35,7 +35,7 @@ function Credit({userIsAuthenticated}) {
             ) : (
                 <>
                     <p className="text-primary text-xl">{credit.role}</p>
-                    <p>Person: {credit.person.firstName} {credit.person.lastName}</p>
+                    <p>Person: {credit.person.fullName}</p>
                     <p>Film: {credit.film.name}</p>
                 </>
             )}

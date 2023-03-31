@@ -114,7 +114,7 @@ function AddCreditForPerson() {
                 <p>Loading...</p>
             ) : (
                 <div>
-                    <p className="text-primary text-xl">Add Credit for {person.firstName} {person.lastName}</p>
+                    <p className="text-primary text-xl">Add Credit for {person.fullName}</p>
                     {!films ? (
                         <p>Loading films....</p>
                         ) : (

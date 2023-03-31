@@ -12,7 +12,7 @@ const FilmCreditsList = ({ credits, canEdit, onRemove }) => {
                         <div className="grid grid-cols-12 my-2">
                             <div className={`${canEdit ? "col-span-10" : "col-span-12"}`}>
                                 <div onClick={() => {navigate(`/people/${credit.person.id}`)}} className="p-4 mx-2 bg-backgroundOffset cursor-pointer">
-                                    <p>{credit.person.firstName} {credit.person.lastName} {credit.role} {`(${credit.type})`}</p>
+                                    <p>{credit.person.fullName} {credit.role} {`(${credit.type})`}</p>
                                 </div>
                             </div>
                             {canEdit && (

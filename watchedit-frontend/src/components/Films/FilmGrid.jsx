@@ -8,10 +8,10 @@ const FilmGrid = ({ films, editable, onRemove }) => {
         <div className="grid grid-cols-12">
             {films.map((film) => {
                 return (
-                    <div key={film.id} className="col-span-2">
+                    <div key={film.id} className="col-span-12 md:col-span-2 mt-4">
                         <div className="mx-2 bg-backgroundOffset cursor-pointer">
                             <div onClick={() => {navigate(`/films/${film.id}`)}}>
-                                <img src={film.posterUrl} className="w-full h-auto" />
+                                <img src={film.posterUrl} className="w-full poster" />
                                 <div className="p-4">
                                     <p className="text-center">{film.name}</p>
                                 </div>

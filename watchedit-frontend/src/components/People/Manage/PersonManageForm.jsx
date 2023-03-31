@@ -119,7 +119,11 @@ const PersonManageForm = ({
                 )}
                 {!!uploadingImage && (<p>Uploading...</p>)}
                 {person.imageUrl != null && (
-                    <img src={person.imageUrl} alt="image-preview" className="image-preview mt-4" />
+                    <div className="grid grid-cols-12 mt-4">
+                        <div className="col-span-12 md:col-span-2">
+                            <img src={person.imageUrl} alt="image-preview" className="image-preview headshot" />
+                        </div>
+                    </div>
                 )}
             </div>
             <div className="flex justify-center">

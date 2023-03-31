@@ -127,7 +127,7 @@ function AddCreditForFilm() {
                             ) : (
                                 <div>
                                     <div className="mb-2">
-                                        <p>Person: {selectedPerson.firstName} {selectedPerson.lastName}  <span className="cursor-pointer" onClick={() => {handlePersonSelected(null)}}>(Change)</span></p>
+                                        <p>Person: {selectedPerson.fullName} <span className="cursor-pointer" onClick={() => {handlePersonSelected(null)}}>(Change)</span></p>
                                     </div>
                                     <AddCreditForm  onSave={handleSave} saving={saving} />
                                 </div>

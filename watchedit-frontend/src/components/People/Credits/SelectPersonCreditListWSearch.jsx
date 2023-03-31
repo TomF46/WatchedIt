@@ -21,7 +21,7 @@ const SelectPersonCreditListWSearch = ({ people, searchTerm, onSearchTermChange 
                     return (
                         <div key={person.id} className="col-span-12 my-2">
                             <div onClick={() => {onPersonSelected(person)}} className={`p-4 mx-2 bg-backgroundOffset cursor-pointer`}>
-                                <p>{person.firstName} {person.lastName}</p>
+                                <p>{person.fullName}</p>
                             </div>
                         </div>
                     )

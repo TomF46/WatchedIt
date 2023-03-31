@@ -97,7 +97,7 @@ function PersonCredits({isAdmin}) {
                         </div>
                     )}
                     <div className="mt-4">
-                        <h1 className="text-primary text-center text-2xl mb-4">{person.firstName} {person.lastName} credits</h1>
+                        <h1 className="text-primary text-center text-2xl mb-4">{person.fullName} credits</h1>
                         {credits && (<PersonCreditsList credits={credits} canEdit={isAdmin} onRemove={handleRemoveCredit} />)}
                     </div>
                 </>

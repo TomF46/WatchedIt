@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { getPersonById, removePerson } from "../../api/peopleApi";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
+import PersonCreditsOverviewList from "../../components/People/Credits/PersonCreditsOverviewList";
 
 
 function Person({isAdmin}) {
@@ -33,7 +34,7 @@ function Person({isAdmin}) {
     function confirmDelete(){
         confirmAlert({
             title : "Confirm deletion",
-            message: `Are you sure you want to remove ${person.firstName} ${person.lastName}?`,
+            message: `Are you sure you want to remove ${person.fullName}?`,
             buttons: [
                 {
                   label: 'Yes',
@@ -85,13 +86,37 @@ function Person({isAdmin}) {
                             </div>
                         </div>
                     )}
-                    <p className="text-primary text-xl">{person.firstName} {person.lastName}</p>
-                    <Link
-                        to={`/people/${id}/credits`}
-                        className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4"
-                    >
-                        Credits
-                    </Link>
+                    <div className="grid grid-cols-12 mt-4">
+                        <div className="col-span-12">
+                            <h1 className="my-4 text-center text-primary text-2xl">{person.fullName}</h1>
+                        </div>
+                        <div className="col-span-12 md:col-span-2">
+                            <img src={person.imageUrl} className="headshot" />
+                            <Link
+                                to={`/people/${id}/credits`}
+                                className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 w-full text-center"
+                            >
+                                Credits
+                            </Link>
+                        </div>
+                        <div className="col-span-12 md:col-span-10 pl-4">
+                            <div className="grid grid-cols-12 bg-backgroundOffset p-4">
+                                <div className="col-span-12 md:col-span-6">
+                                    <p>First name: {person.firstName}</p>
+                                    <p>Last name: {person.lastName}</p>
+                                    {person.middleNames && (<p>Middle names: {person.middleNames}</p>)}
+                                    {person.stageName && (<p>Stage name: {person.stageName}</p>)}
+                                    <p>Age: {person.age} years old</p>
+                                </div>
+                                <div className="col-span-12 md:col-span-6">
+                                    <p>Bio: {person.description}</p>
+                                </div>
+                            </div>
+                            <div className="col-span-12">
+                                <PersonCreditsOverviewList credits={person.credits} />
+                            </div>
+                        </div>
+                    </div>
                 </>
             )}
         </div>

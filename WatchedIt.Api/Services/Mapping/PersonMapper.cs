@@ -16,6 +16,7 @@ namespace WatchedIt.Api.Services.Mapping
                 LastName = person.LastName,
                 MiddleNames = person.MiddleNames,
                 StageName = person.StageName,
+                FullName= $"{person.FirstName} {person.LastName}",
                 Age = person.Age,
                 Description = person.Description,
                 ImageUrl = person.ImageUrl,
@@ -30,6 +31,7 @@ namespace WatchedIt.Api.Services.Mapping
                 LastName = person.LastName,
                 MiddleNames = person.MiddleNames,
                 StageName = person.StageName,
+                FullName= $"{person.FirstName} {person.LastName}",
                 Age = person.Age,
                 Description = person.Description,
                 ImageUrl = person.ImageUrl
@@ -41,6 +43,7 @@ namespace WatchedIt.Api.Services.Mapping
                 Id = person.Id,
                 FirstName = person.FirstName,
                 LastName = person.LastName,
+                FullName= $"{person.FirstName} {person.LastName}",
                 ImageUrl = person.ImageUrl
             };
         }

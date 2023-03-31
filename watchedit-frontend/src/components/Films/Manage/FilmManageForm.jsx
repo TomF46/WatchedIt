@@ -98,7 +98,11 @@ const FilmManageForm = ({
                 )}
                 {!!uploadingImage && (<p>Uploading...</p>)}
                 {film.posterUrl != null && (
-                    <img src={film.posterUrl} alt="image-preview" className="image-preview mt-4" />
+                    <div className="grid grid-cols-12 mt-4">
+                        <div className="col-span-12 md:col-span-2">
+                            <img src={film.posterUrl} alt="image-preview" className="image-preview poster" />
+                        </div>
+                    </div>
                 )}
             </div>
 
