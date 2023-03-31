@@ -113,7 +113,24 @@ function Person({isAdmin}) {
                                 </div>
                             </div>
                             <div className="col-span-12">
-                                <PersonCreditsOverviewList credits={person.credits} />
+                                <div className="grid grid-cols-12">
+                                    <div className="col-span-12">
+                                        {person.credits.cast.length > 0 && (
+                                            <>
+                                                <h2 className="mt-4 text-primary text-xl ">As cast</h2>
+                                                <PersonCreditsOverviewList credits={person.credits.cast} />
+                                            </>
+                                        )}
+                                    </div>
+                                    <div className="col-span-12 mt-4">
+                                        {person.credits.crew.length > 0 && (
+                                            <>
+                                                <h2 className="mt-4 text-primary text-xl ">As crew</h2>
+                                                <PersonCreditsOverviewList credits={person.credits.crew} />
+                                            </>
+                                        )}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

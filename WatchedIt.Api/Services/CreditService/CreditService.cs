@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WatchedIt.Api.Models.CreditModels;
+using WatchedIt.Api.Models.Enums;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Services.Mapping;
@@ -16,10 +17,10 @@ namespace WatchedIt.Api.Services.CreditService
         {
             _context = context;
         }
-        public async Task<List<GetCreditDto>> GetAll()
+        public async Task<GetCastCrewCreditsDto> GetAll()
         {
             var credits = await _context.Credits.Include(c => c.Film).Include(c => c.Person).ToListAsync();
-            return credits.Select(c => CreditMapper.map(c)).ToList();
+            return CreditMapper.MapCastCrewCreditDto(credits); 
         }
 
         public async Task<GetCreditDto> GetById(int id)
@@ -69,22 +70,22 @@ namespace WatchedIt.Api.Services.CreditService
             return;
         }
 
-        public async Task<List<GetCreditForFilmDto>> GetCreditsForFilmById(int id)
+        public async Task<GetFilmCastCrewCreditsDto> GetCreditsForFilmById(int id)
         {
             var film = await _context.Films.FirstOrDefaultAsync(f => f.Id == id);
             if(film is null) throw new BadRequestException($"Film with Id '{id} does not exist");
 
             var credits = await _context.Credits.Include(c => c.Person).Where(c => c.FilmId == film.Id).ToListAsync();
-            return credits.Select(c => CreditMapper.mapForFilm(c)).ToList();
+            return CreditMapper.MapFilmCastCrewCreditDto(credits);
         }
 
-        public async Task<List<GetCreditForPersonDto>> GetCreditsForPersonById(int id)
+        public async Task<GetPersonCastCrewCreditsDto> GetCreditsForPersonById(int id)
         {
             var person = await _context.People.FirstOrDefaultAsync(p => p.Id == id);
             if(person is null) throw new BadRequestException($"Person with Id '{id} does not exist");
 
             var credits = await _context.Credits.Include(c => c.Film).Where(c => c.PersonId == person.Id).ToListAsync();
-            return credits.Select(c => CreditMapper.mapForPerson(c)).ToList();
+            return CreditMapper.MapPersonCastCrewCreditDto(credits);
         }
     }
 }

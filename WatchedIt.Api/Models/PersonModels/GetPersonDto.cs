@@ -18,6 +18,6 @@ namespace WatchedIt.Api.Models.PersonModels
         public int Age {get;set;}
         public string? Description {get;set;}
         public string? ImageUrl {get;set;}
-        public ICollection<GetCreditForPersonDto> Credits { get; set; } = new List<GetCreditForPersonDto>();
+        public GetPersonCastCrewCreditsDto Credits { get; set; }
     }
 }

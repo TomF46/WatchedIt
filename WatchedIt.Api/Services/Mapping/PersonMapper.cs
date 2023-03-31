@@ -20,7 +20,7 @@ namespace WatchedIt.Api.Services.Mapping
                 Age = person.Age,
                 Description = person.Description,
                 ImageUrl = person.ImageUrl,
-                Credits = person.Credits.Select(c => CreditMapper.mapForPerson(c)).ToList()
+                Credits = CreditMapper.MapPersonCastCrewCreditDto(person.Credits.ToList())
             };
         }
 

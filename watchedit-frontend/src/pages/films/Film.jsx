@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { confirmAlert } from 'react-confirm-alert';
 import { getFilmById, removeFilm } from "../../api/filmsApi";
 import WatchedFilmControls from "../../components/Films/Watched/WatchedFilmControls";
+import FilmCreditsOverviewList from "../../components/Films/Credits/FilmCreditsOverviewList";
 
 function Film({userIsAuthenticated, isAdmin}) {
     const { id } = useParams();
@@ -85,16 +86,60 @@ function Film({userIsAuthenticated, isAdmin}) {
                             </div>
                         </div>
                     )}
-                    <p className="text-primary text-xl">{film.name}</p>
-                    {userIsAuthenticated && (<WatchedFilmControls film={film} />)}
-                    <Link to={`/films/${id}/credits`}
-                    className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4">
-                        Cast / Crew
-                    </Link>
-                    <Link to={`/films/${id}/reviews`}
-                    className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 ml-2">
-                        Reviews
-                    </Link>
+                    <div className="grid grid-cols-12 mt-4">
+                        <div className="col-span-12">
+                            <h1 className="my-4 text-center text-primary text-2xl">{film.name}</h1>
+                        </div>
+                        <div className="col-span-12 md:col-span-2">
+                            <img src={film.posterUrl} className="poster"/>
+                            <div className="flex flex-col">
+                                {userIsAuthenticated && (<WatchedFilmControls film={film} />)}
+                                <Link to={`/films/${id}/credits`}
+                                className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 text-center">
+                                    Cast / Crew
+                                </Link>
+                                <Link to={`/films/${id}/reviews`}
+                                className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 text-center">
+                                    Reviews
+                                </Link>
+                            </div>
+                        </div>
+                        <div className="col-span-12 md:col-span-10 pl-4">
+                            <div className="grid grid-cols-12">
+                                <div className="col-span-12 md:col-span-8 bg-backgroundOffset p-4">
+                                    <p>Name: {film.name}</p>
+                                    <p>Release date: {film.releaseDate}</p>
+                                    <p>tagline: {film.shortDescription}</p>
+                                    <p>Runtime: {film.runtime} minutes</p>
+                                    <p className="mt-4">Description: {film.fullDescription}</p>
+                                </div>
+                                <div className="col-span-12 md:col-span-4 text-center bg-backgroundOffset ml-2 p-4">
+                                    <h3>Rating</h3>
+                                    <p>{film.averageRating} / 10</p>
+                                </div>
+                                <div className="col-span-12">
+                                    <div className="grid grid-cols-12">
+                                        <div className="col-span-12">
+                                            {film.credits.cast.length > 0 && (
+                                                <>
+                                                    <h2 className="mt-4 text-primary text-xl ">Cast</h2>
+                                                    <FilmCreditsOverviewList credits={film.credits.cast} />
+                                                </>
+                                            )}
+                                        </div>
+                                        <div className="col-span-12 mt-4">
+                                            {film.credits.crew.length > 0 && (
+                                                <>
+                                                    <h2 className="mt-4 text-primary text-xl ">Crew</h2>
+                                                    <FilmCreditsOverviewList credits={film.credits.crew} />
+                                                </>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </>
             )}
         </div>

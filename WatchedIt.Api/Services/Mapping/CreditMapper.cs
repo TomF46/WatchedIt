@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WatchedIt.Api.Models.CreditModels;
+using WatchedIt.Api.Models.Enums;
 
 namespace WatchedIt.Api.Services.Mapping
 {
@@ -51,6 +52,33 @@ namespace WatchedIt.Api.Services.Mapping
                 PersonId = id,
                 Role = addCredit.Role,
                 Type = addCredit.Type
+            };
+        }
+
+        public static GetCastCrewCreditsDto MapCastCrewCreditDto(List<Credit> credits){
+            var cast = credits.Where(x => x.Type == CreditType.Cast).Select(c => CreditMapper.map(c)).ToList();
+            var crew = credits.Where(x => x.Type == CreditType.Crew).Select(c => CreditMapper.map(c)).ToList();
+            return new GetCastCrewCreditsDto{
+                Cast = cast,
+                Crew = crew
+            };
+        }
+
+        public static GetFilmCastCrewCreditsDto MapFilmCastCrewCreditDto(List<Credit> credits){
+            var cast = credits.Where(x => x.Type == CreditType.Cast).Select(c => CreditMapper.mapForFilm(c)).ToList();
+            var crew = credits.Where(x => x.Type == CreditType.Crew).Select(c => CreditMapper.mapForFilm(c)).ToList();
+            return new GetFilmCastCrewCreditsDto{
+                Cast = cast,
+                Crew = crew
+            };
+        }
+
+        public static GetPersonCastCrewCreditsDto MapPersonCastCrewCreditDto(List<Credit> credits){
+            var cast = credits.Where(x => x.Type == CreditType.Cast).Select(c => CreditMapper.mapForPerson(c)).ToList();
+            var crew = credits.Where(x => x.Type == CreditType.Crew).Select(c => CreditMapper.mapForPerson(c)).ToList();
+            return new GetPersonCastCrewCreditsDto{
+                Cast = cast,
+                Crew = crew
             };
         }
     }

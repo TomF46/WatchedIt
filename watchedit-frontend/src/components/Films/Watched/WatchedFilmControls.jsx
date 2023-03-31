@@ -37,18 +37,17 @@ const WatchedFilmControls = ({ film }) => {
             {hasWatched == null ? (
                 <p>Loading ...</p>
             ) : (
-                <>
-                    <p>user has watched film: {hasWatched ? "True" : "False"}</p>
+                <div className="mt-4">
                     {hasWatched ? (
-                        <button onClick={() => setNotWatched()} className="p-4 bg-primary">
+                        <button onClick={() => setNotWatched()} className="py-2 px-4 rounded bg-primary w-full">
                             Set not watched
                         </button>
                     ): (
-                        <button onClick={() => setWatched()} className="p-4 bg-primary">
+                        <button onClick={() => setWatched()} className="py-2 px-4 rounded bg-primary w-full">
                             Set watched
                         </button>
                     )}
-                </>
+                </div>
             )}
         </div>
     );

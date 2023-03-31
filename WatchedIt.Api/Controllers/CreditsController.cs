@@ -21,7 +21,7 @@ namespace WatchedIt.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GetCreditDto>>> Get(){
+        public async Task<ActionResult<GetCastCrewCreditsDto>> Get(){
             return Ok(await _creditService.GetAll());
         }
 

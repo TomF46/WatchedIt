@@ -97,7 +97,26 @@ function FilmCredits({userIsAuthenticated, isAdmin}) {
                     )}
                     <div className="mt-4">
                         <h1 className="text-primary text-center text-2xl mb-4">{film.name} credits</h1>
-                        {credits && (<FilmCreditsList credits={credits} canEdit={isAdmin}  onRemove={handleRemoveCredit} />)}
+                        {credits && (
+                            <div className="grid grid-cols-12">
+                                <div className="col-span-12">
+                                    {credits.cast.length > 0 && (
+                                        <>
+                                            <h2 className="mt-4 text-primary text-xl ">Cast</h2>
+                                            <FilmCreditsList credits={credits.cast} canEdit={isAdmin}  onRemove={handleRemoveCredit} />
+                                        </>
+                                    )}
+                                </div>
+                                <div className="col-span-12 mt-4">
+                                    {credits.crew.length > 0 && (
+                                        <>
+                                            <h2 className="mt-4 text-primary text-xl ">Crew</h2>
+                                            <FilmCreditsList credits={credits.crew} canEdit={isAdmin}  onRemove={handleRemoveCredit} />
+                                        </>
+                                    )}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </>
             )}

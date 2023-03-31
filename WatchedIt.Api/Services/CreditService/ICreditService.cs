@@ -8,12 +8,12 @@ namespace WatchedIt.Api.Services.CreditService
 {
     public interface ICreditService
     {
-        Task<List<GetCreditDto>> GetAll();
+        Task<GetCastCrewCreditsDto> GetAll();
         Task<GetCreditDto> GetById(int id);
         Task<GetCreditDto> Add(AddCreditDto newCredit);
         Task<GetCreditDto> Update(int id ,UpdatedCreditDto updatedCredit);
         void Delete(int id);
-        Task<List<GetCreditForFilmDto>> GetCreditsForFilmById(int id);
-        Task<List<GetCreditForPersonDto>> GetCreditsForPersonById(int id);
+        Task<GetFilmCastCrewCreditsDto> GetCreditsForFilmById(int id);
+        Task<GetPersonCastCrewCreditsDto> GetCreditsForPersonById(int id);
     }
 }
