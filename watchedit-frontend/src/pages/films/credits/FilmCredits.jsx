@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmById } from "../../../api/filmsApi";
 import { getCreditsForFilmById, removeCredit } from "../../../api/creditsApi";
@@ -78,8 +78,27 @@ function FilmCredits({userIsAuthenticated, isAdmin}) {
                 <p>Loading...</p>
             ) : (
                 <>
-                    <p className="text-primary text-xl">{film.name} credits</p>
-                    {credits && (<FilmCreditsList credits={credits} canEdit={isAdmin}  onRemove={handleRemoveCredit} />)}
+                    {isAdmin && (
+                        <div className="admin-controls bg-backgroundOffset mt-4 rounded-md">
+                            <div className="bg-primary rounded-t-md">
+                                <p className="text-white font-bold text-lg px-2 py-1">
+                                    Admin controls
+                                </p>
+                            </div>
+                            <div className="px-2 py-2">
+                                <Link
+                                    to={`/films/${film.id}/credits/add`}
+                                    className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block"
+                                >
+                                    Add credit
+                                </Link>
+                            </div>
+                        </div>
+                    )}
+                    <div className="mt-4">
+                        <h1 className="text-primary text-center text-2xl mb-4">{film.name} credits</h1>
+                        {credits && (<FilmCreditsList credits={credits} canEdit={isAdmin}  onRemove={handleRemoveCredit} />)}
+                    </div>
                 </>
             )}
         </div>

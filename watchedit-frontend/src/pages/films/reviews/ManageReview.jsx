@@ -96,7 +96,10 @@ function ManageReview({userIsAuthenticated, isAdmin}) {
     return (
         <div className="manage-film-review-page">
             {film && review ? (
-                <ReviewManageForm review={review} onChange={handleChange} onSave={handleSave} errors={errors} saving={saving} />
+                <>
+                    <h1 className="text-center text-2xl mt-4 text-primary">{editing ? `Editing` : "Adding"} review for {film.name}</h1>
+                    <ReviewManageForm review={review} onChange={handleChange} onSave={handleSave} errors={errors} saving={saving} />
+                </>
             ) : (
                 <p>Loading...</p>
             )}

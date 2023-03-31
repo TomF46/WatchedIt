@@ -91,6 +91,10 @@ function Film({userIsAuthenticated, isAdmin}) {
                     className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4">
                         Cast / Crew
                     </Link>
+                    <Link to={`/films/${id}/reviews`}
+                    className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 ml-2">
+                        Reviews
+                    </Link>
                 </>
             )}
         </div>

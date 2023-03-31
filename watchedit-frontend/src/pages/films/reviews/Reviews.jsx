@@ -26,7 +26,7 @@ function Reviews({userIsAuthenticated, isAdmin}) {
                 setFilm(res);
             })
             .catch((err) => {
-                toast.error(`Error getting film ${err.message}`, {
+                toast.error(`Error getting film ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });
@@ -39,7 +39,7 @@ function Reviews({userIsAuthenticated, isAdmin}) {
                 console.log(res);
             })
             .catch((err) => {
-                toast.error(`Error getting film reviews ${err.message}`, {
+                toast.error(`Error getting film reviews ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });
@@ -51,13 +51,30 @@ function Reviews({userIsAuthenticated, isAdmin}) {
                 <p>Loading...</p>
             ) : (
                 <>
-                    <p>Show {film.name} reviews...</p>
-                    <p>Average rating: {film.averageRating}</p>
-                    {reviews ? (
-                        <ReviewOverviewList reviews={reviews} />
-                    ):(
-                        <p>Loading reviews...</p>
-                    )}
+                    <div className="review-controls bg-backgroundOffset mt-4 rounded-md">
+                        <div className="bg-primary rounded-t-md">
+                            <p className="text-white font-bold text-lg px-2 py-1">
+                                Review controls
+                            </p>
+                        </div>
+                        <div className="px-2 py-2">
+                            <Link
+                                to={`/films/${film.id}/reviews/add`}
+                                className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block"
+                            >
+                                Add review
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="mt-4">
+                        <p>Show {film.name} reviews...</p>
+                        <p>Average rating: {film.averageRating}</p>
+                        {reviews ? (
+                            <ReviewOverviewList reviews={reviews} />
+                        ):(
+                            <p>Loading reviews...</p>
+                        )}
+                    </div>
                 </>
             )}
         </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { confirmAlert } from "react-confirm-alert";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getCreditsForPersonById, removeCredit } from "../../../api/creditsApi";
 import { getPersonById } from "../../../api/peopleApi";
@@ -79,8 +79,27 @@ function PersonCredits({isAdmin}) {
                 <p>Loading...</p>
             ) : (
                 <>
-                    <p className="text-primary text-xl">{person.firstName} {person.lastName} credits</p>
-                    {credits && (<PersonCreditsList credits={credits} canEdit={isAdmin} onRemove={handleRemoveCredit} />)}
+                    {isAdmin && (
+                        <div className="admin-controls bg-backgroundOffset mt-4 rounded-md">
+                            <div className="bg-primary rounded-t-md">
+                                <p className="text-white font-bold text-lg px-2 py-1">
+                                    Admin controls
+                                </p>
+                            </div>
+                            <div className="px-2 py-2">
+                                <Link
+                                    to={`/people/${person.id}/credits/add`}
+                                    className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block"
+                                >
+                                    Add credit
+                                </Link>
+                            </div>
+                        </div>
+                    )}
+                    <div className="mt-4">
+                        <h1 className="text-primary text-center text-2xl mb-4">{person.firstName} {person.lastName} credits</h1>
+                        {credits && (<PersonCreditsList credits={credits} canEdit={isAdmin} onRemove={handleRemoveCredit} />)}
+                    </div>
                 </>
             )}
         </div>
