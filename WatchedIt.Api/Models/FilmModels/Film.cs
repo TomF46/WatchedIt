@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using WatchedIt.Api.Models.Authentication;
+using WatchedIt.Api.Models.CategoryModels;
 using WatchedIt.Api.Models.CreditModels;
 using WatchedIt.Api.Models.FilmListModels;
 using WatchedIt.Api.Models.ReviewModels;
@@ -24,5 +25,7 @@ namespace WatchedIt.Api.Models.FilmModels
         public ICollection<User> WatchedBy { get; set; } = new List<User>();
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
         public ICollection<FilmList> OnLists {get;set;} = new List<FilmList>();
+        public ICollection<Category> Categories {get; set;} = new List<Category>();
+
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using WatchedIt.Api.Models.Authentication;
+using WatchedIt.Api.Models.CategoryModels;
 using WatchedIt.Api.Models.CreditModels;
 using WatchedIt.Api.Models.FilmListModels;
 using WatchedIt.Api.Models.FilmModels;
@@ -42,5 +43,6 @@ namespace Data
         public DbSet<Credit> Credits => Set<Credit>();
         public DbSet<Review> Reviews => Set<Review>();
         public DbSet<FilmList> FilmLists => Set<FilmList>();
+        public DbSet<Category> Categories => Set<Category>();
     }
 }

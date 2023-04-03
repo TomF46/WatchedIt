@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WatchedIt.Api.Models.Authentication;
+using WatchedIt.Api.Models.CategoryModels;
 using WatchedIt.Api.Models.CreditModels;
 using WatchedIt.Api.Models.Enums;
 using WatchedIt.Api.Models.FilmListModels;
@@ -70,6 +71,12 @@ namespace WatchedIt.Tests.ServiceTests.Helpers
                 Name = Faker.Name.First(),
                 Description = Faker.Lorem.Sentence(),
                 CreatedBy = user
+            };
+        }
+
+        public static Category GenerateCategory(){
+            return new Category{
+                Name = Faker.Lorem.GetFirstWord(),
             };
         }
     }

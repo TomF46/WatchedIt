@@ -19,6 +19,7 @@ using WatchedIt.Api.Services.WatchedFilmsService;
 using WatchedIt.Api.Services.FilmListService;
 using Amazon.S3;
 using WatchedIt.Api.Services.File;
+using WatchedIt.Api.Services.CategoryService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -118,6 +119,7 @@ builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<IWatchedFilmsService, WatchedFilmsService>();
 builder.Services.AddScoped<IFilmListService, FilmListService>();
 builder.Services.AddScoped<IS3FileService, S3FileService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 app.UseGlobalExceptionHandler();
