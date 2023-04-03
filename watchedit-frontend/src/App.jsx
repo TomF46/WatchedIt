@@ -32,6 +32,9 @@ import EditCredit from "./pages/credits/manage/EditCredit";
 import Reviews from "./pages/films/reviews/reviews";
 import ManageReview from "./pages/films/reviews/ManageReview";
 import Review from "./pages/films/reviews/Review";
+import Categories from "./pages/categories/Categories";
+import Category from "./pages/categories/Category";
+import ManageCategory from "./pages/categories/manage/ManageCategory";
   
   const App = () => {
     return (
@@ -70,6 +73,10 @@ import Review from "./pages/films/reviews/Review";
             <Route path="/profile" element={<AuthenticatedRoute><Profile /></AuthenticatedRoute>}/>
             <Route path="/credits/:id/edit" element={<AdminRoute><EditCredit /></AdminRoute>}/>
             <Route path="/credits/:id" element={<AdminRoute><Credit /></AdminRoute>}/>
+            <Route path="/categories/add" element={<AdminRoute><ManageCategory /></AdminRoute>}/>
+            <Route path="/categories/:id/edit" element={<AdminRoute><ManageCategory /></AdminRoute>}/>
+            <Route path="/categories/:id" element={<AdminRoute><Category /></AdminRoute>}/>
+            <Route path="/categories" element={<AdminRoute><Categories /></AdminRoute>}/>
             <Route path="/admin" element={<AdminRoute><Admin /></AdminRoute>}/>
             <Route path="/404" element={<NotFound />}/>
             <Route path="*" element={<NotFound />}/>

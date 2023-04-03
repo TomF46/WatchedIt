@@ -26,3 +26,7 @@ export const newReview = {
     rating: null,
     text: ""
 }
+
+export const newCategory = {
+    name: ""
+}
