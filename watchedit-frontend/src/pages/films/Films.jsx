@@ -6,12 +6,16 @@ import debounce from 'lodash.debounce';
 import FilmGrid from "../../components/Films/FilmGrid";
 import PaginationControls from "../../components/PaginationControls";
 import { Link } from "react-router-dom";
-import { searchFilmsPaginated } from "../../api/filmsApi";
+import { searchFilmsPaginated, searchFilmsWithCategoryPaginated } from "../../api/filmsApi";
 import TextInput from "../../components/Inputs/TextInput";
+import { getCategories } from "../../api/categoriesApi";
+import SelectInput from "../../components/Inputs/SelectInput";
 
 function Films({ isAdmin }) {
     const [films, setFilms] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
+    const [categories, setCategories] = useState(null);
+    const [category, setCategory] = useState("");
     const [page, setPage] = useState(1);
     const [filmsPerPage, setFilmsPerPage] = useState(20);
     const [isLastPage, setIsLastPage] = useState(false);
@@ -33,11 +37,28 @@ function Films({ isAdmin }) {
         );
 
         debounced();
-    }, [searchTerm])
+    }, [searchTerm, category])
+
+    useEffect(() => {
+        if (!categories) {
+            getCategories().then(res => {
+                setCategories(res);
+            }).catch(error => {
+                toast.error(`Error fetching categories ${error.message}`, {
+                    autoClose: false
+                }
+                );
+            });
+        }
+    }, [categories]);
 
 
     function getFilms() {
-        searchFilmsPaginated(searchTerm ,page, filmsPerPage)
+        if(isNaN(category)){
+            setCategory("");
+            return;
+        }
+        searchFilmsWithCategoryPaginated(searchTerm, category ,page, filmsPerPage)
             .then((res) => {
                 setFilms(res);
                 let lastPage = res.length != filmsPerPage;
@@ -65,6 +86,12 @@ function Films({ isAdmin }) {
     function handleSearchTermChange(event){
         const { value } = event.target;
         setSearchTerm(value);
+    }
+
+    function handleCategoryChange(event) {
+        const { value } = event.target;
+        setCategory(value);
+        console.log(category);
     }
 
     return (
@@ -97,14 +124,28 @@ function Films({ isAdmin }) {
                             </p>
                         </div>
                         <div className="px-2 py-2">
-                            <div className="search-box">
-                                <TextInput
-                                    name="searchTerm"
-                                    label="Search"
-                                    value={searchTerm}
-                                    onChange={handleSearchTermChange}
-                                    required={false}
-                                />
+                            <div className="search-box flex">
+                                <div>
+                                    <TextInput
+                                        name="searchTerm"
+                                        label="Search"
+                                        value={searchTerm}
+                                        onChange={handleSearchTermChange}
+                                        required={false}
+                                    />
+                                </div>
+                                {categories && categories.length > 0 && (
+                                    <div className="ml-4">
+                                        <SelectInput 
+                                            name="category"
+                                            label="Category"
+                                            defaultText="All"
+                                            value={category}
+                                            options={categories}
+                                            onChange={handleCategoryChange}
+                                        />
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

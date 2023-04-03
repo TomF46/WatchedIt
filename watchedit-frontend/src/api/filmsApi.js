@@ -26,6 +26,18 @@ export function searchFilmsPaginated(searchTerm, pageNumber, pageSize) {
         });
 }
 
+export function searchFilmsWithCategoryPaginated(searchTerm, category ,pageNumber, pageSize) {
+    return client
+        .get(`/api/films?SearchTerm=${searchTerm}&category=${category}&PageNumber=${pageNumber}&PageSize=${pageSize}`)
+        .then(response => {
+            return response.data
+        })
+        .catch(error => {
+            throw error.response;
+        });
+}
+
+
 export function getFilmById(id) {
     return client
         .get(`/api/films/${id}`)

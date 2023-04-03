@@ -19,7 +19,11 @@ namespace WatchedIt.Api.Services.FilmService
             var query =  _context.Films.AsQueryable();
 
             if(!string.IsNullOrWhiteSpace(parameters.SearchTerm)) query = query.Where(f => f.Name.ToLower().Contains(parameters.SearchTerm.Trim().ToLower()));
-            
+            if(parameters.Category is not null){
+                var category = _context.Categories.FirstOrDefault(x => x.Id == parameters.Category);
+                if(category is null) throw new NotFoundException("Category does not exist");
+                query = query.Where(x => x.Categories.Contains(category));
+            }
             var films = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
             return films.Select(f => FilmMapper.MapOverview(f)).ToList();
         }
