@@ -90,7 +90,7 @@ function Films({ isAdmin }) {
                 <p>Loading films....</p>
             ) : (
                 <div className="mt-4">
-                    <div className="search-controls bg-backgroundOffset mt-4 rounded-md">
+                    <div className="search-controls bg-backgroundOffset mt-4 rounded-md mb-4">
                         <div className="bg-primary rounded-t-md">
                             <p className="text-white font-bold text-lg px-2 py-1">
                                 Search
