@@ -4,13 +4,16 @@ import DatePicker from "react-datepicker";
 import TextInput from "../../Inputs/TextInput";
 import TextAreaInput from "../../Inputs/TextAreaInput";
 import NumberInput from "../../Inputs/NumberInput";
+import MultiSelectInput from "../../Inputs/MultiSelectInput";
 
 const FilmManageForm = ({
     film,
+    categories,
     onSave,
     onChange,
     onDateChange,
     onImageChange,
+    onCategoryChange,
     saving = false,
     uploadingImage = false,
     errors = {}
@@ -66,6 +69,19 @@ const FilmManageForm = ({
                     required={true}
                 />
             </div>
+
+            {categories && categories.length > 0 && (
+                <div className="mb-2">
+                    <MultiSelectInput
+                        name="categories"
+                        label="Categories"
+                        value={film.categories}
+                        options={categories}
+                        onChange={onCategoryChange}
+                        error={errors.categories}
+                    />
+                </div>        
+            )}
 
             <div>
                 {film.posterUrl != null ? (
@@ -132,11 +148,13 @@ const FilmManageForm = ({
 
 FilmManageForm.propTypes = {
     film: PropTypes.object.isRequired,
+    categories: PropTypes.array,
     errors: PropTypes.object,
     onSave: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
     onDateChange: PropTypes.func.isRequired,
     onImageChange: PropTypes.func.isRequired,
+    onCategoryChange: PropTypes.func.isRequired,
     saving: PropTypes.bool,
     uploadingImage: PropTypes.bool
 };

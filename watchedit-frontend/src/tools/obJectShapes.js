@@ -4,7 +4,8 @@ export const newFilm = {
     fullDescription: null,
     runtime: null,
     releaseDate: new Date(),
-    posterUrl: null
+    posterUrl: null,
+    categories: []
 }
 
 export const newPerson = {

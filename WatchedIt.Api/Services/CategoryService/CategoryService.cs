@@ -23,7 +23,7 @@ namespace WatchedIt.Api.Services.CategoryService
         public async Task<GetCategoryDto> GetById(int id)
         {
             var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
-            if(category is null) throw new NotFoundException($"Film with Id '{id}' not found.");
+            if(category is null) throw new NotFoundException($"Category with Id '{id}' not found.");
             return CategoryMapper.Map(category);
         }
 
@@ -40,7 +40,7 @@ namespace WatchedIt.Api.Services.CategoryService
         public async Task<GetCategoryDto> Update(int id, UpdateCategoryDto updatedCategory)
         {
             var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
-            if(category is null) throw new NotFoundException($"Film with Id '{id}' not found.");
+            if(category is null) throw new NotFoundException($"Category with Id '{id}' not found.");
             category.Name = updatedCategory.Name;
             await _context.SaveChangesAsync();
             return CategoryMapper.Map(category);
@@ -49,7 +49,7 @@ namespace WatchedIt.Api.Services.CategoryService
         public void Delete(int id)
         {
             var category = _context.Categories.FirstOrDefault(c => c.Id == id);
-            if(category is null) throw new NotFoundException($"Film with Id '{id}' not found.");
+            if(category is null) throw new NotFoundException($"Category with Id '{id}' not found.");
             _context.Categories.Remove(category);
             _context.SaveChanges();
             return;

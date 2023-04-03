@@ -2,6 +2,7 @@ import { parseISO } from "date-fns/esm";
 import { React, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { getCategories } from "../../../api/categoriesApi";
 import { getFilmById, saveFilm } from "../../../api/filmsApi";
 import { uploadImage } from "../../../api/imageApi";
 import FilmManageForm from "../../../components/Films/Manage/FilmManageForm";
@@ -11,6 +12,7 @@ function ManageFilm() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [film, setFilm] = useState({ ...newFilm });
+    const [categories, setCategories] = useState(null);
     const [errors, setErrors] = useState({});
     const [saving, setSaving] = useState(false);
     const [editing, setEditing] = useState(false);
@@ -35,6 +37,19 @@ function ManageFilm() {
         }
     }, [id]);
 
+    useEffect(() => {
+        if (!categories) {
+            getCategories().then(res => {
+                setCategories(res);
+            }).catch(error => {
+                toast.error(`Error fetching categories ${error.message}`, {
+                    autoClose: false
+                }
+                );
+            });
+        }
+    }, [categories]);
+
     function mapForEditing(data){
 
         setFilm({
@@ -44,7 +59,8 @@ function ManageFilm() {
             fullDescription: data.fullDescription,
             runtime: data.runtime,
             releaseDate: parseISO(data.releaseDate),
-            posterUrl: data.posterUrl
+            posterUrl: data.posterUrl,
+            categories: data.categories
         });
     }
 
@@ -59,6 +75,13 @@ function ManageFilm() {
     function handleDateChange(date){
         film.releaseDate = date;
         setFilm({ ...film});
+    }
+
+    function handleCategoryChange(selected) {
+        setFilm(prevFilm => ({
+            ...prevFilm,
+            categories: selected
+        }));
     }
 
     function handleImageChange(event){
@@ -103,8 +126,10 @@ function ManageFilm() {
     function handleSave(event) {
         event.preventDefault();
         if (!formIsValid()) return;
+        let filmToPost = { ...film};
+        filmToPost.categories = film.categories.map(category => category.id);
         setSaving(true);
-        saveFilm(film).then(res => {
+        saveFilm(filmToPost).then(res => {
             toast.success("Film saved");
             navigate(`/films/${res.id}`);
         }).catch(err => {
@@ -119,7 +144,7 @@ function ManageFilm() {
         <div className="manage-film-page">
             <h1 className="text-2xl text-center text-primary mt-4">{editing ? `Editing` : "Adding"} film</h1>
             {film ? (
-                <FilmManageForm film={film} onChange={handleChange} onDateChange={handleDateChange} onImageChange={handleImageChange} onSave={handleSave} errors={errors} saving={saving}  uploadingImage={imageUploading}/>
+                <FilmManageForm film={film} categories={categories} onChange={handleChange} onDateChange={handleDateChange} onImageChange={handleImageChange} onCategoryChange={handleCategoryChange} onSave={handleSave} errors={errors} saving={saving}  uploadingImage={imageUploading}/>
             ) : (
                 <p>Loading form</p>
             )}

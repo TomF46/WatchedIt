@@ -26,7 +26,7 @@ namespace WatchedIt.Api.Services.FilmService
 
         public async Task<GetFilmDto> GetById(int id)
         {
-            var film = await _context.Films.Include(f => f.Credits).ThenInclude(c => c.Film).Include(f => f.Credits).ThenInclude(c => c.Person).FirstOrDefaultAsync(f => f.Id == id);
+            var film = await _context.Films.Include(f => f.Categories).Include(f => f.Credits).ThenInclude(c => c.Film).Include(f => f.Credits).ThenInclude(c => c.Person).FirstOrDefaultAsync(f => f.Id == id);
             if(film is null) throw new NotFoundException($"Film with Id '{id}' not found.");
             return FilmMapper.Map(film);
         }
@@ -34,6 +34,10 @@ namespace WatchedIt.Api.Services.FilmService
         public async Task<GetFilmOverviewDto> Add(AddFilmDto newFilm)
         {
             var film = FilmMapper.MapForAdding(newFilm);
+            var categories = _context.Categories.Where(x => newFilm.Categories.Contains(x.Id));
+            await categories.ForEachAsync(x => {
+                film.Categories.Add(x);
+            });
             await _context.Films.AddAsync(film);
             await _context.SaveChangesAsync();
             return FilmMapper.MapOverview(film);
@@ -41,7 +45,7 @@ namespace WatchedIt.Api.Services.FilmService
 
         public async Task<GetFilmOverviewDto> Update(int id, UpdateFilmDto updatedFilm)
         {
-            var film = await _context.Films.FirstOrDefaultAsync(f => f.Id == id);
+            var film = await _context.Films.Include(f => f.Categories).FirstOrDefaultAsync(f => f.Id == id);
             if(film is null) throw new NotFoundException($"Film with Id '{id}' not found.");
             film.Name = updatedFilm.Name;
             film.ShortDescription = updatedFilm.ShortDescription;
@@ -49,6 +53,11 @@ namespace WatchedIt.Api.Services.FilmService
             film.Runtime = updatedFilm.Runtime;
             film.ReleaseDate = updatedFilm.ReleaseDate;
             film.PosterUrl = updatedFilm.PosterUrl;
+            film.Categories.Clear();
+            var categories = await _context.Categories.Where(x => updatedFilm.Categories.Contains(x.Id)).ToListAsync();
+            categories.ForEach(x => {
+                film.Categories.Add(x);
+            });
             await _context.SaveChangesAsync();
             return FilmMapper.MapOverview(film);
         }

@@ -18,7 +18,8 @@ namespace WatchedIt.Api.Services.Mapping
                 ReleaseDate = film.ReleaseDate,
                 PosterUrl = film.PosterUrl,
                 AverageRating = String.Format("{0:0.0}", film.AverageRating),
-                Credits = CreditMapper.MapFilmCastCrewCreditDto(film.Credits.ToList())
+                Credits = CreditMapper.MapFilmCastCrewCreditDto(film.Credits.ToList()),
+                Categories = film.Categories.Select(x => CategoryMapper.Map(x)).ToList()
             };
         }
 

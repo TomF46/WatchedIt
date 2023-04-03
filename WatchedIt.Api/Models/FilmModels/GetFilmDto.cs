@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WatchedIt.Api.Models.CategoryModels;
 using WatchedIt.Api.Models.CreditModels;
 
 namespace WatchedIt.Api.Models.FilmModels
@@ -18,5 +19,6 @@ namespace WatchedIt.Api.Models.FilmModels
         public string? AverageRating {get; set;}
         public GetFilmCastCrewCreditsDto Credits { get; set; }
         public bool IsWatchedByUser {get; set;} = false;
+        public IList<GetCategoryDto> Categories {get; set;} = new List<GetCategoryDto>();
     }
 }

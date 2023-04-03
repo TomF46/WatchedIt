@@ -35,3 +35,7 @@
 .headshot{
   aspect-ratio: 1/1;
 }
+
+.multiselect-container .optionContainer{
+  background-color: #474345;
+}

@@ -111,6 +111,14 @@ function Film({userIsAuthenticated, isAdmin}) {
                                     <p>Release date: {film.releaseDate}</p>
                                     <p>tagline: {film.shortDescription}</p>
                                     <p>Runtime: {film.runtime} minutes</p>
+                                    <p>Categories:</p>
+                                    <ul>
+                                        {film.categories.map((category) => {
+                                            return (
+                                                <li key={category.id}>{category.name}</li>
+                                            )
+                                        })}
+                                    </ul>
                                     <p className="mt-4">Description: {film.fullDescription}</p>
                                 </div>
                                 <div className="col-span-12 md:col-span-4 text-center bg-backgroundOffset ml-2 p-4">
