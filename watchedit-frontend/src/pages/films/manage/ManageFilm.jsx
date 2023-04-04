@@ -6,6 +6,7 @@ import { getCategories } from "../../../api/categoriesApi";
 import { getFilmById, saveFilm } from "../../../api/filmsApi";
 import { uploadImage } from "../../../api/imageApi";
 import FilmManageForm from "../../../components/Films/Manage/FilmManageForm";
+import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { newFilm } from "../../../tools/obJectShapes";
 
 function ManageFilm() {
@@ -146,7 +147,7 @@ function ManageFilm() {
             {film ? (
                 <FilmManageForm film={film} categories={categories} onChange={handleChange} onDateChange={handleDateChange} onImageChange={handleImageChange} onCategoryChange={handleCategoryChange} onSave={handleSave} errors={errors} saving={saving}  uploadingImage={imageUploading}/>
             ) : (
-                <p>Loading form</p>
+                <LoadingMessage message={"Loading form."} />
             )}
         </div>
     );

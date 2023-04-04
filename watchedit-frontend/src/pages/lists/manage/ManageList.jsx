@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmListById, saveFilmList } from "../../../api/filmListsApi";
 import ListManageForm from "../../../components/Lists/Manage/ListManageForm";
+import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { newList } from "../../../tools/obJectShapes";
 
 function ManageList() {
@@ -82,7 +83,7 @@ function ManageList() {
             {list ? (
                 <ListManageForm list={list} onChange={handleChange} onSave={handleSave} errors={errors} saving={saving} />
             ) : (
-                <p>Loading form</p>
+                <LoadingMessage message={"Loading form."} />
             )}
         </div>
     );

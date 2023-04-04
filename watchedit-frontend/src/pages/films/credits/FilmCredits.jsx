@@ -7,6 +7,7 @@ import { getFilmById } from "../../../api/filmsApi";
 import { getCreditsForFilmById, removeCredit } from "../../../api/creditsApi";
 import FilmCreditsList from "../../../components/Films/Credits/FilmCreditsList";
 import { confirmAlert } from "react-confirm-alert";
+import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
 function FilmCredits({userIsAuthenticated, isAdmin}) {
     const { id } = useParams();
@@ -75,7 +76,7 @@ function FilmCredits({userIsAuthenticated, isAdmin}) {
     return (
         <div className="film-credits-page">
             {!film ? (
-                <p>Loading...</p>
+                <LoadingMessage message={"Loading film credits"} />
             ) : (
                 <>
                     {isAdmin && (

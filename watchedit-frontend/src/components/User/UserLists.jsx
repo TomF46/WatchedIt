@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import FilmListList from "../Lists/FilmListList";
 import PaginationControls from "../PaginationControls";
 import { getUsersFilmListsPaginated } from "../../api/filmListsApi";
+import LoadingMessage from "../Loading/LoadingMessage";
 
 function UserLists({user}) {
   const [lists, setLists] = useState(null);
@@ -49,7 +50,7 @@ function UserLists({user}) {
   return (
     <div className="users-lists">
       {!lists ? (
-        <p>Loading users lists....</p>
+        <LoadingMessage message={"Loading users lists"} />
       ) : (
         <>
           <div className="mt-4">

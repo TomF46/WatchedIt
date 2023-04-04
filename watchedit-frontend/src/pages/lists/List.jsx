@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { deleteFilmList, getFilmListById, removeFilmFromFilmList } from "../../api/filmListsApi";
 import FilmGrid from "../../components/Films/FilmGrid";
+import LoadingMessage from "../../components/Loading/LoadingMessage";
 
 
 function List() {
@@ -89,7 +90,7 @@ function List() {
     return (
         <div className="list-page">
             {!list ? (
-                <p>Loading...</p>
+                <LoadingMessage message={"Loading list"} />
             ) : (
                 <div>
                     {list.userCanEdit && (

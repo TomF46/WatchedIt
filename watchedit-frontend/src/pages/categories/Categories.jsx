@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getCategories } from "../../api/categoriesApi";
 import CategoryList from "../../components/Categories/CategoryList";
+import LoadingMessage from "../../components/Loading/LoadingMessage";
 
 function Categories({isAdmin}){
     const [categories, setCategories] = useState(null);
@@ -45,7 +46,7 @@ function Categories({isAdmin}){
                 </div>
             )}
             {!categories ? (
-                <p>Loading categories....</p>
+                <LoadingMessage message={"Loading categories."} />
             ) : (
                 <div>
                     <CategoryList categories={categories} />

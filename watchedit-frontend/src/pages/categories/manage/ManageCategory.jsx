@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getCategoryById, saveCategory } from "../../../api/categoriesApi";
 import CategoryManageForm from "../../../components/Categories/Manage/CategoryManageForm";
+import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { newCategory } from "../../../tools/obJectShapes";
 
 function ManageCategory() {
@@ -78,7 +79,7 @@ function ManageCategory() {
             {category ? (
                 <CategoryManageForm category={category} onChange={handleChange} onSave={handleSave} errors={errors} saving={saving} />
             ) : (
-                <p>Loading form</p>
+                <LoadingMessage message={"Loading category"} />
             )}
         </div>
     );

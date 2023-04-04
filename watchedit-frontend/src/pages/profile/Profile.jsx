@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { getUserById } from "../../api/usersApi";
 import { Link, useParams } from "react-router-dom";
 import UserLists from "../../components/User/UserLists";
+import LoadingMessage from "../../components/Loading/LoadingMessage";
 
 function Profile({id}) {
     const [user, setUser] = useState(null);
@@ -30,7 +31,7 @@ function Profile({id}) {
     return (
         <div className="user-page">
             {!user ? (
-                <p>Loading...</p>
+                <LoadingMessage message={"Loading user."} />
             ) : (
                 <div className="grid grid-cols-12 mt-4">
                         <div className="col-span-12">

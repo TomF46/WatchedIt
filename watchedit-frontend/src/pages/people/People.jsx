@@ -8,6 +8,7 @@ import PaginationControls from "../../components/PaginationControls";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import TextInput from "../../components/Inputs/TextInput";
+import LoadingMessage from "../../components/Loading/LoadingMessage";
 
 function People({ isAdmin }) {
     const [people, setPeople] = useState(null);
@@ -89,7 +90,7 @@ function People({ isAdmin }) {
                 </div>
             )}
             {!people ? (
-                <p>Loading people....</p>
+                <LoadingMessage message={"Loading people."} />
             ) : (
                 <div className="mt-4">
                     <div className="search-controls bg-backgroundOffset mt-4 rounded-md mb-4">

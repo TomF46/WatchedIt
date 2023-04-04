@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import ManageCreditForm from "../../../components/Credits/ManageCreditForm";
 import { getCreditById, updateCredit } from "../../../api/creditsApi";
+import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
 function EditCredit({userIsAuthenticated}) {
     const navigate = useNavigate();
@@ -76,7 +77,7 @@ function EditCredit({userIsAuthenticated}) {
     return (
         <div className="credit-page">
             {!credit ? (
-                <p>Loading...</p>
+                <LoadingMessage message={"Loading credit."} />
             ) : (
                 <>
                     <p className="text-primary text-xl">Edit role {credit.role} - {credit.person.fullName} - {credit.film.name} - {credit.film.name}</p>

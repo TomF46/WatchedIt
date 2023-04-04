@@ -6,6 +6,7 @@ import { getUserById, updateCurrentUser } from "../../../api/usersApi";
 import { uploadImage } from "../../../api/imageApi";
 import { useNavigate } from "react-router-dom";
 import UserManageForm from "../../../components/User/Manage/UserManageForm";
+import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
 function ManageProfile({id}) {
     const navigate = useNavigate();
@@ -99,7 +100,7 @@ function ManageProfile({id}) {
     return (
         <div className="profile-manage-page">
             {!user ? (
-                <p>Loading...</p>
+                <LoadingMessage message={"Loading form."} />
             ) : (
                 <div>
                     <p className="text-primary text-xl">Update {user.username}</p>

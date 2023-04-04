@@ -6,6 +6,7 @@ import { getPersonById, removePerson } from "../../api/peopleApi";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import PersonCreditsOverviewList from "../../components/People/Credits/PersonCreditsOverviewList";
+import LoadingMessage from "../../components/Loading/LoadingMessage";
 
 
 function Person({isAdmin}) {
@@ -63,7 +64,7 @@ function Person({isAdmin}) {
     return (
         <div className="person-page">
             {!person ? (
-                <p>Loading...</p>
+                <LoadingMessage message={"Loading person."} />
             ) : (
                 <>
                     {isAdmin && (

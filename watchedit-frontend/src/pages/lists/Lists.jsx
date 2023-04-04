@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmListsPaginated,  } from "../../api/filmListsApi";
 import FilmListList from "../../components/Lists/FilmListList";
+import LoadingMessage from "../../components/Loading/LoadingMessage";
 import PaginationControls from "../../components/PaginationControls";
 
 function Lists() {
@@ -49,7 +50,7 @@ function Lists() {
   return (
     <div className="lists-page">
       {!lists ? (
-        <p>Loading lists....</p>
+        <LoadingMessage message={"Loading lists."} />
       ) : (
         <>
           <div className="lists-controls bg-backgroundOffset mt-4 rounded-md">

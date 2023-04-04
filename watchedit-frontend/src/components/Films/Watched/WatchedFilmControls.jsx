@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { setFilmNotWatchedById, setFilmWatchedById } from "../../../api/watchedFilmsApi";
 import { toast } from "react-toastify";
+import LoadingMessage from "../../Loading/LoadingMessage";
 
 const WatchedFilmControls = ({ film }) => {
     const navigate = useNavigate();
@@ -35,7 +36,7 @@ const WatchedFilmControls = ({ film }) => {
     return (
         <div>
             {hasWatched == null ? (
-                <p>Loading ...</p>
+                <LoadingMessage message={"Loading."} />
             ) : (
                 <div className="mt-4">
                     {hasWatched ? (

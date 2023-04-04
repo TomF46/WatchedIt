@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { getCreditsForPersonById, removeCredit } from "../../../api/creditsApi";
 import { getPersonById } from "../../../api/peopleApi";
 import PersonCreditsList from "../../../components/People/Credits/PersonCreditsList";
+import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
 
 function PersonCredits({isAdmin}) {
@@ -76,7 +77,7 @@ function PersonCredits({isAdmin}) {
     return (
         <div className="person-page">
             {!person ? (
-                <p>Loading...</p>
+                <LoadingMessage message={"Loading person"} />
             ) : (
                 <>
                     {isAdmin && (

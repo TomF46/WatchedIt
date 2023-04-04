@@ -7,6 +7,7 @@ import { getFilmById } from "../../../api/filmsApi";
 import { getReviewById, saveReview } from "../../../api/filmReviewApi";
 import { newReview } from "../../../tools/obJectShapes";
 import ReviewManageForm from "../../../components/Films/Reviews/ReviewManageForm";
+import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
 function ManageReview({userIsAuthenticated, isAdmin}) {
     const { id, reviewId } = useParams();
@@ -101,7 +102,7 @@ function ManageReview({userIsAuthenticated, isAdmin}) {
                     <ReviewManageForm review={review} onChange={handleChange} onSave={handleSave} errors={errors} saving={saving} />
                 </>
             ) : (
-                <p>Loading...</p>
+                <LoadingMessage message={"Loading form."} />
             )}
         </div>
     );

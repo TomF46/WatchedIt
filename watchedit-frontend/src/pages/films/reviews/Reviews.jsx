@@ -7,6 +7,7 @@ import { getFilmById } from "../../../api/filmsApi";
 import { getReviewsByFilmId } from "../../../api/filmReviewApi";
 import ReviewOverviewList from "../../../components/Films/Reviews/ReviewOverviewList";
 import PaginationControls from "../../../components/PaginationControls";
+import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
 function Reviews({userIsAuthenticated, isAdmin}) {
     const { id } = useParams();
@@ -70,7 +71,7 @@ function Reviews({userIsAuthenticated, isAdmin}) {
     return (
         <div className="film-reviews-page">
             {!film ? (
-                <p>Loading...</p>
+                <LoadingMessage message={"Loading film"} />
             ) : (
                 <>
                     <div className="review-controls bg-backgroundOffset mt-4 rounded-md">
@@ -102,7 +103,7 @@ function Reviews({userIsAuthenticated, isAdmin}) {
                                 />
                             </>
                         ):(
-                            <p>Loading reviews...</p>
+                            <LoadingMessage message={"Loading reviews"} />
                         )}
                     </div>
                 </>

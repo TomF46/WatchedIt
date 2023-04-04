@@ -7,6 +7,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import { getFilmById, removeFilm } from "../../api/filmsApi";
 import WatchedFilmControls from "../../components/Films/Watched/WatchedFilmControls";
 import FilmCreditsOverviewList from "../../components/Films/Credits/FilmCreditsOverviewList";
+import LoadingMessage from "../../components/Loading/LoadingMessage";
 
 function Film({userIsAuthenticated, isAdmin}) {
     const { id } = useParams();
@@ -63,7 +64,7 @@ function Film({userIsAuthenticated, isAdmin}) {
     return (
         <div className="film-page">
             {!film ? (
-                <p>Loading...</p>
+                <LoadingMessage message={"Loading film."} />
             ) : (
                 <>
                     {isAdmin && (

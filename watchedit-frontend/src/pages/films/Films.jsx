@@ -10,6 +10,7 @@ import { searchFilmsPaginated, searchFilmsWithCategoryPaginated } from "../../ap
 import TextInput from "../../components/Inputs/TextInput";
 import { getCategories } from "../../api/categoriesApi";
 import SelectInput from "../../components/Inputs/SelectInput";
+import LoadingMessage from "../../components/Loading/LoadingMessage";
 
 function Films({ isAdmin }) {
     const [films, setFilms] = useState(null);
@@ -114,7 +115,7 @@ function Films({ isAdmin }) {
                 </div>
             )}
             {!films ? (
-                <p>Loading films....</p>
+                <LoadingMessage message={"Loading films."} />
             ) : (
                 <div className="mt-4">
                     <div className="search-controls bg-backgroundOffset mt-4 rounded-md mb-4">

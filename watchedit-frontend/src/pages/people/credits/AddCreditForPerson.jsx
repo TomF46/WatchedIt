@@ -8,6 +8,7 @@ import { getPersonById } from "../../../api/peopleApi";
 import SelectFilmCreditListWSearch from "../../../components/Films/Credits/SelectFilmCreditListWSearch";
 import PaginationControls from "../../../components/PaginationControls";
 import AddCreditForm from "../../../components/Credits/AddCreditForm";
+import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
 function AddCreditForPerson() {
     const navigate = useNavigate();
@@ -111,12 +112,12 @@ function AddCreditForPerson() {
     return (
         <div className="add-person-credit-page">
             {!person ? (
-                <p>Loading...</p>
+                <LoadingMessage message={"Loading person"} />
             ) : (
                 <div>
                     <p className="text-primary text-xl">Add Credit for {person.fullName}</p>
                     {!films ? (
-                        <p>Loading films....</p>
+                        <LoadingMessage message={"Loading films."} />
                         ) : (
                             <div className="mt-4">
                                 {!selectedFilm ? (

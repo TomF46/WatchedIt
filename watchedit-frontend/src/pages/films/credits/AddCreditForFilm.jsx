@@ -8,6 +8,7 @@ import { searchPeoplePaginated } from "../../../api/peopleApi";
 import PaginationControls from "../../../components/PaginationControls";
 import SelectPersonCreditListWSearch from "../../../components/People/Credits/SelectPersonCreditListWSearch";
 import AddCreditForm from "../../../components/Credits/AddCreditForm";
+import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
 function AddCreditForFilm() {
     const navigate = useNavigate();
@@ -114,12 +115,12 @@ function AddCreditForFilm() {
     return (
         <div className="add-film-credit-page">
             {! film ? (
-                <p>Loading...</p>
+                <LoadingMessage message={"Loading film."} />
             ) : (
                 <div>
                     <p className="text-primary text-xl">Add Credit for {film.name}</p>
                     {!people ? (
-                        <p>Loading people...</p>
+                        <LoadingMessage message={"Loading people."} />
                     ) : (
                         <div className="mt-4">
                             {!selectedPerson ? (

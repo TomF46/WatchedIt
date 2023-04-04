@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getCreditById } from "../../api/creditsApi";
+import LoadingMessage from "../../components/Loading/LoadingMessage";
 
 function Credit({userIsAuthenticated}) {
     const { id } = useParams();
@@ -31,7 +32,7 @@ function Credit({userIsAuthenticated}) {
     return (
         <div className="credit-page">
             {!credit ? (
-                <p>Loading...</p>
+                <LoadingMessage message={"Loading credit."} />
             ) : (
                 <>
                     <p className="text-primary text-xl">{credit.role}</p>

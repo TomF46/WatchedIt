@@ -6,6 +6,7 @@ import { getUserById, getWatchedListByUserId } from "../../api/usersApi";
 import FilmGrid from "../../components/Films/FilmGrid";
 import PaginationControls from "../../components/PaginationControls";
 import { useParams } from "react-router-dom";
+import LoadingMessage from "../../components/Loading/LoadingMessage";
 
 function WatchedList({ id }) {
     const [user, setUser] = useState(null);
@@ -67,7 +68,7 @@ function WatchedList({ id }) {
     return (
         <div className="watched-films-page">
             {!user ? (
-                <p>Loading...</p>
+                <LoadingMessage message={"Loading user"} />
             ) : (
                 <>
                     <div className="mt-4">
@@ -83,7 +84,7 @@ function WatchedList({ id }) {
                                     />
                             </>
                         ):(
-                            <p>Loading watched films...</p>
+                            <LoadingMessage message={"Loading watched films"} />
                         )}
                     </div>
                 </>

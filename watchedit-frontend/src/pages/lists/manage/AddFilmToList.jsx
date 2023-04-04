@@ -6,6 +6,7 @@ import PaginationControls from "../../../components/PaginationControls";
 import { addFilmToFilmList, getFilmListById } from "../../../api/filmListsApi";
 import SelectFilmListWSearch from "../../../components/Films/SelectFilmListWSearch";
 import { searchFilmsPaginated } from "../../../api/filmsApi";
+import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
 
 function AddFilmToList() {
@@ -100,12 +101,12 @@ function AddFilmToList() {
     return (
         <div className="add-film-to-list-page">
             {!list ? (
-                <p>Loading...</p>
+                <LoadingMessage message={"Loading list."} />
             ) : (
                 <div>
                     <p className="text-primary text-xl">Add films to {list.name}</p>
                     {!films ? (
-                        <p>Loading films....</p>
+                        <LoadingMessage message={"Loading films."} />
                         ) : (
                             <div className="mt-4">
                                 <SelectFilmListWSearch films={films} currentFilms={list.films} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange} onFilmSelected={handleFilmSelected}/>

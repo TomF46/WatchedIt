@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getCategoryById } from "../../api/categoriesApi";
+import LoadingMessage from "../../components/Loading/LoadingMessage";
 
 
 function Category({isAdmin}){
@@ -30,7 +31,7 @@ function Category({isAdmin}){
     return(
         <div className="categories-page">
             {!category ? (
-                <p>Loading category....</p>
+                <LoadingMessage message={"Loading category"} />
             ) : (
                 <div>
                     {isAdmin && (

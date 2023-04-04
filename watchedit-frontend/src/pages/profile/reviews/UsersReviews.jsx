@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import ReviewOverviewList from "../../../components/Films/Reviews/ReviewOverviewList";
 import PaginationControls from "../../../components/PaginationControls";
 import { getUserById, getUsersReviewsPaginated } from "../../../api/usersApi";
+import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
 function UserReviews({id}) {
     const navigate = useNavigate();
@@ -67,7 +68,7 @@ function UserReviews({id}) {
     return (
         <div className="users-reviews-page">
             {!user ? (
-                <p>Loading...</p>
+                <LoadingMessage message={"Loading user."} />
             ) : (
                 <>
                     <div className="mt-4">
@@ -83,7 +84,7 @@ function UserReviews({id}) {
                                 />
                             </>
                         ):(
-                            <p>Loading reviews...</p>
+                            <LoadingMessage message={"Loading reviews."} />
                         )}
                     </div>
                 </>

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { uploadImage } from "../../../api/imageApi";
 import { getPersonById, savePerson } from "../../../api/peopleApi";
+import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import PersonManageForm from "../../../components/People/Manage/PersonManageForm";
 import { newPerson } from "../../../tools/obJectShapes";
 
@@ -118,7 +119,7 @@ function ManagePerson() {
             {person ? (
                 <PersonManageForm person={person} onChange={handleChange} onImageChange={handleImageChange} onSave={handleSave} errors={errors} saving={saving} uploadingImage={imageUploading} />
             ) : (
-                <p>Loading form</p>
+                <LoadingMessage message={"Loading form."} />
             )}
         </div>
     );

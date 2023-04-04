@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { getFilmById } from "../../../api/filmsApi";
 import { deleteReview, getReviewById } from "../../../api/filmReviewApi";
 import { confirmAlert } from "react-confirm-alert";
+import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
 function Review({userIsAuthenticated, isAdmin}) {
     const { id, reviewId } = useParams();
@@ -61,14 +62,14 @@ function Review({userIsAuthenticated, isAdmin}) {
     return (
         <div className="film-reviews-page">
             {!review ? (
-                <p>Loading...</p>
+                <LoadingMessage message={"Loading review."} />
             ) : (
                 <>
                     {review.userCanEdit && (
                         <div className="owner-controls bg-backgroundOffset mt-4 rounded-md">
                             <div className="bg-primary rounded-t-md">
                                 <p className="text-white font-bold text-lg px-2 py-1">
-                                    List owner controls
+                                    Review owner controls
                                 </p>
                             </div>
                             <div className="px-2 py-2">
