@@ -14,7 +14,7 @@ const PasswordInput = ({
         <div className="field">
             {showLabel && (
                 <label 
-                    className="block mb-1 font-bold text-xs text-gray-700"
+                    className="block mb-1 font-bold text-xs text-primary"
                     htmlFor={name}
                 >
                     {label}

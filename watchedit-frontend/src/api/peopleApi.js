@@ -15,9 +15,9 @@ export function getPeoplePaginated(pageNumber, pageSize) {
         });
 }
 
-export function searchPeoplePaginated(searchTerm, pageNumber, pageSize) {
+export function searchPeoplePaginated(searchTerms, pageNumber, pageSize) {
     return client
-        .get(`/api/people?SearchTerm=${searchTerm}&PageNumber=${pageNumber}&PageSize=${pageSize}`)
+        .get(`/api/people?firstName=${searchTerms.firstName}&lastName=${searchTerms.lastName}&stageName=${searchTerms.stageName}&PageNumber=${pageNumber}&PageSize=${pageSize}`)
         .then(response => {
             return response.data
         })

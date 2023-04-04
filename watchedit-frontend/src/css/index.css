@@ -36,6 +36,9 @@
   aspect-ratio: 1/1;
 }
 
+.search-wrapper{
+  background-color: #474345;
+}
 .multiselect-container .optionContainer{
   background-color: #474345;
 }

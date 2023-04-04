@@ -88,7 +88,8 @@ const PersonManageForm = ({
                 />
             </div>
 
-            <div>
+            <div className="mb-2">
+                <label className="font-bold text-xs text-primary">Headshot image</label><br></br>
                 {person.imageUrl != null ? (
                     <button
                         type="button"

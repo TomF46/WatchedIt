@@ -18,7 +18,7 @@ function AddCreditForFilm() {
     const [filmsPerPage, setFilmsPerPage] = useState(10);
     const [isLastPage, setIsLastPage] = useState(false);
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchTerms, setSearchTerms] = useState({firstName: "", lastName: "", stageName: ""});
     const [selectedPerson, setSelectedPerson] = useState(null);
     const [saving, setSaving] = useState(false);
 
@@ -53,10 +53,10 @@ function AddCreditForFilm() {
         );
 
         debounced();
-    }, [searchTerm])
+    }, [searchTerms])
 
     function search(){
-        searchPeoplePaginated(searchTerm, page, filmsPerPage).then(res => {
+        searchPeoplePaginated(searchTerms, page, filmsPerPage).then(res => {
             setPeople(res);
             let lastPage = res.length != filmsPerPage;
             setIsLastPage(lastPage);
@@ -80,8 +80,11 @@ function AddCreditForFilm() {
     }
 
     function handleSearchTermChange(event){
-        const { value } = event.target;
-        setSearchTerm(value);
+        const { name, value } = event.target;
+        setSearchTerms(prevSearchTerms => ({
+            ...prevSearchTerms,
+            [name]: value
+        }));
     }
 
     function handlePersonSelected(person){
@@ -121,7 +124,7 @@ function AddCreditForFilm() {
                         <div className="mt-4">
                             {!selectedPerson ? (
                                 <>
-                                    <SelectPersonCreditListWSearch people={people} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange} onPersonSelected={handlePersonSelected} />
+                                    <SelectPersonCreditListWSearch people={people} searchTerms={searchTerms} onSearchTermChange={handleSearchTermChange} onPersonSelected={handlePersonSelected} />
                                     <PaginationControls currentPage={page} onNext={handleNextPage} onPrevious={handlePreviousPage} isLastPage={isLastPage} />  
                                 </>  
                             ) : (

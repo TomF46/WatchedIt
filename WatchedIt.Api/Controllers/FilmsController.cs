@@ -27,7 +27,7 @@ namespace WatchedIt.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GetFilmOverviewDto>>> Get([FromQuery] SearchWithPaginationParameters parameters){
+        public async Task<ActionResult<List<GetFilmOverviewDto>>> Get([FromQuery] FilmSearchWithPaginationParameters parameters){
             return Ok(await _filmService.GetAll(parameters));
         }
 

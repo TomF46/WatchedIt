@@ -16,17 +16,23 @@ namespace WatchedIt.Api.Services.PersonService
             _context = context;       
         }
 
-        public async Task<List<GetPersonOverviewDto>> GetAll(SearchWithPaginationParameters parameters)
+        public async Task<List<GetPersonOverviewDto>> GetAll(PersonSearchWithPaginationParameters parameters)
         {
             var query = _context.People.AsQueryable();
 
-            if(!string.IsNullOrWhiteSpace(parameters.SearchTerm)){
-                var searchTerm = parameters.SearchTerm.Trim().ToLower();
-                query = query.Where(
-                    f => f.FirstName.ToLower().Contains(searchTerm) || 
-                    f.LastName.ToLower().Contains(searchTerm) ||
-                    f.StageName.ToLower().Contains(searchTerm)
-                );
+            if(!string.IsNullOrWhiteSpace(parameters.FirstName)){
+                var searchFirstName = parameters.FirstName.Trim().ToLower();
+                query = query.Where(f => f.FirstName.ToLower().Contains(searchFirstName));
+            }
+
+            if(!string.IsNullOrWhiteSpace(parameters.LastName)){
+                var searchLastName = parameters.LastName.Trim().ToLower();
+                query = query.Where(f => f.LastName.ToLower().Contains(searchLastName));
+            }
+
+            if(!string.IsNullOrWhiteSpace(parameters.StageName)){
+                var searchStageName = parameters.StageName.Trim().ToLower();
+                query = query.Where(f => f.StageName.ToLower().Contains(searchStageName));
             }
 
             var people = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();

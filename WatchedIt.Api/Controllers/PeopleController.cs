@@ -21,7 +21,7 @@ namespace WatchedIt.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GetPersonOverviewDto>>> Get([FromQuery] SearchWithPaginationParameters parameters){
+        public async Task<ActionResult<List<GetPersonOverviewDto>>> Get([FromQuery] PersonSearchWithPaginationParameters parameters){
             return Ok(await _personService.GetAll(parameters));
         }
 

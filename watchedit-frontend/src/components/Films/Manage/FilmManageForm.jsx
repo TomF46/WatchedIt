@@ -83,7 +83,16 @@ const FilmManageForm = ({
                 </div>        
             )}
 
-            <div>
+            <div className="mb-2">
+                <label className="font-bold text-xs text-primary">Release date</label>
+                <DatePicker dateFormat="dd-MM-yyyy"  selected={film.releaseDate} onChange={(date) => onDateChange(date)} />
+                {errors.releaseDate && (
+                    <div className="text-red-500 text-xs p-1 mt-2">{errors.releaseDate}</div>
+                )}
+            </div>
+
+            <div className="mb-2">
+                <label className="font-bold text-xs text-primary">Poster image</label><br></br>
                 {film.posterUrl != null ? (
                     <button
                         type="button"
@@ -119,14 +128,6 @@ const FilmManageForm = ({
                             <img src={film.posterUrl} alt="image-preview" className="image-preview poster" />
                         </div>
                     </div>
-                )}
-            </div>
-
-            <div className="mb-2">
-                <label>Release date</label>
-                <DatePicker dateFormat="dd-MM-yyyy"  selected={film.releaseDate} onChange={(date) => onDateChange(date)} />
-                {errors.releaseDate && (
-                    <div className="text-red-500 text-xs p-1 mt-2">{errors.releaseDate}</div>
                 )}
             </div>
 

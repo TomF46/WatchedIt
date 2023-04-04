@@ -9,15 +9,22 @@ const SelectFilmListWSearch = ({ currentFilms, films, searchTerm, onSearchTermCh
 
     return (
         <>
-            <div className="search-box">
-                <div className="mb-2">
-                    <TextInput
-                        name="searchTerm"
-                        label="Search"
-                        value={searchTerm}
-                        onChange={onSearchTermChange}
-                        required={false}
-                    />
+            <div className="search-controls bg-backgroundOffset mt-4 rounded-md mb-4">
+                <div className="bg-primary rounded-t-md">
+                    <p className="text-white font-bold text-lg px-2 py-1">
+                        Search
+                    </p>
+                </div>
+                <div className="px-2 py-2">
+                    <div className="search-box">
+                        <TextInput
+                            name="searchTerm"
+                            label="Search"
+                            value={searchTerm}
+                            onChange={onSearchTermChange}
+                            required={false}
+                        />
+                    </div>
                 </div>
             </div>
             <div className="grid grid-cols-12">

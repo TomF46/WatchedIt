@@ -14,7 +14,7 @@ namespace WatchedIt.Api.Services.FilmService
         {
             _context = context;
         }
-        public async Task<List<GetFilmOverviewDto>> GetAll(SearchWithPaginationParameters parameters)
+        public async Task<List<GetFilmOverviewDto>> GetAll(FilmSearchWithPaginationParameters parameters)
         {
             var query =  _context.Films.AsQueryable();
 

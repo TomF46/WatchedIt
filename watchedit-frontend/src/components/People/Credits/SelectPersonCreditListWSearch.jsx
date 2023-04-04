@@ -2,18 +2,45 @@ import React from "react";
 import PropTypes from "prop-types";
 import TextInput from "../../Inputs/TextInput";
 
-const SelectPersonCreditListWSearch = ({ people, searchTerm, onSearchTermChange , onPersonSelected }) => {
+const SelectPersonCreditListWSearch = ({ people, searchTerms, onSearchTermChange , onPersonSelected }) => {
     return (
         <>
-            <div className="search-box">
-                <div className="mb-2">
-                    <TextInput
-                        name="searchTerm"
-                        label="Search"
-                        value={searchTerm}
-                        onChange={onSearchTermChange}
-                        required={false}
-                    />
+            <div className="search-controls bg-backgroundOffset mt-4 rounded-md mb-4">
+                <div className="bg-primary rounded-t-md">
+                    <p className="text-white font-bold text-lg px-2 py-1">
+                        Search
+                    </p>
+                </div>
+                <div className="px-2 py-2">
+                    <div className="search-box flex">
+                        <div>
+                            <TextInput
+                                name="firstName"
+                                label="First name"
+                                value={searchTerms.firstName}
+                                onChange={onSearchTermChange}
+                                required={false}
+                            />
+                        </div>
+                        <div className="ml-2">
+                            <TextInput
+                                name="lastName"
+                                label="Last name"
+                                value={searchTerms.lastName}
+                                onChange={onSearchTermChange}
+                                required={false}
+                            />
+                        </div>
+                        <div className="ml-2">
+                            <TextInput
+                                name="stageName"
+                                label="Stage name"
+                                value={searchTerms.stageName}
+                                onChange={onSearchTermChange}
+                                required={false}
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className="grid grid-cols-12">
@@ -33,7 +60,7 @@ const SelectPersonCreditListWSearch = ({ people, searchTerm, onSearchTermChange 
 
 SelectPersonCreditListWSearch.propTypes = {
     people: PropTypes.array.isRequired,
-    searchTerm: PropTypes.string,
+    searchTerms: PropTypes.object.isRequired,
     onSearchTermChange: PropTypes.func.isRequired,
     onPersonSelected: PropTypes.func.isRequired
 };

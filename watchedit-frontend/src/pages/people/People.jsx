@@ -11,7 +11,7 @@ import TextInput from "../../components/Inputs/TextInput";
 
 function People({ isAdmin }) {
     const [people, setPeople] = useState(null);
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchTerms, setSearchTerms] = useState({firstName: "", lastName: "", stageName: ""});
     const [page, setPage] = useState(1);
     const [peoplePerPage, setPeoplePerPage] = useState(20);
     const [isLastPage, setIsLastPage] = useState(false);
@@ -33,10 +33,10 @@ function People({ isAdmin }) {
         );
 
         debounced();
-    }, [searchTerm])
+    }, [searchTerms])
 
     function getPeople() {
-        searchPeoplePaginated(searchTerm, page, peoplePerPage)
+        searchPeoplePaginated(searchTerms, page, peoplePerPage)
             .then((res) => {
                 setPeople(res);
                 let lastPage = res.length != peoplePerPage;
@@ -62,8 +62,11 @@ function People({ isAdmin }) {
     }
 
     function handleSearchTermChange(event){
-        const { value } = event.target;
-        setSearchTerm(value);
+        const { name, value } = event.target;
+        setSearchTerms(prevSearchTerms => ({
+            ...prevSearchTerms,
+            [name]: value
+        }));
     }
 
     return (
@@ -96,14 +99,34 @@ function People({ isAdmin }) {
                             </p>
                         </div>
                         <div className="px-2 py-2">
-                            <div className="search-box">
-                                <TextInput
-                                    name="searchTerm"
-                                    label="Search"
-                                    value={searchTerm}
-                                    onChange={handleSearchTermChange}
-                                    required={false}
-                                />
+                            <div className="search-box flex">
+                                <div>
+                                    <TextInput
+                                        name="firstName"
+                                        label="First name"
+                                        value={searchTerms.firstName}
+                                        onChange={handleSearchTermChange}
+                                        required={false}
+                                    />
+                                </div>
+                                <div className="ml-2">
+                                    <TextInput
+                                        name="lastName"
+                                        label="Last name"
+                                        value={searchTerms.lastName}
+                                        onChange={handleSearchTermChange}
+                                        required={false}
+                                    />
+                                </div>
+                                <div className="ml-2">
+                                    <TextInput
+                                        name="stageName"
+                                        label="Stage name"
+                                        value={searchTerms.stageName}
+                                        onChange={handleSearchTermChange}
+                                        required={false}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>

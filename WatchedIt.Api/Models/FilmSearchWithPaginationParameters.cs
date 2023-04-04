@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WatchedIt.Api.Models
 {
-    public class SearchWithPaginationParameters : PaginationParameters
+    public class FilmSearchWithPaginationParameters : PaginationParameters
     {
         public string? SearchTerm {get; set;} = "";
         public int? Category {get; set;}
