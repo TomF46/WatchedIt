@@ -9,5 +9,7 @@ namespace WatchedIt.Api.Models.UserModels
     {
         public int Id { get; set; }
         public string? Username { get; set; }
+        public string? ImageUrl {get;set;}
+
     }
 }

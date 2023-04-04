@@ -14,14 +14,17 @@ namespace WatchedIt.Api.Services.Mapping
                 Id = user.Id,
                 Email = user.Email,
                 Username = user.Username,
-                WatchedFilmCount = user.Watched.Count()
+                WatchedFilmCount = user.Watched.Count(),
+                ImageUrl = user.ImageUrl,
+                Biography = user.Biography
             };
         }
 
         public static GetSimpleUserDto MapSimpleUser(User user){
             return new GetSimpleUserDto {
                 Id = user.Id,
-                Username = user.Username
+                Username = user.Username,
+                ImageUrl = user.ImageUrl
             };
         }
     }

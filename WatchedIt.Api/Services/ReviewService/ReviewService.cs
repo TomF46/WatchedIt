@@ -16,13 +16,6 @@ namespace WatchedIt.Api.Services.ReviewService
         {
             _context = context;
         }
-        // public async Task<List<GetReviewDto>> GetAllByUser(int id)
-        // {
-        //     var user = await _context.Users.Include(f => f.Reviews).ThenInclude(r => r.Film).Include(r=> r.Reviews).ThenInclude(r => r.User).FirstOrDefaultAsync(u => u.Id == id);
-        //     if(user is null) throw new NotFoundException($"User with Id '{id}' not found.");
-
-        //     return user.Reviews.Select(r => ReviewMapper.Map(r)).ToList();
-        // }
 
         public async Task<List<GetReviewOverviewDto>> GetAllForFilm(int id, PaginationParameters parameters)
         {
@@ -31,6 +24,15 @@ namespace WatchedIt.Api.Services.ReviewService
 
             var reviews = await _context.Reviews.Include(r => r.Film).Include(r=> r.User).Where(x => x.Film.Id == film.Id).Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
 
+            return reviews.Select(r => ReviewMapper.MapOverview(r)).ToList();
+        }
+
+        public async Task<List<GetReviewOverviewDto>> GetAllByUser(int id, PaginationParameters parameters)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if(user is null) throw new NotFoundException($"user with Id '{id}' not found.");
+
+            var reviews = await _context.Reviews.Include(r => r.Film).Include(r=> r.User).Where(x => x.User.Id == user.Id).Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
             return reviews.Select(r => ReviewMapper.MapOverview(r)).ToList();
         }
 

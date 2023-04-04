@@ -24,5 +24,9 @@ namespace WatchedIt.Api.Models.Authentication
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
         public Role Role {get; set;} =  Role.User;
         public ICollection<FilmList> Lists {get;set;} = new List<FilmList>();
+        public string? ImageUrl {get;set;}
+        [StringLength(400, ErrorMessage = "Biography can't be longer than 400 characters.")]
+        public string? Biography {get;set;}
+
     }
 }

@@ -80,3 +80,14 @@ export function removeFilmFromFilmList(id, film){
             throw error.response;
         })
 }
+
+export function getUsersFilmListsPaginated(id, pageNumber, pageSize) {
+    return client
+        .get(`/api/users/${id}/filmLists?PageNumber=${pageNumber}&PageSize=${pageSize}`)
+        .then(response => {
+            return response.data
+        })
+        .catch(error => {
+            throw error.response;
+        });
+}

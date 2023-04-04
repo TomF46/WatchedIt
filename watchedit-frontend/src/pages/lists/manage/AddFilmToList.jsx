@@ -14,7 +14,7 @@ function AddFilmToList() {
     const [list, setList] = useState(null);
     const [films, setFilms] = useState(null);
     const [page, setPage] = useState(1);
-    const [filmsPerPage, setFilmsPerPage] = useState(10);
+    const filmsPerPage = 20;
     const [isLastPage, setIsLastPage] = useState(false);
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");

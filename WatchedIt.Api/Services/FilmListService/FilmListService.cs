@@ -96,5 +96,11 @@ namespace WatchedIt.Api.Services.FilmListService
             _context.SaveChanges();
             return FilmListMapper.map(list, userId);
         }
+
+        public async Task<List<GetFilmListOverviewDto>> GetAllByUser(int id, PaginationParameters paginationParameters)
+        {
+            var lists = await _context.FilmLists.Include(f => f.CreatedBy).Include(f => f.Films).Where(f => f.CreatedBy.Id == id).Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).ToListAsync();
+            return lists.Select(l => FilmListMapper.mapOverview(l)).ToList();
+        }
     }
 }

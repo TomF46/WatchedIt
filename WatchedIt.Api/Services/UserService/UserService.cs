@@ -19,7 +19,7 @@ namespace WatchedIt.Api.Services.UserService
 
         public async Task<GetUserDto> GetById(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users.Include(u => u.Watched).FirstOrDefaultAsync(u => u.Id == id);
             if(user is null) throw new NotFoundException($"user with Id '{id}' not found.");
             return UserMapper.Map(user);
         }
@@ -39,6 +39,16 @@ namespace WatchedIt.Api.Services.UserService
             var user = await _context.Users.Include(f => f.Watched).FirstOrDefaultAsync(p => p.Id == id);
             if(user is null) throw new NotFoundException($"User with Id '{id}' not found.");
             return  user.Watched.Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).Select(f => FilmMapper.MapSimple(f)).ToList();
+        }
+
+        public async Task<GetUserDto> Update(int id, UpdateUserDto updatedUser)
+        {
+            var user = await _context.Users.Include(f => f.Watched).FirstOrDefaultAsync(p => p.Id == id);
+            if(user is null) throw new NotFoundException($"User with Id '{id}' not found.");
+            user.ImageUrl = updatedUser.ImageUrl;
+            user.Biography = updatedUser.Biography;
+            await _context.SaveChangesAsync();
+            return UserMapper.Map(user);
         }
     }
 }

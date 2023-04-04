@@ -32,3 +32,26 @@ export function getCurrentUserIsAdmin(){
             throw error.response;
         });
 }
+
+export function updateCurrentUser(user){
+    return client
+        .put(`/api/users/me`, user)
+        .then(response => {
+            return response.data
+        })
+        .catch(error => {
+            throw error.response;
+        });
+}
+
+
+export function getUsersReviewsPaginated(id, pageNumber, pageSize) {
+    return client
+        .get(`/api/users/${id}/reviews?PageNumber=${pageNumber}&PageSize=${pageSize}`)
+        .then(response => {
+            return response.data
+        })
+        .catch(error => {
+            throw error.response;
+        });
+}

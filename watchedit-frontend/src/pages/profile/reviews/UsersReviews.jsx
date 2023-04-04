@@ -3,15 +3,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { getFilmById } from "../../../api/filmsApi";
-import { getReviewsByFilmId } from "../../../api/filmReviewApi";
 import ReviewOverviewList from "../../../components/Films/Reviews/ReviewOverviewList";
 import PaginationControls from "../../../components/PaginationControls";
+import { getUserById, getUsersReviewsPaginated } from "../../../api/usersApi";
 
-function Reviews({userIsAuthenticated, isAdmin}) {
-    const { id } = useParams();
+function UserReviews({id}) {
     const navigate = useNavigate();
-    const [film, setFilm] = useState(null);
+    const [user, setUser] = useState(null);
     const [reviews, setReviews] = useState(null);
     const [page, setPage] = useState(1);
     const [reviewsPerPage, setReviewsPerPage] = useState(20);
@@ -19,30 +17,30 @@ function Reviews({userIsAuthenticated, isAdmin}) {
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
     useEffect(() => {
-        if (!film) {
-            getFilm();
+        if (!user) {
+            getUser();
             getReviews();
         }
-    }, [id, film]);
+    }, [id, user]);
 
     useEffect(() => {
         if (lastPageLoaded != null) getReviews();
     }, [page]);
 
-    function getFilm() {
-        getFilmById(id)
+    function getUser() {
+        getUserById(id)
             .then((res) => {
-                setFilm(res);
+                setUser(res);
             })
             .catch((err) => {
-                toast.error(`Error getting film ${err.data.Exception}`, {
+                toast.error(`Error getting user ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });
     }
 
     function getReviews() {
-        getReviewsByFilmId(id, page, reviewsPerPage)
+        getUsersReviewsPaginated(id, page, reviewsPerPage)
             .then((res) => {
                 setReviews(res);
                 let lastPage = res.length != reviewsPerPage;
@@ -50,7 +48,7 @@ function Reviews({userIsAuthenticated, isAdmin}) {
                 setLastPageLoaded(page);
             })
             .catch((err) => {
-                toast.error(`Error getting film reviews ${err.data.Exception}`, {
+                toast.error(`Error getting users reviews ${err.data.Exception}`, {
                     autoClose: false,
                 });
             });
@@ -64,33 +62,16 @@ function Reviews({userIsAuthenticated, isAdmin}) {
     function handlePreviousPage() {
         var newPage = page - 1;
         setPage(newPage);
-        console.log(page);
     }
 
     return (
-        <div className="film-reviews-page">
-            {!film ? (
+        <div className="users-reviews-page">
+            {!user ? (
                 <p>Loading...</p>
             ) : (
                 <>
-                    <div className="review-controls bg-backgroundOffset mt-4 rounded-md">
-                        <div className="bg-primary rounded-t-md">
-                            <p className="text-white font-bold text-lg px-2 py-1">
-                                Review controls
-                            </p>
-                        </div>
-                        <div className="px-2 py-2">
-                            <Link
-                                to={`/films/${film.id}/reviews/add`}
-                                className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block"
-                            >
-                                Add review
-                            </Link>
-                        </div>
-                    </div>
                     <div className="mt-4">
-                        <p>Show {film.name} reviews...</p>
-                        <p>Average rating: {film.averageRating}</p>
+                        <h1 className="text-center text-primary text-2xl mb-4">{user.username} reviews</h1>
                         {reviews ? (
                             <>
                                 <ReviewOverviewList reviews={reviews} />
@@ -111,15 +92,16 @@ function Reviews({userIsAuthenticated, isAdmin}) {
     );
 }
 
-Reviews.propTypes = {
-    isAdmin: PropTypes.bool.isRequired
+UserReviews.propTypes = {
+    id: PropTypes.any.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
+    const { id } = useParams();
     return {
-        isAdmin: state.isAdmin
+        id:  id ? id : state.tokens.id,
     };
 };
 
-export default connect(mapStateToProps)(Reviews);
+export default connect(mapStateToProps)(UserReviews);
 

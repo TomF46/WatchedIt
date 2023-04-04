@@ -17,7 +17,7 @@ function Films({ isAdmin }) {
     const [categories, setCategories] = useState(null);
     const [category, setCategory] = useState("");
     const [page, setPage] = useState(1);
-    const [filmsPerPage, setFilmsPerPage] = useState(20);
+    const filmsPerPage = 20;
     const [isLastPage, setIsLastPage] = useState(false);
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
 

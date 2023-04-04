@@ -35,6 +35,8 @@ import Review from "./pages/films/reviews/Review";
 import Categories from "./pages/categories/Categories";
 import Category from "./pages/categories/Category";
 import ManageCategory from "./pages/categories/manage/ManageCategory";
+import ManageProfile from "./pages/profile/manage/ManageProfile";
+import UsersReviews from "./pages/profile/reviews/usersReviews";
   
   const App = () => {
     return (
@@ -69,6 +71,9 @@ import ManageCategory from "./pages/categories/manage/ManageCategory";
             <Route path="/lists" element={<Lists />}/>
             <Route path="/profile/:id/watched" element={<AuthenticatedRoute><WatchedList /></AuthenticatedRoute>}/>
             <Route path="/profile/watched" element={<AuthenticatedRoute><WatchedList /></AuthenticatedRoute>}/>
+            <Route path="/profile/:id/reviews" element={<AuthenticatedRoute><UsersReviews /></AuthenticatedRoute>}/>
+            <Route path="/profile/reviews" element={<AuthenticatedRoute><UsersReviews /></AuthenticatedRoute>}/>
+            <Route path="/profile/edit" element={<AuthenticatedRoute><ManageProfile /></AuthenticatedRoute>}/>
             <Route path="/profile/:id" element={<AuthenticatedRoute><Profile /></AuthenticatedRoute>}/>
             <Route path="/profile" element={<AuthenticatedRoute><Profile /></AuthenticatedRoute>}/>
             <Route path="/credits/:id/edit" element={<AdminRoute><EditCredit /></AdminRoute>}/>

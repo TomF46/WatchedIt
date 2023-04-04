@@ -15,5 +15,7 @@ namespace WatchedIt.Api.Services.FilmListService
         void Delete(int id, int userId);
         Task<GetFilmListDto> AddFilmToListById(int id, int userId, AddFilmToFilmListDto newFilm);
         Task<GetFilmListDto> RemoveFilmFromListById(int id, int userId, RemoveFilmForFilmListDto filmToRemove);
+        Task<List<GetFilmListOverviewDto>> GetAllByUser(int id, PaginationParameters paginationParameters);
+
     }
 }

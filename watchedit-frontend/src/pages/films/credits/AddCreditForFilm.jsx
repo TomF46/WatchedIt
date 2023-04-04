@@ -15,7 +15,7 @@ function AddCreditForFilm() {
     const [film, setFilm] = useState(null);
     const [people, setPeople] = useState(null);
     const [page, setPage] = useState(1);
-    const [filmsPerPage, setFilmsPerPage] = useState(10);
+    const filmsPerPage = 20;
     const [isLastPage, setIsLastPage] = useState(false);
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
     const [searchTerms, setSearchTerms] = useState({firstName: "", lastName: "", stageName: ""});

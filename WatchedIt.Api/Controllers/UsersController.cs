@@ -33,6 +33,13 @@ namespace WatchedIt.Api.Controllers
             return Ok(user);
         }
 
+        [HttpPut("me")]
+        public async Task<ActionResult<GetUserDto>> UpdateMe(UpdateUserDto updatedUser){
+            var userId = AuthMapper.MapLoggedInUserId(HttpContext);
+            var user = await _userService.Update(userId ,updatedUser);
+            return Ok(user);
+        }
+
         [HttpGet("{id}/watchedFilms")]
         public async Task<ActionResult<GetSimpleFilmDto>> GetWatchedFilms(int id, [FromQuery] PaginationParameters paginationParameters)
         {

@@ -74,7 +74,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.Films.AddAsync(film2);
             await _context.SaveChangesAsync();
 
-            var pagination = new SearchWithPaginationParameters{
+            var pagination = new FilmSearchWithPaginationParameters{
                 PageNumber = 1,
                 PageSize = 20
             };

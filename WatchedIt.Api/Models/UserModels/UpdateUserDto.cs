@@ -5,12 +5,8 @@ using System.Threading.Tasks;
 
 namespace WatchedIt.Api.Models.UserModels
 {
-    public class GetUserDto
+    public class UpdateUserDto
     {
-        public int Id { get; set; }
-        public string? Username { get; set; }
-        public string? Email {get;set;}
-        public int WatchedFilmCount {get;set;}
         public string? ImageUrl {get;set;}
         public string? Biography {get;set;}
     }
