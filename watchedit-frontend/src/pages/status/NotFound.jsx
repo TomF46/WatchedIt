@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function NotFound(){
     return (
         <div className="not-found-page">
-            <p>Page not found!</p>
+            <p className="text-center text-primary text-4xl mt-4">Page not found!</p>
         </div>
     );
 };
