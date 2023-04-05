@@ -143,7 +143,7 @@ function ManageFilm() {
 
     return (
         <div className="manage-film-page">
-            <h1 className="text-2xl text-center text-primary mt-4">{editing ? `Editing` : "Adding"} film</h1>
+            <h1 className="text-2xl text-center text-primary mt-4">{editing ? `Editing ${film.name}` : "Adding film"}</h1>
             {film ? (
                 <FilmManageForm film={film} categories={categories} onChange={handleChange} onDateChange={handleDateChange} onImageChange={handleImageChange} onCategoryChange={handleCategoryChange} onSave={handleSave} errors={errors} saving={saving}  uploadingImage={imageUploading}/>
             ) : (

@@ -104,7 +104,7 @@ function AddFilmToList() {
                 <LoadingMessage message={"Loading list."} />
             ) : (
                 <div>
-                    <p className="text-primary text-xl">Add films to {list.name}</p>
+                    <h1 className="text-center text-primary text-2xl mt-4">Add films to {list.name}</h1>
                     {!films ? (
                         <LoadingMessage message={"Loading films."} />
                         ) : (

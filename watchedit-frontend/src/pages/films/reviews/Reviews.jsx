@@ -90,8 +90,8 @@ function Reviews({userIsAuthenticated, isAdmin}) {
                         </div>
                     </div>
                     <div className="mt-4">
-                        <p>Show {film.name} reviews...</p>
-                        <p>Average rating: {film.averageRating}</p>
+                        <h1 className="text-center text-primary text-2xl mb-2">{film.name} reviews</h1>
+                        <p className="text-center text-primary text-xl mb-4">Average rating: {film.averageRating}</p>
                         {reviews ? (
                             <>
                                 <ReviewOverviewList reviews={reviews} />

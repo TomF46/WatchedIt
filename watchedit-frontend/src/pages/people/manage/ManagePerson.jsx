@@ -115,7 +115,7 @@ function ManagePerson() {
 
     return (
         <div className="manage-person-page">
-            <p>{editing ? `Editing ${id}` : "Adding"} person page</p>
+            <h1 className="text-center text-primary text-2xl mt-4">{editing ? `Editing ${person.firstName} ${person.lastName}` : "Adding person"}</h1>
             {person ? (
                 <PersonManageForm person={person} onChange={handleChange} onImageChange={handleImageChange} onSave={handleSave} errors={errors} saving={saving} uploadingImage={imageUploading} />
             ) : (

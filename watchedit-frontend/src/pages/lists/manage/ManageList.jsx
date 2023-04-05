@@ -79,7 +79,7 @@ function ManageList() {
 
     return (
         <div className="manage-list-page">
-            <p>{editing ? `Editing ${id}` : "Adding"} list page</p>
+            <h1 className="text-center text-primary text-2xl mt-4">{editing ? `Editing ${list.name}` : "Adding list"}</h1>
             {list ? (
                 <ListManageForm list={list} onChange={handleChange} onSave={handleSave} errors={errors} saving={saving} />
             ) : (

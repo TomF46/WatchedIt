@@ -85,9 +85,21 @@ function Review({userIsAuthenticated, isAdmin}) {
                             </div>
                         </div>
                     )}
-                    <p>Showing {review.film.name} review</p>
-                    <p>{review.rating}</p>
-                    <p>{review.text}</p>
+                    <div className="mt-4 grid grid-cols-12">
+                        <div className="col-span-12">
+                            <h1 className="text-center text-primary text-2xl mb-4">{review.film.name} review</h1>
+                        </div>
+                        <div className="col-span-12 md:col-span-2">
+                            <p className="text-center text-primary text-xl">{review.film.name}</p>
+                            <img src={review.film.posterUrl} className="poster mt-2"/>
+                        </div>
+                        <div className="col-span-12 md:col-span-10 pl-4">
+                            <p className="text-primary text-lg">Rating {review.rating}/10</p>
+                            <div className="bg-backgroundOffset p-4 mt-2">
+                                <p>{review.text}</p>
+                            </div>
+                        </div>
+                    </div>
                 </>
             )}
         </div>

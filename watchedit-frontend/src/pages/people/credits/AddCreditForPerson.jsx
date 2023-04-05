@@ -115,7 +115,7 @@ function AddCreditForPerson() {
                 <LoadingMessage message={"Loading person"} />
             ) : (
                 <div>
-                    <p className="text-primary text-xl">Add Credit for {person.fullName}</p>
+                    <h1 className="text-center text-primary text-2xl mt-4">Add Credit for {person.fullName}</h1>
                     {!films ? (
                         <LoadingMessage message={"Loading films."} />
                         ) : (

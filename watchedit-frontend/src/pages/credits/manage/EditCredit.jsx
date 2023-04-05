@@ -80,7 +80,7 @@ function EditCredit({userIsAuthenticated}) {
                 <LoadingMessage message={"Loading credit."} />
             ) : (
                 <>
-                    <p className="text-primary text-xl">Edit role {credit.role} - {credit.person.fullName} - {credit.film.name} - {credit.film.name}</p>
+                    <h1 className="text-center text-primary text-2xl mt-4">Edit role {credit.role} - {credit.person.fullName} - {credit.film.name} - {credit.film.name}</h1>
                     <ManageCreditForm credit={creditUpdate} onChange={handleChange} onSubmit={handleSubmit} errors={errors} saving={saving} />
                 </>
             )}

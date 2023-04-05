@@ -19,7 +19,7 @@ const FilmManageForm = ({
     errors = {}
 }) => {
     return (
-        <form className="" onSubmit={onSave}>
+        <form className="bg-backgroundOffset p-4 mt-4" onSubmit={onSave}>
             {errors.onSave && (
                 <div className="text-red-500 text-xs p-1" role="alert">
                     {errors.onSave}

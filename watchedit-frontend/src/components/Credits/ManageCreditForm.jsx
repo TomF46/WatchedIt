@@ -7,7 +7,7 @@ const ManageCreditForm = ({ credit, onChange, errors, onSubmit, saving }) => {
     const roleTypes = [{value :"Cast", text: "Cast"}, {value :"Crew", text: "Crew"}];
 
     return (
-        <form className="" onSubmit={onSubmit}>
+        <form className="bg-backgroundOffset p-4 mt-4" onSubmit={onSubmit}>
             {errors.onSave && (
                 <div className="text-red-500 text-xs p-1" role="alert">
                     {errors.onSave}
