@@ -124,7 +124,11 @@ function List() {
                         <div className="bg-backgroundOffset p-4 mt-2">
                             <p>{list.description}</p>
                         </div>
-                        <FilmGrid films={list.films} editable={list.userCanEdit} onRemove={handleRemove}/>
+                        {list.films.length > 0 ? (
+                            <FilmGrid films={list.films} editable={list.userCanEdit} onRemove={handleRemove}/>
+                        ) : (
+                            <p className="text-center text-primary text-2xl mt-4">{list.userCanEdit ? "You have not yet added a film to this list." : "The list owner has not added a film to this list."}</p>
+                        )}
                     </div>
                 </div>
             )}

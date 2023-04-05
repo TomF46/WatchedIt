@@ -75,13 +75,19 @@ function UserReviews({id}) {
                         <h1 className="text-center text-primary text-2xl mb-4">{user.username} reviews</h1>
                         {reviews ? (
                             <>
-                                <ReviewOverviewList reviews={reviews} />
-                                <PaginationControls
-                                    currentPage={page}
-                                    onNext={handleNextPage}
-                                    onPrevious={handlePreviousPage}
-                                    isLastPage={isLastPage}
-                                />
+                                {reviews.length > 0 ? (
+                                    <>
+                                        <ReviewOverviewList reviews={reviews} />
+                                        <PaginationControls
+                                            currentPage={page}
+                                            onNext={handleNextPage}
+                                            onPrevious={handlePreviousPage}
+                                            isLastPage={isLastPage}
+                                        />
+                                    </>
+                                ) : (
+                                    <p className="text-center text-primary text-2xl">User has not added any reviews</p>
+                                )}
                             </>
                         ):(
                             <LoadingMessage message={"Loading reviews."} />

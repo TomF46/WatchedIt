@@ -62,7 +62,9 @@ function Profile({id}) {
                                     <p>Watched films: {user.watchedFilmCount}</p>
                                 </div>
                                 <div className="col-span-12 md:col-span-6">
-                                    <p>Bio: {user.biography}</p>
+                                    {user.biography && (
+                                        <p>Bio: {user.biography}</p>
+                                    )}
                                 </div>
                             </div>
                             <div className="col-span-12">

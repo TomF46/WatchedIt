@@ -43,7 +43,8 @@ const SelectPersonCreditListWSearch = ({ people, searchTerms, onSearchTermChange
                     </div>
                 </div>
             </div>
-            <div className="grid grid-cols-12">
+            {people.length > 0 ? (
+                <div className="grid grid-cols-12">
                 {people.map((person) => {
                     return (
                         <div key={person.id} className="col-span-12 my-2">
@@ -54,6 +55,9 @@ const SelectPersonCreditListWSearch = ({ people, searchTerms, onSearchTermChange
                     )
                 })}
             </div>
+            ) : (
+                <p className="text-center text-primary text-2xl">No people match your search</p>
+            )}
         </>
     );
 };

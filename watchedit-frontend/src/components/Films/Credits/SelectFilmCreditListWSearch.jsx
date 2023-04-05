@@ -23,7 +23,8 @@ const SelectFilmCreditListWSearch = ({ films, searchTerm, onSearchTermChange , o
                     </div>
                 </div>
             </div>
-            <div className="grid grid-cols-12">
+            {films.length > 0 ? (
+                <div className="grid grid-cols-12">
                 {films.map((film) => {
                     return (
                         <div key={film.id} className="col-span-12 my-2">
@@ -34,6 +35,9 @@ const SelectFilmCreditListWSearch = ({ films, searchTerm, onSearchTermChange , o
                     )
                 })}
             </div>
+            ) : (
+                <p className="text-center text-primary text-2xl">No films match your search</p>
+            )}
         </>
     );
 };

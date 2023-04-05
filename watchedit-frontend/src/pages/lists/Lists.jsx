@@ -69,8 +69,15 @@ function Lists() {
               </div>
           </div>
           <div className="mt-4">
-            <FilmListList lists={lists} />
-            <PaginationControls currentPage={page} onNext={handleNextPage} onPrevious={handlePreviousPage} isLastPage={isLastPage} />
+            <h1 className="text-center text-primary text-2xl mb-4">Lists</h1>
+            {lists.length > 0 ? (
+              <>
+                <FilmListList lists={lists} />
+                <PaginationControls currentPage={page} onNext={handleNextPage} onPrevious={handlePreviousPage} isLastPage={isLastPage} />
+              </>
+            ) : (
+                <p className="text-center text-primary text-2xl">No lists available</p>
+            )}
           </div>
         </>
       )}

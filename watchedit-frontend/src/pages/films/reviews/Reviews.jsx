@@ -91,16 +91,22 @@ function Reviews({userIsAuthenticated, isAdmin}) {
                     </div>
                     <div className="mt-4">
                         <h1 className="text-center text-primary text-2xl mb-2">{film.name} reviews</h1>
-                        <p className="text-center text-primary text-xl mb-4">Average rating: {film.averageRating}</p>
+                        {film.averageRating && (<p className="text-center text-primary text-xl mb-4">Average rating: {film.averageRating}</p>)}
                         {reviews ? (
                             <>
-                                <ReviewOverviewList reviews={reviews} />
-                                <PaginationControls
-                                    currentPage={page}
-                                    onNext={handleNextPage}
-                                    onPrevious={handlePreviousPage}
-                                    isLastPage={isLastPage}
-                                />
+                                {reviews.length > 0 ? (
+                                    <>
+                                        <ReviewOverviewList reviews={reviews} />
+                                        <PaginationControls
+                                            currentPage={page}
+                                            onNext={handleNextPage}
+                                            onPrevious={handlePreviousPage}
+                                            isLastPage={isLastPage}
+                                        />
+                                    </>
+                                ) : (
+                                    <p className="text-center text-primary text-2xl">This film currently has no reviews</p>
+                                )}
                             </>
                         ):(
                             <LoadingMessage message={"Loading reviews"} />

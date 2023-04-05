@@ -131,13 +131,19 @@ function People({ isAdmin }) {
                             </div>
                         </div>
                     </div>
-                    <PersonGrid people={people} />
-                    <PaginationControls
-                        currentPage={page}
-                        onNext={handleNextPage}
-                        onPrevious={handlePreviousPage}
-                        isLastPage={isLastPage}
-                    />
+                    {people.length > 0 ? (
+                        <>
+                            <PersonGrid people={people} />
+                            <PaginationControls
+                                currentPage={page}
+                                onNext={handleNextPage}
+                                onPrevious={handlePreviousPage}
+                                isLastPage={isLastPage}
+                            />
+                        </>
+                    ) : (
+                        <p className="text-center text-primary text-2xl">No people match your search</p>
+                    )}
                 </div>
             )}
         </div>

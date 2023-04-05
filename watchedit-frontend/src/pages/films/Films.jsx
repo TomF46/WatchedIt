@@ -150,13 +150,19 @@ function Films({ isAdmin }) {
                             </div>
                         </div>
                     </div>
-                    <FilmGrid films={films} editable={false} />
-                    <PaginationControls
-                        currentPage={page}
-                        onNext={handleNextPage}
-                        onPrevious={handlePreviousPage}
-                        isLastPage={isLastPage}
-                    />
+                    {films.length > 0 ? (
+                        <>
+                            <FilmGrid films={films} editable={false} />
+                            <PaginationControls
+                                currentPage={page}
+                                onNext={handleNextPage}
+                                onPrevious={handlePreviousPage}
+                                isLastPage={isLastPage}
+                            />
+                        </>
+                    ) : (
+                        <p className="text-center text-primary text-2xl">No films match your search</p>
+                    )}
                 </div>
             )}
         </div>

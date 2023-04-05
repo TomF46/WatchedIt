@@ -55,8 +55,14 @@ function UserLists({user}) {
         <>
           <div className="mt-4">
             <h2 className="mt-4 text-primary text-xl ">{user.username} lists</h2>
-            <FilmListList lists={lists} />
-            <PaginationControls currentPage={page} onNext={handleNextPage} onPrevious={handlePreviousPage} isLastPage={isLastPage} />
+            {lists.length > 0 ? (
+              <>
+                <FilmListList lists={lists} />
+                <PaginationControls currentPage={page} onNext={handleNextPage} onPrevious={handlePreviousPage} isLastPage={isLastPage} />
+              </>
+            ) : (
+                <p className="text-lg">user has not created any lists.</p>
+            )}
           </div>
         </>
       )}
