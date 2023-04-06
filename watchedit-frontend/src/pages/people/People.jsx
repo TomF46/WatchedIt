@@ -11,18 +11,17 @@ import TextInput from "../../components/Inputs/TextInput";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 
 function People({ isAdmin }) {
-    const [people, setPeople] = useState(null);
+    const [peoplePaginator, setPeoplePaginator] = useState(null);
     const [searchTerms, setSearchTerms] = useState({firstName: "", lastName: "", stageName: ""});
     const [page, setPage] = useState(1);
-    const [peoplePerPage, setPeoplePerPage] = useState(20);
-    const [isLastPage, setIsLastPage] = useState(false);
+    const peoplePerPage = 20;
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
     useEffect(() => {
-        if (!people) {
+        if (!peoplePaginator) {
             getPeople();
         }
-    }, [people]);
+    }, [peoplePaginator]);
 
     useEffect(() => {
         if (lastPageLoaded != null) getPeople();
@@ -39,9 +38,7 @@ function People({ isAdmin }) {
     function getPeople() {
         searchPeoplePaginated(searchTerms, page, peoplePerPage)
             .then((res) => {
-                setPeople(res);
-                let lastPage = res.length != peoplePerPage;
-                setIsLastPage(lastPage);
+                setPeoplePaginator(res);
                 setLastPageLoaded(page);
             })
             .catch((err) => {
@@ -89,7 +86,7 @@ function People({ isAdmin }) {
                     </div>
                 </div>
             )}
-            {!people ? (
+            {!peoplePaginator ? (
                 <LoadingMessage message={"Loading people."} />
             ) : (
                 <div className="mt-4">
@@ -131,14 +128,17 @@ function People({ isAdmin }) {
                             </div>
                         </div>
                     </div>
-                    {people.length > 0 ? (
+                    {peoplePaginator.data.length > 0 ? (
                         <>
-                            <PersonGrid people={people} />
+                            <PersonGrid people={peoplePaginator.data} />
                             <PaginationControls
                                 currentPage={page}
                                 onNext={handleNextPage}
                                 onPrevious={handlePreviousPage}
-                                isLastPage={isLastPage}
+                                of={peoplePaginator.of}
+                                from={peoplePaginator.from}
+                                to={peoplePaginator.to}
+                                lastPage={peoplePaginator.lastPage}
                             />
                         </>
                     ) : (

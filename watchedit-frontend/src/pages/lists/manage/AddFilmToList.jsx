@@ -13,10 +13,9 @@ function AddFilmToList() {
     const navigate = useNavigate();
     const { id } = useParams();
     const [list, setList] = useState(null);
-    const [films, setFilms] = useState(null);
+    const [filmsPaginator, setFilmsPaginator] = useState(null);
     const [page, setPage] = useState(1);
     const filmsPerPage = 20;
-    const [isLastPage, setIsLastPage] = useState(false);
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
 
@@ -28,10 +27,10 @@ function AddFilmToList() {
     }, [id, list]);
 
     useEffect(() => {
-        if (!films) {
+        if (!filmsPaginator) {
           search();
         }
-    }, [films]);
+    }, [filmsPaginator]);
     
     useEffect(() => {
         if(lastPageLoaded != null) search();
@@ -60,9 +59,7 @@ function AddFilmToList() {
 
     function search(){
         searchFilmsPaginated(searchTerm, page, filmsPerPage).then(res => {
-          setFilms(res);
-          let lastPage = res.length != filmsPerPage;
-          setIsLastPage(lastPage);
+          setFilmsPaginator(res);
           setLastPageLoaded(page);
         }).catch(err => {
           console.log(err);
@@ -105,12 +102,20 @@ function AddFilmToList() {
             ) : (
                 <div>
                     <h1 className="text-center text-primary text-2xl mt-4">Add films to {list.name}</h1>
-                    {!films ? (
+                    {!filmsPaginator ? (
                         <LoadingMessage message={"Loading films."} />
                         ) : (
                             <div className="mt-4">
-                                <SelectFilmListWSearch films={films} currentFilms={list.films} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange} onFilmSelected={handleFilmSelected}/>
-                                <PaginationControls currentPage={page} onNext={handleNextPage} onPrevious={handlePreviousPage} isLastPage={isLastPage} />
+                                <SelectFilmListWSearch films={filmsPaginator.data} currentFilms={list.films} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange} onFilmSelected={handleFilmSelected}/>
+                                <PaginationControls
+                                currentPage={page}
+                                onNext={handleNextPage}
+                                onPrevious={handlePreviousPage}
+                                of={filmsPaginator.of}
+                                from={filmsPaginator.from}
+                                to={filmsPaginator.to}
+                                lastPage={filmsPaginator.lastPage}
+                            />
                             </div>
                         )
                     }

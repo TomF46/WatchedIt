@@ -12,7 +12,7 @@ namespace WatchedIt.Api.Services.UserService
     {
         Task<GetUserDto> GetById(int id);
         Task<GetUserDto> Update(int id, UpdateUserDto updatedUser);
-        Task<List<GetSimpleFilmDto>> GetWatchedFilms(int id, PaginationParameters paginationParameters);
+        Task<PaginationResponse<GetSimpleFilmDto>> GetWatchedFilms(int id, PaginationParameters paginationParameters);
         Task<GetIsAdminDto> GetIsUserAdmin(int id);
     }
 }

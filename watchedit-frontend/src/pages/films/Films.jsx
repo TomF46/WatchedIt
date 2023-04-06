@@ -6,27 +6,26 @@ import debounce from 'lodash.debounce';
 import FilmGrid from "../../components/Films/FilmGrid";
 import PaginationControls from "../../components/PaginationControls";
 import { Link } from "react-router-dom";
-import { searchFilmsPaginated, searchFilmsWithCategoryPaginated } from "../../api/filmsApi";
+import { searchFilmsWithCategoryPaginated } from "../../api/filmsApi";
 import TextInput from "../../components/Inputs/TextInput";
 import { getCategories } from "../../api/categoriesApi";
 import SelectInput from "../../components/Inputs/SelectInput";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 
 function Films({ isAdmin }) {
-    const [films, setFilms] = useState(null);
+    const [filmsPaginator, setFilmsPaginator] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
     const [categories, setCategories] = useState(null);
     const [category, setCategory] = useState("");
     const [page, setPage] = useState(1);
     const filmsPerPage = 20;
-    const [isLastPage, setIsLastPage] = useState(false);
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
     useEffect(() => {
-        if (!films) {
+        if (!filmsPaginator) {
             getFilms();
         }
-    }, [films]);
+    }, [filmsPaginator]);
 
     useEffect(() => {
         if (lastPageLoaded != null) getFilms();
@@ -61,13 +60,10 @@ function Films({ isAdmin }) {
         }
         searchFilmsWithCategoryPaginated(searchTerm, category ,page, filmsPerPage)
             .then((res) => {
-                setFilms(res);
-                let lastPage = res.length != filmsPerPage;
-                setIsLastPage(lastPage);
+                setFilmsPaginator(res);
                 setLastPageLoaded(page);
             })
             .catch((err) => {
-                console.log(err);
                 toast.error(`Error getting films ${err.data.Exception}`, {
                     autoClose: false,
                 });
@@ -92,7 +88,6 @@ function Films({ isAdmin }) {
     function handleCategoryChange(event) {
         const { value } = event.target;
         setCategory(value);
-        console.log(category);
     }
 
     return (
@@ -114,7 +109,7 @@ function Films({ isAdmin }) {
                     </div>
                 </div>
             )}
-            {!films ? (
+            {!filmsPaginator ? (
                 <LoadingMessage message={"Loading films."} />
             ) : (
                 <div className="mt-4">
@@ -150,14 +145,17 @@ function Films({ isAdmin }) {
                             </div>
                         </div>
                     </div>
-                    {films.length > 0 ? (
+                    {filmsPaginator.data.length > 0 ? (
                         <>
-                            <FilmGrid films={films} editable={false} />
+                            <FilmGrid films={filmsPaginator.data} editable={false} />
                             <PaginationControls
                                 currentPage={page}
                                 onNext={handleNextPage}
                                 onPrevious={handlePreviousPage}
-                                isLastPage={isLastPage}
+                                of={filmsPaginator.of}
+                                from={filmsPaginator.from}
+                                to={filmsPaginator.to}
+                                lastPage={filmsPaginator.lastPage}
                             />
                         </>
                     ) : (

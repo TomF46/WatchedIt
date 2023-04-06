@@ -19,7 +19,7 @@ namespace WatchedIt.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GetFilmListOverviewDto>>> Get(int id, [FromQuery] PaginationParameters paginationParameters){
+        public async Task<ActionResult<PaginationResponse<GetFilmListOverviewDto>>> Get(int id, [FromQuery] PaginationParameters paginationParameters){
             return Ok(await _filmListService.GetAllByUser(id, paginationParameters));
         }
     }

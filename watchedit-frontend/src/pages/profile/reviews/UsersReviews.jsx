@@ -11,10 +11,9 @@ import LoadingMessage from "../../../components/Loading/LoadingMessage";
 function UserReviews({id}) {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
-    const [reviews, setReviews] = useState(null);
+    const [reviewsPaginator, setReviewsPaginator] = useState(null);
     const [page, setPage] = useState(1);
-    const [reviewsPerPage, setReviewsPerPage] = useState(20);
-    const [isLastPage, setIsLastPage] = useState(false);
+    const reviewsPerPage = 20;
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
     useEffect(() => {
@@ -43,9 +42,7 @@ function UserReviews({id}) {
     function getReviews() {
         getUsersReviewsPaginated(id, page, reviewsPerPage)
             .then((res) => {
-                setReviews(res);
-                let lastPage = res.length != reviewsPerPage;
-                setIsLastPage(lastPage);
+                setReviewsPaginator(res);
                 setLastPageLoaded(page);
             })
             .catch((err) => {
@@ -73,16 +70,19 @@ function UserReviews({id}) {
                 <>
                     <div className="mt-4">
                         <h1 className="text-center text-primary text-2xl mb-4">{user.username} reviews</h1>
-                        {reviews ? (
+                        {reviewsPaginator ? (
                             <>
-                                {reviews.length > 0 ? (
+                                {reviewsPaginator.data.length > 0 ? (
                                     <>
-                                        <ReviewOverviewList reviews={reviews} />
+                                        <ReviewOverviewList reviews={reviewsPaginator.data} />
                                         <PaginationControls
                                             currentPage={page}
                                             onNext={handleNextPage}
                                             onPrevious={handlePreviousPage}
-                                            isLastPage={isLastPage}
+                                            of={reviewsPaginator.of}
+                                            from={reviewsPaginator.from}
+                                            to={reviewsPaginator.to}
+                                            lastPage={reviewsPaginator.lastPage}
                                         />
                                     </>
                                 ) : (

@@ -9,7 +9,7 @@ namespace WatchedIt.Api.Services.PersonService
 {
     public interface IPersonService
     {
-        Task<List<GetPersonOverviewDto>> GetAll(PersonSearchWithPaginationParameters parameters);
+        Task<PaginationResponse<GetPersonOverviewDto>> GetAll(PersonSearchWithPaginationParameters parameters);
         Task<GetPersonDto> GetById(int id);
         Task<GetPersonOverviewDto> Add(AddPersonDto newPerson);
         Task<GetPersonOverviewDto> Update(int id ,UpdatePersonDto updatedPerson);

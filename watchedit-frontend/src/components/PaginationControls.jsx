@@ -1,10 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const PaginationControls = ({ onNext, onPrevious, currentPage, isLastPage }) => {
+const PaginationControls = ({ from, to, of, onNext, onPrevious, currentPage, lastPage }) => {
     return (
         <div className="pagination-controls p-2">
-            <div className="flex flex-row-reverse">
+            <div className="flex justify-between">
+                <div>
+                    {of > 0 && (
+                        <p className="text-sm text-secondary">{`Showing ${from ? from : 0} to ${to ? to : 0} of ${of}`}</p>
+                    )}
+                </div>
                 <div>
                     {currentPage > 1 &&
                         <button
@@ -18,7 +23,7 @@ const PaginationControls = ({ onNext, onPrevious, currentPage, isLastPage }) => 
                             <span className="ml-1">Previous</span>
                         </button>
                     }
-                    {!isLastPage &&
+                    {!lastPage &&
                         <button
                             type="button"
                             onClick={onNext}
@@ -37,10 +42,13 @@ const PaginationControls = ({ onNext, onPrevious, currentPage, isLastPage }) => 
 };
 
 PaginationControls.propTypes = {
+    from: PropTypes.number,
+    to: PropTypes.number,
+    of: PropTypes.number.isRequired,
     onNext: PropTypes.func.isRequired,
     onPrevious: PropTypes.func.isRequired,
     currentPage: PropTypes.number.isRequired,
-    isLastPage: PropTypes.bool.isRequired
+    lastPage: PropTypes.number.isRequired
 
 };
 

@@ -80,7 +80,7 @@ namespace WatchedIt.Tests.ServiceTests
 
             var allPeople = await _personService.GetAll(pagination);
 
-            Assert.That(allPeople.Count(), Is.EqualTo(2));
+            Assert.That(allPeople.Data.Count(), Is.EqualTo(2));
         }
 
         [Test]

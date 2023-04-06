@@ -7,17 +7,17 @@ import LoadingMessage from "../../components/Loading/LoadingMessage";
 import PaginationControls from "../../components/PaginationControls";
 
 function Lists() {
-  const [lists, setLists] = useState(null);
+  const [listsPaginator, setListsPaginator] = useState(null);
   const [page, setPage] = useState(1);
-  const [listsPerPage, setListsPerPage] = useState(20);
+  const listsPerPage = 20;
   const [isLastPage, setIsLastPage] = useState(false);
   const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
   useEffect(() => {
-    if (!lists) {
+    if (!listsPaginator) {
       getLists();
     }
-  }, [lists]);
+  }, [listsPaginator]);
 
   useEffect(() => {
     if(lastPageLoaded != null) getLists();
@@ -25,12 +25,9 @@ function Lists() {
 
   function getLists(){
     getFilmListsPaginated(page, listsPerPage).then(res => {
-      setLists(res);
-      let lastPage = res.length != listsPerPage;
-      setIsLastPage(lastPage);
+      setListsPaginator(res);
       setLastPageLoaded(page);
     }).catch(err => {
-      console.log(err);
       toast.error(`Error getting lists ${err.data.Exception}`, {
           autoClose: false,
       });
@@ -49,7 +46,7 @@ function Lists() {
 
   return (
     <div className="lists-page">
-      {!lists ? (
+      {!listsPaginator ? (
         <LoadingMessage message={"Loading lists."} />
       ) : (
         <>
@@ -70,10 +67,18 @@ function Lists() {
           </div>
           <div className="mt-4">
             <h1 className="text-center text-primary text-2xl mb-4">Lists</h1>
-            {lists.length > 0 ? (
+            {listsPaginator.data.length > 0 ? (
               <>
-                <FilmListList lists={lists} />
-                <PaginationControls currentPage={page} onNext={handleNextPage} onPrevious={handlePreviousPage} isLastPage={isLastPage} />
+                <FilmListList lists={listsPaginator.data} />
+                <PaginationControls
+                    currentPage={page}
+                    onNext={handleNextPage}
+                    onPrevious={handlePreviousPage}
+                    of={listsPaginator.of}
+                    from={listsPaginator.from}
+                    to={listsPaginator.to}
+                    lastPage={listsPaginator.lastPage}
+                />
               </>
             ) : (
                 <p className="text-center text-primary text-2xl">No lists available</p>

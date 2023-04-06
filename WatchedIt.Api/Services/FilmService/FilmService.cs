@@ -14,7 +14,7 @@ namespace WatchedIt.Api.Services.FilmService
         {
             _context = context;
         }
-        public async Task<List<GetFilmOverviewDto>> GetAll(FilmSearchWithPaginationParameters parameters)
+        public async Task<PaginationResponse<GetFilmOverviewDto>> GetAll(FilmSearchWithPaginationParameters parameters)
         {
             var query =  _context.Films.AsQueryable();
 
@@ -24,8 +24,10 @@ namespace WatchedIt.Api.Services.FilmService
                 if(category is null) throw new NotFoundException("Category does not exist");
                 query = query.Where(x => x.Categories.Contains(category));
             }
+            var count = query.Count();
             var films = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
-            return films.Select(f => FilmMapper.MapOverview(f)).ToList();
+            var mappedFilms = films.Select(f => FilmMapper.MapOverview(f)).ToList();
+            return new PaginationResponse<GetFilmOverviewDto>(mappedFilms, parameters.PageNumber, parameters.PageSize, count);
         }
 
         public async Task<GetFilmDto> GetById(int id)

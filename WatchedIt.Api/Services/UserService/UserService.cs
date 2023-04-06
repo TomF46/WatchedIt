@@ -34,11 +34,13 @@ namespace WatchedIt.Api.Services.UserService
             };
         }
 
-        public async Task<List<GetSimpleFilmDto>> GetWatchedFilms(int id, PaginationParameters paginationParameters)
+        public async Task<PaginationResponse<GetSimpleFilmDto>> GetWatchedFilms(int id, PaginationParameters paginationParameters)
         {
             var user = await _context.Users.Include(f => f.Watched).FirstOrDefaultAsync(p => p.Id == id);
             if(user is null) throw new NotFoundException($"User with Id '{id}' not found.");
-            return  user.Watched.Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).Select(f => FilmMapper.MapSimple(f)).ToList();
+            var count = user.Watched.Count();
+            var mappedWatchList = user.Watched.Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).Select(f => FilmMapper.MapSimple(f)).ToList();
+            return new PaginationResponse<GetSimpleFilmDto>(mappedWatchList, paginationParameters.PageNumber, paginationParameters.PageSize, count);
         }
 
         public async Task<GetUserDto> Update(int id, UpdateUserDto updatedUser)

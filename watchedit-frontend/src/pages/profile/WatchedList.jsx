@@ -10,14 +10,13 @@ import LoadingMessage from "../../components/Loading/LoadingMessage";
 
 function WatchedList({ id }) {
     const [user, setUser] = useState(null);
-    const [films, setFilms] = useState(null);
+    const [filmsPaginator, setFilmsPaginator] = useState(null);
     const [page, setPage] = useState(1);
     const filmsPerPage = 20;
-    const [isLastPage, setIsLastPage] = useState(false);
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
     useEffect(() => {
-        if (!films) {
+        if (!user) {
             getUser();
             getFilms();
         }
@@ -42,13 +41,10 @@ function WatchedList({ id }) {
     function getFilms() {
         getWatchedListByUserId(id, page, filmsPerPage)
             .then((res) => {
-                setFilms(res);
-                let lastPage = res.length != filmsPerPage;
-                setIsLastPage(lastPage);
+                setFilmsPaginator(res);
                 setLastPageLoaded(page);
             })
             .catch((err) => {
-                console.log(err);
                 toast.error(`Error getting films ${err.data.Exception}`, {
                     autoClose: false,
                 });
@@ -73,15 +69,24 @@ function WatchedList({ id }) {
                 <>
                     <div className="mt-4">
                         <h1 className="text-center text-primary text-2xl mb-4">{user.username} watched films</h1>
-                        {films ? (
+                        {filmsPaginator ? (
                             <>
-                                <FilmGrid films={films} editable={false} />
+                            {filmsPaginator.data.length > 0 ? (
+                                <>
+                                    <FilmGrid films={filmsPaginator.data} editable={false} />
                                     <PaginationControls
                                         currentPage={page}
                                         onNext={handleNextPage}
                                         onPrevious={handlePreviousPage}
-                                        isLastPage={isLastPage}
+                                        of={filmsPaginator.of}
+                                        from={filmsPaginator.from}
+                                        to={filmsPaginator.to}
+                                        lastPage={filmsPaginator.lastPage}
                                     />
+                                </>
+                            ) : (
+                                <p className="text-center text-primary text-2xl">{user.username} has not watched any films.</p>
+                            )}
                             </>
                         ):(
                             <LoadingMessage message={"Loading watched films"} />

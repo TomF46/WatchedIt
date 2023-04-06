@@ -17,23 +17,28 @@ namespace WatchedIt.Api.Services.ReviewService
             _context = context;
         }
 
-        public async Task<List<GetReviewOverviewDto>> GetAllForFilm(int id, PaginationParameters parameters)
+        public async Task<PaginationResponse<GetReviewOverviewDto>> GetAllForFilm(int id, PaginationParameters parameters)
         {
             var film = await _context.Films.FirstOrDefaultAsync(f => f.Id == id);
             if(film is null) throw new NotFoundException($"Film with Id '{id}' not found.");
 
-            var reviews = await _context.Reviews.Include(r => r.Film).Include(r=> r.User).Where(x => x.Film.Id == film.Id).Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
-
-            return reviews.Select(r => ReviewMapper.MapOverview(r)).ToList();
+            var query =  _context.Reviews.Include(r => r.Film).Include(r=> r.User).Where(x => x.Film.Id == film.Id);
+            var count = query.Count();
+            var reviews = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
+            var mappedReviews = reviews.Select(r => ReviewMapper.MapOverview(r)).ToList();
+            return new PaginationResponse<GetReviewOverviewDto>(mappedReviews, parameters.PageNumber, parameters.PageSize, count);
         }
 
-        public async Task<List<GetReviewOverviewDto>> GetAllByUser(int id, PaginationParameters parameters)
+        public async Task<PaginationResponse<GetReviewOverviewDto>> GetAllByUser(int id, PaginationParameters parameters)
         {
             var user = await _context.Users.FindAsync(id);
             if(user is null) throw new NotFoundException($"user with Id '{id}' not found.");
 
-            var reviews = await _context.Reviews.Include(r => r.Film).Include(r=> r.User).Where(x => x.User.Id == user.Id).Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
-            return reviews.Select(r => ReviewMapper.MapOverview(r)).ToList();
+            var query =  _context.Reviews.Include(r => r.Film).Include(r=> r.User).Where(x => x.User.Id == user.Id);
+            var count = query.Count();
+            var reviews = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
+            var mappedReviews = reviews.Select(r => ReviewMapper.MapOverview(r)).ToList();
+            return new PaginationResponse<GetReviewOverviewDto>(mappedReviews, parameters.PageNumber, parameters.PageSize, count);
         }
 
         public async Task<GetReviewDto> GetById(int id, int userId)

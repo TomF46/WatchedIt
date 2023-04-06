@@ -9,8 +9,8 @@ namespace WatchedIt.Api.Services.ReviewService
 {
     public interface IReviewService
     {
-        Task<List<GetReviewOverviewDto>> GetAllForFilm(int id, PaginationParameters parameters);
-        Task<List<GetReviewOverviewDto>> GetAllByUser(int id, PaginationParameters parameters);
+        Task<PaginationResponse<GetReviewOverviewDto>> GetAllForFilm(int id, PaginationParameters parameters);
+        Task<PaginationResponse<GetReviewOverviewDto>> GetAllByUser(int id, PaginationParameters parameters);
         Task<GetReviewDto> GetById(int id, int userId);
         Task<GetReviewDto> Add(int filmId, int userId, AddReviewDto newReview);
         Task<GetReviewDto> Update(int id, int userId ,UpdateReviewDto updatedReview);

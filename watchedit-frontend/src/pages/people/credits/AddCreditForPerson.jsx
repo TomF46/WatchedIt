@@ -14,10 +14,9 @@ function AddCreditForPerson() {
     const navigate = useNavigate();
     const { id } = useParams();
     const [person, setPerson] = useState(null);
-    const [films, setFilms] = useState(null);
+    const [filmsPaginator, setFilmsPaginator] = useState(null);
     const [page, setPage] = useState(1);
-    const filmsPerPage = 20;
-    const [isLastPage, setIsLastPage] = useState(false);
+    const filmsPerPage = 2;
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedFilm, setSelectedFilm] = useState(null);
@@ -42,10 +41,14 @@ function AddCreditForPerson() {
     }
 
     useEffect(() => {
-        if (!films) {
+        if (!filmsPaginator) {
           search();
         }
-    }, [films]);
+    }, [filmsPaginator]);
+
+    useEffect(() => {
+        if (lastPageLoaded != null) search();
+    }, [page]);
 
     useEffect(() => {
         let debounced = debounce(
@@ -58,9 +61,7 @@ function AddCreditForPerson() {
 
     function search(){
         searchFilmsPaginated(searchTerm, page, filmsPerPage).then(res => {
-          setFilms(res);
-          let lastPage = res.length != filmsPerPage;
-          setIsLastPage(lastPage);
+          setFilmsPaginator(res);
           setLastPageLoaded(page);
         }).catch(err => {
           console.log(err);
@@ -101,7 +102,6 @@ function AddCreditForPerson() {
         addCreditForPerson(person.id, payload).then(res => {
             navigate(`/people/${person.id}/credits`);
         }).catch(err => {
-            console.log(err);
             setSaving(false);
             toast.error(`Error adding film credit ${err.data.Exception}`, {
                 autoClose: false,
@@ -116,14 +116,22 @@ function AddCreditForPerson() {
             ) : (
                 <div>
                     <h1 className="text-center text-primary text-2xl mt-4">Add Credit for {person.fullName}</h1>
-                    {!films ? (
+                    {!filmsPaginator ? (
                         <LoadingMessage message={"Loading films."} />
                         ) : (
                             <div className="mt-4">
                                 {!selectedFilm ? (
                                     <>
-                                        <SelectFilmCreditListWSearch films={films} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange} onFilmSelected={handleFilmSelected}/>
-                                        <PaginationControls currentPage={page} onNext={handleNextPage} onPrevious={handlePreviousPage} isLastPage={isLastPage} />
+                                        <SelectFilmCreditListWSearch films={filmsPaginator.data} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange} onFilmSelected={handleFilmSelected}/>
+                                        <PaginationControls
+                                            currentPage={page}
+                                            onNext={handleNextPage}
+                                            onPrevious={handlePreviousPage}
+                                            of={filmsPaginator.of}
+                                            from={filmsPaginator.from}
+                                            to={filmsPaginator.to}
+                                            lastPage={filmsPaginator.lastPage}
+                                        />
                                     </>
                                 ) : (
                                     <div>

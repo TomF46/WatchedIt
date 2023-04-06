@@ -13,10 +13,9 @@ function Reviews({userIsAuthenticated, isAdmin}) {
     const { id } = useParams();
     const navigate = useNavigate();
     const [film, setFilm] = useState(null);
-    const [reviews, setReviews] = useState(null);
+    const [reviewsPaginator, setReviewsPaginator] = useState(null);
     const [page, setPage] = useState(1);
-    const [reviewsPerPage, setReviewsPerPage] = useState(20);
-    const [isLastPage, setIsLastPage] = useState(false);
+    const reviewsPerPage = 20;
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
     useEffect(() => {
@@ -45,9 +44,7 @@ function Reviews({userIsAuthenticated, isAdmin}) {
     function getReviews() {
         getReviewsByFilmId(id, page, reviewsPerPage)
             .then((res) => {
-                setReviews(res);
-                let lastPage = res.length != reviewsPerPage;
-                setIsLastPage(lastPage);
+                setReviewsPaginator(res);
                 setLastPageLoaded(page);
             })
             .catch((err) => {
@@ -65,7 +62,6 @@ function Reviews({userIsAuthenticated, isAdmin}) {
     function handlePreviousPage() {
         var newPage = page - 1;
         setPage(newPage);
-        console.log(page);
     }
 
     return (
@@ -92,16 +88,19 @@ function Reviews({userIsAuthenticated, isAdmin}) {
                     <div className="mt-4">
                         <h1 className="text-center text-primary text-2xl mb-2">{film.name} reviews</h1>
                         {film.averageRating && (<p className="text-center text-primary text-xl mb-4">Average rating: {film.averageRating}</p>)}
-                        {reviews ? (
+                        {reviewsPaginator ? (
                             <>
-                                {reviews.length > 0 ? (
+                                {reviewsPaginator.data.length > 0 ? (
                                     <>
-                                        <ReviewOverviewList reviews={reviews} />
+                                        <ReviewOverviewList reviews={reviewsPaginator.data} />
                                         <PaginationControls
                                             currentPage={page}
                                             onNext={handleNextPage}
                                             onPrevious={handlePreviousPage}
-                                            isLastPage={isLastPage}
+                                            of={reviewsPaginator.of}
+                                            from={reviewsPaginator.from}
+                                            to={reviewsPaginator.to}
+                                            lastPage={reviewsPaginator.lastPage}
                                         />
                                     </>
                                 ) : (

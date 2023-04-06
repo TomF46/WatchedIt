@@ -15,10 +15,13 @@ namespace WatchedIt.Api.Services.FilmListService
             _context = context;
         }
 
-        public async Task<List<GetFilmListOverviewDto>> GetAll(PaginationParameters paginationParameters)
+        public async Task<PaginationResponse<GetFilmListOverviewDto>> GetAll(PaginationParameters paginationParameters)
         {
-            var lists = await _context.FilmLists.Include(f => f.CreatedBy).Include(f => f.Films).Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).ToListAsync();
-            return lists.Select(l => FilmListMapper.mapOverview(l)).ToList();
+            var query = _context.FilmLists.Include(f => f.CreatedBy).Include(f => f.Films).AsQueryable();
+            var count = query.Count();
+            var lists = await query.Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).ToListAsync();
+            var mappedLists = lists.Select(l => FilmListMapper.mapOverview(l)).ToList();
+            return new PaginationResponse<GetFilmListOverviewDto>(mappedLists, paginationParameters.PageNumber, paginationParameters.PageSize, count);
         }
 
         public async Task<GetFilmListDto> GetById(int id, int userId)
@@ -97,10 +100,13 @@ namespace WatchedIt.Api.Services.FilmListService
             return FilmListMapper.map(list, userId);
         }
 
-        public async Task<List<GetFilmListOverviewDto>> GetAllByUser(int id, PaginationParameters paginationParameters)
+        public async Task<PaginationResponse<GetFilmListOverviewDto>> GetAllByUser(int id, PaginationParameters paginationParameters)
         {
-            var lists = await _context.FilmLists.Include(f => f.CreatedBy).Include(f => f.Films).Where(f => f.CreatedBy.Id == id).Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).ToListAsync();
-            return lists.Select(l => FilmListMapper.mapOverview(l)).ToList();
+            var query = _context.FilmLists.Include(f => f.CreatedBy).Include(f => f.Films).Where(f => f.CreatedBy.Id == id).AsQueryable();
+            var count = query.Count();
+            var lists = await query.Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).ToListAsync();
+            var mappedLists = lists.Select(l => FilmListMapper.mapOverview(l)).ToList();
+            return new PaginationResponse<GetFilmListOverviewDto>(mappedLists, paginationParameters.PageNumber, paginationParameters.PageSize, count);
         }
     }
 }

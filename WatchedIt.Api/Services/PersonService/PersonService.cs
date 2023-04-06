@@ -16,7 +16,7 @@ namespace WatchedIt.Api.Services.PersonService
             _context = context;       
         }
 
-        public async Task<List<GetPersonOverviewDto>> GetAll(PersonSearchWithPaginationParameters parameters)
+        public async Task<PaginationResponse<GetPersonOverviewDto>> GetAll(PersonSearchWithPaginationParameters parameters)
         {
             var query = _context.People.AsQueryable();
 
@@ -34,9 +34,10 @@ namespace WatchedIt.Api.Services.PersonService
                 var searchStageName = parameters.StageName.Trim().ToLower();
                 query = query.Where(f => f.StageName.ToLower().Contains(searchStageName));
             }
-
+            var count = query.Count();
             var people = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
-            return people.Select(p => PersonMapper.MapOverview(p)).ToList();
+            var mappedPeople = people.Select(p => PersonMapper.MapOverview(p)).ToList();
+            return new PaginationResponse<GetPersonOverviewDto>(mappedPeople, parameters.PageNumber, parameters.PageSize, count);
         }
 
         public async Task<GetPersonDto> GetById(int id)
