@@ -9,6 +9,7 @@ import PaginationControls from "../../../components/PaginationControls";
 import SelectPersonCreditListWSearch from "../../../components/People/Credits/SelectPersonCreditListWSearch";
 import AddCreditForm from "../../../components/Credits/AddCreditForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
+import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
 
 function AddCreditForFilm() {
     const navigate = useNavigate();
@@ -118,7 +119,8 @@ function AddCreditForFilm() {
                 <LoadingMessage message={"Loading film."} />
             ) : (
                 <div>
-                    <h1 className="text-center text-primary text-2xl mt-4">Add Credit for {film.name}</h1>
+                    <h1 className="text-center text-primary text-2xl my-4">Add Credit for {film.name}</h1>
+                    <FilmMiniDetail film={film} />
                     {!peoplePaginator ? (
                         <LoadingMessage message={"Loading people."} />
                     ) : (

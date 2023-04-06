@@ -8,6 +8,7 @@ import { getCreditsForFilmById, removeCredit } from "../../../api/creditsApi";
 import FilmCreditsList from "../../../components/Films/Credits/FilmCreditsList";
 import { confirmAlert } from "react-confirm-alert";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
+import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
 
 function FilmCredits({userIsAuthenticated, isAdmin}) {
     const { id } = useParams();
@@ -98,6 +99,7 @@ function FilmCredits({userIsAuthenticated, isAdmin}) {
                     )}
                     <div className="mt-4">
                         <h1 className="text-primary text-center text-2xl mb-4">{film.name} credits</h1>
+                        <FilmMiniDetail film={film} />
                         {credits && (
                             <div className="grid grid-cols-12">
                                 <div className="col-span-12">

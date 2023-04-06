@@ -8,6 +8,7 @@ import { getCreditsForPersonById, removeCredit } from "../../../api/creditsApi";
 import { getPersonById } from "../../../api/peopleApi";
 import PersonCreditsList from "../../../components/People/Credits/PersonCreditsList";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
+import PersonMiniDetail from "../../../components/People/PersonMiniDetail";
 
 
 function PersonCredits({isAdmin}) {
@@ -99,6 +100,7 @@ function PersonCredits({isAdmin}) {
                     )}
                     <div className="mt-4">
                         <h1 className="text-primary text-center text-2xl mb-4">{person.fullName} credits</h1>
+                        <PersonMiniDetail person={person} />
                         {credits && (
                             <div className="grid grid-cols-12">
                                 <div className="col-span-12">

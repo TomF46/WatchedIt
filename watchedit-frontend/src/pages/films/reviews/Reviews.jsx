@@ -8,6 +8,7 @@ import { getReviewsByFilmId } from "../../../api/filmReviewApi";
 import ReviewOverviewList from "../../../components/Films/Reviews/ReviewOverviewList";
 import PaginationControls from "../../../components/PaginationControls";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
+import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
 
 function Reviews({userIsAuthenticated, isAdmin}) {
     const { id } = useParams();
@@ -88,6 +89,7 @@ function Reviews({userIsAuthenticated, isAdmin}) {
                     <div className="mt-4">
                         <h1 className="text-center text-primary text-2xl mb-2">{film.name} reviews</h1>
                         {film.averageRating && (<p className="text-center text-primary text-xl mb-4">Average rating: {film.averageRating}</p>)}
+                        <FilmMiniDetail film={film} />
                         {reviewsPaginator ? (
                             <>
                                 {reviewsPaginator.data.length > 0 ? (
