@@ -9,7 +9,7 @@ const FilmGrid = ({ films, editable, onRemove }) => {
             {films.map((film) => {
                 return (
                     <div key={film.id} className="col-span-12 md:col-span-2 mt-4">
-                        <div className="mx-2 bg-backgroundOffset cursor-pointer">
+                        <div className="mx-2 bg-backgroundOffset cursor-pointer hover:opacity-75">
                             <div onClick={() => {navigate(`/films/${film.id}`)}}>
                                 <img src={film.posterUrl} className="w-full poster" />
                                 <div className="p-4">

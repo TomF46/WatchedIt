@@ -9,8 +9,15 @@ const FilmListList = ({ lists }) => {
             {lists.map((list) => {
                 return (
                     <div key={list.id} className="col-span-12 my-1">
-                        <div onClick={() => {navigate(`/lists/${list.id}`)}} className="px-4 py-2 bg-backgroundOffset cursor-pointer">
-                            <p>{list.name} {`(${list.createdBy.username}) (${list.filmCount})`}</p>
+                        <div onClick={() => {navigate(`/lists/${list.id}`)}} className="bg-backgroundOffset cursor-pointer hover:opacity-75">
+                            <div className="grid grid-cols-12">
+                                <div className="col-span-1">
+                                    <img src={list.createdBy.imageUrl} className="h-full headshot" />
+                                </div>
+                                <div className="col-span-11 px-4 py-2">
+                                    <p>{list.name} {`(${list.filmCount})`} By {list.createdBy.username}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 )

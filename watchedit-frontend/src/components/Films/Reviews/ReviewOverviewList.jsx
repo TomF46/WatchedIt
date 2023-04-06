@@ -9,7 +9,7 @@ const ReviewOverviewList = ({ reviews }) => {
             {reviews.map((review) => {
                 return (
                     <div key={review.id} className="col-span-12 my-2">
-                        <div onClick={() => {navigate(`/films/${review.film.id}/reviews/${review.id}`)}} className="p-4 mx-2 bg-backgroundOffset cursor-pointer">
+                        <div onClick={() => {navigate(`/films/${review.film.id}/reviews/${review.id}`)}} className="p-4 mx-2 bg-backgroundOffset cursor-pointer hover:opacity-75">
                             <p>{review.rating} by {review.user.username}</p>
                         </div>
                     </div>

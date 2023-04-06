@@ -10,7 +10,6 @@ function Lists() {
   const [listsPaginator, setListsPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const listsPerPage = 20;
-  const [isLastPage, setIsLastPage] = useState(false);
   const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
   useEffect(() => {

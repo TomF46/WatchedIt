@@ -32,7 +32,7 @@ const SelectFilmListWSearch = ({ currentFilms, films, searchTerm, onSearchTermCh
                 {films.map((film) => {
                     return (
                         <div key={film.id} className="col-span-12 my-2">
-                            <div onClick={() => { if(!isAlreadyInList(film)) onFilmSelected(film)}} className={`p-4 mx-2 ${isAlreadyInList(film) ? "bg-green-400" : "bg-backgroundOffset cursor-pointer"}`}>
+                            <div onClick={() => { if(!isAlreadyInList(film)) onFilmSelected(film)}} className={`p-4 mx-2 ${isAlreadyInList(film) ? "bg-green-400" : "bg-backgroundOffset cursor-pointer hover:opacity-75"}`}>
                                 <p>{film.name}</p>
                             </div>
                         </div>
