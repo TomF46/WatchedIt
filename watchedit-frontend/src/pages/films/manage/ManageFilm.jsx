@@ -107,6 +107,11 @@ function ManageFilm() {
         });
     }
 
+    function handleTrailerChange(url){
+        film.trailerUrl = url;
+        setFilm({ ...film});
+    }
+
     function formIsValid(){
         const { name, shortDescription, fullDescription, runtime, posterUrl, releaseDate } = film;
         const errors = {};
@@ -145,7 +150,7 @@ function ManageFilm() {
         <div className="manage-film-page">
             <h1 className="text-2xl text-center text-primary mt-4">{editing ? `Editing ${film.name}` : "Adding film"}</h1>
             {film ? (
-                <FilmManageForm film={film} categories={categories} onChange={handleChange} onDateChange={handleDateChange} onImageChange={handleImageChange} onCategoryChange={handleCategoryChange} onSave={handleSave} errors={errors} saving={saving}  uploadingImage={imageUploading}/>
+                <FilmManageForm film={film} categories={categories} onChange={handleChange} onDateChange={handleDateChange} onImageChange={handleImageChange} onCategoryChange={handleCategoryChange} onTrailerChange={handleTrailerChange} onSave={handleSave} errors={errors} saving={saving}  uploadingImage={imageUploading}/>
             ) : (
                 <LoadingMessage message={"Loading form."} />
             )}

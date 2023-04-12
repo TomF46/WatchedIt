@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
 import TextInput from "../../Inputs/TextInput";
 import TextAreaInput from "../../Inputs/TextAreaInput";
 import NumberInput from "../../Inputs/NumberInput";
 import MultiSelectInput from "../../Inputs/MultiSelectInput";
+import Modal from 'react-modal';
+
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        minWidth: '60%',
+    },
+};
 
 const FilmManageForm = ({
     film,
@@ -14,10 +27,32 @@ const FilmManageForm = ({
     onDateChange,
     onImageChange,
     onCategoryChange,
+    onTrailerChange,
     saving = false,
     uploadingImage = false,
     errors = {}
 }) => {
+    const [modalIsOpen, setIsOpen] = useState(false);
+
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+    }
+
+    function onVideoChange(event) {
+        const { value } = event.target;
+        onTrailerChange(value);
+    }
+
+    function onVideoRemoved() {
+        onTrailerChange(null)
+        closeModal();
+    }
+
+
     return (
         <form className="bg-backgroundOffset p-4 mt-4" onSubmit={onSave}>
             {errors.onSave && (
@@ -131,6 +166,70 @@ const FilmManageForm = ({
                 )}
             </div>
 
+            <div className="mb-2 trailer-modal">
+                <button type="button" onClick={openModal} className="bg-primary text-white rounded py-2 px-4 ml-2 hover:opacity-75 shadow inline-flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+                    </svg>
+                    <span className="ml-1">{film.trailerUrl ? "Manage trailer" : "Add trailer"}</span>
+                </button>
+                <Modal
+                    isOpen={modalIsOpen}
+                    onRequestClose={closeModal}
+                    style={customStyles}
+                    contentLabel="Example Modal"
+                >
+                    <div className="grid grid-cols-12 text-primary">
+                        <div className="col-span-12">
+                            <h3 className="font-bold text-center">Manage trailer</h3>
+                        </div>
+                        <div className="col-span-12">
+                            <p>Please add a valid embed link for your video on your format of choice in the input below, if you add a valid link then a preview of the video will appear below.</p><br />
+                            <p>Example links include</p>
+                            <ul>
+                                <li>Youtube: https://www.youtube.com/embed/5mGuCdlCcNM</li>
+                                <li>Vimeo: https://player.vimeo.com/video/759911151</li>
+                            </ul>
+                        </div>
+                        <div className="col-span-12 mt-4">
+                            <TextInput
+                                name={`trailerUrl`}
+                                label="Trailer URL"
+                                value={film.trailerUrl}
+                                onChange={(e) => onVideoChange(e)}
+                            />
+                        </div>
+                        <div className="col-span-12 mt-4">
+                            <p className="text-center font-bold">Preview</p>
+                            <div className="video-container grid grid-cols-12 justify-center">
+                                <iframe className="video col-span-12 lg:col-start-4 lg:col-span-6" src={film.trailerUrl} frameBorder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                            </div>
+                        </div>
+                        <div className="col-span-12 text-right">
+                            <button
+                                type="button"
+                                onClick={() => { onVideoRemoved() }}
+                                className="bg-red-400 text-white rounded py-2 px-4 mt-4 hover:opacity-75 shadow inline-flex items-center">
+                                <svg className="text-white h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span className="ml-1">Remove video</span>
+                            </button>
+                            <button
+                                type="button"
+                                onClick={closeModal}
+                                className="bg-primary text-white rounded py-2 px-4 mt-4 ml-2 hover:opacity-75 shadow inline-flex items-center"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                    <path strokeLinecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+                                </svg>
+                                <span className="ml-1">Finish</span>
+                            </button>
+                        </div>
+                    </div>
+                </Modal>
+            </div>
+
             <div className="flex justify-center">
                 <button
                     type="submit"
@@ -157,6 +256,7 @@ FilmManageForm.propTypes = {
     onDateChange: PropTypes.func.isRequired,
     onImageChange: PropTypes.func.isRequired,
     onCategoryChange: PropTypes.func.isRequired,
+    onTrailerChange: PropTypes.func.isRequired,
     saving: PropTypes.bool,
     uploadingImage: PropTypes.bool
 };

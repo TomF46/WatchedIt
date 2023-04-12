@@ -5,6 +5,7 @@ export const newFilm = {
     runtime: null,
     releaseDate: new Date(),
     posterUrl: null,
+    trailerUrl: null,
     categories: []
 }
 

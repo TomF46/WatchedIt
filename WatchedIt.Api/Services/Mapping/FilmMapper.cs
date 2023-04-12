@@ -17,6 +17,7 @@ namespace WatchedIt.Api.Services.Mapping
                 Runtime = film.Runtime,
                 ReleaseDate = film.ReleaseDate,
                 PosterUrl = film.PosterUrl,
+                TrailerUrl = film.TrailerUrl,
                 AverageRating = String.Format("{0:0.0}", film.AverageRating),
                 Credits = CreditMapper.MapFilmCastCrewCreditDto(film.Credits.ToList()),
                 Categories = film.Categories.Select(x => CategoryMapper.Map(x)).ToList()
@@ -48,7 +49,8 @@ namespace WatchedIt.Api.Services.Mapping
                 FullDescription = newFilm.FullDescription,
                 Runtime = newFilm.Runtime,
                 ReleaseDate = newFilm.ReleaseDate,
-                PosterUrl = newFilm.PosterUrl
+                PosterUrl = newFilm.PosterUrl,
+                TrailerUrl = newFilm.TrailerUrl
             };
         }
     }

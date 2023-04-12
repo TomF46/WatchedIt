@@ -42,3 +42,12 @@
 .multiselect-container .optionContainer{
   background-color: #474345;
 }
+
+.video-container{
+  padding: 8px;
+}
+
+.video-container .video{
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}

@@ -164,6 +164,14 @@ function Film({userIsAuthenticated, isAdmin}) {
                                         </div>
                                     </div>
                                 </div>
+                                {film.trailerUrl && (
+                                    <div className="col-span-12">
+                                        <h2 className="mt-4 text-primary text-xl ">Trailer</h2>
+                                        <div className="video-container grid grid-cols-12 justify-center">
+                                            <iframe className="video col-span-12" src={film.trailerUrl} frameBorder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

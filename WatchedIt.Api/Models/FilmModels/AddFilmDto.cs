@@ -13,6 +13,7 @@ namespace WatchedIt.Api.Models.FilmModels
         public int Runtime {get;set;}
         public DateTime ReleaseDate {get;set;}
         public string? PosterUrl {get;set;}
+        public string? TrailerUrl {get;set;}
         public IList<int> Categories {get; set;} = new List<int>();
     }
 }

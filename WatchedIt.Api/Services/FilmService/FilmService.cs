@@ -59,6 +59,7 @@ namespace WatchedIt.Api.Services.FilmService
             film.Runtime = updatedFilm.Runtime;
             film.ReleaseDate = updatedFilm.ReleaseDate;
             film.PosterUrl = updatedFilm.PosterUrl;
+            film.TrailerUrl = updatedFilm.TrailerUrl;
             film.Categories.Clear();
             var categories = await _context.Categories.Where(x => updatedFilm.Categories.Contains(x.Id)).ToListAsync();
             categories.ForEach(x => {
