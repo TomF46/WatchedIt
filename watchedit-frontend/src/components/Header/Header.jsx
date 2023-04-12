@@ -5,6 +5,7 @@ import { login } from "../../redux/actions/authenticationActions";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import HeaderLoginForm from "./HeaderLoginForm";
 import { checkUserIsAdmin } from "../../redux/actions/isAdminActions";
+import logo from "../../assets/WatchedIt.webp"
 
 function Header({ login, checkUserIsAdmin , userIsAuthenticated }) {
   const [mobileIsOpen, setMobileIsOpen] = useState(null);
@@ -27,7 +28,7 @@ function Header({ login, checkUserIsAdmin , userIsAuthenticated }) {
     <nav className="flex items-center justify-between flex-wrap bg-backgroundOffset px-4 py-2 shadow-lg">
             <div className="flex items-center flex-shrink-0 text-white mr-6">
                 <Link to="/" className="tracking-tight" aria-label="To home">
-                    
+                    <img src={logo} alt="Watched it logo"  className="w-32 h-full text-center" />
                 </Link>
             </div>
             <div className="block md:hidden">
