@@ -17,7 +17,7 @@ namespace WatchedIt.Api.Services.Mapping
                 MiddleNames = person.MiddleNames,
                 StageName = person.StageName,
                 FullName= $"{person.FirstName} {person.LastName}",
-                Age = person.Age,
+                DateOfBirth = person.DateOfBirth,
                 Description = person.Description,
                 ImageUrl = person.ImageUrl,
                 Credits = CreditMapper.MapPersonCastCrewCreditDto(person.Credits.ToList())
@@ -32,7 +32,7 @@ namespace WatchedIt.Api.Services.Mapping
                 MiddleNames = person.MiddleNames,
                 StageName = person.StageName,
                 FullName= $"{person.FirstName} {person.LastName}",
-                Age = person.Age,
+                DateOfBirth = person.DateOfBirth,
                 Description = person.Description,
                 ImageUrl = person.ImageUrl
             };
@@ -54,7 +54,7 @@ namespace WatchedIt.Api.Services.Mapping
                 LastName = newPerson.LastName,
                 MiddleNames = newPerson.MiddleNames,
                 StageName = newPerson.StageName,
-                Age = newPerson.Age,
+                DateOfBirth = newPerson.DateOfBirth,
                 Description = newPerson.Description,
                 ImageUrl = newPerson.ImageUrl
             };

@@ -44,7 +44,8 @@ namespace WatchedIt.Tests.ServiceTests.Helpers
         public static Person GeneratePerson(){
             return new Person{
                 FirstName = Faker.Name.First(),
-                LastName = Faker.Name.Last()
+                LastName = Faker.Name.Last(),
+                DateOfBirth = new DateTime().Date
             };
         }
 

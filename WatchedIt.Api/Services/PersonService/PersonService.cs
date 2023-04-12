@@ -63,7 +63,7 @@ namespace WatchedIt.Api.Services.PersonService
             person.LastName = updatedPerson.LastName;
             person.MiddleNames = updatedPerson.MiddleNames;
             person.StageName = updatedPerson.StageName;
-            person.Age = updatedPerson.Age;
+            person.DateOfBirth = updatedPerson.DateOfBirth;
             person.Description = updatedPerson.Description;
             person.ImageUrl = updatedPerson.ImageUrl;
             await _context.SaveChangesAsync();

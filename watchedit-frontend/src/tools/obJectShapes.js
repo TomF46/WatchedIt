@@ -13,7 +13,7 @@ export const newPerson = {
     lastName: "",
     middleNames: null,
     stageName: null,
-    age: null,
+    dateOfBirth: new Date(),
     description: null,
     imageUrl: null
 }

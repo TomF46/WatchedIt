@@ -17,7 +17,7 @@ namespace WatchedIt.Api.Models.PersonModels
         public string? MiddleNames {get;set;}
         [StringLength(50, ErrorMessage = "Stage names can't be longer than 50 characters.")]
         public string? StageName {get;set;}
-        public int Age {get;set;}
+        public DateTime DateOfBirth {get; set;}
         [StringLength(800, ErrorMessage = "Description can't be longer than 800 characters.")]
         public string? Description {get;set;}
         public string? ImageUrl {get;set;}

@@ -7,6 +7,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import PersonCreditsOverviewList from "../../components/People/Credits/PersonCreditsOverviewList";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
+import { format, parseISO } from "date-fns";
 
 
 function Person({isAdmin}) {
@@ -107,7 +108,7 @@ function Person({isAdmin}) {
                                     <p>Last name: {person.lastName}</p>
                                     {person.middleNames && (<p>Middle names: {person.middleNames}</p>)}
                                     {person.stageName && (<p>Stage name: {person.stageName}</p>)}
-                                    <p>Age: {person.age} years old</p>
+                                    <p>DOB: {format(parseISO(person.dateOfBirth), "dd/MM/yyyy")}</p>
                                 </div>
                                 <div className="col-span-12 md:col-span-6">
                                     <p>Bio: {person.description}</p>

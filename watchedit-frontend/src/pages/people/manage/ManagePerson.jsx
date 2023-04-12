@@ -6,6 +6,7 @@ import { getPersonById, savePerson } from "../../../api/peopleApi";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import PersonManageForm from "../../../components/People/Manage/PersonManageForm";
 import { newPerson } from "../../../tools/obJectShapes";
+import { parseISO } from "date-fns";
 
 function ManagePerson() {
     const { id } = useParams();
@@ -43,7 +44,7 @@ function ManagePerson() {
             lastName: data.lastName,
             middleNames: data.middleNames,
             stageName: data.stageName,
-            age: data.age,
+            dateOfBirth: parseISO(data.dateOfBirth),
             description: data.description,
             imageUrl: data.imageUrl
         });
@@ -55,6 +56,11 @@ function ManagePerson() {
             ...prevPerson,
             [name]: value
         }));
+    }
+
+    function handleDateChange(date){
+        person.dateOfBirth = date;
+        setPerson({ ...person});
     }
 
     function handleImageChange(event){
@@ -80,18 +86,18 @@ function ManagePerson() {
     }
 
     function formIsValid(){
-        const { firstName, lastName, middleNames, stageName, age, description, imageUrl } = person;
+        const { firstName, lastName, middleNames, stageName, description, imageUrl, dateOfBirth } = person;
         const errors = {};
         if(!firstName) errors.firstName = "First name is required";
         if(firstName.length > 50) errors.firstName = "First name cant be longer than 50 characters";
         if(!lastName) errors.lastName = "Last name is required";
         if(lastName.length > 50) errors.lastName = "Last name cant be longer than 50 characters";
         if(middleNames && middleNames.length > 80) errors.middleNames = "Middle names cant be longer than 80 characters";
-        if(stageName && stageName.length > 50) errors.stageName = "Stage name cant be longer than 50 characters";
-        if(!age) errors.age = "Age is required";
+        if(stageName && stageName.length > 50) errors.stageName = "Stage name cant be longer than 50 characters"
         if(!description) errors.description = "Description is required";
         if(description.length > 800) errors.description = "Description cant be longer than 800 characters";
         if(!imageUrl) errors.imageUrl = "Image url is required";
+        if(!dateOfBirth) errors.dateOfBirth = "Date of birth is required";
         setErrors(errors);
         return Object.keys(errors).length === 0;
     }
@@ -117,7 +123,7 @@ function ManagePerson() {
         <div className="manage-person-page">
             <h1 className="text-center text-primary text-2xl mt-4">{editing ? `Editing ${person.firstName} ${person.lastName}` : "Adding person"}</h1>
             {person ? (
-                <PersonManageForm person={person} onChange={handleChange} onImageChange={handleImageChange} onSave={handleSave} errors={errors} saving={saving} uploadingImage={imageUploading} />
+                <PersonManageForm person={person} onChange={handleChange} onDateChange={handleDateChange} onImageChange={handleImageChange} onSave={handleSave} errors={errors} saving={saving} uploadingImage={imageUploading} />
             ) : (
                 <LoadingMessage message={"Loading form."} />
             )}

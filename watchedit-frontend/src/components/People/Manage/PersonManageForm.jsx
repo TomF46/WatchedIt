@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import DatePicker from "react-datepicker";
 import TextInput from "../../Inputs/TextInput";
 import TextAreaInput from "../../Inputs/TextAreaInput";
 import NumberInput from "../../Inputs/NumberInput";
@@ -8,6 +9,7 @@ const PersonManageForm = ({
     person,
     onSave,
     onChange,
+    onDateChange,
     onImageChange,
     saving = false,
     uploadingImage = false,
@@ -78,14 +80,11 @@ const PersonManageForm = ({
             </div>
 
             <div className="mb-2">
-                <NumberInput
-                    name="age"
-                    label="Age"
-                    value={person.age}
-                    onChange={onChange}
-                    error={errors.age}
-                    required={true}
-                />
+                <label className="font-bold text-xs text-primary">Date of birth</label>
+                <DatePicker dateFormat="dd-MM-yyyy"  selected={person.dateOfBirth} onChange={(date) => onDateChange(date)} />
+                {errors.releaseDate && (
+                    <div className="text-red-500 text-xs p-1 mt-2">{errors.dateOfBirth}</div>
+                )}
             </div>
 
             <div className="mb-2">
@@ -148,6 +147,7 @@ PersonManageForm.propTypes = {
     errors: PropTypes.object,
     onSave: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
+    onDateChange: PropTypes.func.isRequired,
     onImageChange: PropTypes.func.isRequired,
     saving: PropTypes.bool,
     uploadingImage: PropTypes.bool

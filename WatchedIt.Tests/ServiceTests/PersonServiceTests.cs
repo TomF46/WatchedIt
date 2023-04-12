@@ -44,7 +44,7 @@ namespace WatchedIt.Tests.ServiceTests
                 var person = new AddPersonDto {
                     FirstName = "Joe",
                     LastName = "Bloggs",
-                    Age = 25,
+                    DateOfBirth = new DateTime().Date,
                     Description = "A young actor"
                 };
 
@@ -111,7 +111,7 @@ namespace WatchedIt.Tests.ServiceTests
             var updatedPerson = new UpdatePersonDto{
                 FirstName = newName,
                 LastName = "Bloggs",
-                Age = 25,
+                DateOfBirth = new DateTime().Date,
                 Description = "A young actor"
             };
 
