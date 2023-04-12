@@ -40,7 +40,7 @@ function PeopleReel() {
                         <div className="grid grid-cols-12">
                             {peoplePaginator.data.map((person) => {
                                 return (
-                                    <PeopleReelItem person={person} />
+                                    <PeopleReelItem key={person.id} person={person} />
                                 )
                             })}
                         </div>

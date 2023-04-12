@@ -122,6 +122,7 @@ function List() {
                     <div className="mt-4">
                         <h1 className="text-center text-primary text-2xl">{list.name}</h1>
                         <div className="bg-backgroundOffset p-4 mt-2">
+                            <h2 className="text-lg text-primary">Description:</h2>
                             <p>{list.description}</p>
                         </div>
                         {list.films.length > 0 ? (

@@ -94,7 +94,7 @@ function Reviews({userIsAuthenticated, isAdmin}) {
                             <>
                                 {reviewsPaginator.data.length > 0 ? (
                                     <>
-                                        <ReviewOverviewList reviews={reviewsPaginator.data} />
+                                        <ReviewOverviewList reviews={reviewsPaginator.data} showFilm={false} />
                                         <PaginationControls
                                             currentPage={page}
                                             onNext={handleNextPage}

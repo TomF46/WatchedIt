@@ -40,7 +40,7 @@ function ListReel() {
                         <div className="grid grid-cols-12">
                             {listsPaginator.data.map((list) => {
                                 return (
-                                    <ListReelItem list={list} />
+                                    <ListReelItem key={list.id} list={list} />
                                 )
                             })}
                         </div>

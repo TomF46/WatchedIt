@@ -6,13 +6,13 @@ import FilmReel from "../components/Home/FilmReel/FilmReel";
 import PeopleReel from "../components/Home/PeopleReel/PeopleReel";
 import ListReel from "../components/Home/ListReel/ListReel";
 
-function Home({ login, userIsAuthenticated }) {
+function Home({ userIsAuthenticated, username }) {
     const navigate = useNavigate();
 
     return (
         <div className="Home">
             {userIsAuthenticated ? (
-                <p className="text-center text-primary text-4xl mt-4">Welcome</p>
+                <p className="text-center text-primary text-4xl mt-4">Welcome {username}</p>
             ) : (
                 <div className="text-center">
                     <p className="text-center text-primary text-4xl my-4">Sign up now to access lots more features</p>
@@ -41,11 +41,13 @@ function Home({ login, userIsAuthenticated }) {
 
 Home.propTypes = {
     userIsAuthenticated: PropTypes.bool.isRequired,
+    username: PropTypes.string,
 };
 
 const mapStateToProps = (state, ownProps) => {
     return {
         userIsAuthenticated: state.tokens != null,
+        username: state.tokens ? state.tokens.username : null
     };
 };
 

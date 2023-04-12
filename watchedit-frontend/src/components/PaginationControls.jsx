@@ -48,7 +48,7 @@ PaginationControls.propTypes = {
     onNext: PropTypes.func.isRequired,
     onPrevious: PropTypes.func.isRequired,
     currentPage: PropTypes.number.isRequired,
-    lastPage: PropTypes.number.isRequired
+    lastPage: PropTypes.bool.isRequired
 
 };
 

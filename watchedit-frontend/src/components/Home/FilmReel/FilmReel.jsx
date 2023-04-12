@@ -40,7 +40,7 @@ function FilmReel() {
                         <div className="grid grid-cols-12">
                             {filmsPaginator.data.map((film) => {
                                 return (
-                                    <FilmReelItem film={film} />
+                                    <FilmReelItem key={film.id} film={film} />
                                 )
                             })}
                         </div>
