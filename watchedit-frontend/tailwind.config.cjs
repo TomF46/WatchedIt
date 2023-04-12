@@ -14,8 +14,10 @@ module.exports = {
       },
       gridTemplateColumns: {
         '24': 'repeat(24, minmax(0, 1fr))',
+        '16': 'repeat(16, minmax(0, 1fr))',
       },
       gridColumn: {
+        'span-16': 'span 22 / span 22',
         'span-22': 'span 22 / span 22',
         'span-23': 'span 23 / span 23',
         'span-24': 'span 24 / span 24',

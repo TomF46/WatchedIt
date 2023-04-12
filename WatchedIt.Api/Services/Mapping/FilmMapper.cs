@@ -28,7 +28,8 @@ namespace WatchedIt.Api.Services.Mapping
                 Id = film.Id,
                 Name = film.Name,
                 ShortDescription = film.ShortDescription,
-                PosterUrl = film.PosterUrl
+                PosterUrl = film.PosterUrl,
+                AverageRating = String.Format("{0:0.0}", film.AverageRating)
             };
         }
 

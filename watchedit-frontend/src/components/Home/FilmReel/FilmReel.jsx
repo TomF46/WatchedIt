@@ -9,7 +9,7 @@ import { getFilmsPaginated } from "../../../api/filmsApi";
 function FilmReel() {
     const [filmsPaginator, setFilmsPaginator] = useState(null);
     const [page, setPage] = useState(1);
-    const filmsPerPage = 6;
+    const filmsPerPage = 8;
 
     useEffect(() => {
         if (!filmsPaginator) {
@@ -35,9 +35,15 @@ function FilmReel() {
                 <LoadingMessage message={"Loading films."} />
             ) : (
                 <div className="mt-4">
-                    <Link to={"/films"} className="text-primary text-2xl hover:opacity-75">Films</Link>
+                    <Link to={"/films"} className="text-primary text-2xl hover:opacity-75 inline-flex items-center">
+                        Films
+                        {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5" alignmentBaseline={true}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg> */}
+
+                    </Link>
                     {filmsPaginator.data.length > 0 ? (
-                        <div className="grid grid-cols-12">
+                        <div className="grid grid-cols-16">
                             {filmsPaginator.data.map((film) => {
                                 return (
                                     <FilmReelItem key={film.id} film={film} />

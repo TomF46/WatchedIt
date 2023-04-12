@@ -9,7 +9,7 @@ import PeopleReelItem from "./PeopleReelItem";
 function PeopleReel() {
     const [peoplePaginator, setPeoplePaginator] = useState(null);
     const [page, setPage] = useState(1);
-    const peoplePerPage = 6;
+    const peoplePerPage = 8;
 
     useEffect(() => {
         if (!peoplePaginator) {
@@ -37,7 +37,7 @@ function PeopleReel() {
                 <div className="mt-4">
                     <Link to={"/people"} className="text-primary text-2xl hover:opacity-75">People</Link>
                     {peoplePaginator.data.length > 0 ? (
-                        <div className="grid grid-cols-12">
+                        <div className="grid grid-cols-16">
                             {peoplePaginator.data.map((person) => {
                                 return (
                                     <PeopleReelItem key={person.id} person={person} />

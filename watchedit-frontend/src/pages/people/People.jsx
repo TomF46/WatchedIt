@@ -14,7 +14,7 @@ function People({ isAdmin }) {
     const [peoplePaginator, setPeoplePaginator] = useState(null);
     const [searchTerms, setSearchTerms] = useState({firstName: "", lastName: "", stageName: ""});
     const [page, setPage] = useState(1);
-    const peoplePerPage = 20;
+    const peoplePerPage = 32;
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
     useEffect(() => {
