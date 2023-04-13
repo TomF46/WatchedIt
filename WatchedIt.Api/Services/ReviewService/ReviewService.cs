@@ -41,12 +41,12 @@ namespace WatchedIt.Api.Services.ReviewService
             return new PaginationResponse<GetReviewOverviewDto>(mappedReviews, parameters.PageNumber, parameters.PageSize, count);
         }
 
-        public async Task<GetReviewDto> GetById(int id, int userId)
+        public async Task<GetReviewDto> GetById(int id)
         {
             var review = await _context.Reviews.Include(r => r.Film).Include(r=> r.User).FirstOrDefaultAsync(r => r.Id == id);
             if(review is null) throw new NotFoundException($"Review with Id '{id}' not found.");
 
-            return ReviewMapper.Map(review, userId);
+            return ReviewMapper.Map(review);
         }
 
         public async Task<GetReviewDto> Add(int filmId, int id , AddReviewDto newReview)
@@ -68,7 +68,7 @@ namespace WatchedIt.Api.Services.ReviewService
             await _context.SaveChangesAsync();
             await UpdateAverageScore(film);
             
-            return ReviewMapper.Map(review, user.Id);
+            return ReviewMapper.Map(review);
         }
 
         public async Task<GetReviewDto> Update(int id, int userId ,UpdateReviewDto updatedReview)
@@ -83,7 +83,7 @@ namespace WatchedIt.Api.Services.ReviewService
             review.Text = updatedReview.Text;
             await _context.SaveChangesAsync();
             await UpdateAverageScore(review.Film);
-            return ReviewMapper.Map(review, userId);
+            return ReviewMapper.Map(review);
         }
 
         public void Delete(int id, int userId)

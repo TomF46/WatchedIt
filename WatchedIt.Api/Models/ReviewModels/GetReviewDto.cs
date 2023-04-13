@@ -14,6 +14,5 @@ namespace WatchedIt.Api.Models.ReviewModels
         public GetSimpleFilmDto? Film {get; set;}
         public double Rating {get; set;}
         public string? Text {get; set;}
-        public bool userCanEdit {get; set;}
     }
 }

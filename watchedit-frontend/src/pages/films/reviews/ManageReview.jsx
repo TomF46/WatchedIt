@@ -9,7 +9,7 @@ import { newReview } from "../../../tools/obJectShapes";
 import ReviewManageForm from "../../../components/Films/Reviews/ReviewManageForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
-function ManageReview({userIsAuthenticated, isAdmin}) {
+function ManageReview({userId ,isAdmin}) {
     const { id, reviewId } = useParams();
     const navigate = useNavigate();
     const [film, setFilm] = useState(null);
@@ -28,6 +28,7 @@ function ManageReview({userIsAuthenticated, isAdmin}) {
         if(reviewId){
             getReviewById(id, reviewId).then(data => {
                 mapForEditing(data);
+                if(data.user.id != userId) navigate(`/films/${data.film.id}/reviews/${data.id}`);
                 setEditing(true);
             }).catch(error => {
                 toast.error(`Error fetching review ${error.message}`, {
@@ -109,12 +110,14 @@ function ManageReview({userIsAuthenticated, isAdmin}) {
 }
 
 ManageReview.propTypes = {
-    isAdmin: PropTypes.bool.isRequired
+    isAdmin: PropTypes.bool.isRequired,
+    userId: PropTypes.number
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
-        isAdmin: state.isAdmin
+        isAdmin: state.isAdmin,
+        userId: state.tokens ? state.tokens.id : null
     };
 };
 

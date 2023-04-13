@@ -8,14 +8,13 @@ namespace WatchedIt.Api.Services.Mapping
 {
     public static class FilmListMapper
     {
-        public static GetFilmListDto map(FilmList filmList, int userId){
+        public static GetFilmListDto map(FilmList filmList){
             return new GetFilmListDto {
                 Id = filmList.Id,
                 Name = filmList.Name,
                 Description = filmList.Description,
                 CreatedBy =  UserMapper.MapSimpleUser(filmList.CreatedBy),
                 Films = filmList.Films.Select(f => FilmMapper.MapSimple(f)).ToList(),
-                userCanEdit = filmList.CreatedBy.Id == userId
             };
         }
 

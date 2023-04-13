@@ -3,15 +3,15 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { getFilmById } from "../../../api/filmsApi";
 import { deleteReview, getReviewById } from "../../../api/filmReviewApi";
 import { confirmAlert } from "react-confirm-alert";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
-function Review({userIsAuthenticated, isAdmin}) {
+function Review({userId, isAdmin}) {
     const { id, reviewId } = useParams();
     const navigate = useNavigate();
     const [review, setReview] = useState(null);
+    const [userCanEdit, setUserCanEdit] = useState(false);
 
     useEffect(() => {
         if (!review) {
@@ -23,6 +23,7 @@ function Review({userIsAuthenticated, isAdmin}) {
         getReviewById(id, reviewId)
             .then((res) => {
                 setReview(res);
+                setUserCanEdit(res.user.id == userId);
             })
             .catch((err) => {
                 toast.error(`Error getting review ${err.data.Exception}`, {
@@ -65,7 +66,7 @@ function Review({userIsAuthenticated, isAdmin}) {
                 <LoadingMessage message={"Loading review."} />
             ) : (
                 <>
-                    {review.userCanEdit && (
+                    {userCanEdit && (
                         <div className="owner-controls bg-backgroundOffset mt-4 rounded-md">
                             <div className="bg-primary rounded-t-md">
                                 <p className="text-white font-bold text-lg px-2 py-1">
@@ -107,12 +108,14 @@ function Review({userIsAuthenticated, isAdmin}) {
 }
 
 Review.propTypes = {
-    isAdmin: PropTypes.bool.isRequired
+    isAdmin: PropTypes.bool.isRequired,
+    userId: PropTypes.number,
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
-        isAdmin: state.isAdmin
+        isAdmin: state.isAdmin,
+        userId: state.tokens ? state.tokens.id : null
     };
 };
 

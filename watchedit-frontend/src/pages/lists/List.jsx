@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { confirmAlert } from "react-confirm-alert";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -7,10 +9,11 @@ import FilmGrid from "../../components/Films/FilmGrid";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 
 
-function List() {
+function List({userId}) {
     const { id } = useParams();
     const navigate = useNavigate();
     const [list, setList] = useState(null);
+    const [userCanEdit, setUserCanEdit] = useState(false);
 
     useEffect(() => {
         if (!list) {
@@ -22,6 +25,7 @@ function List() {
         getFilmListById(id)
             .then((res) => {
                 setList(res);
+                setUserCanEdit(res.createdBy.id == userId);
             })
             .catch((err) => {
                 toast.error(`Error getting list ${err.data.Exception}`, {
@@ -31,7 +35,7 @@ function List() {
     }
 
     function confirmDelete(){
-        if(!list.userCanEdit) return;
+        if(!userCanEdit) return;
         confirmAlert({
             title : "Confirm deletion",
             message: `Are you sure you want to remove ${list.name}?`,
@@ -93,7 +97,7 @@ function List() {
                 <LoadingMessage message={"Loading list"} />
             ) : (
                 <div>
-                    {list.userCanEdit && (
+                    {userCanEdit && (
                         <div className="owner-controls bg-backgroundOffset mt-4 rounded-md">
                             <div className="bg-primary rounded-t-md">
                                 <p className="text-white font-bold text-lg px-2 py-1">
@@ -126,9 +130,9 @@ function List() {
                             <p>{list.description}</p>
                         </div>
                         {list.films.length > 0 ? (
-                            <FilmGrid films={list.films} editable={list.userCanEdit} onRemove={handleRemove}/>
+                            <FilmGrid films={list.films} editable={userCanEdit} onRemove={handleRemove}/>
                         ) : (
-                            <p className="text-center text-primary text-2xl mt-4">{list.userCanEdit ? "You have not yet added a film to this list." : "The list owner has not added a film to this list."}</p>
+                            <p className="text-center text-primary text-2xl mt-4">{userCanEdit ? "You have not yet added a film to this list." : "The list owner has not added a film to this list."}</p>
                         )}
                     </div>
                 </div>
@@ -137,5 +141,14 @@ function List() {
     );
   }
   
-  export default List;
-  
+List.propTypes = {
+    userId: PropTypes.number,
+};
+
+const mapStateToProps = (state) => {
+    return {
+        userId: state.tokens ? state.tokens.id : null
+    };
+};
+
+export default connect(mapStateToProps)(List);

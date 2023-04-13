@@ -27,8 +27,7 @@ namespace WatchedIt.Api.Controllers
 
         [HttpGet("{reviewId}")]
         public async Task<ActionResult<GetReviewDto>> GetSingle(int id, int reviewId){
-            var userId = AuthMapper.MapLoggedInUserId(HttpContext);
-            var review = await _reviewService.GetById(reviewId, userId);
+            var review = await _reviewService.GetById(reviewId);
             return Ok(review);
         }
         

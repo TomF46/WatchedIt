@@ -65,7 +65,7 @@ namespace WatchedIt.Tests.ServiceTests
             _context.FilmLists.Add(list);
             await _context.SaveChangesAsync();
 
-            var listFromDb = await _filmListService.GetById(list.Id, user.Id);
+            var listFromDb = await _filmListService.GetById(list.Id);
             Assert.That(listFromDb.Id, Is.EqualTo(list.Id));
         }
 
@@ -96,7 +96,7 @@ namespace WatchedIt.Tests.ServiceTests
                 Description = "With a new description"
             };
             await _filmListService.Update(list.Id, user.Id, updatedList);
-            var listFromDb = await _filmListService.GetById(list.Id, user.Id);
+            var listFromDb = await _filmListService.GetById(list.Id);
             Assert.That(listFromDb.Name, Is.EqualTo(updatedList.Name));
 
         }
@@ -113,7 +113,7 @@ namespace WatchedIt.Tests.ServiceTests
             
             Assert.ThrowsAsync<NotFoundException>(async () =>
             {
-                await _filmListService.GetById(list.Id, user.Id);
+                await _filmListService.GetById(list.Id);
             });
         }
 

@@ -1,4 +1,6 @@
 import { React, useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmListById, saveFilmList } from "../../../api/filmListsApi";
@@ -6,7 +8,7 @@ import ListManageForm from "../../../components/Lists/Manage/ListManageForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { newList } from "../../../tools/obJectShapes";
 
-function ManageList() {
+function ManageList({userId}) {
     const { id } = useParams();
     const navigate = useNavigate();
     const [list, setList] = useState({ ...newList });
@@ -19,7 +21,7 @@ function ManageList() {
             getFilmListById(id)
                 .then(data => {
                     mapForEditing(data);
-                    if(!data.userCanEdit) navigate(`/lists/${data.id}`);
+                    if(data.createdBy.id != userId) navigate(`/lists/${data.id}`);
                     setEditing(true);
                 })
                 .catch(error => {
@@ -89,5 +91,14 @@ function ManageList() {
     );
 }
 
-export default ManageList;
- 
+ManageList.propTypes = {
+    userId: PropTypes.number,
+};
+
+const mapStateToProps = (state) => {
+    return {
+        userId: state.tokens ? state.tokens.id : null
+    };
+};
+
+export default connect(mapStateToProps)(ManageList);

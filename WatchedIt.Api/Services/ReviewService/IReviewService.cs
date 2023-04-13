@@ -11,7 +11,7 @@ namespace WatchedIt.Api.Services.ReviewService
     {
         Task<PaginationResponse<GetReviewOverviewDto>> GetAllForFilm(int id, PaginationParameters parameters);
         Task<PaginationResponse<GetReviewOverviewDto>> GetAllByUser(int id, PaginationParameters parameters);
-        Task<GetReviewDto> GetById(int id, int userId);
+        Task<GetReviewDto> GetById(int id);
         Task<GetReviewDto> Add(int filmId, int userId, AddReviewDto newReview);
         Task<GetReviewDto> Update(int id, int userId ,UpdateReviewDto updatedReview);
         void Delete(int id, int userId);
