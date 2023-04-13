@@ -47,25 +47,25 @@ function Header({ login, checkUserIsAdmin , userIsAuthenticated }) {
                 <div className="text-sm md:flex-grow py-4">
                     <Link
                         to="/"
-                        className="block mt-4 md:inline-block md:mt-0 text-primary hover:text-secondary md:mx-4"
+                        className="block mt-4 md:inline-block md:mt-0 text-primary hover:opacity-75 md:mx-4"
                     >
                         Home
                     </Link>
                     <Link
                         to="/films"
-                        className="block mt-4 md:inline-block md:mt-0 text-primary hover:text-secondary md:mx-4"
+                        className="block mt-4 md:inline-block md:mt-0 text-primary hover:opacity-75 md:mx-4"
                     >
                         Films
                     </Link>
                     <Link
                         to="/people"
-                        className="block mt-4 md:inline-block md:mt-0 text-primary hover:text-secondary md:mx-4"
+                        className="block mt-4 md:inline-block md:mt-0 text-primary hover:opacity-75 md:mx-4"
                     >
                         People
                     </Link>
                     <Link
                         to="/lists"
-                        className="block mt-4 md:inline-block md:mt-0 text-primary hover:text-secondary md:mx-4"
+                        className="block mt-4 md:inline-block md:mt-0 text-primary hover:opacity-75 md:mx-4"
                     >
                         Lists
                     </Link>
@@ -80,9 +80,11 @@ function Header({ login, checkUserIsAdmin , userIsAuthenticated }) {
                         <>
                             <Link
                                 to="/profile"
-                                className="block mt-4 md:inline-block md:mt-0 text-primary hover:text-secondary md:mx-4"
+                                className="block mt-4 md:inline-block md:mt-0 text-primary hover:opacity-75 md:mx-4 inline-flex items-center"
                             >
-                                Profile
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                </svg>
                             </Link>
                         </>
                     )}

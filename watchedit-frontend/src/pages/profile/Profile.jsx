@@ -6,8 +6,10 @@ import { getUserById } from "../../api/usersApi";
 import { Link, useParams } from "react-router-dom";
 import UserLists from "../../components/User/UserLists";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
+import { logout } from "../../redux/actions/authenticationActions";
+import { confirmAlert } from "react-confirm-alert";
 
-function Profile({id}) {
+function Profile({id, currentUserId, logout}) {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
@@ -26,6 +28,26 @@ function Profile({id}) {
                     autoClose: false,
                 });
             });
+    }
+
+    function handleLogout(){
+        confirmAlert({
+            title : "Confirm logout",
+            message: `Are you sure you want to logout?`,
+            buttons: [
+                {
+                  label: 'Yes',
+                  onClick: () => {
+                    logout();
+                    toast.info("Logged out");
+                  }
+                },
+                {
+                  label: 'No',
+                  onClick: () => {}
+                }
+            ]
+        });
     }
 
     return (
@@ -52,6 +74,19 @@ function Profile({id}) {
                                 >
                                     Reviews
                                 </Link>
+                                {user.id == currentUserId && (
+                                    <>
+                                        <Link
+                                            to={`/profile/${id}/edit`}
+                                            className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 w-full text-center"
+                                        >
+                                            Edit profile
+                                         </Link>
+                                        <button onClick={handleLogout} className="bg-red-400 text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 w-full text-center">
+                                            Logout
+                                        </button>
+                                    </>
+                                )}
                             </div>
                         </div>
                         <div className="col-span-12 md:col-span-10 pl-4">
@@ -82,14 +117,22 @@ function Profile({id}) {
 }
 
 Profile.propTypes = {
-    id: PropTypes.any.isRequired
+    id: PropTypes.any.isRequired,
+    logout: PropTypes.func.isRequired,
+    currentUserId: PropTypes.number
 };
 
 const mapStateToProps = (state, ownProps) => {
     const { id } = useParams();
     return {
         id:  id ? id : state.tokens.id,
+        currentUserId: state.tokens ? state.tokens.id : null
     };
 };
 
-export default connect(mapStateToProps)(Profile);
+const mapDispatchToProps = {
+    logout
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

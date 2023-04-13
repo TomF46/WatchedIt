@@ -50,7 +50,7 @@ import UsersReviews from "./pages/profile/reviews/usersReviews";
             <Route path="/login" element={<Login />}/>
             <Route path="/films/:id/reviews/:reviewId/edit" element={<AuthenticatedRoute><ManageReview /></AuthenticatedRoute>}/>
             <Route path="/films/:id/reviews/add" element={<AuthenticatedRoute><ManageReview /></AuthenticatedRoute>}/>
-            <Route path="/films/:id/reviews/:reviewId" element={<AuthenticatedRoute><Review /></AuthenticatedRoute>}/>
+            <Route path="/films/:id/reviews/:reviewId" element={<Review />}/>
             <Route path="/films/:id/reviews" element={<Reviews />}/>
             <Route path="/films/:id/credits/add" element={<AdminRoute><AddCreditForFilm /></AdminRoute>}/>
             <Route path="/films/:id/credits" element={<FilmCredits />}/>

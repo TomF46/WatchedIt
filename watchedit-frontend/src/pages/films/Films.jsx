@@ -113,6 +113,9 @@ function Films({ isAdmin }) {
                 <LoadingMessage message={"Loading films."} />
             ) : (
                 <div className="mt-4">
+                    <h1 className="text-center text-primary text-2xl mb-4">
+                        Films
+                    </h1>
                     <div className="search-controls bg-backgroundOffset mt-4 rounded-md mb-4">
                         <div className="bg-primary rounded-t-md">
                             <p className="text-white font-bold text-lg px-2 py-1">
