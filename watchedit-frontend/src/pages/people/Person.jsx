@@ -102,16 +102,17 @@ function Person({isAdmin}) {
                             </Link>
                         </div>
                         <div className="col-span-12 md:col-span-10 pl-4">
-                            <div className="grid grid-cols-12 bg-backgroundOffset p-4">
-                                <div className="col-span-12 md:col-span-6">
+                            <div className="grid grid-cols-12">
+                                <div className="col-span-12 md:col-span-6 bg-backgroundOffset p-4">
                                     <p>First name: {person.firstName}</p>
                                     <p>Last name: {person.lastName}</p>
                                     {person.middleNames && (<p>Middle names: {person.middleNames}</p>)}
                                     {person.stageName && (<p>Stage name: {person.stageName}</p>)}
                                     <p>DOB: {format(parseISO(person.dateOfBirth), "dd/MM/yyyy")}</p>
                                 </div>
-                                <div className="col-span-12 md:col-span-6">
-                                    <p>Bio: {person.description}</p>
+                                <div className="col-span-12 md:col-span-6 md:ml-2 bg-backgroundOffset p-4">
+                                    <h3 className="text-primary text-lg">About</h3>
+                                    <p>{person.description}</p>
                                 </div>
                             </div>
                             <div className="col-span-12">

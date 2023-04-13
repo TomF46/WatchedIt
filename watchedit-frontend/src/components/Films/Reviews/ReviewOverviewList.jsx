@@ -16,7 +16,7 @@ const ReviewOverviewList = ({ reviews, showFilm }) => {
                                         <img src={review.film.posterUrl} className="w-full poster" />
                                     </div>
                                 )}
-                                <div className={showFilm ? "col-span-23" : "col-span-24"}>
+                                <div className={`${showFilm ? "col-span-23" : "col-span-24"} inline-flex items-center`}>
                                     <p className="p-4">{showFilm ? review.film.name: ""} {review.rating} by {review.user.username}</p>
                                 </div>
                             </div>

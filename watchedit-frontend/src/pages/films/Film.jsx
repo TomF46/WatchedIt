@@ -121,9 +121,8 @@ function Film({userIsAuthenticated, isAdmin}) {
                                             )
                                         })}
                                     </ul>
-                                    <p className="mt-4">Description: {film.fullDescription}</p>
                                 </div>
-                                <div className="col-span-12 md:col-span-4 text-center bg-backgroundOffset ml-2 p-4">
+                                <div className="col-span-12 md:col-span-4 text-center bg-backgroundOffset md:ml-2 p-4">
                                     <h3 className="text-primary text-xl mb-4">Rating</h3>
                                     {film.averageRating ? (
                                         <div>
@@ -143,6 +142,10 @@ function Film({userIsAuthenticated, isAdmin}) {
                                             </Link>
                                         </>
                                     )}
+                                </div>
+                                <div className="col-span-12 md:col-span-8 bg-backgroundOffset p-4 mt-4">
+                                    <h3 className="text-primary text-lg">Description</h3>
+                                    <p>{film.fullDescription}</p>
                                 </div>
                                 <div className="col-span-12">
                                     <div className="grid grid-cols-12">

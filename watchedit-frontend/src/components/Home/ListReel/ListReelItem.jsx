@@ -11,7 +11,7 @@ const ListReelItem = ({ list }) => {
                     <div className="col-span-1">
                         <img src={list.createdBy.imageUrl} className="h-full headshot" />
                     </div>
-                    <div className="col-span-11 px-4 py-2">
+                    <div className="col-span-11 px-4 py-2 inline-flex items-center">
                         <p>{list.name} {`(${list.filmCount})`} By {list.createdBy.username}</p>
                     </div>
                 </div>
