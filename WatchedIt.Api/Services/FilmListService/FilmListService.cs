@@ -15,13 +15,15 @@ namespace WatchedIt.Api.Services.FilmListService
             _context = context;
         }
 
-        public async Task<PaginationResponse<GetFilmListOverviewDto>> GetAll(PaginationParameters paginationParameters)
+        public async Task<PaginationResponse<GetFilmListOverviewDto>> GetAll(FilmListSearchWithPaginationParameters parameters)
         {
             var query = _context.FilmLists.Include(f => f.CreatedBy).Include(f => f.Films).AsQueryable();
+            if(!string.IsNullOrWhiteSpace(parameters.SearchTerm)) query = query.Where(f => f.Name.ToLower().Contains(parameters.SearchTerm.Trim().ToLower()));
+            if(!string.IsNullOrWhiteSpace(parameters.Username)) query = query.Where(f => f.CreatedBy.Username.ToLower().Contains(parameters.Username.Trim().ToLower()));
             var count = query.Count();
-            var lists = await query.Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).ToListAsync();
+            var lists = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
             var mappedLists = lists.Select(l => FilmListMapper.mapOverview(l)).ToList();
-            return new PaginationResponse<GetFilmListOverviewDto>(mappedLists, paginationParameters.PageNumber, paginationParameters.PageSize, count);
+            return new PaginationResponse<GetFilmListOverviewDto>(mappedLists, parameters.PageNumber, parameters.PageSize, count);
         }
 
         public async Task<GetFilmListDto> GetById(int id, int userId)

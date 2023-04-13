@@ -15,6 +15,17 @@ export function getFilmListsPaginated(pageNumber, pageSize) {
         });
 }
 
+export function searchFilmListsPaginated(searchTerm, username, pageNumber, pageSize) {
+    return client
+        .get(`/api/filmLists?SearchTerm=${searchTerm}&Username=${username}&PageNumber=${pageNumber}&PageSize=${pageSize}`)
+        .then(response => {
+            return response.data
+        })
+        .catch(error => {
+            throw error.response;
+        });
+}
+
 export function getFilmListById(id) {
     return client
         .get(`/api/filmLists/${id}`)

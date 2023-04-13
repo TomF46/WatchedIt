@@ -79,7 +79,7 @@ namespace WatchedIt.Tests.ServiceTests
             _context.FilmLists.Add(list2);
             await _context.SaveChangesAsync();
 
-            var listsFromDb = await _filmListService.GetAll(new PaginationParameters());
+            var listsFromDb = await _filmListService.GetAll(new FilmListSearchWithPaginationParameters());
             Assert.That(listsFromDb.Data.Count(), Is.EqualTo(2));
         }
 
