@@ -9,6 +9,7 @@ import { getFilmById, removeFilm } from "../../api/filmsApi";
 import WatchedFilmControls from "../../components/Films/Watched/WatchedFilmControls";
 import FilmCreditsOverviewList from "../../components/Films/Credits/FilmCreditsOverviewList";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
+import LatestReviews from "../../components/Reviews/LatestReviews";
 
 function Film({userIsAuthenticated, isAdmin}) {
     const { id } = useParams();
@@ -146,6 +147,9 @@ function Film({userIsAuthenticated, isAdmin}) {
                                 <div className="col-span-12 md:col-span-8 bg-backgroundOffset p-4 mt-4">
                                     <h3 className="text-primary text-lg">Description</h3>
                                     <p>{film.fullDescription}</p>
+                                </div>
+                                <div className="col-span-12">
+                                    <LatestReviews film={film} totalReviews={3} />
                                 </div>
                                 <div className="col-span-12">
                                     <div className="grid grid-cols-12">

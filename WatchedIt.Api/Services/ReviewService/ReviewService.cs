@@ -24,6 +24,7 @@ namespace WatchedIt.Api.Services.ReviewService
 
             var query =  _context.Reviews.Include(r => r.Film).Include(r=> r.User).Where(x => x.Film.Id == film.Id);
             var count = query.Count();
+            query = query.OrderByDescending(x => x.Id);
             var reviews = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
             var mappedReviews = reviews.Select(r => ReviewMapper.MapOverview(r)).ToList();
             return new PaginationResponse<GetReviewOverviewDto>(mappedReviews, parameters.PageNumber, parameters.PageSize, count);

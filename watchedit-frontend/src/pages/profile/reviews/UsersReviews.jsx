@@ -74,7 +74,9 @@ function UserReviews({id}) {
                             <>
                                 {reviewsPaginator.data.length > 0 ? (
                                     <>
-                                        <ReviewOverviewList reviews={reviewsPaginator.data} showFilm/>
+                                        <div className="">
+                                            <ReviewOverviewList reviews={reviewsPaginator.data} showFilm/>
+                                        </div>
                                         <PaginationControls
                                             currentPage={page}
                                             onNext={handleNextPage}

@@ -13,7 +13,7 @@ const FilmMiniDetail = ({ film }) => {
                     <div className="col-span-10 p-2">
                         <Link to={`/films/${film.id}`} className="text-primary font-bold hover:opacity-75">{film.name}</Link>
                         <p>{film.shortDescription}</p>
-                        <p>{`${film.averageRating}/10`}</p>
+                        {film.averageRating && (<p>{`${film.averageRating}/10`}</p>)}
                     </div>
                 </div>
            </div>

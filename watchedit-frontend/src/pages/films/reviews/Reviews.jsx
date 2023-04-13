@@ -93,7 +93,7 @@ function Reviews({userIsAuthenticated, isAdmin}) {
                         {reviewsPaginator ? (
                             <>
                                 {reviewsPaginator.data.length > 0 ? (
-                                    <>
+                                    <div className="mt-4">
                                         <ReviewOverviewList reviews={reviewsPaginator.data} showFilm={false} />
                                         <PaginationControls
                                             currentPage={page}
@@ -104,9 +104,9 @@ function Reviews({userIsAuthenticated, isAdmin}) {
                                             to={reviewsPaginator.to}
                                             lastPage={reviewsPaginator.lastPage}
                                         />
-                                    </>
+                                    </div>
                                 ) : (
-                                    <p className="text-center text-primary text-2xl">This film currently has no reviews</p>
+                                    <p className="text-center text-xl mt-4">This film currently has no reviews. <Link to={`/films/${film.id}/reviews/add`} className="text-primary hover:opacity-75">Add one now.</Link></p>
                                 )}
                             </>
                         ):(
