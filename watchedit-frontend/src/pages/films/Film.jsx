@@ -113,13 +113,17 @@ function Film({userIsAuthenticated, isAdmin}) {
                                     <p>tagline: {film.shortDescription}</p>
                                     <p>Runtime: {film.runtime} minutes</p>
                                     <p>Categories:</p>
-                                    <ul>
-                                        {film.categories.map((category) => {
-                                            return (
-                                                <li key={category.id}><Link to={`/categories/${category.id}`} className="text-primary hover:opacity-75">{category.name}</Link></li>
-                                            )
-                                        })}
-                                    </ul>
+                                    {film.categories.length > 0 ? (
+                                        <ul>
+                                            {film.categories.map((category) => {
+                                                return (
+                                                    <li key={category.id}><Link to={`/categories/${category.id}`} className="text-primary hover:opacity-75">{category.name}</Link></li>
+                                                )
+                                            })}
+                                        </ul>
+                                    ) : (
+                                        <p>No categories added</p>
+                                    )}
                                 </div>
                                 <div className="col-span-12 md:col-span-4 text-center bg-backgroundOffset md:ml-2 p-4">
                                     <h3 className="text-primary text-xl mb-4">Rating</h3>
