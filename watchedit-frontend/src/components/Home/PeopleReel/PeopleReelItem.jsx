@@ -10,7 +10,7 @@ const PeopleReelItem = ({ person }) => {
                 <div onClick={() => {navigate(`/people/${person.id}`)}}>
                     <img src={person.imageUrl} className="w-full headshot" />
                     <div className="p-2">
-                        <p className="text-center">{person.fullName}</p>
+                        <p className="text-center text-primary">{person.fullName}</p>
                     </div>
                 </div>
             </div>

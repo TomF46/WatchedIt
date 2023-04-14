@@ -40,12 +40,12 @@ const WatchedFilmControls = ({ film }) => {
             ) : (
                 <div className="mt-4">
                     {hasWatched ? (
-                        <button onClick={() => setNotWatched()} className="py-2 px-4 rounded bg-primary w-full">
-                            Set not watched
+                        <button onClick={() => setNotWatched()} className="py-2 px-4 rounded bg-success w-full">
+                            Watched
                         </button>
                     ): (
                         <button onClick={() => setWatched()} className="py-2 px-4 rounded bg-primary w-full">
-                            Set watched
+                            Watch
                         </button>
                     )}
                 </div>

@@ -8,6 +8,7 @@ import UserLists from "../../components/User/UserLists";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import { logout } from "../../redux/actions/authenticationActions";
 import { confirmAlert } from "react-confirm-alert";
+import UserLatestReviews from "../../components/Reviews/UserLatestReviews";
 
 function Profile({id, currentUserId, logout}) {
     const [user, setUser] = useState(null);
@@ -108,6 +109,9 @@ function Profile({id, currentUserId, logout}) {
                                         <UserLists user={user} />
                                     </div>
                                 </div>
+                            </div>
+                            <div className="col-span-12">
+                                <UserLatestReviews user={user} totalReviews={4} />
                             </div>
                         </div>
                     </div>

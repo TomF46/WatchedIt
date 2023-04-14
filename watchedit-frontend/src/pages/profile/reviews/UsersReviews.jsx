@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import ReviewOverviewList from "../../../components/Films/Reviews/ReviewOverviewList";
 import PaginationControls from "../../../components/PaginationControls";
@@ -9,7 +9,6 @@ import { getUserById, getUsersReviewsPaginated } from "../../../api/usersApi";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
 function UserReviews({id}) {
-    const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [reviewsPaginator, setReviewsPaginator] = useState(null);
     const [page, setPage] = useState(1);

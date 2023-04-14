@@ -8,9 +8,10 @@ module.exports = {
     extend: {
       colors: {
         'primary' : '#2E86AB',
-        'background' : '#201E1F',
-        'backgroundOffset' : '#2d2a2c',
-        'backgroundOffset2' : '#474345'
+        'background' : '#191818',
+        'backgroundOffset' : '#201E1F',
+        'backgroundOffset2' : '#2d2a2c',
+        'success' : '#84DD63'
       },
       gridTemplateColumns: {
         '24': 'repeat(24, minmax(0, 1fr))',
