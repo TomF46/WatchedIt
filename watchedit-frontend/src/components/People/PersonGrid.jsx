@@ -9,7 +9,7 @@ const PersonGrid = ({ people }) => {
         <div className="grid grid-cols-16">
             {people.map((person) => {
                 return (
-                    <div key={person.id} className="col-span-16 md:col-span-2">
+                    <div key={person.id} className="col-span-16 md:col-span-2 mt-4">
                         <div onClick={() => {navigate(`/people/${person.id}`)}} className="mx-2 bg-backgroundOffset cursor-pointer hover:opacity-75">
                             <img src={person.imageUrl} className="w-full headshot" />
                             <div className="p-2">
