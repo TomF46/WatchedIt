@@ -119,7 +119,7 @@ function AddCreditForFilm() {
                 <LoadingMessage message={"Loading film."} />
             ) : (
                 <div>
-                    <h1 className="text-center text-primary text-2xl my-4">Add Credit for {film.name}</h1>
+                    <h1 className="text-center text-primary text-4xl my-4">Add Credit for {film.name}</h1>
                     <FilmMiniDetail film={film} />
                     {!peoplePaginator ? (
                         <LoadingMessage message={"Loading people."} />

@@ -56,9 +56,9 @@ function Profile({id, currentUserId, logout}) {
             {!user ? (
                 <LoadingMessage message={"Loading user."} />
             ) : (
-                <div className="grid grid-cols-12 mt-4">
+                <div className="grid grid-cols-12">
                         <div className="col-span-12">
-                            <h1 className="my-4 text-center text-primary text-2xl">{user.username}</h1>
+                            <h1 className="my-4 text-center text-primary text-4xl">{user.username}</h1>
                         </div>
                         <div className="col-span-12 md:col-span-2">
                             <img src={user.imageUrl} className="headshot" />

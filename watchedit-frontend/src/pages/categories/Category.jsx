@@ -102,7 +102,7 @@ function Category({isAdmin}){
                             </div>
                         </div>
                     )}
-                    <h1 className="text-center text-primary text-2xl my-4">
+                    <h1 className="text-center text-primary text-4xl my-4">
                         {category.name}
                     </h1>
                     {!filmsPaginator ? (

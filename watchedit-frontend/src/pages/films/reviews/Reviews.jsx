@@ -71,6 +71,8 @@ function Reviews({userIsAuthenticated, isAdmin}) {
                 <LoadingMessage message={"Loading film"} />
             ) : (
                 <>
+                    <h1 className="text-center text-primary text-4xl mt-4 mb-2">{film.name} reviews</h1>
+                    {film.averageRating && (<p className="text-center text-primary text-xl mb-4">Average rating: {film.averageRating}</p>)}
                     <div className="review-controls bg-backgroundOffset mt-4 rounded-md">
                         <div className="bg-backgroundOffset2 rounded-t-md">
                             <p className="text-primary font-bold text-lg px-2 py-1">
@@ -87,8 +89,6 @@ function Reviews({userIsAuthenticated, isAdmin}) {
                         </div>
                     </div>
                     <div className="mt-4">
-                        <h1 className="text-center text-primary text-2xl mb-2">{film.name} reviews</h1>
-                        {film.averageRating && (<p className="text-center text-primary text-xl mb-4">Average rating: {film.averageRating}</p>)}
                         <FilmMiniDetail film={film} />
                         {reviewsPaginator ? (
                             <>

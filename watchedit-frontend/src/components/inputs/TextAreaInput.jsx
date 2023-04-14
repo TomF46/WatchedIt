@@ -13,7 +13,7 @@ const TextAreaInput = ({ name, label, onChange, placeholder, required, value, er
             <div className="control">
                 <textarea
                     name={name}
-                    className="resize-y border min-w-full rounded focus:outline-none focus:shadow-outline bg-backgroundOffset2"
+                    className="resize-y border min-w-full rounded focus:outline-none focus:shadow-outline bg-backgroundOffset2 p-2"
                     value={value ? value : ""}
                     onChange={onChange}
                     required={required}

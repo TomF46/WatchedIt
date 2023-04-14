@@ -69,6 +69,9 @@ function People({ isAdmin }) {
 
     return (
         <div className="people-page">
+            <h1 className="text-center text-primary text-4xl my-4">
+                People
+            </h1>
             {isAdmin && (
                 <div className="admin-controls bg-backgroundOffset mt-4 rounded-md">
                     <div className="bg-backgroundOffset2 rounded-t-md">
@@ -90,9 +93,6 @@ function People({ isAdmin }) {
                 <LoadingMessage message={"Loading people."} />
             ) : (
                 <div className="mt-4">
-                    <h1 className="text-center text-primary text-2xl mb-4">
-                            People
-                    </h1>
                     <div className="search-controls bg-backgroundOffset mt-4 rounded-md mb-4">
                         <div className="bg-backgroundOffset2 rounded-t-md">
                             <p className="text-primary font-bold text-lg px-2 py-1">

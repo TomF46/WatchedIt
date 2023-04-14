@@ -66,6 +66,7 @@ function Review({userId, isAdmin}) {
                 <LoadingMessage message={"Loading review."} />
             ) : (
                 <>
+                    <h1 className="text-center text-primary text-4xl my-4">{review.film.name} review</h1>
                     {userCanEdit && (
                         <div className="owner-controls bg-backgroundOffset mt-4 rounded-md">
                             <div className="bg-backgroundOffset2 rounded-t-md">
@@ -87,9 +88,6 @@ function Review({userId, isAdmin}) {
                         </div>
                     )}
                     <div className="mt-4 grid grid-cols-12">
-                        <div className="col-span-12">
-                            <h1 className="text-center text-primary text-2xl mb-4">{review.film.name} review</h1>
-                        </div>
                         <div className="col-span-12 md:col-span-2">
                             <p className="text-center text-primary text-xl">{review.film.name}</p>
                             <img src={review.film.posterUrl} className="poster mt-2"/>

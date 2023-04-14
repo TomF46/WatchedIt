@@ -80,6 +80,7 @@ function FilmCredits({userIsAuthenticated, isAdmin}) {
                 <LoadingMessage message={"Loading film credits"} />
             ) : (
                 <>
+                    <h1 className="text-primary text-center text-4xl my-4">{film.name} credits</h1>
                     {isAdmin && (
                         <div className="admin-controls bg-backgroundOffset mt-4 rounded-md">
                             <div className="bg-backgroundOffset2 rounded-t-md">
@@ -98,7 +99,6 @@ function FilmCredits({userIsAuthenticated, isAdmin}) {
                         </div>
                     )}
                     <div className="mt-4">
-                        <h1 className="text-primary text-center text-2xl mb-4">{film.name} credits</h1>
                         <FilmMiniDetail film={film} />
                         {credits && (
                             <div className="grid grid-cols-12">

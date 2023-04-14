@@ -97,6 +97,7 @@ function List({userId}) {
                 <LoadingMessage message={"Loading list"} />
             ) : (
                 <div>
+                    <h1 className="text-center text-primary text-4xl my-4">{list.name}</h1>
                     {userCanEdit && (
                         <div className="owner-controls bg-backgroundOffset mt-4 rounded-md">
                             <div className="bg-backgroundOffset2 rounded-t-md">
@@ -124,7 +125,6 @@ function List({userId}) {
                         </div>
                     )}
                     <div className="mt-4">
-                        <h1 className="text-center text-primary text-2xl">{list.name}</h1>
                         <div className="bg-backgroundOffset p-4 mt-2">
                             <h2 className="text-lg text-primary">Description:</h2>
                             <p>{list.description}</p>

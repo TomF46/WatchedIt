@@ -67,8 +67,8 @@ function WatchedList({ id }) {
                 <LoadingMessage message={"Loading user"} />
             ) : (
                 <>
-                    <div className="mt-4">
-                        <h1 className="text-center text-primary text-2xl mb-4">{user.username} watched films</h1>
+                    <div>
+                        <h1 className="text-center text-primary text-4xl my-4">{user.username} watched films</h1>
                         {filmsPaginator ? (
                             <>
                             {filmsPaginator.data.length > 0 ? (

@@ -47,9 +47,14 @@ const SelectPersonCreditListWSearch = ({ people, searchTerms, onSearchTermChange
                 <div className="grid grid-cols-12">
                 {people.map((person) => {
                     return (
-                        <div key={person.id} className="col-span-12 my-2">
-                            <div onClick={() => {onPersonSelected(person)}} className={`p-4 mx-2 bg-backgroundOffset cursor-pointer hover:opacity-75`}>
-                                <p>{person.fullName}</p>
+                        <div key={person.id} className="col-span-12 my-1">
+                            <div className="grid grid-cols-24 bg-backgroundOffset">
+                                <div className="col-span-1">
+                                    <img src={person.imageUrl} className="h-full headshot" />
+                                </div>
+                                <div onClick={() => {onPersonSelected(person)}} className={`col-span-23 p-4 mx-2 cursor-pointer hover:opacity-75`}>
+                                    <p>{person.fullName}</p>
+                                </div>
                             </div>
                         </div>
                     )

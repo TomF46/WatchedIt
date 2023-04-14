@@ -69,6 +69,7 @@ function Film({userIsAuthenticated, isAdmin}) {
                 <LoadingMessage message={"Loading film."} />
             ) : (
                 <>
+                    <h1 className="my-4 text-center text-primary text-4xl">{film.name}</h1>
                     {isAdmin && (
                         <div className="admin-controls bg-backgroundOffset mt-4 rounded-md">
                             <div className="bg-backgroundOffset2 rounded-t-md">
@@ -90,9 +91,6 @@ function Film({userIsAuthenticated, isAdmin}) {
                         </div>
                     )}
                     <div className="grid grid-cols-12 mt-4">
-                        <div className="col-span-12">
-                            <h1 className="my-4 text-center text-primary text-2xl">{film.name}</h1>
-                        </div>
                         <div className="col-span-12 md:col-span-2">
                             <img src={film.posterUrl} className="poster"/>
                             <div className="flex flex-col">
