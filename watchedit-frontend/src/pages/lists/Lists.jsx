@@ -79,15 +79,15 @@ function Lists() {
             ) : (
                 <>
                     <div className="lists-controls bg-backgroundOffset mt-4 rounded-md">
-                        <div className="bg-primary rounded-t-md">
-                            <p className="text-white font-bold text-lg px-2 py-1">
+                        <div className="bg-backgroundOffset2 rounded-t-md">
+                            <p className="text-primary font-bold text-lg px-2 py-1">
                                 Lists controls
                             </p>
                         </div>
                         <div className="px-2 py-2">
                             <Link
                                 to={"/lists/add"}
-                                className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block"
+                                className="bg-backgroundOffset2 text-primary rounded py-2 px-4 hover:opacity-75 inline-block"
                             >
                                 Add list
                             </Link>
@@ -99,8 +99,8 @@ function Lists() {
                         </h1>
                         <div className="mt-4">
                             <div className="search-controls bg-backgroundOffset mt-4 rounded-md mb-4">
-                                <div className="bg-primary rounded-t-md">
-                                    <p className="text-white font-bold text-lg px-2 py-1">
+                                <div className="bg-backgroundOffset2 rounded-t-md">
+                                    <p className="text-primary font-bold text-lg px-2 py-1">
                                         Search
                                     </p>
                                 </div>

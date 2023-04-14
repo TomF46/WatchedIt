@@ -82,15 +82,15 @@ function FilmCredits({userIsAuthenticated, isAdmin}) {
                 <>
                     {isAdmin && (
                         <div className="admin-controls bg-backgroundOffset mt-4 rounded-md">
-                            <div className="bg-primary rounded-t-md">
-                                <p className="text-white font-bold text-lg px-2 py-1">
+                            <div className="bg-backgroundOffset2 rounded-t-md">
+                                <p className="text-primary font-bold text-lg px-2 py-1">
                                     Admin controls
                                 </p>
                             </div>
                             <div className="px-2 py-2">
                                 <Link
                                     to={`/films/${film.id}/credits/add`}
-                                    className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block"
+                                    className="bg-backgroundOffset2 text-primary rounded py-2 px-4 hover:opacity-75 inline-block"
                                 >
                                     Add credit
                                 </Link>

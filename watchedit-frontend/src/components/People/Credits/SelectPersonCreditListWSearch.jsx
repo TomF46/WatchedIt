@@ -6,8 +6,8 @@ const SelectPersonCreditListWSearch = ({ people, searchTerms, onSearchTermChange
     return (
         <>
             <div className="search-controls bg-backgroundOffset mt-4 rounded-md mb-4">
-                <div className="bg-primary rounded-t-md">
-                    <p className="text-white font-bold text-lg px-2 py-1">
+                <div className="bg-backgroundOffset2 rounded-t-md">
+                    <p className="text-primary font-bold text-lg px-2 py-1">
                         Search
                     </p>
                 </div>
