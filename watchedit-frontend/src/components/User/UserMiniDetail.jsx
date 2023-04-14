@@ -2,17 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const PersonMiniDetail = ({ person }) => {
+const UserMiniDetail = ({ user }) => {
     return (
         <div className="grid grid-cols-12">
            <div className="col-span-12 md:col-span-4">
                 <div className="grid grid-cols-12 bg-backgroundOffset">
                     <div className="col-span-3">
-                        <img src={person.imageUrl} className="h-full headshot" />
+                        <img src={user.imageUrl} className="h-full headshot" />
                     </div>
                     <div className="col-span-9 p-2">
-                        <Link to={`/people/${person.id}`} className="text-primary font-bold hover:opacity-75">{person.fullName}</Link>
-                        <p>{person.description}</p>
+                        <Link to={`/profile/${user.id}`} className="text-primary font-bold hover:opacity-75">{user.username}</Link>
                     </div>
                 </div>
            </div>
@@ -20,8 +19,8 @@ const PersonMiniDetail = ({ person }) => {
     );
 };
 
-PersonMiniDetail.propTypes = {
-    person: PropTypes.object.isRequired,
+UserMiniDetail.propTypes = {
+    user: PropTypes.object.isRequired,
 };
 
-export default PersonMiniDetail;
+export default UserMiniDetail;

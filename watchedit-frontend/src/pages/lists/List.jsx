@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { deleteFilmList, getFilmListById, removeFilmFromFilmList } from "../../api/filmListsApi";
 import FilmGrid from "../../components/Films/FilmGrid";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
+import UserMiniDetail from "../../components/User/UserMiniDetail";
 
 
 function List({userId}) {
@@ -125,7 +126,8 @@ function List({userId}) {
                         </div>
                     )}
                     <div className="mt-4">
-                        <div className="bg-backgroundOffset p-4 mt-2">
+                        <UserMiniDetail user={list.createdBy} />
+                        <div className="bg-backgroundOffset p-4 mt-4">
                             <h2 className="text-lg text-primary">Description:</h2>
                             <p>{list.description}</p>
                         </div>
