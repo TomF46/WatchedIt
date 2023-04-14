@@ -61,16 +61,29 @@ const FilmManageForm = ({
                 </div>
             )}
 
-            <div className="mb-2">
-                <TextInput
-                    name="name"
-                    label="Name"
-                    value={film.name}
-                    onChange={onChange}
-                    error={errors.name}
-                    required={true}
-                />
+            <div className="grid grid-cols-12">
+                <div className="col-span-12 md:col-span-6 md:pr-2 mb-2">
+                    <TextInput
+                        name="name"
+                        label="Name"
+                        value={film.name}
+                        onChange={onChange}
+                        error={errors.name}
+                        required={true}
+                    />
+                </div>
+                <div className="col-span-12 md:col-span-6 md:pl-2 mb-2">
+                    <NumberInput
+                        name="runtime"
+                        label="Runtime (minutes)"
+                        value={film.runtime}
+                        onChange={onChange}
+                        error={errors.runtime}
+                        required={true}
+                    />
+                </div>
             </div>
+
 
             <div className="mb-2">
                 <TextInput
@@ -94,17 +107,6 @@ const FilmManageForm = ({
                 />
             </div>
 
-            <div className="mb-2">
-                <NumberInput
-                    name="runtime"
-                    label="Runtime (minutes)"
-                    value={film.runtime}
-                    onChange={onChange}
-                    error={errors.runtime}
-                    required={true}
-                />
-            </div>
-
             {categories && categories.length > 0 && (
                 <div className="mb-2">
                     <MultiSelectInput
@@ -120,7 +122,7 @@ const FilmManageForm = ({
 
             <div className="mb-2">
                 <label className="font-bold text-xs text-primary">Release date</label>
-                <DatePicker dateFormat="dd-MM-yyyy"  selected={film.releaseDate} onChange={(date) => onDateChange(date)} />
+                <DatePicker dateFormat="dd-MM-yyyy" className="border border-gray-400 rounded" selected={film.releaseDate} onChange={(date) => onDateChange(date)} />
                 {errors.releaseDate && (
                     <div className="text-red-500 text-xs p-1 mt-2">{errors.releaseDate}</div>
                 )}
@@ -167,7 +169,8 @@ const FilmManageForm = ({
             </div>
 
             <div className="mb-2 trailer-modal">
-                <button type="button" onClick={openModal} className="bg-primary text-white rounded py-2 px-4 ml-2 hover:opacity-75 shadow inline-flex items-center">
+                <label className="font-bold text-xs text-primary">Trailer</label><br></br>
+                <button type="button" onClick={openModal} className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 shadow inline-flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                         <path strokeLinecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
                     </svg>

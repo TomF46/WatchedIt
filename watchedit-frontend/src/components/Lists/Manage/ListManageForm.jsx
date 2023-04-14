@@ -32,7 +32,7 @@ const ListManageForm = ({
             <div className="mb-2">
                 <TextAreaInput
                     name="description"
-                    label="description"
+                    label="Description"
                     value={list.description}
                     onChange={onChange}
                     error={errors.description}

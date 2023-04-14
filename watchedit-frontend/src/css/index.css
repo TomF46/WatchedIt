@@ -24,7 +24,7 @@
 }
 
 .react-datepicker-wrapper input{
-  background-color: #474345;
+  background-color: #2d2a2c;
 }
 
 .poster{
@@ -36,10 +36,13 @@
 }
 
 .search-wrapper{
-  background-color: #474345;
+  background-color: #2d2a2c;
+}
+.search-wrapper .chip{
+  background: #2E86AB;
 }
 .multiselect-container .optionContainer{
-  background-color: #474345;
+  background-color: #2d2a2c;
 }
 
 .video-container{

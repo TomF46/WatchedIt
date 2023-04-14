@@ -23,50 +23,49 @@ const PersonManageForm = ({
                 </div>
             )}
 
-            <div className="mb-2">
-                <TextInput
-                    name="firstName"
-                    label="First name"
-                    value={person.firstName}
-                    onChange={onChange}
-                    error={errors.firstName}
-                    required={true}
-                />
-            </div>
+            <div className="grid grid-cols-12">
+                <div className="col-span-12 md:col-span-6 md:pr-2 mb-2">
+                    <TextInput
+                        name="firstName"
+                        label="First name"
+                        value={person.firstName}
+                        onChange={onChange}
+                        error={errors.firstName}
+                        required={true}
+                    />
+                </div>
+                <div className="col-span-12 md:col-span-6 md:pl-2 mb-2">
+                    <TextInput
+                        name="lastName"
+                        label="Last name"
+                        value={person.lastName}
+                        onChange={onChange}
+                        error={errors.lastName}
+                        required={true}
+                    />
+                </div>
+                <div className="col-span-12 md:col-span-6 md:pr-2 mb-2">
+                    <TextInput
+                        name="middleNames"
+                        label="Middle names"
+                        value={person.middleNames}
+                        onChange={onChange}
+                        error={errors.middleNames}
+                        required={false}
+                    />
+                </div>
+                <div className="col-span-12 md:col-span-6 md:pl-2 mb-2">
+                    <TextInput
+                        name="stageName"
+                        label="Stage name"
+                        value={person.stageName}
+                        onChange={onChange}
+                        error={errors.stageName}
+                        required={false}
+                    />
+                </div>
 
-            <div className="mb-2">
-                <TextInput
-                    name="lastName"
-                    label="Last name"
-                    value={person.lastName}
-                    onChange={onChange}
-                    error={errors.lastName}
-                    required={true}
-                />
             </div>
-
-            <div className="mb-2">
-                <TextInput
-                    name="middleNames"
-                    label="Middle names"
-                    value={person.middleNames}
-                    onChange={onChange}
-                    error={errors.middleNames}
-                    required={false}
-                />
-            </div>
-
-            <div className="mb-2">
-                <TextInput
-                    name="stageName"
-                    label="Stage name"
-                    value={person.stageName}
-                    onChange={onChange}
-                    error={errors.stageName}
-                    required={false}
-                />
-            </div>
-
 
             <div className="mb-2">
                 <TextAreaInput

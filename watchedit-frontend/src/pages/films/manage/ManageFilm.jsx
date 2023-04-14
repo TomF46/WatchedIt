@@ -120,7 +120,7 @@ function ManageFilm() {
         if(!shortDescription) errors.shortDescription = "Short description is required";
         if(shortDescription.length > 200) errors.shortDescription = "Short description cant be longer than 200 characters";
         if(!fullDescription) errors.fullDescription = "Full description is required";
-        if(fullDescription.length > 200) errors.fullDescription = "Full description cant be longer than 200 characters";
+        if(fullDescription.length > 800) errors.fullDescription = "Full description cant be longer than 800 characters";
         if(!runtime) errors.runtime = "Runtime is required";
         if(!posterUrl) errors.posterUrl = "Poster Url is required";
         if(!releaseDate) errors.releaseDate = "Release date is required";
