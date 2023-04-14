@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import debounce from 'lodash.debounce';
@@ -9,7 +11,7 @@ import { searchFilmsPaginated } from "../../../api/filmsApi";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
 
-function AddFilmToList() {
+function AddFilmToList({userId}) {
     const navigate = useNavigate();
     const { id } = useParams();
     const [list, setList] = useState(null);
@@ -47,7 +49,7 @@ function AddFilmToList() {
     function getList() {
         getFilmListById(id)
             .then((res) => {
-                if(!res.userCanEdit) navigate(`/lists/${res.id}`);
+                if(res.createdBy.id != userId) navigate(`/lists/${res.id}`);
                 setList(res);
             })
             .catch((err) => {
@@ -125,5 +127,15 @@ function AddFilmToList() {
     );
   }
   
-  export default AddFilmToList;
-  
+AddFilmToList.propTypes = {
+    userId: PropTypes.number,
+};
+
+const mapStateToProps = (state) => {
+    return {
+        userId: state.tokens ? state.tokens.id : null
+    };
+};
+
+export default connect(mapStateToProps)(AddFilmToList);
+

@@ -78,7 +78,7 @@ function Profile({id, currentUserId, logout}) {
                                 {user.id == currentUserId && (
                                     <>
                                         <Link
-                                            to={`/profile/${id}/edit`}
+                                            to={`/profile/edit`}
                                             className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 w-full text-center"
                                         >
                                             Edit profile
