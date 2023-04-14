@@ -80,8 +80,8 @@ import UsersReviews from "./pages/profile/reviews/usersReviews";
             <Route path="/credits/:id" element={<AdminRoute><Credit /></AdminRoute>}/>
             <Route path="/categories/add" element={<AdminRoute><ManageCategory /></AdminRoute>}/>
             <Route path="/categories/:id/edit" element={<AdminRoute><ManageCategory /></AdminRoute>}/>
-            <Route path="/categories/:id" element={<AdminRoute><Category /></AdminRoute>}/>
-            <Route path="/categories" element={<AdminRoute><Categories /></AdminRoute>}/>
+            <Route path="/categories/:id" element={<Category />}/>
+            <Route path="/categories" element={<Categories />}/>
             <Route path="/admin" element={<AdminRoute><Admin /></AdminRoute>}/>
             <Route path="/404" element={<NotFound />}/>
             <Route path="*" element={<NotFound />}/>

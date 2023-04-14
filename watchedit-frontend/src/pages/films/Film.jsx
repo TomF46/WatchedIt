@@ -118,7 +118,7 @@ function Film({userIsAuthenticated, isAdmin}) {
                                     <ul>
                                         {film.categories.map((category) => {
                                             return (
-                                                <li key={category.id}>{category.name}</li>
+                                                <li key={category.id}><Link to={`/categories/${category.id}`} className="text-primary hover:opacity-75">{category.name}</Link></li>
                                             )
                                         })}
                                     </ul>
