@@ -20,6 +20,15 @@ function Films({ isAdmin }) {
     const [page, setPage] = useState(1);
     const filmsPerPage = 32;
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
+    const [sort, setSort] = useState("rating_desc");
+    const sortOptions = [
+        {id: "name_asc", name: "A - Z"},
+        {id: "name_desc", name: "Z - A"},
+        {id: "release_desc", name: "Newest"},
+        {id: "release_asc", name: "Oldest"},
+        {id: "rating_desc", name: "Highest rated"},
+        {id: "rating_asc", name: "Lowest rated"},
+    ]
 
     useEffect(() => {
         if (!filmsPaginator) {
@@ -37,7 +46,7 @@ function Films({ isAdmin }) {
         );
 
         debounced();
-    }, [searchTerm, category])
+    }, [searchTerm, category, sort])
 
     useEffect(() => {
         if (!categories) {
@@ -58,7 +67,7 @@ function Films({ isAdmin }) {
             setCategory("");
             return;
         }
-        searchFilmsWithCategoryPaginated(searchTerm, category ,page, filmsPerPage)
+        searchFilmsWithCategoryPaginated(searchTerm, category ,page, filmsPerPage, sort)
             .then((res) => {
                 setFilmsPaginator(res);
                 setLastPageLoaded(page);
@@ -88,6 +97,10 @@ function Films({ isAdmin }) {
     function handleCategoryChange(event) {
         const { value } = event.target;
         setCategory(value);
+    }
+    function handleSortChange(event) {
+        const { value } = event.target;
+        setSort(value);
     }
 
     return (
@@ -145,6 +158,15 @@ function Films({ isAdmin }) {
                                         />
                                     </div>
                                 )}
+                                <div className="ml-4">
+                                    <SelectInput 
+                                        name="sort"
+                                        label="Sort"
+                                        value={sort}
+                                        options={sortOptions}
+                                        onChange={handleSortChange}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>

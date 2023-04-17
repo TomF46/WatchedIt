@@ -10,6 +10,7 @@ function FilmReel() {
     const [filmsPaginator, setFilmsPaginator] = useState(null);
     const [page, setPage] = useState(1);
     const filmsPerPage = 8;
+    const sort = "release_desc";
 
     useEffect(() => {
         if (!filmsPaginator) {
@@ -18,7 +19,7 @@ function FilmReel() {
     }, [filmsPaginator]);
 
     function getFilms() {
-        getFilmsPaginated(page, filmsPerPage)
+        getFilmsPaginated(page, filmsPerPage, sort)
             .then((res) => {
                 setFilmsPaginator(res);
             })
@@ -36,7 +37,7 @@ function FilmReel() {
             ) : (
                 <div className="mt-4">
                     <Link to={"/films"} className="text-primary text-2xl hover:opacity-75 inline-flex items-center">
-                        Films
+                        Latest Films
                         {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5" alignmentBaseline={true}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                         </svg> */}

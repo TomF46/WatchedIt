@@ -24,6 +24,32 @@ namespace WatchedIt.Api.Services.FilmService
                 if(category is null) throw new NotFoundException("Category does not exist");
                 query = query.Where(x => x.Categories.Contains(category));
             }
+
+            switch (parameters.Sort)
+                {
+                    case "name_desc":
+                        query = query.OrderByDescending(f => f.Name);
+                        break;
+                    case "name_asc":
+                        query = query.OrderBy(f => f.Name);
+                        break;
+                    case "release_desc":
+                        query = query.OrderByDescending(f => f.ReleaseDate);
+                        break;
+                    case "release_asc":
+                        query = query.OrderBy(f => f.ReleaseDate);
+                        break;
+                    case "rating_desc":
+                        query = query.OrderByDescending(f => f.AverageRating);
+                        break;
+                    case "rating_asc":
+                        query = query.OrderBy(f => f.AverageRating);
+                        break;
+                    default:
+                        query = query.OrderByDescending(f => f.AverageRating);
+                        break;
+                };
+
             var count = query.Count();
             var films = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
             var mappedFilms = films.Select(f => FilmMapper.MapOverview(f)).ToList();

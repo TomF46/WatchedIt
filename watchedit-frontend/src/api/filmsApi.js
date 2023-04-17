@@ -4,9 +4,9 @@ export function saveFilm(film) {
     return film.id ? editFilm(film) : addFilm(film);
 }
 
-export function getFilmsPaginated(pageNumber, pageSize) {
+export function getFilmsPaginated(pageNumber, pageSize, sort) {
     return client
-        .get(`/api/films?PageNumber=${pageNumber}&PageSize=${pageSize}`)
+        .get(`/api/films?PageNumber=${pageNumber}&PageSize=${pageSize}&Sort=${sort}`)
         .then(response => {
             return response.data
         })
@@ -15,9 +15,9 @@ export function getFilmsPaginated(pageNumber, pageSize) {
         });
 }
 
-export function searchFilmsPaginated(searchTerm, pageNumber, pageSize) {
+export function searchFilmsPaginated(searchTerm, pageNumber, pageSize, sort) {
     return client
-        .get(`/api/films?SearchTerm=${searchTerm}&PageNumber=${pageNumber}&PageSize=${pageSize}`)
+        .get(`/api/films?SearchTerm=${searchTerm}&PageNumber=${pageNumber}&PageSize=${pageSize}&Sort=${sort}`)
         .then(response => {
             return response.data
         })
@@ -26,9 +26,9 @@ export function searchFilmsPaginated(searchTerm, pageNumber, pageSize) {
         });
 }
 
-export function searchFilmsWithCategoryPaginated(searchTerm, category ,pageNumber, pageSize) {
+export function searchFilmsWithCategoryPaginated(searchTerm, category ,pageNumber, pageSize, sort) {
     return client
-        .get(`/api/films?SearchTerm=${searchTerm}&category=${category}&PageNumber=${pageNumber}&PageSize=${pageSize}`)
+        .get(`/api/films?SearchTerm=${searchTerm}&category=${category}&PageNumber=${pageNumber}&PageSize=${pageSize}&Sort=${sort}`)
         .then(response => {
             return response.data
         })

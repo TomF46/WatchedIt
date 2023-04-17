@@ -9,5 +9,6 @@ namespace WatchedIt.Api.Models
     {
         public string? SearchTerm {get; set;} = "";
         public int? Category {get; set;}
+        public string? Sort {get; set;} = "";
     }
 }
