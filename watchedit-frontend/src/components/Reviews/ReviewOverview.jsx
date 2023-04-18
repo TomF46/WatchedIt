@@ -7,11 +7,11 @@ const ReviewOverview = ({ review, showFilm }) => {
         <div className="col-span-12 my-2 p-2 bg-backgroundOffset p-4">
             <div className="grid grid-cols-24">
                 {showFilm && (
-                    <div className="col-span-1">
+                    <div className="col-span-4 md:col-span-2 lg:col-span-1">
                         <img src={review.film.posterUrl} className="w-full poster" />
                     </div>
                 )}
-                <div className={`${showFilm ? "col-span-23" : "col-span-24"} ml-2`}>
+                <div className={`${showFilm ? "col-span-20 md:col-span-22 lg:col-span-23" : "col-span-24"} ml-2`}>
                     <div className="inline-flex items-center">
                         <Link to={`/films/${review.film.id}/reviews/${review.id}`} className="text-primary hover:opacity-75">{review.rating}/10</Link>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-primary ml-1 inline-flex items-center">

@@ -11,11 +11,11 @@ const PersonCreditsOverviewList = ({ credits }) => {
                     <div className="col-span-12" key={credit.id}>
                         <div onClick={() => {navigate(`/films/${credit.film.id}`)}} className="bg-backgroundOffset cursor-pointer">
                             <div className="grid grid-cols-24 my-1">
-                                <div className="col-span-1">
-                                    <img src={credit.film.posterUrl} className="w-full poster" />
+                                <div className="col-span-3 md:col-span-2 lg:col-span-1">
+                                    <img src={credit.film.posterUrl} className="h-full poster" />
                                 </div>
-                                <div className="col-span-23 p-4 inline-flex items-center">
-                                    <p>{credit.film.name} - {credit.role} {`(${credit.type})`}</p>
+                                <div className="col-span-21 md:col-span-22 lg:col-span-23 inline-flex items-center">
+                                    <p className="p-4">{credit.film.name} - {credit.role} {`(${credit.type})`}</p>
                                 </div>
                             </div>
                         </div>

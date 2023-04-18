@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 const FilmMiniDetail = ({ film }) => {
     return (
         <div className="grid grid-cols-12">
-           <div className="col-span-12 md:col-span-4">
+           <div className="col-span-12 md:col-span-6 lg:col-span-4">
                 <div className="grid grid-cols-12 bg-backgroundOffset">
-                    <div className="col-span-2">
+                    <div className="col-span-4">
                         <img src={film.posterUrl} className="h-full poster" />
                     </div>
-                    <div className="col-span-10 p-2">
+                    <div className="col-span-8 p-2">
                         <Link to={`/films/${film.id}`} className="text-primary font-bold hover:opacity-75">{film.name}</Link>
                         <p>{film.shortDescription}</p>
                         {film.averageRating && (<p>{`${film.averageRating}/10`}</p>)}

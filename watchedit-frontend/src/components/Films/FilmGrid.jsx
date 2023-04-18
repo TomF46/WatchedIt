@@ -8,7 +8,7 @@ const FilmGrid = ({ films, editable, onRemove }) => {
         <div className="grid grid-cols-16">
             {films.map((film) => {
                 return (
-                    <div key={film.id} className="col-span-16 md:col-span-2 mt-4">
+                    <div key={film.id} className="col-span-8 md:col-span-4 lg:col-span-2 mt-2">
                         <div className="mx-2 bg-backgroundOffset cursor-pointer h-full">
                             {editable && (
                                 <button onClick={() => {onRemove(film)}} className="p-2 text-center bg-red-400 w-full hover:opacity-75">

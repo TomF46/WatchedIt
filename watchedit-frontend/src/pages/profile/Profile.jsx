@@ -90,7 +90,7 @@ function Profile({id, currentUserId, logout}) {
                                 )}
                             </div>
                         </div>
-                        <div className="col-span-12 md:col-span-10 pl-4">
+                        <div className="col-span-12 mt-4 md:col-span-10 md:pl-4 md:mt-0">
                             <div className="grid grid-cols-12 bg-backgroundOffset p-4">
                                 <div className="col-span-12 md:col-span-6">
                                     <p>Username: {user.username}</p>

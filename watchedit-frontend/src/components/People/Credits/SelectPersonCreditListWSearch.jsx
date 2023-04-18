@@ -49,10 +49,10 @@ const SelectPersonCreditListWSearch = ({ people, searchTerms, onSearchTermChange
                     return (
                         <div key={person.id} className="col-span-12 my-1">
                             <div className="grid grid-cols-24 bg-backgroundOffset">
-                                <div className="col-span-1">
+                                <div className="col-span-3 md:col-span-2 lg:col-span-1">
                                     <img src={person.imageUrl} className="h-full headshot" />
                                 </div>
-                                <div onClick={() => {onPersonSelected(person)}} className={`col-span-23 p-4 mx-2 cursor-pointer hover:opacity-75`}>
+                                <div onClick={() => {onPersonSelected(person)}} className={`col-span-21 md:col-span-22 lg:col-span-23 p-4 cursor-pointer hover:opacity-75`}>
                                     <p>{person.fullName}</p>
                                 </div>
                             </div>

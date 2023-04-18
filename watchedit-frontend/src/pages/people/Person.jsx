@@ -99,7 +99,7 @@ function Person({isAdmin}) {
                                 Credits
                             </Link>
                         </div>
-                        <div className="col-span-12 md:col-span-10 pl-4">
+                        <div className="col-span-12 mt-4 md:col-span-10 md:pl-4 md:mt-0">
                             <div className="grid grid-cols-12">
                                 <div className="col-span-12 md:col-span-6 bg-backgroundOffset p-4">
                                     <p>First name: {person.firstName}</p>

@@ -129,7 +129,7 @@ function Lists() {
                             </div>
                             {listsPaginator.data.length > 0 ? (
                                 <>
-                                    <FilmListList lists={listsPaginator.data} />
+                                    <FilmListList lists={listsPaginator.data} showUser={true}/>
                                     <PaginationControls
                                         currentPage={page}
                                         onNext={handleNextPage}

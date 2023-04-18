@@ -54,7 +54,7 @@ function UserLists({user}) {
             <h2 className="mt-4 text-primary text-xl ">{user.username} lists</h2>
             {listsPaginator.data.length > 0 ? (
               <>
-                <FilmListList lists={listsPaginator.data} />
+                <FilmListList lists={listsPaginator.data} showUser={false}/>
                 <PaginationControls
                     currentPage={page}
                     onNext={handleNextPage}

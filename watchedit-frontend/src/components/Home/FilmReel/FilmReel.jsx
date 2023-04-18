@@ -38,10 +38,6 @@ function FilmReel() {
                 <div className="mt-4">
                     <Link to={"/films"} className="text-primary text-2xl hover:opacity-75 inline-flex items-center">
                         Latest Films
-                        {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5" alignmentBaseline={true}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                        </svg> */}
-
                     </Link>
                     {filmsPaginator.data.length > 0 ? (
                         <div className="grid grid-cols-16">

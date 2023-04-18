@@ -11,10 +11,10 @@ const FilmCreditsOverviewList = ({ credits }) => {
                     <div className="col-span-12" key={credit.id}>
                         <div onClick={() => {navigate(`/people/${credit.person.id}`)}} className="bg-backgroundOffset cursor-pointer hover:opacity-75">
                             <div className="grid grid-cols-24 my-1">
-                                <div className="col-span-1">
+                                <div className="col-span-3 md:col-span-2 lg:col-span-1">
                                     <img src={credit.person.imageUrl} className="h-full headshot" />
                                 </div>
-                                <div className="col-span-23 p-4 inline-flex items-center">
+                                <div className="col-span-21 md:col-span-22 lg:col-span-23 p-4 inline-flex items-center">
                                     <p>{credit.person.fullName} {credit.role} {`(${credit.type})`}</p>
                                 </div>
                             </div>

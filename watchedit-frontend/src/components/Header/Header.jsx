@@ -26,7 +26,7 @@ function Header({ login, checkUserIsAdmin , userIsAuthenticated }) {
 
   return (
     <nav className="flex items-center justify-between flex-wrap bg-backgroundOffset px-4 py-2 shadow-lg">
-            <div className="flex items-center flex-shrink-0 text-white mr-6">
+            <div className="flex items-center flex-shrink-0 text-white md:mr-6 mx-auto">
                 <Link to="/" className="tracking-tight" aria-label="To home">
                     <img src={logo} alt="Watched it logo"  className="w-32 h-full text-center" />
                 </Link>
@@ -44,7 +44,7 @@ function Header({ login, checkUserIsAdmin , userIsAuthenticated }) {
                 </button>
             </div>
             <div className={`${mobileIsOpen ? "block" : "hidden"} w-full flex-grow md:flex md:items-center md:w-auto`}>
-                <div className="text-sm md:flex-grow py-4">
+                <div className="text-sm md:flex-grow py-4 text-center md:text-left">
                     <Link
                         to="/"
                         className="block mt-4 md:inline-block md:mt-0 text-primary hover:opacity-75 md:mx-4"
@@ -70,7 +70,7 @@ function Header({ login, checkUserIsAdmin , userIsAuthenticated }) {
                         Lists
                     </Link>
                 </div>
-                <div className="border-t mt-2 md:border-0 md:mt-0">
+                <div className="border-t mt-2 md:border-0 md:mt-0 text-center md:text-left">
                     {!userIsAuthenticated && (
                         <>
                             <HeaderLoginForm  />

@@ -43,7 +43,7 @@ import UsersReviews from "./pages/profile/reviews/usersReviews";
       <>
       <div className="bg-background">
         <Header />
-        <div className="app-container container mx-auto mb-4">
+        <div className="app-container container mx-auto px-4 lg:px-0 mb-4">
           <Routes>
             <Route path="/" element={<Home />}/>
             <Route path="/register" element={<Register />}/>

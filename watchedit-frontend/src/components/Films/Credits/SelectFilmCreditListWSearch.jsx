@@ -29,10 +29,10 @@ const SelectFilmCreditListWSearch = ({ films, searchTerm, onSearchTermChange , o
                     return (
                         <div key={film.id} className="col-span-12 my-2">
                             <div className="grid grid-cols-24 bg-backgroundOffset">
-                                <div className="col-span-1">
+                                <div className="col-span-3 md:col-span-2 lg:col-span-1">
                                     <img src={film.posterUrl} className="h-full poster" />
                                 </div>
-                                <div onClick={() => {onFilmSelected(film)}} className={`col-span-23 p-4 inline-flex items-center w-full mx-2 cursor-pointer hover:opacity-75`}>
+                                <div onClick={() => {onFilmSelected(film)}} className={`col-span-21 md:col-span-22 lg:col-span-23 p-4 inline-flex items-center w-full mx-2 cursor-pointer hover:opacity-75`}>
                                     <p>{film.name}</p>
                                 </div>
                             </div>

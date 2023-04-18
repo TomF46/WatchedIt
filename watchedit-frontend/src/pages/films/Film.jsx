@@ -105,7 +105,7 @@ function Film({userIsAuthenticated, isAdmin}) {
                                 </Link>
                             </div>
                         </div>
-                        <div className="col-span-12 md:col-span-10 pl-4">
+                        <div className="col-span-12 mt-4 md:col-span-10 md:pl-4 md:mt-0">
                             <div className="grid grid-cols-12">
                                 <div className="col-span-12 md:col-span-8 bg-backgroundOffset p-4">
                                     <p>Name: {film.name}</p>
@@ -125,7 +125,7 @@ function Film({userIsAuthenticated, isAdmin}) {
                                         <p>No categories added</p>
                                     )}
                                 </div>
-                                <div className="col-span-12 md:col-span-4 text-center bg-backgroundOffset md:ml-2 p-4">
+                                <div className="col-span-12 md:col-span-4 text-center bg-backgroundOffset md:ml-4 mt-4 md:mt-0 p-4">
                                     <h3 className="text-primary text-xl mb-4">Rating</h3>
                                     {film.averageRating ? (
                                         <div>

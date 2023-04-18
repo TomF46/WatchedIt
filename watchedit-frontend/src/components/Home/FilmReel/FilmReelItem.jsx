@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const FilmReelItem = ({ film }) => {
     const navigate = useNavigate();
     return (
-        <div key={film.id} className="col-span-16 md:col-span-2">
+        <div key={film.id} className="col-span-8 md:col-span-4 lg:col-span-2 mt-2">
             <div className="mr-2 bg-backgroundOffset cursor-pointer hover:opacity-75 h-full">
                 <div onClick={() => {navigate(`/films/${film.id}`)}}>
                     <img src={film.posterUrl} className="w-full poster" />
