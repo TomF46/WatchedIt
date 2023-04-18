@@ -6,7 +6,7 @@ const PeopleReelItem = ({ person }) => {
     const navigate = useNavigate();
     return (
         <div key={person.id} className="col-span-16 md:col-span-2">
-            <div className="mr-2 bg-backgroundOffset cursor-pointer hover:opacity-75">
+            <div className="mr-2 bg-backgroundOffset cursor-pointer hover:opacity-75 h-full">
                 <div onClick={() => {navigate(`/people/${person.id}`)}}>
                     <img src={person.imageUrl} className="w-full headshot" />
                     <div className="p-2">

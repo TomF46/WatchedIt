@@ -6,7 +6,7 @@ const FilmReelItem = ({ film }) => {
     const navigate = useNavigate();
     return (
         <div key={film.id} className="col-span-16 md:col-span-2">
-            <div className="mr-2 bg-backgroundOffset cursor-pointer hover:opacity-75">
+            <div className="mr-2 bg-backgroundOffset cursor-pointer hover:opacity-75 h-full">
                 <div onClick={() => {navigate(`/films/${film.id}`)}}>
                     <img src={film.posterUrl} className="w-full poster" />
                     <div className="p-2 text-center">
