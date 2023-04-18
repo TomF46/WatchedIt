@@ -118,7 +118,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<IWatchedFilmsService, WatchedFilmsService>();
 builder.Services.AddScoped<IFilmListService, FilmListService>();
-builder.Services.AddScoped<IS3FileService, S3FileService>();
+builder.Services.AddScoped<IFileService, S3FileService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 var app = builder.Build();

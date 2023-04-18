@@ -6,8 +6,8 @@ using WatchedIt.Api.Models.Files;
 
 namespace WatchedIt.Api.Services.File
 {
-    public interface IS3FileService
+    public interface IFileService
     {
-        Task<S3FileResponse> Upload(IFormFile file, string? prefix);
+        Task<FileResponse> Upload(IFormFile file, string? prefix);
     }
 }

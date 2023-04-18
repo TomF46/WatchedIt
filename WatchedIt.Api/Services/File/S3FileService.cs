@@ -9,7 +9,7 @@ using WatchedIt.Api.Models.Files;
 
 namespace WatchedIt.Api.Services.File
 {
-    public class S3FileService : IS3FileService
+    public class S3FileService : IFileService
     {
         private readonly IAmazonS3 _s3Client;
         private readonly IConfiguration _config;
@@ -19,7 +19,7 @@ namespace WatchedIt.Api.Services.File
             _s3Client = s3Client;
             _config = config;
         }
-        public async Task<S3FileResponse> Upload(IFormFile file, string? prefix)
+        public async Task<FileResponse> Upload(IFormFile file, string? prefix)
         {
             var bucketName = _config["AWS:BucketName"];
             var bucketExists = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, bucketName);
@@ -34,7 +34,7 @@ namespace WatchedIt.Api.Services.File
             };
             request.Metadata.Add("Content-Type", file.ContentType);
             await _s3Client.PutObjectAsync(request);
-            return new S3FileResponse{
+            return new FileResponse{
                 Url = getFullUrl(bucketName ,key)
             };
         }

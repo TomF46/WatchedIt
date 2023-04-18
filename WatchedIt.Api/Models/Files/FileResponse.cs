@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WatchedIt.Api.Models.Files
 {
-    public class S3FileResponse
+    public class FileResponse
     {
         public string Url {get;set;}
     }

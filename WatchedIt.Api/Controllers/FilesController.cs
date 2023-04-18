@@ -15,22 +15,16 @@ namespace WatchedIt.Api.Controllers
     [Route("api/[controller]")]
     public class FilesController : ControllerBase
     {
-        private readonly IS3FileService _s3FileService;
-        public FilesController(IS3FileService s3FileService)
+        private readonly IFileService _fileService;
+        public FilesController(IFileService fileService)
         {
-            _s3FileService = s3FileService;
+            _fileService = fileService;
         }
 
         [HttpPost("upload")]
-        public async Task<ActionResult<S3FileResponse>> UploadFileAsync(IFormFile file, string? prefix)
+        public async Task<ActionResult<FileResponse>> UploadFileAsync(IFormFile file, string? prefix)
         {
-            return Ok(await _s3FileService.Upload(file, prefix));
+            return Ok(await _fileService.Upload(file, prefix));
         }
-
-        // [HttpGet("get-by-key")]
-        // public async Task<IActionResult> GetFileByKeyAsync(string key)
-        // {
-        //     return Ok(await _s3FileService.GetFileUrl(key));
-        // }
     }
 }
