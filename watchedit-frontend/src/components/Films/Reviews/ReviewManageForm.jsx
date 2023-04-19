@@ -11,36 +11,38 @@ const ReviewManageForm = ({
     errors = {}
 }) => {
     return (
-        <form className="bg-backgroundOffset p-4 mt-4" onSubmit={onSave}>
+        <form className="mt-4" onSubmit={onSave}>
             {errors.onSave && (
                 <div className="text-red-500 text-xs p-1" role="alert">
                     {errors.onSave}
                 </div>
             )}
 
-            <div className="mb-2">
-                <RatingInput
-                    name="rating"
-                    label="Rating"
-                    value={review.rating}
-                    onChange={onChange}
-                    error={errors.rating}
-                    required={true}
-                />
+            <div className="bg-backgroundOffset p-4">
+                <div className="mb-2">
+                    <RatingInput
+                        name="rating"
+                        label="Rating"
+                        value={review.rating}
+                        onChange={onChange}
+                        error={errors.rating}
+                        required={true}
+                    />
+                </div>
+
+                <div className="mb-2">
+                    <TextInput
+                        name="text"
+                        label="Review text"
+                        value={review.text}
+                        onChange={onChange}
+                        error={errors.text}
+                        required={true}
+                    />
+                </div>
             </div>
 
-            <div className="mb-2">
-                <TextInput
-                    name="text"
-                    label="Review text"
-                    value={review.text}
-                    onChange={onChange}
-                    error={errors.text}
-                    required={true}
-                />
-            </div>
-
-            <div className="flex justify-center">
+            <div className="flex justify-center bg-backgroundOffset p-4 my-4">
                 <button
                     type="submit"
                     disabled={saving}

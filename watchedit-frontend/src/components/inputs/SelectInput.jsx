@@ -15,7 +15,7 @@ const SelectInput = ({ name, label, defaultText, onChange, value, options, error
                     name={name}
                     value={value ? value : ''}
                     onChange={onChange}
-                    className="block appearance-none w-full bg-backgroundOffset2 border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 leading-tight focus:outline-none focus:outline"
+                    className="block appearance-none w-full bg-backgroundOffset2 border border-gray-500 hover:border-gray-500 px-4 py-2 pr-8 leading-tight focus:outline-none focus:outline"
                 >
                     {defaultText && (
                         <option value={null} >{defaultText}</option>

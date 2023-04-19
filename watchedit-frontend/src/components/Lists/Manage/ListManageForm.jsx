@@ -11,36 +11,37 @@ const ListManageForm = ({
     errors = {}
 }) => {
     return (
-        <form className="bg-backgroundOffset p-4 mt-4" onSubmit={onSave}>
+        <form className="mt-4" onSubmit={onSave}>
             {errors.onSave && (
                 <div className="text-red-500 text-xs p-1" role="alert">
                     {errors.onSave}
                 </div>
             )}
+            <div className="bg-backgroundOffset p-4">
+                <div className="mb-2">
+                    <TextInput
+                        name="name"
+                        label="Name"
+                        value={list.name}
+                        onChange={onChange}
+                        error={errors.name}
+                        required={true}
+                    />
+                </div>
 
-            <div className="mb-2">
-                <TextInput
-                    name="name"
-                    label="Name"
-                    value={list.name}
-                    onChange={onChange}
-                    error={errors.name}
-                    required={true}
-                />
+                <div className="mb-2">
+                    <TextAreaInput
+                        name="description"
+                        label="Description"
+                        value={list.description}
+                        onChange={onChange}
+                        error={errors.description}
+                        required={true}
+                    />
+                </div>
             </div>
 
-            <div className="mb-2">
-                <TextAreaInput
-                    name="description"
-                    label="Description"
-                    value={list.description}
-                    onChange={onChange}
-                    error={errors.description}
-                    required={true}
-                />
-            </div>
-
-            <div className="flex justify-center">
+            <div className="flex justify-center bg-backgroundOffset p-4 my-4">
                 <button
                     type="submit"
                     disabled={saving}

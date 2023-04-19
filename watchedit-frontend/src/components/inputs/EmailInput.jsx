@@ -16,7 +16,7 @@ const EmailInput = ({ name, label, onChange, placeholder, value, error, showLabe
                 <input
                     type="email"
                     name={name}
-                    className="border border-gray-400 p-2 w-full bg-backgroundOffset2"
+                    className="border border-gray-500 p-2 w-full bg-backgroundOffset2"
                     placeholder={placeholder}
                     value={value}
                     onChange={onChange}
