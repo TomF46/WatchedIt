@@ -20,6 +20,7 @@ using WatchedIt.Api.Services.FilmListService;
 using Amazon.S3;
 using WatchedIt.Api.Services.File;
 using WatchedIt.Api.Services.CategoryService;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -118,8 +119,15 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<IWatchedFilmsService, WatchedFilmsService>();
 builder.Services.AddScoped<IFilmListService, FilmListService>();
-builder.Services.AddScoped<IFileService, S3FileService>();
+builder.Services.AddScoped<IFileService, DiskFileService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+if(builder.Configuration["Images:UseS3"] == true.ToString()){
+    builder.Services.AddScoped<IFileService, S3FileService>();
+}else {
+    builder.Services.AddScoped<IFileService, DiskFileService>();
+
+}
 
 var app = builder.Build();
 app.UseGlobalExceptionHandler();
@@ -130,6 +138,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions()
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+    RequestPath = new PathString("/Resources")
+});
+
 app.UseCors(corsPolicyName);
 app.UseAuthentication();
 app.UseAuthorization();

@@ -67,7 +67,7 @@ namespace WatchedIt.Api.Controllers
             {
                 Email = userDto.Email,
                 Username = userDto.Username,
-                ImageUrl = _config["Defaults:ProfileImage"]
+                ImageUrl = _config["Images:Defaults:ProfileImage"]
             };
             _authenticationService.Create(user, userDto.Password);
             return Ok();
