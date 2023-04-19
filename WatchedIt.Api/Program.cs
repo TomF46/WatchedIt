@@ -21,6 +21,7 @@ using Amazon.S3;
 using WatchedIt.Api.Services.File;
 using WatchedIt.Api.Services.CategoryService;
 using Microsoft.Extensions.FileProviders;
+using WatchedIt.Api.Models.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -107,6 +108,9 @@ builder.Services.AddSwaggerGen(c =>
                 });
             });
 
+builder.Services.Configure<AWSConfiguration>(builder.Configuration.GetSection("AWS"));
+builder.Services.Configure<ImagesConfiguration>(builder.Configuration.GetSection("Images"));
+
 builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
 builder.Services.AddAWSService<IAmazonS3>();
 
@@ -122,7 +126,9 @@ builder.Services.AddScoped<IFilmListService, FilmListService>();
 builder.Services.AddScoped<IFileService, DiskFileService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
-if(builder.Configuration["Images:UseS3"] == true.ToString()){
+var imagesSettings = builder.Configuration.GetSection("Images").Get<ImagesConfiguration>();
+
+if(imagesSettings.UseS3){
     builder.Services.AddScoped<IFileService, S3FileService>();
 }else {
     builder.Services.AddScoped<IFileService, DiskFileService>();
