@@ -85,6 +85,9 @@ function Category({isAdmin}){
                 <LoadingMessage message={"Loading category"} />
             ) : (
                 <div>
+                    <h1 className="text-center text-primary text-4xl my-4 font-bold">
+                        {category.name}
+                    </h1>
                     {isAdmin && (
                         <div className="admin-controls bg-backgroundOffset mt-4 rounded-md shadow rounded">
                             <div className="bg-backgroundOffset2 rounded-t-md">
@@ -102,9 +105,6 @@ function Category({isAdmin}){
                             </div>
                         </div>
                     )}
-                    <h1 className="text-center text-primary text-4xl my-4 font-bold">
-                        {category.name}
-                    </h1>
                     {!filmsPaginator ? (
                         <LoadingMessage message={"Loading films."} />
                     ) : (

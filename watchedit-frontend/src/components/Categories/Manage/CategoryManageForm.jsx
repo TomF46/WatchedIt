@@ -7,28 +7,38 @@ const CategoryManageForm = ({
     onSave,
     onChange,
     saving = false,
+    editing,
     errors = {}
 }) => {
     return (
-        <form className="bg-backgroundOffset p-4 mt-4" onSubmit={onSave}>
+        <form className="mt-4" onSubmit={onSave}>
             {errors.onSave && (
                 <div className="text-red-500 text-xs p-1" role="alert">
                     {errors.onSave}
                 </div>
             )}
 
-            <div className="mb-2">
-                <TextInput
-                    name="name"
-                    label="Name"
-                    value={category.name}
-                    onChange={onChange}
-                    error={errors.name}
-                    required={true}
-                />
+            <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
+                <div className="bg-backgroundOffset2 rounded-t-md">
+                    <p className="text-primary font-bold text-center text-2xl px-2 py-1">
+                        {editing ? `Editing category` : "Adding category"}
+                    </p>
+                </div>
+                <div className="p-4">
+                    <div className="mb-2">
+                        <TextInput
+                            name="name"
+                            label="Name"
+                            value={category.name}
+                            onChange={onChange}
+                            error={errors.name}
+                            required={true}
+                        />
+                    </div>
+                </div>
             </div>
 
-            <div className="flex justify-center mt-4">
+            <div className="flex justify-center bg-backgroundOffset p-4 my-4 shadow rounded">
                 <button
                     type="submit"
                     disabled={saving}
@@ -50,7 +60,8 @@ CategoryManageForm.propTypes = {
     errors: PropTypes.object,
     onSave: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
-    saving: PropTypes.bool
+    saving: PropTypes.bool,
+    editing: PropTypes.bool.isRequired
 };
 
 export default CategoryManageForm;

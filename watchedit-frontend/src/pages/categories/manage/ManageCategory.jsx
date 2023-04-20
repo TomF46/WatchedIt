@@ -75,9 +75,8 @@ function ManageCategory() {
 
     return (
         <div className="manage-category-page">
-            <h1 className="text-2xl text-center text-primary mt-4">{editing ? `Editing category` : "Adding category"}</h1>
             {category ? (
-                <CategoryManageForm category={category} onChange={handleChange} onSave={handleSave} errors={errors} saving={saving} />
+                <CategoryManageForm category={category} onChange={handleChange} onSave={handleSave} errors={errors} saving={saving} editing={editing} />
             ) : (
                 <LoadingMessage message={"Loading category"} />
             )}
