@@ -5,9 +5,11 @@ import RatingInput from "../../Inputs/RatingInput";
 
 const ReviewManageForm = ({
     review,
+    film,
     onSave,
     onChange,
     saving = false,
+    editing,
     errors = {}
 }) => {
     return (
@@ -18,31 +20,37 @@ const ReviewManageForm = ({
                 </div>
             )}
 
-            <div className="bg-backgroundOffset p-4">
-                <div className="mb-2">
-                    <RatingInput
-                        name="rating"
-                        label="Rating"
-                        value={review.rating}
-                        onChange={onChange}
-                        error={errors.rating}
-                        required={true}
-                    />
+            <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
+                <div className="bg-backgroundOffset2 rounded-t-md">
+                    <p className="text-primary font-bold text-center text-2xl px-2 py-1">
+                        {editing ? `Editing` : "Adding"} review for {film.name}
+                    </p>
                 </div>
-
-                <div className="mb-2">
-                    <TextInput
-                        name="text"
-                        label="Review text"
-                        value={review.text}
-                        onChange={onChange}
-                        error={errors.text}
-                        required={true}
-                    />
+                <div className="p-4">
+                    <div className="mb-2">
+                        <RatingInput
+                            name="rating"
+                            label="Rating"
+                            value={review.rating}
+                            onChange={onChange}
+                            error={errors.rating}
+                            required={true}
+                        />
+                    </div>
+                    <div className="mb-2">
+                        <TextInput
+                            name="text"
+                            label="Review text"
+                            value={review.text}
+                            onChange={onChange}
+                            error={errors.text}
+                            required={true}
+                        />
+                    </div>
                 </div>
             </div>
 
-            <div className="flex justify-center bg-backgroundOffset p-4 my-4">
+            <div className="flex justify-center bg-backgroundOffset p-4 my-4 shadow rounded">
                 <button
                     type="submit"
                     disabled={saving}
@@ -60,10 +68,12 @@ const ReviewManageForm = ({
 
 ReviewManageForm.propTypes = {
     review: PropTypes.object.isRequired,
+    film: PropTypes.object.isRequired,
     errors: PropTypes.object,
     onSave: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
     saving: PropTypes.bool,
+    editing: PropTypes.bool.isRequired,
 };
 
 export default ReviewManageForm;

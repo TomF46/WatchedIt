@@ -81,9 +81,9 @@ function PersonCredits({isAdmin}) {
                 <LoadingMessage message={"Loading person"} />
             ) : (
                 <>
-                    <h1 className="text-primary text-center text-4xl my-4">{person.fullName} credits</h1>
+                    <h1 className="text-primary text-center text-4xl my-4 font-bold">{person.fullName} credits</h1>
                     {isAdmin && (
-                        <div className="admin-controls bg-backgroundOffset mt-4 rounded-md">
+                        <div className="admin-controls bg-backgroundOffset mt-4 rounded-md shadow rounded">
                             <div className="bg-backgroundOffset2 rounded-t-md">
                                 <p className="text-primary font-bold text-lg px-2 py-1">
                                     Admin controls

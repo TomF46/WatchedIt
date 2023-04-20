@@ -68,7 +68,7 @@ function WatchedList({ id }) {
             ) : (
                 <>
                     <div>
-                        <h1 className="text-center text-primary text-4xl my-4">{user.username} watched films</h1>
+                        <h1 className="text-center text-primary text-4xl my-4 font-bold">{user.username} watched films</h1>
                         {filmsPaginator ? (
                             <>
                             {filmsPaginator.data.length > 0 ? (

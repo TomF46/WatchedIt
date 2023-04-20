@@ -81,9 +81,8 @@ function ManageList({userId}) {
 
     return (
         <div className="manage-list-page">
-            <h1 className="text-center text-primary text-4xl my-4">{editing ? `Editing ${list.name}` : "Adding list"}</h1>
             {list ? (
-                <ListManageForm list={list} onChange={handleChange} onSave={handleSave} errors={errors} saving={saving} />
+                <ListManageForm list={list} onChange={handleChange} onSave={handleSave} errors={errors} saving={saving} editing={editing} />
             ) : (
                 <LoadingMessage message={"Loading form."} />
             )}

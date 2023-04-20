@@ -105,11 +105,11 @@ function Films({ isAdmin }) {
 
     return (
         <div className="films-page">
-            <h1 className="text-center text-primary text-4xl my-4">
+            <h1 className="text-center text-primary text-4xl my-4 font-bold">
                 Films
             </h1>
             {isAdmin && (
-                <div className="admin-controls bg-backgroundOffset mt-4 rounded-md">
+                <div className="admin-controls bg-backgroundOffset mt-4 rounded-md shadow shadow rounded">
                     <div className="bg-backgroundOffset2 rounded-t-md">
                         <p className="text-primary font-bold text-lg px-2 py-1">
                             Admin controls
@@ -129,7 +129,7 @@ function Films({ isAdmin }) {
                 <LoadingMessage message={"Loading films."} />
             ) : (
                 <div className="mt-4">
-                    <div className="search-controls bg-backgroundOffset mt-4 rounded-md mb-4">
+                    <div className="search-controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow shadow rounded">
                         <div className="bg-backgroundOffset2 rounded-t-md">
                             <p className="text-primary font-bold text-lg px-2 py-1">
                                 Search

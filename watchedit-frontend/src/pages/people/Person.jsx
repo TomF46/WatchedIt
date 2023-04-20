@@ -68,9 +68,9 @@ function Person({isAdmin}) {
                 <LoadingMessage message={"Loading person."} />
             ) : (
                 <>
-                    <h1 className="my-4 text-center text-primary text-4xl">{person.fullName}</h1>
+                    <h1 className="my-4 text-center text-primary text-4xl font-bold">{person.fullName}</h1>
                     {isAdmin && (
-                        <div className="admin-controls bg-backgroundOffset mt-4 rounded-md">
+                        <div className="admin-controls bg-backgroundOffset mt-4 rounded-md shadow rounded">
                             <div className="bg-backgroundOffset2 rounded-t-md">
                                 <p className="text-primary font-bold text-lg px-2 py-1">
                                     Admin controls
@@ -91,7 +91,7 @@ function Person({isAdmin}) {
                     )}
                     <div className="grid grid-cols-12 mt-4">
                         <div className="col-span-12 md:col-span-2">
-                            <img src={person.imageUrl} className="headshot" />
+                            <img src={person.imageUrl} className="headshot shadow rounded" />
                             <Link
                                 to={`/people/${id}/credits`}
                                 className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 w-full text-center"
@@ -101,14 +101,14 @@ function Person({isAdmin}) {
                         </div>
                         <div className="col-span-12 mt-4 md:col-span-10 md:pl-4 md:mt-0">
                             <div className="grid grid-cols-12">
-                                <div className="col-span-12 md:col-span-6 bg-backgroundOffset p-4">
+                                <div className="col-span-12 md:col-span-6 bg-backgroundOffset p-4 shadow rounded">
                                     <p>First name: {person.firstName}</p>
                                     <p>Last name: {person.lastName}</p>
                                     {person.middleNames && (<p>Middle names: {person.middleNames}</p>)}
                                     {person.stageName && (<p>Stage name: {person.stageName}</p>)}
                                     <p>DOB: {format(parseISO(person.dateOfBirth), "dd/MM/yyyy")}</p>
                                 </div>
-                                <div className="col-span-12 md:col-span-6 md:ml-2 bg-backgroundOffset p-4">
+                                <div className="col-span-12 md:col-span-6 md:ml-2 bg-backgroundOffset p-4 shadow rounded">
                                     <h3 className="text-primary text-lg">About</h3>
                                     <p>{person.description}</p>
                                 </div>

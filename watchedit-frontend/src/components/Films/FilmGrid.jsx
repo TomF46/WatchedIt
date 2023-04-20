@@ -9,14 +9,14 @@ const FilmGrid = ({ films, editable, onRemove }) => {
             {films.map((film) => {
                 return (
                     <div key={film.id} className="col-span-8 md:col-span-4 lg:col-span-2 mt-2">
-                        <div className="mx-2 bg-backgroundOffset cursor-pointer h-full">
+                        <div className="mx-2 bg-backgroundOffset cursor-pointer h-full shadow rounded">
                             {editable && (
-                                <button onClick={() => {onRemove(film)}} className="p-2 text-center bg-red-400 w-full hover:opacity-75">
+                                <button onClick={() => {onRemove(film)}} className="p-2 text-center bg-red-400 w-full hover:opacity-75 rounded-t">
                                     Remove
                                 </button>
                             )}
                             <div onClick={() => {navigate(`/films/${film.id}`)}} className="hover:opacity-75">
-                                <img src={film.posterUrl} className="w-full poster" />
+                                <img src={film.posterUrl} className={`w-full poster ${editable ? "" : "rounded-t"}`} />
                                 <div className="p-2 text-center">
                                     <p className="text-center text-primary">{film.name}</p>
                                     <div className="text-center inline-flex items-center">

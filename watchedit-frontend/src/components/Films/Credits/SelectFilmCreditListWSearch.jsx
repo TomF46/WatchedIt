@@ -5,7 +5,7 @@ import TextInput from "../../Inputs/TextInput";
 const SelectFilmCreditListWSearch = ({ films, searchTerm, onSearchTermChange , onFilmSelected }) => {
     return (
         <>
-            <div className="search-controls bg-backgroundOffset mt-4 rounded-md mb-4">
+            <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
                 <div className="bg-backgroundOffset2 rounded-t-md">
                     <p className="text-primary font-bold text-lg px-2 py-1">
                         Search
@@ -28,9 +28,9 @@ const SelectFilmCreditListWSearch = ({ films, searchTerm, onSearchTermChange , o
                 {films.map((film) => {
                     return (
                         <div key={film.id} className="col-span-12 my-2">
-                            <div className="grid grid-cols-24 bg-backgroundOffset">
+                            <div className="grid grid-cols-24 bg-backgroundOffset shadow rounded">
                                 <div className="col-span-3 md:col-span-2 lg:col-span-1">
-                                    <img src={film.posterUrl} className="h-full poster" />
+                                    <img src={film.posterUrl} className="h-full poster rounded-l" />
                                 </div>
                                 <div onClick={() => {onFilmSelected(film)}} className={`col-span-21 md:col-span-22 lg:col-span-23 p-4 inline-flex items-center w-full mx-2 cursor-pointer hover:opacity-75`}>
                                     <p>{film.name}</p>

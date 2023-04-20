@@ -84,7 +84,7 @@ function ManageReview({userId ,isAdmin}) {
         event.preventDefault();
         if (!formIsValid()) return;
         setSaving(true);
-        saveReview(id, review).then(res => {
+    saveReview(id, review).then(res => {
             toast.success("Review saved");
             navigate(`/films/${id}/reviews/${res.id}`);
         }).catch(err => {
@@ -99,8 +99,7 @@ function ManageReview({userId ,isAdmin}) {
         <div className="manage-film-review-page">
             {film && review ? (
                 <>
-                    <h1 className="text-center text-4xl my-4 text-primary">{editing ? `Editing` : "Adding"} review for {film.name}</h1>
-                    <ReviewManageForm review={review} onChange={handleChange} onSave={handleSave} errors={errors} saving={saving} />
+                    <ReviewManageForm review={review} film={film} onChange={handleChange} onSave={handleSave} errors={errors} saving={saving} editing={editing}/>
                 </>
             ) : (
                 <LoadingMessage message={"Loading form."} />

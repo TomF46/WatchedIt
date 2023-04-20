@@ -69,9 +69,9 @@ function Film({userIsAuthenticated, isAdmin}) {
                 <LoadingMessage message={"Loading film."} />
             ) : (
                 <>
-                    <h1 className="my-4 text-center text-primary text-4xl">{film.name}</h1>
+                    <h1 className="my-4 text-center text-primary text-4xl font-bold">{film.name}</h1>
                     {isAdmin && (
-                        <div className="admin-controls bg-backgroundOffset mt-4 rounded-md">
+                        <div className="admin-controls bg-backgroundOffset mt-4 rounded-md shadow rounded">
                             <div className="bg-backgroundOffset2 rounded-t-md">
                                 <p className="text-primary font-bold text-lg px-2 py-1">
                                     Admin controls
@@ -92,7 +92,7 @@ function Film({userIsAuthenticated, isAdmin}) {
                     )}
                     <div className="grid grid-cols-12 mt-4">
                         <div className="col-span-12 md:col-span-2">
-                            <img src={film.posterUrl} className="poster"/>
+                            <img src={film.posterUrl} className="poster shadow rounded"/>
                             <div className="flex flex-col">
                                 {userIsAuthenticated && (<WatchedFilmControls film={film} />)}
                                 <Link to={`/films/${id}/credits`}
@@ -107,7 +107,7 @@ function Film({userIsAuthenticated, isAdmin}) {
                         </div>
                         <div className="col-span-12 mt-4 md:col-span-10 md:pl-4 md:mt-0">
                             <div className="grid grid-cols-12">
-                                <div className="col-span-12 md:col-span-8 bg-backgroundOffset p-4">
+                                <div className="col-span-12 md:col-span-8 bg-backgroundOffset p-4 shadow rounded">
                                     <p>Name: {film.name}</p>
                                     <p>Release date: {format(parseISO(film.releaseDate), "dd/MM/yyyy")}</p>
                                     <p>tagline: {film.shortDescription}</p>
@@ -125,7 +125,7 @@ function Film({userIsAuthenticated, isAdmin}) {
                                         <p>No categories added</p>
                                     )}
                                 </div>
-                                <div className="col-span-12 md:col-span-4 text-center bg-backgroundOffset md:ml-4 mt-4 md:mt-0 p-4">
+                                <div className="col-span-12 md:col-span-4 text-center bg-backgroundOffset md:ml-4 mt-4 md:mt-0 p-4 shadow rounded">
                                     <h3 className="text-primary text-xl mb-4">Rating</h3>
                                     {film.averageRating ? (
                                         <div>
@@ -146,7 +146,7 @@ function Film({userIsAuthenticated, isAdmin}) {
                                         </>
                                     )}
                                 </div>
-                                <div className="col-span-12 md:col-span-8 bg-backgroundOffset p-4 mt-4">
+                                <div className="col-span-12 md:col-span-8 bg-backgroundOffset p-4 mt-4 shadow rounded">
                                     <h3 className="text-primary text-lg">Description</h3>
                                     <p>{film.fullDescription}</p>
                                 </div>

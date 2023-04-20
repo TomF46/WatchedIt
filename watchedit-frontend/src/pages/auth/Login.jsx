@@ -58,7 +58,7 @@ function Login({userIsAuthenticated, login}){
             <div className="login-page">
                 <div className="grid grid-cols-12 p-4 my-8">
                     <div className="col-span-12 lg:col-span-4 lg:col-start-5">
-                        <div className="search-controls bg-backgroundOffset mt-4 rounded-md mb-4">
+                        <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
                             <div className="bg-backgroundOffset2 rounded-t-md">
                                 <p className="text-primary font-bold text-center text-xl px-2 py-1">
                                     Login

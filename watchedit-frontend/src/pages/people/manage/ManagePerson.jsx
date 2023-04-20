@@ -121,9 +121,8 @@ function ManagePerson() {
 
     return (
         <div className="manage-person-page">
-            <h1 className="text-center text-primary text-4xl my-4">{editing ? `Editing ${person.firstName} ${person.lastName}` : "Adding person"}</h1>
             {person ? (
-                <PersonManageForm person={person} onChange={handleChange} onDateChange={handleDateChange} onImageChange={handleImageChange} onSave={handleSave} errors={errors} saving={saving} uploadingImage={imageUploading} />
+                <PersonManageForm person={person} onChange={handleChange} onDateChange={handleDateChange} onImageChange={handleImageChange} onSave={handleSave} errors={errors} saving={saving} editing={editing} uploadingImage={imageUploading} />
             ) : (
                 <LoadingMessage message={"Loading form."} />
             )}

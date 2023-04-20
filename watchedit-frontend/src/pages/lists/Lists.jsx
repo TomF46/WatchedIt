@@ -78,10 +78,10 @@ function Lists() {
                 <LoadingMessage message={"Loading lists."} />
             ) : (
                 <>
-                    <h1 className="text-center text-primary text-4xl my-4">
+                    <h1 className="text-center text-primary text-4xl my-4 font-bold">
                         Lists
                     </h1>
-                    <div className="lists-controls bg-backgroundOffset mt-4 rounded-md">
+                    <div className="lists-controls bg-backgroundOffset mt-4 rounded-md shadow rounded">
                         <div className="bg-backgroundOffset2 rounded-t-md">
                             <p className="text-primary font-bold text-lg px-2 py-1">
                                 Lists controls
@@ -98,7 +98,7 @@ function Lists() {
                     </div>
                     <div className="mt-4">
                         <div className="mt-4">
-                            <div className="search-controls bg-backgroundOffset mt-4 rounded-md mb-4">
+                            <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
                                 <div className="bg-backgroundOffset2 rounded-t-md">
                                     <p className="text-primary font-bold text-lg px-2 py-1">
                                         Search

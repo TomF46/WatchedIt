@@ -116,7 +116,7 @@ function AddCreditForPerson() {
                 <LoadingMessage message={"Loading person"} />
             ) : (
                 <div>
-                    <h1 className="text-center text-primary text-4xl my-4">Add Credit for {person.fullName}</h1>
+                    <h1 className="text-center text-primary text-4xl my-4 font-bold">Add Credit for {person.fullName}</h1>
                     <PersonMiniDetail person={person} />
                     {!filmsPaginator ? (
                         <LoadingMessage message={"Loading films."} />
@@ -138,7 +138,7 @@ function AddCreditForPerson() {
                                 ) : (
                                     <div>
                                         <div className="mb-2">
-                                            <p>Film: {selectedFilm.name}  <span className="cursor-pointer" onClick={() => {handleFilmSelected(null)}}>(Change)</span></p>
+                                            <p>Film: {selectedFilm.name}  <span className="cursor-pointer text-primary" onClick={() => {handleFilmSelected(null)}}>(Change)</span></p>
                                             <AddCreditForm onSave={handleSave} saving={saving} />
                                         </div>
                                     </div>

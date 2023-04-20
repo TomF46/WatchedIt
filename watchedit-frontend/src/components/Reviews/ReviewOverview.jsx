@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const ReviewOverview = ({ review, showFilm }) => {
     return (
-        <div className="col-span-12 my-2 p-2 bg-backgroundOffset p-4">
+        <div className="col-span-12 my-2 p-2 bg-backgroundOffset p-4 shadow rounded">
             <div className="grid grid-cols-24">
                 {showFilm && (
                     <div className="col-span-4 md:col-span-2 lg:col-span-1">

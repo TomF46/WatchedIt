@@ -14,31 +14,38 @@ const ManageCreditForm = ({ credit, onChange, errors, onSubmit, saving }) => {
                 </div>
             )}
 
-            <div className="bg-backgroundOffset p-4">
-                <div className="mb-2">
-                    <TextInput
-                        name="role"
-                        label="Role"
-                        value={credit.role}
-                        onChange={onChange}
-                        error={errors.role}
-                        required={true}
-                    />
+            <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
+                <div className="bg-backgroundOffset2 rounded-t-md">
+                    <p className="text-primary font-bold text-center text-2xl px-2 py-1">
+                        Credit
+                    </p>
                 </div>
-                
-                <div className="mb-2">
-                    <SelectInput 
-                        name="type"
-                        label="Role type"
-                        defaultText="Type"
-                        value={credit.type}
-                        options={roleTypes}
-                        onChange={onChange}
-                    /> 
+                <div className="p-4">
+                    <div className="mb-2">
+                        <TextInput
+                            name="role"
+                            label="Role"
+                            value={credit.role}
+                            onChange={onChange}
+                            error={errors.role}
+                            required={true}
+                        />
+                    </div>
+                    
+                    <div className="mb-2">
+                        <SelectInput 
+                            name="type"
+                            label="Role type"
+                            defaultText="Type"
+                            value={credit.type}
+                            options={roleTypes}
+                            onChange={onChange}
+                        /> 
+                    </div>
                 </div>
             </div>
 
-            <div className="flex justify-center bg-backgroundOffset p-4 my-4">
+            <div className="flex justify-center bg-backgroundOffset p-4 my-4 shadow rounded">
                 <button
                     type="submit"
                     disabled={saving}

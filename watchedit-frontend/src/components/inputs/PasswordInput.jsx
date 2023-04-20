@@ -24,7 +24,7 @@ const PasswordInput = ({
                 <input
                     type="password"
                     name={name}
-                    className="border border-gray-500 p-2 w-full bg-backgroundOffset2"
+                    className="border border-gray-500 p-2 w-full bg-backgroundOffset2 rounded"
                     placeholder={placeholder}
                     value={value}
                     onChange={onChange}

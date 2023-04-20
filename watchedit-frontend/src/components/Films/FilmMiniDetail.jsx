@@ -6,9 +6,9 @@ const FilmMiniDetail = ({ film }) => {
     return (
         <div className="grid grid-cols-12">
            <div className="col-span-12 md:col-span-6 lg:col-span-4">
-                <div className="grid grid-cols-12 bg-backgroundOffset">
+                <div className="grid grid-cols-12 bg-backgroundOffset shadow rounded">
                     <div className="col-span-4">
-                        <img src={film.posterUrl} className="h-full poster" />
+                        <img src={film.posterUrl} className="h-full poster rounded-l" />
                     </div>
                     <div className="col-span-8 p-2">
                         <Link to={`/films/${film.id}`} className="text-primary font-bold hover:opacity-75">{film.name}</Link>

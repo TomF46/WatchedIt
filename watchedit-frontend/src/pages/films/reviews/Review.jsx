@@ -66,9 +66,9 @@ function Review({userId, isAdmin}) {
                 <LoadingMessage message={"Loading review."} />
             ) : (
                 <>
-                    <h1 className="text-center text-primary text-4xl my-4">{review.film.name} review</h1>
+                    <h1 className="text-center text-primary text-4xl my-4 font-bold">{review.film.name} review</h1>
                     {userCanEdit && (
-                        <div className="owner-controls bg-backgroundOffset mt-4 rounded-md">
+                        <div className="owner-controls bg-backgroundOffset mt-4 rounded-md shadow rounded">
                             <div className="bg-backgroundOffset2 rounded-t-md">
                                 <p className="text-primary font-bold text-lg px-2 py-1">
                                     Review owner controls
@@ -89,12 +89,12 @@ function Review({userId, isAdmin}) {
                     )}
                     <div className="mt-4 grid grid-cols-12">
                         <div className="col-span-12 md:col-span-2">
-                            <p className="text-center text-primary text-xl">{review.film.name}</p>
-                            <img src={review.film.posterUrl} className="poster mt-2"/>
+                            <p className="text-center text-primary text-2xl">{review.film.name}</p>
+                            <img src={review.film.posterUrl} className="poster mt-2 rounded"/>
                         </div>
                         <div className="col-span-12 md:col-span-10 pl-4">
-                            <p className="text-primary text-lg text-center md:text-left my-4 md:my-0">Rating {review.rating}/10</p>
-                            <div className="bg-backgroundOffset p-4 mt-2">
+                            <p className="text-primary text-2xl text-center md:text-left my-4 md:my-0">Rating {review.rating}/10</p>
+                            <div className="bg-backgroundOffset p-4 mt-2 shadow rounded">
                                 <p>{review.text}</p>
                             </div>
                         </div>

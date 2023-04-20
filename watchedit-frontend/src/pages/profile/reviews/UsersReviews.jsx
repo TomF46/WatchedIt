@@ -68,7 +68,7 @@ function UserReviews({id}) {
             ) : (
                 <>
                     <div>
-                        <h1 className="text-center text-primary text-4xl my-4">{user.username} reviews</h1>
+                        <h1 className="text-center text-primary text-4xl my-4 font-bold">{user.username} reviews</h1>
                         {reviewsPaginator ? (
                             <>
                                 {reviewsPaginator.data.length > 0 ? (

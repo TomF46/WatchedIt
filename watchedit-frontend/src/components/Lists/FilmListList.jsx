@@ -9,11 +9,11 @@ const FilmListList = ({ lists, showUser }) => {
             {lists.map((list) => {
                 return (
                     <div key={list.id} className="col-span-12 md:col-span-6 md:ml-2 my-1">
-                        <div onClick={() => {navigate(`/lists/${list.id}`)}} className="bg-backgroundOffset cursor-pointer hover:opacity-75">
+                        <div onClick={() => {navigate(`/lists/${list.id}`)}} className="bg-backgroundOffset cursor-pointer hover:opacity-75 shadow rounded">
                             <div className="grid grid-cols-24">
                                 {showUser && (
                                     <div className="col-span-3 lg:col-span-2">
-                                        <img src={list.createdBy.imageUrl} className="h-full headshot" />
+                                        <img src={list.createdBy.imageUrl} className="h-full headshot rounded-l" />
                                     </div>
                                 )}
                                 <div className={` ${showUser ? "col-span-21 lg:col-span-22" : "col-span-24" } px-4 py-2 inline-flex items-center`}>

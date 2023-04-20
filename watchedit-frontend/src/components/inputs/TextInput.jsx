@@ -16,7 +16,7 @@ const TextInput = ({ name, label, onChange, placeholder, value, required, error 
                 <input
                     type="text"
                     name={name}
-                    className="border border-gray-500 p-2 w-full bg-backgroundOffset2"
+                    className="border border-gray-500 p-2 w-full bg-backgroundOffset2 rounded"
                     placeholder={placeholder}
                     value={value}
                     onChange={onChange}

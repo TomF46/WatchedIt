@@ -98,9 +98,9 @@ function List({userId}) {
                 <LoadingMessage message={"Loading list"} />
             ) : (
                 <div>
-                    <h1 className="text-center text-primary text-4xl my-4">{list.name}</h1>
+                    <h1 className="text-center text-primary text-4xl my-4 font-bold">{list.name}</h1>
                     {userCanEdit && (
-                        <div className="owner-controls bg-backgroundOffset mt-4 rounded-md">
+                        <div className="owner-controls bg-backgroundOffset mt-4 rounded-md shadow rounded">
                             <div className="bg-backgroundOffset2 rounded-t-md">
                                 <p className="text-primary font-bold text-lg px-2 py-1">
                                     List owner controls
@@ -127,7 +127,7 @@ function List({userId}) {
                     )}
                     <div className="mt-4">
                         <UserMiniDetail user={list.createdBy} />
-                        <div className="bg-backgroundOffset p-4 mt-4">
+                        <div className="bg-backgroundOffset p-4 mt-4 shadow rounded">
                             <h2 className="text-lg text-primary">Description:</h2>
                             <p>{list.description}</p>
                         </div>

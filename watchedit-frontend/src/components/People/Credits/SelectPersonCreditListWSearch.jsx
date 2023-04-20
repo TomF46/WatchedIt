@@ -5,7 +5,7 @@ import TextInput from "../../Inputs/TextInput";
 const SelectPersonCreditListWSearch = ({ people, searchTerms, onSearchTermChange , onPersonSelected }) => {
     return (
         <>
-            <div className="search-controls bg-backgroundOffset mt-4 rounded-md mb-4">
+            <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
                 <div className="bg-backgroundOffset2 rounded-t-md">
                     <p className="text-primary font-bold text-lg px-2 py-1">
                         Search
@@ -48,9 +48,9 @@ const SelectPersonCreditListWSearch = ({ people, searchTerms, onSearchTermChange
                 {people.map((person) => {
                     return (
                         <div key={person.id} className="col-span-12 my-1">
-                            <div className="grid grid-cols-24 bg-backgroundOffset">
+                            <div className="grid grid-cols-24 bg-backgroundOffset shadow rounded">
                                 <div className="col-span-3 md:col-span-2 lg:col-span-1">
-                                    <img src={person.imageUrl} className="h-full headshot" />
+                                    <img src={person.imageUrl} className="h-full headshot rounded-l" />
                                 </div>
                                 <div onClick={() => {onPersonSelected(person)}} className={`col-span-21 md:col-span-22 lg:col-span-23 p-4 cursor-pointer hover:opacity-75`}>
                                     <p>{person.fullName}</p>

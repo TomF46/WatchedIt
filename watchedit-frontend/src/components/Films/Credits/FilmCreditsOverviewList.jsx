@@ -9,7 +9,7 @@ const FilmCreditsOverviewList = ({ credits }) => {
             {credits.map((credit) => {
                 return (
                     <div className="col-span-12" key={credit.id}>
-                        <div onClick={() => {navigate(`/people/${credit.person.id}`)}} className="bg-backgroundOffset cursor-pointer hover:opacity-75">
+                        <div onClick={() => {navigate(`/people/${credit.person.id}`)}} className="bg-backgroundOffset cursor-pointer hover:opacity-75 shadow rounded">
                             <div className="grid grid-cols-24 my-1">
                                 <div className="col-span-3 md:col-span-2 lg:col-span-1">
                                     <img src={credit.person.imageUrl} className="h-full headshot" />

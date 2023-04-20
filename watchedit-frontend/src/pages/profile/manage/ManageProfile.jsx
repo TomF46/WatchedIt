@@ -103,7 +103,6 @@ function ManageProfile({id}) {
                 <LoadingMessage message={"Loading form."} />
             ) : (
                 <div>
-                    <h1 className="text-center text-primary text-4xl my-4">Update {user.username}</h1>
                     <UserManageForm user={updatedUser} onChange={handleChange} onImageChange={handleImageChange} onSave={handleSave} errors={errors} saving={saving} uploadingImage={imageUploading} />
                 </div>
             )}
