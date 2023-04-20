@@ -11,7 +11,8 @@ module.exports = {
         'background' : '#191818',
         'backgroundOffset' : '#201E1F',
         'backgroundOffset2' : '#2d2a2c',
-        'success' : '#84DD63'
+        'success' : '#A5C882',
+        'rating' : "#F7DD72"
       },
       gridTemplateColumns: {
         '24': 'repeat(24, minmax(0, 1fr))',

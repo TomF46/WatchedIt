@@ -20,7 +20,8 @@ namespace WatchedIt.Api.Services.Mapping
                 TrailerUrl = film.TrailerUrl,
                 AverageRating = String.Format("{0:0.0}", film.AverageRating),
                 Credits = CreditMapper.MapFilmCastCrewCreditDto(film.Credits.ToList()),
-                Categories = film.Categories.Select(x => CategoryMapper.Map(x)).ToList()
+                Categories = film.Categories.Select(x => CategoryMapper.Map(x)).ToList(),
+                WatchedByCount = film.WatchedBy.Count()
             };
         }
 

@@ -21,5 +21,6 @@ namespace WatchedIt.Api.Models.FilmModels
         public GetFilmCastCrewCreditsDto Credits { get; set; }
         public bool IsWatchedByUser {get; set;} = false;
         public IList<GetCategoryDto> Categories {get; set;} = new List<GetCategoryDto>();
+        public int WatchedByCount {get; set;}
     }
 }

@@ -93,7 +93,7 @@ function Review({userId, isAdmin}) {
                             <img src={review.film.posterUrl} className="poster mt-2 rounded"/>
                         </div>
                         <div className="col-span-12 md:col-span-10 pl-4">
-                            <p className="text-primary text-2xl text-center md:text-left my-4 md:my-0">Rating {review.rating}/10</p>
+                            <p className="text-rating text-2xl text-center md:text-left my-4 md:my-0">Rating {review.rating}/10</p>
                             <div className="bg-backgroundOffset p-4 mt-2 shadow rounded">
                                 <p>{review.text}</p>
                             </div>

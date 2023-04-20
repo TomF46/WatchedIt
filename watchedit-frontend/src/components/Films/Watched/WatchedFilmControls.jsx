@@ -5,7 +5,7 @@ import { setFilmNotWatchedById, setFilmWatchedById } from "../../../api/watchedF
 import { toast } from "react-toastify";
 import LoadingMessage from "../../Loading/LoadingMessage";
 
-const WatchedFilmControls = ({ film }) => {
+const WatchedFilmControls = ({ film, count, onCountChange }) => {
     const navigate = useNavigate();
     const [hasWatched, setHasWatched] = useState(null);
 
@@ -16,6 +16,7 @@ const WatchedFilmControls = ({ film }) => {
     function setWatched(){
         setFilmWatchedById(film.id).then(res => {
             setHasWatched(res.watched);
+            onCountChange();
         }).catch(err => {
             toast.error(`Error setting film watched${err.data.Exception}`, {
                 autoClose: false,
@@ -26,6 +27,7 @@ const WatchedFilmControls = ({ film }) => {
     function setNotWatched(){
         setFilmNotWatchedById(film.id).then(res => {
             setHasWatched(res.watched);
+            onCountChange();
         }).catch(err => {
             toast.error(`Error setting film not watched${err.data.Exception}`, {
                 autoClose: false,
@@ -56,6 +58,8 @@ const WatchedFilmControls = ({ film }) => {
 
 WatchedFilmControls.propTypes = {
     film: PropTypes.object.isRequired,
+    count: PropTypes.number.isRequired,
+    onCountChange: PropTypes.func.isRequired
 };
 
 export default WatchedFilmControls;

@@ -63,6 +63,10 @@ function Film({userIsAuthenticated, isAdmin}) {
         });
     }
 
+    function handleWatchedCountChange(count){
+        getFilm();
+    }
+
     return (
         <div className="film-page">
             {!film ? (
@@ -94,7 +98,7 @@ function Film({userIsAuthenticated, isAdmin}) {
                         <div className="col-span-12 md:col-span-2">
                             <img src={film.posterUrl} className="poster shadow rounded"/>
                             <div className="flex flex-col">
-                                {userIsAuthenticated && (<WatchedFilmControls film={film} />)}
+                                {userIsAuthenticated && (<WatchedFilmControls film={film} count={film.watchedByCount} onCountChange={handleWatchedCountChange} />)}
                                 <Link to={`/films/${id}/credits`}
                                 className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 text-center">
                                     Cast / Crew
@@ -126,25 +130,38 @@ function Film({userIsAuthenticated, isAdmin}) {
                                     )}
                                 </div>
                                 <div className="col-span-12 md:col-span-4 text-center bg-backgroundOffset md:ml-4 mt-4 md:mt-0 p-4 shadow rounded">
-                                    <h3 className="text-primary text-xl mb-4">Rating</h3>
-                                    {film.averageRating ? (
-                                        <div>
-                                            <p className="text-primary text-2xl">{film.averageRating} / 10</p>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-primary inline-flex items-center">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                    <div className="grid grid-cols-12">
+                                        <div className="col-span-12 md:col-span-6">
+                                            <h3 className="text-success text-xl mb-4">Watched by</h3>
+                                            <p className="text-success text-2xl">{film.watchedByCount} user{film.watchedByCount == 1 ? "s" : ""}</p>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-success inline-flex items-center mt-4">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                             </svg>
+
                                         </div>
-                                    ) : (
-                                        <>
-                                            <p>This film has not yet been rated.</p>
-                                            <Link
-                                                to={`/films/${id}/reviews/add`}
-                                                className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-2"
-                                            >
-                                                Add rating
-                                            </Link>
-                                        </>
-                                    )}
+                                        <div className="col-span-12 md:col-span-6">
+                                            <h3 className="text-rating text-xl mb-4">Rating</h3>
+                                            {film.averageRating ? (
+                                                <div>
+                                                    <p className="text-rating text-2xl">{film.averageRating} / 10</p>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-rating inline-flex items-center mt-4">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                                    </svg>
+                                                </div>
+                                            ) : (
+                                                <>
+                                                    <p>This film has not yet been rated.</p>
+                                                    <Link
+                                                        to={`/films/${id}/reviews/add`}
+                                                        className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-2"
+                                                    >
+                                                        Add rating
+                                                    </Link>
+                                                </>
+                                            )}
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="col-span-12 md:col-span-8 bg-backgroundOffset p-4 mt-4 shadow rounded">
                                     <h3 className="text-primary text-lg">Description</h3>
