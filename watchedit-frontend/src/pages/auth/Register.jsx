@@ -64,21 +64,32 @@ function Register({userIsAuthenticated}){
         <>
             {userIsAuthenticated && <Navigate to="/" replace />}
             <div className="register-page">
-                <div className="p-4 my-8 bg-backgroundOffset">
-                    <RegisterForm
-                        user={user}
-                        onChange={handleChange}
-                        onSave={handleSave}
-                        errors={errors}
-                        saving={saving} 
-                    />
-                    <div className="flex justify-center mt-4">
-                        <Link
-                            to={`/login`}
-                            className="text-center hover:text-gray-600 hover:underline"
-                        >
-                            Already registered? Login now!
-                        </Link>
+                <div className="grid grid-cols-12 p-4 my-8">
+                    <div className="col-span-12 lg:col-span-4 lg:col-start-5">
+                        <div className="search-controls bg-backgroundOffset mt-4 rounded-md mb-4">
+                            <div className="bg-backgroundOffset2 rounded-t-md">
+                                <p className="text-primary font-bold text-center text-xl px-2 py-1">
+                                    Register
+                                </p>
+                            </div>
+                            <div className="p-4">
+                                <RegisterForm
+                                    user={user}
+                                    onChange={handleChange}
+                                    onSave={handleSave}
+                                    errors={errors}
+                                    saving={saving} 
+                                />
+                                <div className="flex justify-center mt-4">
+                                    <Link
+                                        to={`/login`}
+                                        className="text-center text-primary hover:text-gray-600 hover:underline"
+                                    >
+                                        Already registered? Login now!
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

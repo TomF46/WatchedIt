@@ -6,7 +6,6 @@ import PasswordInput from "../Inputs/PasswordInput";
 const LoginForm = ({ user, onSave, onChange, saving = false, errors = {} }) => {
     return (
         <form className="" onSubmit={onSave}>
-            <h2 className="font-bold text-primary text-xl mb-4 text-center">Login</h2>
             {errors.onSave && (
                 <div className="text-red-500 text-xs p-1" role="alert">
                     {errors.onSave}
@@ -36,7 +35,7 @@ const LoginForm = ({ user, onSave, onChange, saving = false, errors = {} }) => {
                 <button
                     type="submit"
                     disabled={saving}
-                    className="bg-primary  text-white rounded py-2 px-4 hover:opacity-75 inline-flex items-center"
+                    className="bg-primary mt-4 text-white rounded py-2 px-4 hover:opacity-75 inline-flex items-center"
                 >
                     <svg className="text-white h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />

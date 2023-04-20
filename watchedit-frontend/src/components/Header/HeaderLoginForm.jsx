@@ -55,7 +55,7 @@ const HeaderLoginForm = ({ login}) => {
     return (
         <>
             <form onSubmit={handleSave}>
-            <div className="flex flex-row">
+            <div className="flex flex-row my-2 lg:my-0">
                     <div className="flex-1">
                         <EmailInput name="email" label="Email" value={user.email} onChange={handleChange} error={errors.email} showLabel={false} placeholder={"Email"} />
                     </div>
