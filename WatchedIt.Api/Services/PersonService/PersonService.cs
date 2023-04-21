@@ -42,7 +42,7 @@ namespace WatchedIt.Api.Services.PersonService
 
         public async Task<GetPersonDto> GetById(int id)
         {
-            var person = await _context.People.Include(f => f.Credits).ThenInclude(c => c.Film).Include(f => f.Credits).ThenInclude(c => c.Person).FirstOrDefaultAsync(p => p.Id == id);
+            var person = await _context.People.Include(f => f.Credits).ThenInclude(c => c.Film).Include(f => f.Credits).ThenInclude(c => c.Person).Include(f => f.LikedBy).FirstOrDefaultAsync(p => p.Id == id);
             if(person is null) throw new NotFoundException($"Person with Id '{id}' not found.");
             return PersonMapper.Map(person);
         }

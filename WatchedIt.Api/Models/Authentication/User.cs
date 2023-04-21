@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WatchedIt.Api.Models.Enums;
 using WatchedIt.Api.Models.FilmListModels;
 using WatchedIt.Api.Models.FilmModels;
+using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Models.ReviewModels;
 
 namespace WatchedIt.Api.Models.Authentication
@@ -27,6 +28,6 @@ namespace WatchedIt.Api.Models.Authentication
         public string? ImageUrl {get;set;}
         [StringLength(400, ErrorMessage = "Biography can't be longer than 400 characters.")]
         public string? Biography {get;set;}
-
+        public ICollection<Person> Likes { get; set; } = new List<Person>();
     }
 }

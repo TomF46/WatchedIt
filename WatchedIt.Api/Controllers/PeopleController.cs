@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.PersonModels;
+using WatchedIt.Api.Services.Likes;
+using WatchedIt.Api.Services.Mapping;
 using WatchedIt.Api.Services.PersonService;
 
 namespace WatchedIt.Api.Controllers
@@ -15,8 +17,10 @@ namespace WatchedIt.Api.Controllers
     public class PeopleController : ControllerBase
     {
         public IPersonService _personService { get; }
-        public PeopleController(IPersonService personService)
+        private readonly ILikesService _likesService;
+        public PeopleController(IPersonService personService, ILikesService likesService)
         {
+            _likesService = likesService;
             _personService = personService;
         }
 
@@ -28,6 +32,9 @@ namespace WatchedIt.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<GetPersonDto>> GetSingle(int id){
             var person = await _personService.GetById(id);
+            if(!HttpContext.User.Identity.IsAuthenticated) return Ok(person);
+            var userId = AuthMapper.MapLoggedInUserId(HttpContext);
+            person.IsLikedByUser = await _likesService.CurrentUserLikesPersonWithId(person.Id, userId);
             return Ok(person);
         }
 

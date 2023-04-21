@@ -22,6 +22,7 @@ using WatchedIt.Api.Services.File;
 using WatchedIt.Api.Services.CategoryService;
 using Microsoft.Extensions.FileProviders;
 using WatchedIt.Api.Models.Configuration;
+using WatchedIt.Api.Services.Likes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -125,6 +126,7 @@ builder.Services.AddScoped<IWatchedFilmsService, WatchedFilmsService>();
 builder.Services.AddScoped<IFilmListService, FilmListService>();
 builder.Services.AddScoped<IFileService, DiskFileService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ILikesService, LikesService>();
 
 var imagesSettings = builder.Configuration.GetSection("Images").Get<ImagesConfiguration>();
 

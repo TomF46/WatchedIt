@@ -19,5 +19,9 @@ namespace WatchedIt.Api.Models.PersonModels
         public string? Description {get;set;}
         public string? ImageUrl {get;set;}
         public GetPersonCastCrewCreditsDto Credits { get; set; }
+        public bool IsLikedByUser {get; set;} = false;
+        public int LikedByCount {get; set;}
+
+
     }
 }

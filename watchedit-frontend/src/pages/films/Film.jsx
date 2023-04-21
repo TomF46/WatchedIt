@@ -63,7 +63,7 @@ function Film({userIsAuthenticated, isAdmin}) {
         });
     }
 
-    function handleWatchedCountChange(count){
+    function handleWatchedCountChange(){
         getFilm();
     }
 
@@ -98,7 +98,7 @@ function Film({userIsAuthenticated, isAdmin}) {
                         <div className="col-span-12 md:col-span-2">
                             <img src={film.posterUrl} className="poster shadow rounded"/>
                             <div className="flex flex-col">
-                                {userIsAuthenticated && (<WatchedFilmControls film={film} count={film.watchedByCount} onCountChange={handleWatchedCountChange} />)}
+                                {userIsAuthenticated && (<WatchedFilmControls film={film} onChange={handleWatchedCountChange} />)}
                                 <Link to={`/films/${id}/credits`}
                                 className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 text-center">
                                     Cast / Crew
