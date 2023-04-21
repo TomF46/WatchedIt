@@ -18,6 +18,7 @@ const MultiSelectInput = ({ name, label, onChange, placeholder, value, options, 
                     selectedValues={value}
                     onSelect={onChange}
                     onRemove={onChange}
+                    className="border border-gray-500 focus:outline-none focus:border-primary bg-backgroundOffset2 rounded"
                 />
                 {helpText && (
                     <div className="text-xs p-1">{helpText}</div>

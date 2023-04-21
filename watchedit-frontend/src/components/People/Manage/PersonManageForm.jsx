@@ -90,7 +90,7 @@ const PersonManageForm = ({
 
                     <div className="mb-2">
                         <label className="font-bold text-xs text-primary">Date of birth</label>
-                        <DatePicker dateFormat="dd-MM-yyyy"  selected={person.dateOfBirth} onChange={(date) => onDateChange(date)} />
+                        <DatePicker dateFormat="dd-MM-yyyy"  selected={person.dateOfBirth} onChange={(date) => onDateChange(date)} className="border border-gray-500 focus:outline-none focus:border-primary p-2 bg-backgroundOffset2 rounded" />
                         {errors.releaseDate && (
                             <div className="text-red-500 text-xs p-1 mt-2">{errors.dateOfBirth}</div>
                         )}

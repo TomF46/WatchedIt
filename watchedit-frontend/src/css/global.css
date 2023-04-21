@@ -16,6 +16,15 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --primary-color: #2E86AB;
+  --background-color: #191818;
+  --backgroundOffset-color: #201E1F;
+  --backgroundOffset2-color: #2d2a2c;
+  --success-color: #A5C882;
+  --rating-color: #F7DD72;
+
+
 }
 
 .app-container{
@@ -24,7 +33,7 @@
 }
 
 .react-datepicker-wrapper input{
-  background-color: #2d2a2c;
+  background-color: var(--backgroundOffset2-color);
 }
 
 .poster{
@@ -36,13 +45,15 @@
 }
 
 .search-wrapper{
-  background-color: #2d2a2c;
+  background-color: var(--backgroundOffset2-color);
+  outline: none;
+  border: 0px!important;
 }
 .search-wrapper .chip{
-  background: #2E86AB;
+  background: var(--primary-color);
 }
 .multiselect-container .optionContainer{
-  background-color: #2d2a2c;
+  background-color: var(--backgroundOffset2-color);
 }
 
 .video-container{

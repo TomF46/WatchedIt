@@ -130,7 +130,7 @@ const FilmManageForm = ({
 
                     <div className="mb-2">
                         <label className="font-bold text-xs text-primary">Release date</label>
-                        <DatePicker dateFormat="dd-MM-yyyy" className="border border-gray-500 rounded" selected={film.releaseDate} onChange={(date) => onDateChange(date)} />
+                        <DatePicker dateFormat="dd-MM-yyyy" className="border border-gray-500 focus:outline-none focus:border-primary p-2 bg-backgroundOffset2 rounded" selected={film.releaseDate} onChange={(date) => onDateChange(date)} />
                         {errors.releaseDate && (
                             <div className="text-red-500 text-xs p-1 mt-2">{errors.releaseDate}</div>
                         )}

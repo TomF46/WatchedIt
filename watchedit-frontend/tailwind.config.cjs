@@ -7,12 +7,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary' : '#2E86AB',
-        'background' : '#191818',
-        'backgroundOffset' : '#201E1F',
-        'backgroundOffset2' : '#2d2a2c',
-        'success' : '#A5C882',
-        'rating' : "#F7DD72"
+        'primary' : 'var(--primary-color)',
+        'background' : 'var(--background-color)',
+        'backgroundOffset' : 'var(--backgroundOffset-color)',
+        'backgroundOffset2' : 'var(--backgroundOffset2-color)',
+        'success' : 'var(--success-color)',
+        'rating' : 'var(--rating-color)',
       },
       gridTemplateColumns: {
         '24': 'repeat(24, minmax(0, 1fr))',

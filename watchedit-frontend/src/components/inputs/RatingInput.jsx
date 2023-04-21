@@ -16,7 +16,7 @@ const RatingInput = ({ name, label, onChange, placeholder, value, error }) => {
                 <input
                     type="number"
                     name={name}
-                    className="border border-gray-500 p-2 w-full bg-backgroundOffset2 rounded"
+                    className="border border-gray-500 focus:outline-none focus:border-primary p-2 w-full bg-backgroundOffset2 rounded"
                     placeholder={placeholder}
                     value={value}
                     onChange={onChange}
