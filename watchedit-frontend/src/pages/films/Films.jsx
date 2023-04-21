@@ -28,6 +28,8 @@ function Films({ isAdmin }) {
         {id: "release_asc", name: "Oldest"},
         {id: "rating_desc", name: "Highest rated"},
         {id: "rating_asc", name: "Lowest rated"},
+        {id: "watched_desc", name: "Most watched"},
+        {id: "watched_asc", name: "Least watched"}
     ]
 
     useEffect(() => {

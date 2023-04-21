@@ -10,5 +10,7 @@ namespace WatchedIt.Api.Models
         public string? FirstName {get; set;} = "";
         public string? LastName {get; set;} = "";
         public string? StageName {get; set;} = "";
+        public string? Sort {get; set;} = "";
+
     }
 }

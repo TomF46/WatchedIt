@@ -4,9 +4,9 @@ export function savePerson(person) {
     return person.id ? editPerson(person) : addPerson(person);
 }
 
-export function getPeoplePaginated(pageNumber, pageSize) {
+export function getPeoplePaginated(pageNumber, pageSize, sort) {
     return client
-        .get(`/api/people?PageNumber=${pageNumber}&PageSize=${pageSize}`)
+        .get(`/api/people?PageNumber=${pageNumber}&PageSize=${pageSize}&Sort=${sort}`)
         .then(response => {
             return response.data
         })
@@ -15,9 +15,9 @@ export function getPeoplePaginated(pageNumber, pageSize) {
         });
 }
 
-export function searchPeoplePaginated(searchTerms, pageNumber, pageSize) {
+export function searchPeoplePaginated(searchTerms, pageNumber, pageSize, sort) {
     return client
-        .get(`/api/people?firstName=${searchTerms.firstName}&lastName=${searchTerms.lastName}&stageName=${searchTerms.stageName}&PageNumber=${pageNumber}&PageSize=${pageSize}`)
+        .get(`/api/people?firstName=${searchTerms.firstName}&lastName=${searchTerms.lastName}&stageName=${searchTerms.stageName}&PageNumber=${pageNumber}&PageSize=${pageSize}&Sort=${sort}`)
         .then(response => {
             return response.data
         })

@@ -33,10 +33,16 @@ function Home({ userIsAuthenticated, username }) {
             )}
             <div className="home-conent grid grid-col-12">
                 <div className="col-span-12">
-                    <FilmReel />
+                    <FilmReel title="Latest films" sort="release_desc" />
                 </div>
                 <div className="col-span-12">
-                    <PeopleReel />
+                    <PeopleReel title={"Most liked people"} sort="likes_desc" />
+                </div>
+                <div className="col-span-12">
+                    <FilmReel title="Most watched films" sort="watched_desc" />
+                </div>
+                <div className="col-span-12">
+                    <FilmReel title="Highest rated films" sort="rating_desc" />
                 </div>
                 <div className="col-span-12">
                     <ListReel />

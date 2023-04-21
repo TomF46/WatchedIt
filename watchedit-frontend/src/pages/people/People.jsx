@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import TextInput from "../../components/Inputs/TextInput";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
+import SelectInput from "../../components/Inputs/SelectInput";
 
 function People({ isAdmin }) {
     const [peoplePaginator, setPeoplePaginator] = useState(null);
@@ -16,6 +17,17 @@ function People({ isAdmin }) {
     const [page, setPage] = useState(1);
     const peoplePerPage = 32;
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
+    const [sort, setSort] = useState("likes_desc");
+    const sortOptions = [
+        {id: "fName_asc", name: "First name A - Z"},
+        {id: "fName_desc", name: "First name Z - A"},
+        {id: "lName_asc", name: "Last name A - Z"},
+        {id: "lName_desc", name: "Last name Z - A"},
+        {id: "likes_desc", name: "Most likes"},
+        {id: "likes_asc", name: "Least likes"},
+        {id: "dob_asc", name: "Oldest"},
+        {id: "dob_desc", name: "Youngest"},
+    ]
 
     useEffect(() => {
         if (!peoplePaginator) {
@@ -33,10 +45,10 @@ function People({ isAdmin }) {
         );
 
         debounced();
-    }, [searchTerms])
+    }, [searchTerms, sort])
 
     function getPeople() {
-        searchPeoplePaginated(searchTerms, page, peoplePerPage)
+        searchPeoplePaginated(searchTerms, page, peoplePerPage, sort)
             .then((res) => {
                 setPeoplePaginator(res);
                 setLastPageLoaded(page);
@@ -65,6 +77,11 @@ function People({ isAdmin }) {
             ...prevSearchTerms,
             [name]: value
         }));
+    }
+
+    function handleSortChange(event) {
+        const { value } = event.target;
+        setSort(value);
     }
 
     return (
@@ -126,6 +143,15 @@ function People({ isAdmin }) {
                                         value={searchTerms.stageName}
                                         onChange={handleSearchTermChange}
                                         required={false}
+                                    />
+                                </div>
+                                <div className="ml-2">
+                                    <SelectInput
+                                        name="sort"
+                                        label="Sort"
+                                        value={sort}
+                                        options={sortOptions}
+                                        onChange={handleSortChange}
                                     />
                                 </div>
                             </div>

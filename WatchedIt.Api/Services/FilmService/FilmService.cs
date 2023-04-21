@@ -16,7 +16,7 @@ namespace WatchedIt.Api.Services.FilmService
         }
         public async Task<PaginationResponse<GetFilmOverviewDto>> GetAll(FilmSearchWithPaginationParameters parameters)
         {
-            var query =  _context.Films.AsQueryable();
+            var query =  _context.Films.Include(f => f.WatchedBy).AsQueryable();
 
             if(!string.IsNullOrWhiteSpace(parameters.SearchTerm)) query = query.Where(f => f.Name.ToLower().Contains(parameters.SearchTerm.Trim().ToLower()));
             if(parameters.Category is not null){
@@ -34,19 +34,25 @@ namespace WatchedIt.Api.Services.FilmService
                         query = query.OrderBy(f => f.Name);
                         break;
                     case "release_desc":
-                        query = query.OrderByDescending(f => f.ReleaseDate);
+                        query = query.OrderByDescending(f => f.ReleaseDate).ThenBy(x => x.Name);
                         break;
                     case "release_asc":
-                        query = query.OrderBy(f => f.ReleaseDate);
+                        query = query.OrderBy(f => f.ReleaseDate).ThenBy(x => x.Name);
                         break;
                     case "rating_desc":
-                        query = query.OrderByDescending(f => f.AverageRating);
+                        query = query.OrderByDescending(f => f.AverageRating).ThenBy(x => x.Name);
                         break;
                     case "rating_asc":
-                        query = query.OrderBy(f => f.AverageRating);
+                        query = query.OrderBy(f => f.AverageRating).ThenBy(x => x.Name);
+                        break;
+                    case "watched_desc":
+                        query = query.OrderByDescending(f => f.WatchedBy.Count()).ThenBy(x => x.Name);
+                        break;
+                    case "watched_asc":
+                        query = query.OrderBy(f => f.WatchedBy.Count()).ThenBy(x => x.Name);
                         break;
                     default:
-                        query = query.OrderByDescending(f => f.AverageRating);
+                        query = query.OrderByDescending(f => f.AverageRating).ThenBy(x => x.Name);
                         break;
                 };
 

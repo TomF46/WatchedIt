@@ -34,6 +34,38 @@ namespace WatchedIt.Api.Services.PersonService
                 var searchStageName = parameters.StageName.Trim().ToLower();
                 query = query.Where(f => f.StageName.ToLower().Contains(searchStageName));
             }
+
+            switch(parameters.Sort)
+            {
+                case "fName_desc":
+                    query = query.OrderByDescending(x => x.FirstName).ThenBy(x => x.LastName);;
+                    break;
+                case "fName_asc":
+                    query = query.OrderBy(x => x.FirstName).ThenBy(x => x.LastName);
+                    break;
+                case "lName_desc":
+                    query = query.OrderByDescending(x => x.LastName);
+                    break;
+                case "lName_asc":
+                    query = query.OrderBy(x => x.LastName);
+                    break;
+                case "dob_desc":
+                    query = query.OrderByDescending(x => x.DateOfBirth).ThenBy(x => x.LastName);
+                    break;
+                case "dob_asc":
+                    query = query.OrderBy(x => x.DateOfBirth).ThenBy(x => x.LastName);
+                    break;
+                case "likes_desc":
+                    query = query.OrderByDescending(x => x.LikedBy.Count()).ThenBy(x => x.LastName);
+                    break;
+                case "likes_asc":
+                    query = query.OrderBy(x => x.LikedBy.Count()).ThenBy(x => x.LastName);
+                    break;
+                default:
+                    query = query.OrderByDescending(x => x.LikedBy.Count()).ThenBy(x => x.LastName);
+                    break;
+            }
+
             var count = query.Count();
             var people = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
             var mappedPeople = people.Select(p => PersonMapper.MapOverview(p)).ToList();

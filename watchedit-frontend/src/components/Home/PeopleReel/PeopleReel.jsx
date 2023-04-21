@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import LoadingMessage from "../../Loading/LoadingMessage";
@@ -6,7 +7,7 @@ import { getPeoplePaginated } from "../../../api/peopleApi";
 import PeopleReelItem from "./PeopleReelItem";
 
 
-function PeopleReel() {
+function PeopleReel({ title, sort}) {
     const [peoplePaginator, setPeoplePaginator] = useState(null);
     const [page, setPage] = useState(1);
     const peoplePerPage = 8;
@@ -35,7 +36,7 @@ function PeopleReel() {
                 <LoadingMessage message={"Loading people."} />
             ) : (
                 <div className="mt-4">
-                    <Link to={"/people"} className="text-primary text-2xl hover:opacity-75">People</Link>
+                    <Link to={"/people"} className="text-primary text-2xl hover:opacity-75">{title}</Link>
                     {peoplePaginator.data.length > 0 ? (
                         <div className="grid grid-cols-16">
                             {peoplePaginator.data.map((person) => {
@@ -52,5 +53,11 @@ function PeopleReel() {
         </div>
     );
 }
+
+PeopleReel.propTypes = {
+    title: PropTypes.string.isRequired,
+    sort: PropTypes.string.isRequired
+};
+
 
 export default PeopleReel;
