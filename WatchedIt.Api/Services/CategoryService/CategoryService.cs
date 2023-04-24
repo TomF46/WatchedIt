@@ -16,7 +16,7 @@ namespace WatchedIt.Api.Services.CategoryService
         }
         public async Task<List<GetCategoryDto>> GetAll()
         {
-            var categories = await _context.Categories.ToListAsync();
+            var categories = await _context.Categories.OrderBy(c => c.Name).ToListAsync();
             return categories.Select(c => CategoryMapper.Map(c)).ToList();
         }
 

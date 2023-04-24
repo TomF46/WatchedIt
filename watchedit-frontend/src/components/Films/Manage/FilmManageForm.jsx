@@ -16,7 +16,7 @@ const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
-        minWidth: '60%',
+        minWidth: '60%'
     },
 };
 
@@ -183,11 +183,11 @@ const FilmManageForm = ({
                             style={customStyles}
                             contentLabel="Example Modal"
                         >
-                            <div className="grid grid-cols-12 text-primary">
+                            <div className="grid grid-cols-12 bg-background p-4">
                                 <div className="col-span-12">
-                                    <h3 className="font-bold text-center">Manage trailer</h3>
+                                    <h3 className="font-bold text-primary text-center text-xl my-4">Manage trailer</h3>
                                 </div>
-                                <div className="col-span-12">
+                                <div className="col-span-12 text-white">
                                     <p>Please add a valid embed link for your video on your format of choice in the input below, if you add a valid link then a preview of the video will appear below.</p><br />
                                     <p>Example links include</p>
                                     <ul>
@@ -204,7 +204,7 @@ const FilmManageForm = ({
                                     />
                                 </div>
                                 <div className="col-span-12 mt-4">
-                                    <p className="text-center font-bold">Preview</p>
+                                    <p className="text-center text-primary font-bold">Preview</p>
                                     <div className="video-container grid grid-cols-12 justify-center">
                                         <iframe className="video col-span-12 lg:col-start-4 lg:col-span-6" src={film.trailerUrl} frameBorder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                                     </div>
