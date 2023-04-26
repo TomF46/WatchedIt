@@ -59,5 +59,10 @@ namespace WatchedIt.Api.Controllers
             _filmService.Delete(id);
             return Ok();
         }
+
+        [HttpGet("{id}/similar")]
+        public async Task<ActionResult<PaginationResponse<GetFilmOverviewDto>>> GetSimilar(int id, [FromQuery] FilmSearchWithPaginationParameters parameters){
+            return Ok(await _filmService.GetSimilarFilmsById(id, parameters));
+        }
     }
 }

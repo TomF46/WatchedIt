@@ -81,3 +81,14 @@ export function removeFilm(film){
             throw error.response;
         });
 }
+
+export function getSimilarFilmsPaginated(id, pageNumber, pageSize) {
+    return client
+        .get(`/api/films/${id}/similar?PageNumber=${pageNumber}&PageSize=${pageSize}`)
+        .then(response => {
+            return response.data
+        })
+        .catch(error => {
+            throw error.response;
+        });
+}

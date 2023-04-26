@@ -10,6 +10,7 @@ import WatchedFilmControls from "../../components/Films/Watched/WatchedFilmContr
 import FilmCreditsOverviewList from "../../components/Films/Credits/FilmCreditsOverviewList";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import LatestReviews from "../../components/Reviews/LatestReviews";
+import SimilarFilmsReel from "../../components/Films/SimilarFilmsReel";
 
 function Film({userIsAuthenticated, isAdmin}) {
     const { id } = useParams();
@@ -17,8 +18,9 @@ function Film({userIsAuthenticated, isAdmin}) {
     const [film, setFilm] = useState(null);
 
     useEffect(() => {
-        if (!film) {
+        if (!film || film.id != id) {
             getFilm();
+            window.scrollTo(0, 0)
         }
     }, [id, film]);
 
@@ -198,6 +200,9 @@ function Film({userIsAuthenticated, isAdmin}) {
                                         </div>
                                     </div>
                                 )}
+                                <div className="col-span-12">
+                                    <SimilarFilmsReel filmId={film.id} />
+                                </div>
                             </div>
                         </div>
                     </div>

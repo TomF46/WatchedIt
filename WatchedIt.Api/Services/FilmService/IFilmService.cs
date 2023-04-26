@@ -13,5 +13,7 @@ namespace WatchedIt.Api.Services.FilmService
         Task<GetFilmOverviewDto> Add(AddFilmDto newFilm);
         Task<GetFilmOverviewDto> Update(int id ,UpdateFilmDto updatedFilm);
         void Delete(int id);
+        Task<PaginationResponse<GetFilmOverviewDto>> GetSimilarFilmsById(int id, PaginationParameters parameters);
+
     }
 }

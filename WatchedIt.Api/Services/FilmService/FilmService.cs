@@ -110,5 +110,18 @@ namespace WatchedIt.Api.Services.FilmService
             _context.SaveChanges();
             return;
         }
+
+        public async Task<PaginationResponse<GetFilmOverviewDto>> GetSimilarFilmsById(int id, PaginationParameters parameters)
+        {
+            var film = _context.Films.Include(f => f.Categories).FirstOrDefault(f => f.Id == id);
+            if(film is null) throw new NotFoundException($"Film with Id '{id}' not found.");
+
+            var query = _context.Films.Where(x => x.Categories.Any(x => film.Categories.Contains(x))).AsQueryable();
+            
+            var count = query.Count();
+            var films = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
+            var mappedFilms = films.Select(f => FilmMapper.MapOverview(f)).ToList();
+            return new PaginationResponse<GetFilmOverviewDto>(mappedFilms, parameters.PageNumber, parameters.PageSize, count);
+        }
     }
 }
