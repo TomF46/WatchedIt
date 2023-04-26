@@ -68,7 +68,7 @@ namespace WatchedIt.Api.Services.FilmListService
             if(list.CreatedBy.Id != userId) throw new Exceptions.UnauthorizedAccessException($"User does not own this list");
 
             _context.FilmLists.Remove(list);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
             return;
         }
 
