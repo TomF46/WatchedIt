@@ -13,7 +13,18 @@ export function getUserById(id) {
 
 export function getWatchedListByUserId(id, pageNumber, pageSize) {
     return client
-        .get(`/api/users/${id}/watchedFilms?PageNumber=${pageNumber}&PageSize=${pageSize}`)
+        .get(`/api/users/${id}/watched?PageNumber=${pageNumber}&PageSize=${pageSize}`)
+        .then(response => {
+            return response.data
+        })
+        .catch(error => {
+            throw error.response;
+        });
+}
+
+export function getLikedPeopleByUserId(id, pageNumber, pageSize) {
+    return client
+        .get(`/api/users/${id}/likes?PageNumber=${pageNumber}&PageSize=${pageSize}`)
         .then(response => {
             return response.data
         })

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WatchedIt.Api.Models.Enums;
 using WatchedIt.Api.Models.FilmModels;
+using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Models.UserModels;
 using WatchedIt.Api.Services.Mapping;
 
@@ -34,15 +35,6 @@ namespace WatchedIt.Api.Services.UserService
             };
         }
 
-        public async Task<PaginationResponse<GetSimpleFilmDto>> GetWatchedFilms(int id, PaginationParameters paginationParameters)
-        {
-            var user = await _context.Users.Include(f => f.Watched).FirstOrDefaultAsync(p => p.Id == id);
-            if(user is null) throw new NotFoundException($"User with Id '{id}' not found.");
-            var count = user.Watched.Count();
-            var mappedWatchList = user.Watched.Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).Select(f => FilmMapper.MapSimple(f)).ToList();
-            return new PaginationResponse<GetSimpleFilmDto>(mappedWatchList, paginationParameters.PageNumber, paginationParameters.PageSize, count);
-        }
-
         public async Task<GetUserDto> Update(int id, UpdateUserDto updatedUser)
         {
             var user = await _context.Users.Include(f => f.Watched).FirstOrDefaultAsync(p => p.Id == id);
@@ -51,6 +43,24 @@ namespace WatchedIt.Api.Services.UserService
             user.Biography = updatedUser.Biography;
             await _context.SaveChangesAsync();
             return UserMapper.Map(user);
+        }
+
+        public async Task<PaginationResponse<GetSimplePersonDto>> GetLikedPeople(int id, PaginationParameters paginationParameters)
+        {
+            var user = await _context.Users.Include(u => u.Likes).FirstOrDefaultAsync(p => p.Id == id);
+            if(user is null) throw new NotFoundException($"User with Id '{id}' not found.");
+            var count = user.Likes.Count();
+            var mappedLikesList = user.Likes.Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).Select(p => PersonMapper.MapSimple(p)).ToList();
+            return new PaginationResponse<GetSimplePersonDto>(mappedLikesList, paginationParameters.PageNumber, paginationParameters.PageSize, count);
+        }
+
+        public async Task<PaginationResponse<GetSimpleFilmDto>> GetWatchedFilms(int id, PaginationParameters paginationParameters)
+        {
+            var user = await _context.Users.Include(f => f.Watched).FirstOrDefaultAsync(p => p.Id == id);
+            if(user is null) throw new NotFoundException($"User with Id '{id}' not found.");
+            var count = user.Watched.Count();
+            var mappedWatchList = user.Watched.Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).Select(f => FilmMapper.MapSimple(f)).ToList();
+            return new PaginationResponse<GetSimpleFilmDto>(mappedWatchList, paginationParameters.PageNumber, paginationParameters.PageSize, count);
         }
     }
 }

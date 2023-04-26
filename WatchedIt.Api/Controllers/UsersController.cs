@@ -40,10 +40,16 @@ namespace WatchedIt.Api.Controllers
             return Ok(user);
         }
 
-        [HttpGet("{id}/watchedFilms")]
+        [HttpGet("{id}/watched")]
         public async Task<ActionResult<PaginationResponse<GetSimpleFilmDto>>> GetWatchedFilms(int id, [FromQuery] PaginationParameters paginationParameters)
         {
             return Ok(await _userService.GetWatchedFilms(id, paginationParameters));
+        }
+
+        [HttpGet("{id}/likes")]
+        public async Task<ActionResult<PaginationResponse<GetSimpleFilmDto>>> GetLikedPeople(int id, [FromQuery] PaginationParameters paginationParameters)
+        {
+            return Ok(await _userService.GetLikedPeople(id, paginationParameters));
         }
 
         [HttpGet("me/admin")]

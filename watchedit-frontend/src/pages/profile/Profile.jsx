@@ -70,6 +70,12 @@ function Profile({id, currentUserId, logout}) {
                                     Watched
                                 </Link>
                                 <Link
+                                    to={`/profile/${id}/likes`}
+                                    className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 w-full text-center"
+                                >
+                                    Likes
+                                </Link>
+                                <Link
                                     to={`/profile/${id}/reviews`}
                                     className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 w-full text-center"
                                 >
@@ -91,15 +97,19 @@ function Profile({id, currentUserId, logout}) {
                             </div>
                         </div>
                         <div className="col-span-12 mt-4 md:col-span-10 md:pl-4 md:mt-0">
-                            <div className="grid grid-cols-12 bg-backgroundOffset p-4 shadow rounded">
-                                <div className="col-span-12 md:col-span-6">
+                            <div className="grid grid-cols-12">
+                                <div className="col-span-12 md:col-span-6 bg-backgroundOffset p-4 shadow rounded">
+                                <h3 className="text-primary text-lg">Details</h3>
                                     <p>Username: {user.username}</p>
                                     <p>Email: {user.email}</p>
                                     <p>Watched films: {user.watchedFilmCount}</p>
                                 </div>
-                                <div className="col-span-12 md:col-span-6">
+                                <div className="col-span-12 md:col-span-6 bg-backgroundOffset md:ml-2 mt-4 md:mt-0 p-4 shadow rounded">
                                     {user.biography && (
-                                        <p>Bio: {user.biography}</p>
+                                        <>
+                                            <h3 className="text-primary text-lg">About</h3>
+                                            <p>{user.biography}</p>
+                                        </>
                                     )}
                                 </div>
                             </div>
