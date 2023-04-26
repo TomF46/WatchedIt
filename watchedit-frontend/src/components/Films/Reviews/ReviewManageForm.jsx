@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import TextInput from "../../Inputs/TextInput";
 import RatingInput from "../../Inputs/RatingInput";
+import TextAreaInput from "../../Inputs/TextAreaInput";
 
 const ReviewManageForm = ({
     review,
@@ -38,7 +39,7 @@ const ReviewManageForm = ({
                         />
                     </div>
                     <div className="mb-2">
-                        <TextInput
+                        <TextAreaInput
                             name="text"
                             label="Review text"
                             value={review.text}
