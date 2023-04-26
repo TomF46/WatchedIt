@@ -55,7 +55,7 @@ function List({userId}) {
 
     function deleteList(){
         deleteFilmList(list.id).then(res => {
-            toast.success("Film removed");
+            toast.success("List removed");
             navigate("/lists");
         }).catch((err) => {
             toast.error(`Error removing list ${err.data.Exception}`, {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import debounce from 'lodash.debounce';
 import PaginationControls from "../../../components/PaginationControls";
@@ -88,7 +88,7 @@ function AddFilmToList({userId}) {
     
     function handleFilmSelected(film){
         addFilmToFilmList(list.id, film).then(res => {
-            navigate(`/lists/${list.id}`);
+            getList();
         }).catch(err => {
           console.log(err);
           toast.error(`Error adding film to list ${err.data.Exception}`, {
@@ -107,18 +107,26 @@ function AddFilmToList({userId}) {
                     {!filmsPaginator ? (
                         <LoadingMessage message={"Loading films."} />
                         ) : (
-                            <div className="mt-4">
-                                <SelectFilmListWSearch films={filmsPaginator.data} currentFilms={list.films} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange} onFilmSelected={handleFilmSelected}/>
-                                <PaginationControls
-                                currentPage={page}
-                                onNext={handleNextPage}
-                                onPrevious={handlePreviousPage}
-                                of={filmsPaginator.of}
-                                from={filmsPaginator.from}
-                                to={filmsPaginator.to}
-                                lastPage={filmsPaginator.lastPage}
-                            />
-                            </div>
+                            <>
+                                <Link
+                                        to={`/lists/${list.id}`}
+                                        className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 text-center"
+                                    >
+                                        Back to list
+                                </Link>
+                                <div className="mt-4">
+                                    <SelectFilmListWSearch films={filmsPaginator.data} currentFilms={list.films} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange} onFilmSelected={handleFilmSelected}/>
+                                    <PaginationControls
+                                    currentPage={page}
+                                    onNext={handleNextPage}
+                                    onPrevious={handlePreviousPage}
+                                    of={filmsPaginator.of}
+                                    from={filmsPaginator.from}
+                                    to={filmsPaginator.to}
+                                    lastPage={filmsPaginator.lastPage}
+                                />
+                                </div>
+                            </>
                         )
                     }
                 </div>
