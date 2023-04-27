@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { getFilmById } from "../../../api/filmsApi";
 import { getReviewById, saveReview } from "../../../api/filmReviewApi";
 import { newReview } from "../../../tools/obJectShapes";
-import ReviewManageForm from "../../../components/Films/Reviews/ReviewManageForm";
+import ManageReviewForm from "../../../components/Films/Reviews/ManageReviewForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
 function ManageReview({userId ,isAdmin}) {
@@ -99,7 +99,7 @@ function ManageReview({userId ,isAdmin}) {
         <div className="manage-film-review-page">
             {film && review ? (
                 <>
-                    <ReviewManageForm review={review} film={film} onChange={handleChange} onSave={handleSave} errors={errors} saving={saving} editing={editing}/>
+                    <ManageReviewForm review={review} film={film} onChange={handleChange} onSave={handleSave} errors={errors} saving={saving} editing={editing}/>
                 </>
             ) : (
                 <LoadingMessage message={"Loading form."} />

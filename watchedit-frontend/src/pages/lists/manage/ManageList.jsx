@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmListById, saveFilmList } from "../../../api/filmListsApi";
-import ListManageForm from "../../../components/Lists/Manage/ListManageForm";
+import ManageListForm from "../../../components/Lists/Manage/ManageListForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { newList } from "../../../tools/obJectShapes";
 
@@ -82,7 +82,7 @@ function ManageList({userId}) {
     return (
         <div className="manage-list-page">
             {list ? (
-                <ListManageForm list={list} onChange={handleChange} onSave={handleSave} errors={errors} saving={saving} editing={editing} />
+                <ManageListForm list={list} onChange={handleChange} onSave={handleSave} errors={errors} saving={saving} editing={editing} />
             ) : (
                 <LoadingMessage message={"Loading form."} />
             )}

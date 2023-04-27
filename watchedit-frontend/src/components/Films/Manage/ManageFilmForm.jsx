@@ -20,7 +20,7 @@ const customStyles = {
     },
 };
 
-const FilmManageForm = ({
+const ManageFilmForm = ({
     film,
     categories,
     onSave,
@@ -261,7 +261,7 @@ const FilmManageForm = ({
 };
 
 
-FilmManageForm.propTypes = {
+ManageFilmForm.propTypes = {
     film: PropTypes.object.isRequired,
     categories: PropTypes.array,
     errors: PropTypes.object,
@@ -276,4 +276,4 @@ FilmManageForm.propTypes = {
     uploadingImage: PropTypes.bool
 };
 
-export default FilmManageForm;
+export default ManageFilmForm;

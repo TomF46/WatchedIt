@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TextInput from "../../Inputs/TextInput";
+import TextAreaInput from "../../Inputs/TextAreaInput";
 
-const CategoryManageForm = ({
-    category,
+const ManageListForm = ({
+    list,
     onSave,
     onChange,
     saving = false,
@@ -17,11 +18,10 @@ const CategoryManageForm = ({
                     {errors.onSave}
                 </div>
             )}
-
             <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
                 <div className="bg-backgroundOffset2 rounded-t-md">
                     <p className="text-primary font-bold text-center text-2xl px-2 py-1">
-                        {editing ? `Editing category` : "Adding category"}
+                        {editing ? `Editing ${list.name}` : "Adding list"}
                     </p>
                 </div>
                 <div className="p-4">
@@ -29,9 +29,19 @@ const CategoryManageForm = ({
                         <TextInput
                             name="name"
                             label="Name"
-                            value={category.name}
+                            value={list.name}
                             onChange={onChange}
                             error={errors.name}
+                            required={true}
+                        />
+                    </div>
+                    <div className="mb-2">
+                        <TextAreaInput
+                            name="description"
+                            label="Description"
+                            value={list.description}
+                            onChange={onChange}
+                            error={errors.description}
                             required={true}
                         />
                     </div>
@@ -44,9 +54,8 @@ const CategoryManageForm = ({
                     disabled={saving}
                     className="bg-primary  text-white rounded py-2 px-4 hover:opacity-75 inline-flex items-center"
                 >
-                    <svg className="text-white h-5 w-5" strokeWidth={1.5} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z" />
+                    <svg className="text-white h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" strokeWidth={2} stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                     </svg>
                     <span className="ml-1">{saving ? "Saving..." : "Save"}</span>
                 </button>
@@ -55,8 +64,8 @@ const CategoryManageForm = ({
     );
 };
 
-CategoryManageForm.propTypes = {
-    category: PropTypes.object.isRequired,
+ManageListForm.propTypes = {
+    list: PropTypes.object.isRequired,
     errors: PropTypes.object,
     onSave: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
@@ -64,4 +73,4 @@ CategoryManageForm.propTypes = {
     editing: PropTypes.bool.isRequired
 };
 
-export default CategoryManageForm;
+export default ManageListForm;

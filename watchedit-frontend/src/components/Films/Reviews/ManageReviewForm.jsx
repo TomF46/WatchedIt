@@ -4,7 +4,7 @@ import TextInput from "../../Inputs/TextInput";
 import RatingInput from "../../Inputs/RatingInput";
 import TextAreaInput from "../../Inputs/TextAreaInput";
 
-const ReviewManageForm = ({
+const ManageReviewForm = ({
     review,
     film,
     onSave,
@@ -67,7 +67,7 @@ const ReviewManageForm = ({
     );
 };
 
-ReviewManageForm.propTypes = {
+ManageReviewForm.propTypes = {
     review: PropTypes.object.isRequired,
     film: PropTypes.object.isRequired,
     errors: PropTypes.object,
@@ -77,4 +77,4 @@ ReviewManageForm.propTypes = {
     editing: PropTypes.bool.isRequired,
 };
 
-export default ReviewManageForm;
+export default ManageReviewForm;

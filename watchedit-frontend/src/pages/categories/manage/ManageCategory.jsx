@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getCategoryById, saveCategory } from "../../../api/categoriesApi";
-import CategoryManageForm from "../../../components/Categories/Manage/CategoryManageForm";
+import ManageCategoryForm from "../../../components/Categories/Manage/ManageCategoryForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { newCategory } from "../../../tools/obJectShapes";
 
@@ -76,7 +76,7 @@ function ManageCategory() {
     return (
         <div className="manage-category-page">
             {category ? (
-                <CategoryManageForm category={category} onChange={handleChange} onSave={handleSave} errors={errors} saving={saving} editing={editing} />
+                <ManageCategoryForm category={category} onChange={handleChange} onSave={handleSave} errors={errors} saving={saving} editing={editing} />
             ) : (
                 <LoadingMessage message={"Loading category"} />
             )}

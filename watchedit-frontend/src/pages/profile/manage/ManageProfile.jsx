@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { getUserById, updateCurrentUser } from "../../../api/usersApi";
 import { uploadImage } from "../../../api/imageApi";
 import { useNavigate } from "react-router-dom";
-import UserManageForm from "../../../components/User/Manage/UserManageForm";
+import ManageUserForm from "../../../components/User/Manage/ManageUserForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
 function ManageProfile({id}) {
@@ -103,7 +103,7 @@ function ManageProfile({id}) {
                 <LoadingMessage message={"Loading form."} />
             ) : (
                 <div>
-                    <UserManageForm user={updatedUser} onChange={handleChange} onImageChange={handleImageChange} onSave={handleSave} errors={errors} saving={saving} uploadingImage={imageUploading} />
+                    <ManageUserForm user={updatedUser} onChange={handleChange} onImageChange={handleImageChange} onSave={handleSave} errors={errors} saving={saving} uploadingImage={imageUploading} />
                 </div>
             )}
         </div>

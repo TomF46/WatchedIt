@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { uploadImage } from "../../../api/imageApi";
 import { getPersonById, savePerson } from "../../../api/peopleApi";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import PersonManageForm from "../../../components/People/Manage/PersonManageForm";
+import ManagePersonForm from "../../../components/People/Manage/ManagePersonForm";
 import { newPerson } from "../../../tools/obJectShapes";
 import { parseISO } from "date-fns";
 
@@ -122,7 +122,7 @@ function ManagePerson() {
     return (
         <div className="manage-person-page">
             {person ? (
-                <PersonManageForm person={person} onChange={handleChange} onDateChange={handleDateChange} onImageChange={handleImageChange} onSave={handleSave} errors={errors} saving={saving} editing={editing} uploadingImage={imageUploading} />
+                <ManagePersonForm person={person} onChange={handleChange} onDateChange={handleDateChange} onImageChange={handleImageChange} onSave={handleSave} errors={errors} saving={saving} editing={editing} uploadingImage={imageUploading} />
             ) : (
                 <LoadingMessage message={"Loading form."} />
             )}

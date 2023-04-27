@@ -1,14 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
+import DatePicker from "react-datepicker";
+import TextInput from "../../Inputs/TextInput";
 import TextAreaInput from "../../Inputs/TextAreaInput";
-import UserMiniDetail from "../UserMiniDetail";
+import NumberInput from "../../Inputs/NumberInput";
+import PersonMiniDetail from "../PersonMiniDetail";
 
-const UserManageForm = ({
-    user,
+const ManagePersonForm = ({
+    person,
     onSave,
     onChange,
+    onDateChange,
     onImageChange,
     saving = false,
+    editing,
     uploadingImage = false,
     errors = {}
 }) => {
@@ -20,27 +25,80 @@ const UserManageForm = ({
                 </div>
             )}
 
+
             <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
                 <div className="bg-backgroundOffset2 rounded-t-md">
                     <p className="text-primary font-bold text-center text-2xl px-2 py-1">
-                        Update profile
+                        {editing ? `Editing ${person.firstName} ${person.lastName}` : "Adding person"}
                     </p>
                 </div>
                 <div className="p-4">
+                    <div className="grid grid-cols-12">
+                        <div className="col-span-12 md:col-span-6 md:pr-2 mb-2">
+                            <TextInput
+                                name="firstName"
+                                label="First name"
+                                value={person.firstName}
+                                onChange={onChange}
+                                error={errors.firstName}
+                                required={true}
+                            />
+                        </div>
+                        <div className="col-span-12 md:col-span-6 md:pl-2 mb-2">
+                            <TextInput
+                                name="lastName"
+                                label="Last name"
+                                value={person.lastName}
+                                onChange={onChange}
+                                error={errors.lastName}
+                                required={true}
+                            />
+                        </div>
+                        <div className="col-span-12 md:col-span-6 md:pr-2 mb-2">
+                            <TextInput
+                                name="middleNames"
+                                label="Middle names"
+                                value={person.middleNames}
+                                onChange={onChange}
+                                error={errors.middleNames}
+                                required={false}
+                            />
+                        </div>
+                        <div className="col-span-12 md:col-span-6 md:pl-2 mb-2">
+                            <TextInput
+                                name="stageName"
+                                label="Stage name"
+                                value={person.stageName}
+                                onChange={onChange}
+                                error={errors.stageName}
+                                required={false}
+                            />
+                        </div>
+
+                    </div>
+
                     <div className="mb-2">
                         <TextAreaInput
-                            name="biography"
-                            label="Biography"
-                            value={user.biography}
+                            name="description"
+                            label="Description"
+                            value={person.description}
                             onChange={onChange}
-                            error={errors.biography}
-                            required={false}
+                            error={errors.description}
+                            required={true}
                         />
                     </div>
 
                     <div className="mb-2">
-                        <label className="font-bold text-xs text-primary">Profile image</label><br></br>
-                        {user.imageUrl != null ? (
+                        <label className="font-bold text-xs text-primary">Date of birth</label>
+                        <DatePicker dateFormat="dd-MM-yyyy"  selected={person.dateOfBirth} onChange={(date) => onDateChange(date)} className="border border-gray-500 focus:outline-none focus:border-primary p-2 bg-backgroundOffset2 rounded" />
+                        {errors.releaseDate && (
+                            <div className="text-red-500 text-xs p-1 mt-2">{errors.dateOfBirth}</div>
+                        )}
+                    </div>
+
+                    <div className="mb-2">
+                        <label className="font-bold text-xs text-primary">Headshot image</label><br></br>
+                        {person.imageUrl != null ? (
                             <button
                                 type="button"
                                 onClick={() => onImageChange(null)}
@@ -73,13 +131,13 @@ const UserManageForm = ({
                 </div>
             </div>
 
-            {user.imageUrl != null && (
+            {person.imageUrl != null && (
                 <div className="mt-4">
                     <p className="text-sm font-bold text-primary">Preview</p>
-                    <UserMiniDetail user={user}  />
+                    <PersonMiniDetail person={person} />
                 </div>
             )}
-
+            
             <div className="flex justify-center bg-backgroundOffset p-4 my-4 shadow rounded">
                 <button
                     type="submit"
@@ -96,14 +154,16 @@ const UserManageForm = ({
     );
 };
 
-UserManageForm.propTypes = {
-    user: PropTypes.object.isRequired,
+ManagePersonForm.propTypes = {
+    person: PropTypes.object.isRequired,
     errors: PropTypes.object,
     onSave: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
+    onDateChange: PropTypes.func.isRequired,
     onImageChange: PropTypes.func.isRequired,
     saving: PropTypes.bool,
+    editing: PropTypes.bool.isRequired,
     uploadingImage: PropTypes.bool
 };
 
-export default UserManageForm;
+export default ManagePersonForm;
