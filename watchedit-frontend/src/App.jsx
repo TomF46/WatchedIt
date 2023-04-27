@@ -70,14 +70,14 @@ import UserLikes from "./pages/profile/UserLikes";
             <Route path="/lists/add" element={<AuthenticatedRoute><ManageList /></AuthenticatedRoute>}/>
             <Route path="/lists/:id" element={<List />}/>
             <Route path="/lists" element={<Lists />}/>
-            <Route path="/profile/:id/likes" element={<AuthenticatedRoute><UserLikes /></AuthenticatedRoute>}/>
+            <Route path="/profile/:id/likes" element={<UserLikes />}/>
             <Route path="/profile/likes/" element={<AuthenticatedRoute><UserLikes /></AuthenticatedRoute>}/>
-            <Route path="/profile/:id/watched" element={<AuthenticatedRoute><WatchedList /></AuthenticatedRoute>}/>
+            <Route path="/profile/:id/watched" element={<WatchedList />}/>
             <Route path="/profile/watched" element={<AuthenticatedRoute><WatchedList /></AuthenticatedRoute>}/>
-            <Route path="/profile/:id/reviews" element={<AuthenticatedRoute><UsersReviews /></AuthenticatedRoute>}/>
+            <Route path="/profile/:id/reviews" element={<UsersReviews />}/>
             <Route path="/profile/reviews" element={<AuthenticatedRoute><UsersReviews /></AuthenticatedRoute>}/>
             <Route path="/profile/edit" element={<AuthenticatedRoute><ManageProfile /></AuthenticatedRoute>}/>
-            <Route path="/profile/:id" element={<AuthenticatedRoute><Profile /></AuthenticatedRoute>}/>
+            <Route path="/profile/:id" element={<Profile />} />
             <Route path="/profile" element={<AuthenticatedRoute><Profile /></AuthenticatedRoute>}/>
             <Route path="/credits/:id/edit" element={<AdminRoute><EditCredit /></AdminRoute>}/>
             <Route path="/credits/:id" element={<AdminRoute><Credit /></AdminRoute>}/>
