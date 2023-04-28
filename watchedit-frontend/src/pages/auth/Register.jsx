@@ -5,6 +5,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import RegisterForm from "../../components/Auth/RegisterForm";
 import { register } from "../../api/authenticationApi";
 import { toast } from "react-toastify";
+import ReasonsToLoginSection from "../../components/Home/ReasonsToLoginSection";
 
 function Register({userIsAuthenticated}){
     const navigate = useNavigate();
@@ -63,8 +64,8 @@ function Register({userIsAuthenticated}){
     return (
         <>
             {userIsAuthenticated && <Navigate to="/" replace />}
-            <div className="register-page">
-                <div className="grid grid-cols-12 p-4 my-8">
+            <div className="register-page pb-4">
+                <div className="grid grid-cols-12 p-4 my-4">
                     <div className="col-span-12 lg:col-span-4 lg:col-start-5">
                         <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
                             <div className="bg-backgroundOffset2 rounded-t-md">
@@ -92,6 +93,7 @@ function Register({userIsAuthenticated}){
                         </div>
                     </div>
                 </div>
+                <ReasonsToLoginSection />
             </div>
         </>
     );

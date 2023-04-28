@@ -5,6 +5,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import {login} from "../../redux/actions/authenticationActions"
 import { toast } from "react-toastify";
 import LoginForm from "../../components/Auth/LoginForm";
+import ReasonsToLoginSection from "../../components/Home/ReasonsToLoginSection";
 
 
 function Login({userIsAuthenticated, login}){
@@ -55,8 +56,8 @@ function Login({userIsAuthenticated, login}){
     return (
         <>
             {userIsAuthenticated && <Navigate to="/" replace />}
-            <div className="login-page">
-                <div className="grid grid-cols-12 p-4 my-8">
+            <div className="login-page pb-4">
+                <div className="grid grid-cols-12 p-4 my-4">
                     <div className="col-span-12 lg:col-span-4 lg:col-start-5">
                         <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
                             <div className="bg-backgroundOffset2 rounded-t-md">
@@ -84,6 +85,7 @@ function Login({userIsAuthenticated, login}){
                         </div>
                     </div>
                 </div>
+                <ReasonsToLoginSection />
             </div>
         </>
     );

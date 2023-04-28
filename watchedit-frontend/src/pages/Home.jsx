@@ -6,6 +6,7 @@ import FilmReel from "../components/Home/FilmReel/FilmReel";
 import PeopleReel from "../components/Home/PeopleReel/PeopleReel";
 import ListReel from "../components/Home/ListReel/ListReel";
 import logo from "../assets/WatchedIt.webp"
+import ReasonsToLoginSection from "../components/Home/ReasonsToLoginSection";
 
 
 function Home({ userIsAuthenticated, username }) {
@@ -22,13 +23,14 @@ function Home({ userIsAuthenticated, username }) {
                 <p className="text-center text-primary text-4xl mt-4">Welcome {username}</p>
             ) : (
                 <div className="text-center">
-                    <p className="text-center text-primary text-4xl my-4 font-bold">Sign up now for reviews, rating and more.</p>
+                    <p className="text-center text-primary text-xl md:text-2xl lg:text-4xl my-4 font-bold">Sign up now for reviews, rating and more.</p>
                     <Link
                         to={"/register"}
                         className="bg-primary text-white rounded py-2 px-4 hover:opacity-75"
                     >
                         Register
                     </Link>
+                    <ReasonsToLoginSection />
                 </div>
             )}
             <div className="home-conent grid grid-col-12">
