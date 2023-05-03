@@ -30,7 +30,6 @@ function Film({userIsAuthenticated, isAdmin}) {
                 setFilm(res);
             })
             .catch((err) => {
-                console.log(err);
                 toast.error(`Error getting film ${err.data.Exception}`, {
                     autoClose: false,
                 });

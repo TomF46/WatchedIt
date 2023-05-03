@@ -53,7 +53,6 @@ function Register({userIsAuthenticated}){
             })
             .catch(err => {
                 setSaving(false);
-                console.log(err);
                 toast.error(`Error registering ${err.data.Exception}`, {
                     autoClose: false,
                 });

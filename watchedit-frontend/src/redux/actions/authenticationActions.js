@@ -15,7 +15,6 @@ export function login(userLoginDetails) {
         return authenticationApi
             .login(userLoginDetails)
             .then(tokens => {
-                console.log(tokens);
                 saveTokens(tokens);
                 attatchBearerToken(tokens.token);
                 dispatch(userLoginSuccess(tokens));

@@ -11,7 +11,6 @@ export function checkUserIsAdmin() {
             dispatch(checkUserIsAdminSuccess(data.isAdmin));
         }).catch(err => {
             dispatch(checkUserIsAdminSuccess(false));
-            throw err;
         });
     }
 }

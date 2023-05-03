@@ -10,6 +10,7 @@ import SelectPersonCreditListWSearch from "../../../components/People/Credits/Se
 import AddCreditForm from "../../../components/Credits/AddCreditForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
+import PersonMiniDetail from "../../../components/People/PersonMiniDetail";
 
 function AddCreditForFilm() {
     const navigate = useNavigate();
@@ -32,7 +33,6 @@ function AddCreditForFilm() {
     function getFilm() {
         getFilmById(id)
             .then((res) => {
-                console.log(res);
                 setFilm(res);
             })
             .catch((err) => {
@@ -65,7 +65,6 @@ function AddCreditForFilm() {
             setPeoplePaginator(res);
             setLastPageLoaded(page);
           }).catch(err => {
-            console.log(err);
             toast.error(`Error getting films ${err.data.Exception}`, {
                 autoClose: false,
             });
@@ -141,6 +140,7 @@ function AddCreditForFilm() {
                             ) : (
                                 <div>
                                     <div className="mb-2">
+                                        <PersonMiniDetail person={selectedPerson} />
                                         <p>Person: {selectedPerson.fullName} <span className="cursor-pointer text-primary" onClick={() => {handlePersonSelected(null)}}>(Change)</span></p>
                                     </div>
                                     <AddCreditForm  onSave={handleSave} saving={saving} />

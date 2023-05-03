@@ -15,7 +15,7 @@ const SelectInput = ({ name, label, defaultText, onChange, value, options, error
                     name={name}
                     value={value ? value : ''}
                     onChange={onChange}
-                    className="block appearance-none focus:outline-none focus:border-primary w-full bg-backgroundOffset2 border border-gray-500 hover:border-gray-500 px-4 py-2 pr-8 leading-tight focus:outline-none focus:outline rounded"
+                    className="block appearance-none focus:outline-none focus:border-primary text-white w-full bg-backgroundOffset2 border border-gray-500 hover:border-gray-500 p-2 pr-8 leading-tight focus:outline-none focus:outline rounded"
                 >
                     {defaultText && (
                         <option value={null} >{defaultText}</option>
@@ -43,7 +43,7 @@ const SelectInput = ({ name, label, defaultText, onChange, value, options, error
 
 SelectInput.propTypes = {
     name: PropTypes.string.isRequired,
-    defaultText: PropTypes.string.isRequired,
+    defaultText: PropTypes.string,
     label: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     defaultOption: PropTypes.string,

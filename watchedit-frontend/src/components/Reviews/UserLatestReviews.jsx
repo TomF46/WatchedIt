@@ -37,7 +37,7 @@ function UserLatestReviews({user, totalReviews}) {
                         <div className="grid grid-cols-12">
                             {reviews.map((review) => {
                                 return (
-                                    <ReviewOverview key={review.id} review={review} />
+                                    <ReviewOverview key={review.id} review={review} showFilm={true} />
                                 )
                             })}
                         </div>

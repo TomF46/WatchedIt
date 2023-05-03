@@ -64,7 +64,6 @@ function AddFilmToList({userId}) {
           setFilmsPaginator(res);
           setLastPageLoaded(page);
         }).catch(err => {
-          console.log(err);
           toast.error(`Error getting films ${err.data.Exception}`, {
               autoClose: false,
           });
@@ -90,7 +89,6 @@ function AddFilmToList({userId}) {
         addFilmToFilmList(list.id, film).then(res => {
             getList();
         }).catch(err => {
-          console.log(err);
           toast.error(`Error adding film to list ${err.data.Exception}`, {
               autoClose: false,
           });

@@ -51,7 +51,6 @@ function Category({isAdmin}){
     }
 
     function getFilms(category) {
-        console.log(category);
         searchFilmsWithCategoryPaginated(searchTerm, category.id ,page, filmsPerPage)
             .then((res) => {
                 setFilmsPaginator(res);

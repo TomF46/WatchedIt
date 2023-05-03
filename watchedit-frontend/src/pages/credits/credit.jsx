@@ -20,7 +20,6 @@ function Credit({userIsAuthenticated}) {
         getCreditById(id)
             .then((res) => {
                 setCredit(res);
-                console.log(res);
             })
             .catch((err) => {
                 toast.error(`Error getting credit ${err.data.Exception}`, {

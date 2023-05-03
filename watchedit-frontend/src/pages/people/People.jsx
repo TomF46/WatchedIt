@@ -54,7 +54,6 @@ function People({ isAdmin }) {
                 setLastPageLoaded(page);
             })
             .catch((err) => {
-                console.log(err);
                 toast.error(`Error getting people ${err.data.Exception}`, {
                     autoClose: false,
                 });

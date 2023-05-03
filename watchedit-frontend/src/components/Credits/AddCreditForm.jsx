@@ -22,7 +22,6 @@ const AddCreditForm = ({ onSave, saving }) => {
         if (!type) errors.type = "Role type is required";
 
         setErrors(errors);
-        console.log(errors);
         return Object.keys(errors).length === 0;
     }
 

@@ -124,7 +124,6 @@ function ManageFilm() {
         if(!runtime) errors.runtime = "Runtime is required";
         if(!posterUrl) errors.posterUrl = "Poster Url is required";
         if(!releaseDate) errors.releaseDate = "Release date is required";
-        console.log(errors);
         setErrors(errors);
         return Object.keys(errors).length === 0;
     }

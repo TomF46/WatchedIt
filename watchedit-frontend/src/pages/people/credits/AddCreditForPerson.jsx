@@ -10,6 +10,7 @@ import PaginationControls from "../../../components/PaginationControls";
 import AddCreditForm from "../../../components/Credits/AddCreditForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import PersonMiniDetail from "../../../components/People/PersonMiniDetail";
+import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
 
 function AddCreditForPerson() {
     const navigate = useNavigate();
@@ -65,7 +66,6 @@ function AddCreditForPerson() {
           setFilmsPaginator(res);
           setLastPageLoaded(page);
         }).catch(err => {
-          console.log(err);
           toast.error(`Error getting films ${err.data.Exception}`, {
               autoClose: false,
           });
@@ -138,6 +138,7 @@ function AddCreditForPerson() {
                                 ) : (
                                     <div>
                                         <div className="mb-2">
+                                            <FilmMiniDetail film={selectedFilmstrokeLinejoin} />
                                             <p>Film: {selectedFilm.name}  <span className="cursor-pointer text-primary" onClick={() => {handleFilmSelected(null)}}>(Change)</span></p>
                                             <AddCreditForm onSave={handleSave} saving={saving} />
                                         </div>

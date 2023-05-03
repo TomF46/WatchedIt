@@ -4,7 +4,7 @@ import SelectInput from "../Inputs/SelectInput";
 import TextInput from "../Inputs/TextInput";
 
 const ManageCreditForm = ({ credit, onChange, errors, onSubmit, saving }) => {
-    const roleTypes = [{value :"Cast", text: "Cast"}, {value :"Crew", text: "Crew"}];
+    const roleTypes = [{id :"Cast", name: "Cast"}, {id :"Crew", name: "Crew"}];
 
     return (
         <form className="mt-4" onSubmit={onSubmit}>
@@ -40,6 +40,7 @@ const ManageCreditForm = ({ credit, onChange, errors, onSubmit, saving }) => {
                             value={credit.type}
                             options={roleTypes}
                             onChange={onChange}
+                            error={errors.type}
                         /> 
                     </div>
                 </div>

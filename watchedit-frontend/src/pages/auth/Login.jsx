@@ -45,7 +45,6 @@ function Login({userIsAuthenticated, login}){
                 navigate("/");
             })
             .catch(err => {
-                console.log(err);
                 setSaving(false);
                 toast.error(`Error logging in ${err.data.Exception}`, {
                     autoClose: false,
