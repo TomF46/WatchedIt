@@ -12,6 +12,7 @@ const ManagePersonForm = ({
     onChange,
     onDateChange,
     onImageChange,
+    onUseDefaultImage,
     saving = false,
     editing,
     uploadingImage = false,
@@ -121,6 +122,14 @@ const ManagePersonForm = ({
                                         />
                                     </label>
                                 </button>
+                                <button onClick={() => {onUseDefaultImage()}} type="button" className="bg-primary pointer text-white rounded py-2 px-4 hover:opacity-75 shadow inline-flex items-center ml-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                    </svg>
+                                    <label className="pointer ml-1">
+                                        Use default
+                                    </label>
+                                </button>
                                 {errors.imageUrl && (
                                     <div className="text-red-500 text-xs p-1 mt-2">{errors.imageUrl}</div>
                                 )}
@@ -161,6 +170,7 @@ ManagePersonForm.propTypes = {
     onChange: PropTypes.func.isRequired,
     onDateChange: PropTypes.func.isRequired,
     onImageChange: PropTypes.func.isRequired,
+    onUseDefaultImage: PropTypes.func.isRequired,
     saving: PropTypes.bool,
     editing: PropTypes.bool.isRequired,
     uploadingImage: PropTypes.bool

@@ -16,6 +16,7 @@ function ManagePerson() {
     const [saving, setSaving] = useState(false);
     const [editing, setEditing] = useState(false);
     const [imageUploading, setImageUploading] = useState(false);
+    const defaultImage = "https://watched-it.s3.eu-west-1.amazonaws.com/films/b625dbbe-0a08-4162-9788-cda553551ff4";
 
 
     useEffect(() => {
@@ -85,6 +86,11 @@ function ManagePerson() {
         });
     }
 
+    function handleUseDefaultImage(){
+        person.imageUrl = defaultImage;
+        setPerson({ ...person});
+    }
+
     function formIsValid(){
         const { firstName, lastName, middleNames, stageName, description, imageUrl, dateOfBirth } = person;
         const errors = {};
@@ -122,7 +128,7 @@ function ManagePerson() {
     return (
         <div className="manage-person-page">
             {person ? (
-                <ManagePersonForm person={person} onChange={handleChange} onDateChange={handleDateChange} onImageChange={handleImageChange} onSave={handleSave} errors={errors} saving={saving} editing={editing} uploadingImage={imageUploading} />
+                <ManagePersonForm person={person} onChange={handleChange} onDateChange={handleDateChange} onImageChange={handleImageChange} onUseDefaultImage={handleUseDefaultImage} onSave={handleSave} errors={errors} saving={saving} editing={editing} uploadingImage={imageUploading} />
             ) : (
                 <LoadingMessage message={"Loading form."} />
             )}
