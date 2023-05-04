@@ -4,6 +4,7 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WatchedIt.Api.Migrations
 {
     [DbContext(typeof(WatchedItContext))]
-    partial class WatchedItContextModelSnapshot : ModelSnapshot
+    [Migration("20230504124040_AddReviewComments")]
+    partial class AddReviewComments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -149,7 +152,7 @@ namespace WatchedIt.Api.Migrations
                         .HasMaxLength(600)
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ReviewId")
+                    b.Property<int?>("ReviewId")
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
@@ -401,19 +404,15 @@ namespace WatchedIt.Api.Migrations
 
             modelBuilder.Entity("WatchedIt.Api.Models.CommentModels.ReviewComment", b =>
                 {
-                    b.HasOne("WatchedIt.Api.Models.ReviewModels.Review", "Review")
+                    b.HasOne("WatchedIt.Api.Models.ReviewModels.Review", null)
                         .WithMany("Comments")
-                        .HasForeignKey("ReviewId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ReviewId");
 
                     b.HasOne("WatchedIt.Api.Models.Authentication.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Review");
 
                     b.Navigation("User");
                 });

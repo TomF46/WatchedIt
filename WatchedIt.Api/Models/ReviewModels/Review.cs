@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using WatchedIt.Api.Models.Authentication;
+using WatchedIt.Api.Models.CommentModels;
 using WatchedIt.Api.Models.FilmModels;
 
 namespace WatchedIt.Api.Models.ReviewModels
@@ -20,5 +21,7 @@ namespace WatchedIt.Api.Models.ReviewModels
         public double Rating {get; set;}
         [StringLength(8000, ErrorMessage = "Text can't be longer than 8000 characters.")]
         public string? Text {get; set;}
+        public ICollection<ReviewComment> Comments { get; set; } = new List<ReviewComment>();
+
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WatchedIt.Api.Models.Authentication;
 using WatchedIt.Api.Models.CategoryModels;
+using WatchedIt.Api.Models.CommentModels;
 using WatchedIt.Api.Models.CreditModels;
 using WatchedIt.Api.Models.Enums;
 using WatchedIt.Api.Models.FilmListModels;
@@ -58,6 +59,15 @@ namespace WatchedIt.Tests.ServiceTests.Helpers
             };
         }
 
+        public static Review GenerateReview(Film film, User user){
+            return new Review{
+                Film = film,
+                User = user,
+                Rating = Faker.RandomNumber.Next(10),
+                Text = Faker.Lorem.Sentence()
+            };
+        }
+
         public static Credit GenerateCredit(Person person, Film film){
             return new Credit{
                 Person = person,
@@ -78,6 +88,16 @@ namespace WatchedIt.Tests.ServiceTests.Helpers
         public static Category GenerateCategory(){
             return new Category{
                 Name = Faker.Lorem.GetFirstWord(),
+            };
+        }
+
+        public static ReviewComment GenerateReviewCommentForReview(Review review){
+            return new ReviewComment{
+                User = GenerateUser(),
+                Text = Faker.Lorem.Sentence(),
+                Review = review,
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now
             };
         }
     }
