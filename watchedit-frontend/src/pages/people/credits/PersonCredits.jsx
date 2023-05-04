@@ -104,7 +104,7 @@ function PersonCredits({isAdmin}) {
                         {credits && (
                             <>
                                 {credits.cast.length + credits.crew.length == 0 && (
-                                    <p className="text-primary my-4 text-xl">This person does not have any credits.</p>
+                                    <p className="text-center my-4 text-xl">This person does not have any credits.</p>
                                 )}
                                 <div className="grid grid-cols-12">
                                     <div className="col-span-12">
