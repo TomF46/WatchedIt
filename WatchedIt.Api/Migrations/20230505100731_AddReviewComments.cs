@@ -12,41 +12,42 @@ namespace WatchedIt.Api.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ReviewComment",
+                name: "ReviewComments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ReviewId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    ReviewId = table.Column<int>(type: "int", nullable: true),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", maxLength: 600, nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ReviewComment", x => x.Id);
+                    table.PrimaryKey("PK_ReviewComments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ReviewComment_Reviews_ReviewId",
+                        name: "FK_ReviewComments_Reviews_ReviewId",
                         column: x => x.ReviewId,
                         principalTable: "Reviews",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ReviewComment_Users_UserId",
+                        name: "FK_ReviewComments_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ReviewComment_ReviewId",
-                table: "ReviewComment",
+                name: "IX_ReviewComments_ReviewId",
+                table: "ReviewComments",
                 column: "ReviewId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ReviewComment_UserId",
-                table: "ReviewComment",
+                name: "IX_ReviewComments_UserId",
+                table: "ReviewComments",
                 column: "UserId");
         }
 
@@ -54,7 +55,7 @@ namespace WatchedIt.Api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ReviewComment");
+                name: "ReviewComments");
         }
     }
 }

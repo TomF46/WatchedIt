@@ -32,3 +32,7 @@ export const newReview = {
 export const newCategory = {
     name: ""
 }
+
+export const newComment = {
+    text: ""
+}

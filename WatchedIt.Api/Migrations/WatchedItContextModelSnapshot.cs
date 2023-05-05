@@ -167,7 +167,7 @@ namespace WatchedIt.Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ReviewComment");
+                    b.ToTable("ReviewComments");
                 });
 
             modelBuilder.Entity("WatchedIt.Api.Models.CreditModels.Credit", b =>
@@ -410,7 +410,7 @@ namespace WatchedIt.Api.Migrations
                     b.HasOne("WatchedIt.Api.Models.Authentication.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Review");

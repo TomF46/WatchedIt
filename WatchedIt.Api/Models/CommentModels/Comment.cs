@@ -13,7 +13,7 @@ namespace WatchedIt.Api.Models.CommentModels
         [Required]
         public User? User {get; set;}
         public string? Text {get; set;}
-        [StringLength(600, ErrorMessage = "Text can't be longer than 400 characters.")]
+        [StringLength(600, ErrorMessage = "Text can't be longer than 600 characters.")]
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }    
     }

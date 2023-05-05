@@ -53,7 +53,7 @@ namespace WatchedIt.Api.Services.ReviewCommentsService
 
         public async Task<GetReviewCommentDto> Update(int commentId, int userId, UpdateCommentDto updatedComment)
         {
-            var comment = await _context.ReviewComments.Include(c => c.User).FirstOrDefaultAsync(c => c.Id == commentId);
+            var comment = await _context.ReviewComments.Include(c => c.User).Include(c => c.Review).FirstOrDefaultAsync(c => c.Id == commentId);
             if(comment is null) throw new NotFoundException($"Comment with Id '{commentId}' not found.");
 
             if(comment.User.Id != userId) throw new Exceptions.UnauthorizedAccessException($"User does not own this comment.");

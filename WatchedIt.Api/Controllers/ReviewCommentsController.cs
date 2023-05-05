@@ -22,7 +22,7 @@ namespace WatchedIt.Api.Controllers
 
         [HttpGet]
         public async Task<ActionResult<PaginationResponse<GetReviewCommentDto>>> GetAll(int id, [FromQuery] PaginationParameters parameters){
-            var comments = _reviewCommentsService.GetCommentsForReview(id, parameters);
+            var comments = await _reviewCommentsService.GetCommentsForReview(id, parameters);
             return Ok(comments);
         }
 

@@ -59,3 +59,47 @@ export function deleteReview(filmId, review){
         })
 }
 
+export function getReviewComments(reviewId, pageNumber, pageSize) {
+    return client
+        .get(`/api/reviews/${reviewId}/comments?PageNumber=${pageNumber}&PageSize=${pageSize}`)
+        .then(response => {
+            return response.data;
+        })
+        .catch(error => {
+            throw error.response;
+        })
+}
+
+export function addReviewComment(reviewId, comment){
+    return client
+        .post(`/api/reviews/${reviewId}/comments`, comment)
+        .then(response => {
+            return response.data;
+        })
+        .catch(error => {
+            throw error.response;
+        })
+}
+
+export function updateReviewComment(reviewId, comment){
+    return client
+        .put(`/api/reviews/${reviewId}/comments/${comment.id}`, comment)
+        .then(response => {
+            return response.data;
+        })
+        .catch(error => {
+            throw error.response;
+        })
+}
+
+export function deleteReviewComment(reviewId, comment){
+    return client
+        .delete(`/api/reviews/${reviewId}/comments/${comment.id}`)
+        .then(response => {
+            return response.data;
+        })
+        .catch(error => {
+            throw error.response;
+        })
+}
+

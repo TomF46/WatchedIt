@@ -32,6 +32,11 @@ namespace Data
                 .HasOne<Person>(gr => gr.Person)
                 .WithMany(f => f.Credits)
                 .HasForeignKey(gr => gr.PersonId);
+
+            modelBuilder.Entity<ReviewComment>()
+            .HasOne(e => e.User)
+            .WithMany()
+            .OnDelete(DeleteBehavior.Restrict);
         }
 
          protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WatchedIt.Api.Migrations
 {
     [DbContext(typeof(WatchedItContext))]
-    [Migration("20230504124040_AddReviewComments")]
+    [Migration("20230505100731_AddReviewComments")]
     partial class AddReviewComments
     {
         /// <inheritdoc />
@@ -152,7 +152,7 @@ namespace WatchedIt.Api.Migrations
                         .HasMaxLength(600)
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ReviewId")
+                    b.Property<int>("ReviewId")
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
@@ -170,7 +170,7 @@ namespace WatchedIt.Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ReviewComment");
+                    b.ToTable("ReviewComments");
                 });
 
             modelBuilder.Entity("WatchedIt.Api.Models.CreditModels.Credit", b =>
@@ -404,15 +404,19 @@ namespace WatchedIt.Api.Migrations
 
             modelBuilder.Entity("WatchedIt.Api.Models.CommentModels.ReviewComment", b =>
                 {
-                    b.HasOne("WatchedIt.Api.Models.ReviewModels.Review", null)
+                    b.HasOne("WatchedIt.Api.Models.ReviewModels.Review", "Review")
                         .WithMany("Comments")
-                        .HasForeignKey("ReviewId");
+                        .HasForeignKey("ReviewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("WatchedIt.Api.Models.Authentication.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Review");
 
                     b.Navigation("User");
                 });

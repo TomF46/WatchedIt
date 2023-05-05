@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { deleteReview, getReviewById } from "../../../api/filmReviewApi";
 import { confirmAlert } from "react-confirm-alert";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
+import ReviewCommentsSection from "../../../components/Reviews/ReviewCommentsSection";
 
 function Review({userId, isAdmin}) {
     const { id, reviewId } = useParams();
@@ -97,6 +98,7 @@ function Review({userId, isAdmin}) {
                             <div className="bg-backgroundOffset p-4 mt-2 shadow rounded">
                                 <p>{review.text}</p>
                             </div>
+                            <ReviewCommentsSection review={review} />
                         </div>
                     </div>
                 </>
