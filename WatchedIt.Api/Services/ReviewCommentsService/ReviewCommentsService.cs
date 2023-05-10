@@ -4,16 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using WatchedIt.Api.Models.CommentModels;
 using WatchedIt.Api.Services.Mapping;
+using WatchedIt.Api.Services.NotificationService;
 
 namespace WatchedIt.Api.Services.ReviewCommentsService
 {
     public class ReviewCommentsService : IReviewCommentsService
     {
         public readonly WatchedItContext _context;
+        public readonly INotificationService _notificationService;
 
-        public ReviewCommentsService(WatchedItContext context)
+        public ReviewCommentsService(WatchedItContext context, INotificationService notificationService)
         {
             _context = context;
+            _notificationService = notificationService;
         }
 
         public async Task<PaginationResponse<GetReviewCommentDto>> GetCommentsForReview(int id, PaginationParameters parameters)
@@ -32,7 +35,7 @@ namespace WatchedIt.Api.Services.ReviewCommentsService
 
         public async Task<GetReviewCommentDto> Add(int reviewId, int userId, AddCommentDto newComment)
         {
-            var review = await _context.Reviews.FirstOrDefaultAsync(r => r.Id == reviewId);
+            var review = await _context.Reviews.Include(r => r.User).Include(r => r.Film).FirstOrDefaultAsync(r => r.Id == reviewId);
             if(review is null) throw new NotFoundException($"Review with Id '{reviewId}' not found.");
 
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
@@ -48,6 +51,9 @@ namespace WatchedIt.Api.Services.ReviewCommentsService
 
             await _context.ReviewComments.AddAsync(comment);
             await _context.SaveChangesAsync();
+
+            await _notificationService.sendNewCommentOnOwnedReviewNotification(review.User, comment);
+
             return CommentMapper.mapReviewComment(comment);
         }
 

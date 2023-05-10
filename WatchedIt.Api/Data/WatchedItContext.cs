@@ -9,6 +9,7 @@ using WatchedIt.Api.Models.CommentModels;
 using WatchedIt.Api.Models.CreditModels;
 using WatchedIt.Api.Models.FilmListModels;
 using WatchedIt.Api.Models.FilmModels;
+using WatchedIt.Api.Models.NotificationModels;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Models.ReviewModels;
 
@@ -51,5 +52,7 @@ namespace Data
         public DbSet<FilmList> FilmLists => Set<FilmList>();
         public DbSet<Category> Categories => Set<Category>();
         public DbSet<ReviewComment> ReviewComments => Set<ReviewComment>();
+        public DbSet<Notification> Notifications => Set<Notification>();
+
     }
 }

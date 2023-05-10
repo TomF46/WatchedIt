@@ -1,4 +1,5 @@
 export default {
     tokens: null,
-    isAdmin: false
+    isAdmin: false,
+    notificationCount: 0
 };

@@ -7,6 +7,7 @@ using WatchedIt.Api.Exceptions;
 using WatchedIt.Api.Models.CreditModels;
 using WatchedIt.Api.Models.Enums;
 using WatchedIt.Api.Services.CreditService;
+using WatchedIt.Api.Services.NotificationService;
 using WatchedIt.Tests.ServiceTests.Helpers;
 
 namespace WatchedIt.Tests.ServiceTests
@@ -19,7 +20,8 @@ namespace WatchedIt.Tests.ServiceTests
         public CreditServiceTests()
         {
             _context = new InMemoryDbContextFactory().GetDBContext();
-            _creditService = new CreditService(_context);
+            var notificationService = new NotificationService(_context);
+            _creditService = new CreditService(_context, notificationService);
         }
 
         [SetUp]

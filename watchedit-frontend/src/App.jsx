@@ -38,6 +38,7 @@ import ManageCategory from "./pages/categories/manage/ManageCategory";
 import ManageProfile from "./pages/profile/manage/ManageProfile";
 import UsersReviews from "./pages/profile/reviews/usersReviews";
 import UserLikes from "./pages/profile/UserLikes";
+import Notifications from "./pages/notifications/Notifications";
   
   const App = () => {
     return (
@@ -79,6 +80,7 @@ import UserLikes from "./pages/profile/UserLikes";
             <Route path="/profile/edit" element={<AuthenticatedRoute><ManageProfile /></AuthenticatedRoute>}/>
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="/profile" element={<AuthenticatedRoute><Profile /></AuthenticatedRoute>}/>
+            <Route path="/notifications" element={<AuthenticatedRoute><Notifications /></AuthenticatedRoute>}/>
             <Route path="/credits/:id/edit" element={<AdminRoute><EditCredit /></AdminRoute>}/>
             <Route path="/credits/:id" element={<AdminRoute><Credit /></AdminRoute>}/>
             <Route path="/categories/add" element={<AdminRoute><ManageCategory /></AdminRoute>}/>

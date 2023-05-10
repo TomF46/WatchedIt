@@ -7,15 +7,19 @@ using WatchedIt.Api.Models.Enums;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Services.Mapping;
+using WatchedIt.Api.Services.NotificationService;
 
 namespace WatchedIt.Api.Services.CreditService
 {
     public class CreditService : ICreditService
     {
         public readonly WatchedItContext _context;
-        public CreditService(WatchedItContext context)
+        public readonly INotificationService _notificationService;
+
+        public CreditService(WatchedItContext context, INotificationService notificationService)
         {
             _context = context;
+            _notificationService = notificationService;
         }
         public async Task<GetCastCrewCreditsDto> GetAll()
         {
@@ -33,7 +37,7 @@ namespace WatchedIt.Api.Services.CreditService
 
         public async Task<GetCreditDto> Add(AddCreditDto newCredit)
         {
-            var person = await _context.People.FirstOrDefaultAsync(p => p.Id == newCredit.PersonId);
+            var person = await _context.People.Include(p => p.LikedBy).FirstOrDefaultAsync(p => p.Id == newCredit.PersonId);
             if(person is null) throw new BadRequestException($"Person with Id '{newCredit.PersonId} does not exist");
 
             var film = await _context.Films.FirstOrDefaultAsync(f => f.Id == newCredit.FilmId);
@@ -48,6 +52,12 @@ namespace WatchedIt.Api.Services.CreditService
 
             await _context.Credits.AddAsync(credit);
             await _context.SaveChangesAsync();
+
+            foreach (var user in person.LikedBy)
+            {
+                await _notificationService.sendNewRoleForLikedPersonNotification(user, credit);
+            }
+            
             return CreditMapper.map(credit);
         }
 

@@ -6,6 +6,7 @@ using Data;
 using NUnit.Framework;
 using WatchedIt.Api.Models;
 using WatchedIt.Api.Models.CommentModels;
+using WatchedIt.Api.Services.NotificationService;
 using WatchedIt.Api.Services.ReviewCommentsService;
 using WatchedIt.Tests.ServiceTests.Helpers;
 
@@ -19,7 +20,8 @@ namespace WatchedIt.Tests.ServiceTests
         public ReviewCommentsServiceTests()
         {
             _context = new InMemoryDbContextFactory().GetDBContext();
-            _reviewCommentsService = new ReviewCommentsService(_context);
+            var notificationService = new NotificationService(_context);
+            _reviewCommentsService = new ReviewCommentsService(_context, notificationService);
         }
 
         [SetUp]
