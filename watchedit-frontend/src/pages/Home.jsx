@@ -7,6 +7,7 @@ import PeopleReel from "../components/Home/PeopleReel/PeopleReel";
 import ListReel from "../components/Home/ListReel/ListReel";
 import logo from "../assets/WatchedIt.webp"
 import ReasonsToLoginSection from "../components/Home/ReasonsToLoginSection";
+import UnreadNotifications from "../components/Home/UnreadNotifications/UnreadNotifications";
 
 
 function Home({ userIsAuthenticated, username }) {
@@ -33,7 +34,12 @@ function Home({ userIsAuthenticated, username }) {
                     <ReasonsToLoginSection />
                 </div>
             )}
-            <div className="home-conent grid grid-col-12">
+            <div className="home-content grid grid-col-12">
+                {userIsAuthenticated && (
+                    <div className="col-span-12">
+                        <UnreadNotifications />
+                    </div>
+                )}
                 <div className="col-span-12">
                     <FilmReel title="Latest films" sort="release_desc" />
                 </div>

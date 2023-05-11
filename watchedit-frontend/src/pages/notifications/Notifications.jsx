@@ -27,6 +27,7 @@ const NotificationsPage = ({ decrementNotificationCount, notificationCount }) =>
     function getNotifications() {
         getAllNotifications(page, notificationsPerPage).then(notificationsData => {
             setNotificationsPaginator(notificationsData);
+            setLastPageLoaded(page);
         }).catch(error => {
             toast.error(`Error getting notifications ${error.message}`, {
                 autoClose: false,
