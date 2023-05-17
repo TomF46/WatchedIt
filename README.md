@@ -10,6 +10,8 @@
 - Users can create and share lists of films.
 - Users can add films to a 'watched' list and see their and other users watched films.
 - Users can add to/update their profile.
+- Users can recieve notifications.
+- Users can comment on reviews.
 
 #### Films / People
 
@@ -27,9 +29,6 @@
 - Admins create new categories which can be assigned to films.
 - Admins can remove content other users can't.
 
-### Setup
-Set up coming soon.
-
 ### Technical overview
 - .Net core web api.
 - Entity framework core.
@@ -39,4 +38,5 @@ Set up coming soon.
 - Testing with NUnit.
 - AWS SDK.
 - Post CSS.
+- Swagger documentation.
 - Other Js packages see `watchedit-frontend/package.json`.
