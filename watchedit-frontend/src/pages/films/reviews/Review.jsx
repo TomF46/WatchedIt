@@ -91,7 +91,7 @@ function Review({userId, isAdmin}) {
                     <div className="mt-4 grid grid-cols-12">
                         <div className="col-span-12 md:col-span-2">
                             <p className="text-center text-primary text-2xl">{review.film.name}</p>
-                            <img src={review.film.posterUrl} className="poster mt-2 rounded"/>
+                            <img src={review.film.posterUrl} className="poster mt-2 rounded" alt={`${review.film.name} poster.`}/>
                         </div>
                         <div className="col-span-12 md:col-span-10 pl-4">
                             <p className="text-rating text-2xl text-center md:text-left my-4 md:my-0">Rating {review.rating}/10</p>

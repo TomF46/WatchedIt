@@ -53,7 +53,7 @@ const Comment = ({ comment, onUpdateComment, onDeleteComment, userId }) => {
                     <div className="flex ml-2">
                         <div className="flex flex-col">
                             <div className="flex">
-                                <img src={comment.user.imageUrl} alt="profile-picture" className={`rounded-full w-10 h-10 cursor-pointer`} onClick={() => {navigate(`/profile/${comment.user.id}`)}} />
+                                <img src={comment.user.imageUrl} alt={`${comment.user.username} profile picture`} className={`rounded-full w-10 h-10 cursor-pointer`} onClick={() => {navigate(`/profile/${comment.user.id}`)}} />
                             </div>
                             <div className={`flex text-primary font-bold cursor-pointer`} onClick={() => {navigate(`/profile/${comment.user.id}`)}}>{comment.user.username}</div>
                             <div className="flex text-xs"><p>Posted: {format(parseISO(comment.createdDate), "dd/MM/yyyy HH:mm")}</p></div>

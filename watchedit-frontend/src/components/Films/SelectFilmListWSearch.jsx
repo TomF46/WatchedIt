@@ -34,7 +34,7 @@ const SelectFilmListWSearch = ({ currentFilms, films, searchTerm, onSearchTermCh
                         <div key={film.id} onClick={() => { if(!isAlreadyInList(film)) onFilmSelected(film)}} className={`col-span-12 my-2 shadow rounded ${isAlreadyInList(film) ? "bg-green-400" : "bg-backgroundOffset cursor-pointer hover:opacity-75"}`}>
                             <div className="grid grid-cols-24">
                                 <div className="col-span-3 md:col-span-2 lg:col-span-1">
-                                    <img src={film.posterUrl} className="h-full poster rounded-l" />
+                                    <img src={film.posterUrl} className="h-full poster rounded-l" alt={`${film.name} poster.`} />
                                 </div>
                                 <div className="col-span-21 md:col-span-22 lg:col-span-23 inline-flex items-center">
                                     <p className="p-4">{film.name}</p>

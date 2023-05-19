@@ -8,7 +8,7 @@ const FilmReelItem = ({ film }) => {
         <div key={film.id} className="col-span-8 md:col-span-4 lg:col-span-2 mt-2">
             <div className="mr-2 bg-backgroundOffset cursor-pointer hover:opacity-75 h-full shadow rounded">
                 <div onClick={() => {navigate(`/films/${film.id}`)}}>
-                    <img src={film.posterUrl} className="w-full poster rounded-t" />
+                    <img src={film.posterUrl} className="w-full poster rounded-t" alt={`${film.name} poster.`} />
                     <div className="p-2 text-center">
                         <p className="text-center text-primary">{film.name}</p>
                         <div className="text-center inline-flex items-center">

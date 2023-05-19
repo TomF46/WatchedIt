@@ -13,7 +13,7 @@ const FilmListList = ({ lists, showUser }) => {
                             <div className="grid grid-cols-24">
                                 {showUser && (
                                     <div className="col-span-3 lg:col-span-2">
-                                        <img src={list.createdBy.imageUrl} className="h-full headshot rounded-l" />
+                                        <img src={list.createdBy.imageUrl} className="h-full headshot rounded-l" alt={`${list.createdBy.username} profile picture.`} />
                                     </div>
                                 )}
                                 <div className={` ${showUser ? "col-span-21 lg:col-span-22" : "col-span-24" } px-4 py-2 inline-flex items-center`}>

@@ -13,7 +13,6 @@ const CommentsSection = ({userIsAuthenticated, commentsPaginator, currentPage, o
     const [saving, setSaving] = useState(false);
 
     function handleChange(event) {
-        console.log(commentsPaginator);
         const { name, value } = event.target;
         setComment(prevComment => ({
             ...prevComment,
@@ -38,7 +37,6 @@ const CommentsSection = ({userIsAuthenticated, commentsPaginator, currentPage, o
             toast.success("Comment added");
             setSaving(false);
             setComment({ ...newComment });
-            console.log(res);
         }).catch(err => {
             setSaving(false);
             toast.error(`Error adding comment ${err.message}`, {

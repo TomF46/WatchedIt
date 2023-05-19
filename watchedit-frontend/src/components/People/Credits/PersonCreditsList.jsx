@@ -11,7 +11,7 @@ const PersonCreditsList = ({ credits, canEdit, onRemove }) => {
                     <div className="col-span-12" key={credit.id}>
                         <div className="grid grid-cols-24 my-1 shadow rounded">
                             <div className="col-span-3 md:col-span-2 lg:col-span-1">
-                                <img src={credit.film.posterUrl} className="h-full poster rounded-l" />
+                                <img src={credit.film.posterUrl} className="h-full poster rounded-l" alt={`${credit.film.name} poster.`} />
                             </div>
                             <div className={`${canEdit ? "col-span-13 md:col-span-18 lg:col-span-19" : "col-span-21 md:col-span-22 lg:col-span-23"}`}>
                                 <div onClick={() => {navigate(`/films/${credit.film.id}`)}} className="p-4 inline-flex items-center w-full h-full bg-backgroundOffset cursor-pointer hover:opacity-75">

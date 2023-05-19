@@ -8,7 +8,7 @@ const ReviewOverview = ({ review, showFilm }) => {
             <div className="grid grid-cols-24">
                 {showFilm && (
                     <div className="col-span-4 md:col-span-2 lg:col-span-1">
-                        <img src={review.film.posterUrl} className="w-full poster" />
+                        <img src={review.film.posterUrl} className="w-full poster" alt={`${review.film.name} poster.`}/>
                     </div>
                 )}
                 <div className={`${showFilm ? "col-span-20 md:col-span-22 lg:col-span-23" : "col-span-24"} ml-2`}>

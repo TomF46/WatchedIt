@@ -61,7 +61,7 @@ function Profile({id, currentUserId, logout}) {
                             <h1 className="my-4 text-center text-primary text-4xl font-bold">{user.username}</h1>
                         </div>
                         <div className="col-span-12 md:col-span-2">
-                            <img src={user.imageUrl} className="headshot shadow rounded" />
+                            <img src={user.imageUrl} className="headshot shadow rounded" alt={`${user.username} profile picture.`} />
                             <div className="flex flex-col">
                                 <Link
                                     to={`/profile/${id}/watched`}

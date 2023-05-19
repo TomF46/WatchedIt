@@ -97,7 +97,7 @@ function Film({userIsAuthenticated, isAdmin}) {
                     )}
                     <div className="grid grid-cols-12 mt-4">
                         <div className="col-span-12 md:col-span-2">
-                            <img src={film.posterUrl} className="poster shadow rounded"/>
+                            <img src={film.posterUrl} className="poster shadow rounded" alt={`${film.name} poster.`}/>
                             <div className="flex flex-col">
                                 {userIsAuthenticated && (<WatchedFilmControls film={film} onChange={handleWatchedCountChange} />)}
                                 <Link to={`/films/${id}/credits`}

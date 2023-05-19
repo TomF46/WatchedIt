@@ -16,7 +16,7 @@ const FilmGrid = ({ films, editable, onRemove }) => {
                                 </button>
                             )}
                             <div onClick={() => {navigate(`/films/${film.id}`)}} className="hover:opacity-75">
-                                <img src={film.posterUrl} className={`w-full poster ${editable ? "" : "rounded-t"}`} />
+                                <img src={film.posterUrl} className={`w-full poster ${editable ? "" : "rounded-t"}`} alt={`${film.name} poster.`} />
                                 <div className="p-2 text-center">
                                     <p className="text-center text-primary">{film.name}</p>
                                     <div className="text-center inline-flex items-center">
