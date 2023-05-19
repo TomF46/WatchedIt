@@ -93,8 +93,8 @@ namespace WatchedIt.Api.Services.PersonService
             if(person is null) throw new NotFoundException($"Person with Id '{id}' not found.");
             person.FirstName = updatedPerson.FirstName;
             person.LastName = updatedPerson.LastName;
-            person.MiddleNames = updatedPerson.MiddleNames;
-            person.StageName = updatedPerson.StageName;
+            person.MiddleNames = string.IsNullOrWhiteSpace(person.MiddleNames) ? null : updatedPerson.MiddleNames;
+            person.StageName = string.IsNullOrWhiteSpace(person.StageName) ? null : updatedPerson.StageName;
             person.DateOfBirth = updatedPerson.DateOfBirth;
             person.Description = updatedPerson.Description;
             person.ImageUrl = updatedPerson.ImageUrl;

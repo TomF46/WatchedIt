@@ -53,8 +53,8 @@ namespace WatchedIt.Api.Services.Mapping
             return new Person {
                 FirstName = newPerson.FirstName,
                 LastName = newPerson.LastName,
-                MiddleNames = newPerson.MiddleNames,
-                StageName = newPerson.StageName,
+                MiddleNames = string.IsNullOrWhiteSpace(newPerson.MiddleNames) ? null : newPerson.MiddleNames,
+                StageName = string.IsNullOrWhiteSpace(newPerson.StageName) ? null : newPerson.StageName,
                 DateOfBirth = newPerson.DateOfBirth,
                 Description = newPerson.Description,
                 ImageUrl = newPerson.ImageUrl

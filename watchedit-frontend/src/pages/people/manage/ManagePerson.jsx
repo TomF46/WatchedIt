@@ -60,6 +60,7 @@ function ManagePerson() {
     }
 
     function handleDateChange(date){
+        console.log(date);
         person.dateOfBirth = date;
         setPerson({ ...person});
     }

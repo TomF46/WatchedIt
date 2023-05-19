@@ -46,7 +46,7 @@ function Login({userIsAuthenticated, login}){
             })
             .catch(err => {
                 setSaving(false);
-                toast.error(`Error logging in ${err.data.Exception}`, {
+                toast.error(`${err.data.Exception} please check your details and try again.`, {
                     autoClose: false,
                 });
             });

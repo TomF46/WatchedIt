@@ -2,7 +2,7 @@ export const newFilm = {
     name: "",
     shortDescription: "",
     fullDescription: "",
-    runtime: null,
+    runtime: 0,
     releaseDate: new Date(),
     posterUrl: null,
     trailerUrl: null,
@@ -12,10 +12,10 @@ export const newFilm = {
 export const newPerson = {
     firstName: "",
     lastName: "",
-    middleNames: null,
-    stageName: null,
+    middleNames: "",
+    stageName: "",
     dateOfBirth: new Date(),
-    description: null,
+    description: "",
     imageUrl: null
 }
 

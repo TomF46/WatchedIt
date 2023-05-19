@@ -45,7 +45,7 @@ const HeaderLoginForm = ({ login}) => {
             })
             .catch(err => {
                 setSaving(false);
-                toast.error(`${err.data.Exception} please try again.`, {
+                toast.error(`${err.data.Exception} please check your details and try again.`, {
                     autoClose: false,
                 });
             });

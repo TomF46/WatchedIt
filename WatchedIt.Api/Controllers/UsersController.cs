@@ -54,6 +54,11 @@ namespace WatchedIt.Api.Controllers
 
         [HttpGet("me/admin")]
         public async Task<ActionResult<GetIsAdminDto>> GetIsAdmin(){
+            if(!HttpContext.User.Identity.IsAuthenticated) {
+                return new GetIsAdminDto{
+                    isAdmin = false
+                };
+            };
             var userId = AuthMapper.MapLoggedInUserId(HttpContext);
             return Ok(await _userService.GetIsUserAdmin(userId));
         }

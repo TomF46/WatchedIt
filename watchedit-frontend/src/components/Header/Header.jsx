@@ -19,7 +19,7 @@ function Header({ login, checkUserIsAdmin , userIsAuthenticated, notificationCou
 
   useEffect(() => {
     setMobileIsOpen(false);
-    loadNotificationCount();
+    if(userIsAuthenticated) loadNotificationCount();
   }, [location]);
 
   function toggleMobileNavigation() {

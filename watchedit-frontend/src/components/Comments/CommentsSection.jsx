@@ -78,7 +78,9 @@ const CommentsSection = ({userIsAuthenticated, commentsPaginator, currentPage, o
                     </div>
                 ) : (
                     <>
-                        <p className="text-center my-4 text-xl">This review has no comments why not add one below.</p>
+                        <p className="my-4 text-xl">
+                            {`There are no comments, ${userIsAuthenticated ? "why not add one below." : "login to leave a comment." }`}
+                        </p>
                     </>
                 )}
                 {userIsAuthenticated && (

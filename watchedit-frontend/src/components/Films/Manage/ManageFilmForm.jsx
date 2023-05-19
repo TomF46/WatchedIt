@@ -201,6 +201,7 @@ const ManageFilmForm = ({
                                         label="Trailer URL"
                                         value={film.trailerUrl}
                                         onChange={(e) => onVideoChange(e)}
+                                        required={false}
                                     />
                                 </div>
                                 <div className="col-span-12 mt-4">

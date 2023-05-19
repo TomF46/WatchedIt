@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
 import TextInput from "../../Inputs/TextInput";
 import TextAreaInput from "../../Inputs/TextAreaInput";
-import NumberInput from "../../Inputs/NumberInput";
-import PersonMiniDetail from "../PersonMiniDetail";
+import PersonPreviewMini from "./PersonPreviewMini";
 
 const ManagePersonForm = ({
     person,
@@ -143,7 +142,7 @@ const ManagePersonForm = ({
             {person.imageUrl != null && (
                 <div className="mt-4">
                     <p className="text-sm font-bold text-primary">Preview</p>
-                    <PersonMiniDetail person={person} />
+                    <PersonPreviewMini person={person} />
                 </div>
             )}
             
