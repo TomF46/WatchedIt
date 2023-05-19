@@ -39,4 +39,6 @@
 - AWS SDK.
 - Post CSS.
 - Swagger documentation.
+- Installable as PWA,
+- Service workers
 - Other Js packages see `watchedit-frontend/package.json`.
