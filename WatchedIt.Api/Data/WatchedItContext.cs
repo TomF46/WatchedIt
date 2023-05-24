@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using WatchedIt.Api.Data.Configuration;
 using WatchedIt.Api.Models.Authentication;
 using WatchedIt.Api.Models.CategoryModels;
 using WatchedIt.Api.Models.CommentModels;
@@ -24,20 +25,8 @@ namespace Data
 
          protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Credit>()
-            .HasOne<Film>(gr => gr.Film)
-            .WithMany(g => g.Credits)
-            .HasForeignKey(gr => gr.FilmId);
-
-            modelBuilder.Entity<Credit>()
-                .HasOne<Person>(gr => gr.Person)
-                .WithMany(f => f.Credits)
-                .HasForeignKey(gr => gr.PersonId);
-
-            modelBuilder.Entity<ReviewComment>()
-            .HasOne(e => e.User)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.ApplyConfiguration(new CreditConfiguration());
+            modelBuilder.ApplyConfiguration(new ReviewCommentConfiguration());
         }
 
          protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

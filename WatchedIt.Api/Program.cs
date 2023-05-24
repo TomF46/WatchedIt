@@ -25,6 +25,7 @@ using WatchedIt.Api.Models.Configuration;
 using WatchedIt.Api.Services.Likes;
 using WatchedIt.Api.Services.ReviewCommentsService;
 using WatchedIt.Api.Services.NotificationService;
+using WatchedIt.Api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -118,6 +119,7 @@ builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
 builder.Services.AddAWSService<IAmazonS3>();
 
 builder.Services.AddTransient<ExceptionMiddleware>();
+builder.Services.AddTransient<DataSeeder>();
 builder.Services.AddScoped<IFilmService, FilmService>();
 builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<ICreditService, CreditService>();
@@ -166,5 +168,20 @@ app.MapControllers();
 var log = new LoggerConfiguration()
     .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
+
+if (args.Length == 1 && args[0].ToLower() == "seeddata")
+    SeedData(app);
+
+//Seed Data
+void SeedData(IHost app)
+{
+    var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
+
+    using (var scope = scopedFactory.CreateScope())
+    {
+        var service = scope.ServiceProvider.GetService<DataSeeder>();
+        service.Seed();
+    }
+}
 
 app.Run();
