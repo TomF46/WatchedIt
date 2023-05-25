@@ -38,6 +38,9 @@ namespace WatchedIt.Api.Data
 
                 var filmsSeeder = new FilmSeeder(_context, _env);
                 filmsSeeder.Seed();
+
+                var peopleSeeder = new PeopleSeeder(_context, _env);
+                peopleSeeder.Seed();
             }
             
         }
