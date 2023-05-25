@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WatchedIt.Api.Data.Seeders;
 using WatchedIt.Api.Models.Authentication;
 using WatchedIt.Api.Models.CategoryModels;
 using WatchedIt.Api.Services.AuthenticationService;
@@ -28,76 +29,12 @@ namespace WatchedIt.Api.Data
 
         public void Seed()
         {
-            if(_env.IsDevelopment()) SeedAdmin();
-            SeedCategories();
-        }
-
-        private void SeedAdmin()
-        {
-            if(!_context.Users.Any())
-            {
-                // TODO Make this info come from config
-                var admin = new User
-                {
-                    Email = "admin@email.com",
-                    Username = "Admin",
-                    ImageUrl = _config["Images:Defaults:ProfileImage"],
-                    Role = Models.Enums.Role.Administrator
-                };
-                _authenticationService.Create(admin, "SomePassword123!");
+            if(_env.IsDevelopment()){
+                var adminSeeder = new AdminSeeder(_context, _config, _authenticationService);
+                adminSeeder.Seed();
             }
-        }
-
-        private void SeedCategories()
-        {
-            if (!_context.Categories.Any())
-            {
-                var categories = new List<Category>()
-                {
-                    new Category{
-                        Name = "Action"
-                    },
-                    new Category{
-                        Name = "Horror"
-                    },
-                    new Category{
-                        Name = "Drama"
-                    },
-                    new Category{
-                        Name = "Thriller"
-                    },
-                    new Category{  
-                        Name = "Animation",
-                    },
-                    new Category{
-                        Name = "Comedy"
-                    },
-                    new Category{
-                        Name = "Musical"
-                    },
-                    new Category{
-                        Name = "Crime"
-                    },
-                    new Category{
-                        Name = "Romance"
-                    },
-                    new Category{
-                        Name = "Epic"
-                    },
-                    new Category{
-                        Name = "Science fiction"
-                    },
-                    new Category{
-                        Name = "Western"
-                    },
-                    new Category{
-                        Name = "Documentary"
-                    }
-                };
-
-                _context.Categories.AddRange(categories);
-                _context.SaveChanges();
-            }
+            var categorySeeder = new CategorySeeder(_context);
+            categorySeeder.Seed();
         }
     }
 }
