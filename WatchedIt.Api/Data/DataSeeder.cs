@@ -29,12 +29,17 @@ namespace WatchedIt.Api.Data
 
         public void Seed()
         {
+            var categorySeeder = new CategorySeeder(_context);
+            categorySeeder.Seed();
+
             if(_env.IsDevelopment()){
                 var adminSeeder = new AdminSeeder(_context, _config, _authenticationService);
                 adminSeeder.Seed();
+
+                var filmsSeeder = new FilmSeeder(_context, _env);
+                filmsSeeder.Seed();
             }
-            var categorySeeder = new CategorySeeder(_context);
-            categorySeeder.Seed();
+            
         }
     }
 }
