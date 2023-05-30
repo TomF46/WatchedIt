@@ -120,7 +120,7 @@ function Films({ isAdmin }) {
                     <div className="px-2 py-2">
                         <Link
                             to={"/films/add"}
-                            className="bg-backgroundOffset2 text-primary rounded py-2 px-4 hover:opacity-75 inline-block"
+                            className="bg-backgroundOffset2 text-primary font-bold rounded py-2 px-4 hover:opacity-75 inline-block"
                         >
                             Add film
                         </Link>

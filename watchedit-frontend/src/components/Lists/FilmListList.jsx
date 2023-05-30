@@ -17,7 +17,7 @@ const FilmListList = ({ lists, showUser }) => {
                                     </div>
                                 )}
                                 <div className={` ${showUser ? "col-span-21 lg:col-span-22" : "col-span-24" } px-4 py-2 inline-flex items-center`}>
-                                    <p>{list.name} {`(${list.filmCount})`} By {list.createdBy.username}</p>
+                                    <p>{list.name} {`(${list.filmCount} films)`} By {list.createdBy.username}</p>
                                 </div>
                             </div>
                         </div>

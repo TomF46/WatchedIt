@@ -109,17 +109,17 @@ function List({userId}) {
                             <div className="px-2 py-2">
                                 <Link
                                     to={`/lists/${id}/add`}
-                                    className="bg-backgroundOffset2 text-primary rounded py-2 px-4 hover:opacity-75 inline-block"
+                                    className="bg-backgroundOffset2 text-primary font-bold rounded py-2 px-4 hover:opacity-75 inline-block"
                                 >
                                     Add films
                                 </Link>
                                 <Link
                                     to={`/lists/${id}/edit`}
-                                    className="bg-backgroundOffset2 text-primary rounded py-2 px-4 hover:opacity-75 inline-block ml-2"
+                                    className="bg-backgroundOffset2 text-primary font-bold rounded py-2 px-4 hover:opacity-75 inline-block ml-2"
                                 >
                                     Edit list
                                 </Link>
-                                <button onClick={() => {confirmDelete()}} className="bg-backgroundOffset2 text-red-400 rounded py-2 px-4 hover:opacity-75 inline-block ml-2">
+                                <button onClick={() => {confirmDelete()}} className="bg-backgroundOffset2 text-red-400 font-bold rounded py-2 px-4 hover:opacity-75 inline-block ml-2">
                                     Remove
                                 </button>
                             </div>

@@ -91,7 +91,7 @@ function FilmCredits({userIsAuthenticated, isAdmin}) {
                             <div className="px-2 py-2">
                                 <Link
                                     to={`/films/${film.id}/credits/add`}
-                                    className="bg-backgroundOffset2 text-primary rounded py-2 px-4 hover:opacity-75 inline-block"
+                                    className="bg-backgroundOffset2 text-primary font-bold rounded py-2 px-4 hover:opacity-75 inline-block"
                                 >
                                     Add credit
                                 </Link>
