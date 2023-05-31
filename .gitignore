@@ -71,3 +71,5 @@ wwwroot/
 # NUNIT
 *.VisualState.xml
 TestResult.xml
+
+appsettings.Development.json
