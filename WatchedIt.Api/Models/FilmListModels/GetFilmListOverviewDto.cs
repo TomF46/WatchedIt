@@ -13,5 +13,6 @@ namespace WatchedIt.Api.Models.FilmListModels
         public string? Description {get; set;}
         public GetSimpleUserDto CreatedBy {get; set;}
         public int FilmCount {get; set;}
+        public ICollection<string?> Thumbnails {get; set;} = new List<string>();
     }
 }

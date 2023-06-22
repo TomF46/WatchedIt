@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import ListReelItem from "./ListReelItem";
 import LoadingMessage from "../../Loading/LoadingMessage";
 import { getFilmListsPaginated } from "../../../api/filmListsApi";
+import ListPreview from "./ListPreview";
 
 
 function ListReel() {
     const [listsPaginator, setListsPaginator] = useState(null);
-    const [page, setPage] = useState(1);
+    const page = 1;
     const listsPerPage = 8;
 
     useEffect(() => {
@@ -40,7 +40,7 @@ function ListReel() {
                         <div className="grid grid-cols-12">
                             {listsPaginator.data.map((list) => {
                                 return (
-                                    <ListReelItem key={list.id} list={list} />
+                                    <ListPreview key={list.id} list={list} />
                                 )
                             })}
                         </div>

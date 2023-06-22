@@ -19,12 +19,14 @@ namespace WatchedIt.Api.Services.Mapping
         }
 
         public static GetFilmListOverviewDto mapOverview(FilmList filmList){
+            var filmThumbnails = filmList.Films.Take(4).Select(x => x.PosterUrl).ToList();
             return new GetFilmListOverviewDto {
                 Id = filmList.Id,
                 Name = filmList.Name,
                 Description = filmList.Description,
                 CreatedBy =  UserMapper.MapSimpleUser(filmList.CreatedBy),
-                FilmCount = filmList.Films.Count()
+                FilmCount = filmList.Films.Count(),
+                Thumbnails = filmThumbnails
             };
         }
 
