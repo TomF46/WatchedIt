@@ -126,10 +126,16 @@ function List({userId}) {
                         </div>
                     )}
                     <div className="mt-4">
-                        <UserMiniDetail user={list.createdBy} />
-                        <div className="bg-backgroundOffset p-4 mt-4 shadow rounded">
-                            <h2 className="text-lg text-primary">Description:</h2>
-                            <p>{list.description}</p>
+                        <div className="grid grid-cols-12 my-4">
+                            <div className="col-span-8">
+                                <div className="bg-backgroundOffset p-4 shadow rounded h-full">
+                                    <h2 className="text-lg text-primary">Description:</h2>
+                                    <p>{list.description}</p>
+                                </div>
+                            </div>
+                            <div className="col-span-4 ml-2">
+                                <UserMiniDetail user={list.createdBy} />
+                            </div>
                         </div>
                         {list.films.length > 0 ? (
                             <FilmGrid films={list.films} editable={userCanEdit} onRemove={handleRemove}/>
