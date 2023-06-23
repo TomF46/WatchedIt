@@ -7,11 +7,11 @@ const ListPreview = ({ list }) => {
     return (
         <div key={list.id} className="col-span-12 md:col-span-4 my-2 mr-4">
             <div onClick={() => {navigate(`/lists/${list.id}`)}} className="bg-backgroundOffset cursor-pointer hover:opacity-75 shadow rounded h-full">
-                            <div className="grid grid-cols-12">
-                                <div className="col-span-4 p-1">
-                                    <p className="text-sm mt-1 text-center">{list.name} {`(${list.filmCount})`} By {list.createdBy.username}</p>
+                            <div className="grid grid-cols-12 h-full">
+                                <div className="col-span-4 p-1 flex items-center justify-center">
+                                    <p className="text-sm mt-1 text-center ">{list.name} {`(${list.filmCount})`} <br></br> By {list.createdBy.username}</p>
                                 </div>
-                                <div className="col-span-8">
+                                <div className="col-span-6">
                                     <div className="grid grid-cols-12">
                                         {list.thumbnails.map((url) => {
                                             return (
@@ -21,6 +21,11 @@ const ListPreview = ({ list }) => {
                                             )
                                         })}
                                     </div>
+                                </div>
+                                <div className="col-span-2 bg-primary flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                    </svg>
                                 </div>
                             </div>
                         </div>
