@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { getSimilarFilmsPaginated } from "../../api/filmsApi";
-import FilmReelItem from "../Home/FilmReel/FilmReelItem";
+import FilmPreview from "./FilmPreview";
 
 
 function SimilarFilmsReel({filmId}) {
@@ -40,7 +40,7 @@ function SimilarFilmsReel({filmId}) {
                             <div className="grid grid-cols-16">
                                 {filmsPaginator.data.map((film) => {
                                     return (
-                                        <FilmReelItem key={film.id} film={film} />
+                                        <FilmPreview key={film.id} film={film} editable={false} />
                                     )
                                 })}
                             </div>

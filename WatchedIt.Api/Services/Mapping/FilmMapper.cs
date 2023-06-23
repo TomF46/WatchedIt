@@ -31,7 +31,8 @@ namespace WatchedIt.Api.Services.Mapping
                 Name = film.Name,
                 ShortDescription = film.ShortDescription,
                 PosterUrl = film.PosterUrl,
-                AverageRating = String.Format("{0:0.0}", film.AverageRating)
+                AverageRating = String.Format("{0:0.0}", film.AverageRating),
+                WatchedCount = film.WatchedBy.Count()
             };
         }
 

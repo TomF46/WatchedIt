@@ -12,7 +12,6 @@ namespace WatchedIt.Api.Models.FilmModels
         public string? ShortDescription {get;set;}
         public string? PosterUrl {get;set;}
         public string? AverageRating {get; set;}
-
-
+        public int WatchedCount {get; set;}
     }
 }

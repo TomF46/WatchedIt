@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import FilmReelItem from "./FilmReelItem";
 import LoadingMessage from "../../Loading/LoadingMessage";
 import { getFilmsPaginated } from "../../../api/filmsApi";
+import FilmPreview from "../../Films/FilmPreview";
 
 
 function FilmReel({ title, sort }) {
@@ -43,7 +43,7 @@ function FilmReel({ title, sort }) {
                         <div className="grid grid-cols-16">
                             {filmsPaginator.data.map((film) => {
                                 return (
-                                    <FilmReelItem key={film.id} film={film} />
+                                    <FilmPreview key={film.id} film={film} editable={false} />
                                 )
                             })}
                         </div>
