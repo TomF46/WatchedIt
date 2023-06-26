@@ -138,7 +138,7 @@ function AddCreditForPerson() {
                                 ) : (
                                     <div>
                                         <div className="mb-2">
-                                            <FilmMiniDetail film={selectedFilmstrokeLinejoin} />
+                                            <FilmMiniDetail film={selectedFilm} />
                                             <p>Film: {selectedFilm.name}  <span className="cursor-pointer text-primary" onClick={() => {handleFilmSelected(null)}}>(Change)</span></p>
                                             <AddCreditForm onSave={handleSave} saving={saving} />
                                         </div>
