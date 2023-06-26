@@ -35,7 +35,9 @@ namespace WatchedIt.Api.Services.Mapping
                 FullName= $"{person.FirstName} {person.LastName}",
                 DateOfBirth = person.DateOfBirth,
                 Description = person.Description,
-                ImageUrl = person.ImageUrl
+                ImageUrl = person.ImageUrl,
+                LikesCount = person.LikedBy.Count(),
+                CreditCount = person.Credits.Count()
             };
         }
 

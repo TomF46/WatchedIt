@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import LoadingMessage from "../../Loading/LoadingMessage";
 import { getPeoplePaginated } from "../../../api/peopleApi";
-import PeopleReelItem from "./PeopleReelItem";
+import PersonPreview from "../../People/PersonPreview";
 
 
 function PeopleReel({ title, sort}) {
@@ -41,7 +41,7 @@ function PeopleReel({ title, sort}) {
                         <div className="grid grid-cols-16">
                             {peoplePaginator.data.map((person) => {
                                 return (
-                                    <PeopleReelItem key={person.id} person={person} />
+                                    <PersonPreview key={person.id} person={person} />
                                 )
                             })}
                         </div>

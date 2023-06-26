@@ -18,7 +18,7 @@ namespace WatchedIt.Api.Services.PersonService
 
         public async Task<PaginationResponse<GetPersonOverviewDto>> GetAll(PersonSearchWithPaginationParameters parameters)
         {
-            var query = _context.People.AsQueryable();
+            var query = _context.People.Include(f => f.LikedBy).Include(f => f.Credits).AsQueryable();
 
             if(!string.IsNullOrWhiteSpace(parameters.FirstName)){
                 var searchFirstName = parameters.FirstName.Trim().ToLower();

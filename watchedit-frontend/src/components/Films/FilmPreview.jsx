@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const FilmPreview = ({ film, editable, onRemove }) => {
     const navigate = useNavigate();
     return (
-        <div key={film.id} className="col-span-8 md:col-span-4 lg:col-span-2 my-2">
+        <div className="col-span-8 md:col-span-4 lg:col-span-2 my-2">
             <div className="mx-2 bg-backgroundOffset cursor-pointer h-full shadow rounded">
                 {editable && (
                     <button onClick={() => {onRemove(film)}} className="p-2 text-center bg-red-400 w-full hover:opacity-75 rounded-t">

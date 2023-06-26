@@ -9,7 +9,7 @@ const FilmGrid = ({ films, editable, onRemove }) => {
         <div className="grid grid-cols-16">
             {films.map((film) => {
                 return (
-                    <FilmPreview film={film} editable={editable} onRemove={onRemove} />
+                    <FilmPreview key={film.id} film={film} editable={editable} onRemove={onRemove} />
                 )
             })}
         </div>

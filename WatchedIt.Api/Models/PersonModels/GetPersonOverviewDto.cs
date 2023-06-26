@@ -16,6 +16,8 @@ namespace WatchedIt.Api.Models.PersonModels
         public DateTime? DateOfBirth {get; set;}
         public string? Description {get;set;}
         public string? ImageUrl {get;set;}
+        public int LikesCount {get; set;}
+        public int CreditCount {get; set;}
 
     }
 }
