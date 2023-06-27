@@ -12,7 +12,7 @@ const ListPreview = ({ list }) => {
                                     <p className="text-sm mt-1 text-center ">{list.name} {`(${list.filmCount})`} <br></br> By {list.createdBy.username}</p>
                                 </div>
                                 <div className="col-span-6">
-                                    <div className="grid grid-cols-12">
+                                    <div className="grid grid-cols-12 h-full">
                                         {list.thumbnails.map((url) => {
                                             return (
                                                 <div key={url} className="col-span-3">
