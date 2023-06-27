@@ -48,7 +48,7 @@ const Comment = ({ comment, onUpdateComment, onDeleteComment, userId }) => {
 
     return (
         <div className="grid grid-cols-12 py-4 bg-backgroundOffset shadow rounded my-2">
-            <div className="col-span-12 lg:col-span-2">
+            <div className="col-span-4 lg:col-span-2">
                 <div className="flex flex-row">
                     <div className="flex ml-2">
                         <div className="flex flex-col">
@@ -64,13 +64,13 @@ const Comment = ({ comment, onUpdateComment, onDeleteComment, userId }) => {
                     </div>
                 </div>
             </div>
-            <div className="col-span-12 lg:col-span-8 px-4 border-primary border-l">{editing ? (
+            <div className="col-span-5 lg:col-span-8 px-4 border-primary border-l">{editing ? (
                 <CommentForm comment={updatedComment} onChange={handleChange} onSubmit={handleSubmit} saving={saving} errors={errors} editing={true} />
             ) : (
-                <p>{comment.text}</p>
+                <p className="text-sm md:text-base">{comment.text}</p>
             )}</div>
             {comment.user.id == userId && (
-                <div className="col-span-12 lg:col-span-2 px-4 border-primary border-l">
+                <div className="col-span-3 lg:col-span-2 px-4 border-primary border-l">
                     <div className="grid grid-cols-12">
                         <div className="col-span-6 md:col-span-12 justify-center md:justify-start">
                             <div onClick={() => setEditing(!editing)} className="inline-flex items-center justify-center cursor-pointer">

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const ListPreview = ({ list }) => {
     const navigate = useNavigate();
     return (
-        <div key={list.id} className="col-span-12 md:col-span-4 my-2 mr-4">
+        <div key={list.id} className="col-span-12 md:col-span-6 lg:col-span-4 my-2 mr-4">
             <div onClick={() => {navigate(`/lists/${list.id}`)}} className="bg-backgroundOffset cursor-pointer hover:opacity-75 shadow rounded h-full">
                             <div className="grid grid-cols-12 h-full">
                                 <div className="col-span-4 p-1 flex items-center justify-center">
