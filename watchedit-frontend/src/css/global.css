@@ -43,10 +43,12 @@
 
 .poster{
   aspect-ratio: 2 / 3;
+  object-fit: cover;
 }
 
 .headshot{
   aspect-ratio: 1/1;
+  object-fit: cover;
 }
 
 .search-wrapper{
