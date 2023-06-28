@@ -34,7 +34,7 @@ function Home({ userIsAuthenticated, username }) {
                     <ReasonsToLoginSection />
                 </div>
             )}
-            <div className="home-content grid grid-col-12">
+            <div className="home-content grid grid-col-12 mt-4">
                 {userIsAuthenticated && (
                     <div className="col-span-12">
                         <UnreadNotifications />
