@@ -24,6 +24,7 @@ namespace WatchedIt.Api.Services.NotificationService
             if(user is null) throw new NotFoundException($"User with Id '{userId}' not found.");
 
             var query = _context.Notifications.Include(n => n.Recipient).Where(x => x.Recipient.Id == user.Id).AsQueryable();
+            query = query.OrderByDescending(x => x.SentDate);
             var count = query.Count();
             var notifications = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
             var mappedNotifications = notifications.Select(n => NotificationMapper.map(n)).ToList();
@@ -36,6 +37,7 @@ namespace WatchedIt.Api.Services.NotificationService
             if(user is null) throw new NotFoundException($"User with Id '{userId}' not found.");
 
             var query = _context.Notifications.Include(n => n.Recipient).Where(n => !n.Read).Where(x => x.Recipient.Id == user.Id).AsQueryable();
+            query = query.OrderByDescending(x => x.SentDate);
             var count = query.Count();
             var notifications = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
             var mappedNotifications = notifications.Select(n => NotificationMapper.map(n)).ToList();
