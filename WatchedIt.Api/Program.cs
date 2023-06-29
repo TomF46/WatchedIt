@@ -26,6 +26,7 @@ using WatchedIt.Api.Services.Likes;
 using WatchedIt.Api.Services.ReviewCommentsService;
 using WatchedIt.Api.Services.NotificationService;
 using WatchedIt.Api.Data;
+using WatchedIt.Api.Services.FilmTriviaService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -133,6 +134,8 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ILikesService, LikesService>();
 builder.Services.AddScoped<IReviewCommentsService, ReviewCommentsService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<IFilmTriviaService, FilmTriviaService>();
+
 
 
 var imagesSettings = builder.Configuration.GetSection("Images").Get<ImagesConfiguration>();

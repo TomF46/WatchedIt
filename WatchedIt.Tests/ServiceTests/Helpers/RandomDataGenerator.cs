@@ -9,6 +9,7 @@ using WatchedIt.Api.Models.CreditModels;
 using WatchedIt.Api.Models.Enums;
 using WatchedIt.Api.Models.FilmListModels;
 using WatchedIt.Api.Models.FilmModels;
+using WatchedIt.Api.Models.FilmTrivia;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Models.ReviewModels;
 
@@ -98,6 +99,22 @@ namespace WatchedIt.Tests.ServiceTests.Helpers
                 Review = review,
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now
+            };
+        }
+
+        public static FilmTrivia GenerateFilmTrivia(){
+            return new FilmTrivia{
+                Film = GenerateFilm(),
+                User = GenerateUser(),
+                Text = Faker.Lorem.Sentence()
+            };
+        }
+
+        public static FilmTrivia GenerateFilmTrivia(Film film, User user){
+            return new FilmTrivia{
+                Film = film,
+                User = user,
+                Text = Faker.Lorem.Sentence()
             };
         }
     }
