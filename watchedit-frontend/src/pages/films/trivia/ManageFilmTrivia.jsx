@@ -4,16 +4,16 @@ import { connect } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmById } from "../../../api/filmsApi";
-import { getReviewById, saveReview } from "../../../api/filmReviewApi";
-import { newReview } from "../../../tools/obJectShapes";
-import ManageReviewForm from "../../../components/Films/Reviews/ManageReviewForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
+import { newTrivia } from "../../../tools/obJectShapes";
+import ManageTriviaForm from "../../../components/Films/Trivia/ManageTriviaForm";
+import { getFilmTriviaById, saveFilmTrivia } from "../../../api/filmTriviaApi";
 
-function ManageReview({userId ,isAdmin}) {
-    const { id, reviewId } = useParams();
+function ManageFilmTrivia({userId}) {
+    const { id, triviaId } = useParams();
     const navigate = useNavigate();
     const [film, setFilm] = useState(null);
-    const [review, setReview] = useState({ ...newReview});
+    const [filmTrivia, setFilmTrivia] = useState({ ...newTrivia});
     const [errors, setErrors] = useState({});
     const [saving, setSaving] = useState(false);
     const [editing, setEditing] = useState(false);
@@ -25,21 +25,21 @@ function ManageReview({userId ,isAdmin}) {
     }, [id, film]);
 
     useEffect(() => {
-        if(reviewId){
-            getReviewById(id, reviewId).then(data => {
+        if(triviaId){
+            getFilmTriviaById(id, triviaId).then(data => {
                 mapForEditing(data);
-                if(data.user.id != userId) navigate(`/films/${data.film.id}/reviews/${data.id}`);
+                if(data.user.id != userId) navigate(`/films/${data.film.id}/trivia`);
                 setEditing(true);
             }).catch(error => {
-                toast.error(`Error fetching review ${error.message}`, {
+                toast.error(`Error fetching film trivia ${error.message}`, {
                     autoClose: false
                 }
                 );
             });
         } else {
-            setReview({ ...newReview});
+            setFilmTrivia({ ...newTrivia});
         }
-    }, [reviewId])
+    }, [triviaId])
 
     function getFilm() {
         getFilmById(id)
@@ -54,28 +54,25 @@ function ManageReview({userId ,isAdmin}) {
     }
 
     function mapForEditing(data){
-        setReview({
+        setFilmTrivia({
             id: data.id,
-            rating: data.rating,
             text: data.text
         });
     }
 
     function handleChange(event) {
         const { name, value } = event.target;
-        setReview(prevReview => ({
-            ...prevReview,
+        setFilmTrivia(prevFilmTrivia => ({
+            ...prevFilmTrivia,
             [name]: value
         }));
     }
 
     function formIsValid(){
-        const { rating, text } = review;
+        const { text } = filmTrivia;
         const errors = {};
-        if(!rating) errors.rating = "Rating is required";
-        if(rating < 0 || rating > 10) errors.rating = "Rating must be between 0 and 10";
-        if(!text) errors.text = "Review text is required";
-        if(text.length > 8000) errors.text = "Review text cant be longer than 8000 characters";
+        if(!text) errors.text = "Trivia text is required";
+        if(text.length > 1000) errors.text = "Trivia text cant be longer than 1000 characters";
         setErrors(errors);
         return Object.keys(errors).length === 0;
     }
@@ -84,22 +81,22 @@ function ManageReview({userId ,isAdmin}) {
         event.preventDefault();
         if (!formIsValid()) return;
         setSaving(true);
-    saveReview(id, review).then(res => {
-            toast.success("Review saved");
-            navigate(`/films/${id}/reviews/${res.id}`);
+        saveFilmTrivia(id, filmTrivia).then(res => {
+            toast.success("Trivia saved");
+            navigate(`/films/${id}/trivia`);
         }).catch(err => {
             setSaving(false);
-            toast.error(`Error saving review ${err.data.Exception}`, {
+            toast.error(`Error saving trivia ${err.data.Exception}`, {
                 autoClose: false,
             });
         });
     }
 
     return (
-        <div className="manage-film-review-page">
-            {film && review ? (
+        <div className="manage-film-trivia-page">
+            {film && filmTrivia ? (
                 <>
-                    <ManageReviewForm review={review} film={film} onChange={handleChange} onSave={handleSave} errors={errors} saving={saving} editing={editing}/>
+                    <ManageTriviaForm trivia={filmTrivia} film={film} onChange={handleChange} onSave={handleSave} errors={errors} saving={saving} editing={editing}/>
                 </>
             ) : (
                 <LoadingMessage message={"Loading form."} />
@@ -108,17 +105,15 @@ function ManageReview({userId ,isAdmin}) {
     );
 }
 
-ManageReview.propTypes = {
-    isAdmin: PropTypes.bool.isRequired,
+ManageFilmTrivia.propTypes = {
     userId: PropTypes.number
 };
 
 const mapStateToProps = (state) => {
     return {
-        isAdmin: state.isAdmin,
         userId: state.tokens ? state.tokens.id : null
     };
 };
 
-export default connect(mapStateToProps)(ManageReview);
+export default connect(mapStateToProps)(ManageFilmTrivia);
 

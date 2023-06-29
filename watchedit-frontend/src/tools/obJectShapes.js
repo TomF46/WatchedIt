@@ -36,3 +36,7 @@ export const newCategory = {
 export const newComment = {
     text: ""
 }
+
+export const newTrivia = {
+    text: ""
+}

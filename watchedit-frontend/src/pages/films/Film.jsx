@@ -11,6 +11,7 @@ import FilmCreditsOverviewList from "../../components/Films/Credits/FilmCreditsO
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import LatestReviews from "../../components/Reviews/LatestReviews";
 import SimilarFilmsReel from "../../components/Films/SimilarFilmsReel";
+import TriviaOverview from "../../components/Films/Trivia/TriviaOverview";
 
 function Film({userIsAuthenticated, isAdmin}) {
     const { id } = useParams();
@@ -108,6 +109,10 @@ function Film({userIsAuthenticated, isAdmin}) {
                                 className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 text-center">
                                     Reviews
                                 </Link>
+                                <Link to={`/films/${id}/trivia`}
+                                className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 text-center">
+                                    Trivia
+                                </Link>
                             </div>
                         </div>
                         <div className="col-span-12 mt-4 md:col-span-10 md:pl-4 md:mt-0">
@@ -186,6 +191,9 @@ function Film({userIsAuthenticated, isAdmin}) {
                                             )}
                                         </div>
                                     </div>
+                                </div>
+                                <div className="col-span-12">
+                                    <TriviaOverview film={film} totalItems={4} />
                                 </div>
                                 {film.trailerUrl && (
                                     <div className="col-span-12">

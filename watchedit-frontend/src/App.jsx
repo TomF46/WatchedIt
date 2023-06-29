@@ -39,6 +39,8 @@ import ManageProfile from "./pages/profile/manage/ManageProfile";
 import UsersReviews from "./pages/profile/reviews/usersReviews";
 import UserLikes from "./pages/profile/UserLikes";
 import Notifications from "./pages/notifications/Notifications";
+import FilmTrivia from "./pages/films/trivia/FilmTrivia";
+import ManageFilmTrivia from "./pages/films/trivia/ManageFilmTrivia";
   
   const App = () => {
     return (
@@ -54,6 +56,9 @@ import Notifications from "./pages/notifications/Notifications";
             <Route path="/films/:id/reviews/add" element={<AuthenticatedRoute><ManageReview /></AuthenticatedRoute>}/>
             <Route path="/films/:id/reviews/:reviewId" element={<Review />}/>
             <Route path="/films/:id/reviews" element={<Reviews />}/>
+            <Route path="/films/:id/trivia/:triviaId/edit" element={<AuthenticatedRoute><ManageFilmTrivia /></AuthenticatedRoute>}/>
+            <Route path="/films/:id/trivia/add" element={<AuthenticatedRoute><ManageFilmTrivia /></AuthenticatedRoute>}/>
+            <Route path="/films/:id/trivia" element={<FilmTrivia />}/>
             <Route path="/films/:id/credits/add" element={<AdminRoute><AddCreditForFilm /></AdminRoute>}/>
             <Route path="/films/:id/credits" element={<FilmCredits />}/>
             <Route path="/films/:id/edit" element={<AdminRoute><ManageFilm /></AdminRoute>}/>
