@@ -25,7 +25,7 @@ namespace WatchedIt.Api.Services.Mapping
                 Name = filmList.Name,
                 Description = filmList.Description,
                 CreatedBy =  UserMapper.MapSimpleUser(filmList.CreatedBy),
-                FilmCount = filmList.Films.Count(),
+                FilmCount = filmList.Films.Count,
                 Thumbnails = filmThumbnails
             };
         }

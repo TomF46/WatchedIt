@@ -100,7 +100,7 @@ namespace WatchedIt.Tests.ServiceTests
             };
 
             var reviews = await _reviewService.GetAllForFilm(film.Id, pagination);
-            Assert.That(reviews.Data.Count(), Is.EqualTo(2));
+            Assert.That(reviews.Data.Count, Is.EqualTo(2));
         }
 
         [Test]
@@ -128,7 +128,7 @@ namespace WatchedIt.Tests.ServiceTests
             };
 
             var reviews = await _reviewService.GetAllByUser(user2.Id, pagination);
-            Assert.That(reviews.Data.Count(), Is.EqualTo(1));
+            Assert.That(reviews.Data.Count, Is.EqualTo(1));
         }
 
         [Test]

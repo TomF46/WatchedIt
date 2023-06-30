@@ -80,7 +80,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.SaveChangesAsync();
 
             var listsFromDb = await _filmListService.GetAll(new FilmListSearchWithPaginationParameters());
-            Assert.That(listsFromDb.Data.Count(), Is.EqualTo(2));
+            Assert.That(listsFromDb.Data.Count, Is.EqualTo(2));
         }
 
         [Test]
@@ -153,11 +153,11 @@ namespace WatchedIt.Tests.ServiceTests
                 FilmId = film.Id
             };
 
-            Assert.That(list.Films.Count(), Is.EqualTo(1));
+            Assert.That(list.Films.Count, Is.EqualTo(1));
 
             await _filmListService.RemoveFilmFromListById(list.Id, user.Id, toRemove);
             
-            Assert.That(list.Films.Count(), Is.EqualTo(0));
+            Assert.That(list.Films.Count, Is.EqualTo(0));
         }
 
         [Test]

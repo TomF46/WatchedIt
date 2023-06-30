@@ -81,7 +81,7 @@ namespace WatchedIt.Tests.ServiceTests
 
             var comments = await _reviewCommentsService.GetCommentsForReview(review.Id, pagination);
 
-            Assert.That(comments.Data.Count(), Is.EqualTo(3));
+            Assert.That(comments.Data.Count, Is.EqualTo(3));
         }
 
         [Test]
@@ -101,7 +101,7 @@ namespace WatchedIt.Tests.ServiceTests
                 PageSize = 20
             };
             var comments = await _reviewCommentsService.GetCommentsForReview(review.Id, pagination);
-            Assert.That(comments.Data.Count(), Is.EqualTo(0));
+            Assert.That(comments.Data.Count, Is.EqualTo(0));
         }
 
         [Test]

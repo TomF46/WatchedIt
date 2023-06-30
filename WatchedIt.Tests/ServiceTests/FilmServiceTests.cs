@@ -81,7 +81,7 @@ namespace WatchedIt.Tests.ServiceTests
 
             var allFilms = await _filmService.GetAll(pagination);
 
-            Assert.That(allFilms.Data.Count(), Is.EqualTo(2));
+            Assert.That(allFilms.Data.Count, Is.EqualTo(2));
         }
 
         [Test]

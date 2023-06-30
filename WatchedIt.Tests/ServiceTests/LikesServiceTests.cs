@@ -52,7 +52,7 @@ namespace WatchedIt.Tests.ServiceTests
 
             await _likesService.AddLike(user.Id, personToLike);
 
-            Assert.That(user.Likes.Count(), Is.EqualTo(1));
+            Assert.That(user.Likes.Count, Is.EqualTo(1));
         }
 
         [Test]
@@ -92,11 +92,11 @@ namespace WatchedIt.Tests.ServiceTests
             user.Likes.Add(person);
             await _context.SaveChangesAsync();
 
-            Assert.That(user.Likes.Count(), Is.EqualTo(1));
+            Assert.That(user.Likes.Count, Is.EqualTo(1));
 
             await _likesService.RemoveLike(user.Id, person.Id);
 
-            Assert.That(user.Likes.Count(), Is.EqualTo(0));
+            Assert.That(user.Likes.Count, Is.EqualTo(0));
         }
     }
 }

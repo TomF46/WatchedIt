@@ -80,7 +80,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.SaveChangesAsync();
 
             var watchedFilms = await _userService.GetWatchedFilms(user.Id, new PaginationParameters());
-            Assert.IsTrue(watchedFilms.Data.Count() == 2);
+            Assert.IsTrue(watchedFilms.Data.Count == 2);
         }
 
 

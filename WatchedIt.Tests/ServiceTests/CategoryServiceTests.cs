@@ -69,7 +69,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.SaveChangesAsync();
 
             var allCategories = await _categoryService.GetAll();
-            Assert.That(allCategories.Count(), Is.EqualTo(2));
+            Assert.That(allCategories.Count, Is.EqualTo(2));
             
         }
 

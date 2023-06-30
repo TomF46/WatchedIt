@@ -95,7 +95,7 @@ namespace WatchedIt.Tests.ServiceTests
             };
 
             var filmTrivias = await _filmTriviaService.GetAllForFilm(film.Id, pagination);
-            Assert.That(filmTrivias.Data.Count(), Is.EqualTo(2));
+            Assert.That(filmTrivias.Data.Count, Is.EqualTo(2));
         }
 
         [Test]

@@ -91,11 +91,11 @@ namespace WatchedIt.Tests.ServiceTests
             user.Watched.Add(film);
             await _context.SaveChangesAsync();
 
-            Assert.That(user.Watched.Count(), Is.EqualTo(1));
+            Assert.That(user.Watched.Count, Is.EqualTo(1));
 
             await _watchedFilmsService.RemoveWatchedFilm(user.Id, film.Id);
 
-            Assert.That(user.Watched.Count(), Is.EqualTo(0));
+            Assert.That(user.Watched.Count, Is.EqualTo(0));
         }
         
     }
