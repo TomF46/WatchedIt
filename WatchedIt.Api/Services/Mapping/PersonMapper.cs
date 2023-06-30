@@ -21,7 +21,7 @@ namespace WatchedIt.Api.Services.Mapping
                 Description = person.Description,
                 ImageUrl = person.ImageUrl,
                 Credits = CreditMapper.MapPersonCastCrewCreditDto(person.Credits.ToList()),
-                LikedByCount = person.LikedBy.Count()
+                LikedByCount = person.LikedBy.Count
             };
         }
 

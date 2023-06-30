@@ -98,7 +98,7 @@ namespace WatchedIt.Tests.ServiceTests
 
             var allCredits = await _creditService.GetAll();
 
-            Assert.That(allCredits.Cast.Count(), Is.EqualTo(2));
+            Assert.That(allCredits.Cast.Count, Is.EqualTo(2));
         }
 
         [Test]
@@ -157,7 +157,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.SaveChangesAsync();
 
             var filmCredits = await _creditService.GetCreditsForFilmById(film.Id);
-            Assert.That(filmCredits.Cast.Count(), Is.EqualTo(2));
+            Assert.That(filmCredits.Cast.Count, Is.EqualTo(2));
         }
 
         [Test]
@@ -179,7 +179,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.SaveChangesAsync();
 
             var personCredits = await _creditService.GetCreditsForPersonById(person.Id);
-            Assert.That(personCredits.Cast.Count(), Is.EqualTo(1));
+            Assert.That(personCredits.Cast.Count, Is.EqualTo(1));
         }
     }
 }
