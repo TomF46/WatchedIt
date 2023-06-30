@@ -12,6 +12,7 @@ namespace WatchedIt.Api.Models.PersonModels
         public string? LastName {get;set;}
         public string? FullName {get;set;}
         public string? ImageUrl {get;set;}
-
+        public int LikesCount {get; set;}
+        public int CreditCount {get; set;}
     }
 }

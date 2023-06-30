@@ -28,7 +28,7 @@ namespace WatchedIt.Api.Services.FilmListService
 
         public async Task<GetFilmListDto> GetById(int id)
         {
-            var list = await _context.FilmLists.Include(f => f.CreatedBy).Include(f => f.Films).FirstOrDefaultAsync(x => x.Id == id);
+            var list = await _context.FilmLists.Include(f => f.CreatedBy).Include(f => f.Films).ThenInclude(f => f.WatchedBy).FirstOrDefaultAsync(x => x.Id == id);
             if(list is null) throw new NotFoundException($"Film list with Id '{id} not found.");
             return FilmListMapper.map(list);
         }
@@ -74,7 +74,7 @@ namespace WatchedIt.Api.Services.FilmListService
 
         public async Task<GetFilmListDto> AddFilmToListById(int id, int userId, AddFilmToFilmListDto newFilm)
         {
-            var list = await _context.FilmLists.Include(f => f.CreatedBy).Include(f => f.Films).FirstOrDefaultAsync(f => f.Id == id);
+            var list = await _context.FilmLists.Include(f => f.CreatedBy).Include(f => f.Films).ThenInclude(f => f.WatchedBy).FirstOrDefaultAsync(f => f.Id == id);
             if(list is null) throw new NotFoundException($"Film list with Id '{id}' not found.");
 
             if(list.CreatedBy.Id != userId) throw new Exceptions.UnauthorizedAccessException($"User does not own this list");
@@ -89,7 +89,7 @@ namespace WatchedIt.Api.Services.FilmListService
 
         public async Task<GetFilmListDto> RemoveFilmFromListById(int id, int userId, RemoveFilmForFilmListDto filmToRemove)
         {
-            var list = await _context.FilmLists.Include(f => f.CreatedBy).Include(f => f.Films).FirstOrDefaultAsync(f => f.Id == id);
+            var list = await _context.FilmLists.Include(f => f.CreatedBy).Include(f => f.Films).ThenInclude(f => f.WatchedBy).FirstOrDefaultAsync(f => f.Id == id);
             if(list is null) throw new NotFoundException($"Film list with Id '{id}' not found.");
 
             if(list.CreatedBy.Id != userId) throw new Exceptions.UnauthorizedAccessException($"User does not own this list");

@@ -16,12 +16,13 @@ function Profile({ currentUserId, logout}) {
 
     useEffect(() => {
         let targetId = id ? id : currentUserId;
-        if (!user || user.id != id) {
+        if (!user) {
             getUser(targetId);
         }
     }, [id, user]);
 
     function getUser(userId) {
+        console.log("get user");
         getUserById(userId)
             .then((res) => {
                 setUser(res);

@@ -36,8 +36,8 @@ namespace WatchedIt.Api.Services.Mapping
                 DateOfBirth = person.DateOfBirth,
                 Description = person.Description,
                 ImageUrl = person.ImageUrl,
-                LikesCount = person.LikedBy.Count(),
-                CreditCount = person.Credits.Count()
+                LikesCount = person.LikedBy.Count,
+                CreditCount = person.Credits.Count
             };
         }
 
@@ -47,7 +47,9 @@ namespace WatchedIt.Api.Services.Mapping
                 FirstName = person.FirstName,
                 LastName = person.LastName,
                 FullName= $"{person.FirstName} {person.LastName}",
-                ImageUrl = person.ImageUrl
+                ImageUrl = person.ImageUrl,
+                LikesCount = person.LikedBy.Count,
+                CreditCount = person.Credits.Count
             };
         }
 

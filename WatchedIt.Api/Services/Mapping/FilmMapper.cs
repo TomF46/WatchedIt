@@ -18,10 +18,10 @@ namespace WatchedIt.Api.Services.Mapping
                 ReleaseDate = film.ReleaseDate,
                 PosterUrl = film.PosterUrl,
                 TrailerUrl = film.TrailerUrl,
-                AverageRating = String.Format("{0:0.0}", film.AverageRating),
+                AverageRating = string.Format("{0:0.0}", film.AverageRating),
                 Credits = CreditMapper.MapFilmCastCrewCreditDto(film.Credits.ToList()),
                 Categories = film.Categories.Select(x => CategoryMapper.Map(x)).ToList(),
-                WatchedByCount = film.WatchedBy.Count()
+                WatchedByCount = film.WatchedBy.Count
             };
         }
 
@@ -31,8 +31,8 @@ namespace WatchedIt.Api.Services.Mapping
                 Name = film.Name,
                 ShortDescription = film.ShortDescription,
                 PosterUrl = film.PosterUrl,
-                AverageRating = String.Format("{0:0.0}", film.AverageRating),
-                WatchedCount = film.WatchedBy.Count()
+                AverageRating = string.Format("{0:0.0}", film.AverageRating),
+                WatchedCount = film.WatchedBy.Count
             };
         }
 
@@ -40,7 +40,7 @@ namespace WatchedIt.Api.Services.Mapping
             return new GetSimpleFilmDto{
                 Id = film.Id,
                 Name = film.Name,
-                PosterUrl = film.PosterUrl
+                PosterUrl = film.PosterUrl,
             };
         }
 

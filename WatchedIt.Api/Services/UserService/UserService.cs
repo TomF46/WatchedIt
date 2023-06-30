@@ -47,20 +47,20 @@ namespace WatchedIt.Api.Services.UserService
 
         public async Task<PaginationResponse<GetSimplePersonDto>> GetLikedPeople(int id, PaginationParameters paginationParameters)
         {
-            var user = await _context.Users.Include(u => u.Likes).FirstOrDefaultAsync(p => p.Id == id);
+            var user = await _context.Users.Include(u => u.Likes).ThenInclude(x => x.Credits).Include(u => u.Likes).ThenInclude(x => x.LikedBy).FirstOrDefaultAsync(p => p.Id == id);
             if(user is null) throw new NotFoundException($"User with Id '{id}' not found.");
-            var count = user.Likes.Count();
+            var count = user.Likes.Count;
             var mappedLikesList = user.Likes.Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).Select(p => PersonMapper.MapSimple(p)).ToList();
             return new PaginationResponse<GetSimplePersonDto>(mappedLikesList, paginationParameters.PageNumber, paginationParameters.PageSize, count);
         }
 
-        public async Task<PaginationResponse<GetSimpleFilmDto>> GetWatchedFilms(int id, PaginationParameters paginationParameters)
+        public async Task<PaginationResponse<GetFilmOverviewDto>> GetWatchedFilms(int id, PaginationParameters paginationParameters)
         {
-            var user = await _context.Users.Include(f => f.Watched).FirstOrDefaultAsync(p => p.Id == id);
+            var user = await _context.Users.Include(f => f.Watched).ThenInclude(f => f.WatchedBy).FirstOrDefaultAsync(p => p.Id == id);
             if(user is null) throw new NotFoundException($"User with Id '{id}' not found.");
-            var count = user.Watched.Count();
-            var mappedWatchList = user.Watched.Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).Select(f => FilmMapper.MapSimple(f)).ToList();
-            return new PaginationResponse<GetSimpleFilmDto>(mappedWatchList, paginationParameters.PageNumber, paginationParameters.PageSize, count);
+            var count = user.Watched.Count;
+            var mappedWatchList = user.Watched.Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).Select(f => FilmMapper.MapOverview(f)).ToList();
+            return new PaginationResponse<GetFilmOverviewDto>(mappedWatchList, paginationParameters.PageNumber, paginationParameters.PageSize, count);
         }
     }
 }

@@ -116,7 +116,7 @@ namespace WatchedIt.Api.Services.FilmService
             var film = _context.Films.Include(f => f.Categories).FirstOrDefault(f => f.Id == id);
             if(film is null) throw new NotFoundException($"Film with Id '{id}' not found.");
 
-            var query = _context.Films.Where(x => x.Id != film.Id).Where(x => x.Categories.Any(x => film.Categories.Contains(x))).AsQueryable();
+            var query = _context.Films.Include(f => f.WatchedBy).Where(x => x.Id != film.Id).Where(x => x.Categories.Any(x => film.Categories.Contains(x))).AsQueryable();
             
             var count = query.Count();
             var films = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
