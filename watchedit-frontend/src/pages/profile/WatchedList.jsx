@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
@@ -8,7 +8,8 @@ import PaginationControls from "../../components/PaginationControls";
 import { useParams } from "react-router-dom";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 
-function WatchedList({ id }) {
+function WatchedList({currentUserId}) {
+    const { id } = useParams();
     const [user, setUser] = useState(null);
     const [filmsPaginator, setFilmsPaginator] = useState(null);
     const [page, setPage] = useState(1);
@@ -16,9 +17,10 @@ function WatchedList({ id }) {
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
     useEffect(() => {
+        let targetId = id ? id : currentUserId;
         if (!user) {
-            getUser();
-            getFilms();
+            getUser(targetId);
+            getFilms(targetId);
         }
     }, [id, user]);
 
@@ -26,8 +28,8 @@ function WatchedList({ id }) {
         if (lastPageLoaded != null) getFilms();
     }, [page]);
 
-    function getUser() {
-        getUserById(id)
+    function getUser(userId) {
+        getUserById(userId)
             .then((res) => {
                 setUser(res);
             })
@@ -38,8 +40,8 @@ function WatchedList({ id }) {
             });
     }
 
-    function getFilms() {
-        getWatchedListByUserId(id, page, filmsPerPage)
+    function getFilms(userId) {
+        getWatchedListByUserId(userId, page, filmsPerPage)
             .then((res) => {
                 setFilmsPaginator(res);
                 setLastPageLoaded(page);
@@ -99,13 +101,13 @@ function WatchedList({ id }) {
 }
 
 WatchedList.propTypes = {
-    id: PropTypes.any.isRequired,
+    currentUserId: PropTypes.any.isRequired
+
 };
 
 const mapStateToProps = (state) => {
-    const { id } = useParams();
     return {
-        id: id ? id : state.tokens.id,
+        currentUserId: state.tokens ? state.tokens.id : null
     };
 };
 

@@ -10,7 +10,7 @@ import { confirmAlert } from "react-confirm-alert";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
 
-function FilmCredits({userIsAuthenticated, isAdmin}) {
+function FilmCredits({isAdmin}) {
     const { id } = useParams();
     const [film, setFilm] = useState(null);
     const [credits, setCredits] = useState(null);
@@ -138,13 +138,11 @@ function FilmCredits({userIsAuthenticated, isAdmin}) {
 }
 
 FilmCredits.propTypes = {
-    userIsAuthenticated: PropTypes.bool.isRequired,
     isAdmin: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
-        userIsAuthenticated: state.tokens != null,
         isAdmin: state.isAdmin
     };
 };

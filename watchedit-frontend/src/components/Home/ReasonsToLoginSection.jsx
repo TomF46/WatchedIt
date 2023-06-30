@@ -10,7 +10,7 @@ function ReasonsToLoginSection() {
                         </svg>
                     </div>
                     <div className="col-span-9 p-2">
-                        <p className="text-left">Track for yourself or show your friends which films you've watched by adding films to your watched list.</p>
+                        <p className="text-left">Track for yourself or show your friends which films you&apos;ve watched by adding films to your watched list.</p>
                     </div>
                 </div>
             </div>

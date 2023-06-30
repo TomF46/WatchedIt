@@ -1,9 +1,7 @@
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
 import FilmPreview from "./FilmPreview";
 
 const FilmGrid = ({ films, editable, onRemove }) => {
-    const navigate = useNavigate();
     return (
         <div className="grid grid-cols-16">
             {films.map((film) => {

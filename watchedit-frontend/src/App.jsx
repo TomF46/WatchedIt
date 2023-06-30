@@ -26,7 +26,6 @@ import Profile from "./pages/profile/Profile";
 import WatchedList from "./pages/profile/WatchedList";
 import NotFound from "./pages/status/NotFound";
 import AddFilmToList from "./pages/lists/manage/AddFilmToList";
-import Credit from "./pages/credits/credit";
 import EditCredit from "./pages/credits/manage/EditCredit";
 import Reviews from "./pages/films/reviews/reviews";
 import ManageReview from "./pages/films/reviews/ManageReview";
@@ -59,12 +58,14 @@ import ManageFilmTrivia from "./pages/films/trivia/ManageFilmTrivia";
             <Route path="/films/:id/trivia/add" element={<AuthenticatedRoute><ManageFilmTrivia /></AuthenticatedRoute>}/>
             <Route path="/films/:id/trivia" element={<FilmTrivia />}/>
             <Route path="/films/:id/credits/add" element={<AdminRoute><AddCreditForFilm /></AdminRoute>}/>
+            <Route path="/films/:id/credits/:creditId/edit" element={<AdminRoute><EditCredit /></AdminRoute>}/>
             <Route path="/films/:id/credits" element={<FilmCredits />}/>
             <Route path="/films/:id/edit" element={<AdminRoute><ManageFilm /></AdminRoute>}/>
             <Route path="/films/add" element={<AdminRoute><ManageFilm /></AdminRoute>}/>
             <Route path="/films/:id" element={<Film />}/>
             <Route path="/films" element={<Films />}/>
             <Route path="/people/:id/credits/add" element={<AdminRoute><AddCreditForPerson /></AdminRoute>}/>
+            <Route path="/people/:id/credits/:creditId/edit" element={<AdminRoute><EditCredit /></AdminRoute>}/>
             <Route path="/people/:id/credits" element={<PersonCredits />}/>
             <Route path="/people/:id/edit" element={<AdminRoute><ManagePerson /></AdminRoute>}/>
             <Route path="/people/add" element={<AdminRoute><ManagePerson /></AdminRoute>}/>
@@ -85,8 +86,6 @@ import ManageFilmTrivia from "./pages/films/trivia/ManageFilmTrivia";
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="/profile" element={<AuthenticatedRoute><Profile /></AuthenticatedRoute>}/>
             <Route path="/notifications" element={<AuthenticatedRoute><Notifications /></AuthenticatedRoute>}/>
-            <Route path="/credits/:id/edit" element={<AdminRoute><EditCredit /></AdminRoute>}/>
-            <Route path="/credits/:id" element={<AdminRoute><Credit /></AdminRoute>}/>
             <Route path="/categories/add" element={<AdminRoute><ManageCategory /></AdminRoute>}/>
             <Route path="/categories/:id/edit" element={<AdminRoute><ManageCategory /></AdminRoute>}/>
             <Route path="/categories/:id" element={<Category />}/>

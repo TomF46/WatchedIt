@@ -6,7 +6,7 @@ const NotificationsList = ({ notifications, onSetRead }) => {
         <div className="grid grid-cols-12">
             {notifications.map((notification) => {
                 return (
-                    <div className="col-span-12">
+                    <div key={notification.id} className="col-span-12">
                         <div onClick={() => onSetRead(notification)} className={` ${notification.read ? "" : "hover:opacity-75"} grid grid-cols-24 cursor-pointer shadow rounded-l my-1`}>
                             <div className={`${notification.read ? 'col-span-24 bg-backgroundOffset' : 'col-span-23 bg-backgroundOffset2' } p-4`} key={notification.id} >
                                 <p>{notification.text} - {format(parseISO(notification.sentDate), "dd/MM/yyyy HH:mm")} </p>

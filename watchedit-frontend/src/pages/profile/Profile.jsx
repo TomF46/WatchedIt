@@ -10,17 +10,19 @@ import { logout } from "../../redux/actions/authenticationActions";
 import { confirmAlert } from "react-confirm-alert";
 import UserLatestReviews from "../../components/Reviews/UserLatestReviews";
 
-function Profile({id, currentUserId, logout}) {
+function Profile({ currentUserId, logout}) {
+    const { id } = useParams();
     const [user, setUser] = useState(null);
 
     useEffect(() => {
+        let targetId = id ? id : currentUserId;
         if (!user || user.id != id) {
-            getUser();
+            getUser(targetId);
         }
     }, [id, user]);
 
-    function getUser() {
-        getUserById(id)
+    function getUser(userId) {
+        getUserById(userId)
             .then((res) => {
                 setUser(res);
             })
@@ -64,19 +66,19 @@ function Profile({id, currentUserId, logout}) {
                             <img src={user.imageUrl} className="headshot shadow rounded" alt={`${user.username} profile picture.`} />
                             <div className="flex flex-col">
                                 <Link
-                                    to={`/profile/${id}/watched`}
+                                    to={`/profile/${user.id}/watched`}
                                     className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 w-full text-center"
                                 >
                                     Watched
                                 </Link>
                                 <Link
-                                    to={`/profile/${id}/likes`}
+                                    to={`/profile/${user.id}/likes`}
                                     className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 w-full text-center"
                                 >
                                     Likes
                                 </Link>
                                 <Link
-                                    to={`/profile/${id}/reviews`}
+                                    to={`/profile/${user.id}/reviews`}
                                     className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 w-full text-center"
                                 >
                                     Reviews
@@ -139,15 +141,12 @@ function Profile({id, currentUserId, logout}) {
 }
 
 Profile.propTypes = {
-    id: PropTypes.any.isRequired,
     logout: PropTypes.func.isRequired,
     currentUserId: PropTypes.number
 };
 
-const mapStateToProps = (state, ownProps) => {
-    const { id } = useParams();
+const mapStateToProps = (state) => {
     return {
-        id:  id ? id : state.tokens.id,
         currentUserId: state.tokens ? state.tokens.id : null
     };
 };

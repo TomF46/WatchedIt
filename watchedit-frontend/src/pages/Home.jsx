@@ -62,7 +62,7 @@ Home.propTypes = {
     username: PropTypes.string,
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         userIsAuthenticated: state.tokens != null,
         username: state.tokens ? state.tokens.username : null

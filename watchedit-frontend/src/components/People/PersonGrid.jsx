@@ -1,10 +1,7 @@
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
 import PersonPreview from "./PersonPreview";
 
 const PersonGrid = ({ people }) => {
-    const navigate = useNavigate();
-
     return (
         <div className="grid grid-cols-16">
             {people.map((person) => {

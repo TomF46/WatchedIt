@@ -81,7 +81,7 @@ function ManageFilmTrivia({userId}) {
         event.preventDefault();
         if (!formIsValid()) return;
         setSaving(true);
-        saveFilmTrivia(id, filmTrivia).then(res => {
+        saveFilmTrivia(id, filmTrivia).then(() => {
             toast.success("Trivia saved");
             navigate(`/films/${id}/trivia`);
         }).catch(err => {

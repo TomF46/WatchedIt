@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const TextAreaInput = ({ name, label, onChange, placeholder, required, value, error }) => {
+const TextAreaInput = ({ name, label, onChange, required, value, error }) => {
     return (
         <div className="field">
             <label
@@ -29,7 +29,6 @@ TextAreaInput.propTypes = {
     name: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    placeholder: PropTypes.string,
     required: PropTypes.bool.isRequired,
     value: PropTypes.string,
     error: PropTypes.string

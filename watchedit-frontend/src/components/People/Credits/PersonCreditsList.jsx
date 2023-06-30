@@ -20,7 +20,7 @@ const PersonCreditsList = ({ credits, canEdit, onRemove }) => {
                             {canEdit && (
                                 <>
                                 <div className="col-span-4 md:col-span-2 pl-1">
-                                    <button onClick={() => navigate(`/credits/${credit.id}/edit`)} className="w-full h-full text-sm bg-primary hover:opacity-75 rounded">Edit</button>
+                                    <button onClick={() => navigate(`${credit.id}/edit`)} className="w-full h-full text-sm bg-primary hover:opacity-75 rounded">Edit</button>
                                 </div>
                                 <div className="col-span-4 md:col-span-2 pl-1">
                                     <button onClick={() => onRemove(credit)} className="w-full h-full text-sm bg-red-400 hover:opacity-75 rounded">Remove</button>

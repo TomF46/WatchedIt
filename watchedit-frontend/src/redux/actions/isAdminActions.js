@@ -9,7 +9,7 @@ export function checkUserIsAdmin() {
     return function (dispatch) {
         return getCurrentUserIsAdmin().then(data => {
             dispatch(checkUserIsAdminSuccess(data.isAdmin));
-        }).catch(err => {
+        }).catch(() => {
             dispatch(checkUserIsAdminSuccess(false));
         });
     }

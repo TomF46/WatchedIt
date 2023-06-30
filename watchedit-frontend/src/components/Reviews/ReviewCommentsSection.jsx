@@ -76,7 +76,7 @@ function ReviewCommentsSection({review}) {
     }
 
     function deleteComment(comment){
-        deleteReviewComment(review.id, comment).then(res => {
+        deleteReviewComment(review.id, comment).then(() => {
             toast.success("Comment removed");
             getComments();
         }).catch((err) => {

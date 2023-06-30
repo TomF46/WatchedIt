@@ -47,7 +47,7 @@ function Register({userIsAuthenticated}){
         if (!formIsValid()) return;
         setSaving(true);
         register(user)
-            .then(response => {
+            .then(() => {
                 toast.success("Successfully registered");
                 navigate("/login");
             })
@@ -96,13 +96,13 @@ function Register({userIsAuthenticated}){
             </div>
         </>
     );
-};
+}
 
 Register.propTypes = {
     userIsAuthenticated: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         userIsAuthenticated: state.tokens != null
     };

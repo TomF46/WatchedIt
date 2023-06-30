@@ -7,7 +7,7 @@ import FilmPreview from "./FilmPreview";
 
 function SimilarFilmsReel({filmId}) {
     const [filmsPaginator, setFilmsPaginator] = useState(null);
-    const [page, setPage] = useState(1);
+    const page = 1;
     const filmsPerPage = 8;
 
     useEffect(() => {

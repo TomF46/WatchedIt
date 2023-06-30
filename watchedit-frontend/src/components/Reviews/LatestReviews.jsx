@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Link, useNavigate} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import LoadingMessage from "../Loading/LoadingMessage";
 import { getReviewsByFilmId } from "../../api/filmReviewApi";
 import ReviewOverview from "./ReviewOverview";
 
 function LatestReviews({film, totalReviews}) {
-    const navigate = useNavigate();
     const [reviews, setReviews] = useState(null);
 
     useEffect(() => {

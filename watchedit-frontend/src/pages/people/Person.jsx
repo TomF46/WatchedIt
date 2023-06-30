@@ -52,7 +52,7 @@ function Person({userIsAuthenticated, isAdmin}) {
     }
 
     function deletePerson(){
-        removePerson(person).then(res => {
+        removePerson(person).then(() => {
             toast.success("Person removed");
             navigate("/people");
         }).catch((err) => {
@@ -162,7 +162,7 @@ Person.propTypes = {
     isAdmin: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         userIsAuthenticated: state.tokens != null,
         isAdmin: state.isAdmin

@@ -8,7 +8,7 @@ import { confirmAlert } from "react-confirm-alert";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import ReviewCommentsSection from "../../../components/Reviews/ReviewCommentsSection";
 
-function Review({userId, isAdmin}) {
+function Review({userId}) {
     const { id, reviewId } = useParams();
     const navigate = useNavigate();
     const [review, setReview] = useState(null);
@@ -108,13 +108,11 @@ function Review({userId, isAdmin}) {
 }
 
 Review.propTypes = {
-    isAdmin: PropTypes.bool.isRequired,
     userId: PropTypes.number,
 };
 
 const mapStateToProps = (state) => {
     return {
-        isAdmin: state.isAdmin,
         userId: state.tokens ? state.tokens.id : null
     };
 };

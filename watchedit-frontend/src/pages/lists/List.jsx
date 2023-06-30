@@ -54,7 +54,7 @@ function List({userId}) {
     }
 
     function deleteList(){
-        deleteFilmList(list.id).then(res => {
+        deleteFilmList(list.id).then(() => {
             toast.success("List removed");
             navigate("/lists");
         }).catch((err) => {

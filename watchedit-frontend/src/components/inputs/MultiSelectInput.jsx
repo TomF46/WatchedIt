@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Multiselect } from 'multiselect-react-dropdown';
 
-const MultiSelectInput = ({ name, label, onChange, placeholder, value, options, error, helpText }) => {
+const MultiSelectInput = ({ name, label, onChange, value, options, error, helpText }) => {
     return (
         <div className="field">
             <label

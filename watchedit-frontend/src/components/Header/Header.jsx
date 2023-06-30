@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { login } from "../../redux/actions/authenticationActions";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import HeaderLoginForm from "./HeaderLoginForm";
 import { checkUserIsAdmin } from "../../redux/actions/isAdminActions";
 import { loadNotificationCount } from "../../redux/actions/notificationCountActions";
 import logo from "../../assets/WatchedIt.webp"
 
-function Header({ login, checkUserIsAdmin , userIsAuthenticated, notificationCount,loadNotificationCount }) {
+function Header({ checkUserIsAdmin , userIsAuthenticated, notificationCount,loadNotificationCount }) {
   const [mobileIsOpen, setMobileIsOpen] = useState(null);
   const location = useLocation();
-  const navigate = useNavigate();
 
     useEffect(() => {
         checkUserIsAdmin();
@@ -121,12 +119,12 @@ function Header({ login, checkUserIsAdmin , userIsAuthenticated, notificationCou
 Header.propTypes = {
   userIsAuthenticated: PropTypes.bool.isRequired,
   isAdmin: PropTypes.bool.isRequired,
-  login: PropTypes.func.isRequired,
   notificationCount: PropTypes.number.isRequired,
-  loadNotificationCount: PropTypes.func.isRequired
+  loadNotificationCount: PropTypes.func.isRequired,
+  checkUserIsAdmin :PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     userIsAuthenticated: state.tokens != null,
     isAdmin: state.isAdmin,
@@ -136,7 +134,6 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = {
     checkUserIsAdmin,
-    login,
     loadNotificationCount
 };
 

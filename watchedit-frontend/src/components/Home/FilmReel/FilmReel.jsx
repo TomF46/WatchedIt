@@ -9,7 +9,7 @@ import FilmPreview from "../../Films/FilmPreview";
 
 function FilmReel({ title, sort }) {
     const [filmsPaginator, setFilmsPaginator] = useState(null);
-    const [page, setPage] = useState(1);
+    const page = 1
     const filmsPerPage = 8;
 
     useEffect(() => {

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import {Navigate} from 'react-router-dom';
 import { connect } from "react-redux";
 
@@ -10,7 +11,12 @@ const AuthenticatedRoute = ({userIsAuthenticated, children
       return children;
 };
 
-const mapStateToProps = (state, ownProps) => {
+AuthenticatedRoute.propTypes = {
+    userIsAuthenticated: PropTypes.bool.isRequired,
+    children: PropTypes.node.isRequired
+};
+
+const mapStateToProps = (state) => {
     return {
         userIsAuthenticated: state.tokens != null
     };

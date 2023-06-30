@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import ManageCreditForm from "../../../components/Credits/ManageCreditForm";
 import { getCreditById, updateCredit } from "../../../api/creditsApi";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
-function EditCredit({userIsAuthenticated}) {
+function EditCredit() {
     const navigate = useNavigate();
-    const { id } = useParams();
+    const { creditId } = useParams();
     const [credit, setCredit] = useState(null);
     const [creditUpdate, setCreditUpdate] = useState(null);
     const [errors, setErrors] = useState({});
@@ -19,10 +17,10 @@ function EditCredit({userIsAuthenticated}) {
         if (!credit) {
             getCredit();
         }
-    }, [id, credit]);
+    }, [creditId, credit]);
 
     function getCredit() {
-        getCreditById(id)
+        getCreditById(creditId)
             .then((res) => {
                 setCredit(res);
                 mapForEditing(res);
@@ -49,7 +47,7 @@ function EditCredit({userIsAuthenticated}) {
         }));
     }
 
-    function formIsValid() {
+    function formIsValId() {
         const { role, type } = credit;
         const errors = {};
         if (!role) errors.role = "Role is required";
@@ -61,11 +59,11 @@ function EditCredit({userIsAuthenticated}) {
 
     function handleSubmit(event){
         event.preventDefault();
-        if (!formIsValid()) return;
+        if (!formIsValId()) return;
         setSaving(true);
 
-        updateCredit(credit.id, creditUpdate).then(res => {
-            navigate(`/credits/${credit.id}`);
+        updateCredit(credit.id, creditUpdate).then(() => {
+            navigate(`/films/${credit.film.creditId}/credits`);
         }).catch((err) => {
             toast.error(`Error getting credit ${err.data.Exception}`, {
                 autoClose: false,
@@ -88,15 +86,5 @@ function EditCredit({userIsAuthenticated}) {
     );
 }
 
-EditCredit.propTypes = {
-    userIsAuthenticated: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state, ownProps) => {
-    return {
-        userIsAuthenticated: state.tokens != null
-    };
-};
-
-export default connect(mapStateToProps)(EditCredit);
+export default EditCredit;
 

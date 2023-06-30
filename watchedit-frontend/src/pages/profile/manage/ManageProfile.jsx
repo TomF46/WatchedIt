@@ -86,7 +86,7 @@ function ManageProfile({id}) {
         event.preventDefault();
         if (!formIsValid()) return;
         setSaving(true);
-        updateCurrentUser(updatedUser).then(res => {
+        updateCurrentUser(updatedUser).then(() => {
             toast.success("Profile saved");
             navigate(`/profile`);
         }).catch(err => {
@@ -114,7 +114,7 @@ ManageProfile.propTypes = {
     id: PropTypes.any.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         id: state.tokens.id,
     };

@@ -88,7 +88,7 @@ function Login({userIsAuthenticated, login}){
             </div>
         </>
     );
-};
+}
 
 
 Login.propTypes = {
@@ -96,7 +96,7 @@ Login.propTypes = {
     login: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         userIsAuthenticated: state.tokens != null
     };

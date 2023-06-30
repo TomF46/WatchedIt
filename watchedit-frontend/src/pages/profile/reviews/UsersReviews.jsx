@@ -8,7 +8,8 @@ import PaginationControls from "../../../components/PaginationControls";
 import { getUserById, getUsersReviewsPaginated } from "../../../api/usersApi";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
-function UserReviews({id}) {
+function UserReviews({currentUserId}) {
+    const { id } = useParams();
     const [user, setUser] = useState(null);
     const [reviewsPaginator, setReviewsPaginator] = useState(null);
     const [page, setPage] = useState(1);
@@ -16,18 +17,19 @@ function UserReviews({id}) {
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
     useEffect(() => {
+        let targetId = id ? id : currentUserId;
         if (!user) {
-            getUser();
-            getReviews();
+            getUser(targetId);
+            getReviews(targetId);
         }
-    }, [id, user]);
+    }, [id]);
 
     useEffect(() => {
         if (lastPageLoaded != null) getReviews();
     }, [page]);
 
-    function getUser() {
-        getUserById(id)
+    function getUser(userId) {
+        getUserById(userId)
             .then((res) => {
                 setUser(res);
             })
@@ -38,8 +40,8 @@ function UserReviews({id}) {
             });
     }
 
-    function getReviews() {
-        getUsersReviewsPaginated(id, page, reviewsPerPage)
+    function getReviews(userId) {
+        getUsersReviewsPaginated(userId, page, reviewsPerPage)
             .then((res) => {
                 setReviewsPaginator(res);
                 setLastPageLoaded(page);
@@ -99,13 +101,12 @@ function UserReviews({id}) {
 }
 
 UserReviews.propTypes = {
-    id: PropTypes.any.isRequired
+    currentUserId: PropTypes.any.isRequired
 };
 
 const mapStateToProps = (state) => {
-    const { id } = useParams();
     return {
-        id:  id ? id : state.tokens.id,
+        currentUserId: state.tokens ? state.tokens.id : null
     };
 };
 

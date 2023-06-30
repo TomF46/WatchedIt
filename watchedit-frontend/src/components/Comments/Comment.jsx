@@ -34,7 +34,7 @@ const Comment = ({ comment, onUpdateComment, onDeleteComment, userId }) => {
         event.preventDefault();
         if (!formIsValid()) return;
         setSaving(true);
-        onUpdateComment(updatedComment).then(res => {
+        onUpdateComment(updatedComment).then(() => {
             toast.success("Comment updated");
             setSaving(false);
             setEditing(false);
@@ -43,7 +43,7 @@ const Comment = ({ comment, onUpdateComment, onDeleteComment, userId }) => {
             toast.error(`Error updating comment ${err.message}`, {
                 autoClose: false
             });
-        });;
+        });
     }
 
     return (
@@ -101,7 +101,7 @@ Comment.propTypes = {
     userId: PropTypes.number
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         userId: state.tokens ? state.tokens.id : null
     };

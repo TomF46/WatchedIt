@@ -9,7 +9,7 @@ import PersonPreview from "../../People/PersonPreview";
 
 function PeopleReel({ title, sort}) {
     const [peoplePaginator, setPeoplePaginator] = useState(null);
-    const [page, setPage] = useState(1);
+    const page = 1;
     const peoplePerPage = 8;
 
     useEffect(() => {
@@ -19,7 +19,7 @@ function PeopleReel({ title, sort}) {
     }, [peoplePaginator]);
 
     function getPeople() {
-        getPeoplePaginated(page, peoplePerPage)
+        getPeoplePaginated(page, peoplePerPage, sort)
             .then((res) => {
                 setPeoplePaginator(res);
             })

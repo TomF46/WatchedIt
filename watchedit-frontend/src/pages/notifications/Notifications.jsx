@@ -65,7 +65,7 @@ const NotificationsPage = ({ decrementNotificationCount, notificationCount }) =>
             ) : (
                 <div>
                     <h1 className="text-center text-primary text-4xl my-4 font-bold">
-                        Notifications
+                        Notifications {`(${notificationCount})`}
                     </h1>
                     {notificationsPaginator.data.length > 0 ? (
                         <>
@@ -96,7 +96,7 @@ NotificationsPage.propTypes = {
     decrementNotificationCount: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         notificationCount: state.notificationCount
     };

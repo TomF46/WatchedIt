@@ -142,7 +142,7 @@ function PersonCredits({isAdmin}) {
     isAdmin: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         isAdmin: state.isAdmin
     };

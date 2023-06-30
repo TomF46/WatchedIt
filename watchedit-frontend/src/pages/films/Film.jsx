@@ -55,7 +55,7 @@ function Film({userIsAuthenticated, isAdmin}) {
     }
 
     function deleteFilm(){
-        removeFilm(film).then(res => {
+        removeFilm(film).then(() => {
             toast.success("Film removed");
             navigate("/films");
         }).catch((err) => {
@@ -220,7 +220,7 @@ Film.propTypes = {
     isAdmin: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         userIsAuthenticated: state.tokens != null,
         isAdmin: state.isAdmin

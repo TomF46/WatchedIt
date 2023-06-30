@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+
 import {Navigate} from 'react-router-dom';
 import { getCurrentUserIsAdmin } from "./api/usersApi";
 
@@ -10,7 +12,7 @@ const AdminRoute = ({children}) => {
         getCurrentUserIsAdmin().then(res => {
             setIsAdmin(res.isAdmin);
             setIsChecked(true);
-        }).catch(err => {
+        }).catch(() => {
             //If call fails then assume they are not admin
             setIsChecked(true);
         })
@@ -29,6 +31,10 @@ const AdminRoute = ({children}) => {
             )}
         </>
     )
+};
+
+AdminRoute.propTypes = {
+    children: PropTypes.node.isRequired
 };
 
 

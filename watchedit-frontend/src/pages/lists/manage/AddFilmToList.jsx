@@ -86,7 +86,7 @@ function AddFilmToList({userId}) {
     }
     
     function handleFilmSelected(film){
-        addFilmToFilmList(list.id, film).then(res => {
+        addFilmToFilmList(list.id, film).then(() => {
             getList();
         }).catch(err => {
           toast.error(`Error adding film to list ${err.data.Exception}`, {

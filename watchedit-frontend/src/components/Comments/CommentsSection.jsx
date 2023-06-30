@@ -33,7 +33,7 @@ const CommentsSection = ({userIsAuthenticated, commentsPaginator, currentPage, o
         event.preventDefault();
         if (!formIsValid()) return;
         setSaving(true);
-        onAddComment(comment).then(res => {
+        onAddComment(comment).then(() => {
             toast.success("Comment added");
             setSaving(false);
             setComment({ ...newComment });
@@ -101,7 +101,7 @@ CommentsSection.propTypes = {
     onDeleteComment: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         userIsAuthenticated: state.tokens != null
     };

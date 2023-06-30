@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import debounce from 'lodash.debounce';
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getCategoryById } from "../../api/categoriesApi";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
@@ -162,7 +162,7 @@ Category.propTypes = {
     isAdmin: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         isAdmin: state.isAdmin
     };
