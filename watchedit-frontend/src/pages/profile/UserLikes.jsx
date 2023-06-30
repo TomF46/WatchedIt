@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
@@ -8,7 +8,8 @@ import { useParams } from "react-router-dom";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import PersonGrid from "../../components/People/PersonGrid";
 
-function UserLikes({ id }) {
+function UserLikes({currentUserId}) {
+    const { id } = useParams();
     const [user, setUser] = useState(null);
     const [peoplePaginator, setPeoplePaginator] = useState(null);
     const [page, setPage] = useState(1);
@@ -16,9 +17,10 @@ function UserLikes({ id }) {
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
     useEffect(() => {
+        let targetId = id ? id : currentUserId;
         if (!user) {
-            getUser();
-            getPeople();
+            getUser(targetId);
+            getPeople(targetId);
         }
     }, [id, user]);
 
@@ -26,8 +28,8 @@ function UserLikes({ id }) {
         if (lastPageLoaded != null) getPeople();
     }, [page]);
 
-    function getUser() {
-        getUserById(id)
+    function getUser(userId) {
+        getUserById(userId)
             .then((res) => {
                 setUser(res);
             })
@@ -38,8 +40,8 @@ function UserLikes({ id }) {
             });
     }
 
-    function getPeople() {
-        getLikedPeopleByUserId(id, page, peoplePerPage)
+    function getPeople(userId) {
+        getLikedPeopleByUserId(userId, page, peoplePerPage)
             .then((res) => {
                 setPeoplePaginator(res);
                 setLastPageLoaded(page);
@@ -99,13 +101,12 @@ function UserLikes({ id }) {
 }
 
 UserLikes.propTypes = {
-    id: PropTypes.any.isRequired,
+    currentUserId: PropTypes.number
 };
 
 const mapStateToProps = (state) => {
-    const { id } = useParams();
     return {
-        id: id ? id : state.tokens.id,
+        currentUserId: state.tokens ? state.tokens.id : null
     };
 };
 

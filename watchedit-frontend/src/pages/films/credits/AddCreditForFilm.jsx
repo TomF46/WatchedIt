@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import debounce from 'lodash.debounce';
@@ -102,7 +102,7 @@ function AddCreditForFilm() {
             type: credit.type
         };
 
-        addCreditForFilm(film.id, payload).then(res => {
+        addCreditForFilm(film.id, payload).then(() => {
             navigate(`/films/${film.id}/credits`);
         }).catch(err => {
             setSaving(false);

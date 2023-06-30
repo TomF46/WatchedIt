@@ -1,8 +1,8 @@
-import { React, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import debounce from 'lodash.debounce';
-import { addCreditForPerson, getCreditsForPersonById } from "../../../api/creditsApi";
+import { addCreditForPerson} from "../../../api/creditsApi";
 import { searchFilmsPaginated } from "../../../api/filmsApi";
 import { getPersonById } from "../../../api/peopleApi";
 import SelectFilmCreditListWSearch from "../../../components/Films/Credits/SelectFilmCreditListWSearch";
@@ -100,7 +100,7 @@ function AddCreditForPerson() {
             type: credit.type
         };
 
-        addCreditForPerson(person.id, payload).then(res => {
+        addCreditForPerson(person.id, payload).then(() => {
             navigate(`/people/${person.id}/credits`);
         }).catch(err => {
             setSaving(false);

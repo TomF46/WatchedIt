@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getCategoryById, saveCategory } from "../../../api/categoriesApi";
@@ -48,7 +48,7 @@ function ManageCategory() {
     }
 
     function formIsValid(){
-        const { name, description} = category;
+        const { name } = category;
         const errors = {};
         if(!name) errors.name = "Name is required";
         if(name.length > 30) errors.name = "Name can't be longer than 30 characters.";
