@@ -12,7 +12,7 @@ namespace WatchedIt.Api.Services.UserService
 {
     public class UserService : IUserService
     {
-        public readonly WatchedItContext _context;
+        private readonly WatchedItContext _context;
         public UserService(WatchedItContext context)
         {
             _context = context;
@@ -31,7 +31,7 @@ namespace WatchedIt.Api.Services.UserService
             if(user is null) throw new NotFoundException($"user with Id '{id}' not found.");
 
             return new GetIsAdminDto{
-                isAdmin = user.Role == Role.Administrator
+                IsAdmin = user.Role == Role.Administrator
             };
         }
 

@@ -14,7 +14,7 @@ namespace WatchedIt.Api.Controllers
     [Route("api/Films/{id}/trivia")]
     public class FilmTriviaController : ControllerBase
     {
-        public readonly IFilmTriviaService _filmTriviaService;
+        private readonly IFilmTriviaService _filmTriviaService;
 
         public FilmTriviaController(IFilmTriviaService filmTriviaService)
         {

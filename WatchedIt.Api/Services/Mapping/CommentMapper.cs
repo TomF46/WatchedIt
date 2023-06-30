@@ -8,7 +8,7 @@ namespace WatchedIt.Api.Services.Mapping
 {
     public static class CommentMapper
     {
-        public static GetReviewCommentDto mapReviewComment(ReviewComment comment){
+        public static GetReviewCommentDto MapReviewComment(ReviewComment comment){
             return new GetReviewCommentDto {
                 Id = comment.Id,
                 Text = comment.Text,

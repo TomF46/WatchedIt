@@ -15,7 +15,7 @@ namespace WatchedIt.Api.Controllers
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
-        public readonly IUserService _userService;
+        private readonly IUserService _userService;
         public UsersController(IUserService userService)
         {
             _userService = userService;
@@ -57,7 +57,7 @@ namespace WatchedIt.Api.Controllers
         public async Task<ActionResult<GetIsAdminDto>> GetIsAdmin(){
             if(!HttpContext.User.Identity.IsAuthenticated) {
                 return new GetIsAdminDto{
-                    isAdmin = false
+                    IsAdmin = false
                 };
             };
             var userId = AuthMapper.MapLoggedInUserId(HttpContext);

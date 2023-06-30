@@ -1,10 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WatchedIt.Api.Data.Seeders;
-using WatchedIt.Api.Models.Authentication;
-using WatchedIt.Api.Models.CategoryModels;
 using WatchedIt.Api.Services.AuthenticationService;
 
 
@@ -13,7 +7,7 @@ namespace WatchedIt.Api.Data
     public class DataSeeder
     {
         private readonly WatchedItContext _context;
-        public readonly IHostEnvironment _env;
+        private readonly IHostEnvironment _env;
         private readonly IConfiguration _config;
         private readonly IAuthenticationService _authenticationService;
 

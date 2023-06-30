@@ -37,11 +37,11 @@ namespace WatchedIt.Api.Services.File
             request.Metadata.Add("Content-Type", file.ContentType);
             await _s3Client.PutObjectAsync(request);
             return new FileResponse{
-                Url = getFullUrl(bucketName ,key)
+                Url = GetFullUrl(bucketName ,key)
             };
         }
 
-        private string getFullUrl(string bucketName, string key){
+        private string GetFullUrl(string bucketName, string key){
             return $"https://{bucketName}.s3.{_awsConfig.Region}.amazonaws.com/{key}";
         }
     }

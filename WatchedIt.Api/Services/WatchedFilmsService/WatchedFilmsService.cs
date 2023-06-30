@@ -10,7 +10,7 @@ namespace WatchedIt.Api.Services.WatchedFilmsService
 {
     public class WatchedFilmsService : IWatchedFilmsService
     {
-        public readonly WatchedItContext _context;
+        private readonly WatchedItContext _context;
         public WatchedFilmsService(WatchedItContext context)
         {
             _context = context;

@@ -13,8 +13,8 @@ namespace WatchedIt.Api.Services.CreditService
 {
     public class CreditService : ICreditService
     {
-        public readonly WatchedItContext _context;
-        public readonly INotificationService _notificationService;
+        private readonly WatchedItContext _context;
+        private readonly INotificationService _notificationService;
 
         public CreditService(WatchedItContext context, INotificationService notificationService)
         {
@@ -32,7 +32,7 @@ namespace WatchedIt.Api.Services.CreditService
             var credit = await _context.Credits.Include(c => c.Film).Include(c => c.Person).FirstOrDefaultAsync(c => c.Id == id);
             if(credit is null) throw new NotFoundException($"Credit with Id '{id}' not found.");
 
-            return CreditMapper.map(credit);
+            return CreditMapper.Map(credit);
         }
 
         public async Task<GetCreditDto> Add(AddCreditDto newCredit)
@@ -55,10 +55,10 @@ namespace WatchedIt.Api.Services.CreditService
 
             foreach (var user in person.LikedBy)
             {
-                await _notificationService.sendNewRoleForLikedPersonNotification(user, credit);
+                await _notificationService.SendNewRoleForLikedPersonNotification(user, credit);
             }
             
-            return CreditMapper.map(credit);
+            return CreditMapper.Map(credit);
         }
 
         public async Task<GetCreditDto> Update(int id, UpdatedCreditDto updatedCredit)
@@ -68,7 +68,7 @@ namespace WatchedIt.Api.Services.CreditService
             credit.Role = updatedCredit.Role;
             credit.Type = updatedCredit.Type;
             await _context.SaveChangesAsync();
-            return CreditMapper.map(credit);
+            return CreditMapper.Map(credit);
         }
 
         public void Delete(int id)

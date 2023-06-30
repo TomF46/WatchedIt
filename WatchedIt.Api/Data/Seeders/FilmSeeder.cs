@@ -10,7 +10,7 @@ namespace WatchedIt.Api.Data.Seeders
     public class FilmSeeder
     {
         private readonly WatchedItContext _context;
-        public readonly IHostEnvironment _env;
+        private readonly IHostEnvironment _env;
 
 
         public FilmSeeder(WatchedItContext context, IHostEnvironment env)

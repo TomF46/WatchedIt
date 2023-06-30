@@ -10,8 +10,8 @@ namespace WatchedIt.Api.Services.ReviewCommentsService
 {
     public class ReviewCommentsService : IReviewCommentsService
     {
-        public readonly WatchedItContext _context;
-        public readonly INotificationService _notificationService;
+        private readonly WatchedItContext _context;
+        private readonly INotificationService _notificationService;
 
         public ReviewCommentsService(WatchedItContext context, INotificationService notificationService)
         {
@@ -29,7 +29,7 @@ namespace WatchedIt.Api.Services.ReviewCommentsService
             var count = query.Count();
             query.OrderBy(x => x.CreatedDate);
             var comments = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
-            var mappedComments = comments.Select(c => CommentMapper.mapReviewComment(c)).ToList();
+            var mappedComments = comments.Select(c => CommentMapper.MapReviewComment(c)).ToList();
             return new PaginationResponse<GetReviewCommentDto>(mappedComments, parameters.PageNumber, parameters.PageSize, count);
         }
 
@@ -52,9 +52,9 @@ namespace WatchedIt.Api.Services.ReviewCommentsService
             await _context.ReviewComments.AddAsync(comment);
             await _context.SaveChangesAsync();
 
-            await _notificationService.sendNewCommentOnOwnedReviewNotification(review.User, comment);
+            await _notificationService.SendNewCommentOnOwnedReviewNotification(review.User, comment);
 
-            return CommentMapper.mapReviewComment(comment);
+            return CommentMapper.MapReviewComment(comment);
         }
 
         public async Task<GetReviewCommentDto> Update(int commentId, int userId, UpdateCommentDto updatedComment)
@@ -67,7 +67,7 @@ namespace WatchedIt.Api.Services.ReviewCommentsService
             comment.Text = updatedComment.Text;
             comment.UpdatedDate = DateTime.Now;
             await _context.SaveChangesAsync();
-            return CommentMapper.mapReviewComment(comment);
+            return CommentMapper.MapReviewComment(comment);
         }
 
         public void Delete(int id, int userId)

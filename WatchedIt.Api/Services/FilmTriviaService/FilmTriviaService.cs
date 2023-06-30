@@ -10,7 +10,7 @@ namespace WatchedIt.Api.Services.FilmTriviaService
     public class FilmTriviaService : IFilmTriviaService
     {
 
-        public readonly WatchedItContext _context;
+        private readonly WatchedItContext _context;
 
         public FilmTriviaService(WatchedItContext context)
         {

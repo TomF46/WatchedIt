@@ -8,7 +8,7 @@ namespace WatchedIt.Api.Services.Mapping
 {
     public static class NotificationMapper
     {
-        public static GetNotificationDto map(Notification notification){
+        public static GetNotificationDto Map(Notification notification){
             return new GetNotificationDto {
                 Id = notification.Id,
                 Recipient = UserMapper.MapSimpleUser(notification.Recipient),

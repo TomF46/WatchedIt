@@ -8,7 +8,7 @@ namespace WatchedIt.Api.Services.AuthenticationService
 {
     public interface IAuthenticationService
     {
-        User Authenticate(string Email, string password);
+        User Authenticate(string email, string password);
         User GetById(int id);
         User Create(User user, string password);
     }

@@ -10,7 +10,7 @@ namespace WatchedIt.Api.Data.Seeders
     public class PeopleSeeder
     {
         private readonly WatchedItContext _context;
-        public readonly IHostEnvironment _env;
+        private readonly IHostEnvironment _env;
 
 
         public PeopleSeeder(WatchedItContext context, IHostEnvironment env)

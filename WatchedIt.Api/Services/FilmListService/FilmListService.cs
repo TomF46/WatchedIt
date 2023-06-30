@@ -9,7 +9,7 @@ namespace WatchedIt.Api.Services.FilmListService
 {
     public class FilmListService : IFilmListService
     {
-        public readonly WatchedItContext _context;
+        private readonly WatchedItContext _context;
         public FilmListService(WatchedItContext context)
         {
             _context = context;
@@ -22,7 +22,7 @@ namespace WatchedIt.Api.Services.FilmListService
             if(!string.IsNullOrWhiteSpace(parameters.Username)) query = query.Where(f => f.CreatedBy.Username.ToLower().Contains(parameters.Username.Trim().ToLower()));
             var count = query.Count();
             var lists = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
-            var mappedLists = lists.Select(l => FilmListMapper.mapOverview(l)).ToList();
+            var mappedLists = lists.Select(l => FilmListMapper.MapOverview(l)).ToList();
             return new PaginationResponse<GetFilmListOverviewDto>(mappedLists, parameters.PageNumber, parameters.PageSize, count);
         }
 
@@ -30,12 +30,12 @@ namespace WatchedIt.Api.Services.FilmListService
         {
             var list = await _context.FilmLists.Include(f => f.CreatedBy).Include(f => f.Films).ThenInclude(f => f.WatchedBy).FirstOrDefaultAsync(x => x.Id == id);
             if(list is null) throw new NotFoundException($"Film list with Id '{id} not found.");
-            return FilmListMapper.map(list);
+            return FilmListMapper.Map(list);
         }
 
         public async Task<GetFilmListOverviewDto> Add(int userId, AddFilmListDto newFilmList)
         {
-            var list = FilmListMapper.mapForAddition(newFilmList);
+            var list = FilmListMapper.MapForAddition(newFilmList);
 
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
             if(user is null) throw new BadRequestException($"User with Id '{userId}' does not exist");
@@ -44,7 +44,7 @@ namespace WatchedIt.Api.Services.FilmListService
 
             await _context.FilmLists.AddAsync(list);
             await _context.SaveChangesAsync();
-            return FilmListMapper.mapOverview(list);
+            return FilmListMapper.MapOverview(list);
         }
 
         public async Task<GetFilmListOverviewDto> Update(int id, int userId, UpdateFilmListDto updatedFilmList)
@@ -57,7 +57,7 @@ namespace WatchedIt.Api.Services.FilmListService
             list.Name = updatedFilmList.Name;
             list.Description = updatedFilmList.Description;
             await _context.SaveChangesAsync();
-            return FilmListMapper.mapOverview(list);
+            return FilmListMapper.MapOverview(list);
         }
 
         public void Delete(int id, int userId)
@@ -84,7 +84,7 @@ namespace WatchedIt.Api.Services.FilmListService
 
             list.Films.Add(film);
             await _context.SaveChangesAsync();
-            return FilmListMapper.map(list);
+            return FilmListMapper.Map(list);
         }
 
         public async Task<GetFilmListDto> RemoveFilmFromListById(int id, int userId, RemoveFilmForFilmListDto filmToRemove)
@@ -99,7 +99,7 @@ namespace WatchedIt.Api.Services.FilmListService
 
             list.Films.Remove(film);
             _context.SaveChanges();
-            return FilmListMapper.map(list);
+            return FilmListMapper.Map(list);
         }
 
         public async Task<PaginationResponse<GetFilmListOverviewDto>> GetAllByUser(int id, PaginationParameters paginationParameters)
@@ -107,7 +107,7 @@ namespace WatchedIt.Api.Services.FilmListService
             var query = _context.FilmLists.Include(f => f.CreatedBy).Include(f => f.Films).Where(f => f.CreatedBy.Id == id).AsQueryable();
             var count = query.Count();
             var lists = await query.Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).ToListAsync();
-            var mappedLists = lists.Select(l => FilmListMapper.mapOverview(l)).ToList();
+            var mappedLists = lists.Select(l => FilmListMapper.MapOverview(l)).ToList();
             return new PaginationResponse<GetFilmListOverviewDto>(mappedLists, paginationParameters.PageNumber, paginationParameters.PageSize, count);
         }
     }

@@ -14,7 +14,7 @@ namespace WatchedIt.Api.Controllers
     [Route("api/Reviews/{id}/comments")]
     public class ReviewCommentsController : ControllerBase
     {
-        public readonly IReviewCommentsService _reviewCommentsService;
+        private readonly IReviewCommentsService _reviewCommentsService;
         public ReviewCommentsController(IReviewCommentsService reviewCommentsService)
         {
             _reviewCommentsService = reviewCommentsService;

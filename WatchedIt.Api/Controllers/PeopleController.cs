@@ -16,7 +16,7 @@ namespace WatchedIt.Api.Controllers
     [Route("api/[controller]")]
     public class PeopleController : ControllerBase
     {
-        public IPersonService _personService { get; }
+        private readonly IPersonService _personService;
         private readonly ILikesService _likesService;
         public PeopleController(IPersonService personService, ILikesService likesService)
         {

@@ -8,7 +8,7 @@ namespace WatchedIt.Api.Services.Mapping
 {
     public static class FilmListMapper
     {
-        public static GetFilmListDto map(FilmList filmList){
+        public static GetFilmListDto Map(FilmList filmList){
             return new GetFilmListDto {
                 Id = filmList.Id,
                 Name = filmList.Name,
@@ -18,7 +18,7 @@ namespace WatchedIt.Api.Services.Mapping
             };
         }
 
-        public static GetFilmListOverviewDto mapOverview(FilmList filmList){
+        public static GetFilmListOverviewDto MapOverview(FilmList filmList){
             var filmThumbnails = filmList.Films.Take(4).Select(x => x.PosterUrl).ToList();
             return new GetFilmListOverviewDto {
                 Id = filmList.Id,
@@ -30,7 +30,7 @@ namespace WatchedIt.Api.Services.Mapping
             };
         }
 
-        public static FilmList mapForAddition(AddFilmListDto newFilmList){
+        public static FilmList MapForAddition(AddFilmListDto newFilmList){
             return new FilmList{
                 Name = newFilmList.Name,
                 Description = newFilmList.Description

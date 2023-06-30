@@ -8,7 +8,7 @@ namespace WatchedIt.Api.Services.Likes
 {
     public class LikesService : ILikesService
     {
-        public readonly WatchedItContext _context;
+        private readonly WatchedItContext _context;
         public LikesService(WatchedItContext context)
         {
             _context = context;

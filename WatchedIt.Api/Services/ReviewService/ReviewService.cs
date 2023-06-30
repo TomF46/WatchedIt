@@ -10,7 +10,7 @@ namespace WatchedIt.Api.Services.ReviewService
 {
     public class ReviewService : IReviewService
     {
-        public readonly WatchedItContext _context;
+        private readonly WatchedItContext _context;
 
         public ReviewService(WatchedItContext context)
         {

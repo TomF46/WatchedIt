@@ -7,6 +7,6 @@ namespace WatchedIt.Api.Models.UserModels
 {
     public class GetIsAdminDto
     {
-        public bool isAdmin {get;set;}
+        public bool IsAdmin {get;set;}
     }
 }

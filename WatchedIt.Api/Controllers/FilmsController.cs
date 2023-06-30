@@ -18,7 +18,7 @@ namespace WatchedIt.Api.Controllers
     public class FilmsController : ControllerBase
     {
         private readonly IFilmService _filmService;
-        public readonly IWatchedFilmsService _watchedFilmService;
+        private readonly IWatchedFilmsService _watchedFilmService;
 
         public FilmsController(IFilmService filmService, IWatchedFilmsService watchedFilmService)
         {

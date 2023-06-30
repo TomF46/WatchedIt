@@ -12,7 +12,7 @@ namespace WatchedIt.Api.Controllers
     [Route("api/Users/{id}/reviews")]
     public class UserReviewsController : ControllerBase
     {
-        public readonly IReviewService _reviewService;
+        private readonly IReviewService _reviewService;
         public UserReviewsController(IReviewService reviewService)
         {
             _reviewService = reviewService;

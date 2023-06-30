@@ -12,7 +12,7 @@ namespace WatchedIt.Api.Services.NotificationService
 {
     public class NotificationService : INotificationService
     {
-        public readonly WatchedItContext _context;
+        private readonly WatchedItContext _context;
         public NotificationService(WatchedItContext context)
         {
             _context = context;
@@ -27,7 +27,7 @@ namespace WatchedIt.Api.Services.NotificationService
             query = query.OrderByDescending(x => x.SentDate);
             var count = query.Count();
             var notifications = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
-            var mappedNotifications = notifications.Select(n => NotificationMapper.map(n)).ToList();
+            var mappedNotifications = notifications.Select(n => NotificationMapper.Map(n)).ToList();
             return new PaginationResponse<GetNotificationDto>(mappedNotifications, parameters.PageNumber, parameters.PageSize, count);
         }
 
@@ -40,7 +40,7 @@ namespace WatchedIt.Api.Services.NotificationService
             query = query.OrderByDescending(x => x.SentDate);
             var count = query.Count();
             var notifications = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
-            var mappedNotifications = notifications.Select(n => NotificationMapper.map(n)).ToList();
+            var mappedNotifications = notifications.Select(n => NotificationMapper.Map(n)).ToList();
             return new PaginationResponse<GetNotificationDto>(mappedNotifications, parameters.PageNumber, parameters.PageSize, count);
         }
 
@@ -55,7 +55,7 @@ namespace WatchedIt.Api.Services.NotificationService
             };
         }
 
-        public async Task<GetNotificationDto> sendNewCommentOnOwnedReviewNotification(User user, ReviewComment comment)
+        public async Task<GetNotificationDto> SendNewCommentOnOwnedReviewNotification(User user, ReviewComment comment)
         {
             var notification = new Notification{
                 Type = Models.Enums.NotificationType.NewCommentOnOwnedReview,
@@ -65,10 +65,10 @@ namespace WatchedIt.Api.Services.NotificationService
             };
             await _context.Notifications.AddAsync(notification);
             await _context.SaveChangesAsync();
-            return NotificationMapper.map(notification);
+            return NotificationMapper.Map(notification);
         }
 
-        public async Task<GetNotificationDto> sendNewRoleForLikedPersonNotification(User user, Credit credit)
+        public async Task<GetNotificationDto> SendNewRoleForLikedPersonNotification(User user, Credit credit)
         {
             var notification = new Notification{
                 Type = Models.Enums.NotificationType.NewRoleForLikedPerson,
@@ -78,7 +78,7 @@ namespace WatchedIt.Api.Services.NotificationService
             };
             await _context.Notifications.AddAsync(notification);
             await _context.SaveChangesAsync();
-            return NotificationMapper.map(notification);
+            return NotificationMapper.Map(notification);
         }
 
         public async Task<GetNotificationDto> SetRead(int userId, int notificationId)
@@ -90,7 +90,7 @@ namespace WatchedIt.Api.Services.NotificationService
 
             notification.Read = true;
             await _context.SaveChangesAsync();
-            return NotificationMapper.map(notification);
+            return NotificationMapper.Map(notification);
         }
     }
 }

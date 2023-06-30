@@ -14,8 +14,8 @@ namespace WatchedIt.Api.Services.NotificationService
     {
         Task<PaginationResponse<GetNotificationDto>> GetAllForUserById(int userId, PaginationParameters parameters);
         Task<PaginationResponse<GetNotificationDto>> GetUnreadForUserById(int userId, PaginationParameters parameters);
-        Task<GetNotificationDto> sendNewCommentOnOwnedReviewNotification(User user, ReviewComment comment);
-        Task<GetNotificationDto> sendNewRoleForLikedPersonNotification(User user, Credit credit);
+        Task<GetNotificationDto> SendNewCommentOnOwnedReviewNotification(User user, ReviewComment comment);
+        Task<GetNotificationDto> SendNewRoleForLikedPersonNotification(User user, Credit credit);
         Task<GetNotificationDto> SetRead(int userId, int notificationId);
         Task<GetNotificationCountDto> GetUnreadNotificationCount(int userId);
     }

@@ -48,7 +48,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.SaveChangesAsync();
 
             var isAdmin = await _userService.GetIsUserAdmin(user.Id);
-            Assert.That(isAdmin.isAdmin, Is.False);
+            Assert.That(isAdmin.IsAdmin, Is.False);
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.SaveChangesAsync();
 
             var isAdmin = await _userService.GetIsUserAdmin(user.Id);
-            Assert.That(isAdmin.isAdmin, Is.True);
+            Assert.That(isAdmin.IsAdmin, Is.True);
         }
 
         [Test]

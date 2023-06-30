@@ -15,7 +15,7 @@ namespace WatchedIt.Api.Controllers
     [Route("api/Users/me/notifications")]
     public class UserNotificationsController : ControllerBase
     {
-        public readonly INotificationService _notificationService;
+        private readonly INotificationService _notificationService;
         public UserNotificationsController(INotificationService notificationService)
         {
             _notificationService = notificationService;

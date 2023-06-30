@@ -13,7 +13,7 @@ namespace WatchedIt.Api.Controllers
     [Route("api/Users/me/likes")]
     public class UserLikesController : ControllerBase
     {
-        public readonly ILikesService _likesService;
+        private readonly ILikesService _likesService;
         public UserLikesController(ILikesService likesService)
         {
             _likesService = likesService;   

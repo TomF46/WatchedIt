@@ -12,7 +12,7 @@ namespace WatchedIt.Api.Controllers
     [Route("api/Users/{id}/filmLists")]
     public class UserFilmListsController : ControllerBase
     {
-        public readonly IFilmListService _filmListService;
+        private readonly IFilmListService _filmListService;
         public UserFilmListsController(IFilmListService filmListService)
         {
             _filmListService = filmListService;
