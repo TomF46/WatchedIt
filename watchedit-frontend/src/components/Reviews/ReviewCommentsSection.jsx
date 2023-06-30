@@ -9,7 +9,7 @@ import { confirmAlert } from "react-confirm-alert";
 function ReviewCommentsSection({review}) {
     const [comments, setComments] = useState(null);
     const [page, setPage] = useState(1);
-    const commentsPerPage = 12;
+    const commentsPerPage = 3;
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
 
@@ -28,6 +28,7 @@ function ReviewCommentsSection({review}) {
         getReviewComments(review.id, page, commentsPerPage)
             .then((res) => {
                setComments(res);
+               setLastPageLoaded(page);
             })
             .catch((err) => {
                 toast.error(`Error getting comments for review ${err.data.Exception}`, {

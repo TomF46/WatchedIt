@@ -46,12 +46,12 @@ const CommentsSection = ({userIsAuthenticated, commentsPaginator, currentPage, o
     }
 
     function handleNextPage() {
-        var newPage = page + 1;
+        var newPage = currentPage + 1;
         onPageChange(newPage);
     }
 
     function handlePreviousPage() {
-        var newPage = page - 1;
+        var newPage = currentPage - 1;
         onPageChange(newPage);
     }
 
