@@ -7,7 +7,6 @@ import AdminRoute from "./adminRoute";
 import AuthenticatedRoute from "./authenticatedRoute";
 import Header from "./components/Header/Header";
 import List from "./pages/lists/List";
-import Admin from "./pages/admin/Admin";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import AddCreditForFilm from "./pages/films/credits/AddCreditForFilm";
@@ -92,7 +91,6 @@ import ManageFilmTrivia from "./pages/films/trivia/ManageFilmTrivia";
             <Route path="/categories/:id/edit" element={<AdminRoute><ManageCategory /></AdminRoute>}/>
             <Route path="/categories/:id" element={<Category />}/>
             <Route path="/categories" element={<Categories />}/>
-            <Route path="/admin" element={<AdminRoute><Admin /></AdminRoute>}/>
             <Route path="/404" element={<NotFound />}/>
             <Route path="*" element={<NotFound />}/>
           </Routes>

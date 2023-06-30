@@ -1,6 +1,4 @@
-import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import EmailInput from "../Inputs/EmailInput";
 import PasswordInput from "../Inputs/PasswordInput";
 import TextInput from "../Inputs/TextInput";

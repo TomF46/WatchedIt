@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 import EmailInput from "../Inputs/EmailInput";
 import PasswordInput from "../Inputs/PasswordInput";

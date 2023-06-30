@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 
 const TextAreaInput = ({ name, label, onChange, placeholder, required, value, error }) => {

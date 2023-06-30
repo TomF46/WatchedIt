@@ -1,5 +1,3 @@
-import React from "react";
-
 function ReasonsToLoginSection() {
     return (
         <div className="grid grid-cols-12 mt-4">

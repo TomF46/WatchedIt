@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FilmReel from "../components/Home/FilmReel/FilmReel";
 import PeopleReel from "../components/Home/PeopleReel/PeopleReel";
 import ListReel from "../components/Home/ListReel/ListReel";
@@ -11,8 +10,6 @@ import UnreadNotifications from "../components/Home/UnreadNotifications/UnreadNo
 
 
 function Home({ userIsAuthenticated, username }) {
-    const navigate = useNavigate();
-
     return (
         <div className="Home">
             <div className="text-center grid grid-cols-12">

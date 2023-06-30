@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmById } from "../../../api/filmsApi";
 import { getReviewsByFilmId } from "../../../api/filmReviewApi";
@@ -12,7 +12,6 @@ import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
 
 function Reviews({userIsAuthenticated, isAdmin}) {
     const { id } = useParams();
-    const navigate = useNavigate();
     const [film, setFilm] = useState(null);
     const [reviewsPaginator, setReviewsPaginator] = useState(null);
     const [page, setPage] = useState(1);
