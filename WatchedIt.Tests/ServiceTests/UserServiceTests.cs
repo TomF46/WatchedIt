@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Data;
 using WatchedIt.Api.Models;
-using WatchedIt.Api.Models.Authentication;
-using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Services.UserService;
 using WatchedIt.Tests.ServiceTests.Helpers;
 
@@ -29,7 +23,7 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [TearDown]
-        public void dispose()
+        public void Dispose()
         {
             _context.Users.RemoveRange(_context.Users);
             _context.SaveChanges();
@@ -54,7 +48,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.SaveChangesAsync();
 
             var isAdmin = await _userService.GetIsUserAdmin(user.Id);
-            Assert.IsFalse(isAdmin.isAdmin);
+            Assert.That(isAdmin.isAdmin, Is.False);
         }
 
         [Test]
@@ -64,7 +58,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.SaveChangesAsync();
 
             var isAdmin = await _userService.GetIsUserAdmin(user.Id);
-            Assert.IsTrue(isAdmin.isAdmin);
+            Assert.That(isAdmin.isAdmin, Is.True);
         }
 
         [Test]
@@ -80,7 +74,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.SaveChangesAsync();
 
             var watchedFilms = await _userService.GetWatchedFilms(user.Id, new PaginationParameters());
-            Assert.IsTrue(watchedFilms.Data.Count == 2);
+            Assert.That(watchedFilms.Data, Has.Count.EqualTo(2));
         }
 
 

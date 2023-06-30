@@ -1,13 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Data;
-using NUnit.Framework;
 using WatchedIt.Api.Exceptions;
 using WatchedIt.Api.Models;
-using WatchedIt.Api.Models.Authentication;
-using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.ReviewModels;
 using WatchedIt.Api.Services.ReviewService;
 using WatchedIt.Tests.ServiceTests.Helpers;
@@ -37,7 +30,7 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [TearDown]
-        public void dispose()
+        public void Dispose()
         {
             _context.Films.RemoveRange(_context.Films);
             _context.Users.RemoveRange(_context.Users);
@@ -66,7 +59,7 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task canGetSingleReview(){
+        public async Task CanGetSingleReview(){
             var review = RandomDataGenerator.GenerateReview();
             await _context.Reviews.AddAsync(review);
             await _context.SaveChangesAsync();
@@ -76,7 +69,7 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task canGetAllReviewsForFilm(){
+        public async Task CanGetAllReviewsForFilm(){
             var user1 = RandomDataGenerator.GenerateUser();
             var user2 = RandomDataGenerator.GenerateUser();
             var film = RandomDataGenerator.GenerateFilm();
@@ -100,11 +93,11 @@ namespace WatchedIt.Tests.ServiceTests
             };
 
             var reviews = await _reviewService.GetAllForFilm(film.Id, pagination);
-            Assert.That(reviews.Data.Count, Is.EqualTo(2));
+            Assert.That(reviews.Data, Has.Count.EqualTo(2));
         }
 
         [Test]
-        public async Task canGetAllReviewsFromUser(){
+        public async Task CanGetAllReviewsFromUser(){
             var user1 = RandomDataGenerator.GenerateUser();
             var user2 = RandomDataGenerator.GenerateUser();
             var film = RandomDataGenerator.GenerateFilm();
@@ -128,11 +121,12 @@ namespace WatchedIt.Tests.ServiceTests
             };
 
             var reviews = await _reviewService.GetAllByUser(user2.Id, pagination);
-            Assert.That(reviews.Data.Count, Is.EqualTo(1));
+            Assert.That(reviews.Data, Has.Count.EqualTo(1));
         }
 
         [Test]
-        public async Task canUpdateReview(){
+        public async Task CanUpdateReview()
+        {
             var user = RandomDataGenerator.GenerateUser();
             var film = RandomDataGenerator.GenerateFilm();
             var review = RandomDataGenerator.GenerateReview(film, user);
@@ -156,8 +150,11 @@ namespace WatchedIt.Tests.ServiceTests
             
             var reviewFromDb = await _reviewService.GetById(review.Id);
 
-            Assert.That(reviewFromDb.Rating, Is.EqualTo(newRating));
-            Assert.That(reviewFromDb.Text, Is.EqualTo(newText));
+            Assert.Multiple(() =>
+            {
+                Assert.That(reviewFromDb.Rating, Is.EqualTo(newRating));
+                Assert.That(reviewFromDb.Text, Is.EqualTo(newText));
+            });
         }
 
         [Test]
@@ -179,7 +176,7 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task canUpdateAverageReviewScoreOfFilm(){
+        public async Task CanUpdateAverageReviewScoreOfFilm(){
             var user = RandomDataGenerator.GenerateUser();
             var film = RandomDataGenerator.GenerateFilm();
             var review = RandomDataGenerator.GenerateReview(film, user);
@@ -194,7 +191,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.Reviews.AddAsync(review2);
             await _context.Reviews.AddAsync(review3);
 
-            _reviewService.UpdateAverageScore(film);
+            await _reviewService.UpdateAverageScore(film);
 
             Assert.That(film.AverageRating, Is.EqualTo(8));
 

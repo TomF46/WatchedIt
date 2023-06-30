@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Data;
 using WatchedIt.Api.Exceptions;
 using WatchedIt.Api.Models;
@@ -33,7 +29,7 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [TearDown]
-        public void dispose()
+        public void Dispose()
         {
             _context.FilmLists.RemoveRange(_context.FilmLists);
             _context.Films.RemoveRange(_context.Films);
@@ -80,11 +76,11 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.SaveChangesAsync();
 
             var listsFromDb = await _filmListService.GetAll(new FilmListSearchWithPaginationParameters());
-            Assert.That(listsFromDb.Data.Count, Is.EqualTo(2));
+            Assert.That(listsFromDb.Data, Has.Count.EqualTo(2));
         }
 
         [Test]
-        public async Task canUpdateFilmList(){
+        public async Task CanUpdateFilmList(){
             var user = RandomDataGenerator.GenerateUser();
             var list = RandomDataGenerator.GenerateFilmList(user);
             _context.Users.Add(user);
@@ -102,7 +98,7 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task canDeleteFilmList(){
+        public async Task CanDeleteFilmList(){
             var user = RandomDataGenerator.GenerateUser();
             var list = RandomDataGenerator.GenerateFilmList(user);
             _context.Users.Add(user);
@@ -118,7 +114,7 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task canAddFilmToFilmList(){
+        public async Task CanAddFilmToFilmList(){
             var user = RandomDataGenerator.GenerateUser();
             var list = RandomDataGenerator.GenerateFilmList(user);
             var film = RandomDataGenerator.GenerateFilm();
@@ -131,15 +127,15 @@ namespace WatchedIt.Tests.ServiceTests
                 FilmId = film.Id
             };
 
-            Assert.That(list.Films.Count(), Is.EqualTo(0));
+            Assert.That(list.Films, Is.Empty);
 
             await _filmListService.AddFilmToListById(list.Id, user.Id, toAdd);
             
-            Assert.That(list.Films.Count(), Is.EqualTo(1));
+            Assert.That(list.Films, Has.Count.EqualTo(1));
         }
 
         [Test]
-        public async Task canRemoveFilmFromFilmList(){
+        public async Task CanRemoveFilmFromFilmList(){
             var user = RandomDataGenerator.GenerateUser();
             var list = RandomDataGenerator.GenerateFilmList(user);
             var film = RandomDataGenerator.GenerateFilm();
@@ -153,15 +149,15 @@ namespace WatchedIt.Tests.ServiceTests
                 FilmId = film.Id
             };
 
-            Assert.That(list.Films.Count, Is.EqualTo(1));
+            Assert.That(list.Films, Has.Count.EqualTo(1));
 
             await _filmListService.RemoveFilmFromListById(list.Id, user.Id, toRemove);
             
-            Assert.That(list.Films.Count, Is.EqualTo(0));
+            Assert.That(list.Films, Is.Empty);
         }
 
         [Test]
-        public async Task cantAddFilmToFilmListNotOwnedByUser(){
+        public async Task CantAddFilmToFilmListNotOwnedByUser(){
             var user = RandomDataGenerator.GenerateUser();
             var user2 = RandomDataGenerator.GenerateUser();
             var list = RandomDataGenerator.GenerateFilmList(user);

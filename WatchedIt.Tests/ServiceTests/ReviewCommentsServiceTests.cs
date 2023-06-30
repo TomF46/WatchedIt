@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Data;
-using NUnit.Framework;
 using WatchedIt.Api.Models;
 using WatchedIt.Api.Models.CommentModels;
 using WatchedIt.Api.Services.NotificationService;
@@ -35,7 +30,7 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [TearDown]
-        public void dispose()
+        public void Dispose()
         {
             _context.Films.RemoveRange(_context.Films);
             _context.Users.RemoveRange(_context.Users);
@@ -81,7 +76,7 @@ namespace WatchedIt.Tests.ServiceTests
 
             var comments = await _reviewCommentsService.GetCommentsForReview(review.Id, pagination);
 
-            Assert.That(comments.Data.Count, Is.EqualTo(3));
+            Assert.That(comments.Data, Has.Count.EqualTo(3));
         }
 
         [Test]
@@ -93,7 +88,7 @@ namespace WatchedIt.Tests.ServiceTests
             _context.ReviewComments.Add(comment);
             await _context.SaveChangesAsync();
 
-            Assert.That(review.Comments.Count, Is.EqualTo(1));
+            Assert.That(review.Comments, Has.Count.EqualTo(1));
 
             _reviewCommentsService.Delete(comment.Id, comment.User.Id);
             var pagination = new PaginationParameters{
@@ -101,7 +96,7 @@ namespace WatchedIt.Tests.ServiceTests
                 PageSize = 20
             };
             var comments = await _reviewCommentsService.GetCommentsForReview(review.Id, pagination);
-            Assert.That(comments.Data.Count, Is.EqualTo(0));
+            Assert.That(comments.Data, Is.Empty);
         }
 
         [Test]

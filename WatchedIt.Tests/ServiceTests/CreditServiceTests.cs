@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Data;
 using WatchedIt.Api.Exceptions;
 using WatchedIt.Api.Models.CreditModels;
@@ -20,6 +16,7 @@ namespace WatchedIt.Tests.ServiceTests
         public CreditServiceTests()
         {
             _context = new InMemoryDbContextFactory().GetDBContext();
+
             var notificationService = new NotificationService(_context);
             _creditService = new CreditService(_context, notificationService);
         }
@@ -34,7 +31,7 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [TearDown]
-        public void dispose()
+        public void Dispose()
         {
             _context.Credits.RemoveRange(_context.Credits);
             _context.Films.RemoveRange(_context.Films);
@@ -98,7 +95,7 @@ namespace WatchedIt.Tests.ServiceTests
 
             var allCredits = await _creditService.GetAll();
 
-            Assert.That(allCredits.Cast.Count, Is.EqualTo(2));
+            Assert.That(allCredits.Cast, Has.Count.EqualTo(2));
         }
 
         [Test]
@@ -121,7 +118,7 @@ namespace WatchedIt.Tests.ServiceTests
             Assert.That(creditFromDb.Role, Is.EqualTo(updatedCredit.Role));
         }
         [Test]
-        public async Task canDeleteCredit(){
+        public async Task CanDeleteCredit(){
             var person = RandomDataGenerator.GeneratePerson();
             var film = RandomDataGenerator.GenerateFilm();
             var credit = RandomDataGenerator.GenerateCredit(person, film);
@@ -139,7 +136,7 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task canGetCreditsForFilm(){
+        public async Task CanGetCreditsForFilm(){
             var person = RandomDataGenerator.GeneratePerson();
             var person2 = RandomDataGenerator.GeneratePerson();
             var film = RandomDataGenerator.GenerateFilm();
@@ -157,11 +154,11 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.SaveChangesAsync();
 
             var filmCredits = await _creditService.GetCreditsForFilmById(film.Id);
-            Assert.That(filmCredits.Cast.Count, Is.EqualTo(2));
+            Assert.That(filmCredits.Cast, Has.Count.EqualTo(2));
         }
 
         [Test]
-        public async Task canGetCreditsForPerson(){
+        public async Task CanGetCreditsForPerson(){
             var person = RandomDataGenerator.GeneratePerson();
             var person2 = RandomDataGenerator.GeneratePerson();
             var film = RandomDataGenerator.GenerateFilm();
@@ -179,7 +176,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.SaveChangesAsync();
 
             var personCredits = await _creditService.GetCreditsForPersonById(person.Id);
-            Assert.That(personCredits.Cast.Count, Is.EqualTo(1));
+            Assert.That(personCredits.Cast, Has.Count.EqualTo(1));
         }
     }
 }

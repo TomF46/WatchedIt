@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Data;
 using WatchedIt.Api.Exceptions;
 using WatchedIt.Api.Models.CategoryModels;
@@ -22,6 +18,7 @@ namespace WatchedIt.Tests.ServiceTests
             _categoryService = new CategoryService(_context);
         }
 
+        [SetUp]
         public void Setup()
         {
             _context.Categories.RemoveRange(_context.Categories);
@@ -29,7 +26,7 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [TearDown]
-        public void dispose()
+        public void Dispose()
         {
             _context.Categories.RemoveRange(_context.Categories);
             _context.SaveChanges();
@@ -69,7 +66,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.SaveChangesAsync();
 
             var allCategories = await _categoryService.GetAll();
-            Assert.That(allCategories.Count, Is.EqualTo(2));
+            Assert.That(allCategories, Has.Count.EqualTo(2));
             
         }
 
@@ -91,8 +88,11 @@ namespace WatchedIt.Tests.ServiceTests
 
             var fromDb = await _categoryService.GetById(category.Id);
 
-            Assert.That(fromDb.Id, Is.EqualTo(category.Id));
-            Assert.That(fromDb.Name, Is.EqualTo(newName));
+            Assert.Multiple(() =>
+            {
+                Assert.That(fromDb.Id, Is.EqualTo(category.Id));
+                Assert.That(fromDb.Name, Is.EqualTo(newName));
+            });
         }
 
         [Test]

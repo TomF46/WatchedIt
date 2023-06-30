@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Data;
-using NUnit.Framework;
 using WatchedIt.Api.Exceptions;
 using WatchedIt.Api.Models;
 using WatchedIt.Api.Models.FilmTrivia;
@@ -34,7 +29,7 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [TearDown]
-        public void dispose()
+        public void Dispose()
         {
             _context.Films.RemoveRange(_context.Films);
             _context.Users.RemoveRange(_context.Users);
@@ -61,7 +56,7 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task canGetSingleFilmTrivia(){
+        public async Task CanGetSingleFilmTrivia(){
             var filmTrivia = RandomDataGenerator.GenerateFilmTrivia();
             await _context.FilmTrivias.AddAsync(filmTrivia);
             await _context.SaveChangesAsync();
@@ -71,7 +66,7 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task canGetAllFilmTriviaForFilm(){
+        public async Task CanGetAllFilmTriviaForFilm(){
             var user1 = RandomDataGenerator.GenerateUser();
             var user2 = RandomDataGenerator.GenerateUser();
             var film = RandomDataGenerator.GenerateFilm();
@@ -95,11 +90,11 @@ namespace WatchedIt.Tests.ServiceTests
             };
 
             var filmTrivias = await _filmTriviaService.GetAllForFilm(film.Id, pagination);
-            Assert.That(filmTrivias.Data.Count, Is.EqualTo(2));
+            Assert.That(filmTrivias.Data, Has.Count.EqualTo(2));
         }
 
         [Test]
-        public async Task canUpdateFilmTrivia(){
+        public async Task CanUpdateFilmTrivia(){
             var user = RandomDataGenerator.GenerateUser();
             var film = RandomDataGenerator.GenerateFilm();
             var filmTrivia = RandomDataGenerator.GenerateFilmTrivia(film, user);

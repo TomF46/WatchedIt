@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Data;
-using NUnit.Framework;
 using WatchedIt.Api.Exceptions;
 using WatchedIt.Api.Models;
 using WatchedIt.Api.Models.FilmModels;
@@ -31,7 +26,7 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [TearDown]
-        public void dispose()
+        public void Dispose()
         {
             _context.Films.RemoveRange(_context.Films);
             _context.SaveChanges();
@@ -81,7 +76,7 @@ namespace WatchedIt.Tests.ServiceTests
 
             var allFilms = await _filmService.GetAll(pagination);
 
-            Assert.That(allFilms.Data.Count, Is.EqualTo(2));
+            Assert.That(allFilms.Data, Has.Count.EqualTo(2));
         }
 
         [Test]
@@ -121,8 +116,11 @@ namespace WatchedIt.Tests.ServiceTests
             
             var filmFromDB = await _filmService.GetById(film.Id);
 
-            Assert.That(filmFromDB.Id, Is.EqualTo(film.Id));
-            Assert.That(filmFromDB.Name, Is.EqualTo(newName));
+            Assert.Multiple(() =>
+            {
+                Assert.That(filmFromDB.Id, Is.EqualTo(film.Id));
+                Assert.That(filmFromDB.Name, Is.EqualTo(newName));
+            });
         }
     }
 }

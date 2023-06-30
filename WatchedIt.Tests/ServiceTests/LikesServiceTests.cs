@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Data;
-using NUnit.Framework;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Services.Likes;
 using WatchedIt.Tests.ServiceTests.Helpers;
@@ -31,7 +26,7 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [TearDown]
-        public void dispose()
+        public void Dispose()
         {
             _context.Users.RemoveRange(_context.Users);
             _context.People.RemoveRange(_context.People);
@@ -52,7 +47,7 @@ namespace WatchedIt.Tests.ServiceTests
 
             await _likesService.AddLike(user.Id, personToLike);
 
-            Assert.That(user.Likes.Count, Is.EqualTo(1));
+            Assert.That(user.Likes, Has.Count.EqualTo(1));
         }
 
         [Test]
@@ -65,7 +60,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.SaveChangesAsync();
 
             var hasLiked = await _likesService.CurrentUserLikesPersonWithId(person.Id, user.Id);
-            Assert.IsTrue(hasLiked);
+            Assert.That(hasLiked, Is.True);
         }
 
         [Test]
@@ -80,7 +75,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.SaveChangesAsync();
 
             var hasLiked = await _likesService.CurrentUserLikesPersonWithId(person.Id, user.Id);
-            Assert.IsFalse(hasLiked);
+            Assert.That(hasLiked, Is.False);
         }
 
         [Test]
@@ -92,11 +87,11 @@ namespace WatchedIt.Tests.ServiceTests
             user.Likes.Add(person);
             await _context.SaveChangesAsync();
 
-            Assert.That(user.Likes.Count, Is.EqualTo(1));
+            Assert.That(user.Likes, Has.Count.EqualTo(1));
 
             await _likesService.RemoveLike(user.Id, person.Id);
 
-            Assert.That(user.Likes.Count, Is.EqualTo(0));
+            Assert.That(user.Likes, Is.Empty);
         }
     }
 }

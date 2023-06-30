@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Data;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Services.WatchedFilmsService;
@@ -30,7 +26,7 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [TearDown]
-        public void dispose()
+        public void Dispose()
         {
             _context.Users.RemoveRange(_context.Users);
             _context.Films.RemoveRange(_context.Films);
@@ -51,7 +47,7 @@ namespace WatchedIt.Tests.ServiceTests
 
             await _watchedFilmsService.AddWatchedFilm(user.Id, filmToAdd);
 
-            Assert.That(user.Watched.Count(), Is.EqualTo(1));
+            Assert.That(user.Watched, Has.Count.EqualTo(1));
         }
 
         [Test]
@@ -64,7 +60,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.SaveChangesAsync();
 
             var hasWatched = await _watchedFilmsService.CurrentUserHasWatchedFilmWithId(film.Id, user.Id);
-            Assert.IsTrue(hasWatched);
+            Assert.That(hasWatched, Is.True);
         }
 
         [Test]
@@ -79,7 +75,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.SaveChangesAsync();
 
             var hasWatched = await _watchedFilmsService.CurrentUserHasWatchedFilmWithId(film2.Id, user.Id);
-            Assert.IsFalse(hasWatched);
+            Assert.That(hasWatched, Is.False);
         }
 
         [Test]
@@ -91,11 +87,11 @@ namespace WatchedIt.Tests.ServiceTests
             user.Watched.Add(film);
             await _context.SaveChangesAsync();
 
-            Assert.That(user.Watched.Count, Is.EqualTo(1));
+            Assert.That(user.Watched, Has.Count.EqualTo(1));
 
             await _watchedFilmsService.RemoveWatchedFilm(user.Id, film.Id);
 
-            Assert.That(user.Watched.Count, Is.EqualTo(0));
+            Assert.That(user.Watched, Is.Empty);
         }
         
     }

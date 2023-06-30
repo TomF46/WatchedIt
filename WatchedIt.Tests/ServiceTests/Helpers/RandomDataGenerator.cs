@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WatchedIt.Api.Models.Authentication;
 using WatchedIt.Api.Models.CategoryModels;
 using WatchedIt.Api.Models.CommentModels;
