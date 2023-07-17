@@ -19,7 +19,7 @@ namespace WatchedIt.Api.Services.FilmTriviaService
 
         public async Task<PaginationResponse<GetFilmTriviaDto>> GetAllForFilm(int id, PaginationParameters parameters)
         {
-             var film = await _context.Films.FirstOrDefaultAsync(f => f.Id == id);
+            var film = await _context.Films.FirstOrDefaultAsync(f => f.Id == id);
             if(film is null) throw new NotFoundException($"Film with Id '{id}' not found.");
 
             var query =  _context.FilmTrivias.Include(r => r.Film).Include(r=> r.User).Where(x => x.Film.Id == film.Id);

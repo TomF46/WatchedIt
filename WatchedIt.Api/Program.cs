@@ -27,6 +27,7 @@ using WatchedIt.Api.Services.ReviewCommentsService;
 using WatchedIt.Api.Services.NotificationService;
 using WatchedIt.Api.Data;
 using WatchedIt.Api.Services.FilmTriviaService;
+using WatchedIt.Api.Services.Games.GuessFilmFromCast;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -135,6 +136,7 @@ builder.Services.AddScoped<ILikesService, LikesService>();
 builder.Services.AddScoped<IReviewCommentsService, ReviewCommentsService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IFilmTriviaService, FilmTriviaService>();
+builder.Services.AddScoped<IGuessFilmFromCastGameService, GuessFilmFromCastGameService>();
 
 
 

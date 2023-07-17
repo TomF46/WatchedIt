@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using WatchedIt.Api.Models.Authentication;
 using WatchedIt.Api.Models.CreditModels;
 using WatchedIt.Api.Models.FilmModels;
+using WatchedIt.Api.Models.Games.GuessFilmFromCast;
 
 namespace WatchedIt.Api.Models.PersonModels
 {
@@ -24,6 +25,6 @@ namespace WatchedIt.Api.Models.PersonModels
         public string? ImageUrl {get;set;}
         public ICollection<Credit> Credits { get; set; } = new List<Credit>();
         public ICollection<User> LikedBy { get; set; } = new List<User>();
-
+        public ICollection<GuessFilmFromCastGame> GamesUsedAsClue {get;set;} = new List<GuessFilmFromCastGame>();
     }
 }
