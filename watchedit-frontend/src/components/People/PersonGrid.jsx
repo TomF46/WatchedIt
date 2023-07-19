@@ -6,7 +6,7 @@ const PersonGrid = ({ people }) => {
         <div className="grid grid-cols-16">
             {people.map((person) => {
                 return (
-                    <PersonPreview key={person.id} person={person} />
+                    <PersonPreview key={person.id} person={person} isLink={true} />
                 )
             })}
         </div>

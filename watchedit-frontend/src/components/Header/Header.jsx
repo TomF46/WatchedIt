@@ -69,6 +69,12 @@ function Header({ checkUserIsAdmin , userIsAuthenticated, notificationCount,load
                     >
                         Lists
                     </Link>
+                    <Link
+                        to="/games"
+                        className="block mt-4 md:inline-block md:mt-0 text-primary hover:opacity-75 md:mx-4"
+                    >
+                        Games
+                    </Link>
                 </div>
                 <div className="border-t mt-2 md:border-0 md:mt-0 text-center md:text-left">
                     {!userIsAuthenticated && (

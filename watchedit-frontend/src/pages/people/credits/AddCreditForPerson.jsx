@@ -5,7 +5,7 @@ import debounce from 'lodash.debounce';
 import { addCreditForPerson} from "../../../api/creditsApi";
 import { searchFilmsPaginated } from "../../../api/filmsApi";
 import { getPersonById } from "../../../api/peopleApi";
-import SelectFilmCreditListWSearch from "../../../components/Films/Credits/SelectFilmCreditListWSearch";
+import SelectFilmWSearch from "../../../components/Films/Credits/SelectFilmWSearch";
 import PaginationControls from "../../../components/PaginationControls";
 import AddCreditForm from "../../../components/Credits/AddCreditForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
@@ -124,7 +124,7 @@ function AddCreditForPerson() {
                             <div className="mt-4">
                                 {!selectedFilm ? (
                                     <>
-                                        <SelectFilmCreditListWSearch films={filmsPaginator.data} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange} onFilmSelected={handleFilmSelected}/>
+                                        <SelectFilmWSearch films={filmsPaginator.data} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange} onFilmSelected={handleFilmSelected}/>
                                         <PaginationControls
                                             currentPage={page}
                                             onNext={handleNextPage}

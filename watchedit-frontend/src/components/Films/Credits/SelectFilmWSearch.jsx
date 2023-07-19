@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import TextInput from "../../Inputs/TextInput";
 
-const SelectFilmCreditListWSearch = ({ films, searchTerm, onSearchTermChange , onFilmSelected }) => {
+const SelectFilmWSearch = ({ films, searchTerm, onSearchTermChange , onFilmSelected }) => {
     return (
         <>
             <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
@@ -51,11 +51,11 @@ const SelectFilmCreditListWSearch = ({ films, searchTerm, onSearchTermChange , o
     );
 };
 
-SelectFilmCreditListWSearch.propTypes = {
+SelectFilmWSearch.propTypes = {
     films: PropTypes.array.isRequired,
     searchTerm: PropTypes.string,
     onSearchTermChange: PropTypes.func.isRequired,
     onFilmSelected: PropTypes.func.isRequired
 };
 
-export default SelectFilmCreditListWSearch;
+export default SelectFilmWSearch;

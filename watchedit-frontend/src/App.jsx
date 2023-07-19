@@ -39,6 +39,9 @@ import UserLikes from "./pages/profile/UserLikes";
 import Notifications from "./pages/notifications/Notifications";
 import FilmTrivia from "./pages/films/trivia/FilmTrivia";
 import ManageFilmTrivia from "./pages/films/trivia/ManageFilmTrivia";
+import Games from "./pages/games/Games";
+import GuessFilmFromCast from "./pages/games/GuessFilmFromCast/GuessFilmFromCast";
+import GuessFilmFromCastGame from "./pages/games/GuessFilmFromCast/GuessFilmFromCastGame";
   
   const App = () => {
     return (
@@ -90,6 +93,9 @@ import ManageFilmTrivia from "./pages/films/trivia/ManageFilmTrivia";
             <Route path="/categories/:id/edit" element={<AdminRoute><ManageCategory /></AdminRoute>}/>
             <Route path="/categories/:id" element={<Category />}/>
             <Route path="/categories" element={<Categories />}/>
+            <Route path="/games/filmFromCast/:id" element={<AuthenticatedRoute><GuessFilmFromCastGame /></AuthenticatedRoute>}/>
+            <Route path="/games/filmFromCast" element={<AuthenticatedRoute><GuessFilmFromCast /></AuthenticatedRoute>}/>
+            <Route path="/games" element={<Games />}/>
             <Route path="/404" element={<NotFound />}/>
             <Route path="*" element={<NotFound />}/>
           </Routes>

@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
-const PersonPreview = ({ person }) => {
+const PersonPreview = ({ person, isLink }) => {
     const navigate = useNavigate();
     return (
         <div className="col-span-8 md:col-span-4 lg:col-span-2 mt-2">
-            <div onClick={() => {navigate(`/people/${person.id}`)}} className="mx-2 bg-backgroundOffset cursor-pointer hover:opacity-75 h-full shadow rounded">
+            <div onClick={() => {if(isLink) navigate(`/people/${person.id}`)}} className="mx-2 bg-backgroundOffset cursor-pointer hover:opacity-75 h-full shadow rounded">
                 <img src={person.imageUrl} className="w-full headshot rounded-t" alt={`${person.fullName} headshot.`} />
                 <div className="p-2">
                     <div className="grid grid-cols-12">
@@ -37,6 +37,7 @@ const PersonPreview = ({ person }) => {
 
 PersonPreview.propTypes = {
     person: PropTypes.object.isRequired,
+    isLink: PropTypes.bool.isRequired,
 };
 
 export default PersonPreview;

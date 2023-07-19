@@ -41,7 +41,7 @@ function PeopleReel({ title, sort}) {
                         <div className="grid grid-cols-16">
                             {peoplePaginator.data.map((person) => {
                                 return (
-                                    <PersonPreview key={person.id} person={person} />
+                                    <PersonPreview key={person.id} person={person} isLink={true} />
                                 )
                             })}
                         </div>

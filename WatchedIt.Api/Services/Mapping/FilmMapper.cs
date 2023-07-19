@@ -40,7 +40,7 @@ namespace WatchedIt.Api.Services.Mapping
             return new GetSimpleFilmDto{
                 Id = film.Id,
                 Name = film.Name,
-                PosterUrl = film.PosterUrl,
+                PosterUrl = film.PosterUrl
             };
         }
 

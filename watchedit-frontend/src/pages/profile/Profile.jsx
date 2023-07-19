@@ -22,7 +22,6 @@ function Profile({ currentUserId, logout}) {
     }, [id, user]);
 
     function getUser(userId) {
-        console.log("get user");
         getUserById(userId)
             .then((res) => {
                 setUser(res);

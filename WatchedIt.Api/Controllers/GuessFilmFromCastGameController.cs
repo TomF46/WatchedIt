@@ -23,13 +23,15 @@ namespace WatchedIt.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<PaginationResponse<GetGuessFilmFromCastGameDto>>> GetAll([FromQuery] PaginationParameters parameters)
         {
-            return Ok(await _guessFilmFromCastGameService.GetAll(parameters));
+            var userId = AuthMapper.MapLoggedInUserId(HttpContext);
+            return Ok(await _guessFilmFromCastGameService.GetAllForUser(userId, parameters));
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<GetGuessFilmFromCastGameDto>> GetSingle(int id)
         {
-            return Ok(await _guessFilmFromCastGameService.GetById(id));
+            var userId = AuthMapper.MapLoggedInUserId(HttpContext);
+            return Ok(await _guessFilmFromCastGameService.GetById(id, userId));
         }
 
         [HttpPost]

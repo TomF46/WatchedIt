@@ -20,9 +20,9 @@ namespace WatchedIt.Api.Services.Games.GuessFilmFromCast
             _context = context;
         }
         
-        public async Task<PaginationResponse<GetGuessFilmFromCastGameDto>> GetAll(PaginationParameters parameters)
+        public async Task<PaginationResponse<GetGuessFilmFromCastGameDto>> GetAllForUser(int userId, PaginationParameters parameters)
         {
-            var query = _context.GuessFilmFromCastGames.Include(x => x.Clues);
+            var query = _context.GuessFilmFromCastGames.Include(x => x.Clues).Include(x => x.Film).Where(x => x.User.Id == userId);
             var count = query.Count();
             query.OrderByDescending(x => x.CreatedDate);
             var games = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
@@ -30,10 +30,12 @@ namespace WatchedIt.Api.Services.Games.GuessFilmFromCast
             return new PaginationResponse<GetGuessFilmFromCastGameDto>(mappedGames, parameters.PageNumber, parameters.PageSize, count);
         }
 
-        public async Task<GetGuessFilmFromCastGameDto> GetById(int id)
+        public async Task<GetGuessFilmFromCastGameDto> GetById(int id, int userId)
         {
-            var game = await _context.GuessFilmFromCastGames.Include(x => x.Clues).FirstOrDefaultAsync(g => g.Id == id);
+            var game = await _context.GuessFilmFromCastGames.Include(x => x.Clues).Include(x => x.User).Include(x => x.Film).FirstOrDefaultAsync(g => g.Id == id);
             if(game is null) throw new NotFoundException($"Game with Id '{id}' not found.");
+            if(game.User.Id != userId) throw new Exceptions.UnauthorizedAccessException($"User cant view this game");
+
 
             return GameMapper.MapGuessFilmFromCastGame(game);
         }
