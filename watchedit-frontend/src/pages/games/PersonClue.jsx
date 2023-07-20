@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const PersonClue = ({ person}) => {
     return (
-        <div className="col-span-8 md:col-span-4 lg:col-span-2 mt-2">
+        <div className="col-span-8 md:col-span-4 lg:col-span-2 mt-2 h-full">
             <div className="mx-2 bg-backgroundOffset cursor-pointer hover:opacity-75 h-full shadow rounded">
                 <img src={person.imageUrl} className="w-full headshot rounded-t" alt={`${person.fullName} headshot.`} />
                 <div className="p-2">

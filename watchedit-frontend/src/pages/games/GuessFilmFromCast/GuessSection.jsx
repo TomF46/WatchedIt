@@ -11,7 +11,7 @@ import PaginationControls from "../../../components/PaginationControls";
 const GuessSection = ({ guess }) => {
     const [filmsPaginator, setFilmsPaginator] = useState(null);
     const [page, setPage] = useState(1);
-    const filmsPerPage = 20;
+    const filmsPerPage = 16;
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
 
@@ -71,7 +71,7 @@ const GuessSection = ({ guess }) => {
                     <LoadingMessage message={"Loading films."} />
                 ) : (
                     <>
-                        <SelectFilmWSearch films={filmsPaginator.data} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange} onFilmSelected={handleFilmSelected}/>
+                        <SelectFilmWSearch films={filmsPaginator.data} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange} onFilmSelected={handleFilmSelected} cardMode={true}/>
                         <PaginationControls
                             currentPage={page}
                             onNext={handleNextPage}

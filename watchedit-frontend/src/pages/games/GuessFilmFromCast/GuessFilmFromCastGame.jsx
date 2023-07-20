@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { getGuessFilmFromCastGameById, makeGuessForGuessFilmFromCastGame } from "../../../api/gamesApi";
 import { toast } from "react-toastify";
@@ -47,17 +47,19 @@ function GuessFilmFromCastGame(){
             {!game ? (
                 <LoadingMessage message={"Loading game."} />
             ) : (
-                <div>
-                    <div className="mt-4">
+                <div className="grid grid-cols-12 mt-4">
+                    <div className="col-span-12 md:col-span-2">
                         <GameInfoSection game={game} />
                     </div>
-                    <div className="mt-4">
-                        <ClueSection game={game} />
-                    </div>
-                    <div className="mt-4">
-                        {game.status == 1 && (<GuessSection guess={guess} />)}
-                        {game.status == 2 && (<GuessFilmFailed />)}
-                        {game.status == 3 && (<CorrectGuessFilm game={game} />)}
+                    <div className="col-span-12 mt-4 md:col-span-10 md:pl-4 md:mt-0">
+                        <div className="mt-4">
+                            <ClueSection game={game} />
+                        </div>
+                        <div className="mt-4">
+                            {game.status == 1 && (<GuessSection guess={guess} />)}
+                            {game.status == 2 && (<GuessFilmFailed />)}
+                            {game.status == 3 && (<CorrectGuessFilm game={game} />)}
+                        </div>
                     </div>
                 </div>
             )}

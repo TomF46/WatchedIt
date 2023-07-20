@@ -124,7 +124,7 @@ function AddCreditForPerson() {
                             <div className="mt-4">
                                 {!selectedFilm ? (
                                     <>
-                                        <SelectFilmWSearch films={filmsPaginator.data} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange} onFilmSelected={handleFilmSelected}/>
+                                        <SelectFilmWSearch films={filmsPaginator.data} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange} onFilmSelected={handleFilmSelected} cardMode={false}/>
                                         <PaginationControls
                                             currentPage={page}
                                             onNext={handleNextPage}
