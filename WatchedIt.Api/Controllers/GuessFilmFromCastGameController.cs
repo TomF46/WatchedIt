@@ -47,5 +47,12 @@ namespace WatchedIt.Api.Controllers
             var userId = AuthMapper.MapLoggedInUserId(HttpContext);
             return Ok(await _guessFilmFromCastGameService.Guess(id, userId, guess));
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<GetGuessFilmFromCastGameDto>> Forefeit(int id)
+        {
+            var userId = AuthMapper.MapLoggedInUserId(HttpContext);
+            return Ok(await _guessFilmFromCastGameService.Forfeit(id, userId));
+        }
     }
 }

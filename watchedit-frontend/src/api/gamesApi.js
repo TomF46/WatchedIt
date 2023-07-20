@@ -41,3 +41,14 @@ export function makeGuessForGuessFilmFromCastGame(id, guess){
             throw error.response;
         })
 }
+
+export function forefeitGuessFilmFromCastGameById(id) {
+    return client
+        .delete(`/api/games/GuessFilmFromCastGame/${id}`)
+        .then(response => {
+            return response.data;
+        })
+        .catch(error => {
+            throw error.response;
+        })
+}

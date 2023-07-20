@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 using WatchedIt.Api.Models.Enums;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.Games.GuessFilmFromCast;
@@ -22,9 +17,8 @@ namespace WatchedIt.Api.Services.Games.GuessFilmFromCast
         
         public async Task<PaginationResponse<GetGuessFilmFromCastGameDto>> GetAllForUser(int userId, PaginationParameters parameters)
         {
-            var query = _context.GuessFilmFromCastGames.Include(x => x.Clues).Include(x => x.Film).Where(x => x.User.Id == userId);
+            var query = _context.GuessFilmFromCastGames.Include(x => x.Clues).Include(x => x.Film).Where(x => x.User.Id == userId).OrderByDescending(x => x.CreatedDate);
             var count = query.Count();
-            query.OrderByDescending(x => x.CreatedDate);
             var games = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
             var mappedGames = games.Select(g => GameMapper.MapGuessFilmFromCastGame(g)).ToList();
             return new PaginationResponse<GetGuessFilmFromCastGameDto>(mappedGames, parameters.PageNumber, parameters.PageSize, count);
@@ -110,6 +104,20 @@ namespace WatchedIt.Api.Services.Games.GuessFilmFromCast
             var credit = query.Skip(skip).Take(1).First();
 
             return credit.Person;
+        }
+
+        public async Task<GetGuessFilmFromCastGameDto> Forfeit(int gameId, int userId)
+        {
+            var game = await _context.GuessFilmFromCastGames.Include(x => x.Clues).Include(x => x.Film).Include(x => x.User).FirstOrDefaultAsync(g => g.Id == gameId);
+            if(game is null) throw new NotFoundException($"Game with Id '{gameId}' not found.");
+
+            if(game.User.Id != userId) throw new Exceptions.UnauthorizedAccessException($"User cant forefeit this game.");
+            if(game.Status != GameStatus.InProgress) throw new Exceptions.UnauthorizedAccessException($"Completed games can not be forfeit.");
+
+            game.Status = GameStatus.Forfeit;
+            game.UpdatedDate = DateTime.Now;
+            await _context.SaveChangesAsync();
+            return GameMapper.MapGuessFilmFromCastGame(game);
         }
     }
 }

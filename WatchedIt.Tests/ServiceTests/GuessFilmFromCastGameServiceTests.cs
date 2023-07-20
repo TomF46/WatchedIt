@@ -146,5 +146,29 @@ namespace WatchedIt.Tests.ServiceTests
             // Film only has two credits, so after 2 failed guesses no more clues are available and its game over.
             Assert.That(game.Status, Is.EqualTo(GameStatus.CompletedFail));
         }
+
+        [Test]
+        public async Task CanForefeitGame()
+        {
+            var user = RandomDataGenerator.GenerateUser();
+            var person = RandomDataGenerator.GeneratePerson();
+            var person2 = RandomDataGenerator.GeneratePerson();
+            var film = RandomDataGenerator.GenerateFilm();
+            var credit1 = RandomDataGenerator.GenerateCredit(person, film);
+            var credit2 = RandomDataGenerator.GenerateCredit(person2, film);
+            _context.Users.Add(user);
+            _context.Films.Add(film);
+            _context.People.Add(person);
+            _context.People.Add(person2);
+            _context.Credits.Add(credit1);
+            _context.Credits.Add(credit2);
+            await _context.SaveChangesAsync();
+
+            var game = await _service.StartGame(user.Id);
+            Assert.That(game.Status, Is.EqualTo(GameStatus.InProgress));
+
+            game = await _service.Forfeit(game.Id, user.Id);
+            Assert.That(game.Status, Is.EqualTo(GameStatus.Forfeit));
+        }
     }
 }

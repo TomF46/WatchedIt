@@ -8,5 +8,6 @@ namespace WatchedIt.Api.Services.Games.GuessFilmFromCast
         Task<GetGuessFilmFromCastGameDto> GetById(int id, int userId);
         Task<GetGuessFilmFromCastGameDto> StartGame(int userId);
         Task<GetGuessFilmFromCastGameDto> Guess(int gameId, int userId, GuessFilmFromCastGameGuessDto guess);
+        Task<GetGuessFilmFromCastGameDto> Forfeit(int gameId, int userId);
     }
 }

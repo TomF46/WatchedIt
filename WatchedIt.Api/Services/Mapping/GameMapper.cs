@@ -22,6 +22,7 @@ namespace WatchedIt.Api.Services.Mapping
                 GameStatus.InProgress => "In progress",
                 GameStatus.CompletedSuccess => "Completed",
                 GameStatus.CompletedFail => "Failed",
+                GameStatus.Forfeit => "Forfeited",
                 _ => throw new BadRequestException("Request returned invalid status")
             };
         }

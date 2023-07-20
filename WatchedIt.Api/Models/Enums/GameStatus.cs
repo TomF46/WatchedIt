@@ -4,6 +4,7 @@ namespace WatchedIt.Api.Models.Enums
     {
         InProgress = 1,
         CompletedFail = 2,
-        CompletedSuccess = 3
+        CompletedSuccess = 3,
+        Forfeit = 4
     }
 }

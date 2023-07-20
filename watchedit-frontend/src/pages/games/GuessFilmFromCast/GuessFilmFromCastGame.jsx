@@ -52,14 +52,25 @@ function GuessFilmFromCastGame(){
                         <GameInfoSection game={game} />
                     </div>
                     <div className="col-span-12 mt-4 md:col-span-10 md:pl-4 md:mt-0">
-                        <div className="mt-4">
-                            <ClueSection game={game} />
-                        </div>
-                        <div className="mt-4">
-                            {game.status == 1 && (<GuessSection guess={guess} />)}
-                            {game.status == 2 && (<GuessFilmFailed />)}
-                            {game.status == 3 && (<CorrectGuessFilm game={game} />)}
-                        </div>
+                        {game.status == 4 ? (
+                            <div className="my-16">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-14 h-14 text-primary mx-auto text-center">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                                </svg>
+                                <p className="text-center text-2xl">You have forefeited this game</p>
+                            </div>
+                        ) : (
+                            <>
+                                <div className="mt-4">
+                                    <ClueSection game={game} />
+                                </div>
+                                <div className="mt-4">
+                                    {game.status == 1 && (<GuessSection guess={guess} />)}
+                                    {game.status == 2 && (<GuessFilmFailed />)}
+                                    {game.status == 3 && (<CorrectGuessFilm game={game} />)}
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
             )}
