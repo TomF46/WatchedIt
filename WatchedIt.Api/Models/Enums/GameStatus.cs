@@ -5,6 +5,7 @@ namespace WatchedIt.Api.Models.Enums
         InProgress = 1,
         CompletedFail = 2,
         CompletedSuccess = 3,
-        Forfeit = 4
+        Forfeit = 4,
+        CompletedLimit = 5
     }
 }
