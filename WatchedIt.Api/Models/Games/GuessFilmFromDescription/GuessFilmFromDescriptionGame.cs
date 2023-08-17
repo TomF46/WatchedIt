@@ -14,6 +14,7 @@ namespace WatchedIt.Api.Models.Games.GuessFilmFromDescription
         public int Id {get;set;}
         [Required]
         public User? User {get; set;}
+        public int Score {get; set;} = 0;
         public GameStatus Status {get; set;} = GameStatus.InProgress;
         public ICollection<GuessFilmFromDescriptionRound> Rounds { get; set; } = new List<GuessFilmFromDescriptionRound>();
         public DateTime CreatedDate { get; set; }

@@ -52,3 +52,14 @@ export function forefeitGuessFilmFromDescriptionGameById(id) {
             throw error.response;
         })
 }
+
+export function getGuessFilmFromDescriptionLeaderboard(pageNumber, pageSize) {
+    return client
+        .get(`/api/games/GuessFilmFromDescriptionGame/leaderboard?PageNumber=${pageNumber}&PageSize=${pageSize}`)
+        .then(response => {
+            return response.data;
+        })
+        .catch(error => {
+            throw error.response;
+        })
+}

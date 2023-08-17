@@ -68,10 +68,11 @@ namespace WatchedIt.Api.Services.Games.GuessFilmFromDescription
 
             var round = game.Rounds.FirstOrDefault(x => x.Id == guess.RoundId);
             if(round is null) throw new BadRequestException("Round Id does not match a round in this game");
-            if(round.Status != GameStatus.InProgress) throw new Exceptions.UnauthorizedAccessException($"This round has been completed, and cant be played again.");
+            if(round.Status != GameRoundStatus.InProgress) throw new Exceptions.UnauthorizedAccessException($"This round has been completed, and cant be played again.");
 
             if(guess.FilmId == round.Film.Id){
-                round.Status = GameStatus.CompletedSuccess;
+                round.Status = GameRoundStatus.CompletedSuccess;
+                game.Score = game.Score + 1;
                 var nextRound = AddNewRound(game);
                 if(nextRound is null){
                     game.Status = GameStatus.CompletedLimit; // If you run out of films then set an indicator
@@ -79,7 +80,7 @@ namespace WatchedIt.Api.Services.Games.GuessFilmFromDescription
                     game.Rounds.Add(nextRound);
                 }
             } else {
-                round.Status = GameStatus.CompletedFail;
+                round.Status = GameRoundStatus.CompletedFail;
                 game.Status = GameStatus.CompletedSuccess;
             }
 
@@ -102,6 +103,15 @@ namespace WatchedIt.Api.Services.Games.GuessFilmFromDescription
             return GameMapper.MapGuessFilmFromDescriptionGame(game);
         }
 
+        public async Task<PaginationResponse<GetGuessFilmFromDescriptionLeaderboardEntryDto>> GetLeaderboard(PaginationParameters parameters)
+        {
+            var query = _context.GuessFilmFromDescriptionGames.Include(x => x.User).Include(x => x.Rounds).Where(x => x.Status == GameStatus.CompletedSuccess).OrderByDescending(x => x.Score);
+            var count = query.Count();
+            var games = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
+            var mappedGames = games.Select(g => GameMapper.MapGuessFilmFromDescriptionLeaderboardEntry(g)).ToList();
+            return new PaginationResponse<GetGuessFilmFromDescriptionLeaderboardEntryDto>(mappedGames, parameters.PageNumber, parameters.PageSize, count);
+        }
+
         private GuessFilmFromDescriptionRound? AddNewRound(GuessFilmFromDescriptionGame game)
         {
             var previousRoundFilms = game.Rounds.Select(x => x.Film);
@@ -115,7 +125,7 @@ namespace WatchedIt.Api.Services.Games.GuessFilmFromDescription
 
             return new GuessFilmFromDescriptionRound{
                 Film = film,
-                Status = Models.Enums.GameStatus.InProgress
+                Status = GameRoundStatus.InProgress
             };
         }
     }

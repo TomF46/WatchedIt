@@ -14,5 +14,6 @@ namespace WatchedIt.Api.Services.Games.GuessFilmFromDescription
         Task<GetGuessFilmFromDescriptionGameDto> StartGame(int userId);
         Task<GetGuessFilmFromDescriptionGameDto> Guess(int gameId, int userId, GuessFilmFromDescriptionGameGuessDto guess);
         Task<GetGuessFilmFromDescriptionGameDto> Forfeit(int gameId, int userId);
+        Task<PaginationResponse<GetGuessFilmFromDescriptionLeaderboardEntryDto>> GetLeaderboard(PaginationParameters parameters);
     }
 }

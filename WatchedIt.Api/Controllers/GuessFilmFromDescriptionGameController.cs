@@ -54,5 +54,11 @@ namespace WatchedIt.Api.Controllers
             var userId = AuthMapper.MapLoggedInUserId(HttpContext);
             return Ok(await _guessFilmFromDescriptionGameService.Forfeit(id, userId));
         }
+
+        [HttpGet("leaderboard")]
+        public async Task<ActionResult<PaginationResponse<GetGuessFilmFromDescriptionLeaderboardEntryDto>>> GetLeaderboard([FromQuery] PaginationParameters parameters)
+        {
+            return Ok(await _guessFilmFromDescriptionGameService.GetLeaderboard(parameters));
+        }
     }
 }

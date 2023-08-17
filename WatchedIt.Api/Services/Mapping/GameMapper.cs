@@ -29,10 +29,19 @@ namespace WatchedIt.Api.Services.Mapping
             };
         }
 
+         public static string MapGameRoundStatusText(GameRoundStatus status){
+            return status switch{
+                GameRoundStatus.InProgress => "In progress",
+                GameRoundStatus.CompletedSuccess => "Correct",
+                GameRoundStatus.CompletedFail => "Incorrect",
+                _ => throw new BadRequestException("Request returned invalid status")
+            };
+        }
+
         public static GetGuessFilmFromDescriptionGameDto MapGuessFilmFromDescriptionGame(GuessFilmFromDescriptionGame game){
             return new GetGuessFilmFromDescriptionGameDto{
                 Id = game.Id,
-                Score = game.Rounds.Where(x => x.Status == GameStatus.CompletedSuccess).Count(),
+                Score = game.Score,
                 Rounds = game.Rounds.Select(r => MapGuessFilmFromDescriptionRound(r)).ToList(),
                 Status = game.Status,
                 StatusText = MapGameStatusText(game.Status),
@@ -46,14 +55,23 @@ namespace WatchedIt.Api.Services.Mapping
                 Id = round.Id,
                 Clue = MapGuessFilmFromDescriptionRoundClue(round),
                 Status = round.Status,
-                StatusText = MapGameStatusText(round.Status)
+                StatusText = MapGameRoundStatusText(round.Status)
             };
         }
 
         public static GetGuessFilmFromDescriptionRoundClueDto MapGuessFilmFromDescriptionRoundClue(GuessFilmFromDescriptionRound round){
             return new GetGuessFilmFromDescriptionRoundClueDto{
-                Name = round.Status == GameStatus.CompletedSuccess ? round.Film.Name : null,
+                Name = round.Status == GameRoundStatus.CompletedSuccess ? round.Film.Name : null,
                 Description = round.Film.FullDescription
+            };
+        }
+
+        public static GetGuessFilmFromDescriptionLeaderboardEntryDto MapGuessFilmFromDescriptionLeaderboardEntry(GuessFilmFromDescriptionGame game){
+            return new GetGuessFilmFromDescriptionLeaderboardEntryDto{
+                Id = game.Id,
+                Score = game.Score,
+                User = UserMapper.MapSimpleUser(game.User),
+                UpdatedDate = game.UpdatedDate
             };
         }
     }

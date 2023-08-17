@@ -11,7 +11,7 @@ namespace WatchedIt.Api.Models.Games.GuessFilmFromDescription
     {
         public int Id {get; set;}
         public GetGuessFilmFromDescriptionRoundClueDto Clue { get; set;}
-        public GameStatus Status {get; set;}
+        public GameRoundStatus Status {get; set;}
         public string StatusText {get; set;}
     }
 

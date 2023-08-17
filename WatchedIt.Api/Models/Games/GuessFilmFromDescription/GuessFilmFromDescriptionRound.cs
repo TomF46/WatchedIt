@@ -14,6 +14,6 @@ namespace WatchedIt.Api.Models.Games.GuessFilmFromDescription
         public int Id {get; set;}
         [Required]
         public Film? Film {get; set;}
-        public GameStatus Status {get; set;} = GameStatus.InProgress;
+        public GameRoundStatus Status {get; set;} = GameRoundStatus.InProgress;
     }
 }
