@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import PaginationControls from "../../../components/PaginationControls";
-import { getGuessFilmFromCastGames, startGuessFilmFromCastGame } from "../../../api/games/guessFilmFromCastGameApi";
-import GuessFilmFromCastGamesList from "./GuessFilmFromCastGamesList";
+import { getGuessFilmFromDescriptionGames, startGuessFilmFromDescriptionGame } from "../../../api/games/guessFilmFromDescriptionApi";
+import GuessFilmFromDescriptionGamesList from "./GuessFilmFromDescriptionGamesList";
 import { useNavigate } from "react-router-dom";
 
-function GuessFilmFromCast({currentUserId}) {
+function GuessFilmFromDescription({currentUserId}) {
     const navigate = useNavigate();
     const [gamesPaginator, setGamesPaginator] = useState(null);
     const [page, setPage] = useState(1);
@@ -26,7 +26,7 @@ function GuessFilmFromCast({currentUserId}) {
     }, [page]);
 
     function getGames() {
-        getGuessFilmFromCastGames(page, gamesPerPage)
+        getGuessFilmFromDescriptionGames(page, gamesPerPage)
             .then((res) => {
                 setGamesPaginator(res);
                 setLastPageLoaded(page);
@@ -49,8 +49,8 @@ function GuessFilmFromCast({currentUserId}) {
     }
 
     function startNewGame(){
-        startGuessFilmFromCastGame().then(res => {
-            navigate(`/games/filmFromCast/${res.id}`)
+        startGuessFilmFromDescriptionGame().then(res => {
+            navigate(`/games/filmFromDescription/${res.id}`)
         }).catch((err) => {
             toast.error(`Error starting new game ${err.data.Exception}`, {
                 autoClose: false,
@@ -60,15 +60,14 @@ function GuessFilmFromCast({currentUserId}) {
 
     return (
         <div className="watched-films-page">
-            <h1 className="text-center text-primary text-4xl my-4 font-bold">Guess the film from its cast</h1>
+            <h1 className="text-center text-primary text-4xl my-4 font-bold">Guess the film from its description</h1>
             <div className="bg-backgroundOffset p-4 shadow rounded mb-4">
                 <h3 className="text-center text-primary text-2xl mb-4 font-bold">Game rules</h3>
                 <ul className="list-disc ml-2">
-                    <li>When game starts you get the first cast member as a clue.</li>
-                    <li>Make your first guess if you are wrong a second cast member is revealed.</li>
-                    <li>This continues until you either run out of new clues or guess correctly</li>
-                    <li>If you guess correctly you win, and your score is the number of guesses, the lower the better.</li>
-                    <li>If you run our of new cast member clues then its game over!</li>
+                    <li>When game starts you get the first description.</li>
+                    <li>Every time you guess correctly you gain a point and a new description is added.</li>
+                    <li>If you get one wrong the game is over and your score is how many you got correct.</li>
+                    <li>Score as high as possible to climb the leaderboard.</li>
                 </ul>
             </div>
             <div className="text-center">
@@ -78,7 +77,7 @@ function GuessFilmFromCast({currentUserId}) {
                 <>
                 {gamesPaginator.data.length > 0 ? (
                     <>
-                        <GuessFilmFromCastGamesList games={gamesPaginator.data} />
+                        <GuessFilmFromDescriptionGamesList games={gamesPaginator.data} />
                         <PaginationControls
                             currentPage={page}
                             onNext={handleNextPage}
@@ -100,7 +99,7 @@ function GuessFilmFromCast({currentUserId}) {
     );
 }
 
-GuessFilmFromCast.propTypes = {
+GuessFilmFromDescription.propTypes = {
     currentUserId: PropTypes.any.isRequired
 
 };
@@ -111,4 +110,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(GuessFilmFromCast);
+export default connect(mapStateToProps)(GuessFilmFromDescription);

@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import debounce from "lodash.debounce";
-import { searchFilmsPaginated } from "../../../api/filmsApi";
+import { searchFilmsPaginated } from "../../api/filmsApi";
 import { toast } from "react-toastify";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import SelectFilmWSearch from "../../../components/Films/Credits/SelectFilmWSearch";
-import PaginationControls from "../../../components/PaginationControls";
+import LoadingMessage from "../../components/Loading/LoadingMessage";
+import SelectFilmWSearch from "../../components/Films/Credits/SelectFilmWSearch";
+import PaginationControls from "../../components/PaginationControls";
 
 
 const GuessSection = ({ guess }) => {

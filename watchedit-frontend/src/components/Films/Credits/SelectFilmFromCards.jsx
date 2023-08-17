@@ -7,7 +7,7 @@ const SelectFilmFromCards = ({ films, onFilmSelected }) => {
                     return (
                         <div key={film.id} className="col-span-8 md:col-span-4 lg:col-span-2 my-2">
                             <div className="mx-2 bg-backgroundOffset cursor-pointer h-full shadow rounded">
-                                <div onClick={onFilmSelected} className="hover:opacity-75 relative">
+                                <div onClick={() => {onFilmSelected(film)}} className="hover:opacity-75 relative">
                                     <img src={film.posterUrl} className={`w-full poster rounded-t`} alt={`${film.name} poster.`} />
                                     <div className="p-2">
                                         <div className="grid grid-cols-12">

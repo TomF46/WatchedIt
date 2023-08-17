@@ -32,6 +32,7 @@ namespace WatchedIt.Api.Services.Mapping
         public static GetGuessFilmFromDescriptionGameDto MapGuessFilmFromDescriptionGame(GuessFilmFromDescriptionGame game){
             return new GetGuessFilmFromDescriptionGameDto{
                 Id = game.Id,
+                Score = game.Rounds.Where(x => x.Status == GameStatus.CompletedSuccess).Count(),
                 Rounds = game.Rounds.Select(r => MapGuessFilmFromDescriptionRound(r)).ToList(),
                 Status = game.Status,
                 StatusText = MapGameStatusText(game.Status),

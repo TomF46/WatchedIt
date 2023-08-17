@@ -1,8 +1,8 @@
-import client from './client';
+import client from '../client';
 
-export function getGuessFilmFromCastGames(pageNumber, pageSize) {
+export function getGuessFilmFromDescriptionGames(pageNumber, pageSize) {
     return client
-        .get(`/api/games/GuessFilmFromCastGame?PageNumber=${pageNumber}&PageSize=${pageSize}`)
+        .get(`/api/games/GuessFilmFromDescriptionGame?PageNumber=${pageNumber}&PageSize=${pageSize}`)
         .then(response => {
             return response.data;
         })
@@ -11,9 +11,9 @@ export function getGuessFilmFromCastGames(pageNumber, pageSize) {
         })
 }
 
-export function getGuessFilmFromCastGameById(id) {
+export function getGuessFilmFromDescriptionGameById(id) {
     return client
-        .get(`/api/games/GuessFilmFromCastGame/${id}`)
+        .get(`/api/games/GuessFilmFromDescriptionGame/${id}`)
         .then(response => {
             return response.data;
         })
@@ -22,8 +22,8 @@ export function getGuessFilmFromCastGameById(id) {
         })
 }
 
-export function startGuessFilmFromCastGame(){
-    return client.post(`/api/games/GuessFilmFromCastGame`,{})
+export function startGuessFilmFromDescriptionGame(){
+    return client.post(`/api/games/GuessFilmFromDescriptionGame`,{})
         .then(response => {
             return response.data;
         })
@@ -32,8 +32,8 @@ export function startGuessFilmFromCastGame(){
         })
 }
 
-export function makeGuessForGuessFilmFromCastGame(id, guess){
-    return client.post(`/api/games/GuessFilmFromCastGame/${id}`, guess)
+export function makeGuessForGuessFilmFromDescriptionGame(id, guess){
+    return client.post(`/api/games/GuessFilmFromDescriptionGame/${id}`, guess)
         .then(response => {
             return response.data;
         })
@@ -42,9 +42,9 @@ export function makeGuessForGuessFilmFromCastGame(id, guess){
         })
 }
 
-export function forefeitGuessFilmFromCastGameById(id) {
+export function forefeitGuessFilmFromDescriptionGameById(id) {
     return client
-        .delete(`/api/games/GuessFilmFromCastGame/${id}`)
+        .delete(`/api/games/GuessFilmFromDescriptionGame/${id}`)
         .then(response => {
             return response.data;
         })

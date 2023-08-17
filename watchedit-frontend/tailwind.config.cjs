@@ -20,6 +20,7 @@ module.exports = {
       },
       gridColumn: {
         'span-13': 'span 13 / span 13',
+        'span-14': 'span 14 / span 14',
         'span-16': 'span 16 / span 16',
         'span-17': 'span 17 / span 17',
         'span-18': 'span 18 / span 18',
