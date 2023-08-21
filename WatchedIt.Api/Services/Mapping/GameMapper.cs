@@ -1,4 +1,5 @@
 using WatchedIt.Api.Models.Enums;
+using WatchedIt.Api.Models.Games.Connections;
 using WatchedIt.Api.Models.Games.GuessFilmFromCast;
 using WatchedIt.Api.Models.Games.GuessFilmFromDescription;
 
@@ -71,6 +72,18 @@ namespace WatchedIt.Api.Services.Mapping
                 Id = game.Id,
                 Score = game.Score,
                 User = UserMapper.MapSimpleUser(game.User),
+                UpdatedDate = game.UpdatedDate
+            };
+        }
+
+        public static GetConnectionsGameDto MapConnectionsGame(ConnectionsGame game){
+            return new GetConnectionsGameDto{
+                Id = game.Id,
+                Clues = game.Clues.Select(c => CreditMapper.Map(c.Credit)).ToList(),
+                Person = game.Status == GameStatus.CompletedSuccess ? PersonMapper.MapSimple(game.Person) : null,
+                Status = game.Status,
+                StatusText = MapGameStatusText(game.Status),
+                CreatedDate = game.CreatedDate,
                 UpdatedDate = game.UpdatedDate
             };
         }

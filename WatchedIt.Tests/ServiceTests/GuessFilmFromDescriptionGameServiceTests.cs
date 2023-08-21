@@ -71,7 +71,7 @@ namespace WatchedIt.Tests.ServiceTests
                 RoundId = game.Rounds.First().Id,
                 FilmId = film.Id
             });
-            Assert.That(game.Rounds.First().Status, Is.EqualTo(GameStatus.CompletedSuccess));
+            Assert.That(game.Rounds.First().Status, Is.EqualTo(GameRoundStatus.CompletedSuccess));
         }
 
         [Test]
