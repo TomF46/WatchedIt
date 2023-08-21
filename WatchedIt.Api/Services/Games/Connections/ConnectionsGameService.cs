@@ -30,7 +30,7 @@ namespace WatchedIt.Api.Services.Games.Connections
 
         public async Task<GetConnectionsGameDto> GetById(int id, int userId)
         {
-            var game = await _context.ConnectionsGames.Include(x => x.Clues).ThenInclude(y => y.Credit).ThenInclude(x => x.Film).Include(x => x.Clues).ThenInclude(y => y.Credit).ThenInclude(x => x.Person).FirstOrDefaultAsync(x => x.Id == id);
+            var game = await _context.ConnectionsGames.Include(x => x.Person).Include(x => x.Clues).ThenInclude(y => y.Credit).ThenInclude(x => x.Film).Include(x => x.Clues).ThenInclude(y => y.Credit).ThenInclude(x => x.Person).FirstOrDefaultAsync(x => x.Id == id);
             if(game is null) throw new NotFoundException($"Game with Id '{id}' not found.");
             if(game.User.Id != userId) throw new Exceptions.UnauthorizedAccessException($"User cant view this game");
 
@@ -58,10 +58,28 @@ namespace WatchedIt.Api.Services.Games.Connections
             return GameMapper.MapConnectionsGame(game);
         }
 
-        public Task<GetConnectionsGameDto> Guess(int gameId, int userId, GuessPersonForConnectionGameDto guess)
+        public async Task<GetConnectionsGameDto> Guess(int gameId, int userId, GuessPersonForConnectionGameDto guess)
         {
-            throw new NotImplementedException();
-        }
+            var game = await _context.ConnectionsGames.Include(x => x.Person).Include(x => x.Clues).ThenInclude(y => y.Credit).ThenInclude(x => x.Film).Include(x => x.Clues).ThenInclude(y => y.Credit).ThenInclude(x => x.Person).FirstOrDefaultAsync(x => x.Id == gameId);
+            if(game is null) throw new NotFoundException($"Game with Id '{gameId}' not found.");
+            if(game.User.Id != userId) throw new Exceptions.UnauthorizedAccessException($"User cant view this game");
+            if(game.Status != GameStatus.InProgress) throw new Exceptions.UnauthorizedAccessException($"This game has been completed");
+
+            if(guess.PersonId == game.Person.Id){
+                game.Status = GameStatus.CompletedSuccess;
+            } else {
+                var newClue = await GetCreditForClue(game);
+                if(newClue is null){
+                    game.Status = GameStatus.CompletedFail;
+                } else {
+                    game.Clues.Add(newClue);
+                }
+            }
+
+            game.UpdatedDate = DateTime.Now;
+            await _context.SaveChangesAsync();
+            return GameMapper.MapConnectionsGame(game);
+        }   
 
         public async Task<GetConnectionsGameDto> Forfeit(int gameId, int userId)
         {
@@ -79,7 +97,7 @@ namespace WatchedIt.Api.Services.Games.Connections
 
         private async Task<Person> GetPersonForGame()
         {
-            var query = _context.People.Include(f => f.Credits).Where(f => f.Credits.Count() > 1);
+            var query = _context.People.Include(f => f.Credits).Where(f => f.Credits.Count() > 0);
             var rand = new Random();
             var skip = rand.Next(0, query.Count());
             var person = await query.Skip(skip).Take(1).FirstOrDefaultAsync();
