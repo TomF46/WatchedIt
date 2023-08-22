@@ -9,12 +9,12 @@ const RoundsSection = ({ game }) => {
                     return (
                         <div className="col-span-12 my-2" key={round.id}>
                             <div className="grid grid-cols-16">
-                                <div className={`${round.status != 1 ? "col-span-14" : "col-span-16"} bg-backgroundOffset shadow rounded p-2`}>
+                                <div className={`${round.status != 1 ? "col-span-16 md:col-span-12 lg:col-span-14" : "col-span-16"} bg-backgroundOffset shadow rounded p-2`}>
                                     <p className="text-primary text-lg">Round {i + 1}</p>
                                     <p>{round.clue.description}</p>
                                 </div>
                                 {round.status != 1 && (
-                                    <div className="col-span-2 bg-backgroundOffset shadow rounded p-2 ml-1 text-center">
+                                    <div className="col-span-16 md:col-span-4 lg:col-span-2 bg-backgroundOffset shadow rounded p-2 md:ml-1 text-center">
                                         <p className={`text-xl ${round.status == 3 ? "text-success" : "text-red-400"}`}>{round.status == 3 ? "Correct" : "Fail"}</p>
                                         <p>{round.clue.name}</p>
                                     </div>

@@ -7,7 +7,7 @@ const ConnectionsClueSection = ({ clues }) => {
             <div className="grid grid-cols-12">
                 {clues.map((credit) => {
                     return (
-                        <div className="col-span-8 md:col-span-4 lg:col-span-2 my-2" key={credit.id}>
+                        <div className="col-span-12 md:col-span-4 lg:col-span-2 my-2" key={credit.id}>
                             <FilmCreditPreview credit={credit} isLink={false} showFilmName={true} />
                         </div>
                     )

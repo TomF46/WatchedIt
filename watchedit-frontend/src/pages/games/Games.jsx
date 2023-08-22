@@ -24,33 +24,33 @@ function Games({userIsAuthenticated}){
                 <div className="grid grid-cols-12">
                     <div className="col-span-12">
                         <div className="grid grid-cols-12 bg-backgroundOffset shadow rounded">
-                            <div className="col-span-10 p-4">
+                            <div className="col-span-9 md:col-span-10 p-4">
                                 <Link to={"/games/connections"} className="text-primary text-center text-xl">Connections</Link>
                                 <p>Using credit clues guess which person shares roles in films with all these characters/people</p>
                             </div>
-                            <div onClick={() => {navigate(`/games/connections`)}} className="col-span-2 bg-primary flex items-center justify-center cursor-pointer">
+                            <div onClick={() => {navigate(`/games/connections`)}} className="col-span-3 md:col-span-2 bg-primary flex items-center justify-center cursor-pointer">
                                 <p>Play now</p>
                             </div>
                         </div>
                     </div>
                     <div className="col-span-12 bg-backgroundOffset shadow rounded mt-4">
                         <div className="grid grid-cols-12">
-                            <div className="col-span-10 p-4">
+                            <div className="col-span-9 md:col-span-10 p-4">
                                 <Link to={"/games/filmFromCast"} className="text-primary text-center text-xl">Guess film from cast</Link>
                                 <p>Using cast member clues guess the film they all appeared or worked on together.</p>
                             </div>
-                            <div onClick={() => {navigate(`/games/filmFromCast`)}} className="col-span-2 bg-primary flex items-center justify-center cursor-pointer">
+                            <div onClick={() => {navigate(`/games/filmFromCast`)}} className="col-span-3 md:col-span-2 bg-primary flex items-center justify-center cursor-pointer">
                                 <p>Play now</p>
                             </div>
                         </div>
                     </div>
                     <div className="col-span-12 mt-4">
                         <div className="grid grid-cols-12 bg-backgroundOffset shadow rounded">
-                            <div className="col-span-10 p-4">
+                            <div className="col-span-9 md:col-span-10 p-4">
                                 <Link to={"/games/filmFromDescription"} className="text-primary text-center text-xl">Guess film from description</Link>
                                 <p>Guess as many films as you can in a row using just a description.</p>
                             </div>
-                            <div onClick={() => {navigate(`/games/filmFromDescription`)}} className="col-span-2 bg-primary flex items-center justify-center cursor-pointer">
+                            <div onClick={() => {navigate(`/games/filmFromDescription`)}} className="col-span-3 md:col-span-2 bg-primary flex items-center justify-center cursor-pointer">
                                 <p>Play now</p>
                             </div>
                         </div>
