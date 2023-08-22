@@ -6,7 +6,7 @@ import { addCreditForFilm } from "../../../api/creditsApi";
 import { getFilmById } from "../../../api/filmsApi";
 import { searchPeoplePaginated } from "../../../api/peopleApi";
 import PaginationControls from "../../../components/PaginationControls";
-import SelectPersonCreditListWSearch from "../../../components/People/Credits/SelectPersonCreditListWSearch";
+import SelectPersonWSearch from "../../../components/People/Credits/SelectPersonWSearch";
 import AddCreditForm from "../../../components/Credits/AddCreditForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
@@ -126,7 +126,7 @@ function AddCreditForFilm() {
                         <div className="mt-4">
                             {!selectedPerson ? (
                                 <>
-                                    <SelectPersonCreditListWSearch people={peoplePaginator.data} searchTerms={searchTerms} onSearchTermChange={handleSearchTermChange} onPersonSelected={handlePersonSelected} />
+                                    <SelectPersonWSearch people={peoplePaginator.data} searchTerms={searchTerms} onSearchTermChange={handleSearchTermChange} onPersonSelected={handlePersonSelected} cardMode={false} />
                                     <PaginationControls
                                         currentPage={page}
                                         onNext={handleNextPage}

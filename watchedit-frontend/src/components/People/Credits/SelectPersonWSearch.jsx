@@ -1,7 +1,9 @@
 import PropTypes from "prop-types";
 import TextInput from "../../Inputs/TextInput";
+import SelectPersonFromCards from "./SelectPersonFromCards";
+import SelectPersonFromList from "./SelectPersonFromList";
 
-const SelectPersonCreditListWSearch = ({ people, searchTerms, onSearchTermChange , onPersonSelected }) => {
+const SelectPersonWSearch = ({ people, searchTerms, onSearchTermChange , onPersonSelected, cardMode }) => {
     return (
         <>
             <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
@@ -43,22 +45,13 @@ const SelectPersonCreditListWSearch = ({ people, searchTerms, onSearchTermChange
                 </div>
             </div>
             {people.length > 0 ? (
-                <div className="grid grid-cols-12">
-                {people.map((person) => {
-                    return (
-                        <div key={person.id} className="col-span-12 my-1">
-                            <div className="grid grid-cols-24 bg-backgroundOffset shadow rounded cursor-pointer hover:opacity-75" onClick={() => {onPersonSelected(person)}}>
-                                <div className="col-span-3 md:col-span-2 lg:col-span-1">
-                                    <img src={person.imageUrl} className="h-full headshot rounded-l" alt={`${person.fullName} headshot.`} />
-                                </div>
-                                <div className={`col-span-21 md:col-span-22 lg:col-span-23 p-4`}>
-                                    <p>{person.fullName}</p>
-                                </div>
-                            </div>
-                        </div>
-                    )
-                })}
-            </div>
+                <div className={`grid  ${cardMode ? "grid-cols-16" : "grid-cols-12"}`}>
+                    {cardMode ? (
+                        <SelectPersonFromCards people={people} onPersonSelected={onPersonSelected} />
+                    ) : (
+                        <SelectPersonFromList people={people} onPersonSelected={onPersonSelected} />
+                    )}
+                </div>
             ) : (
                 <p className="text-center text-primary text-2xl">No people match your search</p>
             )}
@@ -66,11 +59,13 @@ const SelectPersonCreditListWSearch = ({ people, searchTerms, onSearchTermChange
     );
 };
 
-SelectPersonCreditListWSearch.propTypes = {
+SelectPersonWSearch.propTypes = {
     people: PropTypes.array.isRequired,
     searchTerms: PropTypes.object.isRequired,
     onSearchTermChange: PropTypes.func.isRequired,
-    onPersonSelected: PropTypes.func.isRequired
+    onPersonSelected: PropTypes.func.isRequired,
+    cardMode: PropTypes.bool.isRequired
+
 };
 
-export default SelectPersonCreditListWSearch;
+export default SelectPersonWSearch;

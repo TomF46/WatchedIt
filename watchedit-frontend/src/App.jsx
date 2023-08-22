@@ -45,6 +45,8 @@ import GuessFilmFromCastGame from "./pages/games/GuessFilmFromCast/GuessFilmFrom
 import GuessFilmFromDescription from "./pages/games/GuessFilmFromDescription/GuessFilmFromDescription";
 import GuessFilmFromDescriptionGame from "./pages/games/GuessFilmFromDescription/GuessFilmFromDescriptionGame";
 import GuessFilmFromDescriptionLeaderboard from "./pages/games/GuessFilmFromDescription/GuessFilmFromDescriptionLeaderboard";
+import Connections from "./pages/games/Connections/Connections";
+import ConnectionsGame from "./pages/games/Connections/ConnectionsGame";
   
   const App = () => {
     return (
@@ -101,6 +103,8 @@ import GuessFilmFromDescriptionLeaderboard from "./pages/games/GuessFilmFromDesc
             <Route path="/games/filmFromDescription/leaderboard" element={<AuthenticatedRoute><GuessFilmFromDescriptionLeaderboard /></AuthenticatedRoute>}/>
             <Route path="/games/filmFromDescription/:id" element={<AuthenticatedRoute><GuessFilmFromDescriptionGame /></AuthenticatedRoute>}/>
             <Route path="/games/filmFromDescription" element={<AuthenticatedRoute><GuessFilmFromDescription /></AuthenticatedRoute>}/>
+            <Route path="/games/connections/:id" element={<AuthenticatedRoute><ConnectionsGame /></AuthenticatedRoute>}/>
+            <Route path="/games/connections" element={<AuthenticatedRoute><Connections /></AuthenticatedRoute>}/>
             <Route path="/games" element={<Games />}/>
             <Route path="/404" element={<NotFound />}/>
             <Route path="*" element={<NotFound />}/>

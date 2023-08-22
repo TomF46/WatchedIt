@@ -22,7 +22,18 @@ function Games({userIsAuthenticated}){
             )}
             <div className="my-4">
                 <div className="grid grid-cols-12">
-                    <div className="col-span-12 bg-backgroundOffset shadow rounded">
+                    <div className="col-span-12">
+                        <div className="grid grid-cols-12 bg-backgroundOffset shadow rounded">
+                            <div className="col-span-10 p-4">
+                                <Link to={"/games/connections"} className="text-primary text-center text-xl">Connections</Link>
+                                <p>Using credit clues guess which person shares roles in films with all these characters/people</p>
+                            </div>
+                            <div onClick={() => {navigate(`/games/connections`)}} className="col-span-2 bg-primary flex items-center justify-center cursor-pointer">
+                                <p>Play now</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-span-12 bg-backgroundOffset shadow rounded mt-4">
                         <div className="grid grid-cols-12">
                             <div className="col-span-10 p-4">
                                 <Link to={"/games/filmFromCast"} className="text-primary text-center text-xl">Guess film from cast</Link>

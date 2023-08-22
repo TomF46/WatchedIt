@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
-const FilmCreditPreview = ({ credit, isLink }) => {
+const FilmCreditPreview = ({ credit, isLink, showFilmName }) => {
     const navigate = useNavigate();
     return (
         <div className="h-full">
@@ -13,6 +13,7 @@ const FilmCreditPreview = ({ credit, isLink }) => {
                             <div className="col-span-12">
                                 <h3 className="text-center text-primary">{credit.person.fullName}</h3>
                                 <p className="text-center opacity-75">{credit.role}</p>
+                                {showFilmName && (<p className="text-center opacity-75">({credit.film.name})</p>)} 
                             </div>
                         </div>
                     </div>
@@ -25,6 +26,7 @@ const FilmCreditPreview = ({ credit, isLink }) => {
 FilmCreditPreview.propTypes = {
     credit: PropTypes.object.isRequired,
     isLink: PropTypes.bool.isRequired,
+    showFilmName: PropTypes.bool.isRequired
 };
 
 export default FilmCreditPreview;

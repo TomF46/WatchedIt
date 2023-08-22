@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { forefeitGuessFilmFromDescriptionGameById, getGuessFilmFromDescriptionGameById, makeGuessForGuessFilmFromDescriptionGame }from "../../../api/games/guessFilmFromDescriptionApi";
@@ -11,6 +11,7 @@ import { confirmAlert } from "react-confirm-alert";
 function GuessFilmFromDescriptionGame(){
     const { id } = useParams();
     const [game, setGame] = useState(null);
+    const roundsRef = useRef(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -33,6 +34,7 @@ function GuessFilmFromDescriptionGame(){
         let round = game.rounds[game.rounds.length - 1];
         makeGuessForGuessFilmFromDescriptionGame(game.id, {roundId: round.id, filmId: film.id}).then(res => {
             setGame(res);
+            roundsRef.current.scrollIntoView({ block: 'nearest',  behavior: 'smooth' });
             if(res.status == 1) toast.success("Correct, on to the next round!");
             if(res.status == 3) toast.info(`Incorrect, your final score is ${res.score}.`);
             if(res.status == 5) toast.info(`You've achieved the max score of ${res.score}, as more films get added the max score increases so come back soon.`);
@@ -95,7 +97,7 @@ function GuessFilmFromDescriptionGame(){
                             </div>
                         ) : (
                             <>
-                                <div className="mt-4">
+                                <div className="mt-4" ref={roundsRef}>
                                     <RoundsSection game={game} />
                                 </div>
                                 <div className="mt-4">

@@ -21,7 +21,7 @@ namespace WatchedIt.Api.Services.Games.Connections
 
         public async Task<PaginationResponse<GetConnectionsGameDto>> GetAllForUser(int userId, PaginationParameters parameters)
         {
-            var query = _context.ConnectionsGames.Include(x => x.Clues).ThenInclude(y => y.Credit).ThenInclude(x => x.Film).Include(x => x.Clues).ThenInclude(y => y.Credit).ThenInclude(x => x.Person).Where(x => x.User.Id == userId).OrderByDescending(x => x.CreatedDate);
+            var query = _context.ConnectionsGames.Include(x => x.Person).Include(x => x.Clues).ThenInclude(y => y.Credit).ThenInclude(x => x.Film).Include(x => x.Clues).ThenInclude(y => y.Credit).ThenInclude(x => x.Person).Where(x => x.User.Id == userId).OrderByDescending(x => x.CreatedDate);
             var count = query.Count();
             var games = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
             var mappedGames = games.Select(g => GameMapper.MapConnectionsGame(g)).ToList();
@@ -112,7 +112,7 @@ namespace WatchedIt.Api.Services.Games.Connections
             
             var existingClues = game.Clues.Select(x => x.Credit);
             var films = person.Credits.Select(x => x.Film).Distinct();
-            var mutualCredits = films.SelectMany(x => x.Credits).Where(x => x.PersonId != person.Id);
+            var mutualCredits = films.SelectMany(x => x.Credits).Where(x => x.PersonId != person.Id).Where(x => !existingClues.Contains(x));
             
             if(!mutualCredits.Any()) return null;
 

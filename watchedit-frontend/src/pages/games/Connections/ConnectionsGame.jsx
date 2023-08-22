@@ -1,16 +1,16 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import { forefeitGuessFilmFromCastGameById, getGuessFilmFromCastGameById, makeGuessForGuessFilmFromCastGame } from "../../../api/games/guessFilmFromCastGameApi";
+import { forefeitConnectionsGameById, getConnectionsGameById, makeGuessForConnectionsGame } from "../../../api/games/connectionsGameApi";
 import { toast } from "react-toastify";
 import GameInfoSection from "../GameInfoSection";
-import ClueSection from "./ClueSection";
-import GuessSection from "../GuessSection";
-import CorrectGuessFilm from "../CorrectGuessFilm";
-import GuessFilmFailed from "../GuessFilmFailed";
 import { confirmAlert } from "react-confirm-alert";
+import ConnectionsClueSection from "./ConnectionsClueSection";
+import GuessPersonFailed from "../GuessPersonFailed";
+import CorrectGuessPerson from "../CorrectGuessPerson";
+import ConnectionsGuessSection from "./ConnectionsGuessSection";
 
-function GuessFilmFromCastGame(){
+function ConnectionsGame(){
     const { id } = useParams();
     const [game, setGame] = useState(null);
     const cluesRef = useRef(null);
@@ -23,7 +23,7 @@ function GuessFilmFromCastGame(){
     }, [id, game]);
 
     function getGame(){
-        getGuessFilmFromCastGameById(id).then(res => {
+        getConnectionsGameById(id).then(res => {
             setGame(res);
         }).catch((err) => {
             toast.error(`Error getting game ${err.data.Exception}`, {
@@ -32,13 +32,13 @@ function GuessFilmFromCastGame(){
         });
     }
 
-    function guess(film){
-        makeGuessForGuessFilmFromCastGame(game.id, {filmId: film.id}).then(res => {
+    function guess(person){
+        makeGuessForConnectionsGame(game.id, {personId: person.id}).then(res => {
             setGame(res);
             cluesRef.current.scrollIntoView({ block: 'end',  behavior: 'smooth' });
             if(res.status == 1) toast.info("Thats not right, try again with a new clue");
             if(res.status == 2) toast.error("Unlucky, you've ran out of clues and still haven't got it correct, you lose!");
-            if(res.status == 3) toast.success(`Correct the film was ${film.name}`);
+            if(res.status == 3) toast.success(`Correct the person was ${person.fullName}`);
         }).catch((err) => {
             toast.error(`Error submitting guess ${err.data.Exception}`, {
                 autoClose: false,
@@ -65,8 +65,8 @@ function GuessFilmFromCastGame(){
 
     function forefeit()
     {
-        forefeitGuessFilmFromCastGameById(game.id).then(() => {
-            navigate(`/games/filmFromCast`);
+        forefeitConnectionsGameById(game.id).then(() => {
+            navigate(`/games/connections`);
         }).catch((err) => {
             toast.error(`Error forefeiting game ${err.data.Exception}`, {
                 autoClose: false,
@@ -75,7 +75,7 @@ function GuessFilmFromCastGame(){
     }
 
     function startAgain(){
-        navigate(`/games/filmFromCast`);
+        navigate(`/games/connections`);
     }
 
     return (
@@ -98,12 +98,12 @@ function GuessFilmFromCastGame(){
                         ) : (
                             <>
                                 <div className="mt-4" ref={cluesRef}>
-                                    <ClueSection game={game} />
+                                    <ConnectionsClueSection clues={game.clues} />
                                 </div>
                                 <div className="mt-4">
-                                    {game.status == 1 && (<GuessSection guess={guess} />)}
-                                    {game.status == 2 && (<GuessFilmFailed />)}
-                                    {game.status == 3 && (<CorrectGuessFilm game={game} />)}
+                                    {game.status == 1 && (<ConnectionsGuessSection guess={guess} />)}
+                                    {game.status == 2 && (<GuessPersonFailed />)}
+                                    {game.status == 3 && (<CorrectGuessPerson game={game} />)}
                                 </div>
                             </>
                         )}
@@ -114,4 +114,4 @@ function GuessFilmFromCastGame(){
     )
 }
 
-export default GuessFilmFromCastGame;
+export default ConnectionsGame;
