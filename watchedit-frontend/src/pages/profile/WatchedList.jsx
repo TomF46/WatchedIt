@@ -13,14 +13,13 @@ function WatchedList({currentUserId}) {
     const [user, setUser] = useState(null);
     const [filmsPaginator, setFilmsPaginator] = useState(null);
     const [page, setPage] = useState(1);
-    const filmsPerPage = 20;
+    const filmsPerPage = 32;
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
     useEffect(() => {
-        let targetId = id ? id : currentUserId;
         if (!user) {
-            getUser(targetId);
-            getFilms(targetId);
+            getUser();
+            getFilms();
         }
     }, [id, user]);
 
@@ -28,7 +27,8 @@ function WatchedList({currentUserId}) {
         if (lastPageLoaded != null) getFilms();
     }, [page]);
 
-    function getUser(userId) {
+    function getUser() {
+        let userId = id ? id : currentUserId;
         getUserById(userId)
             .then((res) => {
                 setUser(res);
@@ -40,7 +40,8 @@ function WatchedList({currentUserId}) {
             });
     }
 
-    function getFilms(userId) {
+    function getFilms() {
+        let userId = id ? id : currentUserId;
         getWatchedListByUserId(userId, page, filmsPerPage)
             .then((res) => {
                 setFilmsPaginator(res);

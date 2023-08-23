@@ -13,14 +13,13 @@ function UserLikes({currentUserId}) {
     const [user, setUser] = useState(null);
     const [peoplePaginator, setPeoplePaginator] = useState(null);
     const [page, setPage] = useState(1);
-    const peoplePerPage = 20;
+    const peoplePerPage = 32;
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
     useEffect(() => {
-        let targetId = id ? id : currentUserId;
         if (!user) {
-            getUser(targetId);
-            getPeople(targetId);
+            getUser();
+            getPeople();
         }
     }, [id, user]);
 
@@ -28,7 +27,8 @@ function UserLikes({currentUserId}) {
         if (lastPageLoaded != null) getPeople();
     }, [page]);
 
-    function getUser(userId) {
+    function getUser() {
+        let userId = id ? id : currentUserId;
         getUserById(userId)
             .then((res) => {
                 setUser(res);
@@ -40,7 +40,8 @@ function UserLikes({currentUserId}) {
             });
     }
 
-    function getPeople(userId) {
+    function getPeople() {
+        let userId = id ? id : currentUserId;
         getLikedPeopleByUserId(userId, page, peoplePerPage)
             .then((res) => {
                 setPeoplePaginator(res);

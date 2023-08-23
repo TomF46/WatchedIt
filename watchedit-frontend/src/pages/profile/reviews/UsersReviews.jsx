@@ -13,14 +13,13 @@ function UserReviews({currentUserId}) {
     const [user, setUser] = useState(null);
     const [reviewsPaginator, setReviewsPaginator] = useState(null);
     const [page, setPage] = useState(1);
-    const reviewsPerPage = 20;
+    const reviewsPerPage = 12;
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
     useEffect(() => {
-        let targetId = id ? id : currentUserId;
         if (!user) {
-            getUser(targetId);
-            getReviews(targetId);
+            getUser();
+            getReviews();
         }
     }, [id]);
 
@@ -28,7 +27,8 @@ function UserReviews({currentUserId}) {
         if (lastPageLoaded != null) getReviews();
     }, [page]);
 
-    function getUser(userId) {
+    function getUser() {
+        let userId = id ? id : currentUserId;
         getUserById(userId)
             .then((res) => {
                 setUser(res);
@@ -40,7 +40,8 @@ function UserReviews({currentUserId}) {
             });
     }
 
-    function getReviews(userId) {
+    function getReviews() {
+        let userId = id ? id : currentUserId;
         getUsersReviewsPaginated(userId, page, reviewsPerPage)
             .then((res) => {
                 setReviewsPaginator(res);
