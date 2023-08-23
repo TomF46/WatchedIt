@@ -38,16 +38,6 @@ function GuessFilmFromCast({currentUserId}) {
             });
     }
 
-    function handleNextPage() {
-        var newPage = page + 1;
-        setPage(newPage);
-    }
-
-    function handlePreviousPage() {
-        var newPage = page - 1;
-        setPage(newPage);
-    }
-
     function startNewGame(){
         startGuessFilmFromCastGame().then(res => {
             navigate(`/games/filmFromCast/${res.id}`)
@@ -85,8 +75,7 @@ function GuessFilmFromCast({currentUserId}) {
                         <GuessFilmFromCastGamesList games={gamesPaginator.data} />
                         <PaginationControls
                             currentPage={page}
-                            onNext={handleNextPage}
-                            onPrevious={handlePreviousPage}
+                            onPageChange={setPage}
                             of={gamesPaginator.of}
                             from={gamesPaginator.from}
                             to={gamesPaginator.to}

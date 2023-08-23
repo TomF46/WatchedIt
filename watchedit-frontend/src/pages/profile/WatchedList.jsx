@@ -53,16 +53,6 @@ function WatchedList({currentUserId}) {
             });
     }
 
-    function handleNextPage() {
-        var newPage = page + 1;
-        setPage(newPage);
-    }
-
-    function handlePreviousPage() {
-        var newPage = page - 1;
-        setPage(newPage);
-    }
-
     return (
         <div className="watched-films-page">
             {!user ? (
@@ -78,8 +68,7 @@ function WatchedList({currentUserId}) {
                                     <FilmGrid films={filmsPaginator.data} editable={false} />
                                     <PaginationControls
                                         currentPage={page}
-                                        onNext={handleNextPage}
-                                        onPrevious={handlePreviousPage}
+                                        onPageChange={setPage}
                                         of={filmsPaginator.of}
                                         from={filmsPaginator.from}
                                         to={filmsPaginator.to}

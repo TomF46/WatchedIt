@@ -47,16 +47,6 @@ const UnreadNotifications = ({ decrementNotificationCount }) => {
         });
     }
 
-    function handleNextPage() {
-        var newPage = page + 1;
-        setPage(newPage);
-    }
-
-    function handlePreviousPage() {
-        var newPage = page - 1;
-        setPage(newPage);
-    }
-
     return (
         <div className="Notifications-page">
             {notificationsPaginator && (
@@ -72,8 +62,7 @@ const UnreadNotifications = ({ decrementNotificationCount }) => {
                         <NotificationsList notifications={notificationsPaginator.data} onSetRead={handleReadNotification} />
                         <PaginationControls
                             currentPage={page}
-                            onNext={handleNextPage}
-                            onPrevious={handlePreviousPage}
+                            onPageChange={setPage}
                             of={notificationsPaginator.of}
                             from={notificationsPaginator.from}
                             to={notificationsPaginator.to}

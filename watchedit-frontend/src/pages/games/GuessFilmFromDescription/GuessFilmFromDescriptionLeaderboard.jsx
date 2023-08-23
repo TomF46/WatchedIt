@@ -32,16 +32,6 @@ function GuessFilmFromDescriptionLeaderboard(){
         });
     }
 
-    function handleNextPage() {
-        var newPage = page + 1;
-        setPage(newPage);
-    }
-
-    function handlePreviousPage() {
-        var newPage = page - 1;
-        setPage(newPage);
-    }
-
     return (
         <div className="leaderboards">
             <h1 className="text-center text-primary text-4xl my-4 font-bold">
@@ -52,8 +42,7 @@ function GuessFilmFromDescriptionLeaderboard(){
                     <GuessFilmFromDescriptionLeaderboardList entries={leaderboardPaginator.data} />
                     <PaginationControls
                         currentPage={page}
-                        onNext={handleNextPage}
-                        onPrevious={handlePreviousPage}
+                        onPageChange={setPage}
                         of={leaderboardPaginator.of}
                         from={leaderboardPaginator.from}
                         to={leaderboardPaginator.to}

@@ -33,16 +33,6 @@ function UserLists({user}) {
     })
   }
 
-  function handleNextPage(){
-    var newPage = page + 1;
-    setPage(newPage);
-  }
-
-  function handlePreviousPage(){
-    var newPage = page - 1;
-    setPage(newPage);
-  }
-
   return (
     <div className="users-lists">
       {!listsPaginator ? (
@@ -56,8 +46,7 @@ function UserLists({user}) {
                 <FilmListList lists={listsPaginator.data} showUser={false}/>
                 <PaginationControls
                     currentPage={page}
-                    onNext={handleNextPage}
-                    onPrevious={handlePreviousPage}
+                    onPageChange={setPage}
                     of={listsPaginator.of}
                     from={listsPaginator.from}
                     to={listsPaginator.to}

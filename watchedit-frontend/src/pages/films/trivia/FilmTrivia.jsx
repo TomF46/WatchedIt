@@ -80,17 +80,7 @@ function FilmTrivia() {
             });
         });
     }
-
-    function handleNextPage() {
-        var newPage = page + 1;
-        setPage(newPage);
-    }
-
-    function handlePreviousPage() {
-        var newPage = page - 1;
-        setPage(newPage);
-    }
-
+    
     return (
         <div className="film-filmTrivia-page">
             {!film ? (
@@ -122,8 +112,7 @@ function FilmTrivia() {
                                         <TriviaList trivia={filmTriviaPaginator.data} canControl={true} onRemove={handleDelete} />
                                         <PaginationControls
                                             currentPage={page}
-                                            onNext={handleNextPage}
-                                            onPrevious={handlePreviousPage}
+                                            onPageChange={setPage}
                                             of={filmTriviaPaginator.of}
                                             from={filmTriviaPaginator.from}
                                             to={filmTriviaPaginator.to}

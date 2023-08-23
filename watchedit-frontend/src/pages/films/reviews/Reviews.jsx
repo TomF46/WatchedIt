@@ -52,16 +52,6 @@ function Reviews() {
             });
     }
 
-    function handleNextPage() {
-        var newPage = page + 1;
-        setPage(newPage);
-    }
-
-    function handlePreviousPage() {
-        var newPage = page - 1;
-        setPage(newPage);
-    }
-
     return (
         <div className="film-reviews-page">
             {!film ? (
@@ -94,8 +84,7 @@ function Reviews() {
                                         <ReviewOverviewList reviews={reviewsPaginator.data} showFilm={false} />
                                         <PaginationControls
                                             currentPage={page}
-                                            onNext={handleNextPage}
-                                            onPrevious={handlePreviousPage}
+                                            onPageChange={setPage}
                                             of={reviewsPaginator.of}
                                             from={reviewsPaginator.from}
                                             to={reviewsPaginator.to}

@@ -37,17 +37,7 @@ function Connections({currentUserId}) {
                 });
             });
     }
-
-    function handleNextPage() {
-        var newPage = page + 1;
-        setPage(newPage);
-    }
-
-    function handlePreviousPage() {
-        var newPage = page - 1;
-        setPage(newPage);
-    }
-
+    
     function startNewGame(){
         startConnectionsGame().then(res => {
             navigate(`/games/connections/${res.id}`)
@@ -85,8 +75,7 @@ function Connections({currentUserId}) {
                         <ConnectionsGamesList games={gamesPaginator.data} />
                         <PaginationControls
                             currentPage={page}
-                            onNext={handleNextPage}
-                            onPrevious={handlePreviousPage}
+                            onPageChange={setPage}
                             of={gamesPaginator.of}
                             from={gamesPaginator.from}
                             to={gamesPaginator.to}

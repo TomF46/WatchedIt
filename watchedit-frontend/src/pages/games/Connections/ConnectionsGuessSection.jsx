@@ -44,17 +44,7 @@ const ConnectionsGuessSection = ({ guess }) => {
           });
         })
     }
-
-    function handleNextPage(){
-        var newPage = page + 1;
-        setPage(newPage);
-    }
-
-    function handlePreviousPage(){
-        var newPage = page - 1;
-        setPage(newPage);
-    }
-
+    
     function handleSearchTermChange(event){
         const { name, value } = event.target;
         setSearchTerms(prevSearchTerms => ({
@@ -78,8 +68,7 @@ const ConnectionsGuessSection = ({ guess }) => {
                         <SelectPersonWSearch people={peoplePaginator.data} searchTerms={searchTerms} onSearchTermChange={handleSearchTermChange} onPersonSelected={handlePersonSelected} cardMode={true} />
                         <PaginationControls
                             currentPage={page}
-                            onNext={handleNextPage}
-                            onPrevious={handlePreviousPage}
+                            onPageChange={setPage}
                             of={peoplePaginator.of}
                             from={peoplePaginator.from}
                             to={peoplePaginator.to}

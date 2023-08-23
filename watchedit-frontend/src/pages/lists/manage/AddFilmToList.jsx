@@ -70,16 +70,6 @@ function AddFilmToList({userId}) {
         })
     }
 
-    function handleNextPage(){
-        var newPage = page + 1;
-        setPage(newPage);
-    }
-
-    function handlePreviousPage(){
-        var newPage = page - 1;
-        setPage(newPage);
-    }
-
     function handleSearchTermChange(event){
         const { value } = event.target;
         setSearchTerm(value);
@@ -116,8 +106,7 @@ function AddFilmToList({userId}) {
                                     <SelectFilmListWSearch films={filmsPaginator.data} currentFilms={list.films} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange} onFilmSelected={handleFilmSelected}/>
                                     <PaginationControls
                                     currentPage={page}
-                                    onNext={handleNextPage}
-                                    onPrevious={handlePreviousPage}
+                                    onPageChange={setPage}
                                     of={filmsPaginator.of}
                                     from={filmsPaginator.from}
                                     to={filmsPaginator.to}

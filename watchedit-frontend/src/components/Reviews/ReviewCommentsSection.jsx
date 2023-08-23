@@ -9,7 +9,7 @@ import { confirmAlert } from "react-confirm-alert";
 function ReviewCommentsSection({review}) {
     const [comments, setComments] = useState(null);
     const [page, setPage] = useState(1);
-    const commentsPerPage = 3;
+    const commentsPerPage = 8;
     const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
 
@@ -87,17 +87,13 @@ function ReviewCommentsSection({review}) {
         });
     }
 
-    function handlePageChange(newPage) {
-        setPage(newPage);
-    }
-
     return (
         <div className="review-comments-section">
             {!comments ? (
                 <LoadingMessage message={"Loading latest comments"} />
             ) : (
                 <div className="mt-4">
-                    <CommentsSection commentsPaginator={comments} currentPage={page} onAddComment={handleAddComment} onDeleteComment={handleDeleteComment} onPageChange={handlePageChange} onUpdateComment={handleUpdateComment} />
+                    <CommentsSection commentsPaginator={comments} currentPage={page} onAddComment={handleAddComment} onDeleteComment={handleDeleteComment} onPageChange={setPage} onUpdateComment={handleUpdateComment} />
                 </div>
             )}
         </div>

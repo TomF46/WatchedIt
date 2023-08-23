@@ -60,16 +60,6 @@ function People({ isAdmin }) {
             });
     }
 
-    function handleNextPage() {
-        var newPage = page + 1;
-        setPage(newPage);
-    }
-
-    function handlePreviousPage() {
-        var newPage = page - 1;
-        setPage(newPage);
-    }
-
     function handleSearchTermChange(event){
         const { name, value } = event.target;
         setSearchTerms(prevSearchTerms => ({
@@ -161,8 +151,7 @@ function People({ isAdmin }) {
                             <PersonGrid people={peoplePaginator.data} />
                             <PaginationControls
                                 currentPage={page}
-                                onNext={handleNextPage}
-                                onPrevious={handlePreviousPage}
+                                onPageChange={setPage}
                                 of={peoplePaginator.of}
                                 from={peoplePaginator.from}
                                 to={peoplePaginator.to}

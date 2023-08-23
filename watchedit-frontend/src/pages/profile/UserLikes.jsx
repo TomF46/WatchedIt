@@ -53,16 +53,6 @@ function UserLikes({currentUserId}) {
             });
     }
 
-    function handleNextPage() {
-        var newPage = page + 1;
-        setPage(newPage);
-    }
-
-    function handlePreviousPage() {
-        var newPage = page - 1;
-        setPage(newPage);
-    }
-
     return (
         <div className="watched-people-page">
             {!user ? (
@@ -78,8 +68,7 @@ function UserLikes({currentUserId}) {
                                     <PersonGrid people={peoplePaginator.data} />
                                     <PaginationControls
                                         currentPage={page}
-                                        onNext={handleNextPage}
-                                        onPrevious={handlePreviousPage}
+                                        onPageChange={setPage}
                                         of={peoplePaginator.of}
                                         from={peoplePaginator.from}
                                         to={peoplePaginator.to}

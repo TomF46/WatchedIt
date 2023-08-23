@@ -54,16 +54,6 @@ function Lists() {
             });
     }
 
-    function handleNextPage() {
-        var newPage = page + 1;
-        setPage(newPage);
-    }
-
-    function handlePreviousPage() {
-        var newPage = page - 1;
-        setPage(newPage);
-    }
-
     function handleSearchTermChange(event) {
         const { name, value } = event.target;
         setSearchTerms((prevSearchTerms) => ({
@@ -132,8 +122,7 @@ function Lists() {
                                     <FilmListList lists={listsPaginator.data} showUser={true}/>
                                     <PaginationControls
                                         currentPage={page}
-                                        onNext={handleNextPage}
-                                        onPrevious={handlePreviousPage}
+                                        onPageChange={setPage}
                                         of={listsPaginator.of}
                                         from={listsPaginator.from}
                                         to={listsPaginator.to}

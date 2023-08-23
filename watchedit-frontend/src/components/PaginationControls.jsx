@@ -1,6 +1,11 @@
 import PropTypes from "prop-types";
 
-const PaginationControls = ({ from, to, of, onNext, onPrevious, currentPage, lastPage }) => {
+const PaginationControls = ({ from, to, of, onPageChange, currentPage, lastPage }) => {
+
+    function changePageBy(amount){
+        onPageChange(currentPage + amount);
+    }
+
     return (
         <div className="pagination-controls p-2">
             <div className="flex justify-between">
@@ -13,7 +18,7 @@ const PaginationControls = ({ from, to, of, onNext, onPrevious, currentPage, las
                     {currentPage > 1 &&
                         <button
                             type="button"
-                            onClick={onPrevious}
+                            onClick={() => {changePageBy(-1)}}
                             className="rounded mr-2 inline-flex items-center pointer text-secondary hover:opacity-75"
                         >
                             <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -25,7 +30,7 @@ const PaginationControls = ({ from, to, of, onNext, onPrevious, currentPage, las
                     {!lastPage &&
                         <button
                             type="button"
-                            onClick={onNext}
+                            onClick={() => {changePageBy(1)}}
                             className="rounded inline-flex items-center pointer text-secondary hover:opacity-75"
                         >
                             <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -44,8 +49,7 @@ PaginationControls.propTypes = {
     from: PropTypes.number,
     to: PropTypes.number,
     of: PropTypes.number.isRequired,
-    onNext: PropTypes.func.isRequired,
-    onPrevious: PropTypes.func.isRequired,
+    onPageChange: PropTypes.func.isRequired,
     currentPage: PropTypes.number.isRequired,
     lastPage: PropTypes.bool.isRequired
 

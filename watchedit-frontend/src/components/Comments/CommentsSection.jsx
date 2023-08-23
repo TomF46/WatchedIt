@@ -45,16 +45,6 @@ const CommentsSection = ({userIsAuthenticated, commentsPaginator, currentPage, o
         });
     }
 
-    function handleNextPage() {
-        var newPage = currentPage + 1;
-        onPageChange(newPage);
-    }
-
-    function handlePreviousPage() {
-        var newPage = currentPage - 1;
-        onPageChange(newPage);
-    }
-
     return (
         <div>
             <h2 className="text-primary text-2xl text-center md:text-left my-4 md:my-0">Comments</h2>
@@ -68,8 +58,7 @@ const CommentsSection = ({userIsAuthenticated, commentsPaginator, currentPage, o
                         })}
                         <PaginationControls
                             currentPage={currentPage}
-                            onNext={handleNextPage}
-                            onPrevious={handlePreviousPage}
+                            onPageChange={onPageChange}
                             of={commentsPaginator.of}
                             from={commentsPaginator.from}
                             to={commentsPaginator.to}

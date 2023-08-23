@@ -72,16 +72,6 @@ function AddCreditForPerson() {
         })
     }
 
-    function handleNextPage(){
-        var newPage = page + 1;
-        setPage(newPage);
-    }
-
-    function handlePreviousPage(){
-        var newPage = page - 1;
-        setPage(newPage);
-    }
-
     function handleSearchTermChange(event){
         const { value } = event.target;
         setSearchTerm(value);
@@ -127,8 +117,7 @@ function AddCreditForPerson() {
                                         <SelectFilmWSearch films={filmsPaginator.data} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange} onFilmSelected={handleFilmSelected} cardMode={false}/>
                                         <PaginationControls
                                             currentPage={page}
-                                            onNext={handleNextPage}
-                                            onPrevious={handlePreviousPage}
+                                            onPageChange={setPage}
                                             of={filmsPaginator.of}
                                             from={filmsPaginator.from}
                                             to={filmsPaginator.to}

@@ -53,16 +53,6 @@ function UserReviews({currentUserId}) {
             });
     }
 
-    function handleNextPage() {
-        var newPage = page + 1;
-        setPage(newPage);
-    }
-
-    function handlePreviousPage() {
-        var newPage = page - 1;
-        setPage(newPage);
-    }
-
     return (
         <div className="users-reviews-page">
             {!user ? (
@@ -78,8 +68,7 @@ function UserReviews({currentUserId}) {
                                         <ReviewOverviewList reviews={reviewsPaginator.data} showFilm/>
                                         <PaginationControls
                                             currentPage={page}
-                                            onNext={handleNextPage}
-                                            onPrevious={handlePreviousPage}
+                                            onPageChange={setPage}
                                             of={reviewsPaginator.of}
                                             from={reviewsPaginator.from}
                                             to={reviewsPaginator.to}
