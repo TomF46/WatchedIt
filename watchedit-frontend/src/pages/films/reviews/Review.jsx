@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { deleteReview, getReviewById } from "../../../api/filmReviewApi";
@@ -8,8 +7,9 @@ import { confirmAlert } from "react-confirm-alert";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import ReviewCommentsSection from "../../../components/Reviews/ReviewCommentsSection";
 
-function Review({userId}) {
+function Review() {
     const { id, reviewId } = useParams();
+    const userId = useSelector((state) => state.tokens ? state.tokens.id : null);
     const navigate = useNavigate();
     const [review, setReview] = useState(null);
     const [userCanEdit, setUserCanEdit] = useState(false);
@@ -107,15 +107,5 @@ function Review({userId}) {
     );
 }
 
-Review.propTypes = {
-    userId: PropTypes.number,
-};
-
-const mapStateToProps = (state) => {
-    return {
-        userId: state.tokens ? state.tokens.id : null
-    };
-};
-
-export default connect(mapStateToProps)(Review);
+export default Review;
 

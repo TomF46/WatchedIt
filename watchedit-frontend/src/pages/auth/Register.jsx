@@ -1,13 +1,13 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import RegisterForm from "../../components/Auth/RegisterForm";
 import { register } from "../../api/authenticationApi";
 import { toast } from "react-toastify";
 import ReasonsToLoginSection from "../../components/Home/ReasonsToLoginSection";
 
-function Register({userIsAuthenticated}){
+function Register(){
+    const userIsAuthenticated = useSelector((state) => state.tokens != null);
     const navigate = useNavigate();
     const [user, setUser] = useState({
         username: "",
@@ -98,14 +98,4 @@ function Register({userIsAuthenticated}){
     );
 }
 
-Register.propTypes = {
-    userIsAuthenticated: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state) => {
-    return {
-        userIsAuthenticated: state.tokens != null
-    };
-};
-
-export default connect(mapStateToProps)(Register);
+export default Register;

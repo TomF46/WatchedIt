@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmById } from "../../../api/filmsApi";
@@ -9,8 +8,9 @@ import { newTrivia } from "../../../tools/obJectShapes";
 import ManageTriviaForm from "../../../components/Films/Trivia/ManageTriviaForm";
 import { getFilmTriviaById, saveFilmTrivia } from "../../../api/filmTriviaApi";
 
-function ManageFilmTrivia({userId}) {
+function ManageFilmTrivia() {
     const { id, triviaId } = useParams();
+    const userId = useSelector((state) => state.tokens ? state.tokens.id : null);
     const navigate = useNavigate();
     const [film, setFilm] = useState(null);
     const [filmTrivia, setFilmTrivia] = useState({ ...newTrivia});
@@ -105,15 +105,5 @@ function ManageFilmTrivia({userId}) {
     );
 }
 
-ManageFilmTrivia.propTypes = {
-    userId: PropTypes.number
-};
-
-const mapStateToProps = (state) => {
-    return {
-        userId: state.tokens ? state.tokens.id : null
-    };
-};
-
-export default connect(mapStateToProps)(ManageFilmTrivia);
+export default ManageFilmTrivia;
 

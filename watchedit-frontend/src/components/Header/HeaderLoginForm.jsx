@@ -1,13 +1,13 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { login } from "../../redux/actions/authenticationActions";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import EmailInput from "../Inputs/EmailInput";
 import PasswordInput from "../Inputs/PasswordInput";
 
-const HeaderLoginForm = ({ login}) => {
+const HeaderLoginForm = () => {
+    const dispatch = useDispatch();
     const [user, setUser] = useState({
         email: "",
         password: ""
@@ -39,8 +39,7 @@ const HeaderLoginForm = ({ login}) => {
         event.preventDefault();
         if (!formIsValid()) return;
         setSaving(true);
-        login(user)
-            .then(() => {
+        dispatch(login(user)).then(() => {
                 navigate("/");
             })
             .catch(err => {
@@ -75,18 +74,4 @@ const HeaderLoginForm = ({ login}) => {
     );
 };
 
-HeaderLoginForm.propTypes = {
-    login: PropTypes.func.isRequired
-};
-
-const mapStateToProps = (state) => {
-    return {
-        userIsAuthenticated: state.tokens != null
-    };
-};
-
-const mapDispatchToProps = {
-    login
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderLoginForm);
+export default HeaderLoginForm;

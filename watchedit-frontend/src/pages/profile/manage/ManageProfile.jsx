@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getUserById, updateCurrentUser } from "../../../api/usersApi";
 import { uploadImage } from "../../../api/imageApi";
@@ -8,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 import ManageUserForm from "../../../components/User/Manage/ManageUserForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
-function ManageProfile({id}) {
+function ManageProfile() {
+    const id = useSelector((state) => state.tokens.id);
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [updatedUser, setUpdatedUser] = useState(null);
@@ -110,14 +110,4 @@ function ManageProfile({id}) {
     );
 }
 
-ManageProfile.propTypes = {
-    id: PropTypes.any.isRequired
-};
-
-const mapStateToProps = (state) => {
-    return {
-        id: state.tokens.id,
-    };
-};
-
-export default connect(mapStateToProps)(ManageProfile);
+export default ManageProfile;

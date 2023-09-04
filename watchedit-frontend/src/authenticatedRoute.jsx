@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
 import {Navigate} from 'react-router-dom';
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
-const AuthenticatedRoute = ({userIsAuthenticated, children
+const AuthenticatedRoute = ({children
 }) => {
+    const userIsAuthenticated = useSelector((state) => state.tokens != null);
     if (!userIsAuthenticated) {
         return <Navigate to="/login" replace />;
       }
@@ -12,14 +13,7 @@ const AuthenticatedRoute = ({userIsAuthenticated, children
 };
 
 AuthenticatedRoute.propTypes = {
-    userIsAuthenticated: PropTypes.bool.isRequired,
     children: PropTypes.node.isRequired
 };
 
-const mapStateToProps = (state) => {
-    return {
-        userIsAuthenticated: state.tokens != null
-    };
-};
-
-export default connect(mapStateToProps)(AuthenticatedRoute);
+export default AuthenticatedRoute;

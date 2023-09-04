@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmById } from "../../../api/filmsApi";
@@ -10,8 +9,9 @@ import { confirmAlert } from "react-confirm-alert";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
 
-function FilmCredits({isAdmin}) {
+function FilmCredits() {
     const { id } = useParams();
+    const isAdmin = useSelector((state) => state.isAdmin);
     const [film, setFilm] = useState(null);
     const [credits, setCredits] = useState(null);
 
@@ -137,15 +137,5 @@ function FilmCredits({isAdmin}) {
     );
 }
 
-FilmCredits.propTypes = {
-    isAdmin: PropTypes.bool.isRequired
-};
-
-const mapStateToProps = (state) => {
-    return {
-        isAdmin: state.isAdmin
-    };
-};
-
-export default connect(mapStateToProps)(FilmCredits);
+export default FilmCredits;
 

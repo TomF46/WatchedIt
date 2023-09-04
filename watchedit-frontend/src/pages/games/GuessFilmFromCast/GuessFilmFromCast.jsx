@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import PaginationControls from "../../../components/PaginationControls";
@@ -8,7 +7,8 @@ import { getGuessFilmFromCastGames, startGuessFilmFromCastGame } from "../../../
 import GuessFilmFromCastGamesList from "./GuessFilmFromCastGamesList";
 import { useNavigate } from "react-router-dom";
 
-function GuessFilmFromCast({currentUserId}) {
+function GuessFilmFromCast() {
+    const userId = useSelector((state) => state.tokens ? state.tokens.id : null);
     const navigate = useNavigate();
     const [gamesPaginator, setGamesPaginator] = useState(null);
     const [page, setPage] = useState(1);
@@ -19,7 +19,7 @@ function GuessFilmFromCast({currentUserId}) {
         if (!gamesPaginator) {
             getGames();
         }
-    }, [currentUserId]);
+    }, [userId]);
 
     useEffect(() => {
         if (lastPageLoaded != null) getGames();
@@ -93,15 +93,4 @@ function GuessFilmFromCast({currentUserId}) {
     );
 }
 
-GuessFilmFromCast.propTypes = {
-    currentUserId: PropTypes.any.isRequired
-
-};
-
-const mapStateToProps = (state) => {
-    return {
-        currentUserId: state.tokens ? state.tokens.id : null
-    };
-};
-
-export default connect(mapStateToProps)(GuessFilmFromCast);
+export default GuessFilmFromCast;

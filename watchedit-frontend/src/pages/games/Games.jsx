@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-function Games({userIsAuthenticated}){
+function Games(){
+    const userIsAuthenticated = useSelector((state) => state.tokens != null);
     const navigate = useNavigate();
     return (
         <div className="games-page">
@@ -61,14 +61,4 @@ function Games({userIsAuthenticated}){
     );
 }
 
-Games.propTypes = {
-    userIsAuthenticated: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state) => {
-    return {
-        userIsAuthenticated: state.tokens != null,
-    };
-};
-
-export default connect(mapStateToProps)(Games);
+export default Games;

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getUserById, getWatchedListByUserId } from "../../api/usersApi";
 import FilmGrid from "../../components/Films/FilmGrid";
@@ -8,8 +7,9 @@ import PaginationControls from "../../components/PaginationControls";
 import { useParams } from "react-router-dom";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 
-function WatchedList({currentUserId}) {
+function WatchedList() {
     const { id } = useParams();
+    const currentUserId = useSelector((state) => state.tokens ? state.tokens.id : null);
     const [user, setUser] = useState(null);
     const [filmsPaginator, setFilmsPaginator] = useState(null);
     const [page, setPage] = useState(1);
@@ -90,15 +90,4 @@ function WatchedList({currentUserId}) {
     );
 }
 
-WatchedList.propTypes = {
-    currentUserId: PropTypes.any.isRequired
-
-};
-
-const mapStateToProps = (state) => {
-    return {
-        currentUserId: state.tokens ? state.tokens.id : null
-    };
-};
-
-export default connect(mapStateToProps)(WatchedList);
+export default WatchedList;

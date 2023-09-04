@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmListById, saveFilmList } from "../../../api/filmListsApi";
@@ -8,8 +7,9 @@ import ManageListForm from "../../../components/Lists/Manage/ManageListForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { newList } from "../../../tools/obJectShapes";
 
-function ManageList({userId}) {
+function ManageList() {
     const { id } = useParams();
+    const userId = useSelector((state) => state.tokens ? state.tokens.id : null);
     const navigate = useNavigate();
     const [list, setList] = useState({ ...newList });
     const [errors, setErrors] = useState({});
@@ -90,14 +90,4 @@ function ManageList({userId}) {
     );
 }
 
-ManageList.propTypes = {
-    userId: PropTypes.number,
-};
-
-const mapStateToProps = (state) => {
-    return {
-        userId: state.tokens ? state.tokens.id : null
-    };
-};
-
-export default connect(mapStateToProps)(ManageList);
+export default ManageList;

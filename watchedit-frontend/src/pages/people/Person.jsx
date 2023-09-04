@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getPersonById, removePerson } from "../../api/peopleApi";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -11,8 +10,10 @@ import { format, parseISO } from "date-fns";
 import LikedPersonControls from "../../components/People/Likes/LikedPersonControls";
 
 
-function Person({userIsAuthenticated, isAdmin}) {
+function Person() {
     const { id } = useParams();
+    const userIsAuthenticated = useSelector((state) => state.tokens != null);
+    const isAdmin = useSelector((state) => state.isAdmin);
     const navigate = useNavigate();
     const [person, setPerson] = useState(null);
 
@@ -157,17 +158,5 @@ function Person({userIsAuthenticated, isAdmin}) {
     );
 }
   
-Person.propTypes = {
-    userIsAuthenticated: PropTypes.bool.isRequired,
-    isAdmin: PropTypes.bool.isRequired
-};
-
-const mapStateToProps = (state) => {
-    return {
-        userIsAuthenticated: state.tokens != null,
-        isAdmin: state.isAdmin
-    };
-};
-
-export default connect(mapStateToProps)(Person);
+export default Person;
 

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { confirmAlert } from "react-confirm-alert";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -11,8 +10,9 @@ import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import PersonMiniDetail from "../../../components/People/PersonMiniDetail";
 
 
-function PersonCredits({isAdmin}) {
+function PersonCredits() {
     const { id } = useParams();
+    const isAdmin = useSelector((state) => state.isAdmin);
     const [person, setPerson] = useState(null);
     const [credits, setCredits] = useState(null);
 
@@ -137,16 +137,5 @@ function PersonCredits({isAdmin}) {
         </div>
     );
   }
-  
-  PersonCredits.propTypes = {
-    isAdmin: PropTypes.bool.isRequired
-};
-
-const mapStateToProps = (state) => {
-    return {
-        isAdmin: state.isAdmin
-    };
-};
-
-export default connect(mapStateToProps)(PersonCredits);
+export default PersonCredits;
 

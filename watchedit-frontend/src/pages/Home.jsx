@@ -1,5 +1,4 @@
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import FilmReel from "../components/Home/FilmReel/FilmReel";
 import PeopleReel from "../components/Home/PeopleReel/PeopleReel";
@@ -9,7 +8,9 @@ import ReasonsToLoginSection from "../components/Home/ReasonsToLoginSection";
 import UnreadNotifications from "../components/Home/UnreadNotifications/UnreadNotifications";
 
 
-function Home({ userIsAuthenticated, username }) {
+function Home() {
+    const userIsAuthenticated = useSelector((state) => state.tokens != null);
+    const username = useSelector((state) => state.tokens ? state.tokens.username : null);
     return (
         <div className="Home">
             <div className="text-center grid grid-cols-12">
@@ -57,16 +58,4 @@ function Home({ userIsAuthenticated, username }) {
     );
 }
 
-Home.propTypes = {
-    userIsAuthenticated: PropTypes.bool.isRequired,
-    username: PropTypes.string,
-};
-
-const mapStateToProps = (state) => {
-    return {
-        userIsAuthenticated: state.tokens != null,
-        username: state.tokens ? state.tokens.username : null
-    };
-};
-
-export default connect(mapStateToProps)(Home);
+export default Home;

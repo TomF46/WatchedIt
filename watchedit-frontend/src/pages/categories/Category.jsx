@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import debounce from 'lodash.debounce';
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -12,8 +11,9 @@ import { searchFilmsWithCategoryPaginated } from "../../api/filmsApi";
 import TextInput from "../../components/Inputs/TextInput";
 
 
-function Category({isAdmin}){
+function Category(){
     const { id } = useParams();
+    const isAdmin = useSelector((state) => state.isAdmin);
     const [searchTerm, setSearchTerm] = useState("");
     const [category, setCategory] = useState(null);
     const [filmsPaginator, setFilmsPaginator] = useState(null);
@@ -147,15 +147,5 @@ function Category({isAdmin}){
 
 }
 
-Category.propTypes = {
-    isAdmin: PropTypes.bool.isRequired
-};
-
-const mapStateToProps = (state) => {
-    return {
-        isAdmin: state.isAdmin
-    };
-};
-
-export default connect(mapStateToProps)(Category);
+export default Category;
 

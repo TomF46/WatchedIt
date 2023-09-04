@@ -1,12 +1,13 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import CommentForm from "./CommentForm";
 import { format, parseISO } from 'date-fns'
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-const Comment = ({ comment, onUpdateComment, onDeleteComment, userId }) => {
+const Comment = ({ comment, onUpdateComment, onDeleteComment }) => {
+    const userId = useSelector((state) => state.tokens ? state.tokens.id : null);
     const navigate = useNavigate();
     const [updatedComment, setUpdatedComment] = useState(comment);
     const [editing, setEditing] = useState(false);
@@ -97,14 +98,7 @@ const Comment = ({ comment, onUpdateComment, onDeleteComment, userId }) => {
 Comment.propTypes = {
     comment: PropTypes.object.isRequired,
     onUpdateComment: PropTypes.func.isRequired,
-    onDeleteComment: PropTypes.func.isRequired,
-    userId: PropTypes.number
+    onDeleteComment: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => {
-    return {
-        userId: state.tokens ? state.tokens.id : null
-    };
-  };
-
-  export default connect(mapStateToProps)(Comment);
+export default Comment;

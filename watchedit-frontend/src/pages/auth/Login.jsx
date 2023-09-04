@@ -1,6 +1,5 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import {login} from "../../redux/actions/authenticationActions"
 import { toast } from "react-toastify";
@@ -8,7 +7,9 @@ import LoginForm from "../../components/Auth/LoginForm";
 import ReasonsToLoginSection from "../../components/Home/ReasonsToLoginSection";
 
 
-function Login({userIsAuthenticated, login}){
+function Login(){
+    const dispatch = useDispatch();
+    const userIsAuthenticated = useSelector((state) => state.tokens != null);
     const navigate = useNavigate();
     const [user, setUser] = useState({
         email: "",
@@ -40,7 +41,7 @@ function Login({userIsAuthenticated, login}){
         event.preventDefault();
         if (!formIsValid()) return;
         setSaving(true);
-        login(user)
+        dispatch(login(user))
             .then(() => {
                 navigate("/");
             })
@@ -90,20 +91,4 @@ function Login({userIsAuthenticated, login}){
     );
 }
 
-
-Login.propTypes = {
-    userIsAuthenticated: PropTypes.bool.isRequired,
-    login: PropTypes.func.isRequired
-};
-
-const mapStateToProps = (state) => {
-    return {
-        userIsAuthenticated: state.tokens != null
-    };
-};
-
-const mapDispatchToProps = {
-    login
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;

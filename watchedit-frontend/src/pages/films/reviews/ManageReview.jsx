@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmById } from "../../../api/filmsApi";
@@ -9,8 +8,9 @@ import { newReview } from "../../../tools/obJectShapes";
 import ManageReviewForm from "../../../components/Films/Reviews/ManageReviewForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
-function ManageReview({userId}) {
+function ManageReview() {
     const { id, reviewId } = useParams();
+    const userId = useSelector((state) => state.tokens ? state.tokens.id : null);
     const navigate = useNavigate();
     const [film, setFilm] = useState(null);
     const [review, setReview] = useState({ ...newReview});
@@ -108,15 +108,5 @@ function ManageReview({userId}) {
     );
 }
 
-ManageReview.propTypes = {
-    userId: PropTypes.number
-};
-
-const mapStateToProps = (state) => {
-    return {
-        userId: state.tokens ? state.tokens.id : null
-    };
-};
-
-export default connect(mapStateToProps)(ManageReview);
+export default ManageReview;
 

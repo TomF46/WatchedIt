@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import ReviewOverviewList from "../../../components/Films/Reviews/ReviewOverviewList";
@@ -8,8 +7,9 @@ import PaginationControls from "../../../components/PaginationControls";
 import { getUserById, getUsersReviewsPaginated } from "../../../api/usersApi";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
-function UserReviews({currentUserId}) {
+function UserReviews() {
     const { id } = useParams();
+    const currentUserId = useSelector((state) => state.tokens ? state.tokens.id : null);
     const [user, setUser] = useState(null);
     const [reviewsPaginator, setReviewsPaginator] = useState(null);
     const [page, setPage] = useState(1);
@@ -90,15 +90,5 @@ function UserReviews({currentUserId}) {
     );
 }
 
-UserReviews.propTypes = {
-    currentUserId: PropTypes.any.isRequired
-};
-
-const mapStateToProps = (state) => {
-    return {
-        currentUserId: state.tokens ? state.tokens.id : null
-    };
-};
-
-export default connect(mapStateToProps)(UserReviews);
+export default UserReviews;
 

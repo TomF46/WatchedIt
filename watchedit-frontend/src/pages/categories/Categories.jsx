@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getCategories } from "../../api/categoriesApi";
 import CategoryList from "../../components/Categories/CategoryList";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 
-function Categories({isAdmin}){
+function Categories(){
+    const isAdmin = useSelector((state) => state.isAdmin);
     const [categories, setCategories] = useState(null);
 
     useEffect(() => {
@@ -60,15 +60,5 @@ function Categories({isAdmin}){
 
 }
 
-Categories.propTypes = {
-    isAdmin: PropTypes.bool.isRequired
-};
-
-const mapStateToProps = (state) => {
-    return {
-        isAdmin: state.isAdmin
-    };
-};
-
-export default connect(mapStateToProps)(Categories);
+export default Categories;
 

@@ -1,13 +1,14 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import PaginationControls from "../PaginationControls";
 import { newComment } from "../../tools/obJectShapes";
 import CommentForm from "./CommentForm";
 import { toast } from "react-toastify";
 import Comment from "./Comment";
+import { useSelector } from "react-redux";
 
-const CommentsSection = ({userIsAuthenticated, commentsPaginator, currentPage, onPageChange, onAddComment, onUpdateComment, onDeleteComment}) => {
+const CommentsSection = ({commentsPaginator, currentPage, onPageChange, onAddComment, onUpdateComment, onDeleteComment}) => {
+    const userIsAuthenticated = useSelector((state) => state.tokens != null);
     const [comment, setComment] = useState({ ...newComment });
     const [errors, setErrors] = useState({});
     const [saving, setSaving] = useState(false);
@@ -81,7 +82,6 @@ const CommentsSection = ({userIsAuthenticated, commentsPaginator, currentPage, o
 };
 
 CommentsSection.propTypes = {
-    userIsAuthenticated: PropTypes.bool.isRequired,
     commentsPaginator: PropTypes.object.isRequired,
     currentPage: PropTypes.number.isRequired,
     onPageChange: PropTypes.func.isRequired,
@@ -90,11 +90,5 @@ CommentsSection.propTypes = {
     onDeleteComment: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => {
-    return {
-        userIsAuthenticated: state.tokens != null
-    };
-};
-
-export default connect(mapStateToProps)(CommentsSection);
+export default CommentsSection;
 

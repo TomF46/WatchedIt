@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { confirmAlert } from 'react-confirm-alert';
@@ -13,8 +12,10 @@ import LatestReviews from "../../components/Reviews/LatestReviews";
 import SimilarFilmsReel from "../../components/Films/SimilarFilmsReel";
 import TriviaOverview from "../../components/Films/Trivia/TriviaOverview";
 
-function Film({userIsAuthenticated, isAdmin}) {
+function Film() {
     const { id } = useParams();
+    const userIsAuthenticated = useSelector((state) => state.tokens != null);
+    const isAdmin = useSelector((state) => state.isAdmin);
     const navigate = useNavigate();
     const [film, setFilm] = useState(null);
 
@@ -215,17 +216,5 @@ function Film({userIsAuthenticated, isAdmin}) {
     );
 }
 
-Film.propTypes = {
-    userIsAuthenticated: PropTypes.bool.isRequired,
-    isAdmin: PropTypes.bool.isRequired
-};
-
-const mapStateToProps = (state) => {
-    return {
-        userIsAuthenticated: state.tokens != null,
-        isAdmin: state.isAdmin
-    };
-};
-
-export default connect(mapStateToProps)(Film);
+export default Film;
 

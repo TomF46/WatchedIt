@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { confirmAlert } from "react-confirm-alert";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -10,8 +9,10 @@ import LoadingMessage from "../../components/Loading/LoadingMessage";
 import UserMiniDetail from "../../components/User/UserMiniDetail";
 
 
-function List({userId}) {
+function List() {
     const { id } = useParams();
+    const userId = useSelector((state) => state.tokens ? state.tokens.id : null);
+
     const navigate = useNavigate();
     const [list, setList] = useState(null);
     const [userCanEdit, setUserCanEdit] = useState(false);
@@ -154,14 +155,5 @@ function List({userId}) {
     );
   }
   
-List.propTypes = {
-    userId: PropTypes.number,
-};
 
-const mapStateToProps = (state) => {
-    return {
-        userId: state.tokens ? state.tokens.id : null
-    };
-};
-
-export default connect(mapStateToProps)(List);
+export default List;

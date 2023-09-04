@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getUserById, getLikedPeopleByUserId} from "../../api/usersApi";
 import PaginationControls from "../../components/PaginationControls";
@@ -8,8 +7,9 @@ import { useParams } from "react-router-dom";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import PersonGrid from "../../components/People/PersonGrid";
 
-function UserLikes({currentUserId}) {
+function UserLikes() {
     const { id } = useParams();
+    const currentUserId = useSelector((state) => state.tokens ? state.tokens.id : null);
     const [user, setUser] = useState(null);
     const [peoplePaginator, setPeoplePaginator] = useState(null);
     const [page, setPage] = useState(1);
@@ -90,14 +90,4 @@ function UserLikes({currentUserId}) {
     );
 }
 
-UserLikes.propTypes = {
-    currentUserId: PropTypes.number
-};
-
-const mapStateToProps = (state) => {
-    return {
-        currentUserId: state.tokens ? state.tokens.id : null
-    };
-};
-
-export default connect(mapStateToProps)(UserLikes);
+export default UserLikes;

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import debounce from 'lodash.debounce';
 import { searchPeoplePaginated } from "../../api/peopleApi";
 import PersonGrid from "../../components/People/PersonGrid";
@@ -11,7 +10,8 @@ import TextInput from "../../components/Inputs/TextInput";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import SelectInput from "../../components/Inputs/SelectInput";
 
-function People({ isAdmin }) {
+function People() {
+    const isAdmin = useSelector((state) => state.isAdmin);
     const [peoplePaginator, setPeoplePaginator] = useState(null);
     const [searchTerms, setSearchTerms] = useState({firstName: "", lastName: "", stageName: ""});
     const [page, setPage] = useState(1);
@@ -167,14 +167,4 @@ function People({ isAdmin }) {
     );
 }
 
-People.propTypes = {
-    isAdmin: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state) => {
-    return {
-        isAdmin: state.isAdmin,
-    };
-};
-
-export default connect(mapStateToProps)(People);
+export default People;

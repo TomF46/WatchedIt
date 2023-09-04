@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 
-const TriviaList = ({trivia, userId, onRemove, canControl}) => {
+const TriviaList = ({trivia, onRemove, canControl}) => {
+    const userId = useSelector((state) => state.tokens ? state.tokens.id : null);
     const navigate = useNavigate();
     return (
         <div className="grid grid-cols-12">
@@ -36,16 +37,9 @@ const TriviaList = ({trivia, userId, onRemove, canControl}) => {
 
 TriviaList.propTypes = {
     trivia: PropTypes.array.isRequired,
-    userId: PropTypes.number,
     onRemove: PropTypes.func,
     canControl: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = (state) => {
-    return {
-        userId: state.tokens ? state.tokens.id : null
-    };
-};
-
-export default connect(mapStateToProps)(TriviaList);
+export default TriviaList;
 

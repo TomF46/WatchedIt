@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { getUserById } from "../../api/usersApi";
 import { Link, useParams } from "react-router-dom";
@@ -10,8 +9,10 @@ import { logout } from "../../redux/actions/authenticationActions";
 import { confirmAlert } from "react-confirm-alert";
 import UserLatestReviews from "../../components/Reviews/UserLatestReviews";
 
-function Profile({ currentUserId, logout}) {
+function Profile() {
     const { id } = useParams();
+    const dispatch = useDispatch();
+    const currentUserId = useSelector((state) => state.tokens ? state.tokens.id : null);
     const [user, setUser] = useState(null);
 
     useEffect(() => {
@@ -41,7 +42,7 @@ function Profile({ currentUserId, logout}) {
                 {
                   label: 'Yes',
                   onClick: () => {
-                    logout();
+                    dispatch(logout());
                     toast.info("Logged out");
                   }
                 },
@@ -140,20 +141,4 @@ function Profile({ currentUserId, logout}) {
     );
 }
 
-Profile.propTypes = {
-    logout: PropTypes.func.isRequired,
-    currentUserId: PropTypes.number
-};
-
-const mapStateToProps = (state) => {
-    return {
-        currentUserId: state.tokens ? state.tokens.id : null
-    };
-};
-
-const mapDispatchToProps = {
-    logout
-};
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default Profile;

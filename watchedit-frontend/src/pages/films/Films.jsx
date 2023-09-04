@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import debounce from 'lodash.debounce';
 import FilmGrid from "../../components/Films/FilmGrid";
@@ -12,7 +11,8 @@ import { getCategories } from "../../api/categoriesApi";
 import SelectInput from "../../components/Inputs/SelectInput";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 
-function Films({ isAdmin }) {
+function Films() {
+    const isAdmin = useSelector((state) => state.isAdmin);
     const [filmsPaginator, setFilmsPaginator] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
     const [categories, setCategories] = useState(null);
@@ -188,14 +188,4 @@ function Films({ isAdmin }) {
     );
 }
 
-Films.propTypes = {
-    isAdmin: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state) => {
-    return {
-        isAdmin: state.isAdmin,
-    };
-};
-
-export default connect(mapStateToProps)(Films);
+export default Films;

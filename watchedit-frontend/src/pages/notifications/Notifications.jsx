@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { decrementNotificationCount } from "../../redux/actions/notificationCountActions";
 import { getAllNotifications, readNotification } from "../../api/notificationApi";
@@ -8,7 +7,9 @@ import LoadingMessage from "../../components/Loading/LoadingMessage";
 import NotificationsList from "../../components/Notifications/NotificationsList";
 import PaginationControls from "../../components/PaginationControls";
 
-const NotificationsPage = ({ decrementNotificationCount, notificationCount }) => {
+const NotificationsPage = () => {
+    const dispatch = useDispatch();
+    const notificationCount = useSelector((state) => state.notificationCount);
     const [notificationsPaginator, setNotificationsPaginator] = useState(null);
     const [page, setPage] = useState(1);
     const notificationsPerPage = 32;
@@ -39,7 +40,7 @@ const NotificationsPage = ({ decrementNotificationCount, notificationCount }) =>
 
         if (notification.read) return;
         readNotification(notification.id).then(() => {
-            decrementNotificationCount();
+            dispatch(decrementNotificationCount())
             getNotifications();
         }).catch(error => {
             toast.error(`Error reading notification ${error.message}`, {
@@ -80,19 +81,4 @@ const NotificationsPage = ({ decrementNotificationCount, notificationCount }) =>
     );
 };
 
-NotificationsPage.propTypes = {
-    notificationCount: PropTypes.number.isRequired,
-    decrementNotificationCount: PropTypes.func.isRequired
-};
-
-const mapStateToProps = (state) => {
-    return {
-        notificationCount: state.notificationCount
-    };
-};
-
-const mapDispatchToProps = {
-    decrementNotificationCount
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(NotificationsPage);
+export default NotificationsPage;

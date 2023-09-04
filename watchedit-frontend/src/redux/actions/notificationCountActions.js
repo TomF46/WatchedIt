@@ -1,15 +1,15 @@
 import { getUnreadNotificationCount } from "../../api/notificationApi";
 import * as types from "./actionTypes";
 
-export function loadNotificationCountSuccess(notificationCount) {
+const loadNotificationCountSuccess = (notificationCount) => {
     return { type: types.LOAD_NOTIFICATION_COUNT_SUCCESS, notificationCount };
 }
 
-export function notificationCountDecrement() {
+const notificationCountDecrement = () => {
     return { type: types.NOTIFICATION_COUNT_DECREMENT };
 }
 
-export function loadNotificationCount() {
+export const loadNotificationCount = () => {
     return function (dispatch) {
         return getUnreadNotificationCount().then(res => {
             dispatch(loadNotificationCountSuccess(res.count));
@@ -19,7 +19,7 @@ export function loadNotificationCount() {
     };
 }
 
-export function decrementNotificationCount() {
+export const decrementNotificationCount = () => {
     return function (dispatch) {
         dispatch(notificationCountDecrement());
     };
