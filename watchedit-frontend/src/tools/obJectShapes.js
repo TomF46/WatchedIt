@@ -1,42 +1,42 @@
 export const newFilm = {
-    name: "",
-    shortDescription: "",
-    fullDescription: "",
-    runtime: 0,
-    releaseDate: new Date(),
-    posterUrl: null,
-    trailerUrl: null,
-    categories: []
-}
+  name: "",
+  shortDescription: "",
+  fullDescription: "",
+  runtime: 0,
+  releaseDate: new Date(),
+  posterUrl: null,
+  trailerUrl: null,
+  categories: [],
+};
 
 export const newPerson = {
-    firstName: "",
-    lastName: "",
-    middleNames: "",
-    stageName: "",
-    dateOfBirth: new Date(),
-    description: "",
-    imageUrl: null
-}
+  firstName: "",
+  lastName: "",
+  middleNames: "",
+  stageName: "",
+  dateOfBirth: new Date(),
+  description: "",
+  imageUrl: null,
+};
 
 export const newList = {
-    name: "",
-    description: "",
-}
+  name: "",
+  description: "",
+};
 
 export const newReview = {
-    rating: null,
-    text: ""
-}
+  rating: null,
+  text: "",
+};
 
 export const newCategory = {
-    name: ""
-}
+  name: "",
+};
 
 export const newComment = {
-    text: ""
-}
+  text: "",
+};
 
 export const newTrivia = {
-    text: ""
-}
+  text: "",
+};

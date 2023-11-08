@@ -5,12 +5,12 @@ import store from "./redux/store";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
-document.body.classList.add('bg-background');
+document.body.classList.add("bg-background");
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <Provider store={store}>
-        <BrowserRouter>
-        <App />
-        </BrowserRouter>
-    </Provider>
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
 );

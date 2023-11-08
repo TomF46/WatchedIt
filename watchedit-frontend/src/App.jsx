@@ -47,73 +47,283 @@ import GuessFilmFromDescriptionGame from "./pages/games/GuessFilmFromDescription
 import GuessFilmFromDescriptionLeaderboard from "./pages/games/GuessFilmFromDescription/GuessFilmFromDescriptionLeaderboard";
 import Connections from "./pages/games/Connections/Connections";
 import ConnectionsGame from "./pages/games/Connections/ConnectionsGame";
-  
-  const App = () => {
-    return (
-      <>
+
+const App = () => {
+  return (
+    <>
       <div className="bg-background">
         <Header />
         <div className="app-container container mx-auto px-4 lg:px-0 mb-4">
           <Routes>
-            <Route path="/" element={<Home />}/>
-            <Route path="/register" element={<Register />}/>
-            <Route path="/login" element={<Login />}/>
-            <Route path="/films/:id/reviews/:reviewId/edit" element={<AuthenticatedRoute><ManageReview /></AuthenticatedRoute>}/>
-            <Route path="/films/:id/reviews/add" element={<AuthenticatedRoute><ManageReview /></AuthenticatedRoute>}/>
-            <Route path="/films/:id/reviews/:reviewId" element={<Review />}/>
-            <Route path="/films/:id/reviews" element={<Reviews />}/>
-            <Route path="/films/:id/trivia/:triviaId/edit" element={<AuthenticatedRoute><ManageFilmTrivia /></AuthenticatedRoute>}/>
-            <Route path="/films/:id/trivia/add" element={<AuthenticatedRoute><ManageFilmTrivia /></AuthenticatedRoute>}/>
-            <Route path="/films/:id/trivia" element={<FilmTrivia />}/>
-            <Route path="/films/:id/credits/add" element={<AdminRoute><AddCreditForFilm /></AdminRoute>}/>
-            <Route path="/films/:id/credits/:creditId/edit" element={<AdminRoute><EditCredit /></AdminRoute>}/>
-            <Route path="/films/:id/credits" element={<FilmCredits />}/>
-            <Route path="/films/:id/edit" element={<AdminRoute><ManageFilm /></AdminRoute>}/>
-            <Route path="/films/add" element={<AdminRoute><ManageFilm /></AdminRoute>}/>
-            <Route path="/films/:id" element={<Film />}/>
-            <Route path="/films" element={<Films />}/>
-            <Route path="/people/:id/credits/add" element={<AdminRoute><AddCreditForPerson /></AdminRoute>}/>
-            <Route path="/people/:id/credits/:creditId/edit" element={<AdminRoute><EditCredit /></AdminRoute>}/>
-            <Route path="/people/:id/credits" element={<PersonCredits />}/>
-            <Route path="/people/:id/edit" element={<AdminRoute><ManagePerson /></AdminRoute>}/>
-            <Route path="/people/add" element={<AdminRoute><ManagePerson /></AdminRoute>}/>
-            <Route path="/people/:id" element={<Person />}/>
-            <Route path="/people" element={<People />}/>
-            <Route path="/lists/:id/add" element={<AuthenticatedRoute><AddFilmToList /></AuthenticatedRoute>}/>
-            <Route path="/lists/:id/edit" element={<AuthenticatedRoute><ManageList /></AuthenticatedRoute>}/>
-            <Route path="/lists/add" element={<AuthenticatedRoute><ManageList /></AuthenticatedRoute>}/>
-            <Route path="/lists/:id" element={<List />}/>
-            <Route path="/lists" element={<Lists />}/>
-            <Route path="/profile/:id/likes" element={<UserLikes />}/>
-            <Route path="/profile/likes/" element={<AuthenticatedRoute><UserLikes /></AuthenticatedRoute>}/>
-            <Route path="/profile/:id/watched" element={<WatchedList />}/>
-            <Route path="/profile/watched" element={<AuthenticatedRoute><WatchedList /></AuthenticatedRoute>}/>
-            <Route path="/profile/:id/reviews" element={<UsersReviews />}/>
-            <Route path="/profile/reviews" element={<AuthenticatedRoute><UsersReviews /></AuthenticatedRoute>}/>
-            <Route path="/profile/edit" element={<AuthenticatedRoute><ManageProfile /></AuthenticatedRoute>}/>
+            <Route path="/" element={<Home />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/films/:id/reviews/:reviewId/edit"
+              element={
+                <AuthenticatedRoute>
+                  <ManageReview />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/films/:id/reviews/add"
+              element={
+                <AuthenticatedRoute>
+                  <ManageReview />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route path="/films/:id/reviews/:reviewId" element={<Review />} />
+            <Route path="/films/:id/reviews" element={<Reviews />} />
+            <Route
+              path="/films/:id/trivia/:triviaId/edit"
+              element={
+                <AuthenticatedRoute>
+                  <ManageFilmTrivia />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/films/:id/trivia/add"
+              element={
+                <AuthenticatedRoute>
+                  <ManageFilmTrivia />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route path="/films/:id/trivia" element={<FilmTrivia />} />
+            <Route
+              path="/films/:id/credits/add"
+              element={
+                <AdminRoute>
+                  <AddCreditForFilm />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/films/:id/credits/:creditId/edit"
+              element={
+                <AdminRoute>
+                  <EditCredit />
+                </AdminRoute>
+              }
+            />
+            <Route path="/films/:id/credits" element={<FilmCredits />} />
+            <Route
+              path="/films/:id/edit"
+              element={
+                <AdminRoute>
+                  <ManageFilm />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/films/add"
+              element={
+                <AdminRoute>
+                  <ManageFilm />
+                </AdminRoute>
+              }
+            />
+            <Route path="/films/:id" element={<Film />} />
+            <Route path="/films" element={<Films />} />
+            <Route
+              path="/people/:id/credits/add"
+              element={
+                <AdminRoute>
+                  <AddCreditForPerson />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/people/:id/credits/:creditId/edit"
+              element={
+                <AdminRoute>
+                  <EditCredit />
+                </AdminRoute>
+              }
+            />
+            <Route path="/people/:id/credits" element={<PersonCredits />} />
+            <Route
+              path="/people/:id/edit"
+              element={
+                <AdminRoute>
+                  <ManagePerson />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/people/add"
+              element={
+                <AdminRoute>
+                  <ManagePerson />
+                </AdminRoute>
+              }
+            />
+            <Route path="/people/:id" element={<Person />} />
+            <Route path="/people" element={<People />} />
+            <Route
+              path="/lists/:id/add"
+              element={
+                <AuthenticatedRoute>
+                  <AddFilmToList />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/lists/:id/edit"
+              element={
+                <AuthenticatedRoute>
+                  <ManageList />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/lists/add"
+              element={
+                <AuthenticatedRoute>
+                  <ManageList />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route path="/lists/:id" element={<List />} />
+            <Route path="/lists" element={<Lists />} />
+            <Route path="/profile/:id/likes" element={<UserLikes />} />
+            <Route
+              path="/profile/likes/"
+              element={
+                <AuthenticatedRoute>
+                  <UserLikes />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route path="/profile/:id/watched" element={<WatchedList />} />
+            <Route
+              path="/profile/watched"
+              element={
+                <AuthenticatedRoute>
+                  <WatchedList />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route path="/profile/:id/reviews" element={<UsersReviews />} />
+            <Route
+              path="/profile/reviews"
+              element={
+                <AuthenticatedRoute>
+                  <UsersReviews />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/profile/edit"
+              element={
+                <AuthenticatedRoute>
+                  <ManageProfile />
+                </AuthenticatedRoute>
+              }
+            />
             <Route path="/profile/:id" element={<Profile />} />
-            <Route path="/profile" element={<AuthenticatedRoute><Profile /></AuthenticatedRoute>}/>
-            <Route path="/notifications" element={<AuthenticatedRoute><Notifications /></AuthenticatedRoute>}/>
-            <Route path="/categories/add" element={<AdminRoute><ManageCategory /></AdminRoute>}/>
-            <Route path="/categories/:id/edit" element={<AdminRoute><ManageCategory /></AdminRoute>}/>
-            <Route path="/categories/:id" element={<Category />}/>
-            <Route path="/categories" element={<Categories />}/>
-            <Route path="/games/filmFromCast/:id" element={<AuthenticatedRoute><GuessFilmFromCastGame /></AuthenticatedRoute>}/>
-            <Route path="/games/filmFromCast" element={<AuthenticatedRoute><GuessFilmFromCast /></AuthenticatedRoute>}/>
-            <Route path="/games/filmFromDescription/leaderboard" element={<AuthenticatedRoute><GuessFilmFromDescriptionLeaderboard /></AuthenticatedRoute>}/>
-            <Route path="/games/filmFromDescription/:id" element={<AuthenticatedRoute><GuessFilmFromDescriptionGame /></AuthenticatedRoute>}/>
-            <Route path="/games/filmFromDescription" element={<AuthenticatedRoute><GuessFilmFromDescription /></AuthenticatedRoute>}/>
-            <Route path="/games/connections/:id" element={<AuthenticatedRoute><ConnectionsGame /></AuthenticatedRoute>}/>
-            <Route path="/games/connections" element={<AuthenticatedRoute><Connections /></AuthenticatedRoute>}/>
-            <Route path="/games" element={<Games />}/>
-            <Route path="/404" element={<NotFound />}/>
-            <Route path="*" element={<NotFound />}/>
+            <Route
+              path="/profile"
+              element={
+                <AuthenticatedRoute>
+                  <Profile />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/notifications"
+              element={
+                <AuthenticatedRoute>
+                  <Notifications />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/categories/add"
+              element={
+                <AdminRoute>
+                  <ManageCategory />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/categories/:id/edit"
+              element={
+                <AdminRoute>
+                  <ManageCategory />
+                </AdminRoute>
+              }
+            />
+            <Route path="/categories/:id" element={<Category />} />
+            <Route path="/categories" element={<Categories />} />
+            <Route
+              path="/games/filmFromCast/:id"
+              element={
+                <AuthenticatedRoute>
+                  <GuessFilmFromCastGame />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/games/filmFromCast"
+              element={
+                <AuthenticatedRoute>
+                  <GuessFilmFromCast />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/games/filmFromDescription/leaderboard"
+              element={
+                <AuthenticatedRoute>
+                  <GuessFilmFromDescriptionLeaderboard />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/games/filmFromDescription/:id"
+              element={
+                <AuthenticatedRoute>
+                  <GuessFilmFromDescriptionGame />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/games/filmFromDescription"
+              element={
+                <AuthenticatedRoute>
+                  <GuessFilmFromDescription />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/games/connections/:id"
+              element={
+                <AuthenticatedRoute>
+                  <ConnectionsGame />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/games/connections"
+              element={
+                <AuthenticatedRoute>
+                  <Connections />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route path="/games" element={<Games />} />
+            <Route path="/404" element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </div>
       <ToastContainer autoClose={3000} hideProgressBar />
-      </>
-    )
-  };
-  
-  export default App;
+    </>
+  );
+};
+
+export default App;

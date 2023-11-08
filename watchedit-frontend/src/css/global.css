@@ -1,15 +1,11 @@
 @import url("https://fonts.googleapis.com/css?family=Inter");
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-
-
 :root {
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -22,56 +18,54 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  --primary-color: #2E86AB;
+  --primary-color: #2e86ab;
   --background-color: #191818;
   --backgroundOffset-color: #2d2a2c;
   --backgroundOffset2-color: #423f41;
-  --success-color: #A5C882;
-  --rating-color: #F7DD72;
-
-
+  --success-color: #a5c882;
+  --rating-color: #f7dd72;
 }
 
-.app-container{
+.app-container {
   width: 100vw;
   height: 100vh;
 }
 
-.react-datepicker-wrapper input{
+.react-datepicker-wrapper input {
   background-color: var(--backgroundOffset2-color);
 }
 
-.poster{
+.poster {
   aspect-ratio: 2 / 3;
   object-fit: cover;
 }
 
-.headshot{
+.headshot {
   aspect-ratio: 1/1;
   object-fit: cover;
 }
 
-.search-wrapper{
+.search-wrapper {
   background-color: var(--backgroundOffset2-color);
   outline: none;
-  border: 0px!important;
+  border: 0px !important;
 }
-.search-wrapper .chip{
+.search-wrapper .chip {
   background: var(--primary-color);
 }
-.multiselect-container .optionContainer{
+.multiselect-container .optionContainer {
   background-color: var(--backgroundOffset2-color);
 }
 
-.video-container{
+.video-container {
   padding: 8px;
 }
 
-.video-container .video{
+.video-container .video {
   aspect-ratio: 16 / 9;
   width: 100%;
 }
 
-.ReactModal__Content{
-  background-color: var(--background-color)!important;
+.ReactModal__Content {
+  background-color: var(--background-color) !important;
 }

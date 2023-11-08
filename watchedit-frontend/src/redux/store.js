@@ -1,7 +1,7 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { loadState } from '../tools/localStorage';
+import { configureStore } from "@reduxjs/toolkit";
+import { loadState } from "../tools/localStorage";
 import tokens from "./reducers/authenticationReducer";
-import IsAdmin from './reducers/isAdminReducer';
+import IsAdmin from "./reducers/isAdminReducer";
 import notificationCount from "./reducers/notificationCountReducer";
 let stateWithUser = loadState();
 
@@ -9,7 +9,7 @@ export default configureStore({
   reducer: {
     tokens: tokens,
     isAdmin: IsAdmin,
-    notificationCount: notificationCount
+    notificationCount: notificationCount,
   },
-  preloadedState: stateWithUser
-})
+  preloadedState: stateWithUser,
+});

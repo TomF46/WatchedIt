@@ -7,88 +7,114 @@ import { toast } from "react-toastify";
 import Comment from "./Comment";
 import { useSelector } from "react-redux";
 
-const CommentsSection = ({commentsPaginator, currentPage, onPageChange, onAddComment, onUpdateComment, onDeleteComment}) => {
-    const userIsAuthenticated = useSelector((state) => state.tokens != null);
-    const [comment, setComment] = useState({ ...newComment });
-    const [errors, setErrors] = useState({});
-    const [saving, setSaving] = useState(false);
+const CommentsSection = ({
+  commentsPaginator,
+  currentPage,
+  onPageChange,
+  onAddComment,
+  onUpdateComment,
+  onDeleteComment,
+}) => {
+  const userIsAuthenticated = useSelector((state) => state.tokens != null);
+  const [comment, setComment] = useState({ ...newComment });
+  const [errors, setErrors] = useState({});
+  const [saving, setSaving] = useState(false);
 
-    function handleChange(event) {
-        const { name, value } = event.target;
-        setComment(prevComment => ({
-            ...prevComment,
-            [name]: value
-        }));
-    }
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setComment((prevComment) => ({
+      ...prevComment,
+      [name]: value,
+    }));
+  }
 
-    function formIsValid(){
-        const { text } = comment;
-        const errors = {};
-        if(!text) errors.text = "Comment text is required";
-        if(text.length > 600) errors.name = "Comment text cant be longer then 600 characters";
-        setErrors(errors);
-        return Object.keys(errors).length === 0;
-    }
+  function formIsValid() {
+    const { text } = comment;
+    const errors = {};
+    if (!text) errors.text = "Comment text is required";
+    if (text.length > 600)
+      errors.name = "Comment text cant be longer then 600 characters";
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  }
 
-    function handleSubmit(){
-        event.preventDefault();
-        if (!formIsValid()) return;
-        setSaving(true);
-        onAddComment(comment).then(() => {
-            toast.success("Comment added");
-            setSaving(false);
-            setComment({ ...newComment });
-        }).catch(err => {
-            setSaving(false);
-            toast.error(`Error adding comment ${err.message}`, {
-                autoClose: false
-            });
+  function handleSubmit() {
+    event.preventDefault();
+    if (!formIsValid()) return;
+    setSaving(true);
+    onAddComment(comment)
+      .then(() => {
+        toast.success("Comment added");
+        setSaving(false);
+        setComment({ ...newComment });
+      })
+      .catch((err) => {
+        setSaving(false);
+        toast.error(`Error adding comment ${err.message}`, {
+          autoClose: false,
         });
-    }
+      });
+  }
 
-    return (
-        <div>
-            <h2 className="text-primary text-2xl text-center md:text-left my-4 md:my-0">Comments</h2>
-            <div className="mt-2">
-                {commentsPaginator.of > 0 ? (
-                    <div>
-                        {commentsPaginator.data.map((comment) => {
-                            return (
-                                <Comment key={comment.id} comment={comment} onDeleteComment={onDeleteComment} onUpdateComment={onUpdateComment}  />
-                            )
-                        })}
-                        <PaginationControls
-                            currentPage={currentPage}
-                            onPageChange={onPageChange}
-                            of={commentsPaginator.of}
-                            from={commentsPaginator.from}
-                            to={commentsPaginator.to}
-                            lastPage={commentsPaginator.lastPage}
-                        />
-                    </div>
-                ) : (
-                    <>
-                        <p className="my-4 text-xl">
-                            {`There are no comments, ${userIsAuthenticated ? "why not add one below." : "login to leave a comment." }`}
-                        </p>
-                    </>
-                )}
-                {userIsAuthenticated && (
-                    <CommentForm comment={comment} onChange={handleChange} onSubmit={handleSubmit} errors={errors} saving={saving}  />
-                )}
-            </div>
-        </div>
-    )
+  return (
+    <div>
+      <h2 className="text-primary text-2xl text-center md:text-left my-4 md:my-0">
+        Comments
+      </h2>
+      <div className="mt-2">
+        {commentsPaginator.of > 0 ? (
+          <div>
+            {commentsPaginator.data.map((comment) => {
+              return (
+                <Comment
+                  key={comment.id}
+                  comment={comment}
+                  onDeleteComment={onDeleteComment}
+                  onUpdateComment={onUpdateComment}
+                />
+              );
+            })}
+            <PaginationControls
+              currentPage={currentPage}
+              onPageChange={onPageChange}
+              of={commentsPaginator.of}
+              from={commentsPaginator.from}
+              to={commentsPaginator.to}
+              lastPage={commentsPaginator.lastPage}
+            />
+          </div>
+        ) : (
+          <>
+            <p className="my-4 text-xl">
+              {`There are no comments, ${
+                userIsAuthenticated
+                  ? "why not add one below."
+                  : "login to leave a comment."
+              }`}
+            </p>
+          </>
+        )}
+        {userIsAuthenticated && (
+          <CommentForm
+            comment={comment}
+            onChange={handleChange}
+            onSubmit={handleSubmit}
+            errors={errors}
+            saving={saving}
+          />
+        )}
+      </div>
+    </div>
+  );
 };
 
 CommentsSection.propTypes = {
-    commentsPaginator: PropTypes.object.isRequired,
-    currentPage: PropTypes.number.isRequired,
-    onPageChange: PropTypes.func.isRequired,
-    onAddComment: PropTypes.func.isRequired,
-    onUpdateComment: PropTypes.func.isRequired,
-    onDeleteComment: PropTypes.func.isRequired
+  commentsPaginator: PropTypes.object.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+  onAddComment: PropTypes.func.isRequired,
+  onUpdateComment: PropTypes.func.isRequired,
+  onDeleteComment: PropTypes.func.isRequired,
 };
 
 export default CommentsSection;
-

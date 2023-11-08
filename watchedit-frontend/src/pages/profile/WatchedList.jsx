@@ -8,86 +8,92 @@ import { useParams } from "react-router-dom";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 
 function WatchedList() {
-    const { id } = useParams();
-    const currentUserId = useSelector((state) => state.tokens ? state.tokens.id : null);
-    const [user, setUser] = useState(null);
-    const [filmsPaginator, setFilmsPaginator] = useState(null);
-    const [page, setPage] = useState(1);
-    const filmsPerPage = 32;
-    const [lastPageLoaded, setLastPageLoaded] = useState(null);
+  const { id } = useParams();
+  const currentUserId = useSelector((state) =>
+    state.tokens ? state.tokens.id : null,
+  );
+  const [user, setUser] = useState(null);
+  const [filmsPaginator, setFilmsPaginator] = useState(null);
+  const [page, setPage] = useState(1);
+  const filmsPerPage = 32;
+  const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
-    useEffect(() => {
-        if (!user) {
-            getUser();
-            getFilms();
-        }
-    }, [id, user]);
-
-    useEffect(() => {
-        if (lastPageLoaded != null) getFilms();
-    }, [page]);
-
-    function getUser() {
-        let userId = id ? id : currentUserId;
-        getUserById(userId)
-            .then((res) => {
-                setUser(res);
-            })
-            .catch((err) => {
-                toast.error(`Error getting user ${err.data.Exception}`, {
-                    autoClose: false,
-                });
-            });
+  useEffect(() => {
+    if (!user) {
+      getUser();
+      getFilms();
     }
+  }, [id, user]);
 
-    function getFilms() {
-        let userId = id ? id : currentUserId;
-        getWatchedListByUserId(userId, page, filmsPerPage)
-            .then((res) => {
-                setFilmsPaginator(res);
-                setLastPageLoaded(page);
-            })
-            .catch((err) => {
-                toast.error(`Error getting films ${err.data.Exception}`, {
-                    autoClose: false,
-                });
-            });
-    }
+  useEffect(() => {
+    if (lastPageLoaded != null) getFilms();
+  }, [page]);
 
-    return (
-        <div className="watched-films-page">
-            {!user ? (
-                <LoadingMessage message={"Loading user"} />
+  function getUser() {
+    let userId = id ? id : currentUserId;
+    getUserById(userId)
+      .then((res) => {
+        setUser(res);
+      })
+      .catch((err) => {
+        toast.error(`Error getting user ${err.data.Exception}`, {
+          autoClose: false,
+        });
+      });
+  }
+
+  function getFilms() {
+    let userId = id ? id : currentUserId;
+    getWatchedListByUserId(userId, page, filmsPerPage)
+      .then((res) => {
+        setFilmsPaginator(res);
+        setLastPageLoaded(page);
+      })
+      .catch((err) => {
+        toast.error(`Error getting films ${err.data.Exception}`, {
+          autoClose: false,
+        });
+      });
+  }
+
+  return (
+    <div className="watched-films-page">
+      {!user ? (
+        <LoadingMessage message={"Loading user"} />
+      ) : (
+        <>
+          <div>
+            <h1 className="text-center text-primary text-4xl my-4 font-bold">
+              {user.username} watched films
+            </h1>
+            {filmsPaginator ? (
+              <>
+                {filmsPaginator.data.length > 0 ? (
+                  <>
+                    <FilmGrid films={filmsPaginator.data} editable={false} />
+                    <PaginationControls
+                      currentPage={page}
+                      onPageChange={setPage}
+                      of={filmsPaginator.of}
+                      from={filmsPaginator.from}
+                      to={filmsPaginator.to}
+                      lastPage={filmsPaginator.lastPage}
+                    />
+                  </>
+                ) : (
+                  <p className="text-center text-primary text-2xl">
+                    {user.username} has not watched any films.
+                  </p>
+                )}
+              </>
             ) : (
-                <>
-                    <div>
-                        <h1 className="text-center text-primary text-4xl my-4 font-bold">{user.username} watched films</h1>
-                        {filmsPaginator ? (
-                            <>
-                            {filmsPaginator.data.length > 0 ? (
-                                <>
-                                    <FilmGrid films={filmsPaginator.data} editable={false} />
-                                    <PaginationControls
-                                        currentPage={page}
-                                        onPageChange={setPage}
-                                        of={filmsPaginator.of}
-                                        from={filmsPaginator.from}
-                                        to={filmsPaginator.to}
-                                        lastPage={filmsPaginator.lastPage}
-                                    />
-                                </>
-                            ) : (
-                                <p className="text-center text-primary text-2xl">{user.username} has not watched any films.</p>
-                            )}
-                            </>
-                        ):(
-                            <LoadingMessage message={"Loading watched films"} />
-                        )}
-                    </div>
-                </>
+              <LoadingMessage message={"Loading watched films"} />
             )}
-        </div>
-    );
+          </div>
+        </>
+      )}
+    </div>
+  );
 }
 
 export default WatchedList;

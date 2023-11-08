@@ -1,7 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import { forefeitGuessFilmFromCastGameById, getGuessFilmFromCastGameById, makeGuessForGuessFilmFromCastGame } from "../../../api/games/guessFilmFromCastGameApi";
+import {
+  forefeitGuessFilmFromCastGameById,
+  getGuessFilmFromCastGameById,
+  makeGuessForGuessFilmFromCastGame,
+} from "../../../api/games/guessFilmFromCastGameApi";
 import { toast } from "react-toastify";
 import GameInfoSection from "../GameInfoSection";
 import ClueSection from "./ClueSection";
@@ -10,108 +14,134 @@ import CorrectGuessFilm from "../CorrectGuessFilm";
 import GuessFilmFailed from "../GuessFilmFailed";
 import { confirmAlert } from "react-confirm-alert";
 
-function GuessFilmFromCastGame(){
-    const { id } = useParams();
-    const [game, setGame] = useState(null);
-    const cluesRef = useRef(null);
-    const navigate = useNavigate();
+function GuessFilmFromCastGame() {
+  const { id } = useParams();
+  const [game, setGame] = useState(null);
+  const cluesRef = useRef(null);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!game || game.id != id) {
-            getGame();
-        }
-    }, [id, game]);
+  useEffect(() => {
+    if (!game || game.id != id) {
+      getGame();
+    }
+  }, [id, game]);
 
-    function getGame(){
-        getGuessFilmFromCastGameById(id).then(res => {
-            setGame(res);
-        }).catch((err) => {
-            toast.error(`Error getting game ${err.data.Exception}`, {
-                autoClose: false,
-            });
+  function getGame() {
+    getGuessFilmFromCastGameById(id)
+      .then((res) => {
+        setGame(res);
+      })
+      .catch((err) => {
+        toast.error(`Error getting game ${err.data.Exception}`, {
+          autoClose: false,
         });
-    }
+      });
+  }
 
-    function guess(film){
-        makeGuessForGuessFilmFromCastGame(game.id, {filmId: film.id}).then(res => {
-            setGame(res);
-            cluesRef.current.scrollIntoView({ block: 'end',  behavior: 'smooth' });
-            if(res.status == 1) toast.info("Thats not right, try again with a new clue");
-            if(res.status == 2) toast.error("Unlucky, you've ran out of clues and still haven't got it correct, you lose!");
-            if(res.status == 3) toast.success(`Correct the film was ${film.name}`);
-        }).catch((err) => {
-            toast.error(`Error submitting guess ${err.data.Exception}`, {
-                autoClose: false,
-            });
+  function guess(film) {
+    makeGuessForGuessFilmFromCastGame(game.id, { filmId: film.id })
+      .then((res) => {
+        setGame(res);
+        cluesRef.current.scrollIntoView({ block: "end", behavior: "smooth" });
+        if (res.status == 1)
+          toast.info("Thats not right, try again with a new clue");
+        if (res.status == 2)
+          toast.error(
+            "Unlucky, you've ran out of clues and still haven't got it correct, you lose!",
+          );
+        if (res.status == 3) toast.success(`Correct the film was ${film.name}`);
+      })
+      .catch((err) => {
+        toast.error(`Error submitting guess ${err.data.Exception}`, {
+          autoClose: false,
         });
-    }
+      });
+  }
 
-    function confirmForefeit(){
-        confirmAlert({
-            title : "Confirm forefeit",
-            message: `Are you sure you want to forefeit this game?`,
-            buttons: [
-                {
-                  label: 'Yes',
-                  onClick: () => forefeit()
-                },
-                {
-                  label: 'No',
-                  onClick: () => {}
-                }
-            ]
-        })
-    }
+  function confirmForefeit() {
+    confirmAlert({
+      title: "Confirm forefeit",
+      message: `Are you sure you want to forefeit this game?`,
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => forefeit(),
+        },
+        {
+          label: "No",
+          onClick: () => {},
+        },
+      ],
+    });
+  }
 
-    function forefeit()
-    {
-        forefeitGuessFilmFromCastGameById(game.id).then(() => {
-            navigate(`/games/filmFromCast`);
-        }).catch((err) => {
-            toast.error(`Error forefeiting game ${err.data.Exception}`, {
-                autoClose: false,
-            });
-        });
-    }
-
-    function startAgain(){
+  function forefeit() {
+    forefeitGuessFilmFromCastGameById(game.id)
+      .then(() => {
         navigate(`/games/filmFromCast`);
-    }
+      })
+      .catch((err) => {
+        toast.error(`Error forefeiting game ${err.data.Exception}`, {
+          autoClose: false,
+        });
+      });
+  }
 
-    return (
-        <div className="game-page">
-            {!game ? (
-                <LoadingMessage message={"Loading game."} />
+  function startAgain() {
+    navigate(`/games/filmFromCast`);
+  }
+
+  return (
+    <div className="game-page">
+      {!game ? (
+        <LoadingMessage message={"Loading game."} />
+      ) : (
+        <div className="grid grid-cols-12 mt-4">
+          <div className="col-span-12 md:col-span-2">
+            <GameInfoSection
+              game={game}
+              forefeit={confirmForefeit}
+              startAgain={startAgain}
+            />
+          </div>
+          <div className="col-span-12 mt-4 md:col-span-10 md:pl-4 md:mt-0">
+            {game.status == 4 ? (
+              <div className="my-16">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-14 h-14 text-primary mx-auto text-center"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
+                  />
+                </svg>
+                <p className="text-center text-2xl">
+                  You have forefeited this game
+                </p>
+              </div>
             ) : (
-                <div className="grid grid-cols-12 mt-4">
-                    <div className="col-span-12 md:col-span-2">
-                        <GameInfoSection game={game} forefeit={confirmForefeit} startAgain={startAgain} />
-                    </div>
-                    <div className="col-span-12 mt-4 md:col-span-10 md:pl-4 md:mt-0">
-                        {game.status == 4 ? (
-                            <div className="my-16">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-14 h-14 text-primary mx-auto text-center">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                                </svg>
-                                <p className="text-center text-2xl">You have forefeited this game</p>
-                            </div>
-                        ) : (
-                            <>
-                                <div className="mt-4" ref={cluesRef}>
-                                    <ClueSection game={game} />
-                                </div>
-                                <div className="mt-4">
-                                    {game.status == 1 && (<GuessSection guess={guess} />)}
-                                    {game.status == 2 && (<GuessFilmFailed />)}
-                                    {game.status == 3 && (<CorrectGuessFilm game={game} />)}
-                                </div>
-                            </>
-                        )}
-                    </div>
+              <>
+                <div className="mt-4" ref={cluesRef}>
+                  <ClueSection game={game} />
                 </div>
+                <div className="mt-4">
+                  {game.status == 1 && <GuessSection guess={guess} />}
+                  {game.status == 2 && <GuessFilmFailed />}
+                  {game.status == 3 && <CorrectGuessFilm game={game} />}
+                </div>
+              </>
             )}
+          </div>
         </div>
-    )
+      )}
+    </div>
+  );
 }
 
 export default GuessFilmFromCastGame;

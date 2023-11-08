@@ -6,7 +6,7 @@ import PaginationControls from "../PaginationControls";
 import { getUsersFilmListsPaginated } from "../../api/filmListsApi";
 import LoadingMessage from "../Loading/LoadingMessage";
 
-function UserLists({user}) {
+function UserLists({ user }) {
   const [listsPaginator, setListsPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const listsPerPage = 8;
@@ -19,18 +19,20 @@ function UserLists({user}) {
   }, [listsPaginator]);
 
   useEffect(() => {
-    if(lastPageLoaded != null) getLists();
+    if (lastPageLoaded != null) getLists();
   }, [page]);
 
-  function getLists(){
-    getUsersFilmListsPaginated(user.id, page, listsPerPage).then(res => {
-      setListsPaginator(res);
-      setLastPageLoaded(page);
-    }).catch(err => {
-      toast.error(`Error getting lists ${err.data.Exception}`, {
+  function getLists() {
+    getUsersFilmListsPaginated(user.id, page, listsPerPage)
+      .then((res) => {
+        setListsPaginator(res);
+        setLastPageLoaded(page);
+      })
+      .catch((err) => {
+        toast.error(`Error getting lists ${err.data.Exception}`, {
           autoClose: false,
+        });
       });
-    })
   }
 
   return (
@@ -40,32 +42,33 @@ function UserLists({user}) {
       ) : (
         <>
           <div className="mt-4">
-            <h2 className="mt-4 text-primary text-xl ">{user.username} lists</h2>
+            <h2 className="mt-4 text-primary text-xl ">
+              {user.username} lists
+            </h2>
             {listsPaginator.data.length > 0 ? (
               <>
-                <FilmListList lists={listsPaginator.data} showUser={false}/>
+                <FilmListList lists={listsPaginator.data} showUser={false} />
                 <PaginationControls
-                    currentPage={page}
-                    onPageChange={setPage}
-                    of={listsPaginator.of}
-                    from={listsPaginator.from}
-                    to={listsPaginator.to}
-                    lastPage={listsPaginator.lastPage}
+                  currentPage={page}
+                  onPageChange={setPage}
+                  of={listsPaginator.of}
+                  from={listsPaginator.from}
+                  to={listsPaginator.to}
+                  lastPage={listsPaginator.lastPage}
                 />
               </>
             ) : (
-                <p className="text-lg">user has not created any lists.</p>
+              <p className="text-lg">user has not created any lists.</p>
             )}
           </div>
         </>
       )}
     </div>
-  )
+  );
 }
 
 UserLists.propTypes = {
-    user: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };
-
 
 export default UserLists;

@@ -6,58 +6,67 @@ import LoadingMessage from "../../Loading/LoadingMessage";
 import { getPeoplePaginated } from "../../../api/peopleApi";
 import PersonPreview from "../../People/PersonPreview";
 
+function PeopleReel({ title, sort }) {
+  const [peoplePaginator, setPeoplePaginator] = useState(null);
+  const page = 1;
+  const peoplePerPage = 8;
 
-function PeopleReel({ title, sort}) {
-    const [peoplePaginator, setPeoplePaginator] = useState(null);
-    const page = 1;
-    const peoplePerPage = 8;
-
-    useEffect(() => {
-        if (!peoplePaginator) {
-            getPeople();
-        }
-    }, [peoplePaginator]);
-
-    function getPeople() {
-        getPeoplePaginated(page, peoplePerPage, sort)
-            .then((res) => {
-                setPeoplePaginator(res);
-            })
-            .catch((err) => {
-                toast.error(`Error getting people ${err.data.Exception}`, {
-                    autoClose: false,
-                });
-            });
+  useEffect(() => {
+    if (!peoplePaginator) {
+      getPeople();
     }
+  }, [peoplePaginator]);
 
-    return (
-        <div className="people-reel">
-            {!peoplePaginator ? (
-                <LoadingMessage message={"Loading people."} />
-            ) : (
-                <div className="mt-4">
-                    <Link to={"/people"} className="text-primary text-2xl hover:opacity-75">{title}</Link>
-                    {peoplePaginator.data.length > 0 ? (
-                        <div className="grid grid-cols-16">
-                            {peoplePaginator.data.map((person) => {
-                                return (
-                                    <PersonPreview key={person.id} person={person} isLink={true} />
-                                )
-                            })}
-                        </div>
-                    ) : (
-                        <p className="text-center text-primary text-2xl">No people match your search</p>
-                    )}
-                </div>
-            )}
+  function getPeople() {
+    getPeoplePaginated(page, peoplePerPage, sort)
+      .then((res) => {
+        setPeoplePaginator(res);
+      })
+      .catch((err) => {
+        toast.error(`Error getting people ${err.data.Exception}`, {
+          autoClose: false,
+        });
+      });
+  }
+
+  return (
+    <div className="people-reel">
+      {!peoplePaginator ? (
+        <LoadingMessage message={"Loading people."} />
+      ) : (
+        <div className="mt-4">
+          <Link
+            to={"/people"}
+            className="text-primary text-2xl hover:opacity-75"
+          >
+            {title}
+          </Link>
+          {peoplePaginator.data.length > 0 ? (
+            <div className="grid grid-cols-16">
+              {peoplePaginator.data.map((person) => {
+                return (
+                  <PersonPreview
+                    key={person.id}
+                    person={person}
+                    isLink={true}
+                  />
+                );
+              })}
+            </div>
+          ) : (
+            <p className="text-center text-primary text-2xl">
+              No people match your search
+            </p>
+          )}
         </div>
-    );
+      )}
+    </div>
+  );
 }
 
 PeopleReel.propTypes = {
-    title: PropTypes.string.isRequired,
-    sort: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  sort: PropTypes.string.isRequired,
 };
-
 
 export default PeopleReel;

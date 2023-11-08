@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, Link } from "react-router-dom";
 import HeaderLoginForm from "./HeaderLoginForm";
 import logo from "../../assets/WatchedIt.webp";
-import { checkUserIsAdmin } from "../../redux/actions/isAdminActions"
+import { checkUserIsAdmin } from "../../redux/actions/isAdminActions";
 import { loadNotificationCount } from "../../redux/actions/notificationCountActions";
 
 function Header() {
@@ -14,7 +14,7 @@ function Header() {
   const location = useLocation();
 
   useEffect(() => {
-    dispatch(checkUserIsAdmin())
+    dispatch(checkUserIsAdmin());
   }, [userIsAuthenticated]);
 
   useEffect(() => {
