@@ -12,25 +12,13 @@ function UserLikes() {
   const currentUserId = useSelector((state) =>
     state.tokens ? state.tokens.id : null,
   );
+  const userId = id ? id : currentUserId;
   const [user, setUser] = useState(null);
   const [peoplePaginator, setPeoplePaginator] = useState(null);
   const [page, setPage] = useState(1);
   const peoplePerPage = 32;
-  const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
   useEffect(() => {
-    if (!user) {
-      getUser();
-      getPeople();
-    }
-  }, [id, user]);
-
-  useEffect(() => {
-    if (lastPageLoaded != null) getPeople();
-  }, [page]);
-
-  function getUser() {
-    let userId = id ? id : currentUserId;
     getUserById(userId)
       .then((res) => {
         setUser(res);
@@ -40,21 +28,19 @@ function UserLikes() {
           autoClose: false,
         });
       });
-  }
+  }, [userId]);
 
-  function getPeople() {
-    let userId = id ? id : currentUserId;
+  useEffect(() => {
     getLikedPeopleByUserId(userId, page, peoplePerPage)
       .then((res) => {
         setPeoplePaginator(res);
-        setLastPageLoaded(page);
       })
       .catch((err) => {
         toast.error(`Error getting people ${err.data.Exception}`, {
           autoClose: false,
         });
       });
-  }
+  }, [page, userId, peoplePerPage]);
 
   return (
     <div className="watched-people-page">

@@ -17,12 +17,6 @@ function ManageProfile() {
   const [imageUploading, setImageUploading] = useState(false);
 
   useEffect(() => {
-    if (!user || user.id != id) {
-      getUser();
-    }
-  }, [id, user]);
-
-  function getUser() {
     getUserById(id)
       .then((res) => {
         setUser(res);
@@ -33,7 +27,7 @@ function ManageProfile() {
           autoClose: false,
         });
       });
-  }
+  }, [id]);
 
   function mapUpdatedUser(data) {
     setUpdatedUser({

@@ -15,12 +15,12 @@ function Header() {
 
   useEffect(() => {
     dispatch(checkUserIsAdmin());
-  }, [userIsAuthenticated]);
+  }, [userIsAuthenticated, dispatch]);
 
   useEffect(() => {
     setMobileIsOpen(false);
     if (userIsAuthenticated) dispatch(loadNotificationCount());
-  }, [location]);
+  }, [location, userIsAuthenticated, dispatch]);
 
   function toggleMobileNavigation() {
     setMobileIsOpen(!mobileIsOpen);
@@ -145,7 +145,7 @@ function Header() {
               </Link>
               <Link
                 to="/profile"
-                className="block mt-4 md:inline-block md:mt-0 text-primary hover:opacity-75 md:mx-4 inline-flex items-center"
+                className="mt-4 md:inline-block md:mt-0 text-primary hover:opacity-75 md:mx-4 inline-flex items-center"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

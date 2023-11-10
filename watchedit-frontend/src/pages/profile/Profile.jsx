@@ -15,16 +15,10 @@ function Profile() {
   const currentUserId = useSelector((state) =>
     state.tokens ? state.tokens.id : null,
   );
+  const userId = id ? id : currentUserId;
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    let targetId = id ? id : currentUserId;
-    if (!user) {
-      getUser(targetId);
-    }
-  }, [id, user]);
-
-  function getUser(userId) {
     getUserById(userId)
       .then((res) => {
         setUser(res);
@@ -34,7 +28,7 @@ function Profile() {
           autoClose: false,
         });
       });
-  }
+  }, [userId]);
 
   function handleLogout() {
     confirmAlert({

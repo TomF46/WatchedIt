@@ -10,30 +10,18 @@ function UserLists({ user }) {
   const [listsPaginator, setListsPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const listsPerPage = 8;
-  const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
   useEffect(() => {
-    if (!listsPaginator) {
-      getLists();
-    }
-  }, [listsPaginator]);
-
-  useEffect(() => {
-    if (lastPageLoaded != null) getLists();
-  }, [page]);
-
-  function getLists() {
     getUsersFilmListsPaginated(user.id, page, listsPerPage)
       .then((res) => {
         setListsPaginator(res);
-        setLastPageLoaded(page);
       })
       .catch((err) => {
         toast.error(`Error getting lists ${err.data.Exception}`, {
           autoClose: false,
         });
       });
-  }
+  }, [page, user, listsPerPage]);
 
   return (
     <div className="users-lists">

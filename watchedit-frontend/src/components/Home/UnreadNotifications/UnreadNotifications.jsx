@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { decrementNotificationCount } from "../../../redux/actions/notificationCountActions";
@@ -15,30 +15,22 @@ const UnreadNotifications = () => {
   const [notificationsPaginator, setNotificationsPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const notificationsPerPage = 8;
-  const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
-  useEffect(() => {
-    if (!notificationsPaginator) {
-      getNotifications();
-    }
-  }, [notificationsPaginator]);
-
-  useEffect(() => {
-    if (lastPageLoaded != null) getNotifications();
-  }, [page]);
-
-  function getNotifications() {
+  const getNotifications = useCallback(() => {
     getUnreadNotifications(page, notificationsPerPage)
       .then((notificationsData) => {
         setNotificationsPaginator(notificationsData);
-        setLastPageLoaded(page);
       })
       .catch((error) => {
         toast.error(`Error getting notifications ${error.message}`, {
           autoClose: false,
         });
       });
-  }
+  }, [page, notificationsPerPage]);
+
+  useEffect(() => {
+    getNotifications();
+  }, [page, getNotifications]);
 
   function handleReadNotification(notification) {
     if (notification.read) return;

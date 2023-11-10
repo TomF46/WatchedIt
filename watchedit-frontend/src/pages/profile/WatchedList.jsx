@@ -12,25 +12,13 @@ function WatchedList() {
   const currentUserId = useSelector((state) =>
     state.tokens ? state.tokens.id : null,
   );
+  const userId = id ? id : currentUserId;
   const [user, setUser] = useState(null);
   const [filmsPaginator, setFilmsPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const filmsPerPage = 32;
-  const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
   useEffect(() => {
-    if (!user) {
-      getUser();
-      getFilms();
-    }
-  }, [id, user]);
-
-  useEffect(() => {
-    if (lastPageLoaded != null) getFilms();
-  }, [page]);
-
-  function getUser() {
-    let userId = id ? id : currentUserId;
     getUserById(userId)
       .then((res) => {
         setUser(res);
@@ -40,21 +28,19 @@ function WatchedList() {
           autoClose: false,
         });
       });
-  }
+  }, [userId]);
 
-  function getFilms() {
-    let userId = id ? id : currentUserId;
+  useEffect(() => {
     getWatchedListByUserId(userId, page, filmsPerPage)
       .then((res) => {
         setFilmsPaginator(res);
-        setLastPageLoaded(page);
       })
       .catch((err) => {
         toast.error(`Error getting films ${err.data.Exception}`, {
           autoClose: false,
         });
       });
-  }
+  }, [page, userId, filmsPerPage]);
 
   return (
     <div className="watched-films-page">
