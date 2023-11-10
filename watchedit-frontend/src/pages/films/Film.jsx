@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -19,14 +19,7 @@ function Film() {
   const navigate = useNavigate();
   const [film, setFilm] = useState(null);
 
-  useEffect(() => {
-    if (!film || film.id != id) {
-      getFilm();
-      window.scrollTo(0, 0);
-    }
-  }, [id, film]);
-
-  function getFilm() {
+  const getFilm = useCallback(() => {
     getFilmById(id)
       .then((res) => {
         setFilm(res);
@@ -36,7 +29,14 @@ function Film() {
           autoClose: false,
         });
       });
-  }
+  }, [id]);
+
+  useEffect(() => {
+    if (!film || film.id != id) {
+      getFilm();
+      window.scrollTo(0, 0);
+    }
+  }, [id, film, getFilm]);
 
   function confirmDeleteFilm() {
     confirmAlert({
@@ -82,7 +82,7 @@ function Film() {
             {film.name}
           </h1>
           {isAdmin && (
-            <div className="admin-controls bg-backgroundOffset mt-4 rounded-md shadow rounded">
+            <div className="admin-controls bg-backgroundOffset mt-4 shadow rounded">
               <div className="bg-backgroundOffset2 rounded-t-md">
                 <p className="text-primary font-bold text-lg px-2 py-1">
                   Admin controls

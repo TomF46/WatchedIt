@@ -10,12 +10,6 @@ function SimilarFilmsReel({ filmId }) {
   const filmsPerPage = 8;
 
   useEffect(() => {
-    if (!filmsPaginator) {
-      getFilms();
-    }
-  }, [filmsPaginator]);
-
-  function getFilms() {
     getSimilarFilmsPaginated(filmId, page, filmsPerPage)
       .then((res) => {
         setFilmsPaginator(res);
@@ -25,7 +19,7 @@ function SimilarFilmsReel({ filmId }) {
           autoClose: false,
         });
       });
-  }
+  }, [filmId]);
 
   return (
     <div className="similar-films-reel">

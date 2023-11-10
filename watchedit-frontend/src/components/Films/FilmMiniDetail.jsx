@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const FilmMiniDetail = ({ film }) => {
-  const t = "t";
   return (
     <div className="grid grid-cols-12">
       <div className="col-span-12 md:col-span-6 lg:col-span-6">

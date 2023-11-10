@@ -10,12 +10,6 @@ function LatestReviews({ film, totalReviews }) {
   const [reviews, setReviews] = useState(null);
 
   useEffect(() => {
-    if (!reviews) {
-      getReviews();
-    }
-  }, [film]);
-
-  function getReviews() {
     getReviewsByFilmId(film.id, 1, totalReviews)
       .then((res) => {
         setReviews(res.data);
@@ -25,7 +19,7 @@ function LatestReviews({ film, totalReviews }) {
           autoClose: false,
         });
       });
-  }
+  }, [film, totalReviews]);
 
   return (
     <div className="film-latest-reviews">

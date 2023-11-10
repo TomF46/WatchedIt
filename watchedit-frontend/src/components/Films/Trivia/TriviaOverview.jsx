@@ -11,12 +11,6 @@ function TriviaOverview({ film, totalItems }) {
   const [total, setTotal] = useState(null);
 
   useEffect(() => {
-    if (!trivia) {
-      getFilmTrivia();
-    }
-  }, [film]);
-
-  function getFilmTrivia() {
     getFilmTriviasByFilmId(film.id, 1, totalItems)
       .then((res) => {
         setTotal(res.of);
@@ -27,7 +21,7 @@ function TriviaOverview({ film, totalItems }) {
           autoClose: false,
         });
       });
-  }
+  }, [film, totalItems]);
 
   return (
     <div className="film-trivia-overview">
