@@ -12,12 +12,6 @@ function PeopleReel({ title, sort }) {
   const peoplePerPage = 8;
 
   useEffect(() => {
-    if (!peoplePaginator) {
-      getPeople();
-    }
-  }, [peoplePaginator]);
-
-  function getPeople() {
     getPeoplePaginated(page, peoplePerPage, sort)
       .then((res) => {
         setPeoplePaginator(res);
@@ -27,7 +21,7 @@ function PeopleReel({ title, sort }) {
           autoClose: false,
         });
       });
-  }
+  }, [page, peoplePerPage, sort]);
 
   return (
     <div className="people-reel">

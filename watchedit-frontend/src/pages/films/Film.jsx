@@ -32,11 +32,9 @@ function Film() {
   }, [id]);
 
   useEffect(() => {
-    if (!film || film.id != id) {
-      getFilm();
-      window.scrollTo(0, 0);
-    }
-  }, [id, film, getFilm]);
+    getFilm();
+    window.scrollTo(0, 0);
+  }, [id, getFilm]);
 
   function confirmDeleteFilm() {
     confirmAlert({

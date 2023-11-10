@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import debounce from "lodash.debounce";
@@ -19,18 +19,23 @@ function AddCreditForPerson() {
   const [filmsPaginator, setFilmsPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const filmsPerPage = 20;
-  const [lastPageLoaded, setLastPageLoaded] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilm, setSelectedFilm] = useState(null);
   const [saving, setSaving] = useState(false);
 
-  useEffect(() => {
-    if (!person) {
-      getPerson();
-    }
-  }, [id, person]);
+  const search = useCallback(() => {
+    searchFilmsPaginated(searchTerm, page, filmsPerPage)
+      .then((res) => {
+        setFilmsPaginator(res);
+      })
+      .catch((err) => {
+        toast.error(`Error getting films ${err.data.Exception}`, {
+          autoClose: false,
+        });
+      });
+  }, [page, searchTerm]);
 
-  function getPerson() {
+  useEffect(() => {
     getPersonById(id)
       .then((res) => {
         setPerson(res);
@@ -40,17 +45,7 @@ function AddCreditForPerson() {
           autoClose: false,
         });
       });
-  }
-
-  useEffect(() => {
-    if (!filmsPaginator) {
-      search();
-    }
-  }, [filmsPaginator]);
-
-  useEffect(() => {
-    if (lastPageLoaded != null) search();
-  }, [page]);
+  }, [id]);
 
   useEffect(() => {
     let debounced = debounce(() => {
@@ -58,20 +53,7 @@ function AddCreditForPerson() {
     }, 50);
 
     debounced();
-  }, [searchTerm]);
-
-  function search() {
-    searchFilmsPaginated(searchTerm, page, filmsPerPage)
-      .then((res) => {
-        setFilmsPaginator(res);
-        setLastPageLoaded(page);
-      })
-      .catch((err) => {
-        toast.error(`Error getting films ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }
+  }, [page, searchTerm, search]);
 
   function handleSearchTermChange(event) {
     const { value } = event.target;

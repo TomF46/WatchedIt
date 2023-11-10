@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { confirmAlert } from "react-confirm-alert";
 import { Link, useParams } from "react-router-dom";
@@ -15,26 +15,7 @@ function PersonCredits() {
   const [person, setPerson] = useState(null);
   const [credits, setCredits] = useState(null);
 
-  useEffect(() => {
-    if (!person) {
-      getPerson();
-      getCredits();
-    }
-  }, [id, person]);
-
-  function getPerson() {
-    getPersonById(id)
-      .then((res) => {
-        setPerson(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting person ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }
-
-  function getCredits() {
+  const getCredits = useCallback(() => {
     getCreditsForPersonById(id)
       .then((res) => {
         setCredits(res);
@@ -44,7 +25,20 @@ function PersonCredits() {
           autoClose: false,
         });
       });
-  }
+  }, [id]);
+
+  useEffect(() => {
+    getPersonById(id)
+      .then((res) => {
+        setPerson(res);
+      })
+      .catch((err) => {
+        toast.error(`Error getting person ${err.data.Exception}`, {
+          autoClose: false,
+        });
+      });
+    getCredits();
+  }, [id, getCredits]);
 
   function handleRemoveCredit(credit) {
     confirmAlert({
@@ -86,7 +80,7 @@ function PersonCredits() {
             {person.fullName} credits
           </h1>
           {isAdmin && (
-            <div className="admin-controls bg-backgroundOffset mt-4 rounded-md shadow rounded">
+            <div className="admin-controls bg-backgroundOffset mt-4 shadow rounded">
               <div className="bg-backgroundOffset2 rounded-t-md">
                 <p className="text-primary font-bold text-lg px-2 py-1">
                   Admin controls

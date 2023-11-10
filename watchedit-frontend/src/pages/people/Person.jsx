@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getPersonById, removePerson } from "../../api/peopleApi";
@@ -16,13 +16,7 @@ function Person() {
   const navigate = useNavigate();
   const [person, setPerson] = useState(null);
 
-  useEffect(() => {
-    if (!person) {
-      getPerson();
-    }
-  }, [id, person]);
-
-  function getPerson() {
+  const getPerson = useCallback(() => {
     getPersonById(id)
       .then((res) => {
         setPerson(res);
@@ -32,7 +26,11 @@ function Person() {
           autoClose: false,
         });
       });
-  }
+  }, [id]);
+
+  useEffect(() => {
+    getPerson();
+  }, [id, getPerson]);
 
   function confirmDelete() {
     confirmAlert({
@@ -78,7 +76,7 @@ function Person() {
             {person.fullName}
           </h1>
           {isAdmin && (
-            <div className="admin-controls bg-backgroundOffset mt-4 rounded-md shadow rounded">
+            <div className="admin-controls bg-backgroundOffset mt-4 shadow rounded">
               <div className="bg-backgroundOffset2 rounded-t-md">
                 <p className="text-primary font-bold text-lg px-2 py-1">
                   Admin controls

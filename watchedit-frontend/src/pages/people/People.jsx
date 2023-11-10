@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import debounce from "lodash.debounce";
 import { searchPeoplePaginated } from "../../api/peopleApi";
@@ -20,7 +20,6 @@ function People() {
   });
   const [page, setPage] = useState(1);
   const peoplePerPage = 32;
-  const [lastPageLoaded, setLastPageLoaded] = useState(null);
   const [sort, setSort] = useState("likes_desc");
   const sortOptions = [
     { id: "fName_asc", name: "First name A - Z" },
@@ -33,15 +32,17 @@ function People() {
     { id: "dob_desc", name: "Youngest" },
   ];
 
-  useEffect(() => {
-    if (!peoplePaginator) {
-      getPeople();
-    }
-  }, [peoplePaginator]);
-
-  useEffect(() => {
-    if (lastPageLoaded != null) getPeople();
-  }, [page]);
+  const getPeople = useCallback(() => {
+    searchPeoplePaginated(searchTerms, page, peoplePerPage, sort)
+      .then((res) => {
+        setPeoplePaginator(res);
+      })
+      .catch((err) => {
+        toast.error(`Error getting people ${err.data.Exception}`, {
+          autoClose: false,
+        });
+      });
+  }, [page, searchTerms, peoplePerPage, sort]);
 
   useEffect(() => {
     let debounced = debounce(() => {
@@ -49,20 +50,7 @@ function People() {
     }, 50);
 
     debounced();
-  }, [searchTerms, sort]);
-
-  function getPeople() {
-    searchPeoplePaginated(searchTerms, page, peoplePerPage, sort)
-      .then((res) => {
-        setPeoplePaginator(res);
-        setLastPageLoaded(page);
-      })
-      .catch((err) => {
-        toast.error(`Error getting people ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }
+  }, [page, searchTerms, sort, getPeople]);
 
   function handleSearchTermChange(event) {
     const { name, value } = event.target;
@@ -83,7 +71,7 @@ function People() {
         People
       </h1>
       {isAdmin && (
-        <div className="admin-controls bg-backgroundOffset mt-4 rounded-md shadow rounded">
+        <div className="admin-controls bg-backgroundOffset mt-4 shadow rounded">
           <div className="bg-backgroundOffset2 rounded-t-md">
             <p className="text-primary font-bold text-lg px-2 py-1">
               Admin controls
@@ -103,7 +91,7 @@ function People() {
         <LoadingMessage message={"Loading people."} />
       ) : (
         <div className="mt-4">
-          <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
+          <div className="controls bg-backgroundOffset mt-4 rounded-md mb-4 shadow">
             <div className="bg-backgroundOffset2 rounded-t-md">
               <p className="text-primary font-bold text-lg px-2 py-1">Search</p>
             </div>
