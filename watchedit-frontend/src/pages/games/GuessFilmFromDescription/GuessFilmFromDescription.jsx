@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import PaginationControls from "../../../components/PaginationControls";
@@ -11,37 +10,22 @@ import GuessFilmFromDescriptionGamesList from "./GuessFilmFromDescriptionGamesLi
 import { Link, useNavigate } from "react-router-dom";
 
 function GuessFilmFromDescription() {
-  const userId = useSelector((state) =>
-    state.tokens ? state.tokens.id : null,
-  );
   const navigate = useNavigate();
   const [gamesPaginator, setGamesPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const gamesPerPage = 20;
-  const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
   useEffect(() => {
-    if (!gamesPaginator) {
-      getGames();
-    }
-  }, [userId]);
-
-  useEffect(() => {
-    if (lastPageLoaded != null) getGames();
-  }, [page]);
-
-  function getGames() {
     getGuessFilmFromDescriptionGames(page, gamesPerPage)
       .then((res) => {
         setGamesPaginator(res);
-        setLastPageLoaded(page);
       })
       .catch((err) => {
         toast.error(`Error getting games ${err.data.Exception}`, {
           autoClose: false,
         });
       });
-  }
+  }, [page, gamesPerPage]);
 
   function startNewGame() {
     startGuessFilmFromDescriptionGame()

@@ -21,12 +21,6 @@ function ConnectionsGame() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!game || game.id != id) {
-      getGame();
-    }
-  }, [id, game]);
-
-  function getGame() {
     getConnectionsGameById(id)
       .then((res) => {
         setGame(res);
@@ -36,7 +30,7 @@ function ConnectionsGame() {
           autoClose: false,
         });
       });
-  }
+  }, [id]);
 
   function guess(person) {
     makeGuessForConnectionsGame(game.id, { personId: person.id })

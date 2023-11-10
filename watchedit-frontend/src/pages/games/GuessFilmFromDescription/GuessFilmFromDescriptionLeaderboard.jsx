@@ -9,30 +9,18 @@ function GuessFilmFromDescriptionLeaderboard() {
   const [leaderboardPaginator, setLeaderboardPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const entriesPerPage = 30;
-  const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
   useEffect(() => {
-    if (!leaderboardPaginator) {
-      getLeaderboard();
-    }
-  }, [leaderboardPaginator]);
-
-  useEffect(() => {
-    if (lastPageLoaded != null) getLeaderboard();
-  }, [page]);
-
-  function getLeaderboard() {
     getGuessFilmFromDescriptionLeaderboard(page, entriesPerPage)
       .then((res) => {
         setLeaderboardPaginator(res);
-        setLastPageLoaded(page);
       })
       .catch((err) => {
         toast.error(`Error getting leaderboard ${err.data.Exception}`, {
           autoClose: false,
         });
       });
-  }
+  }, [page]);
 
   return (
     <div className="leaderboards">

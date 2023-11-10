@@ -19,12 +19,6 @@ function GuessFilmFromDescriptionGame() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!game || game.id != id) {
-      getGame();
-    }
-  }, [id, game]);
-
-  function getGame() {
     getGuessFilmFromDescriptionGameById(id)
       .then((res) => {
         setGame(res);
@@ -34,7 +28,7 @@ function GuessFilmFromDescriptionGame() {
           autoClose: false,
         });
       });
-  }
+  }, [id]);
 
   function guess(film) {
     let round = game.rounds[game.rounds.length - 1];

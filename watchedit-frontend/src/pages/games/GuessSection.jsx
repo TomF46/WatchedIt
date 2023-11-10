@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import debounce from "lodash.debounce";
 import { searchFilmsPaginated } from "../../api/filmsApi";
@@ -11,18 +11,19 @@ const GuessSection = ({ guess }) => {
   const [filmsPaginator, setFilmsPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const filmsPerPage = 16;
-  const [lastPageLoaded, setLastPageLoaded] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
-    if (!filmsPaginator) {
-      search();
-    }
-  }, [filmsPaginator]);
-
-  useEffect(() => {
-    if (lastPageLoaded != null) search();
-  }, [page]);
+  const search = useCallback(() => {
+    searchFilmsPaginated(searchTerm, page, filmsPerPage)
+      .then((res) => {
+        setFilmsPaginator(res);
+      })
+      .catch((err) => {
+        toast.error(`Error getting films ${err.data.Exception}`, {
+          autoClose: false,
+        });
+      });
+  }, [page, searchTerm, filmsPerPage]);
 
   useEffect(() => {
     let debounced = debounce(() => {
@@ -30,20 +31,7 @@ const GuessSection = ({ guess }) => {
     }, 50);
 
     debounced();
-  }, [searchTerm]);
-
-  function search() {
-    searchFilmsPaginated(searchTerm, page, filmsPerPage)
-      .then((res) => {
-        setFilmsPaginator(res);
-        setLastPageLoaded(page);
-      })
-      .catch((err) => {
-        toast.error(`Error getting films ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }
+  }, [page, searchTerm, search]);
 
   function handleSearchTermChange(event) {
     const { value } = event.target;

@@ -21,12 +21,6 @@ function GuessFilmFromCastGame() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!game || game.id != id) {
-      getGame();
-    }
-  }, [id, game]);
-
-  function getGame() {
     getGuessFilmFromCastGameById(id)
       .then((res) => {
         setGame(res);
@@ -36,7 +30,7 @@ function GuessFilmFromCastGame() {
           autoClose: false,
         });
       });
-  }
+  }, [id]);
 
   function guess(film) {
     makeGuessForGuessFilmFromCastGame(game.id, { filmId: film.id })

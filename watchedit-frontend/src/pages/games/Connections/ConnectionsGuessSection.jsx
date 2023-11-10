@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import debounce from "lodash.debounce";
 import { toast } from "react-toastify";
@@ -11,22 +11,23 @@ const ConnectionsGuessSection = ({ guess }) => {
   const [peoplePaginator, setPeoplePaginator] = useState(null);
   const [page, setPage] = useState(1);
   const peoplePerPage = 16;
-  const [lastPageLoaded, setLastPageLoaded] = useState(null);
   const [searchTerms, setSearchTerms] = useState({
     firstName: "",
     lastName: "",
     stageName: "",
   });
 
-  useEffect(() => {
-    if (!peoplePaginator) {
-      search();
-    }
-  }, [peoplePaginator]);
-
-  useEffect(() => {
-    if (lastPageLoaded != null) search();
-  }, [page]);
+  const search = useCallback(() => {
+    searchPeoplePaginated(searchTerms, page, peoplePerPage)
+      .then((res) => {
+        setPeoplePaginator(res);
+      })
+      .catch((err) => {
+        toast.error(`Error getting people ${err.data.Exception}`, {
+          autoClose: false,
+        });
+      });
+  }, [page, searchTerms, peoplePerPage]);
 
   useEffect(() => {
     let debounced = debounce(() => {
@@ -34,20 +35,7 @@ const ConnectionsGuessSection = ({ guess }) => {
     }, 50);
 
     debounced();
-  }, [searchTerms]);
-
-  function search() {
-    searchPeoplePaginated(searchTerms, page, peoplePerPage)
-      .then((res) => {
-        setPeoplePaginator(res);
-        setLastPageLoaded(page);
-      })
-      .catch((err) => {
-        toast.error(`Error getting people ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }
+  }, [page, searchTerms, search]);
 
   function handleSearchTermChange(event) {
     const { name, value } = event.target;
