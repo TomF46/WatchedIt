@@ -14,20 +14,8 @@ function Reviews() {
   const [reviewsPaginator, setReviewsPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const reviewsPerPage = 20;
-  const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
   useEffect(() => {
-    if (!film) {
-      getFilm();
-      getReviews();
-    }
-  }, [id, film]);
-
-  useEffect(() => {
-    if (lastPageLoaded != null) getReviews();
-  }, [page]);
-
-  function getFilm() {
     getFilmById(id)
       .then((res) => {
         setFilm(res);
@@ -37,20 +25,19 @@ function Reviews() {
           autoClose: false,
         });
       });
-  }
+  }, [id]);
 
-  function getReviews() {
+  useEffect(() => {
     getReviewsByFilmId(id, page, reviewsPerPage)
       .then((res) => {
         setReviewsPaginator(res);
-        setLastPageLoaded(page);
       })
       .catch((err) => {
         toast.error(`Error getting film reviews ${err.data.Exception}`, {
           autoClose: false,
         });
       });
-  }
+  }, [page, id, reviewsPerPage]);
 
   return (
     <div className="film-reviews-page">

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import LoadingMessage from "../Loading/LoadingMessage";
@@ -14,31 +14,23 @@ import { confirmAlert } from "react-confirm-alert";
 function ReviewCommentsSection({ review }) {
   const [comments, setComments] = useState(null);
   const [page, setPage] = useState(1);
-  const commentsPerPage = 8;
-  const [lastPageLoaded, setLastPageLoaded] = useState(null);
+  const commentsPerPage = 20;
 
-  useEffect(() => {
-    if (!comments) {
-      getComments();
-    }
-  }, [review]);
-
-  useEffect(() => {
-    if (lastPageLoaded != null) getComments();
-  }, [page]);
-
-  function getComments() {
+  const getComments = useCallback(() => {
     getReviewComments(review.id, page, commentsPerPage)
       .then((res) => {
         setComments(res);
-        setLastPageLoaded(page);
       })
       .catch((err) => {
         toast.error(`Error getting comments for review ${err.data.Exception}`, {
           autoClose: false,
         });
       });
-  }
+  }, [review, page, commentsPerPage]);
+
+  useEffect(() => {
+    getComments();
+  }, [page, getComments]);
 
   function handleAddComment(comment) {
     return new Promise((resolve, reject) => {

@@ -21,10 +21,16 @@ function ManageReview() {
   const [editing, setEditing] = useState(false);
 
   useEffect(() => {
-    if (!film) {
-      getFilm();
-    }
-  }, [id, film]);
+    getFilmById(id)
+      .then((res) => {
+        setFilm(res);
+      })
+      .catch((err) => {
+        toast.error(`Error getting film ${err.data.Exception}`, {
+          autoClose: false,
+        });
+      });
+  }, [id]);
 
   useEffect(() => {
     if (reviewId) {
@@ -43,19 +49,7 @@ function ManageReview() {
     } else {
       setReview({ ...newReview });
     }
-  }, [reviewId]);
-
-  function getFilm() {
-    getFilmById(id)
-      .then((res) => {
-        setFilm(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting film ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }
+  }, [reviewId, id, userId, navigate]);
 
   function mapForEditing(data) {
     setReview({

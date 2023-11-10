@@ -17,12 +17,6 @@ function Review() {
   const [userCanEdit, setUserCanEdit] = useState(false);
 
   useEffect(() => {
-    if (!review) {
-      getReview();
-    }
-  }, [reviewId, review]);
-
-  function getReview() {
     getReviewById(id, reviewId)
       .then((res) => {
         setReview(res);
@@ -33,7 +27,7 @@ function Review() {
           autoClose: false,
         });
       });
-  }
+  }, [reviewId, userId, id]);
 
   function confirmDelete() {
     confirmAlert({
@@ -75,7 +69,7 @@ function Review() {
             {review.film.name} review
           </h1>
           {userCanEdit && (
-            <div className="owner-controls bg-backgroundOffset mt-4 rounded-md shadow rounded">
+            <div className="owner-controls bg-backgroundOffset mt-4 shadow rounded">
               <div className="bg-backgroundOffset2 rounded-t-md">
                 <p className="text-primary font-bold text-lg px-2 py-1">
                   Review owner controls

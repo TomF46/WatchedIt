@@ -9,12 +9,6 @@ function UserLatestReviews({ user, totalReviews }) {
   const [reviews, setReviews] = useState(null);
 
   useEffect(() => {
-    if (!reviews) {
-      getReviews();
-    }
-  }, [user]);
-
-  function getReviews() {
     getUsersReviewsPaginated(user.id, 1, totalReviews)
       .then((res) => {
         setReviews(res.data);
@@ -24,7 +18,7 @@ function UserLatestReviews({ user, totalReviews }) {
           autoClose: false,
         });
       });
-  }
+  }, [user, totalReviews]);
 
   return (
     <div className="user-latest-reviews">

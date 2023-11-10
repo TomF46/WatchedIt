@@ -12,25 +12,12 @@ function UserReviews() {
   const currentUserId = useSelector((state) =>
     state.tokens ? state.tokens.id : null,
   );
+  const userId = id ? id : currentUserId;
   const [user, setUser] = useState(null);
   const [reviewsPaginator, setReviewsPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const reviewsPerPage = 12;
-  const [lastPageLoaded, setLastPageLoaded] = useState(null);
-
   useEffect(() => {
-    if (!user) {
-      getUser();
-      getReviews();
-    }
-  }, [id]);
-
-  useEffect(() => {
-    if (lastPageLoaded != null) getReviews();
-  }, [page]);
-
-  function getUser() {
-    let userId = id ? id : currentUserId;
     getUserById(userId)
       .then((res) => {
         setUser(res);
@@ -40,21 +27,19 @@ function UserReviews() {
           autoClose: false,
         });
       });
-  }
+  }, [userId]);
 
-  function getReviews() {
-    let userId = id ? id : currentUserId;
+  useEffect(() => {
     getUsersReviewsPaginated(userId, page, reviewsPerPage)
       .then((res) => {
         setReviewsPaginator(res);
-        setLastPageLoaded(page);
       })
       .catch((err) => {
         toast.error(`Error getting users reviews ${err.data.Exception}`, {
           autoClose: false,
         });
       });
-  }
+  }, [page, userId, reviewsPerPage]);
 
   return (
     <div className="users-reviews-page">
