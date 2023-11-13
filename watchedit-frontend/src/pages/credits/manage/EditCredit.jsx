@@ -14,12 +14,6 @@ function EditCredit() {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    if (!credit) {
-      getCredit();
-    }
-  }, [creditId, credit]);
-
-  function getCredit() {
     getCreditById(creditId)
       .then((res) => {
         setCredit(res);
@@ -30,7 +24,7 @@ function EditCredit() {
           autoClose: false,
         });
       });
-  }
+  }, [creditId]);
 
   function mapForEditing(data) {
     setCreditUpdate({
@@ -64,7 +58,8 @@ function EditCredit() {
 
     updateCredit(credit.id, creditUpdate)
       .then(() => {
-        navigate(`/films/${credit.film.creditId}/credits`);
+        console.log(credit);
+        navigate(`/films/${credit.film.id}/credits`);
       })
       .catch((err) => {
         toast.error(`Error getting credit ${err.data.Exception}`, {

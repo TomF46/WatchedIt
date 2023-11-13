@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import debounce from "lodash.debounce";
@@ -16,27 +16,8 @@ function Lists() {
   });
   const [page, setPage] = useState(1);
   const listsPerPage = 20;
-  const [lastPageLoaded, setLastPageLoaded] = useState(null);
 
-  useEffect(() => {
-    if (!listsPaginator) {
-      getLists();
-    }
-  }, [listsPaginator]);
-
-  useEffect(() => {
-    if (lastPageLoaded != null) getLists();
-  }, [page]);
-
-  useEffect(() => {
-    let debounced = debounce(() => {
-      getLists();
-    }, 50);
-
-    debounced();
-  }, [searchTerms]);
-
-  function getLists() {
+  const getLists = useCallback(() => {
     searchFilmListsPaginated(
       searchTerms.searchTerm,
       searchTerms.username,
@@ -45,14 +26,21 @@ function Lists() {
     )
       .then((res) => {
         setListsPaginator(res);
-        setLastPageLoaded(page);
       })
       .catch((err) => {
         toast.error(`Error getting lists ${err.data.Exception}`, {
           autoClose: false,
         });
       });
-  }
+  }, [page, searchTerms, listsPerPage]);
+
+  useEffect(() => {
+    let debounced = debounce(() => {
+      getLists();
+    }, 50);
+
+    debounced();
+  }, [searchTerms, page, getLists]);
 
   function handleSearchTermChange(event) {
     const { name, value } = event.target;
@@ -71,7 +59,7 @@ function Lists() {
           <h1 className="text-center text-primary text-4xl my-4 font-bold">
             Lists
           </h1>
-          <div className="lists-controls bg-backgroundOffset mt-4 rounded-md shadow rounded">
+          <div className="lists-controls bg-backgroundOffset mt-4 shadow rounded">
             <div className="bg-backgroundOffset2 rounded-t-md">
               <p className="text-primary font-bold text-lg px-2 py-1">
                 Lists controls
@@ -88,7 +76,7 @@ function Lists() {
           </div>
           <div className="mt-4">
             <div className="mt-4">
-              <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
+              <div className="controls bg-backgroundOffset mt-4 rounded-md mb-4 shadow">
                 <div className="bg-backgroundOffset2 rounded-t-md">
                   <p className="text-primary font-bold text-lg px-2 py-1">
                     Search

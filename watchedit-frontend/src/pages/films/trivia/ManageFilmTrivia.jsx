@@ -21,10 +21,16 @@ function ManageFilmTrivia() {
   const [editing, setEditing] = useState(false);
 
   useEffect(() => {
-    if (!film) {
-      getFilm();
-    }
-  }, [id, film]);
+    getFilmById(id)
+      .then((res) => {
+        setFilm(res);
+      })
+      .catch((err) => {
+        toast.error(`Error getting film ${err.data.Exception}`, {
+          autoClose: false,
+        });
+      });
+  }, [id]);
 
   useEffect(() => {
     if (triviaId) {
@@ -42,19 +48,7 @@ function ManageFilmTrivia() {
     } else {
       setFilmTrivia({ ...newTrivia });
     }
-  }, [triviaId]);
-
-  function getFilm() {
-    getFilmById(id)
-      .then((res) => {
-        setFilm(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting film ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }
+  }, [id, triviaId, userId, navigate]);
 
   function mapForEditing(data) {
     setFilmTrivia({

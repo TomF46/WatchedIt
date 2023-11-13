@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import debounce from "lodash.debounce";
@@ -19,7 +19,6 @@ function Films() {
   const [category, setCategory] = useState("");
   const [page, setPage] = useState(1);
   const filmsPerPage = 32;
-  const [lastPageLoaded, setLastPageLoaded] = useState(null);
   const [sort, setSort] = useState("rating_desc");
   const sortOptions = [
     { id: "name_asc", name: "A - Z" },
@@ -32,15 +31,27 @@ function Films() {
     { id: "watched_asc", name: "Least watched" },
   ];
 
-  useEffect(() => {
-    if (!filmsPaginator) {
-      getFilms();
+  const getFilms = useCallback(() => {
+    if (isNaN(category)) {
+      setCategory("");
+      return;
     }
-  }, [filmsPaginator]);
-
-  useEffect(() => {
-    if (lastPageLoaded != null) getFilms();
-  }, [page]);
+    searchFilmsWithCategoryPaginated(
+      searchTerm,
+      category,
+      page,
+      filmsPerPage,
+      sort,
+    )
+      .then((res) => {
+        setFilmsPaginator(res);
+      })
+      .catch((err) => {
+        toast.error(`Error getting films ${err.data.Exception}`, {
+          autoClose: false,
+        });
+      });
+  }, [searchTerm, category, page, sort]);
 
   useEffect(() => {
     let debounced = debounce(() => {
@@ -48,7 +59,7 @@ function Films() {
     }, 50);
 
     debounced();
-  }, [searchTerm, category, sort]);
+  }, [page, searchTerm, category, sort, getFilms]);
 
   useEffect(() => {
     if (!categories) {
@@ -63,29 +74,6 @@ function Films() {
         });
     }
   }, [categories]);
-
-  function getFilms() {
-    if (isNaN(category)) {
-      setCategory("");
-      return;
-    }
-    searchFilmsWithCategoryPaginated(
-      searchTerm,
-      category,
-      page,
-      filmsPerPage,
-      sort,
-    )
-      .then((res) => {
-        setFilmsPaginator(res);
-        setLastPageLoaded(page);
-      })
-      .catch((err) => {
-        toast.error(`Error getting films ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }
 
   function handleSearchTermChange(event) {
     const { value } = event.target;

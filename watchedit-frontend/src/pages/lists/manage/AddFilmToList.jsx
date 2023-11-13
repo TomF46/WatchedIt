@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -19,34 +19,9 @@ function AddFilmToList() {
   const [filmsPaginator, setFilmsPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const filmsPerPage = 20;
-  const [lastPageLoaded, setLastPageLoaded] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
-    if (!list) {
-      getList();
-    }
-  }, [id, list]);
-
-  useEffect(() => {
-    if (!filmsPaginator) {
-      search();
-    }
-  }, [filmsPaginator]);
-
-  useEffect(() => {
-    if (lastPageLoaded != null) search();
-  }, [page]);
-
-  useEffect(() => {
-    let debounced = debounce(() => {
-      search();
-    }, 50);
-
-    debounced();
-  }, [searchTerm]);
-
-  function getList() {
+  const getList = useCallback(() => {
     getFilmListById(id)
       .then((res) => {
         if (res.createdBy.id != userId) navigate(`/lists/${res.id}`);
@@ -57,20 +32,31 @@ function AddFilmToList() {
           autoClose: false,
         });
       });
-  }
+  }, [id, navigate, userId]);
 
-  function search() {
+  const search = useCallback(() => {
     searchFilmsPaginated(searchTerm, page, filmsPerPage)
       .then((res) => {
         setFilmsPaginator(res);
-        setLastPageLoaded(page);
       })
       .catch((err) => {
         toast.error(`Error getting films ${err.data.Exception}`, {
           autoClose: false,
         });
       });
-  }
+  }, [page, searchTerm, filmsPerPage]);
+
+  useEffect(() => {
+    getList();
+  }, [id, getList]);
+
+  useEffect(() => {
+    let debounced = debounce(() => {
+      search();
+    }, 50);
+
+    debounced();
+  }, [page, searchTerm, search]);
 
   function handleSearchTermChange(event) {
     const { value } = event.target;

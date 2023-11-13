@@ -34,7 +34,7 @@ function ManageList() {
     } else {
       setList({ ...newList });
     }
-  }, [id]);
+  }, [id, userId, navigate]);
 
   function mapForEditing(data) {
     setList({

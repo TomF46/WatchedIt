@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmById } from "../../../api/filmsApi";
@@ -17,21 +17,21 @@ function FilmTrivia() {
   const [film, setFilm] = useState(null);
   const [filmTriviaPaginator, setFilmTriviaPaginator] = useState(null);
   const [page, setPage] = useState(1);
-  const filmTriviaPerPage = 20;
-  const [lastPageLoaded, setLastPageLoaded] = useState(null);
+  const filmTriviaPerPage = 4;
+
+  const getFilmTrivia = useCallback(() => {
+    getFilmTriviasByFilmId(id, page, filmTriviaPerPage)
+      .then((res) => {
+        setFilmTriviaPaginator(res);
+      })
+      .catch((err) => {
+        toast.error(`Error getting film trivia ${err.data.Exception}`, {
+          autoClose: false,
+        });
+      });
+  }, [id, page, filmTriviaPerPage]);
 
   useEffect(() => {
-    if (!film) {
-      getFilm();
-      getFilmTrivia();
-    }
-  }, [id, film]);
-
-  useEffect(() => {
-    if (lastPageLoaded != null) getFilmTrivia();
-  }, [page]);
-
-  function getFilm() {
     getFilmById(id)
       .then((res) => {
         setFilm(res);
@@ -41,20 +41,11 @@ function FilmTrivia() {
           autoClose: false,
         });
       });
-  }
+  }, [id]);
 
-  function getFilmTrivia() {
-    getFilmTriviasByFilmId(id, page, filmTriviaPerPage)
-      .then((res) => {
-        setFilmTriviaPaginator(res);
-        setLastPageLoaded(page);
-      })
-      .catch((err) => {
-        toast.error(`Error getting film trivia ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }
+  useEffect(() => {
+    getFilmTrivia();
+  }, [id, page, filmTriviaPerPage, getFilmTrivia]);
 
   function handleDelete(trivia) {
     confirmAlert({

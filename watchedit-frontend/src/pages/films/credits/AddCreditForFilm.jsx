@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import debounce from "lodash.debounce";
@@ -19,7 +19,6 @@ function AddCreditForFilm() {
   const [peoplePaginator, setPeoplePaginator] = useState(null);
   const [page, setPage] = useState(1);
   const peoplePerPage = 20;
-  const [lastPageLoaded, setLastPageLoaded] = useState(null);
   const [searchTerms, setSearchTerms] = useState({
     firstName: "",
     lastName: "",
@@ -28,13 +27,19 @@ function AddCreditForFilm() {
   const [selectedPerson, setSelectedPerson] = useState(null);
   const [saving, setSaving] = useState(false);
 
-  useEffect(() => {
-    if (!film) {
-      getFilm();
-    }
-  }, [id, film]);
+  const search = useCallback(() => {
+    searchPeoplePaginated(searchTerms, page, peoplePerPage)
+      .then((res) => {
+        setPeoplePaginator(res);
+      })
+      .catch((err) => {
+        toast.error(`Error getting films ${err.data.Exception}`, {
+          autoClose: false,
+        });
+      });
+  }, [page, searchTerms, peoplePerPage]);
 
-  function getFilm() {
+  useEffect(() => {
     getFilmById(id)
       .then((res) => {
         setFilm(res);
@@ -44,17 +49,7 @@ function AddCreditForFilm() {
           autoClose: false,
         });
       });
-  }
-
-  useEffect(() => {
-    if (!peoplePaginator) {
-      search();
-    }
-  }, [peoplePaginator]);
-
-  useEffect(() => {
-    if (lastPageLoaded != null) search();
-  }, [page]);
+  }, [id]);
 
   useEffect(() => {
     let debounced = debounce(() => {
@@ -62,20 +57,7 @@ function AddCreditForFilm() {
     }, 50);
 
     debounced();
-  }, [searchTerms]);
-
-  function search() {
-    searchPeoplePaginated(searchTerms, page, peoplePerPage)
-      .then((res) => {
-        setPeoplePaginator(res);
-        setLastPageLoaded(page);
-      })
-      .catch((err) => {
-        toast.error(`Error getting films ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }
+  }, [page, searchTerms, search]);
 
   function handleSearchTermChange(event) {
     const { name, value } = event.target;

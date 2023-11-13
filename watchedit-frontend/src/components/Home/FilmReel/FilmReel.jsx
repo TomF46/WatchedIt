@@ -12,12 +12,6 @@ function FilmReel({ title, sort }) {
   const filmsPerPage = 8;
 
   useEffect(() => {
-    if (!filmsPaginator) {
-      getFilms();
-    }
-  }, [filmsPaginator]);
-
-  function getFilms() {
     getFilmsPaginated(page, filmsPerPage, sort)
       .then((res) => {
         setFilmsPaginator(res);
@@ -27,7 +21,7 @@ function FilmReel({ title, sort }) {
           autoClose: false,
         });
       });
-  }
+  }, [page, filmsPerPage, sort]);
 
   return (
     <div className="films-reel">

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -15,26 +15,7 @@ function FilmCredits() {
   const [film, setFilm] = useState(null);
   const [credits, setCredits] = useState(null);
 
-  useEffect(() => {
-    if (!film) {
-      getFilm();
-      getCredits();
-    }
-  }, [id, film]);
-
-  function getFilm() {
-    getFilmById(id)
-      .then((res) => {
-        setFilm(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting film ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }
-
-  function getCredits() {
+  const getCredits = useCallback(() => {
     getCreditsForFilmById(id)
       .then((res) => {
         setCredits(res);
@@ -44,7 +25,20 @@ function FilmCredits() {
           autoClose: false,
         });
       });
-  }
+  }, [id]);
+
+  useEffect(() => {
+    getFilmById(id)
+      .then((res) => {
+        setFilm(res);
+      })
+      .catch((err) => {
+        toast.error(`Error getting film ${err.data.Exception}`, {
+          autoClose: false,
+        });
+      });
+    getCredits();
+  }, [id, getCredits]);
 
   function handleRemoveCredit(credit) {
     confirmAlert({
@@ -86,7 +80,7 @@ function FilmCredits() {
             {film.name} credits
           </h1>
           {isAdmin && (
-            <div className="admin-controls bg-backgroundOffset mt-4 rounded-md shadow rounded">
+            <div className="admin-controls bg-backgroundOffset mt-4 shadow rounded">
               <div className="bg-backgroundOffset2 rounded-t-md">
                 <p className="text-primary font-bold text-lg px-2 py-1">
                   Admin controls
