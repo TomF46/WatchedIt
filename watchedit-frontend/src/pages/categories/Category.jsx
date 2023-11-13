@@ -62,6 +62,7 @@ function Category() {
   function handleSearchTermChange(event) {
     const { value } = event.target;
     setSearchTerm(value);
+    if (page != 1) setPage(1);
   }
 
   return (

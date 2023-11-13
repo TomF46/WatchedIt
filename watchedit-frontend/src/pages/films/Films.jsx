@@ -78,15 +78,18 @@ function Films() {
   function handleSearchTermChange(event) {
     const { value } = event.target;
     setSearchTerm(value);
+    if (page != 1) setPage(1);
   }
 
   function handleCategoryChange(event) {
     const { value } = event.target;
     setCategory(value);
+    if (page != 1) setPage(1);
   }
   function handleSortChange(event) {
     const { value } = event.target;
     setSort(value);
+    if (page != 1) setPage(1);
   }
 
   return (
@@ -95,7 +98,7 @@ function Films() {
         Films
       </h1>
       {isAdmin && (
-        <div className="admin-controls bg-backgroundOffset mt-4 rounded-md shadow shadow rounded">
+        <div className="admin-controls bg-backgroundOffset mt-4 shadow rounded">
           <div className="bg-backgroundOffset2 rounded-t-md">
             <p className="text-primary font-bold text-lg px-2 py-1">
               Admin controls
@@ -115,7 +118,7 @@ function Films() {
         <LoadingMessage message={"Loading films."} />
       ) : (
         <div className="mt-4">
-          <div className="search-controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow shadow rounded">
+          <div className="search-controls bg-backgroundOffset mt-4 mb-4 shadow rounded">
             <div className="bg-backgroundOffset2 rounded-t-md">
               <p className="text-primary font-bold text-lg px-2 py-1">Search</p>
             </div>

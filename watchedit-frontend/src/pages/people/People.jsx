@@ -58,11 +58,13 @@ function People() {
       ...prevSearchTerms,
       [name]: value,
     }));
+    if (page != 1) setPage(1);
   }
 
   function handleSortChange(event) {
     const { value } = event.target;
     setSort(value);
+    if (page != 1) setPage(1);
   }
 
   return (

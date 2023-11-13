@@ -43,6 +43,7 @@ const ConnectionsGuessSection = ({ guess }) => {
       ...prevSearchTerms,
       [name]: value,
     }));
+    if (page != 1) setPage(1);
   }
 
   function handlePersonSelected(person) {
