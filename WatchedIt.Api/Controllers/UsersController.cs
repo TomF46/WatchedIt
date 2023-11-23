@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WatchedIt.Api.Models.FilmModels;
+using WatchedIt.Api.Models.News;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Models.UserModels;
 using WatchedIt.Api.Services.Mapping;
@@ -62,6 +65,13 @@ namespace WatchedIt.Api.Controllers
             };
             var userId = AuthMapper.MapLoggedInUserId(HttpContext);
             return Ok(await _userService.GetIsUserAdmin(userId));
+        }
+        
+        [Authorize(Roles = "Administrator")]
+        [HttpPost("{id}/canPublish")]
+        public async Task<ActionResult<GetUserDto>> SetCanPublish(int id, UserCanPublishDto canPublish)
+        {
+            return Ok(await _userService.SetUserCanPublish(id, canPublish));
         }
     }
 }

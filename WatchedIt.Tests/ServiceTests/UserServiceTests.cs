@@ -1,5 +1,6 @@
 using Data;
 using WatchedIt.Api.Models;
+using WatchedIt.Api.Models.News;
 using WatchedIt.Api.Services.UserService;
 using WatchedIt.Tests.ServiceTests.Helpers;
 
@@ -75,6 +76,28 @@ namespace WatchedIt.Tests.ServiceTests
 
             var watchedFilms = await _userService.GetWatchedFilms(user.Id, new PaginationParameters());
             Assert.That(watchedFilms.Data, Has.Count.EqualTo(2));
+        }
+
+        [Test]
+        public async Task CanSetCanPublishTrue(){
+            var user = RandomDataGenerator.GenerateUser();
+            user.CanPublish = false;
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+
+            var updatedUser = await _userService.SetUserCanPublish(user.Id, new UserCanPublishDto{ UserCanPublish = true});
+            Assert.That(updatedUser.CanPublish, Is.True);
+        }
+
+        [Test]
+        public async Task CanSetCanPublishFalse(){
+            var user = RandomDataGenerator.GenerateUser();
+            user.CanPublish = true;
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+
+            var updatedUser = await _userService.SetUserCanPublish(user.Id, new UserCanPublishDto{ UserCanPublish = false});
+            Assert.That(updatedUser.CanPublish, Is.False);
         }
 
 

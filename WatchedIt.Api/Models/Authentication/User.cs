@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WatchedIt.Api.Models.Enums;
 using WatchedIt.Api.Models.FilmListModels;
 using WatchedIt.Api.Models.FilmModels;
+using WatchedIt.Api.Models.News;
 using WatchedIt.Api.Models.NotificationModels;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Models.ReviewModels;
@@ -31,5 +32,7 @@ namespace WatchedIt.Api.Models.Authentication
         public string? Biography {get;set;}
         public ICollection<Person> Likes { get; set; } = new List<Person>();
         public ICollection<Notification> Notifications { get; set; } = new List<Notification>();
+        public ICollection<NewsArticle> Articles {get; set;} = new List<NewsArticle>();
+        public bool CanPublish {get; set;} = false;
     }
 }

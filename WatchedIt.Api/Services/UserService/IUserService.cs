@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WatchedIt.Api.Models.Authentication;
 using WatchedIt.Api.Models.FilmModels;
+using WatchedIt.Api.Models.News;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Models.UserModels;
 
@@ -15,7 +16,8 @@ namespace WatchedIt.Api.Services.UserService
         Task<GetUserDto> Update(int id, UpdateUserDto updatedUser);
         Task<PaginationResponse<GetFilmOverviewDto>> GetWatchedFilms(int id, PaginationParameters paginationParameters);
         Task<PaginationResponse<GetSimplePersonDto>> GetLikedPeople(int id, PaginationParameters paginationParameters);
-        
         Task<GetIsAdminDto> GetIsUserAdmin(int id);
-    }
+        Task<GetUserDto> SetUserCanPublish(int id, UserCanPublishDto canPublishDto);
+
+    }   
 }

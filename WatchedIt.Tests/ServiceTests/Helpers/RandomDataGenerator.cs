@@ -6,6 +6,7 @@ using WatchedIt.Api.Models.Enums;
 using WatchedIt.Api.Models.FilmListModels;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.FilmTrivia;
+using WatchedIt.Api.Models.News;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Models.ReviewModels;
 
@@ -113,5 +114,37 @@ namespace WatchedIt.Tests.ServiceTests.Helpers
                 Text = Faker.Lorem.Sentence()
             };
         }
+
+        public static User GeneratePublisher(){
+            return new User{
+                Email = Faker.Internet.Email(),
+                Username = Faker.Internet.UserName(),
+                Role = Role.User,
+                CanPublish = true
+            };
+        }
+
+        public static NewsArticle GenerateNewsArticle(){
+            return new NewsArticle{
+                User = GeneratePublisher(),
+                Title = Faker.Lorem.Sentence(),
+                Content = Faker.Lorem.Paragraph(),
+                Published = true,
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now
+            };
+        }
+
+        public static NewsArticle GenerateNewsArticle(User user){
+            return new NewsArticle{
+                User = user,
+                Title = Faker.Lorem.Sentence(),
+                Content = Faker.Lorem.Paragraph(),
+                Published = true,
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now
+            };
+        }
+
     }
 }

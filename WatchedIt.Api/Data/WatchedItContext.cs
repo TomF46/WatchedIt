@@ -14,6 +14,7 @@ using WatchedIt.Api.Models.FilmTrivia;
 using WatchedIt.Api.Models.Games.Connections;
 using WatchedIt.Api.Models.Games.GuessFilmFromCast;
 using WatchedIt.Api.Models.Games.GuessFilmFromDescription;
+using WatchedIt.Api.Models.News;
 using WatchedIt.Api.Models.NotificationModels;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Models.ReviewModels;
@@ -50,6 +51,8 @@ namespace Data
         public DbSet<GuessFilmFromCastGame> GuessFilmFromCastGames => Set<GuessFilmFromCastGame>();
         public DbSet<GuessFilmFromDescriptionGame> GuessFilmFromDescriptionGames => Set<GuessFilmFromDescriptionGame>();
         public DbSet<ConnectionsGame> ConnectionsGames => Set<ConnectionsGame>();
+        public DbSet<NewsArticle> NewsArticles => Set<NewsArticle>();
+
 
     }
 }

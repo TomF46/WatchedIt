@@ -16,7 +16,8 @@ namespace WatchedIt.Api.Services.Mapping
                 Username = user.Username,
                 WatchedFilmCount = user.Watched.Count,
                 ImageUrl = user.ImageUrl,
-                Biography = user.Biography
+                Biography = user.Biography,
+                CanPublish  = user.CanPublish
             };
         }
 

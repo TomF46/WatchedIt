@@ -30,6 +30,7 @@ using WatchedIt.Api.Services.FilmTriviaService;
 using WatchedIt.Api.Services.Games.GuessFilmFromCast;
 using WatchedIt.Api.Services.Games.GuessFilmFromDescription;
 using WatchedIt.Api.Services.Games.Connections;
+using WatchedIt.Api.Services.NewsArticleService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -141,6 +142,7 @@ builder.Services.AddScoped<IFilmTriviaService, FilmTriviaService>();
 builder.Services.AddScoped<IGuessFilmFromCastGameService, GuessFilmFromCastGameService>();
 builder.Services.AddScoped<IGuessFilmFromDescriptionGameService, GuessFilmFromDescriptionGameService>();
 builder.Services.AddScoped<IConnectionsGameService, ConnectionsGameService>();
+builder.Services.AddScoped<INewsArticleService, NewsArticleService>();
 
 
 

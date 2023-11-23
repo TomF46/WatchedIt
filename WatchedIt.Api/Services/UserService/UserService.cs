@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WatchedIt.Api.Models.Enums;
 using WatchedIt.Api.Models.FilmModels;
+using WatchedIt.Api.Models.News;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Models.UserModels;
 using WatchedIt.Api.Services.Mapping;
@@ -61,6 +62,15 @@ namespace WatchedIt.Api.Services.UserService
             var count = user.Watched.Count;
             var mappedWatchList = user.Watched.Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).Select(f => FilmMapper.MapOverview(f)).ToList();
             return new PaginationResponse<GetFilmOverviewDto>(mappedWatchList, paginationParameters.PageNumber, paginationParameters.PageSize, count);
+        }
+
+        public async Task<GetUserDto> SetUserCanPublish(int id, UserCanPublishDto canPublish)
+        {
+            var user = await _context.Users.Include(f => f.Watched).ThenInclude(f => f.WatchedBy).FirstOrDefaultAsync(p => p.Id == id);
+            if(user is null) throw new NotFoundException($"User with Id '{id}' not found.");
+            user.CanPublish = canPublish.UserCanPublish;
+            await _context.SaveChangesAsync();
+            return UserMapper.Map(user);
         }
     }
 }
