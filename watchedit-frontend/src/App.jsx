@@ -50,6 +50,7 @@ import ConnectionsGame from "./pages/games/Connections/ConnectionsGame";
 import News from "./pages/news/news";
 import NewsArticle from "./pages/news/NewsArticle";
 import ManageNewsArticle from "./pages/news/ManageNewsArticle";
+import PublisherRoute from "./PublisherRoute";
 
 const App = () => {
   return (
@@ -319,8 +320,22 @@ const App = () => {
               }
             />
             <Route path="/games" element={<Games />} />
-            <Route path="/news/:id/edit" element={<ManageNewsArticle />} />
-            <Route path="/news/add" element={<ManageNewsArticle />} />
+            <Route
+              path="/news/:id/edit"
+              element={
+                <PublisherRoute>
+                  <ManageNewsArticle />
+                </PublisherRoute>
+              }
+            />
+            <Route
+              path="/news/add"
+              element={
+                <PublisherRoute>
+                  <ManageNewsArticle />
+                </PublisherRoute>
+              }
+            />
             <Route path="/news/:id" element={<NewsArticle />} />
             <Route path="/news" element={<News />} />
             <Route path="/404" element={<NotFound />} />

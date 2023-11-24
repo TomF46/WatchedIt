@@ -72,5 +72,15 @@ namespace WatchedIt.Api.Services.UserService
             await _context.SaveChangesAsync();
             return UserMapper.Map(user);
         }
+
+        public async Task<GetCanPublishDto> GetCanPublish(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if(user is null) throw new NotFoundException($"user with Id '{id}' not found.");
+
+            return new GetCanPublishDto{
+                CanPublish = user.CanPublish
+            };
+        }
     }
 }

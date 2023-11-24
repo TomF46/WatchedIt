@@ -17,6 +17,7 @@ namespace WatchedIt.Api.Services.UserService
         Task<PaginationResponse<GetFilmOverviewDto>> GetWatchedFilms(int id, PaginationParameters paginationParameters);
         Task<PaginationResponse<GetSimplePersonDto>> GetLikedPeople(int id, PaginationParameters paginationParameters);
         Task<GetIsAdminDto> GetIsUserAdmin(int id);
+        Task<GetCanPublishDto> GetCanPublish(int id);
         Task<GetUserDto> SetUserCanPublish(int id, UserCanPublishDto canPublishDto);
 
     }   

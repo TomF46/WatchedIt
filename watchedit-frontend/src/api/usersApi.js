@@ -46,6 +46,17 @@ export function getCurrentUserIsAdmin() {
     });
 }
 
+export function getCurrentUserIsPublisher() {
+  return client
+    .get(`/api/users/me/canPublish`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw error.response;
+    });
+}
+
 export function updateCurrentUser(user) {
   return client
     .put(`/api/users/me`, user)

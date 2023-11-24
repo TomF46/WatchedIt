@@ -6,9 +6,11 @@ import LoadingMessage from "../../components/Loading/LoadingMessage";
 import PaginationControls from "../../components/PaginationControls";
 import { Link } from "react-router-dom";
 import NewsList from "../../components/News/NewsList";
+import { getCurrentUserIsPublisher } from "../../api/usersApi";
 
 function News() {
   const userIsAuthenticated = useSelector((state) => state.tokens != null);
+  const [userIsPublisher, setUserIsPublisher] = useState(false);
   const [articlesPaginator, setArticlesPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const articlesPerPage = 32;
@@ -26,14 +28,19 @@ function News() {
   }, [page, articlesPerPage]);
 
   useEffect(() => {
-    console.log("Here");
     getNews();
   }, [page, articlesPerPage, getNews]);
+
+  useEffect(() => {
+    getCurrentUserIsPublisher().then((res) => {
+      setUserIsPublisher(res.canPublish);
+    });
+  }, [userIsAuthenticated]);
 
   return (
     <div className="films-page">
       <h1 className="text-center text-primary text-4xl my-4 font-bold">News</h1>
-      {userIsAuthenticated && (
+      {userIsPublisher && (
         <div className="admin-controls bg-backgroundOffset mt-4 shadow rounded">
           <div className="bg-backgroundOffset2 rounded-t-md">
             <p className="text-primary font-bold text-lg px-2 py-1">
@@ -42,7 +49,7 @@ function News() {
           </div>
           <div className="px-2 py-2">
             <Link
-              to={"/articles/add"}
+              to={"/news/add"}
               className="bg-backgroundOffset2 text-primary font-bold rounded py-2 px-4 hover:opacity-75 inline-block"
             >
               Add article

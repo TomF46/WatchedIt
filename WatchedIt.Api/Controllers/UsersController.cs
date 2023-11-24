@@ -66,6 +66,18 @@ namespace WatchedIt.Api.Controllers
             var userId = AuthMapper.MapLoggedInUserId(HttpContext);
             return Ok(await _userService.GetIsUserAdmin(userId));
         }
+
+        [HttpGet("me/canPublish")]
+        public async Task<ActionResult<GetCanPublishDto>> GetCanPublish()
+        {
+            if(!HttpContext.User.Identity.IsAuthenticated) {
+                return new GetCanPublishDto{
+                    CanPublish = false
+                };
+            };
+            var userId = AuthMapper.MapLoggedInUserId(HttpContext);
+            return Ok(await _userService.GetCanPublish(userId));
+        }
         
         [Authorize(Roles = "Administrator")]
         [HttpPost("{id}/canPublish")]

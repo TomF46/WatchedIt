@@ -50,7 +50,6 @@ function ManageNewsArticle() {
   }
 
   function setTitle(event) {
-    console.log(event.target.value);
     setArticle((prevState) => ({
       ...prevState,
       title: event.target.value,
@@ -81,7 +80,7 @@ function ManageNewsArticle() {
         publish: publish,
       }));
     }
-    console.log("Here");
+
     saveNewsArticle(article)
       .then((res) => {
         toast.success("Article saved");

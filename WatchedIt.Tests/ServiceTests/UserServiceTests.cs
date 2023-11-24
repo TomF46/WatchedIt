@@ -100,6 +100,29 @@ namespace WatchedIt.Tests.ServiceTests
             Assert.That(updatedUser.CanPublish, Is.False);
         }
 
+        
+        [Test]
+        public async Task CanGetCanPublishTrue(){
+            var user = RandomDataGenerator.GenerateUser();
+            user.CanPublish = true;
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+
+            var response = await _userService.GetCanPublish(user.Id);
+            Assert.That(response.CanPublish, Is.True);
+        }
+
+        [Test]
+        public async Task CanGetCanPublishFalse(){
+            var user = RandomDataGenerator.GenerateUser();
+            user.CanPublish = false;
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+
+            var response = await _userService.GetCanPublish(user.Id);
+            Assert.That(response.CanPublish, Is.False);
+        }
+
 
         // [Test]
         // public async  Task CanAddWatchedFilm(){
