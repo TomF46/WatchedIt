@@ -40,3 +40,9 @@ export const newComment = {
 export const newTrivia = {
   text: "",
 };
+
+export const newArticle = {
+  title: "",
+  content: "",
+  publish: false,
+};

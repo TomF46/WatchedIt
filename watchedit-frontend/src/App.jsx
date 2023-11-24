@@ -47,6 +47,9 @@ import GuessFilmFromDescriptionGame from "./pages/games/GuessFilmFromDescription
 import GuessFilmFromDescriptionLeaderboard from "./pages/games/GuessFilmFromDescription/GuessFilmFromDescriptionLeaderboard";
 import Connections from "./pages/games/Connections/Connections";
 import ConnectionsGame from "./pages/games/Connections/ConnectionsGame";
+import News from "./pages/news/news";
+import NewsArticle from "./pages/news/NewsArticle";
+import ManageNewsArticle from "./pages/news/ManageNewsArticle";
 
 const App = () => {
   return (
@@ -316,6 +319,10 @@ const App = () => {
               }
             />
             <Route path="/games" element={<Games />} />
+            <Route path="/news/:id/edit" element={<ManageNewsArticle />} />
+            <Route path="/news/add" element={<ManageNewsArticle />} />
+            <Route path="/news/:id" element={<NewsArticle />} />
+            <Route path="/news" element={<News />} />
             <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

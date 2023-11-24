@@ -18,7 +18,7 @@ namespace WatchedIt.Api.Services.NewsArticleService
         }
         public async Task<PaginationResponse<GetNewsArticleOverviewDto>> GetAll(PaginationParameters parameters)
         {
-             var query =  _context.NewsArticles.OrderByDescending(x => x.CreatedDate);
+             var query =  _context.NewsArticles.Include(a => a.User).OrderByDescending(x => x.CreatedDate);
             var count = query.Count();
             var articles = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
             var mappedArticles = articles.Select(a => NewsArticleMapper.MapOverview(a)).ToList();
@@ -27,7 +27,7 @@ namespace WatchedIt.Api.Services.NewsArticleService
 
         public async Task<GetNewsArticleDto> GetById(int id)
         {
-            var article = await _context.NewsArticles.FirstOrDefaultAsync(a => a.Id == id);
+            var article = await _context.NewsArticles.Include(a => a.User).FirstOrDefaultAsync(a => a.Id == id);
             if(article is null) throw new BadRequestException($"Article with Id '{id}' not found.");
 
             return NewsArticleMapper.Map(article);
