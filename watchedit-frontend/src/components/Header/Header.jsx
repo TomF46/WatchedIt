@@ -77,6 +77,12 @@ function Header() {
             People
           </Link>
           <Link
+            to="/news"
+            className="block mt-4 md:inline-block md:mt-0 text-primary hover:opacity-75 md:mx-4"
+          >
+            News
+          </Link>
+          <Link
             to="/lists"
             className="block mt-4 md:inline-block md:mt-0 text-primary hover:opacity-75 md:mx-4"
           >

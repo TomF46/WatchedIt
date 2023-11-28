@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { getNewsArticlesById } from "../../api/newsApi";
 import { toast } from "react-toastify";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
+import rehypeSanitize from "rehype-sanitize";
 
 function NewsArticle() {
   const { id } = useParams();
@@ -55,8 +56,13 @@ function NewsArticle() {
               </div>
             </div>
           )}
-          <div className="mt-4">
-            <MDEditor.Markdown source={article.content} />
+          <div className="bg-backgroundOffset p-4 my-4 shadow rounded">
+            <MDEditor.Markdown
+              source={article.content}
+              previewOptions={{
+                rehypePlugins: [[rehypeSanitize]],
+              }}
+            />
           </div>
         </>
       )}

@@ -132,6 +132,8 @@ function ManageNewsArticle() {
                   previewOptions={{
                     rehypePlugins: [[rehypeSanitize]],
                   }}
+                  preview="edit"
+                  data-color-mode="dark"
                 />
               </div>
             </div>
@@ -156,7 +158,14 @@ function ManageNewsArticle() {
           </div>
           <div className="mt-10">
             <h2 className="text-xl text-center mb-4">Preview</h2>
-            <MDEditor.Markdown source={article.content} />
+            <div className="bg-backgroundOffset p-4 my-4 shadow rounded">
+              <MDEditor.Markdown
+                source={article.content}
+                previewOptions={{
+                  rehypePlugins: [[rehypeSanitize]],
+                }}
+              />
+            </div>
           </div>
         </form>
       )}

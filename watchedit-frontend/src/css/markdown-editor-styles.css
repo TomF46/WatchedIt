@@ -1,0 +1,13 @@
+.wmde-markdown {
+  --color-canvas-default: var(--backgroundOffset-color);
+  --color-fg-default: #fff;
+  --color-canvas-subtle: var(--backgroundOffset2-color);
+}
+
+.wmde-markdown h1,
+.wmde-markdown h2,
+.wmde-markdown h3,
+.wmde-markdown h4,
+.wmde-markdown h5 {
+  color: var(--primary-color);
+}
