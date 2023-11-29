@@ -14,17 +14,22 @@ function NewsArticle() {
   );
   const [article, setArticle] = useState(null);
 
+  const formatArticle = useCallback((article) => {
+    article.content = article.content.replaceAll("\\", "/");
+    setArticle(article);
+  }, []);
+
   const getArticle = useCallback(() => {
     getNewsArticlesById(id)
       .then((res) => {
-        setArticle(res);
+        formatArticle(res);
       })
       .catch((err) => {
         toast.error(`Error getting article ${err.data.Exception}`, {
           autoClose: false,
         });
       });
-  }, [id]);
+  }, [id, formatArticle]);
 
   useEffect(() => {
     getArticle();

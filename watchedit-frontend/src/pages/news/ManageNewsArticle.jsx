@@ -2,11 +2,12 @@ import MDEditor from "@uiw/react-md-editor";
 import { useEffect, useState } from "react";
 import rehypeSanitize from "rehype-sanitize";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { newArticle } from "../../tools/obJectShapes";
 import { toast } from "react-toastify";
 import { getNewsArticlesById, saveNewsArticle } from "../../api/newsApi";
 import TextInput from "../../components/Inputs/TextInput";
+import { uploadImage } from "../../api/imageApi";
 
 function ManageNewsArticle() {
   const { id } = useParams();
@@ -15,6 +16,8 @@ function ManageNewsArticle() {
   const [saving, setSaving] = useState(false);
   const [editing, setEditing] = useState(false);
   const [errors, setErrors] = useState({});
+  const [imageUploading, setImageUploading] = useState(false);
+  const [generatedUrl, setGeneratedUrl] = useState(null);
 
   useEffect(() => {
     if (id) {
@@ -43,9 +46,10 @@ function ManageNewsArticle() {
   }
 
   function setContent(value) {
+    let formattedValue = value.replaceAll("\\", "/"); // Fixes formatting that md editor adds that breaks preview and article.
     setArticle((prevState) => ({
       ...prevState,
-      content: value,
+      content: formattedValue,
     }));
   }
 
@@ -54,6 +58,23 @@ function ManageNewsArticle() {
       ...prevState,
       title: event.target.value,
     }));
+  }
+
+  function handleImageUpload(event) {
+    let file = event.target.files[0];
+    setImageUploading(true);
+    uploadImage(file, "articles")
+      .then((res) => {
+        console.log(res.url);
+        setGeneratedUrl(res.url);
+        setImageUploading(false);
+      })
+      .catch((error) => {
+        setImageUploading(false);
+        toast.error(`Error uploading image ${error.message}`, {
+          autoClose: false,
+        });
+      });
   }
 
   function formIsValid() {
@@ -126,6 +147,15 @@ function ManageNewsArticle() {
                 <p className="block mb-1 font-bold text-xs text-primary">
                   Content
                 </p>
+                <p className="block mb-1 font-bold text-xs">
+                  This uses a markdown editor to find out more view this{" "}
+                  <Link
+                    className="text-primary underline"
+                    to={"https://www.markdownguide.org/"}
+                  >
+                    markdown guide
+                  </Link>
+                </p>
                 <MDEditor
                   value={article.content}
                   onChange={setContent}
@@ -135,6 +165,26 @@ function ManageNewsArticle() {
                   preview="edit"
                   data-color-mode="dark"
                 />
+              </div>
+              <div className="col-span-12 mt-4 bg-backgroundOffset2 p-1 rounded">
+                <div className="flex items-center">
+                  <button
+                    type="button"
+                    className="bg-primary pointer text-white rounded py-2 px-4 hover:opacity-75 shadow inline-flex items-center"
+                  >
+                    <label className="pointer ml-1">
+                      Generate URL for image
+                      <input
+                        type="file"
+                        name={`posterUrl`}
+                        className=" border-gray-400 p-2 w-full hidden"
+                        onChange={(e) => handleImageUpload(e)}
+                      />
+                    </label>
+                  </button>
+                  {!!imageUploading && <p className="ml-4">Uploading...</p>}
+                  {!!generatedUrl && <p className="ml-4">{generatedUrl}</p>}
+                </div>
               </div>
             </div>
           </div>
