@@ -8,6 +8,8 @@ using Amazon.S3.Util;
 using Microsoft.Extensions.Options;
 using WatchedIt.Api.Models.Configuration;
 using WatchedIt.Api.Models.Files;
+using WatchedIt.Api.Models.Enums;
+
 
 namespace WatchedIt.Api.Services.File
 {
@@ -15,14 +17,22 @@ namespace WatchedIt.Api.Services.File
     {
         private readonly IAmazonS3 _s3Client;
         private readonly AWSConfiguration _awsConfig;
+        private readonly WatchedItContext _context;
 
-        public S3FileService(IAmazonS3 s3Client, IOptions<AWSConfiguration> awsConfig)
+
+        public S3FileService(IAmazonS3 s3Client, IOptions<AWSConfiguration> awsConfig, WatchedItContext context)
         {
             _s3Client = s3Client;
             _awsConfig = awsConfig.Value;
+            _context = context;
+
         }
-        public async Task<FileResponse> Upload(IFormFile file, string? prefix)
+        public async Task<FileResponse> Upload(int userId, IFormFile file, string? prefix)
         {
+            var user = await _context.Users.FindAsync(userId);
+            if(user is null) throw new Exceptions.UnauthorizedAccessException("User can't upload files");
+            if(!user.CanPublish && user.Role != Role.Administrator) throw new Exceptions.UnauthorizedAccessException("User cant upload files.");
+
             var bucketName = _awsConfig.BucketName;
             var bucketExists = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, bucketName);
             if (!bucketExists) throw new NotFoundException($"Bucket {bucketName} does not exist.");

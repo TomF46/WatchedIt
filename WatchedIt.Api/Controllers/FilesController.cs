@@ -8,6 +8,7 @@ using Amazon.S3.Util;
 using Microsoft.AspNetCore.Mvc;
 using WatchedIt.Api.Models.Files;
 using WatchedIt.Api.Services.File;
+using WatchedIt.Api.Services.Mapping;
 
 namespace WatchedIt.Api.Controllers
 {
@@ -24,7 +25,9 @@ namespace WatchedIt.Api.Controllers
         [HttpPost("upload")]
         public async Task<ActionResult<FileResponse>> UploadFileAsync(IFormFile file, string? prefix)
         {
-            return Ok(await _fileService.Upload(file, prefix));
+            if(!HttpContext.User.Identity.IsAuthenticated) return Unauthorized();
+            var userId = AuthMapper.MapLoggedInUserId(HttpContext);
+            return Ok(await _fileService.Upload(userId, file, prefix));
         }
     }
 }

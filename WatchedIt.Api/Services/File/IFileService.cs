@@ -8,6 +8,6 @@ namespace WatchedIt.Api.Services.File
 {
     public interface IFileService
     {
-        Task<FileResponse> Upload(IFormFile file, string? prefix);
+        Task<FileResponse> Upload(int userId, IFormFile file, string? prefix);
     }
 }

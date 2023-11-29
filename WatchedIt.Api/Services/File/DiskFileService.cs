@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using WatchedIt.Api.Models.Configuration;
+using WatchedIt.Api.Models.Enums;
 using WatchedIt.Api.Models.Files;
 
 namespace WatchedIt.Api.Services.File
@@ -11,14 +12,20 @@ namespace WatchedIt.Api.Services.File
     public class DiskFileService : IFileService
     {
         private readonly ImagesConfiguration _imagesConfig;
+        private readonly WatchedItContext _context;
 
-        public DiskFileService(IOptions<ImagesConfiguration> imagesConfig)
+        public DiskFileService(IOptions<ImagesConfiguration> imagesConfig, WatchedItContext context)
         {
             _imagesConfig = imagesConfig.Value;
+            _context = context;
         }
 
-        public async Task<FileResponse> Upload(IFormFile file, string? prefix)
+        public async Task<FileResponse> Upload(int userId, IFormFile file, string? prefix)
         {
+            var user = await _context.Users.FindAsync(userId);
+            if(user is null) throw new Exceptions.UnauthorizedAccessException("User can't upload files");
+            if(!user.CanPublish && user.Role != Role.Administrator) throw new Exceptions.UnauthorizedAccessException("User cant upload files.");
+
             var fileName = $"{Guid.NewGuid().ToString()}{file.FileName}";
             if(!string.IsNullOrEmpty(prefix)) fileName = $"{prefix}/{fileName}";
             var folderName = Path.Combine("Resources", "Images");
