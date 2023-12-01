@@ -51,6 +51,7 @@ import News from "./pages/news/news";
 import NewsArticle from "./pages/news/NewsArticle";
 import ManageNewsArticle from "./pages/news/ManageNewsArticle";
 import PublisherRoute from "./PublisherRoute";
+import UsersNewsArticles from "./pages/news/UsersNewsArticles";
 
 const App = () => {
   return (
@@ -334,6 +335,15 @@ const App = () => {
                 <PublisherRoute>
                   <ManageNewsArticle />
                 </PublisherRoute>
+              }
+            />
+            <Route path="/profile/:id/news" element={<UsersNewsArticles />} />
+            <Route
+              path="/profile/news"
+              element={
+                <AuthenticatedRoute>
+                  <UsersNewsArticles />
+                </AuthenticatedRoute>
               }
             />
             <Route path="/news/:id" element={<NewsArticle />} />

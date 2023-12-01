@@ -98,6 +98,14 @@ function Profile() {
                 >
                   Reviews
                 </Link>
+                {user.canPublish && (
+                  <Link
+                    to={`/profile/${user.id}/news`}
+                    className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 w-full text-center"
+                  >
+                    News articles
+                  </Link>
+                )}
                 {user.id == currentUserId && (
                   <>
                     <Link

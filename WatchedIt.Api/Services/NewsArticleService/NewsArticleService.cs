@@ -26,6 +26,17 @@ namespace WatchedIt.Api.Services.NewsArticleService
             return new PaginationResponse<GetNewsArticleOverviewDto>(mappedArticles, parameters.PageNumber, parameters.PageSize, count);
         }
 
+        public async Task<PaginationResponse<GetNewsArticleOverviewDto>> GetAllForUser(int userId, int currentUserId, PaginationParameters parameters)
+        {
+            var query =  _context.NewsArticles.Include(a => a.User).Where(a => a.User.Id == userId).AsQueryable();
+            if(currentUserId != userId) query = query.Where(x => x.Published); // Can see own unpublished articles
+            query = query.OrderByDescending(x => x.CreatedDate);
+            var count = query.Count();
+            var articles = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
+            var mappedArticles = articles.Select(a => NewsArticleMapper.MapOverview(a)).ToList();
+            return new PaginationResponse<GetNewsArticleOverviewDto>(mappedArticles, parameters.PageNumber, parameters.PageSize, count);
+        }
+
         public async Task<GetNewsArticleDto> GetById(int id)
         {
             var article = await _context.NewsArticles.Include(a => a.User).FirstOrDefaultAsync(a => a.Id == id);

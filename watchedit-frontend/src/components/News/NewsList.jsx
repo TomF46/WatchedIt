@@ -12,12 +12,16 @@ const NewsList = ({ articles }) => {
             onClick={() => {
               navigate(`/news/${article.id}`);
             }}
-            className="col-span-12 bg-backgroundOffset p-2 my-1 shadow rounded cursor-pointer"
+            className="col-span-12 bg-backgroundOffset p-4 my-1 shadow rounded cursor-pointer"
             key={article.id}
           >
             <div className="grid grid-cols-12">
               <div className="col-span-12 md:col-span-8">
-                {article.title} by {article.authorName}
+                {article.title} by{" "}
+                <span className="text-primary">{article.authorName}</span>
+                {!article.published && (
+                  <span className="text-primary"> &#40;Unpublished&#41;</span>
+                )}
               </div>
               <div className="col-span-12 md:col-span-4 text-right">
                 {format(parseISO(article.createdDate), "dd/MM/yyyy HH:mm")}

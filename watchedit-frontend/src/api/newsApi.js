@@ -62,3 +62,16 @@ export function setNewsArticlePublishedStatusById(id, publish) {
       throw error.response;
     });
 }
+
+export function getNewsByUserPaginated(id, pageNumber, pageSize) {
+  return client
+    .get(
+      `/api/users/${id}/newsArticles?PageNumber=${pageNumber}&PageSize=${pageSize}`,
+    )
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw error.response;
+    });
+}

@@ -54,6 +54,12 @@ function News() {
             >
               Add article
             </Link>
+            <Link
+              to={"/profile/news"}
+              className="bg-backgroundOffset2 text-primary font-bold rounded py-2 px-4 ml-2 hover:opacity-75 inline-block"
+            >
+              View my articles
+            </Link>
           </div>
         </div>
       )}
