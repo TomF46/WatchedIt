@@ -17,9 +17,35 @@ namespace WatchedIt.Api.Services.NewsArticleService
         {
             _context = context;
         }
-        public async Task<PaginationResponse<GetNewsArticleOverviewDto>> GetAll(PaginationParameters parameters)
+        public async Task<PaginationResponse<GetNewsArticleOverviewDto>> GetAll(NewsArticleSearchWithPaginationParameters parameters)
         {
-             var query =  _context.NewsArticles.Include(a => a.User).Where(a => a.Published).OrderByDescending(x => x.CreatedDate);
+            var query = _context.NewsArticles.Include(a => a.User).Where(a => a.Published);
+
+            if (!string.IsNullOrWhiteSpace(parameters.Title))
+            {
+                var searchTitle = parameters.Title.Trim().ToLower();
+                query = query.Where(a => a.Title.ToLower().Contains(searchTitle));
+            }
+
+            if (!string.IsNullOrWhiteSpace(parameters.Publisher))
+            {
+                var searchPublisher = parameters.Publisher.Trim().ToLower();
+                query = query.Where(a => a.User.Username.ToLower().Contains(searchPublisher));
+            }
+
+            switch (parameters.Sort)
+            {
+                case "created_desc":
+                    query = query.OrderByDescending(x => x.CreatedDate);
+                    break;
+                case "created_asc":
+                    query = query.OrderBy(x => x.CreatedDate);
+                    break;
+                default:
+                    query = query.OrderByDescending(x => x.CreatedDate);
+                    break;
+            }
+
             var count = query.Count();
             var articles = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
             var mappedArticles = articles.Select(a => NewsArticleMapper.MapOverview(a)).ToList();
@@ -28,8 +54,8 @@ namespace WatchedIt.Api.Services.NewsArticleService
 
         public async Task<PaginationResponse<GetNewsArticleOverviewDto>> GetAllForUser(int userId, int currentUserId, PaginationParameters parameters)
         {
-            var query =  _context.NewsArticles.Include(a => a.User).Where(a => a.User.Id == userId).AsQueryable();
-            if(currentUserId != userId) query = query.Where(x => x.Published); // Can see own unpublished articles
+            var query = _context.NewsArticles.Include(a => a.User).Where(a => a.User.Id == userId).AsQueryable();
+            if (currentUserId != userId) query = query.Where(x => x.Published); // Can see own unpublished articles
             query = query.OrderByDescending(x => x.CreatedDate);
             var count = query.Count();
             var articles = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
@@ -40,7 +66,7 @@ namespace WatchedIt.Api.Services.NewsArticleService
         public async Task<GetNewsArticleDto> GetById(int id)
         {
             var article = await _context.NewsArticles.Include(a => a.User).FirstOrDefaultAsync(a => a.Id == id);
-            if(article is null) throw new BadRequestException($"Article with Id '{id}' not found.");
+            if (article is null) throw new BadRequestException($"Article with Id '{id}' not found.");
 
             return NewsArticleMapper.Map(article);
         }
@@ -48,8 +74,8 @@ namespace WatchedIt.Api.Services.NewsArticleService
         public async Task<GetNewsArticleDto> Add(int userId, AddNewsArticleDto newArticle)
         {
             var user = await _context.Users.FindAsync(userId);
-            if(user is null) throw new NotFoundException($"user with Id '{userId}' not found.");
-            if(!user.CanPublish) throw new Exceptions.UnauthorizedAccessException("User can not publish.");
+            if (user is null) throw new NotFoundException($"user with Id '{userId}' not found.");
+            if (!user.CanPublish) throw new Exceptions.UnauthorizedAccessException("User can not publish.");
 
             var article = NewsArticleMapper.MapForAdding(newArticle);
             article.User = user;
@@ -65,13 +91,13 @@ namespace WatchedIt.Api.Services.NewsArticleService
         public async Task<GetNewsArticleDto> Update(int id, int userId, UpdateNewsArticleDto updatedArticle)
         {
             var user = await _context.Users.FindAsync(userId);
-            if(user is null) throw new NotFoundException($"user with Id '{userId}' not found.");
-            if(!user.CanPublish) throw new Exceptions.UnauthorizedAccessException("User can not publish.");
+            if (user is null) throw new NotFoundException($"user with Id '{userId}' not found.");
+            if (!user.CanPublish) throw new Exceptions.UnauthorizedAccessException("User can not publish.");
 
             var article = await _context.NewsArticles.Include(a => a.User).FirstOrDefaultAsync(x => x.Id == id);
-            if(article is null) throw new NotFoundException($"Article with Id '{id}' not found.");
+            if (article is null) throw new NotFoundException($"Article with Id '{id}' not found.");
 
-            if(article.User.Id != user.Id) throw new Exceptions.UnauthorizedAccessException("User does not have permission to update this article.");
+            if (article.User.Id != user.Id) throw new Exceptions.UnauthorizedAccessException("User does not have permission to update this article.");
 
             article.Title = updatedArticle.Title;
             article.Content = updatedArticle.Content;
@@ -83,13 +109,13 @@ namespace WatchedIt.Api.Services.NewsArticleService
         public async Task<GetNewsArticleDto> SetArticlePublished(int id, int userId, bool isPublished)
         {
             var user = await _context.Users.FindAsync(userId);
-            if(user is null) throw new NotFoundException($"user with Id '{userId}' not found.");
-            if(!user.CanPublish && user.Role != Role.Administrator) throw new Exceptions.UnauthorizedAccessException("User can not publish.");
+            if (user is null) throw new NotFoundException($"user with Id '{userId}' not found.");
+            if (!user.CanPublish && user.Role != Role.Administrator) throw new Exceptions.UnauthorizedAccessException("User can not publish.");
 
             var article = await _context.NewsArticles.Include(a => a.User).FirstOrDefaultAsync(x => x.Id == id);
-            if(article is null) throw new NotFoundException($"Article with Id '{id}' not found.");
+            if (article is null) throw new NotFoundException($"Article with Id '{id}' not found.");
 
-            if(article.User.Id != user.Id && user.Role != Role.Administrator) throw new Exceptions.UnauthorizedAccessException("User does not have permission to update the publish status of this article.");
+            if (article.User.Id != user.Id && user.Role != Role.Administrator) throw new Exceptions.UnauthorizedAccessException("User does not have permission to update the publish status of this article.");
 
             article.Published = isPublished;
             await _context.SaveChangesAsync();

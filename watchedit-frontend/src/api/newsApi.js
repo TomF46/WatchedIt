@@ -17,6 +17,19 @@ export function getNewsPaginated(pageNumber, pageSize) {
     });
 }
 
+export function searchNewsPaginated(searchTerms, pageNumber, pageSize, sort) {
+  return client
+    .get(
+      `/api/newsArticles?title=${searchTerms.title}&publisher=${searchTerms.publisher}&PageNumber=${pageNumber}&PageSize=${pageSize}&Sort=${sort}`,
+    )
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw error.response;
+    });
+}
+
 export function getNewsArticlesById(id) {
   return client
     .get(`/api/newsArticles/${id}`)

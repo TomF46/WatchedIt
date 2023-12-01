@@ -8,6 +8,8 @@ namespace WatchedIt.Api.Models
     public class NewsArticleSearchWithPaginationParameters : PaginationParameters
     {
         public string? Title {get; set;} = "";
-        public bool? IncludeUnpublished = false;
+        public string? Publisher {get; set;} = "";
+        public string? Sort {get; set;} = "";
+
     }
 }

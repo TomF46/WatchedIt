@@ -7,7 +7,7 @@ import PaginationControls from "../../../components/PaginationControls";
 import { getUserById, getUsersReviewsPaginated } from "../../../api/usersApi";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 
-function UserReviews() {
+function UsersReviews() {
   const { id } = useParams();
   const currentUserId = useSelector((state) =>
     state.tokens ? state.tokens.id : null,
@@ -84,4 +84,4 @@ function UserReviews() {
   );
 }
 
-export default UserReviews;
+export default UsersReviews;

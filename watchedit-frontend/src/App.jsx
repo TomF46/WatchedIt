@@ -34,7 +34,6 @@ import Categories from "./pages/categories/Categories";
 import Category from "./pages/categories/Category";
 import ManageCategory from "./pages/categories/manage/ManageCategory";
 import ManageProfile from "./pages/profile/manage/ManageProfile";
-import UsersReviews from "./pages/profile/reviews/usersReviews";
 import UserLikes from "./pages/profile/UserLikes";
 import Notifications from "./pages/notifications/Notifications";
 import FilmTrivia from "./pages/films/trivia/FilmTrivia";
@@ -52,6 +51,7 @@ import NewsArticle from "./pages/news/NewsArticle";
 import ManageNewsArticle from "./pages/news/ManageNewsArticle";
 import PublisherRoute from "./PublisherRoute";
 import UsersNewsArticles from "./pages/news/UsersNewsArticles";
+import UsersReviews from "./pages/profile/reviews/UsersReviews";
 
 const App = () => {
   return (

@@ -21,7 +21,7 @@ namespace WatchedIt.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PaginationResponse<GetNewsArticleOverviewDto>>> Get([FromQuery] PaginationParameters parameters){
+        public async Task<ActionResult<PaginationResponse<GetNewsArticleOverviewDto>>> Get([FromQuery] NewsArticleSearchWithPaginationParameters parameters){
             return Ok(await _newsArticlesService.GetAll(parameters));
         }
 
