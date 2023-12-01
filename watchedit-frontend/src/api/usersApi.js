@@ -80,3 +80,14 @@ export function getUsersReviewsPaginated(id, pageNumber, pageSize) {
       throw error.response;
     });
 }
+
+export function setUserCanPublishByUserId(id, canPublish) {
+  return client
+    .post(`/api/users/${id}/canPublish`, { userCanPublish: canPublish })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw error.response;
+    });
+}
