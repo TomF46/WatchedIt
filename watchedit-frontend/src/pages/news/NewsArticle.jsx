@@ -2,13 +2,17 @@ import MDEditor from "@uiw/react-md-editor";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { getNewsArticlesById } from "../../api/newsApi";
+import {
+  getNewsArticlesById,
+  setNewsArticlePublishedStatusById,
+} from "../../api/newsApi";
 import { toast } from "react-toastify";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import rehypeSanitize from "rehype-sanitize";
 
 function NewsArticle() {
   const { id } = useParams();
+  const isAdmin = useSelector((state) => state.isAdmin);
   const currentUserId = useSelector((state) =>
     state.tokens ? state.tokens.id : null,
   );
@@ -35,6 +39,24 @@ function NewsArticle() {
     getArticle();
   }, [id, getArticle]);
 
+  function setArticlePublished(publish) {
+    setNewsArticlePublishedStatusById(article.id, publish)
+      .then(() => {
+        toast.success(`Article ${publish ? "published" : "unpublished"}.`);
+        getArticle();
+      })
+      .catch((error) => {
+        toast.error(
+          `Error ${publish ? "publishing" : "unpublishing"} article. ${
+            error.data.Exception
+          }`,
+          {
+            autoClose: false,
+          },
+        );
+      });
+  }
+
   return (
     <div className="article-page">
       {!article ? (
@@ -44,6 +66,23 @@ function NewsArticle() {
           <h1 className="my-4 text-center text-primary text-4xl font-bold">
             {article.title}
           </h1>
+          {isAdmin && (
+            <div className="admin-controls bg-backgroundOffset mt-4 shadow rounded">
+              <div className="bg-backgroundOffset2 rounded-t-md">
+                <p className="text-primary font-bold text-lg px-2 py-1">
+                  Admin controls
+                </p>
+              </div>
+              <div className="px-2 py-2">
+                <button
+                  onClick={() => setArticlePublished(!article.published)}
+                  className="bg-backgroundOffset2 text-primary font-bold rounded py-2 px-4 hover:opacity-75 inline-block"
+                >
+                  {article.published ? "Unpublish" : "Publish"}
+                </button>
+              </div>
+            </div>
+          )}
           {currentUserId == article.author.id && (
             <div className="admin-controls bg-backgroundOffset mt-4 shadow rounded">
               <div className="bg-backgroundOffset2 rounded-t-md">
@@ -58,6 +97,12 @@ function NewsArticle() {
                 >
                   Edit article
                 </Link>
+                <button
+                  onClick={() => setArticlePublished(!article.published)}
+                  className="bg-backgroundOffset2 text-primary font-bold rounded py-2 px-4 ml-2 hover:opacity-75 inline-block"
+                >
+                  {article.published ? "Unpublish" : "Publish"}
+                </button>
               </div>
             </div>
           )}

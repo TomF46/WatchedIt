@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using WatchedIt.Api.Models.Enums;
 using WatchedIt.Api.Models.News;
 using WatchedIt.Api.Services.Mapping;
 
@@ -18,7 +19,7 @@ namespace WatchedIt.Api.Services.NewsArticleService
         }
         public async Task<PaginationResponse<GetNewsArticleOverviewDto>> GetAll(PaginationParameters parameters)
         {
-             var query =  _context.NewsArticles.Include(a => a.User).OrderByDescending(x => x.CreatedDate);
+             var query =  _context.NewsArticles.Include(a => a.User).Where(a => a.Published).OrderByDescending(x => x.CreatedDate);
             var count = query.Count();
             var articles = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
             var mappedArticles = articles.Select(a => NewsArticleMapper.MapOverview(a)).ToList();
@@ -72,12 +73,12 @@ namespace WatchedIt.Api.Services.NewsArticleService
         {
             var user = await _context.Users.FindAsync(userId);
             if(user is null) throw new NotFoundException($"user with Id '{userId}' not found.");
-            if(!user.CanPublish) throw new Exceptions.UnauthorizedAccessException("User can not publish.");
+            if(!user.CanPublish && user.Role != Role.Administrator) throw new Exceptions.UnauthorizedAccessException("User can not publish.");
 
             var article = await _context.NewsArticles.Include(a => a.User).FirstOrDefaultAsync(x => x.Id == id);
             if(article is null) throw new NotFoundException($"Article with Id '{id}' not found.");
 
-            if(article.User.Id != user.Id) throw new Exceptions.UnauthorizedAccessException("User does not have permission to update the publish status of this article.");
+            if(article.User.Id != user.Id && user.Role != Role.Administrator) throw new Exceptions.UnauthorizedAccessException("User does not have permission to update the publish status of this article.");
 
             article.Published = isPublished;
             await _context.SaveChangesAsync();

@@ -95,14 +95,7 @@ function ManageNewsArticle() {
     if (!formIsValid()) return;
     setSaving(true);
 
-    if (!article.publish) {
-      setArticle((prevState) => ({
-        ...prevState,
-        publish: publish,
-      }));
-    }
-
-    saveNewsArticle(article)
+    saveNewsArticle(article, publish)
       .then((res) => {
         toast.success("Article saved");
         navigate(`/news/${res.id}`);
@@ -199,7 +192,7 @@ function ManageNewsArticle() {
               </button>
             )}
             <button
-              onClick={() => handleSave(false)}
+              onClick={() => handleSave(true)}
               disabled={saving}
               className="bg-primary  text-white rounded py-2 px-4 hover:opacity-75 inline-flex items-center"
             >

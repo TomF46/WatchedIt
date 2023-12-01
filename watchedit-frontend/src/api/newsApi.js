@@ -1,7 +1,9 @@
 import client from "./client";
 
-export function saveNewsArticle(article) {
-  return article.id ? editNewsArticle(article) : addNewsArticle(article);
+export function saveNewsArticle(article, publish) {
+  return article.id
+    ? editNewsArticle(article, publish)
+    : addNewsArticle(article, publish);
 }
 
 export function getNewsPaginated(pageNumber, pageSize) {
@@ -26,7 +28,8 @@ export function getNewsArticlesById(id) {
     });
 }
 
-export function addNewsArticle(article) {
+export function addNewsArticle(article, publish) {
+  article.publish = publish;
   return client
     .post(`/api/newsArticles`, article)
     .then((response) => {
@@ -37,9 +40,21 @@ export function addNewsArticle(article) {
     });
 }
 
-export function editNewsArticle(article) {
+export function editNewsArticle(article, publish) {
+  article.publish = publish;
   return client
     .put(`/api/newsArticles/${article.id}`, article)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw error.response;
+    });
+}
+
+export function setNewsArticlePublishedStatusById(id, publish) {
+  return client
+    .post(`/api/newsArticles/${id}/published`, { publish: publish })
     .then((response) => {
       return response.data;
     })

@@ -44,7 +44,7 @@ namespace WatchedIt.Api.Controllers
             return Ok(await _newsArticlesService.Update(id ,userId, updatedArticle));
         }
 
-        [HttpPost("{id}")]
+        [HttpPost("{id}/published")]
         public async Task<ActionResult<GetNewsArticleDto>> SetNewsArticlePublished(int id, PublishArticleDto publishArticle)
         {
             var userId = AuthMapper.MapLoggedInUserId(HttpContext);
