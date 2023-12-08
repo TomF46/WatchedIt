@@ -40,7 +40,7 @@ function GuessFilmFromDescription() {
   }
 
   return (
-    <div className="watched-films-page">
+    <div className="films-from-description-page">
       <h1 className="text-center text-primary text-4xl my-4 font-bold">
         Guess the film from its description
       </h1>

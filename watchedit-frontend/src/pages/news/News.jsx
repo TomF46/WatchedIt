@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { searchNewsPaginated } from "../../api/newsApi";
 import { toast } from "react-toastify";
@@ -66,7 +66,7 @@ function News() {
   }
 
   return (
-    <div className="films-page">
+    <div className="news-page">
       <h1 className="text-center text-primary text-4xl my-4 font-bold">News</h1>
       {userIsPublisher && (
         <div className="admin-controls bg-backgroundOffset mt-4 shadow rounded">

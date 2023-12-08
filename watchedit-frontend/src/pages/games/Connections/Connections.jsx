@@ -40,7 +40,7 @@ function Connections() {
   }
 
   return (
-    <div className="watched-films-page">
+    <div className="connections-page">
       <h1 className="text-center text-primary text-4xl my-4 font-bold">
         Connections
       </h1>
