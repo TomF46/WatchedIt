@@ -58,7 +58,7 @@ function UsersNewsArticles() {
             <div className="mt-4">
               {articlesPaginator.data.length > 0 ? (
                 <>
-                  <NewsList articles={articlesPaginator.data} />
+                  <NewsList articles={articlesPaginator.data} gridMode />
                   <PaginationControls
                     currentPage={page}
                     onPageChange={setPage}

@@ -12,13 +12,14 @@ namespace WatchedIt.Api.Models.News
     {
         public int Id { get; set; }
         [Required]
-        public User? User {get; set;}
+        public User? User { get; set; }
         [StringLength(80, ErrorMessage = "Title can't be longer than 80 characters.")]
-        public string? Title {get; set;}
+        public string? Title { get; set; }
         [StringLength(8000, ErrorMessage = "Content can't be longer than 8000 characters.")]
-        public string? Content {get; set;}
+        public string? Content { get; set; }
         public DateTime CreatedDate { get; set; }
-        public DateTime UpdatedDate { get; set; }  
-        public bool Published {get; set;} = false;
+        public DateTime UpdatedDate { get; set; }
+        public bool Published { get; set; } = false;
+        public string? ThumbnailUrl { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 using Data;
+
 using WatchedIt.Api.Exceptions;
 using WatchedIt.Api.Models;
 using WatchedIt.Api.Models.News;
@@ -18,7 +19,7 @@ namespace WatchedIt.Tests.ServiceTests
             _context = new InMemoryDbContextFactory().GetDBContext();
             _newsArticleService = new NewsArticleService(_context);
         }
-        
+
         [SetUp]
         public void Setup()
         {
@@ -36,13 +37,16 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task CanAddArticle(){
+        public async Task CanAddArticle()
+        {
             var user = RandomDataGenerator.GeneratePublisher();
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
 
-            Assert.DoesNotThrowAsync(async () => {
-                var article = new AddNewsArticleDto{
+            Assert.DoesNotThrowAsync(async () =>
+            {
+                var article = new AddNewsArticleDto
+                {
                     Title = "Test article",
                     Content = "Some test content",
                     Publish = true
@@ -53,14 +57,17 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task CantAddArticleWithoutPublishRights(){
+        public async Task CantAddArticleWithoutPublishRights()
+        {
             var user = RandomDataGenerator.GenerateUser();
             user.CanPublish = false;
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
 
-            Assert.ThrowsAsync<Api.Exceptions.UnauthorizedAccessException>(async () => {
-                var article = new AddNewsArticleDto{
+            Assert.ThrowsAsync<Api.Exceptions.UnauthorizedAccessException>(async () =>
+            {
+                var article = new AddNewsArticleDto
+                {
                     Title = "Test article",
                     Content = "Some test content",
                     Publish = true
@@ -71,7 +78,8 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task CanGetSingleNewsArticle(){
+        public async Task CanGetSingleNewsArticle()
+        {
             var article = RandomDataGenerator.GenerateNewsArticle();
             await _context.NewsArticles.AddAsync(article);
             await _context.SaveChangesAsync();
@@ -81,7 +89,8 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task CanGetMultipleNewsArticles(){
+        public async Task CanGetMultipleNewsArticles()
+        {
             var article = RandomDataGenerator.GenerateNewsArticle();
             var article2 = RandomDataGenerator.GenerateNewsArticle();
             var article3 = RandomDataGenerator.GenerateNewsArticle();
@@ -90,7 +99,8 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.NewsArticles.AddAsync(article3);
             await _context.SaveChangesAsync();
 
-            var pagination = new PaginationParameters{
+            var pagination = new NewsArticleSearchWithPaginationParameters
+            {
                 PageNumber = 1,
                 PageSize = 20
             };
@@ -100,7 +110,8 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task CanUpdateArticle(){
+        public async Task CanUpdateArticle()
+        {
             var user = RandomDataGenerator.GeneratePublisher();
             var article = RandomDataGenerator.GenerateNewsArticle(user);
             await _context.Users.AddAsync(user);
@@ -109,7 +120,8 @@ namespace WatchedIt.Tests.ServiceTests
 
             var newTitle = "A new title";
 
-            var updatedArticle = new UpdateNewsArticleDto{
+            var updatedArticle = new UpdateNewsArticleDto
+            {
                 Title = newTitle,
                 Content = article.Content,
                 Publish = article.Published
@@ -122,7 +134,8 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task CantUpdateArticleUserDoesntOwn(){
+        public async Task CantUpdateArticleUserDoesntOwn()
+        {
             var user = RandomDataGenerator.GeneratePublisher();
             var user2 = RandomDataGenerator.GeneratePublisher();
             var article = RandomDataGenerator.GenerateNewsArticle(user);
@@ -133,19 +146,22 @@ namespace WatchedIt.Tests.ServiceTests
 
             var newTitle = "A new title";
 
-            var updatedArticle = new UpdateNewsArticleDto{
+            var updatedArticle = new UpdateNewsArticleDto
+            {
                 Title = newTitle,
                 Content = article.Content,
                 Publish = article.Published
             };
 
-            Assert.ThrowsAsync<Api.Exceptions.UnauthorizedAccessException>(async () => {
+            Assert.ThrowsAsync<Api.Exceptions.UnauthorizedAccessException>(async () =>
+            {
                 await _newsArticleService.Update(article.Id, user2.Id, updatedArticle);
             });
         }
 
         [Test]
-        public async Task UserCanPublishUnpublishedArticle(){
+        public async Task UserCanPublishUnpublishedArticle()
+        {
             var user = RandomDataGenerator.GeneratePublisher();
             var article = RandomDataGenerator.GenerateNewsArticle(user);
             article.Published = false;
@@ -158,7 +174,8 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task UserCantPublishUnpublishedArticleTheyDontOwn(){
+        public async Task UserCantPublishUnpublishedArticleTheyDontOwn()
+        {
             var user = RandomDataGenerator.GeneratePublisher();
             var user2 = RandomDataGenerator.GeneratePublisher();
             var article = RandomDataGenerator.GenerateNewsArticle(user);
@@ -168,13 +185,15 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.NewsArticles.AddAsync(article);
             await _context.SaveChangesAsync();
 
-            Assert.ThrowsAsync<Api.Exceptions.UnauthorizedAccessException>(async () => {
+            Assert.ThrowsAsync<Api.Exceptions.UnauthorizedAccessException>(async () =>
+            {
                 await _newsArticleService.SetArticlePublished(article.Id, user2.Id, true);
             });
         }
 
         [Test]
-        public async Task UserCanUnPublishPublishedArticle(){
+        public async Task UserCanUnPublishPublishedArticle()
+        {
             var user = RandomDataGenerator.GeneratePublisher();
             var article = RandomDataGenerator.GenerateNewsArticle(user);
             article.Published = true;
@@ -187,7 +206,8 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task UserCantUnpublishPublishedArticleTheyDontOwn(){
+        public async Task UserCantUnpublishPublishedArticleTheyDontOwn()
+        {
             var user = RandomDataGenerator.GeneratePublisher();
             var user2 = RandomDataGenerator.GeneratePublisher();
             var article = RandomDataGenerator.GenerateNewsArticle(user);
@@ -197,7 +217,8 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.NewsArticles.AddAsync(article);
             await _context.SaveChangesAsync();
 
-            Assert.ThrowsAsync<Api.Exceptions.UnauthorizedAccessException>(async () => {
+            Assert.ThrowsAsync<Api.Exceptions.UnauthorizedAccessException>(async () =>
+            {
                 await _newsArticleService.SetArticlePublished(article.Id, user2.Id, false);
             });
         }

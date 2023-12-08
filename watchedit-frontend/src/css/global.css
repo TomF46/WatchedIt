@@ -40,7 +40,8 @@
   object-fit: cover;
 }
 
-.headshot {
+.headshot,
+.thumbnail {
   aspect-ratio: 1/1;
   object-fit: cover;
 }

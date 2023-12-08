@@ -9,12 +9,16 @@ namespace WatchedIt.Api.Services.Mapping
 {
     public static class NewsArticleMapper
     {
-        public static GetNewsArticleDto Map(NewsArticle article){
-            return new GetNewsArticleDto{
+        public static GetNewsArticleDto Map(NewsArticle article)
+        {
+            return new GetNewsArticleDto
+            {
                 Id = article.Id,
                 Title = article.Title,
                 Content = article.Content,
-                Author = new AuthorDto{
+                ThumbnailUrl = article.ThumbnailUrl,
+                Author = new AuthorDto
+                {
                     Id = article.User.Id,
                     Username = article.User.Username,
                     ImageUrl = article.User.ImageUrl
@@ -25,10 +29,13 @@ namespace WatchedIt.Api.Services.Mapping
             };
         }
 
-        public static GetNewsArticleOverviewDto MapOverview(NewsArticle article){
-            return new GetNewsArticleOverviewDto{
+        public static GetNewsArticleOverviewDto MapOverview(NewsArticle article)
+        {
+            return new GetNewsArticleOverviewDto
+            {
                 Id = article.Id,
                 Title = article.Title,
+                ThumbnailUrl = article.ThumbnailUrl,
                 AuthorName = article.User.Username,
                 CreatedDate = article.CreatedDate,
                 UpdatedDate = article.UpdatedDate,
@@ -36,10 +43,13 @@ namespace WatchedIt.Api.Services.Mapping
             };
         }
 
-        public static NewsArticle MapForAdding(AddNewsArticleDto newArticle){
-            return new NewsArticle{
+        public static NewsArticle MapForAdding(AddNewsArticleDto newArticle)
+        {
+            return new NewsArticle
+            {
                 Title = newArticle.Title,
                 Content = newArticle.Content,
+                ThumbnailUrl = newArticle.ThumbnailUrl,
                 Published = newArticle.Publish
             };
         }

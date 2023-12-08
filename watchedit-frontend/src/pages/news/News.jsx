@@ -133,7 +133,7 @@ function News() {
           </div>
           {articlesPaginator.data.length > 0 ? (
             <>
-              <NewsList articles={articlesPaginator.data} />
+              <NewsList articles={articlesPaginator.data} gridMode={true} />
               <PaginationControls
                 currentPage={page}
                 onPageChange={setPage}

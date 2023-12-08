@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { getNewsArticlesById, saveNewsArticle } from "../../api/newsApi";
 import TextInput from "../../components/Inputs/TextInput";
 import { uploadImage } from "../../api/imageApi";
+import NewsArticlePreview from "../../components/News/NewsArticlePreview";
 
 function ManageNewsArticle() {
   const { id } = useParams();
@@ -17,6 +18,7 @@ function ManageNewsArticle() {
   const [editing, setEditing] = useState(false);
   const [errors, setErrors] = useState({});
   const [imageUploading, setImageUploading] = useState(false);
+  const [thumbnailUploading, setThumbnailUploading] = useState(false);
   const [generatedUrl, setGeneratedUrl] = useState(null);
 
   useEffect(() => {
@@ -41,6 +43,7 @@ function ManageNewsArticle() {
       id: data.id,
       title: data.title,
       content: data.content,
+      thumbnailUrl: data.thumbnailUrl,
       publish: data.published,
     });
   }
@@ -60,12 +63,34 @@ function ManageNewsArticle() {
     }));
   }
 
+  function handleThumbnailChange(event) {
+    if (event == null) {
+      article.thumbnailUrl = null;
+      setArticle({ ...article });
+      return;
+    }
+
+    let file = event.target.files[0];
+    setThumbnailUploading(true);
+    uploadImage(file, "thumbnails")
+      .then((res) => {
+        article.thumbnailUrl = res.url;
+        setArticle({ ...article });
+        setThumbnailUploading(false);
+      })
+      .catch((error) => {
+        setThumbnailUploading(false);
+        toast.error(`Error uploading thumbnail ${error.message}`, {
+          autoClose: false,
+        });
+      });
+  }
+
   function handleImageUpload(event) {
     let file = event.target.files[0];
     setImageUploading(true);
     uploadImage(file, "articles")
       .then((res) => {
-        console.log(res.url);
         setGeneratedUrl(res.url);
         setImageUploading(false);
       })
@@ -78,7 +103,7 @@ function ManageNewsArticle() {
   }
 
   function formIsValid() {
-    const { title, content } = article;
+    const { title, content, thumbnailUrl } = article;
     const errors = {};
     if (!title || title.length == 0) errors.title = "Title is required";
     if (title.length > 80)
@@ -86,6 +111,7 @@ function ManageNewsArticle() {
     if (!content || title.length == 0) errors.content = "Content is required";
     if (content.length > 8000)
       errors.content = "Article content cant be longer than 8000 characters";
+    if (!thumbnailUrl) errors.imageUrl = "Thumbnail is required";
     setErrors(errors);
     return Object.keys(errors).length === 0;
   }
@@ -135,6 +161,59 @@ function ManageNewsArticle() {
                   error={errors.title}
                   required={true}
                 />
+              </div>
+              <div className="col-span-12 mb-4">
+                <label className="font-bold text-xs text-primary">
+                  Headshot image
+                </label>
+                <br></br>
+                {article.thumbnailUrl != null ? (
+                  <button
+                    type="button"
+                    onClick={() => handleThumbnailChange(null)}
+                    className="bg-red-400 text-white rounded py-2 px-4 hover:bg-red-500 shadow inline-flex items-center"
+                  >
+                    Remove image
+                  </button>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      className="bg-primary pointer text-white rounded py-2 px-4 hover:opacity-75 shadow inline-flex items-center"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                        />
+                      </svg>
+
+                      <label className="pointer ml-1">
+                        Add Image
+                        <input
+                          type="file"
+                          name={`imageUrl`}
+                          className=" border-gray-500 p-2 w-full hidden"
+                          onChange={(e) => handleThumbnailChange(e)}
+                        />
+                      </label>
+                    </button>
+                    {errors.imageUrl && (
+                      <div className="text-red-500 text-xs p-1 mt-2">
+                        {errors.imageUrl}
+                      </div>
+                    )}
+                  </>
+                )}
+                {!!thumbnailUploading && <p>Uploading...</p>}
               </div>
               <div className="col-span-12">
                 <p className="block mb-1 font-bold text-xs text-primary">
@@ -201,6 +280,11 @@ function ManageNewsArticle() {
           </div>
           <div className="mt-10">
             <h2 className="text-xl text-center mb-4">Preview</h2>
+            {article.thumbnailUrl && (
+              <div className="grid grid-cols-20">
+                <NewsArticlePreview article={article} />
+              </div>
+            )}
             <div className="bg-backgroundOffset p-4 my-4 shadow rounded">
               <MDEditor.Markdown
                 source={article.content}
