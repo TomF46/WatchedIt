@@ -52,6 +52,7 @@ import ManageNewsArticle from "./pages/news/ManageNewsArticle";
 import PublisherRoute from "./PublisherRoute";
 import UsersNewsArticles from "./pages/news/UsersNewsArticles";
 import UsersReviews from "./pages/profile/reviews/UsersReviews";
+import Community from "./pages/users/Community";
 
 const App = () => {
   return (
@@ -348,6 +349,7 @@ const App = () => {
             />
             <Route path="/news/:id" element={<NewsArticle />} />
             <Route path="/news" element={<News />} />
+            <Route path="/community" element={<Community />} />
             <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

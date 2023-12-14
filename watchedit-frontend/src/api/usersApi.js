@@ -1,5 +1,18 @@
 import client from "./client";
 
+export function getUsersPaginated(pageNumber, pageSize, sort) {
+  return client
+    .get(
+      `/api/users?PageNumber=${pageNumber}&PageSize=${pageSize}&Sort=${sort}`,
+    )
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw error.response;
+    });
+}
+
 export function getUserById(id) {
   return client
     .get(`/api/users/${id}`)

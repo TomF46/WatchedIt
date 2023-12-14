@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.News;
 using WatchedIt.Api.Models.PersonModels;
@@ -24,23 +25,32 @@ namespace WatchedIt.Api.Controllers
             _userService = userService;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<PaginationResponse<GetUserDto>>> Get([FromQuery] UserSearchWithPaginationParameters parameters)
+        {
+            return Ok(await _userService.GetAll(parameters));
+        }
+
         [HttpGet("{id}")]
-        public async Task<ActionResult<GetUserDto>> GetSingle(int id){
+        public async Task<ActionResult<GetUserDto>> GetSingle(int id)
+        {
             var user = await _userService.GetById(id);
             return Ok(user);
         }
 
         [HttpGet("me")]
-        public async Task<ActionResult<GetUserDto>> GetMe(){
+        public async Task<ActionResult<GetUserDto>> GetMe()
+        {
             var userId = AuthMapper.MapLoggedInUserId(HttpContext);
             var user = await _userService.GetById(userId);
             return Ok(user);
         }
 
         [HttpPut("me")]
-        public async Task<ActionResult<GetUserDto>> UpdateMe(UpdateUserDto updatedUser){
+        public async Task<ActionResult<GetUserDto>> UpdateMe(UpdateUserDto updatedUser)
+        {
             var userId = AuthMapper.MapLoggedInUserId(HttpContext);
-            var user = await _userService.Update(userId ,updatedUser);
+            var user = await _userService.Update(userId, updatedUser);
             return Ok(user);
         }
 
@@ -57,9 +67,12 @@ namespace WatchedIt.Api.Controllers
         }
 
         [HttpGet("me/admin")]
-        public async Task<ActionResult<GetIsAdminDto>> GetIsAdmin(){
-            if(!HttpContext.User.Identity.IsAuthenticated) {
-                return new GetIsAdminDto{
+        public async Task<ActionResult<GetIsAdminDto>> GetIsAdmin()
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return new GetIsAdminDto
+                {
                     IsAdmin = false
                 };
             };
@@ -70,15 +83,17 @@ namespace WatchedIt.Api.Controllers
         [HttpGet("me/canPublish")]
         public async Task<ActionResult<GetCanPublishDto>> GetCanPublish()
         {
-            if(!HttpContext.User.Identity.IsAuthenticated) {
-                return new GetCanPublishDto{
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return new GetCanPublishDto
+                {
                     CanPublish = false
                 };
             };
             var userId = AuthMapper.MapLoggedInUserId(HttpContext);
             return Ok(await _userService.GetCanPublish(userId));
         }
-        
+
         [Authorize(Roles = "Administrator")]
         [HttpPost("{id}/canPublish")]
         public async Task<ActionResult<GetUserDto>> SetCanPublish(int id, UserCanPublishDto canPublish)

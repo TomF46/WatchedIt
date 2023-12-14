@@ -58,7 +58,6 @@ function EditCredit() {
 
     updateCredit(credit.id, creditUpdate)
       .then(() => {
-        console.log(credit);
         navigate(`/films/${credit.film.id}/credits`);
       })
       .catch((err) => {
