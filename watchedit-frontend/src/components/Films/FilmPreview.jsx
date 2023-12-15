@@ -5,7 +5,7 @@ const FilmPreview = ({ film, editable, onRemove }) => {
   const navigate = useNavigate();
   return (
     <div className="col-span-8 md:col-span-4 lg:col-span-2 my-2">
-      <div className="mx-2 bg-backgroundOffset cursor-pointer h-full shadow rounded">
+      <div className="mx-2 bg-backgroundOffset cursor-pointer h-full shadow rounded group">
         {editable && (
           <button
             onClick={() => {
@@ -22,11 +22,16 @@ const FilmPreview = ({ film, editable, onRemove }) => {
           }}
           className="hover:opacity-75 relative"
         >
-          <img
-            src={film.posterUrl}
-            className={`w-full poster ${editable ? "" : "rounded-t"}`}
-            alt={`${film.name} poster.`}
-          />
+          <div className="relative">
+            <img
+              src={film.posterUrl}
+              className={`w-full poster ${editable ? "" : "rounded-t"}`}
+              alt={`${film.name} poster.`}
+            />
+            <div className="absolute bottom-0 invisible p-1 group-hover:visible bg-backgroundOffset2 w-full">
+              <h3 className="text-center text-primary">{film.name}</h3>
+            </div>
+          </div>
           <div className="p-2">
             <div className="grid grid-cols-12">
               <div className="col-span-6 relative">
@@ -73,9 +78,6 @@ const FilmPreview = ({ film, editable, onRemove }) => {
                   </svg>
                   <p className="ml-1">{film.watchedCount}</p>
                 </div>
-              </div>
-              <div className="col-span-12">
-                <h3 className="text-center text-primary">{film.name}</h3>
               </div>
             </div>
           </div>

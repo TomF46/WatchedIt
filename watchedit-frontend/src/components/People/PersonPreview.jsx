@@ -9,13 +9,18 @@ const PersonPreview = ({ person, isLink }) => {
         onClick={() => {
           if (isLink) navigate(`/people/${person.id}`);
         }}
-        className="mx-2 bg-backgroundOffset cursor-pointer hover:opacity-75 h-full shadow rounded"
+        className="mx-2 bg-backgroundOffset cursor-pointer hover:opacity-75 h-full shadow rounded group"
       >
-        <img
-          src={person.imageUrl}
-          className="w-full headshot rounded-t"
-          alt={`${person.fullName} headshot.`}
-        />
+        <div className="relative">
+          <img
+            src={person.imageUrl}
+            className="w-full headshot rounded-t"
+            alt={`${person.fullName} headshot.`}
+          />
+          <div className="absolute bottom-0 invisible p-1 group-hover:visible bg-backgroundOffset2 w-full">
+            <h3 className="text-center text-primary">{person.fullName}</h3>
+          </div>
+        </div>
         <div className="p-2">
           <div className="grid grid-cols-12">
             <div className="col-span-6 relative">
@@ -54,9 +59,6 @@ const PersonPreview = ({ person, isLink }) => {
                 </svg>
                 <p className="ml-1">{person.likesCount}</p>
               </div>
-            </div>
-            <div className="col-span-12">
-              <h3 className="text-center text-primary">{person.fullName}</h3>
             </div>
           </div>
         </div>
