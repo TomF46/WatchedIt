@@ -1,4 +1,5 @@
 using Data;
+
 using WatchedIt.Api.Exceptions;
 using WatchedIt.Api.Models;
 using WatchedIt.Api.Models.ReviewModels;
@@ -18,7 +19,7 @@ namespace WatchedIt.Tests.ServiceTests
             _context = new InMemoryDbContextFactory().GetDBContext();
             _reviewService = new ReviewService(_context);
         }
-        
+
         [SetUp]
         public void Setup()
         {
@@ -40,7 +41,8 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task CanAddReview(){
+        public async Task CanAddReview()
+        {
             var user = RandomDataGenerator.GenerateUser();
             var film = RandomDataGenerator.GenerateFilm();
 
@@ -48,28 +50,32 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
 
-            Assert.DoesNotThrowAsync(async () => {
-                var review = new AddReviewDto{
+            Assert.DoesNotThrowAsync(async () =>
+            {
+                var review = new AddReviewDto
+                {
                     Rating = 5,
                     Text = "It was good."
                 };
 
-                await _reviewService.Add(film.Id,user.Id, review);
+                await _reviewService.Add(film.Id, user.Id, review);
             });
         }
 
         [Test]
-        public async Task CanGetSingleReview(){
+        public async Task CanGetSingleReview()
+        {
             var review = RandomDataGenerator.GenerateReview();
             await _context.Reviews.AddAsync(review);
             await _context.SaveChangesAsync();
 
             var reviewFromDb = await _reviewService.GetById(review.Id);
-            Assert.That(reviewFromDb.Id, Is.EqualTo(review.Id)); 
+            Assert.That(reviewFromDb.Id, Is.EqualTo(review.Id));
         }
 
         [Test]
-        public async Task CanGetAllReviewsForFilm(){
+        public async Task CanGetAllReviewsForFilm()
+        {
             var user1 = RandomDataGenerator.GenerateUser();
             var user2 = RandomDataGenerator.GenerateUser();
             var film = RandomDataGenerator.GenerateFilm();
@@ -87,7 +93,8 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.Reviews.AddAsync(review3);
             await _context.SaveChangesAsync();
 
-            var pagination = new PaginationParameters{
+            var pagination = new PaginationParameters
+            {
                 PageNumber = 1,
                 PageSize = 20
             };
@@ -97,7 +104,8 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task CanGetAllReviewsFromUser(){
+        public async Task CanGetAllReviewsFromUser()
+        {
             var user1 = RandomDataGenerator.GenerateUser();
             var user2 = RandomDataGenerator.GenerateUser();
             var film = RandomDataGenerator.GenerateFilm();
@@ -115,7 +123,8 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.Reviews.AddAsync(review3);
             await _context.SaveChangesAsync();
 
-            var pagination = new PaginationParameters{
+            var pagination = new ReviewSearchWithPaginationParameters
+            {
                 PageNumber = 1,
                 PageSize = 20
             };
@@ -141,13 +150,14 @@ namespace WatchedIt.Tests.ServiceTests
             var newRating = 2;
             var newText = "Bad film";
 
-            var updatedReview = new UpdateReviewDto{
+            var updatedReview = new UpdateReviewDto
+            {
                 Rating = newRating,
                 Text = newText
             };
 
             await _reviewService.Update(review.Id, user.Id, updatedReview);
-            
+
             var reviewFromDb = await _reviewService.GetById(review.Id);
 
             Assert.Multiple(() =>
@@ -158,7 +168,8 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task CanDeleteReview(){
+        public async Task CanDeleteReview()
+        {
             var user = RandomDataGenerator.GenerateUser();
             var film = RandomDataGenerator.GenerateFilm();
             var review = RandomDataGenerator.GenerateReview(film, user);
@@ -176,7 +187,8 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task CanUpdateAverageReviewScoreOfFilm(){
+        public async Task CanUpdateAverageReviewScoreOfFilm()
+        {
             var user = RandomDataGenerator.GenerateUser();
             var film = RandomDataGenerator.GenerateFilm();
             var review = RandomDataGenerator.GenerateReview(film, user);

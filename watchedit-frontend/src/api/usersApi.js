@@ -94,6 +94,19 @@ export function getUsersReviewsPaginated(id, pageNumber, pageSize) {
     });
 }
 
+export function searchUsersReviewsPaginated(id, pageNumber, pageSize, sort) {
+  return client
+    .get(
+      `/api/users/${id}/reviews?PageNumber=${pageNumber}&PageSize=${pageSize}&Sort=${sort}`,
+    )
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw error.response;
+    });
+}
+
 export function setUserCanPublishByUserId(id, canPublish) {
   return client
     .post(`/api/users/${id}/canPublish`, { userCanPublish: canPublish })

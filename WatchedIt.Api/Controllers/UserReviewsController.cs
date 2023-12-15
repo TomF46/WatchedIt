@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
+
 using WatchedIt.Api.Models.ReviewModels;
 using WatchedIt.Api.Services.ReviewService;
 
@@ -19,7 +21,8 @@ namespace WatchedIt.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PaginationResponse<GetReviewOverviewDto>>> GetAll(int id, [FromQuery] PaginationParameters parameters){
+        public async Task<ActionResult<PaginationResponse<GetReviewOverviewDto>>> GetAll(int id, [FromQuery] ReviewSearchWithPaginationParameters parameters)
+        {
             var review = await _reviewService.GetAllByUser(id, parameters);
             return Ok(review);
         }

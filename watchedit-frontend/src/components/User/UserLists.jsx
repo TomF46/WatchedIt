@@ -46,7 +46,9 @@ function UserLists({ user }) {
                 />
               </>
             ) : (
-              <p className="text-lg">user has not created any lists.</p>
+              <p className="text-lg">
+                {user.username} has not created any lists.
+              </p>
             )}
           </div>
         </>

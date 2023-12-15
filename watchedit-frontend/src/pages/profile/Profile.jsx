@@ -9,6 +9,7 @@ import { logout } from "../../redux/actions/authenticationActions";
 import { confirmAlert } from "react-confirm-alert";
 import UserLatestReviews from "../../components/Reviews/UserLatestReviews";
 import UserAdminControls from "../../components/User/UserAdminControls";
+import UserReviewsReel from "../../components/Reviews/UserReviewReel";
 
 function Profile() {
   const { id } = useParams();
@@ -175,6 +176,20 @@ function Profile() {
                     <UserLists user={user} />
                   </div>
                 </div>
+              </div>
+              <div className="col-span-12">
+                <UserReviewsReel
+                  user={user}
+                  title={`${user.username} favourite films`}
+                  sort="score_desc"
+                />
+              </div>
+              <div className="col-span-12">
+                <UserReviewsReel
+                  user={user}
+                  title={`${user.username} least favourite films`}
+                  sort="score_asc"
+                />
               </div>
               <div className="col-span-12">
                 <UserLatestReviews user={user} totalReviews={4} />

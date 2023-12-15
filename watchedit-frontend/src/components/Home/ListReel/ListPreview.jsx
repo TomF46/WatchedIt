@@ -36,7 +36,7 @@ const ListPreview = ({ list }) => {
               })}
             </div>
           </div>
-          <div className="col-span-2 bg-primary flex items-center justify-center">
+          <div className="col-span-2 bg-primary flex items-center justify-center rounded-r">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
