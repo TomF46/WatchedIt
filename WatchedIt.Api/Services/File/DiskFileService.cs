@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.Extensions.Options;
+
 using WatchedIt.Api.Models.Configuration;
 using WatchedIt.Api.Models.Enums;
 using WatchedIt.Api.Models.Files;
@@ -22,12 +24,12 @@ namespace WatchedIt.Api.Services.File
 
         public async Task<FileResponse> Upload(int userId, IFormFile file, string? prefix)
         {
+            // Todo do permissions outside of the function
             var user = await _context.Users.FindAsync(userId);
-            if(user is null) throw new Exceptions.UnauthorizedAccessException("User can't upload files");
-            if(!user.CanPublish && user.Role != Role.Administrator) throw new Exceptions.UnauthorizedAccessException("User cant upload files.");
+            if (user is null) throw new Exceptions.UnauthorizedAccessException("User can't upload files");
 
             var fileName = $"{Guid.NewGuid().ToString()}{file.FileName}";
-            if(!string.IsNullOrEmpty(prefix)) fileName = $"{prefix}/{fileName}";
+            if (!string.IsNullOrEmpty(prefix)) fileName = $"{prefix}/{fileName}";
             var folderName = Path.Combine("Resources", "Images");
             var path = Path.Combine(Directory.GetCurrentDirectory(), folderName);
             if (file.Length > 0)
@@ -38,7 +40,8 @@ namespace WatchedIt.Api.Services.File
                 {
                     file.CopyTo(stream);
                 }
-                return new FileResponse{
+                return new FileResponse
+                {
                     Url = $"{_imagesConfig.DiskRootUrl}/{dbPath}"
                 };
             }
