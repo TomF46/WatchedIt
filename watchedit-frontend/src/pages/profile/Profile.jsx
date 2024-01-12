@@ -69,7 +69,7 @@ function Profile() {
                 {user.username}
               </h1>
             </div>
-            {isAdmin && (
+            {isAdmin && userId != currentUserId && (
               <div className="col-span-12 mb-4">
                 <UserAdminControls user={user} onUserReload={getUser} />
               </div>

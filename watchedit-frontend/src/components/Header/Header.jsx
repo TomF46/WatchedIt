@@ -28,7 +28,7 @@ function Header() {
 
   return (
     <nav className="flex items-center justify-between flex-wrap bg-backgroundOffset px-4 py-2 shadow-lg">
-      <div className="flex items-center flex-shrink-0 text-white md:mr-6 mx-auto">
+      <div className="flex items-center flex-shrink-0 text-white lg:mr-6 mx-auto">
         <Link to="/" className="tracking-tight" aria-label="To home">
           <img
             src={logo}
