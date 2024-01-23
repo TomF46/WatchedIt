@@ -4,11 +4,21 @@ export function saveFilm(film) {
   return film.id ? editFilm(film) : addFilm(film);
 }
 
-export function getFilmsPaginated(pageNumber, pageSize, sort) {
+export function getFilmsPaginated(
+  pageNumber,
+  pageSize,
+  sort,
+  onlyShowReleased,
+) {
+  let target = `/api/films?PageNumber=${pageNumber}&PageSize=${pageSize}&Sort=${sort}`;
+
+  if (onlyShowReleased) {
+    let currentDate = new Date().toISOString();
+    target = `${target}&ReleasedBeforeDate=${currentDate}`;
+  }
+
   return client
-    .get(
-      `/api/films?PageNumber=${pageNumber}&PageSize=${pageSize}&Sort=${sort}`,
-    )
+    .get(target)
     .then((response) => {
       return response.data;
     })
@@ -21,6 +31,19 @@ export function searchFilmsPaginated(searchTerm, pageNumber, pageSize, sort) {
   return client
     .get(
       `/api/films?SearchTerm=${searchTerm}&PageNumber=${pageNumber}&PageSize=${pageSize}&Sort=${sort}`,
+    )
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw error.response;
+    });
+}
+
+export function getFilmsComingSoon(pageNumber, pageSize, sort, date) {
+  return client
+    .get(
+      `/api/films?PageNumber=${pageNumber}&PageSize=${pageSize}&ReleasedAfterDate=${date}&Sort=${sort}`,
     )
     .then((response) => {
       return response.data;

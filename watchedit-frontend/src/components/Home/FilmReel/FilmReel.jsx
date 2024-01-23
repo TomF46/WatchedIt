@@ -6,13 +6,13 @@ import LoadingMessage from "../../Loading/LoadingMessage";
 import { getFilmsPaginated } from "../../../api/filmsApi";
 import FilmPreview from "../../Films/FilmPreview";
 
-function FilmReel({ title, sort }) {
+function FilmReel({ title, sort, onlyShowReleased }) {
   const [filmsPaginator, setFilmsPaginator] = useState(null);
   const page = 1;
   const filmsPerPage = 8;
 
   useEffect(() => {
-    getFilmsPaginated(page, filmsPerPage, sort)
+    getFilmsPaginated(page, filmsPerPage, sort, onlyShowReleased)
       .then((res) => {
         setFilmsPaginator(res);
       })
@@ -21,7 +21,7 @@ function FilmReel({ title, sort }) {
           autoClose: false,
         });
       });
-  }, [page, filmsPerPage, sort]);
+  }, [page, filmsPerPage, sort, onlyShowReleased]);
 
   return (
     <div className="films-reel">
@@ -71,6 +71,7 @@ function FilmReel({ title, sort }) {
 FilmReel.propTypes = {
   title: PropTypes.string.isRequired,
   sort: PropTypes.string.isRequired,
+  onlyShowReleased: PropTypes.bool.isRequired,
 };
 
 export default FilmReel;

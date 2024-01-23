@@ -6,6 +6,7 @@ import ListReel from "../components/Home/ListReel/ListReel";
 import logo from "../assets/WatchedIt.webp";
 import ReasonsToLoginSection from "../components/Home/ReasonsToLoginSection";
 import UnreadNotifications from "../components/Home/UnreadNotifications/UnreadNotifications";
+import FilmsComingSoonReel from "../components/Home/FilmReel/FilmsComingSoonReel";
 
 function Home() {
   const userIsAuthenticated = useSelector((state) => state.tokens != null);
@@ -44,16 +45,27 @@ function Home() {
           </div>
         )}
         <div className="col-span-12">
-          <FilmReel title="Latest films" sort="release_desc" />
+          <FilmReel title="Latest films" sort="release_desc" onlyShowReleased />
         </div>
         <div className="col-span-12">
           <PeopleReel title={"Most liked people"} sort="likes_desc" />
         </div>
         <div className="col-span-12">
-          <FilmReel title="Most watched films" sort="watched_desc" />
+          <FilmReel
+            title="Most watched films"
+            sort="watched_desc"
+            onlyShowReleased
+          />
         </div>
         <div className="col-span-12">
-          <FilmReel title="Highest rated films" sort="rating_desc" />
+          <FilmReel
+            title="Highest rated films"
+            sort="rating_desc"
+            onlyShowReleased
+          />
+        </div>
+        <div className="col-span-12">
+          <FilmsComingSoonReel title="Films coming soon" sort="release_asc" />
         </div>
         <div className="col-span-12">
           <ListReel />
