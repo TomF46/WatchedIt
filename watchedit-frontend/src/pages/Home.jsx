@@ -48,7 +48,13 @@ function Home() {
           <FilmReel title="Latest films" sort="release_desc" onlyShowReleased />
         </div>
         <div className="col-span-12">
-          <PeopleReel title={"Most liked people"} sort="likes_desc" />
+          <PeopleReel
+            title={"Most liked people"}
+            subtitle={
+              "The most liked people according to the WatchedIt community."
+            }
+            sort="likes_desc"
+          />
         </div>
         <div className="col-span-12">
           <FilmReel
@@ -60,12 +66,17 @@ function Home() {
         <div className="col-span-12">
           <FilmReel
             title="Highest rated films"
+            subtitle={"Our communities favourite films."}
             sort="rating_desc"
             onlyShowReleased
           />
         </div>
         <div className="col-span-12">
-          <FilmsComingSoonReel title="Films coming soon" sort="release_asc" />
+          <FilmsComingSoonReel
+            title="Films coming soon"
+            subtitle={"Count down the days, these films are coming out next!"}
+            sort="release_asc"
+          />
         </div>
         <div className="col-span-12">
           <ListReel />

@@ -6,7 +6,7 @@ import LoadingMessage from "../../Loading/LoadingMessage";
 import { getFilmsPaginated } from "../../../api/filmsApi";
 import FilmPreview from "../../Films/FilmPreview";
 
-function FilmReel({ title, sort, onlyShowReleased }) {
+function FilmReel({ title, subtitle, sort, onlyShowReleased }) {
   const [filmsPaginator, setFilmsPaginator] = useState(null);
   const page = 1;
   const filmsPerPage = 8;
@@ -35,6 +35,7 @@ function FilmReel({ title, sort, onlyShowReleased }) {
           >
             {title}
           </Link>
+          {subtitle && <p>{subtitle}</p>}
           {filmsPaginator.data.length > 0 ? (
             <div className="grid grid-cols-16">
               {filmsPaginator.data.map((film) => {
@@ -70,6 +71,7 @@ function FilmReel({ title, sort, onlyShowReleased }) {
 
 FilmReel.propTypes = {
   title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string,
   sort: PropTypes.string.isRequired,
   onlyShowReleased: PropTypes.bool.isRequired,
 };

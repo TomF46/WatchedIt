@@ -6,7 +6,7 @@ import LoadingMessage from "../../Loading/LoadingMessage";
 import { getPeoplePaginated } from "../../../api/peopleApi";
 import PersonPreview from "../../People/PersonPreview";
 
-function PeopleReel({ title, sort }) {
+function PeopleReel({ title, subtitle, sort }) {
   const [peoplePaginator, setPeoplePaginator] = useState(null);
   const page = 1;
   const peoplePerPage = 8;
@@ -35,6 +35,7 @@ function PeopleReel({ title, sort }) {
           >
             {title}
           </Link>
+          {subtitle && <p>{subtitle}</p>}
           {peoplePaginator.data.length > 0 ? (
             <div className="grid grid-cols-16">
               {peoplePaginator.data.map((person) => {
@@ -60,6 +61,7 @@ function PeopleReel({ title, sort }) {
 
 PeopleReel.propTypes = {
   title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string,
   sort: PropTypes.string.isRequired,
 };
 

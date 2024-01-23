@@ -6,7 +6,7 @@ import LoadingMessage from "../../Loading/LoadingMessage";
 import { getFilmsComingSoon } from "../../../api/filmsApi";
 import FilmPreview from "../../Films/FilmPreview";
 
-function FilmsComingSoonReel({ title, sort }) {
+function FilmsComingSoonReel({ title, subtitle, sort }) {
   const [filmsPaginator, setFilmsPaginator] = useState(null);
   const page = 1;
   const filmsPerPage = 8;
@@ -38,6 +38,7 @@ function FilmsComingSoonReel({ title, sort }) {
               >
                 {title}
               </Link>
+              {subtitle && <p>{subtitle}</p>}
               <div className="grid grid-cols-16">
                 {filmsPaginator.data.map((film) => {
                   return (
@@ -55,6 +56,7 @@ function FilmsComingSoonReel({ title, sort }) {
 
 FilmsComingSoonReel.propTypes = {
   title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string,
   sort: PropTypes.string.isRequired,
 };
 
