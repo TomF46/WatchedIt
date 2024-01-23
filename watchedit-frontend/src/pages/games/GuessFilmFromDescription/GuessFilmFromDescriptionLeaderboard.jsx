@@ -24,7 +24,7 @@ function GuessFilmFromDescriptionLeaderboard() {
 
   return (
     <div className="leaderboards">
-      <h1 className="text-center text-primary text-4xl my-4 font-bold">
+      <h1 className="text-center text-primary text-4xl my-4 font-semibold">
         Leaderboard
       </h1>
       {leaderboardPaginator ? (

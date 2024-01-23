@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Inter");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -24,6 +24,14 @@
   --backgroundOffset2-color: #423f41;
   --success-color: #a5c882;
   --rating-color: #f7dd72;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 600;
 }
 
 .app-container {

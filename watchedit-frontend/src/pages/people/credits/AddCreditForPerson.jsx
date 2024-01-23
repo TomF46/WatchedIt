@@ -92,7 +92,7 @@ function AddCreditForPerson() {
         <LoadingMessage message={"Loading person"} />
       ) : (
         <div>
-          <h1 className="text-center text-primary text-4xl my-4 font-bold">
+          <h1 className="text-center text-primary text-4xl my-4 font-semibold">
             Add Credit for {person.fullName}
           </h1>
           <PersonMiniDetail person={person} />

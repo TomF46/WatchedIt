@@ -29,7 +29,7 @@ const FilmPreview = ({ film, editable, onRemove }) => {
               alt={`${film.name} poster.`}
             />
             <div className="absolute bottom-0 invisible p-1 group-hover:visible bg-backgroundOffset2 w-full">
-              <h3 className="text-center text-primary">{film.name}</h3>
+              <p className="text-center text-primary">{film.name}</p>
             </div>
           </div>
           <div className="p-2">

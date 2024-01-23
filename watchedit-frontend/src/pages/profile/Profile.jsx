@@ -65,7 +65,7 @@ function Profile() {
         <>
           <div className="grid grid-cols-12">
             <div className="col-span-12">
-              <h1 className="my-4 text-center text-primary text-4xl font-bold">
+              <h1 className="my-4 text-center text-primary text-4xl font-semibold">
                 {user.username}
               </h1>
             </div>
@@ -143,10 +143,10 @@ function Profile() {
                   )}
                 </div>
                 <div className="col-span-12 md:col-span-2 text-center bg-success md:ml-4 mt-4 md:mt-0 p-4 shadow rounded">
-                  <h3 className="text-xl text-black font-bold mb-4">
+                  <h3 className="text-xl text-black font-semibold mb-4">
                     Films watched
                   </h3>
-                  <p className="text-2xl text-black font-bold">
+                  <p className="text-2xl text-black font-semibold">
                     {user.watchedFilmCount}
                   </p>
                   <svg

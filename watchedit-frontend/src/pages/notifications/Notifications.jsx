@@ -53,7 +53,7 @@ const NotificationsPage = () => {
         <LoadingMessage message={"Loading notifications"} />
       ) : (
         <div>
-          <h1 className="text-center text-primary text-4xl my-4 font-bold">
+          <h1 className="text-center text-primary text-4xl my-4 font-semibold">
             Notifications {`(${notificationCount})`}
           </h1>
           {notificationsPaginator.data.length > 0 ? (

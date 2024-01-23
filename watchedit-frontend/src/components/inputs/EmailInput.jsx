@@ -13,7 +13,7 @@ const EmailInput = ({
     <div className="field">
       {showLabel && (
         <label
-          className="block mb-1 font-bold text-xs text-primary"
+          className="block mb-1 font-semibold text-xs text-primary"
           htmlFor={name}
         >
           {label}

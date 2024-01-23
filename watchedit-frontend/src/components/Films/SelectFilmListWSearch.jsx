@@ -16,7 +16,7 @@ const SelectFilmListWSearch = ({
     <>
       <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
         <div className="bg-backgroundOffset2 rounded-t-md">
-          <p className="text-primary font-bold text-lg px-2 py-1">Search</p>
+          <p className="text-primary font-semibold text-lg px-2 py-1">Search</p>
         </div>
         <div className="px-2 py-2">
           <div className="search-box">

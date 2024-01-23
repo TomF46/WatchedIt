@@ -31,7 +31,7 @@ function PeopleReel({ title, sort }) {
         <div className="mt-4">
           <Link
             to={"/people"}
-            className="text-primary text-2xl hover:opacity-75"
+            className="text-primary text-2xl hover:opacity-75 font-semibold"
           >
             {title}
           </Link>

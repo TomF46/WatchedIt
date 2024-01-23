@@ -69,7 +69,7 @@ const Comment = ({ comment, onUpdateComment, onDeleteComment }) => {
                 />
               </div>
               <div
-                className={`flex text-primary font-bold cursor-pointer`}
+                className={`flex text-primary font-semibold cursor-pointer`}
                 onClick={() => {
                   navigate(`/profile/${comment.user.id}`);
                 }}
@@ -134,7 +134,7 @@ const Comment = ({ comment, onUpdateComment, onDeleteComment }) => {
                   />
                 </svg>
                 {editing && (
-                  <span className="ml-1 text-red-400 font-bold">
+                  <span className="ml-1 text-red-400 font-semibold">
                     Cancel Editing
                   </span>
                 )}

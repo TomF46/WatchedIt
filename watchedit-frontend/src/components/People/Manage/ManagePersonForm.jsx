@@ -26,7 +26,7 @@ const ManagePersonForm = ({
 
       <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
         <div className="bg-backgroundOffset2 rounded-t-md">
-          <p className="text-primary font-bold text-center text-2xl px-2 py-1">
+          <p className="text-primary font-semibold text-center text-2xl px-2 py-1">
             {editing
               ? `Editing ${person.firstName} ${person.lastName}`
               : "Adding person"}
@@ -88,7 +88,7 @@ const ManagePersonForm = ({
           </div>
 
           <div className="mb-2">
-            <label className="font-bold text-xs text-primary">
+            <label className="font-semibold text-xs text-primary">
               Date of birth
             </label>
             <DatePicker
@@ -105,7 +105,7 @@ const ManagePersonForm = ({
           </div>
 
           <div className="mb-2">
-            <label className="font-bold text-xs text-primary">
+            <label className="font-semibold text-xs text-primary">
               Headshot image
             </label>
             <br></br>
@@ -185,7 +185,7 @@ const ManagePersonForm = ({
 
       {person.imageUrl != null && (
         <div className="mt-4">
-          <p className="text-sm font-bold text-primary">Preview</p>
+          <p className="text-sm font-semibold text-primary">Preview</p>
           <PersonPreviewMini person={person} />
         </div>
       )}

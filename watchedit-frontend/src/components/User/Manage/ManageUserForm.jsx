@@ -21,7 +21,7 @@ const ManageUserForm = ({
 
       <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
         <div className="bg-backgroundOffset2 rounded-t-md">
-          <p className="text-primary font-bold text-center text-2xl px-2 py-1">
+          <p className="text-primary font-semibold text-center text-2xl px-2 py-1">
             Update profile
           </p>
         </div>
@@ -38,7 +38,7 @@ const ManageUserForm = ({
           </div>
 
           <div className="mb-2">
-            <label className="font-bold text-xs text-primary">
+            <label className="font-semibold text-xs text-primary">
               Profile image
             </label>
             <br></br>
@@ -95,7 +95,7 @@ const ManageUserForm = ({
 
       {user.imageUrl != null && (
         <div className="mt-4">
-          <p className="text-sm font-bold text-primary">Preview</p>
+          <p className="text-sm font-semibold text-primary">Preview</p>
           <div className="grid grid-cols-12">
             <div className="col-span-12 md:col-span-6 lg:col-span-4">
               <UserMiniDetail user={user} />

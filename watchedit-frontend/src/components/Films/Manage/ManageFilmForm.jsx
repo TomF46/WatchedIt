@@ -63,7 +63,7 @@ const ManageFilmForm = ({
       )}
       <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
         <div className="bg-backgroundOffset2 rounded-t-md">
-          <p className="text-primary font-bold text-center text-2xl px-2 py-1">
+          <p className="text-primary font-semibold text-center text-2xl px-2 py-1">
             {editing ? `Editing ${film.name}` : "Adding film"}
           </p>
         </div>
@@ -127,7 +127,7 @@ const ManageFilmForm = ({
           )}
 
           <div className="mb-2">
-            <label className="font-bold text-xs text-primary">
+            <label className="font-semibold text-xs text-primary">
               Release date
             </label>
             <DatePicker
@@ -144,7 +144,7 @@ const ManageFilmForm = ({
           </div>
 
           <div className="mb-2">
-            <label className="font-bold text-xs text-primary">
+            <label className="font-semibold text-xs text-primary">
               Poster image
             </label>
             <br></br>
@@ -198,7 +198,9 @@ const ManageFilmForm = ({
           </div>
 
           <div className="mb-2 trailer-modal">
-            <label className="font-bold text-xs text-primary">Trailer</label>
+            <label className="font-semibold text-xs text-primary">
+              Trailer
+            </label>
             <br></br>
             <button
               type="button"
@@ -230,7 +232,7 @@ const ManageFilmForm = ({
             >
               <div className="grid grid-cols-12 bg-background p-4">
                 <div className="col-span-12">
-                  <h3 className="font-bold text-primary text-center text-xl my-4">
+                  <h3 className="font-semibold text-primary text-center text-xl my-4">
                     Manage trailer
                   </h3>
                 </div>
@@ -257,7 +259,9 @@ const ManageFilmForm = ({
                   />
                 </div>
                 <div className="col-span-12 mt-4">
-                  <p className="text-center text-primary font-bold">Preview</p>
+                  <p className="text-center text-primary font-semibold">
+                    Preview
+                  </p>
                   <div className="video-container grid grid-cols-12 justify-center">
                     <iframe
                       className="video col-span-12 lg:col-start-4 lg:col-span-6"
@@ -321,7 +325,7 @@ const ManageFilmForm = ({
 
       {film.posterUrl != null && (
         <div className="mt-4">
-          <p className="text-sm font-bold text-primary">Preview</p>
+          <p className="text-sm font-semibold text-primary">Preview</p>
           <FilmMiniDetail film={film} />
         </div>
       )}

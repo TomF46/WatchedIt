@@ -4,7 +4,7 @@ const TextAreaInput = ({ name, label, onChange, required, value, error }) => {
   return (
     <div className="field">
       <label
-        className="block mb-1 font-bold text-xs text-primary"
+        className="block mb-1 font-semibold text-xs text-primary"
         htmlFor={name}
       >
         {label}

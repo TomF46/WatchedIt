@@ -16,7 +16,7 @@ const FilmMiniDetail = ({ film }) => {
           <div className="col-span-6 md:col-span-9 lg:col-span-10 p-2">
             <Link
               to={`/films/${film.id}`}
-              className="text-primary font-bold hover:opacity-75"
+              className="text-primary font-semibold hover:opacity-75"
             >
               {film.name}
             </Link>

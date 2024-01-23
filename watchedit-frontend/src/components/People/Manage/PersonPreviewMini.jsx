@@ -13,7 +13,7 @@ const PersonPreviewMini = ({ person }) => {
             />
           </div>
           <div className="col-span-8 p-2">
-            <p className="text-primary font-bold">
+            <p className="text-primary font-semibold">
               {person.firstName} {person.lastName}
             </p>
             {person.stageName && <p>Stage name: {person.stageName}</p>}

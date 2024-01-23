@@ -25,7 +25,7 @@ function Home() {
         </p>
       ) : (
         <div className="text-center">
-          <p className="text-center text-primary text-xl md:text-2xl lg:text-4xl my-4 font-bold">
+          <p className="text-center text-primary text-xl md:text-2xl lg:text-4xl my-4 font-semibold">
             Sign up now for reviews, ratings and more.
           </p>
           <Link

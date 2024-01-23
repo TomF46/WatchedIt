@@ -54,7 +54,7 @@ const UnreadNotifications = () => {
             <>
               <Link
                 to={"/notifications"}
-                className="text-primary text-2xl hover:opacity-75 inline-flex items-center"
+                className="text-primary text-2xl hover:opacity-75 inline-flex items-center font-semibold"
               >
                 <svg
                   className="w-6 h-6"

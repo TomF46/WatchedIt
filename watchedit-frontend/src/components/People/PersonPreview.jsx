@@ -18,7 +18,7 @@ const PersonPreview = ({ person, isLink }) => {
             alt={`${person.fullName} headshot.`}
           />
           <div className="absolute bottom-0 invisible p-1 group-hover:visible bg-backgroundOffset2 w-full">
-            <h3 className="text-center text-primary">{person.fullName}</h3>
+            <p className="text-center text-primary">{person.fullName}</p>
           </div>
         </div>
         <div className="p-2">

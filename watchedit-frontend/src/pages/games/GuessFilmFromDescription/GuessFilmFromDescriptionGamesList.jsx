@@ -6,7 +6,7 @@ const GuessFilmFromDescriptionGamesList = ({ games }) => {
   const navigate = useNavigate();
   return (
     <div className="bg-backgroundOffset p-4 shadow rounded">
-      <h3 className="text-center text-primary text-2xl mb-4 font-bold">
+      <h3 className="text-center text-primary text-2xl mb-4 font-semibold">
         Your games
       </h3>
       <table className="table-auto w-full">

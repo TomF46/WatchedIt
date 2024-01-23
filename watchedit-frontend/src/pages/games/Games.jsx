@@ -6,12 +6,12 @@ function Games() {
   const navigate = useNavigate();
   return (
     <div className="games-page">
-      <h1 className="text-center text-primary text-4xl my-4 font-bold">
+      <h1 className="text-center text-primary text-4xl my-4 font-semibold">
         Games
       </h1>
       {!userIsAuthenticated && (
         <div className="text-center">
-          <p className="text-center text-primary text-lg my-4 font-bold">
+          <p className="text-center text-primary text-lg my-4 font-semibold">
             Games are only available for logged in users, register now to play!
           </p>
           <Link

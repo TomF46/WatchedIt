@@ -36,7 +36,7 @@ function ListReel() {
         <div className="mt-4">
           <Link
             to={"/lists"}
-            className="text-primary text-2xl hover:opacity-75"
+            className="text-primary text-2xl hover:opacity-75 font-semibold"
           >
             Lists
           </Link>

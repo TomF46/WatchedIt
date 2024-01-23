@@ -3,7 +3,7 @@ import UsersReel from "../../components/Users/UsersReel";
 function Community() {
   return (
     <div className="users-page">
-      <h1 className="text-center text-primary text-4xl my-4 font-bold">
+      <h1 className="text-center text-primary text-4xl my-4 font-semibold">
         Community
       </h1>
       <div className="grid grid-cols-12 mb-4">
@@ -12,19 +12,13 @@ function Community() {
           think about the latest and greatest films.
         </div>
         <div className="col-span-12">
-          <UsersReel
-            title="Users with most watched films"
-            sort="watched_desc"
-          />
+          <UsersReel title="Biggest watchers" sort="watched_desc" />
         </div>
         <div className="col-span-12">
-          <UsersReel title="Users with most reviews" sort="reviews_desc" />
+          <UsersReel title="Best reviewers" sort="reviews_desc" />
         </div>
         <div className="col-span-12">
-          <UsersReel
-            title="Users with most news articles"
-            sort="articles_desc"
-          />
+          <UsersReel title="Best publishers" sort="articles_desc" />
         </div>
       </div>
     </div>

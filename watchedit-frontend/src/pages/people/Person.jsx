@@ -72,20 +72,20 @@ function Person() {
         <LoadingMessage message={"Loading person."} />
       ) : (
         <>
-          <h1 className="my-4 text-center text-primary text-4xl font-bold">
+          <h1 className="my-4 text-center text-primary text-4xl font-semibold">
             {person.fullName}
           </h1>
           {isAdmin && (
             <div className="admin-controls bg-backgroundOffset mt-4 shadow rounded">
               <div className="bg-backgroundOffset2 rounded-t-md">
-                <p className="text-primary font-bold text-lg px-2 py-1">
+                <p className="text-primary font-semibold text-lg px-2 py-1">
                   Admin controls
                 </p>
               </div>
               <div className="px-2 py-2">
                 <Link
                   to={`/people/${id}/edit`}
-                  className="bg-backgroundOffset2 text-primary font-bold rounded py-2 px-4 hover:opacity-75 inline-block"
+                  className="bg-backgroundOffset2 text-primary font-semibold rounded py-2 px-4 hover:opacity-75 inline-block"
                 >
                   Edit person
                 </Link>
@@ -93,7 +93,7 @@ function Person() {
                   onClick={() => {
                     confirmDelete();
                   }}
-                  className="bg-backgroundOffset2 text-red-400 font-bold rounded py-2 px-4 hover:opacity-75 inline-block ml-2"
+                  className="bg-backgroundOffset2 text-red-400 font-semibold rounded py-2 px-4 hover:opacity-75 inline-block ml-2"
                 >
                   Remove
                 </button>
@@ -137,12 +137,14 @@ function Person() {
                   </p>
                 </div>
                 <div className="col-span-12 md:col-span-5 md:ml-2 bg-backgroundOffset p-4 shadow rounded">
-                  <h3 className="text-primary text-xl font-boldf">About</h3>
+                  <h3 className="text-primary text-xl font-semiboldf">About</h3>
                   <p>{person.description}</p>
                 </div>
                 <div className="col-span-12 md:col-span-2 md:ml-2 text-center bg-success p-4 shadow rounded">
-                  <h3 className="text-black font-bold text-xl mb-4">Likes</h3>
-                  <p className="text-black font-bold text-2xl">
+                  <h3 className="text-black font-semibold text-xl mb-4">
+                    Likes
+                  </h3>
+                  <p className="text-black font-semibold text-2xl">
                     {person.likedByCount}
                   </p>
                   <svg

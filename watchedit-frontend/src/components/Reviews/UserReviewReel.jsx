@@ -26,7 +26,7 @@ function UserReviewsReel({ user, title, sort }) {
     <div className="reviews-reel">
       {reviewsPaginator && reviewsPaginator.data.length > 0 && (
         <div className="mt-4">
-          <p className="text-primary text-2xl">{title}</p>
+          <p className="text-primary text-2xl font-semibold">{title}</p>
           <div className="grid grid-cols-16">
             {reviewsPaginator.data.map((review) => {
               return (

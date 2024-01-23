@@ -49,7 +49,7 @@ function UsersNewsArticles() {
         <LoadingMessage message={"Loading user."} />
       ) : (
         <>
-          <h1 className="text-center text-primary text-4xl my-4 font-bold">
+          <h1 className="text-center text-primary text-4xl my-4 font-semibold">
             News by {user.username}
           </h1>
           {!articlesPaginator ? (

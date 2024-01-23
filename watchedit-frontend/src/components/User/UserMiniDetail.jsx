@@ -14,7 +14,7 @@ const UserMiniDetail = ({ user }) => {
       <div className="col-span-8 p-2">
         <Link
           to={`/profile/${user.id}`}
-          className="text-primary font-bold hover:opacity-75"
+          className="text-primary font-semibold hover:opacity-75"
         >
           {user.username}
         </Link>

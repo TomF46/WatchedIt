@@ -41,13 +41,13 @@ function GuessFilmFromCast() {
 
   return (
     <div className="films-from-cast-page">
-      <h1 className="text-center text-primary text-4xl my-4 font-bold">
+      <h1 className="text-center text-primary text-4xl my-4 font-semibold">
         Guess the film from its cast
       </h1>
       <div className="grid grid-cols-12">
         <div className="col-span-12 md:col-span-8">
           <div className="bg-backgroundOffset p-4 shadow rounded mb-4">
-            <h3 className="text-center text-primary text-2xl mb-4 font-bold">
+            <h3 className="text-center text-primary text-2xl mb-4 font-semibold">
               Game rules
             </h3>
             <ul className="list-disc ml-2">

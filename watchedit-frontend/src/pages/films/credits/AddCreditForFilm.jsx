@@ -99,7 +99,7 @@ function AddCreditForFilm() {
         <LoadingMessage message={"Loading film."} />
       ) : (
         <div>
-          <h1 className="text-center text-primary text-4xl my-4 font-bold">
+          <h1 className="text-center text-primary text-4xl my-4 font-semibold">
             Add Credit for {film.name}
           </h1>
           <FilmMiniDetail film={film} />

@@ -63,20 +63,20 @@ function NewsArticle() {
         <LoadingMessage message={"Loading article."} />
       ) : (
         <>
-          <h1 className="my-4 text-center text-primary text-4xl font-bold">
+          <h1 className="my-4 text-center text-primary text-4xl font-semibold">
             {article.title}
           </h1>
           {isAdmin && (
             <div className="admin-controls bg-backgroundOffset mt-4 shadow rounded">
               <div className="bg-backgroundOffset2 rounded-t-md">
-                <p className="text-primary font-bold text-lg px-2 py-1">
+                <p className="text-primary font-semibold text-lg px-2 py-1">
                   Admin controls
                 </p>
               </div>
               <div className="px-2 py-2">
                 <button
                   onClick={() => setArticlePublished(!article.published)}
-                  className="bg-backgroundOffset2 text-primary font-bold rounded py-2 px-4 hover:opacity-75 inline-block"
+                  className="bg-backgroundOffset2 text-primary font-semibold rounded py-2 px-4 hover:opacity-75 inline-block"
                 >
                   {article.published ? "Unpublish" : "Publish"}
                 </button>
@@ -86,20 +86,20 @@ function NewsArticle() {
           {currentUserId == article.author.id && (
             <div className="admin-controls bg-backgroundOffset mt-4 shadow rounded">
               <div className="bg-backgroundOffset2 rounded-t-md">
-                <p className="text-primary font-bold text-lg px-2 py-1">
+                <p className="text-primary font-semibold text-lg px-2 py-1">
                   Publisher controls
                 </p>
               </div>
               <div className="px-2 py-2">
                 <Link
                   to={`/news/${id}/edit`}
-                  className="bg-backgroundOffset2 text-primary font-bold rounded py-2 px-4 hover:opacity-75 inline-block"
+                  className="bg-backgroundOffset2 text-primary font-semibold rounded py-2 px-4 hover:opacity-75 inline-block"
                 >
                   Edit article
                 </Link>
                 <button
                   onClick={() => setArticlePublished(!article.published)}
-                  className="bg-backgroundOffset2 text-primary font-bold rounded py-2 px-4 ml-2 hover:opacity-75 inline-block"
+                  className="bg-backgroundOffset2 text-primary font-semibold rounded py-2 px-4 ml-2 hover:opacity-75 inline-block"
                 >
                   {article.published ? "Unpublish" : "Publish"}
                 </button>

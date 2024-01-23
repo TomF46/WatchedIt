@@ -31,7 +31,7 @@ function FilmReel({ title, sort }) {
         <div className="mt-4">
           <Link
             to={"/films"}
-            className="text-primary text-2xl hover:opacity-75 inline-flex items-center"
+            className="text-primary text-2xl hover:opacity-75 inline-flex items-center font-semibold"
           >
             {title}
           </Link>

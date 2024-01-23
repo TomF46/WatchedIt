@@ -31,7 +31,7 @@ function UsersReel({ title, sort }) {
         <div className="mt-4">
           <Link
             to={"/users"}
-            className="text-primary text-2xl hover:opacity-75"
+            className="text-primary font-semibold text-2xl hover:opacity-75"
           >
             {title}
           </Link>

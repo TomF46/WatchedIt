@@ -147,7 +147,7 @@ function ManageNewsArticle() {
           )}
           <div className="controls bg-backgroundOffset mt-4 rounded-md mb-4 shadow">
             <div className="bg-backgroundOffset2 rounded-t-md">
-              <p className="text-primary font-bold text-center text-2xl px-2 py-1">
+              <p className="text-primary font-semibold text-center text-2xl px-2 py-1">
                 {editing ? `Editing article` : "Add article"}
               </p>
             </div>
@@ -163,7 +163,7 @@ function ManageNewsArticle() {
                 />
               </div>
               <div className="col-span-12 mb-4">
-                <label className="font-bold text-xs text-primary">
+                <label className="font-semibold text-xs text-primary">
                   Headshot image
                 </label>
                 <br></br>
@@ -216,10 +216,10 @@ function ManageNewsArticle() {
                 {!!thumbnailUploading && <p>Uploading...</p>}
               </div>
               <div className="col-span-12">
-                <p className="block mb-1 font-bold text-xs text-primary">
+                <p className="block mb-1 font-semibold text-xs text-primary">
                   Content
                 </p>
-                <p className="block mb-1 font-bold text-xs">
+                <p className="block mb-1 font-semibold text-xs">
                   This uses a markdown editor to find out more view this{" "}
                   <Link
                     className="text-primary underline"

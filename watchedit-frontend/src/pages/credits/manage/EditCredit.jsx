@@ -74,7 +74,7 @@ function EditCredit() {
         <LoadingMessage message={"Loading credit."} />
       ) : (
         <>
-          <h1 className="text-center text-primary text-4xl my-4 font-bold">
+          <h1 className="text-center text-primary text-4xl my-4 font-semibold">
             Edit role {credit.role} - {credit.person.fullName} -{" "}
             {credit.film.name}
           </h1>

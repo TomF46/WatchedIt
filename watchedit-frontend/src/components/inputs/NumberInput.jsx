@@ -5,7 +5,7 @@ const NumberInput = ({ name, label, onChange, placeholder, value, error }) => {
     <div className="field">
       {label && (
         <label
-          className="block mb-1 font-bold text-xs text-primary"
+          className="block mb-1 font-semibold text-xs text-primary"
           htmlFor={name}
         >
           {label}
