@@ -7,7 +7,7 @@ import { getCategoryById } from "../../api/categoriesApi";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import FilmGrid from "../../components/Films/FilmGrid";
 import PaginationControls from "../../components/PaginationControls";
-import { searchFilmsWithCategoryPaginated } from "../../api/filmsApi";
+import { searchFilmsPaginated } from "../../api/filmsApi";
 import TextInput from "../../components/Inputs/TextInput";
 
 function Category() {
@@ -21,9 +21,8 @@ function Category() {
 
   const getFilms = useCallback(
     (category) => {
-      searchFilmsWithCategoryPaginated(
-        searchTerm,
-        category.id,
+      searchFilmsPaginated(
+        { searchTerm: searchTerm, category: category.id },
         page,
         filmsPerPage,
       )

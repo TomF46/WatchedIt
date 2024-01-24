@@ -5,7 +5,7 @@ import debounce from "lodash.debounce";
 import FilmGrid from "../../components/Films/FilmGrid";
 import PaginationControls from "../../components/PaginationControls";
 import { Link } from "react-router-dom";
-import { searchFilmsWithCategoryPaginated } from "../../api/filmsApi";
+import { searchFilmsPaginated } from "../../api/filmsApi";
 import TextInput from "../../components/Inputs/TextInput";
 import { getCategories } from "../../api/categoriesApi";
 import SelectInput from "../../components/Inputs/SelectInput";
@@ -36,12 +36,10 @@ function Films() {
       setCategory("");
       return;
     }
-    searchFilmsWithCategoryPaginated(
-      searchTerm,
-      category,
+    searchFilmsPaginated(
+      { searchTerm: searchTerm, category: category, sort: sort },
       page,
       filmsPerPage,
-      sort,
     )
       .then((res) => {
         setFilmsPaginator(res);

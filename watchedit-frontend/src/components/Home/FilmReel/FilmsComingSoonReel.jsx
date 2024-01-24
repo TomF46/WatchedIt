@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import LoadingMessage from "../../Loading/LoadingMessage";
-import { getFilmsComingSoon } from "../../../api/filmsApi";
+import { searchFilmsPaginated } from "../../../api/filmsApi";
 import FilmPreview from "../../Films/FilmPreview";
 
 function FilmsComingSoonReel({ title, subtitle, sort }) {
@@ -13,7 +13,11 @@ function FilmsComingSoonReel({ title, subtitle, sort }) {
 
   useEffect(() => {
     let currentDate = new Date().toISOString();
-    getFilmsComingSoon(page, filmsPerPage, sort, currentDate)
+    searchFilmsPaginated(
+      { releasedAfterDate: currentDate, sort: sort },
+      page,
+      filmsPerPage,
+    )
       .then((res) => {
         setFilmsPaginator(res);
       })

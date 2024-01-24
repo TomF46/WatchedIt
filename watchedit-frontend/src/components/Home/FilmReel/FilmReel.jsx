@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import LoadingMessage from "../../Loading/LoadingMessage";
-import { getFilmsPaginated } from "../../../api/filmsApi";
+import { searchFilmsPaginated } from "../../../api/filmsApi";
 import FilmPreview from "../../Films/FilmPreview";
 
 function FilmReel({ title, subtitle, sort, onlyShowReleased }) {
@@ -12,7 +12,10 @@ function FilmReel({ title, subtitle, sort, onlyShowReleased }) {
   const filmsPerPage = 8;
 
   useEffect(() => {
-    getFilmsPaginated(page, filmsPerPage, sort, onlyShowReleased)
+    let searchParams = { sort: sort };
+    if (onlyShowReleased)
+      searchParams.releasedBeforeDate = new Date().toISOString();
+    searchFilmsPaginated(searchParams, page, filmsPerPage)
       .then((res) => {
         setFilmsPaginator(res);
       })

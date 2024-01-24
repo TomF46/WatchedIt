@@ -24,7 +24,7 @@ function AddCreditForPerson() {
   const [saving, setSaving] = useState(false);
 
   const search = useCallback(() => {
-    searchFilmsPaginated(searchTerm, page, filmsPerPage)
+    searchFilmsPaginated({ searchTerm: searchTerm }, page, filmsPerPage)
       .then((res) => {
         setFilmsPaginator(res);
       })

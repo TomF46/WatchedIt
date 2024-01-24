@@ -35,7 +35,7 @@ function AddFilmToList() {
   }, [id, navigate, userId]);
 
   const search = useCallback(() => {
-    searchFilmsPaginated(searchTerm, page, filmsPerPage)
+    searchFilmsPaginated({ searchTerm: searchTerm }, page, filmsPerPage)
       .then((res) => {
         setFilmsPaginator(res);
       })

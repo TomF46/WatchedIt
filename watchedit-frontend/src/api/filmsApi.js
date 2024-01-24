@@ -4,66 +4,19 @@ export function saveFilm(film) {
   return film.id ? editFilm(film) : addFilm(film);
 }
 
-export function getFilmsPaginated(
-  pageNumber,
-  pageSize,
-  sort,
-  onlyShowReleased,
-) {
-  let target = `/api/films?PageNumber=${pageNumber}&PageSize=${pageSize}&Sort=${sort}`;
-
-  if (onlyShowReleased) {
-    let currentDate = new Date().toISOString();
-    target = `${target}&ReleasedBeforeDate=${currentDate}`;
-  }
+export function searchFilmsPaginated(parameters, pageNumber, pageSize) {
+  let target = `/api/films?PageNumber=${pageNumber}&PageSize=${pageSize}`;
+  if (parameters.searchTerm)
+    target = `${target}&searchTerm=${parameters.searchTerm}`;
+  if (parameters.category) target = `${target}&category=${parameters.category}`;
+  if (parameters.sort) target = `${target}&sort=${parameters.sort}`;
+  if (parameters.releasedBeforeDate)
+    target = `${target}&ReleasedBeforeDate=${parameters.releasedBeforeDate}`;
+  if (parameters.releasedAfterDate)
+    target = `${target}&ReleasedAfterDate=${parameters.releasedAfterDate}`;
 
   return client
     .get(target)
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      throw error.response;
-    });
-}
-
-export function searchFilmsPaginated(searchTerm, pageNumber, pageSize, sort) {
-  return client
-    .get(
-      `/api/films?SearchTerm=${searchTerm}&PageNumber=${pageNumber}&PageSize=${pageSize}&Sort=${sort}`,
-    )
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      throw error.response;
-    });
-}
-
-export function getFilmsComingSoon(pageNumber, pageSize, sort, date) {
-  return client
-    .get(
-      `/api/films?PageNumber=${pageNumber}&PageSize=${pageSize}&ReleasedAfterDate=${date}&Sort=${sort}`,
-    )
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      throw error.response;
-    });
-}
-
-export function searchFilmsWithCategoryPaginated(
-  searchTerm,
-  category,
-  pageNumber,
-  pageSize,
-  sort,
-) {
-  return client
-    .get(
-      `/api/films?SearchTerm=${searchTerm}&category=${category}&PageNumber=${pageNumber}&PageSize=${pageSize}&Sort=${sort}`,
-    )
     .then((response) => {
       return response.data;
     })
