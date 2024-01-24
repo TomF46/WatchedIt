@@ -61,6 +61,7 @@ function ManageReview() {
 
   function handleChange(event) {
     const { name, value } = event.target;
+    if (name == "rating" && (value < 0 || value > 10)) return;
     setReview((prevReview) => ({
       ...prevReview,
       [name]: value,

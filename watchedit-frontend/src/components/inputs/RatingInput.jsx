@@ -1,6 +1,14 @@
 import PropTypes from "prop-types";
 
-const RatingInput = ({ name, label, onChange, placeholder, value, error }) => {
+const RatingInput = ({
+  name,
+  label,
+  onChange,
+  placeholder,
+  value,
+  error,
+  required,
+}) => {
   return (
     <div className="field">
       {label && (
@@ -19,7 +27,7 @@ const RatingInput = ({ name, label, onChange, placeholder, value, error }) => {
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-          required
+          required={required}
           max={10}
           min={0}
         />
@@ -34,6 +42,7 @@ RatingInput.propTypes = {
   label: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
+  required: PropTypes.bool.isRequired,
   value: PropTypes.number,
   error: PropTypes.string,
 };

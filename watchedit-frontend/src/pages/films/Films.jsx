@@ -10,6 +10,7 @@ import TextInput from "../../components/Inputs/TextInput";
 import { getCategories } from "../../api/categoriesApi";
 import SelectInput from "../../components/Inputs/SelectInput";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
+import RatingInput from "../../components/Inputs/RatingInput";
 
 function Films() {
   const isAdmin = useSelector((state) => state.isAdmin);
@@ -17,6 +18,7 @@ function Films() {
   const [searchTerm, setSearchTerm] = useState("");
   const [categories, setCategories] = useState(null);
   const [category, setCategory] = useState("");
+  const [ratings, setRatings] = useState({ maxRating: null, minRating: null });
   const [page, setPage] = useState(1);
   const filmsPerPage = 32;
   const [sort, setSort] = useState("rating_desc");
@@ -37,7 +39,13 @@ function Films() {
       return;
     }
     searchFilmsPaginated(
-      { searchTerm: searchTerm, category: category, sort: sort },
+      {
+        searchTerm: searchTerm,
+        category: category,
+        sort: sort,
+        maxRating: ratings.maxRating,
+        minRating: ratings.minRating,
+      },
       page,
       filmsPerPage,
     )
@@ -49,7 +57,7 @@ function Films() {
           autoClose: false,
         });
       });
-  }, [searchTerm, category, page, sort]);
+  }, [searchTerm, category, page, sort, ratings]);
 
   useEffect(() => {
     let debounced = debounce(() => {
@@ -90,6 +98,16 @@ function Films() {
     if (page != 1) setPage(1);
   }
 
+  function handleRatingsChange(event) {
+    const { name, value } = event.target;
+    if (value < 0 || value > 10) return;
+    setRatings((prevRatings) => ({
+      ...prevRatings,
+      [name]: value,
+    }));
+    if (page != 1) setPage(1);
+  }
+
   return (
     <div className="films-page">
       <h1 className="text-center text-primary text-4xl my-4 font-semibold">
@@ -123,8 +141,8 @@ function Films() {
               </p>
             </div>
             <div className="px-2 py-2">
-              <div className="search-box flex">
-                <div>
+              <div className="search-box grid grid-cols-12">
+                <div className="col-span-12 md:col-span-4 lg:col-span-2 px-2">
                   <TextInput
                     name="searchTerm"
                     label="Search"
@@ -134,7 +152,7 @@ function Films() {
                   />
                 </div>
                 {categories && categories.length > 0 && (
-                  <div className="ml-4">
+                  <div className="col-span-12 md:col-span-3 lg:col-span-2 px-2">
                     <SelectInput
                       name="category"
                       label="Category"
@@ -145,7 +163,23 @@ function Films() {
                     />
                   </div>
                 )}
-                <div className="ml-4">
+                <div className="col-span-6 md:col-span-2 lg:col-span-1 px-2">
+                  <RatingInput
+                    name="minRating"
+                    label="Min Rating"
+                    value={ratings.minRating}
+                    onChange={handleRatingsChange}
+                  />
+                </div>
+                <div className="col-span-6 md:col-span-2 lg:col-span-1 px-2">
+                  <RatingInput
+                    name="maxRating"
+                    label="Max Rating"
+                    value={ratings.maxRating}
+                    onChange={handleRatingsChange}
+                  />
+                </div>
+                <div className="col-span-12 md:col-span-3 lg:col-span-2 px-2">
                   <SelectInput
                     name="sort"
                     label="Sort"

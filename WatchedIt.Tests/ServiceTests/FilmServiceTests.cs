@@ -1,4 +1,5 @@
 using Data;
+
 using WatchedIt.Api.Exceptions;
 using WatchedIt.Api.Models;
 using WatchedIt.Api.Models.FilmModels;
@@ -35,8 +36,10 @@ namespace WatchedIt.Tests.ServiceTests
         [Test]
         public void CanAddFilm()
         {
-            Assert.DoesNotThrow(() => {
-                var film = new AddFilmDto {
+            Assert.DoesNotThrow(() =>
+            {
+                var film = new AddFilmDto
+                {
                     Name = "Jaws",
                     ShortDescription = "Its about a shark",
                     FullDescription = "A full description for a film about a shark.",
@@ -69,7 +72,8 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.Films.AddAsync(film2);
             await _context.SaveChangesAsync();
 
-            var pagination = new FilmSearchWithPaginationParameters{
+            var pagination = new FilmSearchWithPaginationParameters
+            {
                 PageNumber = 1,
                 PageSize = 20
             };
@@ -104,16 +108,17 @@ namespace WatchedIt.Tests.ServiceTests
 
             var newName = "Jaws 3";
 
-            var updatedFilm = new UpdateFilmDto{
+            var updatedFilm = new UpdateFilmDto
+            {
                 Name = newName,
                 ShortDescription = "Its still a film about a shark",
-                FullDescription ="A full description for a film about a shark.",
+                FullDescription = "A full description for a film about a shark.",
                 Runtime = 100,
                 ReleaseDate = new DateTime().Date
             };
 
             await _filmService.Update(film.Id, updatedFilm);
-            
+
             var filmFromDB = await _filmService.GetById(film.Id);
 
             Assert.Multiple(() =>
@@ -121,6 +126,59 @@ namespace WatchedIt.Tests.ServiceTests
                 Assert.That(filmFromDB.Id, Is.EqualTo(film.Id));
                 Assert.That(filmFromDB.Name, Is.EqualTo(newName));
             });
+        }
+
+        [Test]
+        public async Task CanSearchFilmsUsingMaxRating()
+        {
+            var film = RandomDataGenerator.GenerateFilm();
+            film.AverageRating = 9;
+            var film2 = RandomDataGenerator.GenerateFilm();
+            film2.AverageRating = 4.5;
+            var film3 = RandomDataGenerator.GenerateFilm();
+            film3.AverageRating = 6.5;
+            await _context.Films.AddAsync(film);
+            await _context.Films.AddAsync(film2);
+            await _context.Films.AddAsync(film3);
+            await _context.SaveChangesAsync();
+
+            var pagination = new FilmSearchWithPaginationParameters
+            {
+                MaxRating = 6,
+                PageNumber = 1,
+                PageSize = 20
+            };
+
+            var allFilms = await _filmService.GetAll(pagination);
+
+            Assert.That(allFilms.Data, Has.Count.EqualTo(1));
+        }
+
+
+        [Test]
+        public async Task CanSearchFilmsUsingMinRating()
+        {
+            var film = RandomDataGenerator.GenerateFilm();
+            film.AverageRating = 9;
+            var film2 = RandomDataGenerator.GenerateFilm();
+            film2.AverageRating = 4.5;
+            var film3 = RandomDataGenerator.GenerateFilm();
+            film3.AverageRating = 6.5;
+            await _context.Films.AddAsync(film);
+            await _context.Films.AddAsync(film2);
+            await _context.Films.AddAsync(film3);
+            await _context.SaveChangesAsync();
+
+            var pagination = new FilmSearchWithPaginationParameters
+            {
+                MinRating = 6,
+                PageNumber = 1,
+                PageSize = 20
+            };
+
+            var allFilms = await _filmService.GetAll(pagination);
+
+            Assert.That(allFilms.Data, Has.Count.EqualTo(2));
         }
     }
 }
