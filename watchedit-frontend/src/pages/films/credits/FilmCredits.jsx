@@ -1,4 +1,3 @@
-import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -8,37 +7,27 @@ import FilmCreditsList from "../../../components/Films/Credits/FilmCreditsList";
 import { confirmAlert } from "react-confirm-alert";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
+import { useQuery } from "@tanstack/react-query";
 
 function FilmCredits() {
   const { id } = useParams();
   const isAdmin = useSelector((state) => state.isAdmin);
-  const [film, setFilm] = useState(null);
-  const [credits, setCredits] = useState(null);
 
-  const getCredits = useCallback(() => {
-    getCreditsForFilmById(id)
-      .then((res) => {
-        setCredits(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting film credits ${err.data.Exception}`, {
+  const { data: film, error: filmLoadError } = useQuery({
+    queryKey: ["film", id],
+    queryFn: () => getFilmById(id),
+  });
+
+  const { data: credits, refetch } = useQuery({
+    queryKey: ["film-credits", id],
+    queryFn: () =>
+      getCreditsForFilmById(id).catch((error) => {
+        toast.error(`Error getting film credits ${error.data.Exception}`, {
           autoClose: false,
         });
-      });
-  }, [id]);
-
-  useEffect(() => {
-    getFilmById(id)
-      .then((res) => {
-        setFilm(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting film ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-    getCredits();
-  }, [id, getCredits]);
+        return error;
+      }),
+  });
 
   function handleRemoveCredit(credit) {
     confirmAlert({
@@ -61,13 +50,20 @@ function FilmCredits() {
     removeCredit(credit.id)
       .then(() => {
         toast.success("Credit removed");
-        getCredits();
+        refetch();
       })
       .catch((err) => {
         toast.error(`Error removing film credit ${err.data.Exception}`, {
           autoClose: false,
         });
       });
+  }
+
+  if (filmLoadError) {
+    toast.error(`Error getting film ${filmLoadError.data.Exception}`, {
+      autoClose: false,
+    });
+    return;
   }
 
   return (

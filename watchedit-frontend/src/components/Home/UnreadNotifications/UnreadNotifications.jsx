@@ -13,17 +13,17 @@ import { useQuery } from "@tanstack/react-query";
 
 const UnreadNotifications = () => {
   const dispatch = useDispatch();
-  const [notificationsPaginator, setNotificationsPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const notificationsPerPage = 8;
 
-  const { isLoading, error, refetch } = useQuery({
+  const {
+    isLoading,
+    data: notificationsPaginator,
+    error,
+    refetch,
+  } = useQuery({
     queryKey: ["unread-notifications", page, notificationsPerPage],
-    queryFn: () =>
-      getUnreadNotifications(page, notificationsPerPage).then((res) => {
-        setNotificationsPaginator(res);
-        return res;
-      }),
+    queryFn: () => getUnreadNotifications(page, notificationsPerPage),
   });
 
   if (error) {

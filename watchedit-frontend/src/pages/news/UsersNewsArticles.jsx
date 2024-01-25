@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { getNewsByUserPaginated } from "../../api/newsApi";
 import { toast } from "react-toastify";
@@ -7,6 +7,7 @@ import PaginationControls from "../../components/PaginationControls";
 import { useParams } from "react-router-dom";
 import NewsList from "../../components/News/NewsList";
 import { getUserById } from "../../api/usersApi";
+import { useQuery } from "@tanstack/react-query";
 
 function UsersNewsArticles() {
   const { id } = useParams();
@@ -14,34 +15,31 @@ function UsersNewsArticles() {
     state.tokens ? state.tokens.id : null,
   );
   const userId = id ? id : currentUserId;
-  const [user, setUser] = useState(null);
-  const [articlesPaginator, setArticlesPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const articlesPerPage = 32;
 
-  useEffect(() => {
-    getUserById(userId)
-      .then((res) => {
-        setUser(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting user ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }, [userId]);
+  const { data: user, error: userLoadError } = useQuery({
+    queryKey: ["user", userId],
+    queryFn: () => getUserById(userId),
+  });
 
-  useEffect(() => {
-    getNewsByUserPaginated(userId, page, articlesPerPage)
-      .then((res) => {
-        setArticlesPaginator(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting users reviews ${err.data.Exception}`, {
+  const { data: articlesPaginator } = useQuery({
+    queryKey: ["person-credits", userId, page, articlesPerPage],
+    queryFn: () =>
+      getNewsByUserPaginated(userId, page, articlesPerPage).catch((error) => {
+        toast.error(`Error getting users articles ${error.data.Exception}`, {
           autoClose: false,
         });
-      });
-  }, [page, userId, articlesPerPage]);
+        return error;
+      }),
+  });
+
+  if (userLoadError) {
+    toast.error(`Error getting user ${userLoadError.data.Exception}`, {
+      autoClose: false,
+    });
+    return;
+  }
 
   return (
     <div className="user-news-page">

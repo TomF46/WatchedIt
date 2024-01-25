@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import PaginationControls from "../../../components/PaginationControls";
@@ -8,24 +8,23 @@ import {
 } from "../../../api/games/connectionsGameApi";
 import ConnectionsGamesList from "./ConnectionsGamesList.jsx";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 function Connections() {
   const navigate = useNavigate();
-  const [gamesPaginator, setGamesPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const gamesPerPage = 20;
 
-  useEffect(() => {
-    getConnectionsGames(page, gamesPerPage)
-      .then((res) => {
-        setGamesPaginator(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting games ${err.data.Exception}`, {
+  const { data: gamesPaginator } = useQuery({
+    queryKey: ["connections-games", page, gamesPerPage],
+    queryFn: () =>
+      getConnectionsGames(page, gamesPerPage).catch((error) => {
+        toast.error(`Error getting connections games ${error.data.Exception}`, {
           autoClose: false,
         });
-      });
-  }, [page, gamesPerPage]);
+        return error;
+      }),
+  });
 
   function startNewGame() {
     startConnectionsGame()

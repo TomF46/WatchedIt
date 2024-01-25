@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getUserById, getLikedPeopleByUserId } from "../../api/usersApi";
@@ -6,6 +6,7 @@ import PaginationControls from "../../components/PaginationControls";
 import { useParams } from "react-router-dom";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import PersonGrid from "../../components/People/PersonGrid";
+import { useQuery } from "@tanstack/react-query";
 
 function UserLikes() {
   const { id } = useParams();
@@ -13,37 +14,34 @@ function UserLikes() {
     state.tokens ? state.tokens.id : null,
   );
   const userId = id ? id : currentUserId;
-  const [user, setUser] = useState(null);
-  const [peoplePaginator, setPeoplePaginator] = useState(null);
   const [page, setPage] = useState(1);
   const peoplePerPage = 32;
 
-  useEffect(() => {
-    getUserById(userId)
-      .then((res) => {
-        setUser(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting user ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }, [userId]);
+  const { data: user, error: userLoadError } = useQuery({
+    queryKey: ["user", userId],
+    queryFn: () => getUserById(userId),
+  });
 
-  useEffect(() => {
-    getLikedPeopleByUserId(userId, page, peoplePerPage)
-      .then((res) => {
-        setPeoplePaginator(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting people ${err.data.Exception}`, {
+  const { data: peoplePaginator } = useQuery({
+    queryKey: ["user-watchedlist", userId, page, peoplePerPage],
+    queryFn: () =>
+      getLikedPeopleByUserId(userId, page, peoplePerPage).catch((error) => {
+        toast.error(`Error getting users likes ${error.data.Exception}`, {
           autoClose: false,
         });
-      });
-  }, [page, userId, peoplePerPage]);
+        return error;
+      }),
+  });
+
+  if (userLoadError) {
+    toast.error(`Error getting user ${userLoadError.data.Exception}`, {
+      autoClose: false,
+    });
+    return;
+  }
 
   return (
-    <div className="watched-people-page">
+    <div className="user-likes-page">
       {!user ? (
         <LoadingMessage message={"Loading user"} />
       ) : (

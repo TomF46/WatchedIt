@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getUserById, getWatchedListByUserId } from "../../api/usersApi";
@@ -6,6 +6,7 @@ import FilmGrid from "../../components/Films/FilmGrid";
 import PaginationControls from "../../components/PaginationControls";
 import { useParams } from "react-router-dom";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
+import { useQuery } from "@tanstack/react-query";
 
 function WatchedList() {
   const { id } = useParams();
@@ -13,34 +14,31 @@ function WatchedList() {
     state.tokens ? state.tokens.id : null,
   );
   const userId = id ? id : currentUserId;
-  const [user, setUser] = useState(null);
-  const [filmsPaginator, setFilmsPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const filmsPerPage = 32;
 
-  useEffect(() => {
-    getUserById(userId)
-      .then((res) => {
-        setUser(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting user ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }, [userId]);
+  const { data: user, error: userLoadError } = useQuery({
+    queryKey: ["user", userId],
+    queryFn: () => getUserById(userId),
+  });
 
-  useEffect(() => {
-    getWatchedListByUserId(userId, page, filmsPerPage)
-      .then((res) => {
-        setFilmsPaginator(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting films ${err.data.Exception}`, {
+  const { data: filmsPaginator } = useQuery({
+    queryKey: ["user-watchedlist", userId, page, filmsPerPage],
+    queryFn: () =>
+      getWatchedListByUserId(userId, page, filmsPerPage).catch((error) => {
+        toast.error(`Error getting films ${error.data.Exception}`, {
           autoClose: false,
         });
-      });
-  }, [page, userId, filmsPerPage]);
+        return error;
+      }),
+  });
+
+  if (userLoadError) {
+    toast.error(`Error getting user ${userLoadError.data.Exception}`, {
+      autoClose: false,
+    });
+    return;
+  }
 
   return (
     <div className="watched-films-page">

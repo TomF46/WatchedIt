@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import debounce from "lodash.debounce";
@@ -7,9 +7,9 @@ import FilmListList from "../../components/Lists/FilmListList";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import PaginationControls from "../../components/PaginationControls";
 import TextInput from "../../components/Inputs/TextInput";
+import { useQuery } from "@tanstack/react-query";
 
 function Lists() {
-  const [listsPaginator, setListsPaginator] = useState(null);
   const [searchTerms, setSearchTerms] = useState({
     searchTerm: "",
     username: "",
@@ -17,30 +17,33 @@ function Lists() {
   const [page, setPage] = useState(1);
   const listsPerPage = 20;
 
-  const getLists = useCallback(() => {
-    searchFilmListsPaginated(
-      searchTerms.searchTerm,
-      searchTerms.username,
-      page,
-      listsPerPage,
-    )
-      .then((res) => {
-        setListsPaginator(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting lists ${err.data.Exception}`, {
+  const {
+    isLoading,
+    data: listsPaginator,
+    refetch,
+  } = useQuery({
+    queryKey: ["lists", searchTerms, page, listsPerPage],
+    queryFn: () =>
+      searchFilmListsPaginated(
+        searchTerms.searchTerm,
+        searchTerms.username,
+        page,
+        listsPerPage,
+      ).catch((error) => {
+        toast.error(`Error getting people ${error.data.Exception}`, {
           autoClose: false,
         });
-      });
-  }, [page, searchTerms, listsPerPage]);
+        return error;
+      }),
+  });
 
   useEffect(() => {
     let debounced = debounce(() => {
-      getLists();
+      refetch();
     }, 50);
 
     debounced();
-  }, [searchTerms, page, getLists]);
+  }, [searchTerms, page, refetch]);
 
   function handleSearchTermChange(event) {
     const { name, value } = event.target;
@@ -53,59 +56,59 @@ function Lists() {
 
   return (
     <div className="lists-page">
-      {!listsPaginator ? (
-        <LoadingMessage message={"Loading lists."} />
-      ) : (
-        <>
-          <h1 className="text-center text-primary text-4xl my-4 font-semibold">
-            Lists
-          </h1>
-          <div className="lists-controls bg-backgroundOffset mt-4 shadow rounded">
+      <h1 className="text-center text-primary text-4xl my-4 font-semibold">
+        Lists
+      </h1>
+      <div className="lists-controls bg-backgroundOffset mt-4 shadow rounded">
+        <div className="bg-backgroundOffset2 rounded-t-md">
+          <p className="text-primary font-semibold text-lg px-2 py-1">
+            Lists controls
+          </p>
+        </div>
+        <div className="px-2 py-2">
+          <Link
+            to={"/lists/add"}
+            className="bg-backgroundOffset2 text-primary font-semibold rounded py-2 px-4 hover:opacity-75 inline-block"
+          >
+            Add list
+          </Link>
+        </div>
+      </div>
+      <div className="mt-4">
+        <div className="mt-4">
+          <div className="controls bg-backgroundOffset mt-4 rounded-md mb-4 shadow">
             <div className="bg-backgroundOffset2 rounded-t-md">
               <p className="text-primary font-semibold text-lg px-2 py-1">
-                Lists controls
+                Search
               </p>
             </div>
             <div className="px-2 py-2">
-              <Link
-                to={"/lists/add"}
-                className="bg-backgroundOffset2 text-primary font-semibold rounded py-2 px-4 hover:opacity-75 inline-block"
-              >
-                Add list
-              </Link>
-            </div>
-          </div>
-          <div className="mt-4">
-            <div className="mt-4">
-              <div className="controls bg-backgroundOffset mt-4 rounded-md mb-4 shadow">
-                <div className="bg-backgroundOffset2 rounded-t-md">
-                  <p className="text-primary font-semibold text-lg px-2 py-1">
-                    Search
-                  </p>
+              <div className="search-box flex">
+                <div>
+                  <TextInput
+                    name="searchTerm"
+                    label="Search term"
+                    value={searchTerms.searchTerm}
+                    onChange={handleSearchTermChange}
+                    required={false}
+                  />
                 </div>
-                <div className="px-2 py-2">
-                  <div className="search-box flex">
-                    <div>
-                      <TextInput
-                        name="searchTerm"
-                        label="Search term"
-                        value={searchTerms.searchTerm}
-                        onChange={handleSearchTermChange}
-                        required={false}
-                      />
-                    </div>
-                    <div className="ml-2">
-                      <TextInput
-                        name="username"
-                        label="User"
-                        value={searchTerms.username}
-                        onChange={handleSearchTermChange}
-                        required={false}
-                      />
-                    </div>
-                  </div>
+                <div className="ml-2">
+                  <TextInput
+                    name="username"
+                    label="User"
+                    value={searchTerms.username}
+                    onChange={handleSearchTermChange}
+                    required={false}
+                  />
                 </div>
               </div>
+            </div>
+          </div>
+          {isLoading ? (
+            <LoadingMessage message={"Loading lists."} />
+          ) : (
+            <>
               {listsPaginator.data.length > 0 ? (
                 <>
                   <FilmListList lists={listsPaginator.data} showUser={true} />
@@ -140,10 +143,10 @@ function Lists() {
                   </p>
                 </div>
               )}
-            </div>
-          </div>
-        </>
-      )}
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

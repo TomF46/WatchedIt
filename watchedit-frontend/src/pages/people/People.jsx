@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import debounce from "lodash.debounce";
 import { searchPeoplePaginated } from "../../api/peopleApi";
@@ -9,10 +9,10 @@ import { Link } from "react-router-dom";
 import TextInput from "../../components/Inputs/TextInput";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import SelectInput from "../../components/Inputs/SelectInput";
+import { useQuery } from "@tanstack/react-query";
 
 function People() {
   const isAdmin = useSelector((state) => state.isAdmin);
-  const [peoplePaginator, setPeoplePaginator] = useState(null);
   const [searchTerms, setSearchTerms] = useState({
     firstName: "",
     lastName: "",
@@ -32,25 +32,30 @@ function People() {
     { id: "dob_desc", name: "Youngest" },
   ];
 
-  const getPeople = useCallback(() => {
-    searchPeoplePaginated(searchTerms, page, peoplePerPage, sort)
-      .then((res) => {
-        setPeoplePaginator(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting people ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }, [page, searchTerms, peoplePerPage, sort]);
+  const {
+    isLoading,
+    data: peoplePaginator,
+    refetch,
+  } = useQuery({
+    queryKey: ["people", searchTerms, sort, page, peoplePerPage],
+    queryFn: () =>
+      searchPeoplePaginated(searchTerms, page, peoplePerPage, sort).catch(
+        (error) => {
+          toast.error(`Error getting people ${error.data.Exception}`, {
+            autoClose: false,
+          });
+          return error;
+        },
+      ),
+  });
 
   useEffect(() => {
     let debounced = debounce(() => {
-      getPeople();
+      refetch();
     }, 50);
 
     debounced();
-  }, [page, searchTerms, sort, getPeople]);
+  }, [page, searchTerms, sort, refetch]);
 
   function handleSearchTermChange(event) {
     const { name, value } = event.target;
@@ -89,76 +94,78 @@ function People() {
           </div>
         </div>
       )}
-      {!peoplePaginator ? (
-        <LoadingMessage message={"Loading people."} />
-      ) : (
-        <div className="mt-4">
-          <div className="controls bg-backgroundOffset mt-4 rounded-md mb-4 shadow">
-            <div className="bg-backgroundOffset2 rounded-t-md">
-              <p className="text-primary font-semibold text-lg px-2 py-1">
-                Search
-              </p>
-            </div>
-            <div className="px-2 py-2">
-              <div className="search-box flex">
-                <div>
-                  <TextInput
-                    name="firstName"
-                    label="First name"
-                    value={searchTerms.firstName}
-                    onChange={handleSearchTermChange}
-                    required={false}
-                  />
-                </div>
-                <div className="ml-2">
-                  <TextInput
-                    name="lastName"
-                    label="Last name"
-                    value={searchTerms.lastName}
-                    onChange={handleSearchTermChange}
-                    required={false}
-                  />
-                </div>
-                <div className="ml-2">
-                  <TextInput
-                    name="stageName"
-                    label="Stage name"
-                    value={searchTerms.stageName}
-                    onChange={handleSearchTermChange}
-                    required={false}
-                  />
-                </div>
-                <div className="ml-2">
-                  <SelectInput
-                    name="sort"
-                    label="Sort"
-                    value={sort}
-                    options={sortOptions}
-                    onChange={handleSortChange}
-                  />
-                </div>
+      <div className="mt-4">
+        <div className="controls bg-backgroundOffset mt-4 rounded-md mb-4 shadow">
+          <div className="bg-backgroundOffset2 rounded-t-md">
+            <p className="text-primary font-semibold text-lg px-2 py-1">
+              Search
+            </p>
+          </div>
+          <div className="px-2 py-2">
+            <div className="search-box flex">
+              <div>
+                <TextInput
+                  name="firstName"
+                  label="First name"
+                  value={searchTerms.firstName}
+                  onChange={handleSearchTermChange}
+                  required={false}
+                />
+              </div>
+              <div className="ml-2">
+                <TextInput
+                  name="lastName"
+                  label="Last name"
+                  value={searchTerms.lastName}
+                  onChange={handleSearchTermChange}
+                  required={false}
+                />
+              </div>
+              <div className="ml-2">
+                <TextInput
+                  name="stageName"
+                  label="Stage name"
+                  value={searchTerms.stageName}
+                  onChange={handleSearchTermChange}
+                  required={false}
+                />
+              </div>
+              <div className="ml-2">
+                <SelectInput
+                  name="sort"
+                  label="Sort"
+                  value={sort}
+                  options={sortOptions}
+                  onChange={handleSortChange}
+                />
               </div>
             </div>
           </div>
-          {peoplePaginator.data.length > 0 ? (
-            <>
-              <PersonGrid people={peoplePaginator.data} />
-              <PaginationControls
-                currentPage={page}
-                onPageChange={setPage}
-                of={peoplePaginator.of}
-                from={peoplePaginator.from}
-                to={peoplePaginator.to}
-                lastPage={peoplePaginator.lastPage}
-              />
-            </>
-          ) : (
-            <p className="text-center text-primary text-2xl">
-              No people match your search
-            </p>
-          )}
         </div>
-      )}
+        {isLoading ? (
+          <LoadingMessage message={"Loading people."} />
+        ) : (
+          <>
+            {peoplePaginator.data.length > 0 ? (
+              <>
+                <PersonGrid people={peoplePaginator.data} />
+                <PaginationControls
+                  currentPage={page}
+                  onPageChange={setPage}
+                  of={peoplePaginator.of}
+                  from={peoplePaginator.from}
+                  to={peoplePaginator.to}
+                  lastPage={peoplePaginator.lastPage}
+                />
+              </>
+            ) : (
+              <p className="text-center text-primary text-2xl">
+                No people match your search
+              </p>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 }

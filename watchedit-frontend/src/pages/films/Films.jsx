@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import debounce from "lodash.debounce";
@@ -11,12 +11,11 @@ import { getCategories } from "../../api/categoriesApi";
 import SelectInput from "../../components/Inputs/SelectInput";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import RatingInput from "../../components/Inputs/RatingInput";
+import { useQuery } from "@tanstack/react-query";
 
 function Films() {
   const isAdmin = useSelector((state) => state.isAdmin);
-  const [filmsPaginator, setFilmsPaginator] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [categories, setCategories] = useState(null);
   const [category, setCategory] = useState("");
   const [ratings, setRatings] = useState({ maxRating: null, minRating: null });
   const [page, setPage] = useState(1);
@@ -33,53 +32,61 @@ function Films() {
     { id: "watched_asc", name: "Least watched" },
   ];
 
-  const getFilms = useCallback(() => {
-    if (isNaN(category)) {
-      setCategory("");
-      return;
-    }
-    searchFilmsPaginated(
-      {
-        searchTerm: searchTerm,
-        category: category,
-        sort: sort,
-        maxRating: ratings.maxRating,
-        minRating: ratings.minRating,
-      },
+  const {
+    isLoading,
+    data: filmsPaginator,
+    refetch,
+  } = useQuery({
+    queryKey: [
+      "films",
+      searchTerm,
+      category,
+      sort,
+      ratings,
       page,
       filmsPerPage,
-    )
-      .then((res) => {
-        setFilmsPaginator(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting films ${err.data.Exception}`, {
+    ],
+    queryFn: () =>
+      searchFilmsPaginated(
+        {
+          searchTerm: searchTerm,
+          category: category,
+          sort: sort,
+          maxRating: ratings.maxRating,
+          minRating: ratings.minRating,
+        },
+        page,
+        filmsPerPage,
+      ).catch((error) => {
+        toast.error(`Error getting films ${error.data.Exception}`, {
           autoClose: false,
         });
-      });
-  }, [searchTerm, category, page, sort, ratings]);
+        return error;
+      }),
+  });
+
+  const { data: categories } = useQuery({
+    queryKey: ["categories"],
+    queryFn: () =>
+      getCategories()
+        .then((res) => {
+          return res;
+        })
+        .catch((error) => {
+          toast.error(`Error getting categories ${error.data.Exception}`, {
+            autoClose: false,
+          });
+          return error;
+        }),
+  });
 
   useEffect(() => {
     let debounced = debounce(() => {
-      getFilms();
+      refetch();
     }, 50);
 
     debounced();
-  }, [page, searchTerm, category, sort, getFilms]);
-
-  useEffect(() => {
-    if (!categories) {
-      getCategories()
-        .then((res) => {
-          setCategories(res);
-        })
-        .catch((error) => {
-          toast.error(`Error fetching categories ${error.message}`, {
-            autoClose: false,
-          });
-        });
-    }
-  }, [categories]);
+  }, [page, searchTerm, category, sort, refetch]);
 
   function handleSearchTermChange(event) {
     const { value } = event.target;
@@ -89,7 +96,11 @@ function Films() {
 
   function handleCategoryChange(event) {
     const { value } = event.target;
-    setCategory(value);
+    if (isNaN(value)) {
+      setCategory("");
+    } else {
+      setCategory(value);
+    }
     if (page != 1) setPage(1);
   }
   function handleSortChange(event) {
@@ -130,100 +141,104 @@ function Films() {
           </div>
         </div>
       )}
-      {!filmsPaginator ? (
-        <LoadingMessage message={"Loading films."} />
-      ) : (
-        <div className="mt-4">
-          <div className="search-controls bg-backgroundOffset mt-4 mb-4 shadow rounded">
-            <div className="bg-backgroundOffset2 rounded-t-md">
-              <p className="text-primary font-semibold text-lg px-2 py-1">
-                Search
-              </p>
-            </div>
-            <div className="px-2 py-2">
-              <div className="search-box grid grid-cols-12">
-                <div className="col-span-12 md:col-span-4 lg:col-span-2 px-2">
-                  <TextInput
-                    name="searchTerm"
-                    label="Search"
-                    value={searchTerm}
-                    onChange={handleSearchTermChange}
-                    required={false}
-                  />
-                </div>
-                {categories && categories.length > 0 && (
-                  <div className="col-span-12 md:col-span-3 lg:col-span-2 px-2">
-                    <SelectInput
-                      name="category"
-                      label="Category"
-                      defaultText="All"
-                      value={category}
-                      options={categories}
-                      onChange={handleCategoryChange}
-                    />
-                  </div>
-                )}
-                <div className="col-span-6 md:col-span-2 lg:col-span-1 px-2">
-                  <RatingInput
-                    name="minRating"
-                    label="Min Rating"
-                    value={ratings.minRating}
-                    onChange={handleRatingsChange}
-                  />
-                </div>
-                <div className="col-span-6 md:col-span-2 lg:col-span-1 px-2">
-                  <RatingInput
-                    name="maxRating"
-                    label="Max Rating"
-                    value={ratings.maxRating}
-                    onChange={handleRatingsChange}
-                  />
-                </div>
+      <div className="mt-4">
+        <div className="search-controls bg-backgroundOffset mt-4 mb-4 shadow rounded">
+          <div className="bg-backgroundOffset2 rounded-t-md">
+            <p className="text-primary font-semibold text-lg px-2 py-1">
+              Search
+            </p>
+          </div>
+          <div className="px-2 py-2">
+            <div className="search-box grid grid-cols-12">
+              <div className="col-span-12 md:col-span-4 lg:col-span-2 px-2">
+                <TextInput
+                  name="searchTerm"
+                  label="Search"
+                  value={searchTerm}
+                  onChange={handleSearchTermChange}
+                  required={false}
+                />
+              </div>
+              {categories && categories.length > 0 && (
                 <div className="col-span-12 md:col-span-3 lg:col-span-2 px-2">
                   <SelectInput
-                    name="sort"
-                    label="Sort"
-                    value={sort}
-                    options={sortOptions}
-                    onChange={handleSortChange}
+                    name="category"
+                    label="Category"
+                    defaultText="All"
+                    value={category}
+                    options={categories}
+                    onChange={handleCategoryChange}
                   />
                 </div>
+              )}
+              <div className="col-span-6 md:col-span-2 lg:col-span-1 px-2">
+                <RatingInput
+                  name="minRating"
+                  label="Min Rating"
+                  value={ratings.minRating}
+                  onChange={handleRatingsChange}
+                />
+              </div>
+              <div className="col-span-6 md:col-span-2 lg:col-span-1 px-2">
+                <RatingInput
+                  name="maxRating"
+                  label="Max Rating"
+                  value={ratings.maxRating}
+                  onChange={handleRatingsChange}
+                />
+              </div>
+              <div className="col-span-12 md:col-span-3 lg:col-span-2 px-2">
+                <SelectInput
+                  name="sort"
+                  label="Sort"
+                  value={sort}
+                  options={sortOptions}
+                  onChange={handleSortChange}
+                />
               </div>
             </div>
           </div>
-          {filmsPaginator.data.length > 0 ? (
-            <>
-              <FilmGrid films={filmsPaginator.data} editable={false} />
-              <PaginationControls
-                currentPage={page}
-                onPageChange={setPage}
-                of={filmsPaginator.of}
-                from={filmsPaginator.from}
-                to={filmsPaginator.to}
-                lastPage={filmsPaginator.lastPage}
-              />
-            </>
-          ) : (
-            <div className="my-16">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-14 h-14 text-primary mx-auto text-center"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h1.5C5.496 19.5 6 18.996 6 18.375m-3.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-1.5A1.125 1.125 0 0118 18.375M20.625 4.5H3.375m17.25 0c.621 0 1.125.504 1.125 1.125M20.625 4.5h-1.5C18.504 4.5 18 5.004 18 5.625m3.75 0v1.5c0 .621-.504 1.125-1.125 1.125M3.375 4.5c-.621 0-1.125.504-1.125 1.125M3.375 4.5h1.5C5.496 4.5 6 5.004 6 5.625m-3.75 0v1.5c0 .621.504 1.125 1.125 1.125m0 0h1.5m-1.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m1.5-3.75C5.496 8.25 6 7.746 6 7.125v-1.5M4.875 8.25C5.496 8.25 6 8.754 6 9.375v1.5m0-5.25v5.25m0-5.25C6 5.004 6.504 4.5 7.125 4.5h9.75c.621 0 1.125.504 1.125 1.125m1.125 2.625h1.5m-1.5 0A1.125 1.125 0 0118 7.125v-1.5m1.125 2.625c-.621 0-1.125.504-1.125 1.125v1.5m2.625-2.625c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125M18 5.625v5.25M7.125 12h9.75m-9.75 0A1.125 1.125 0 016 10.875M7.125 12C6.504 12 6 12.504 6 13.125m0-2.25C6 11.496 5.496 12 4.875 12M18 10.875c0 .621-.504 1.125-1.125 1.125M18 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m-12 5.25v-5.25m0 5.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125m-12 0v-1.5c0-.621-.504-1.125-1.125-1.125M18 18.375v-5.25m0 5.25v-1.5c0-.621.504-1.125 1.125-1.125M18 13.125v1.5c0 .621.504 1.125 1.125 1.125M18 13.125c0-.621.504-1.125 1.125-1.125M6 13.125v1.5c0 .621-.504 1.125-1.125 1.125M6 13.125C6 12.504 5.496 12 4.875 12m-1.5 0h1.5m-1.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M19.125 12h1.5m0 0c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h1.5m14.25 0h1.5"
-                />
-              </svg>
-              <p className="text-center text-2xl">No films match your search</p>
-            </div>
-          )}
         </div>
-      )}
+        {isLoading ? (
+          <LoadingMessage message={"Loading films."} />
+        ) : (
+          <>
+            {filmsPaginator.data.length > 0 ? (
+              <>
+                <FilmGrid films={filmsPaginator.data} editable={false} />
+                <PaginationControls
+                  currentPage={page}
+                  onPageChange={setPage}
+                  of={filmsPaginator.of}
+                  from={filmsPaginator.from}
+                  to={filmsPaginator.to}
+                  lastPage={filmsPaginator.lastPage}
+                />
+              </>
+            ) : (
+              <div className="my-16">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-14 h-14 text-primary mx-auto text-center"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h1.5C5.496 19.5 6 18.996 6 18.375m-3.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-1.5A1.125 1.125 0 0118 18.375M20.625 4.5H3.375m17.25 0c.621 0 1.125.504 1.125 1.125M20.625 4.5h-1.5C18.504 4.5 18 5.004 18 5.625m3.75 0v1.5c0 .621-.504 1.125-1.125 1.125M3.375 4.5c-.621 0-1.125.504-1.125 1.125M3.375 4.5h1.5C5.496 4.5 6 5.004 6 5.625m-3.75 0v1.5c0 .621.504 1.125 1.125 1.125m0 0h1.5m-1.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m1.5-3.75C5.496 8.25 6 7.746 6 7.125v-1.5M4.875 8.25C5.496 8.25 6 8.754 6 9.375v1.5m0-5.25v5.25m0-5.25C6 5.004 6.504 4.5 7.125 4.5h9.75c.621 0 1.125.504 1.125 1.125m1.125 2.625h1.5m-1.5 0A1.125 1.125 0 0118 7.125v-1.5m1.125 2.625c-.621 0-1.125.504-1.125 1.125v1.5m2.625-2.625c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125M18 5.625v5.25M7.125 12h9.75m-9.75 0A1.125 1.125 0 016 10.875M7.125 12C6.504 12 6 12.504 6 13.125m0-2.25C6 11.496 5.496 12 4.875 12M18 10.875c0 .621-.504 1.125-1.125 1.125M18 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m-12 5.25v-5.25m0 5.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125m-12 0v-1.5c0-.621-.504-1.125-1.125-1.125M18 18.375v-5.25m0 5.25v-1.5c0-.621.504-1.125 1.125-1.125M18 13.125v1.5c0 .621.504 1.125 1.125 1.125M18 13.125c0-.621.504-1.125 1.125-1.125M6 13.125v1.5c0 .621-.504 1.125-1.125 1.125M6 13.125C6 12.504 5.496 12 4.875 12m-1.5 0h1.5m-1.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M19.125 12h1.5m0 0c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h1.5m14.25 0h1.5"
+                  />
+                </svg>
+                <p className="text-center text-2xl">
+                  No films match your search
+                </p>
+              </div>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 }

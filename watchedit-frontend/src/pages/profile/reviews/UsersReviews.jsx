@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -6,6 +6,7 @@ import ReviewOverviewList from "../../../components/Films/Reviews/ReviewOverview
 import PaginationControls from "../../../components/PaginationControls";
 import { getUserById, getUsersReviewsPaginated } from "../../../api/usersApi";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
+import { useQuery } from "@tanstack/react-query";
 
 function UsersReviews() {
   const { id } = useParams();
@@ -13,33 +14,31 @@ function UsersReviews() {
     state.tokens ? state.tokens.id : null,
   );
   const userId = id ? id : currentUserId;
-  const [user, setUser] = useState(null);
-  const [reviewsPaginator, setReviewsPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const reviewsPerPage = 12;
-  useEffect(() => {
-    getUserById(userId)
-      .then((res) => {
-        setUser(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting user ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }, [userId]);
 
-  useEffect(() => {
-    getUsersReviewsPaginated(userId, page, reviewsPerPage)
-      .then((res) => {
-        setReviewsPaginator(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting users reviews ${err.data.Exception}`, {
+  const { data: user, error: userLoadError } = useQuery({
+    queryKey: ["user", userId],
+    queryFn: () => getUserById(userId),
+  });
+
+  const { data: reviewsPaginator } = useQuery({
+    queryKey: ["user-reviews", userId, page, reviewsPerPage],
+    queryFn: () =>
+      getUsersReviewsPaginated(userId, page, reviewsPerPage).catch((error) => {
+        toast.error(`Error getting reviews ${error.data.Exception}`, {
           autoClose: false,
         });
-      });
-  }, [page, userId, reviewsPerPage]);
+        return error;
+      }),
+  });
+
+  if (userLoadError) {
+    toast.error(`Error getting user ${userLoadError.data.Exception}`, {
+      autoClose: false,
+    });
+    return;
+  }
 
   return (
     <div className="users-reviews-page">

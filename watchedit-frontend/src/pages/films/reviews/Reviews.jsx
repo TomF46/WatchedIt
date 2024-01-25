@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmById } from "../../../api/filmsApi";
@@ -7,37 +7,35 @@ import ReviewOverviewList from "../../../components/Films/Reviews/ReviewOverview
 import PaginationControls from "../../../components/PaginationControls";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
+import { useQuery } from "@tanstack/react-query";
 
 function Reviews() {
   const { id } = useParams();
-  const [film, setFilm] = useState(null);
-  const [reviewsPaginator, setReviewsPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const reviewsPerPage = 20;
 
-  useEffect(() => {
-    getFilmById(id)
-      .then((res) => {
-        setFilm(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting film ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }, [id]);
+  const { data: film, error: filmLoadError } = useQuery({
+    queryKey: ["film", id],
+    queryFn: () => getFilmById(id),
+  });
 
-  useEffect(() => {
-    getReviewsByFilmId(id, page, reviewsPerPage)
-      .then((res) => {
-        setReviewsPaginator(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting film reviews ${err.data.Exception}`, {
+  const { data: reviewsPaginator } = useQuery({
+    queryKey: ["film-reviews", id, page, reviewsPerPage],
+    queryFn: () =>
+      getReviewsByFilmId(id, page, reviewsPerPage).catch((error) => {
+        toast.error(`Error getting film reviews ${error.data.Exception}`, {
           autoClose: false,
         });
-      });
-  }, [page, id, reviewsPerPage]);
+        return error;
+      }),
+  });
+
+  if (filmLoadError) {
+    toast.error(`Error getting film ${filmLoadError.data.Exception}`, {
+      autoClose: false,
+    });
+    return;
+  }
 
   return (
     <div className="film-reviews-page">

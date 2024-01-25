@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmById } from "../../../api/filmsApi";
@@ -11,41 +11,28 @@ import {
 } from "../../../api/filmTriviaApi";
 import TriviaList from "../../../components/Films/Trivia/TriviaList";
 import { confirmAlert } from "react-confirm-alert";
+import { useQuery } from "@tanstack/react-query";
 
 function FilmTrivia() {
   const { id } = useParams();
-  const [film, setFilm] = useState(null);
-  const [filmTriviaPaginator, setFilmTriviaPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const filmTriviaPerPage = 4;
 
-  const getFilmTrivia = useCallback(() => {
-    getFilmTriviasByFilmId(id, page, filmTriviaPerPage)
-      .then((res) => {
-        setFilmTriviaPaginator(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting film trivia ${err.data.Exception}`, {
+  const { data: film, error: filmLoadError } = useQuery({
+    queryKey: ["film", id],
+    queryFn: () => getFilmById(id),
+  });
+
+  const { data: filmTriviaPaginator, refetch } = useQuery({
+    queryKey: ["film-trivia", id, page, filmTriviaPerPage],
+    queryFn: () =>
+      getFilmTriviasByFilmId(id, page, filmTriviaPerPage).catch((error) => {
+        toast.error(`Error getting film trivia ${error.data.Exception}`, {
           autoClose: false,
         });
-      });
-  }, [id, page, filmTriviaPerPage]);
-
-  useEffect(() => {
-    getFilmById(id)
-      .then((res) => {
-        setFilm(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting film ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }, [id]);
-
-  useEffect(() => {
-    getFilmTrivia();
-  }, [id, page, filmTriviaPerPage, getFilmTrivia]);
+        return error;
+      }),
+  });
 
   function handleDelete(trivia) {
     confirmAlert({
@@ -68,13 +55,20 @@ function FilmTrivia() {
     deleteFilmTrivia(film.id, trivia)
       .then(() => {
         toast.success("Trivia removed");
-        getFilmTrivia();
+        refetch();
       })
       .catch((err) => {
         toast.error(`Error removing film trivia ${err.data.Exception}`, {
           autoClose: false,
         });
       });
+  }
+
+  if (filmLoadError) {
+    toast.error(`Error getting film ${filmLoadError.data.Exception}`, {
+      autoClose: false,
+    });
+    return;
   }
 
   return (

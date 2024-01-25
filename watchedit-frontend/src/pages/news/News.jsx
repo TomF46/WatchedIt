@@ -10,11 +10,11 @@ import { getCurrentUserIsPublisher } from "../../api/usersApi";
 import debounce from "lodash.debounce";
 import TextInput from "../../components/Inputs/TextInput";
 import SelectInput from "../../components/Inputs/SelectInput";
+import { useQuery } from "@tanstack/react-query";
 
 function News() {
   const userIsAuthenticated = useSelector((state) => state.tokens != null);
   const [userIsPublisher, setUserIsPublisher] = useState(false);
-  const [articlesPaginator, setArticlesPaginator] = useState(null);
   const [searchTerms, setSearchTerms] = useState({
     title: "",
     publisher: "",
@@ -28,22 +28,32 @@ function News() {
     { id: "created_desc", name: "Latest" },
   ];
 
-  useEffect(() => {
-    let debounced = debounce(() => {
-      searchNewsPaginated(searchTerms, page, articlesPerPage, sort)
-        .then((res) => {
-          setArticlesPaginator(res);
-        })
-        .catch((err) => {
-          toast.error(`Error getting articles ${err.data.Exception}`, {
+  const {
+    isLoading,
+    data: articlesPaginator,
+    refetch,
+  } = useQuery({
+    queryKey: ["people", searchTerms, sort, page, articlesPerPage],
+    queryFn: () =>
+      searchNewsPaginated(searchTerms, page, articlesPerPage, sort).catch(
+        (error) => {
+          toast.error(`Error getting articles ${error.data.Exception}`, {
             autoClose: false,
           });
-        });
+          return error;
+        },
+      ),
+  });
+
+  useEffect(() => {
+    let debounced = debounce(() => {
+      refetch();
     }, 50);
 
     debounced();
-  }, [searchTerms, sort, page, articlesPerPage]);
+  }, [searchTerms, sort, page, articlesPerPage, refetch]);
 
+  //TODO
   useEffect(() => {
     getCurrentUserIsPublisher().then((res) => {
       setUserIsPublisher(res.canPublish);
@@ -93,67 +103,71 @@ function News() {
           </div>
         </div>
       )}
-      {!articlesPaginator ? (
-        <LoadingMessage message={"Loading articles."} />
-      ) : (
-        <div className="mt-4">
-          <div className="controls bg-backgroundOffset mt-4 rounded-md mb-4 shadow">
-            <div className="bg-backgroundOffset2 rounded-t-md">
-              <p className="text-primary font-semibold text-lg px-2 py-1">
-                Search
-              </p>
-            </div>
-            <div className="px-2 py-2">
-              <div className="search-box flex">
-                <div>
-                  <TextInput
-                    name="title"
-                    label="Title"
-                    value={searchTerms.title}
-                    onChange={handleSearchTermChange}
-                    required={false}
-                  />
-                </div>
-                <div className="ml-2">
-                  <TextInput
-                    name="publisher"
-                    label="Publisher"
-                    value={searchTerms.publisher}
-                    onChange={handleSearchTermChange}
-                    required={false}
-                  />
-                </div>
-                <div className="ml-2">
-                  <SelectInput
-                    name="sort"
-                    label="Sort"
-                    value={sort}
-                    options={sortOptions}
-                    onChange={handleSortChange}
-                  />
-                </div>
+      <div className="mt-4">
+        <div className="controls bg-backgroundOffset mt-4 rounded-md mb-4 shadow">
+          <div className="bg-backgroundOffset2 rounded-t-md">
+            <p className="text-primary font-semibold text-lg px-2 py-1">
+              Search
+            </p>
+          </div>
+          <div className="px-2 py-2">
+            <div className="search-box flex">
+              <div>
+                <TextInput
+                  name="title"
+                  label="Title"
+                  value={searchTerms.title}
+                  onChange={handleSearchTermChange}
+                  required={false}
+                />
+              </div>
+              <div className="ml-2">
+                <TextInput
+                  name="publisher"
+                  label="Publisher"
+                  value={searchTerms.publisher}
+                  onChange={handleSearchTermChange}
+                  required={false}
+                />
+              </div>
+              <div className="ml-2">
+                <SelectInput
+                  name="sort"
+                  label="Sort"
+                  value={sort}
+                  options={sortOptions}
+                  onChange={handleSortChange}
+                />
               </div>
             </div>
           </div>
-          {articlesPaginator.data.length > 0 ? (
-            <>
-              <NewsList articles={articlesPaginator.data} gridMode={true} />
-              <PaginationControls
-                currentPage={page}
-                onPageChange={setPage}
-                of={articlesPaginator.of}
-                from={articlesPaginator.from}
-                to={articlesPaginator.to}
-                lastPage={articlesPaginator.lastPage}
-              />
-            </>
-          ) : (
-            <div className="my-16">
-              <p className="text-center text-2xl">No articles match search.</p>
-            </div>
-          )}
         </div>
-      )}
+        {isLoading ? (
+          <LoadingMessage message={"Loading people."} />
+        ) : (
+          <>
+            {articlesPaginator.data.length > 0 ? (
+              <>
+                <NewsList articles={articlesPaginator.data} gridMode={true} />
+                <PaginationControls
+                  currentPage={page}
+                  onPageChange={setPage}
+                  of={articlesPaginator.of}
+                  from={articlesPaginator.from}
+                  to={articlesPaginator.to}
+                  lastPage={articlesPaginator.lastPage}
+                />
+              </>
+            ) : (
+              <div className="my-16">
+                <p className="text-center text-2xl">
+                  No articles match search.
+                </p>
+              </div>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 }

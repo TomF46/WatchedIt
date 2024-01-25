@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import PaginationControls from "../../../components/PaginationControls";
@@ -8,24 +8,23 @@ import {
 } from "../../../api/games/guessFilmFromCastGameApi";
 import GuessFilmFromCastGamesList from "./GuessFilmFromCastGamesList";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 function GuessFilmFromCast() {
   const navigate = useNavigate();
-  const [gamesPaginator, setGamesPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const gamesPerPage = 20;
 
-  useEffect(() => {
-    getGuessFilmFromCastGames(page, gamesPerPage)
-      .then((res) => {
-        setGamesPaginator(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting games ${err.data.Exception}`, {
+  const { data: gamesPaginator } = useQuery({
+    queryKey: ["cast-games", page, gamesPerPage],
+    queryFn: () =>
+      getGuessFilmFromCastGames(page, gamesPerPage).catch((error) => {
+        toast.error(`Error getting games ${error.data.Exception}`, {
           autoClose: false,
         });
-      });
-  }, [page, gamesPerPage]);
+        return error;
+      }),
+  });
 
   function startNewGame() {
     startGuessFilmFromCastGame()
