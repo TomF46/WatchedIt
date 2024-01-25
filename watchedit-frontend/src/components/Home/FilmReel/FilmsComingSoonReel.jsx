@@ -1,58 +1,51 @@
-import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import LoadingMessage from "../../Loading/LoadingMessage";
 import { searchFilmsPaginated } from "../../../api/filmsApi";
 import FilmPreview from "../../Films/FilmPreview";
+import { useQuery } from "@tanstack/react-query";
 
 function FilmsComingSoonReel({ title, subtitle, sort }) {
-  const [filmsPaginator, setFilmsPaginator] = useState(null);
   const page = 1;
   const filmsPerPage = 8;
+  let currentDate = new Date().toISOString();
+  let searchParams = { releasedAfterDate: currentDate, sort: sort };
 
-  useEffect(() => {
-    let currentDate = new Date().toISOString();
-    searchFilmsPaginated(
-      { releasedAfterDate: currentDate, sort: sort },
-      page,
-      filmsPerPage,
-    )
-      .then((res) => {
-        setFilmsPaginator(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting films ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }, [page, filmsPerPage, sort]);
+  const { isLoading, data, error } = useQuery({
+    queryKey: ["films-coming-soon", sort, filmsPerPage, page],
+    queryFn: () =>
+      searchFilmsPaginated(searchParams, page, filmsPerPage).then(
+        (res) => res.data,
+      ),
+  });
+
+  if (isLoading) return <LoadingMessage message={"Loading films."} />;
+
+  if (error) {
+    toast.error(`Error getting films ${error.data.Exception}`, {
+      autoClose: false,
+    });
+    return;
+  }
 
   return (
     <div className="films-reel">
-      {!filmsPaginator ? (
-        <LoadingMessage message={"Loading films."} />
-      ) : (
-        <>
-          {filmsPaginator.data.length > 0 && (
-            <div className="mt-4">
-              <Link
-                to={"/films"}
-                className="text-primary text-2xl hover:opacity-75 inline-flex items-center font-semibold"
-              >
-                {title}
-              </Link>
-              {subtitle && <p>{subtitle}</p>}
-              <div className="grid grid-cols-16">
-                {filmsPaginator.data.map((film) => {
-                  return (
-                    <FilmPreview key={film.id} film={film} editable={false} />
-                  );
-                })}
-              </div>
-            </div>
-          )}
-        </>
+      {data.length > 0 && (
+        <div className="mt-4">
+          <Link
+            to={"/films"}
+            className="text-primary text-2xl hover:opacity-75 inline-flex items-center font-semibold"
+          >
+            {title}
+          </Link>
+          {subtitle && <p>{subtitle}</p>}
+          <div className="grid grid-cols-16">
+            {data.map((film) => {
+              return <FilmPreview key={film.id} film={film} editable={false} />;
+            })}
+          </div>
+        </div>
       )}
     </div>
   );

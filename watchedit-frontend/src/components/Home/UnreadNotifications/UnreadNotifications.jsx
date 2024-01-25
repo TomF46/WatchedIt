@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { decrementNotificationCount } from "../../../redux/actions/notificationCountActions";
@@ -9,6 +9,7 @@ import {
 import NotificationsList from "../../Notifications/NotificationsList";
 import PaginationControls from "../../PaginationControls";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 const UnreadNotifications = () => {
   const dispatch = useDispatch();
@@ -16,28 +17,28 @@ const UnreadNotifications = () => {
   const [page, setPage] = useState(1);
   const notificationsPerPage = 8;
 
-  const getNotifications = useCallback(() => {
-    getUnreadNotifications(page, notificationsPerPage)
-      .then((notificationsData) => {
-        setNotificationsPaginator(notificationsData);
-      })
-      .catch((error) => {
-        toast.error(`Error getting notifications ${error.message}`, {
-          autoClose: false,
-        });
-      });
-  }, [page, notificationsPerPage]);
+  const { isLoading, error, refetch } = useQuery({
+    queryKey: ["unread-notifications", page, notificationsPerPage],
+    queryFn: () =>
+      getUnreadNotifications(page, notificationsPerPage).then((res) => {
+        setNotificationsPaginator(res);
+        return res;
+      }),
+  });
 
-  useEffect(() => {
-    getNotifications();
-  }, [page, getNotifications]);
+  if (error) {
+    toast.error(`Error getting unread notifications ${error.data.Exception}`, {
+      autoClose: false,
+    });
+    return;
+  }
 
   function handleReadNotification(notification) {
     if (notification.read) return;
     readNotification(notification.id)
       .then(() => {
         dispatch(decrementNotificationCount());
-        getNotifications();
+        refetch();
       })
       .catch((error) => {
         toast.error(`Error reading notification ${error.message}`, {
@@ -46,9 +47,9 @@ const UnreadNotifications = () => {
       });
   }
 
-  return (
-    <div className="Notifications-page">
-      {notificationsPaginator && (
+  if (!isLoading)
+    return (
+      <div className="Notifications-page">
         <div>
           {notificationsPaginator.data.length > 0 && (
             <>
@@ -87,9 +88,8 @@ const UnreadNotifications = () => {
             </>
           )}
         </div>
-      )}
-    </div>
-  );
+      </div>
+    );
 };
 
 export default UnreadNotifications;
