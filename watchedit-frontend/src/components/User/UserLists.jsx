@@ -5,7 +5,7 @@ import FilmListList from "../Lists/FilmListList";
 import PaginationControls from "../PaginationControls";
 import { getUsersFilmListsPaginated } from "../../api/filmListsApi";
 import LoadingMessage from "../Loading/LoadingMessage";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 function UserLists({ user }) {
   const [page, setPage] = useState(1);
@@ -18,6 +18,7 @@ function UserLists({ user }) {
   } = useQuery({
     queryKey: ["user-lists", user.id, page, listsPerPage],
     queryFn: () => getUsersFilmListsPaginated(user.id, page, listsPerPage),
+    placeholderData: keepPreviousData,
   });
 
   if (isLoading) return <LoadingMessage message={"Loading user lists."} />;

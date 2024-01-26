@@ -6,7 +6,7 @@ import ReviewOverviewList from "../../../components/Films/Reviews/ReviewOverview
 import PaginationControls from "../../../components/PaginationControls";
 import { getUserById, getUsersReviewsPaginated } from "../../../api/usersApi";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 function UsersReviews() {
   const { id } = useParams();
@@ -31,6 +31,7 @@ function UsersReviews() {
         });
         return error;
       }),
+    placeholderData: keepPreviousData,
   });
 
   if (userLoadError) {

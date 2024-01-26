@@ -4,7 +4,7 @@ import { getGuessFilmFromDescriptionLeaderboard } from "../../../api/games/guess
 import { toast } from "react-toastify";
 import PaginationControls from "../../../components/PaginationControls";
 import GuessFilmFromDescriptionLeaderboardList from "./GuessFilmFromDescriptionLeaderboardList";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 function GuessFilmFromDescriptionLeaderboard() {
   const [page, setPage] = useState(1);
@@ -17,6 +17,7 @@ function GuessFilmFromDescriptionLeaderboard() {
   } = useQuery({
     queryKey: ["description-game-leaderboard", page, entriesPerPage],
     queryFn: () => getGuessFilmFromDescriptionLeaderboard(page, entriesPerPage),
+    placeholderData: keepPreviousData,
   });
 
   if (isLoading) return <LoadingMessage message={"Loading leaderboard."} />;

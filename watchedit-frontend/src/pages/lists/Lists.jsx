@@ -7,7 +7,7 @@ import FilmListList from "../../components/Lists/FilmListList";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import PaginationControls from "../../components/PaginationControls";
 import TextInput from "../../components/Inputs/TextInput";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 function Lists() {
   const [searchTerms, setSearchTerms] = useState({
@@ -35,6 +35,7 @@ function Lists() {
         });
         return error;
       }),
+    placeholderData: keepPreviousData,
   });
 
   useEffect(() => {

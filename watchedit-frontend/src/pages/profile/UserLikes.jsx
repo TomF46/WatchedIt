@@ -6,7 +6,7 @@ import PaginationControls from "../../components/PaginationControls";
 import { useParams } from "react-router-dom";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import PersonGrid from "../../components/People/PersonGrid";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 function UserLikes() {
   const { id } = useParams();
@@ -31,6 +31,7 @@ function UserLikes() {
         });
         return error;
       }),
+    placeholderData: keepPreviousData,
   });
 
   if (userLoadError) {

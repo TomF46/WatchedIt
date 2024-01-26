@@ -8,7 +8,7 @@ import {
 } from "../../../api/games/connectionsGameApi";
 import ConnectionsGamesList from "./ConnectionsGamesList.jsx";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 function Connections() {
   const navigate = useNavigate();
@@ -24,6 +24,7 @@ function Connections() {
         });
         return error;
       }),
+    placeholderData: keepPreviousData,
   });
 
   function startNewGame() {

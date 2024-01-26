@@ -10,7 +10,7 @@ import { getCurrentUserIsPublisher } from "../../api/usersApi";
 import debounce from "lodash.debounce";
 import TextInput from "../../components/Inputs/TextInput";
 import SelectInput from "../../components/Inputs/SelectInput";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 function News() {
   const userIsAuthenticated = useSelector((state) => state.tokens != null);
@@ -43,6 +43,7 @@ function News() {
           return error;
         },
       ),
+    placeholderData: keepPreviousData,
   });
 
   useEffect(() => {

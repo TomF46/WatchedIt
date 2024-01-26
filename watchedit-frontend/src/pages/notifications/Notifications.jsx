@@ -9,7 +9,7 @@ import {
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import NotificationsList from "../../components/Notifications/NotificationsList";
 import PaginationControls from "../../components/PaginationControls";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 const NotificationsPage = () => {
   const dispatch = useDispatch();
@@ -28,6 +28,7 @@ const NotificationsPage = () => {
       getAllNotifications(page, notificationsPerPage).then((res) => {
         return res;
       }),
+    placeholderData: keepPreviousData,
   });
 
   if (isLoading) return <LoadingMessage message={"Loading notifications"} />;

@@ -11,7 +11,7 @@ import { getCategories } from "../../api/categoriesApi";
 import SelectInput from "../../components/Inputs/SelectInput";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import RatingInput from "../../components/Inputs/RatingInput";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 function Films() {
   const isAdmin = useSelector((state) => state.isAdmin);
@@ -63,6 +63,7 @@ function Films() {
         });
         return error;
       }),
+    placeholderData: keepPreviousData,
   });
 
   const { data: categories } = useQuery({

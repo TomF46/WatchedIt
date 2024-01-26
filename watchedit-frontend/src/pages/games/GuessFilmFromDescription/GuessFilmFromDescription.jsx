@@ -8,7 +8,7 @@ import {
 } from "../../../api/games/guessFilmFromDescriptionApi";
 import GuessFilmFromDescriptionGamesList from "./GuessFilmFromDescriptionGamesList";
 import { Link, useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 function GuessFilmFromDescription() {
   const navigate = useNavigate();
@@ -24,6 +24,7 @@ function GuessFilmFromDescription() {
         });
         return error;
       }),
+    placeholderData: keepPreviousData,
   });
 
   function startNewGame() {

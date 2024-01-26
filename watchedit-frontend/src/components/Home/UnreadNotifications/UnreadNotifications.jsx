@@ -9,7 +9,7 @@ import {
 import NotificationsList from "../../Notifications/NotificationsList";
 import PaginationControls from "../../PaginationControls";
 import { Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 const UnreadNotifications = () => {
   const dispatch = useDispatch();
@@ -24,6 +24,7 @@ const UnreadNotifications = () => {
   } = useQuery({
     queryKey: ["unread-notifications", page, notificationsPerPage],
     queryFn: () => getUnreadNotifications(page, notificationsPerPage),
+    placeholderData: keepPreviousData,
   });
 
   if (error) {

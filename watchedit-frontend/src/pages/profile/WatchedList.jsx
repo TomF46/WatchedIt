@@ -6,7 +6,7 @@ import FilmGrid from "../../components/Films/FilmGrid";
 import PaginationControls from "../../components/PaginationControls";
 import { useParams } from "react-router-dom";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 function WatchedList() {
   const { id } = useParams();
@@ -31,6 +31,7 @@ function WatchedList() {
         });
         return error;
       }),
+    placeholderData: keepPreviousData,
   });
 
   if (userLoadError) {

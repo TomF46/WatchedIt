@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import TextInput from "../../components/Inputs/TextInput";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import SelectInput from "../../components/Inputs/SelectInput";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 function People() {
   const isAdmin = useSelector((state) => state.isAdmin);
@@ -47,6 +47,7 @@ function People() {
           return error;
         },
       ),
+    placeholderData: keepPreviousData,
   });
 
   useEffect(() => {

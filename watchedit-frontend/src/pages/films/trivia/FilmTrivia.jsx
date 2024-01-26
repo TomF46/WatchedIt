@@ -11,7 +11,7 @@ import {
 } from "../../../api/filmTriviaApi";
 import TriviaList from "../../../components/Films/Trivia/TriviaList";
 import { confirmAlert } from "react-confirm-alert";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 function FilmTrivia() {
   const { id } = useParams();
@@ -32,6 +32,7 @@ function FilmTrivia() {
         });
         return error;
       }),
+    placeholderData: keepPreviousData,
   });
 
   function handleDelete(trivia) {

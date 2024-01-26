@@ -7,7 +7,7 @@ import PaginationControls from "../../components/PaginationControls";
 import { useParams } from "react-router-dom";
 import NewsList from "../../components/News/NewsList";
 import { getUserById } from "../../api/usersApi";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 function UsersNewsArticles() {
   const { id } = useParams();
@@ -32,6 +32,7 @@ function UsersNewsArticles() {
         });
         return error;
       }),
+    placeholderData: keepPreviousData,
   });
 
   if (userLoadError) {

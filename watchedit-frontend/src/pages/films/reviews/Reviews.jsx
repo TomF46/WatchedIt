@@ -7,7 +7,7 @@ import ReviewOverviewList from "../../../components/Films/Reviews/ReviewOverview
 import PaginationControls from "../../../components/PaginationControls";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 function Reviews() {
   const { id } = useParams();
@@ -17,6 +17,7 @@ function Reviews() {
   const { data: film, error: filmLoadError } = useQuery({
     queryKey: ["film", id],
     queryFn: () => getFilmById(id),
+    placeholderData: keepPreviousData,
   });
 
   const { data: reviewsPaginator } = useQuery({
