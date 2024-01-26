@@ -29,7 +29,6 @@ const ManageFilmForm = ({
   onImageChange,
   onCategoryChange,
   onTrailerChange,
-  editing,
   saving = false,
   uploadingImage = false,
   errors = {},
@@ -61,10 +60,10 @@ const ManageFilmForm = ({
           {errors.onSave}
         </div>
       )}
-      <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
+      <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4">
         <div className="bg-backgroundOffset2 rounded-t-md">
           <p className="text-primary font-semibold text-center text-2xl px-2 py-1">
-            {editing ? `Editing ${film.name}` : "Adding film"}
+            {film.id ? `Editing ${film.name}` : "Adding film"}
           </p>
         </div>
         <div className="p-4">

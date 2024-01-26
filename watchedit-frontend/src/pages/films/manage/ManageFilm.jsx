@@ -1,40 +1,15 @@
-import { parseISO } from "date-fns/esm";
+import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getCategories } from "../../../api/categoriesApi";
-import { getFilmById, saveFilm } from "../../../api/filmsApi";
 import { uploadImage } from "../../../api/imageApi";
 import ManageFilmForm from "../../../components/Films/Manage/ManageFilmForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import { newFilm } from "../../../tools/obJectShapes";
 
-function ManageFilm() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [film, setFilm] = useState({ ...newFilm });
+function ManageFilm({ film, updateFilm, triggerSave, saving }) {
   const [categories, setCategories] = useState(null);
   const [errors, setErrors] = useState({});
-  const [saving, setSaving] = useState(false);
-  const [editing, setEditing] = useState(false);
   const [imageUploading, setImageUploading] = useState(false);
-
-  useEffect(() => {
-    if (id) {
-      getFilmById(id)
-        .then((data) => {
-          mapForEditing(data);
-          setEditing(true);
-        })
-        .catch((error) => {
-          toast.error(`Error fetching film ${error.message}`, {
-            autoClose: false,
-          });
-        });
-    } else {
-      setFilm({ ...newFilm });
-    }
-  }, [id]);
 
   useEffect(() => {
     if (!categories) {
@@ -50,22 +25,9 @@ function ManageFilm() {
     }
   }, [categories]);
 
-  function mapForEditing(data) {
-    setFilm({
-      id: data.id,
-      name: data.name,
-      shortDescription: data.shortDescription,
-      fullDescription: data.fullDescription,
-      runtime: data.runtime,
-      releaseDate: parseISO(data.releaseDate),
-      posterUrl: data.posterUrl,
-      categories: data.categories,
-    });
-  }
-
   function handleChange(event) {
     const { name, value } = event.target;
-    setFilm((prevFilm) => ({
+    updateFilm((prevFilm) => ({
       ...prevFilm,
       [name]: value,
     }));
@@ -73,11 +35,11 @@ function ManageFilm() {
 
   function handleDateChange(date) {
     film.releaseDate = date;
-    setFilm({ ...film });
+    updateFilm({ ...film });
   }
 
   function handleCategoryChange(selected) {
-    setFilm((prevFilm) => ({
+    updateFilm((prevFilm) => ({
       ...prevFilm,
       categories: selected,
     }));
@@ -86,7 +48,7 @@ function ManageFilm() {
   function handleImageChange(event) {
     if (event == null) {
       film.posterUrl = null;
-      setFilm({ ...film });
+      updateFilm({ ...film });
       return;
     }
 
@@ -95,7 +57,7 @@ function ManageFilm() {
     uploadImage(file, "films")
       .then((res) => {
         film.posterUrl = res.url;
-        setFilm({ ...film });
+        updateFilm({ ...film });
         setImageUploading(false);
       })
       .catch((error) => {
@@ -108,7 +70,7 @@ function ManageFilm() {
 
   function handleTrailerChange(url) {
     film.trailerUrl = url;
-    setFilm({ ...film });
+    updateFilm({ ...film });
   }
 
   function formIsValid() {
@@ -144,20 +106,7 @@ function ManageFilm() {
   function handleSave(event) {
     event.preventDefault();
     if (!formIsValid()) return;
-    let filmToPost = { ...film };
-    filmToPost.categories = film.categories.map((category) => category.id);
-    setSaving(true);
-    saveFilm(filmToPost)
-      .then((res) => {
-        toast.success("Film saved");
-        navigate(`/films/${res.id}`);
-      })
-      .catch((err) => {
-        setSaving(false);
-        toast.error(`Error saving ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
+    triggerSave();
   }
 
   return (
@@ -174,7 +123,6 @@ function ManageFilm() {
           onSave={handleSave}
           errors={errors}
           saving={saving}
-          editing={editing}
           uploadingImage={imageUploading}
         />
       ) : (
@@ -183,5 +131,10 @@ function ManageFilm() {
     </div>
   );
 }
-
+ManageFilm.propTypes = {
+  film: PropTypes.object.isRequired,
+  updateFilm: PropTypes.func.isRequired,
+  triggerSave: PropTypes.func.isRequired,
+  saving: PropTypes.bool,
+};
 export default ManageFilm;

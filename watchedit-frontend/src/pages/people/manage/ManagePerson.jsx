@@ -1,57 +1,19 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { uploadImage } from "../../../api/imageApi";
-import { getPersonById, savePerson } from "../../../api/peopleApi";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import ManagePersonForm from "../../../components/People/Manage/ManagePersonForm";
-import { newPerson } from "../../../tools/obJectShapes";
-import { parseISO } from "date-fns";
 
-function ManagePerson() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [person, setPerson] = useState({ ...newPerson });
+function ManagePerson({ person, updatePerson, triggerSave, saving }) {
   const [errors, setErrors] = useState({});
-  const [saving, setSaving] = useState(false);
-  const [editing, setEditing] = useState(false);
   const [imageUploading, setImageUploading] = useState(false);
   const defaultImage =
     "https://watched-it.s3.eu-west-1.amazonaws.com/films/b625dbbe-0a08-4162-9788-cda553551ff4";
 
-  useEffect(() => {
-    if (id) {
-      getPersonById(id)
-        .then((data) => {
-          mapForEditing(data);
-          setEditing(true);
-        })
-        .catch((error) => {
-          toast.error(`Error fetching person ${error.message}`, {
-            autoClose: false,
-          });
-        });
-    } else {
-      setPerson({ ...newPerson });
-    }
-  }, [id]);
-
-  function mapForEditing(data) {
-    setPerson({
-      id: data.id,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      middleNames: data.middleNames,
-      stageName: data.stageName,
-      dateOfBirth: parseISO(data.dateOfBirth),
-      description: data.description,
-      imageUrl: data.imageUrl,
-    });
-  }
-
   function handleChange(event) {
     const { name, value } = event.target;
-    setPerson((prevPerson) => ({
+    updatePerson((prevPerson) => ({
       ...prevPerson,
       [name]: value,
     }));
@@ -59,13 +21,13 @@ function ManagePerson() {
 
   function handleDateChange(date) {
     person.dateOfBirth = date;
-    setPerson({ ...person });
+    updatePerson({ ...person });
   }
 
   function handleImageChange(event) {
     if (event == null) {
       person.imageUrl = null;
-      setPerson({ ...person });
+      updatePerson({ ...person });
       return;
     }
 
@@ -74,7 +36,7 @@ function ManagePerson() {
     uploadImage(file, "people")
       .then((res) => {
         person.imageUrl = res.url;
-        setPerson({ ...person });
+        updatePerson({ ...person });
         setImageUploading(false);
       })
       .catch((error) => {
@@ -87,7 +49,7 @@ function ManagePerson() {
 
   function handleUseDefaultImage() {
     person.imageUrl = defaultImage;
-    setPerson({ ...person });
+    updatePerson({ ...person });
   }
 
   function formIsValid() {
@@ -123,18 +85,7 @@ function ManagePerson() {
   function handleSave(event) {
     event.preventDefault();
     if (!formIsValid()) return;
-    setSaving(true);
-    savePerson(person)
-      .then((res) => {
-        toast.success("Person saved");
-        navigate(`/people/${res.id}`);
-      })
-      .catch((err) => {
-        setSaving(false);
-        toast.error(`Error saving ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
+    triggerSave();
   }
 
   return (
@@ -149,7 +100,6 @@ function ManagePerson() {
           onSave={handleSave}
           errors={errors}
           saving={saving}
-          editing={editing}
           uploadingImage={imageUploading}
         />
       ) : (
@@ -158,5 +108,12 @@ function ManagePerson() {
     </div>
   );
 }
+
+ManagePerson.propTypes = {
+  person: PropTypes.object.isRequired,
+  updatePerson: PropTypes.func.isRequired,
+  triggerSave: PropTypes.func.isRequired,
+  saving: PropTypes.bool,
+};
 
 export default ManagePerson;

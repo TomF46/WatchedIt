@@ -16,11 +16,7 @@ function ManageProfile() {
   const [saving, setSaving] = useState(false);
   const [imageUploading, setImageUploading] = useState(false);
 
-  const {
-    isLoading,
-    data: user,
-    error,
-  } = useQuery({
+  const { isLoading, error } = useQuery({
     queryKey: ["manage-user", id],
     queryFn: () =>
       getUserById(id).then((res) => {

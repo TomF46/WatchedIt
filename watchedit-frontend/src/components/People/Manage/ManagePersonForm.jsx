@@ -12,7 +12,6 @@ const ManagePersonForm = ({
   onImageChange,
   onUseDefaultImage,
   saving = false,
-  editing,
   uploadingImage = false,
   errors = {},
 }) => {
@@ -24,10 +23,10 @@ const ManagePersonForm = ({
         </div>
       )}
 
-      <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
+      <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4">
         <div className="bg-backgroundOffset2 rounded-t-md">
           <p className="text-primary font-semibold text-center text-2xl px-2 py-1">
-            {editing
+            {person.id
               ? `Editing ${person.firstName} ${person.lastName}`
               : "Adding person"}
           </p>
@@ -226,7 +225,6 @@ ManagePersonForm.propTypes = {
   onImageChange: PropTypes.func.isRequired,
   onUseDefaultImage: PropTypes.func.isRequired,
   saving: PropTypes.bool,
-  editing: PropTypes.bool.isRequired,
   uploadingImage: PropTypes.bool,
 };
 

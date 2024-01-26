@@ -13,13 +13,11 @@ import AddCreditForFilm from "./pages/films/credits/AddCreditForFilm";
 import FilmCredits from "./pages/films/credits/FilmCredits";
 import Film from "./pages/films/Film";
 import Films from "./pages/films/Films";
-import ManageFilm from "./pages/films/manage/ManageFilm";
 import Home from "./pages/Home";
 import Lists from "./pages/lists/Lists";
 import ManageList from "./pages/lists/manage/ManageList";
 import AddCreditForPerson from "./pages/people/credits/AddCreditForPerson";
 import PersonCredits from "./pages/people/credits/PersonCredits";
-import ManagePerson from "./pages/people/manage/ManagePerson";
 import People from "./pages/people/People";
 import Person from "./pages/people/Person";
 import Profile from "./pages/profile/Profile";
@@ -53,6 +51,10 @@ import PublisherRoute from "./PublisherRoute";
 import UsersNewsArticles from "./pages/news/UsersNewsArticles";
 import UsersReviews from "./pages/profile/reviews/UsersReviews";
 import Community from "./pages/users/Community";
+import AddPerson from "./pages/people/manage/AddPerson";
+import EditPerson from "./pages/people/manage/EditPerson";
+import EditFilm from "./pages/films/manage/EditFilm";
+import AddFilm from "./pages/films/manage/AddFilm";
 
 const App = () => {
   return (
@@ -120,7 +122,7 @@ const App = () => {
               path="/films/:id/edit"
               element={
                 <AdminRoute>
-                  <ManageFilm />
+                  <EditFilm />
                 </AdminRoute>
               }
             />
@@ -128,7 +130,7 @@ const App = () => {
               path="/films/add"
               element={
                 <AdminRoute>
-                  <ManageFilm />
+                  <AddFilm />
                 </AdminRoute>
               }
             />
@@ -155,7 +157,7 @@ const App = () => {
               path="/people/:id/edit"
               element={
                 <AdminRoute>
-                  <ManagePerson />
+                  <EditPerson />
                 </AdminRoute>
               }
             />
@@ -163,7 +165,7 @@ const App = () => {
               path="/people/add"
               element={
                 <AdminRoute>
-                  <ManagePerson />
+                  <AddPerson />
                 </AdminRoute>
               }
             />
