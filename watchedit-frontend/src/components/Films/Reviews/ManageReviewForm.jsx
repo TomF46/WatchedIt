@@ -8,7 +8,6 @@ const ManageReviewForm = ({
   onSave,
   onChange,
   saving = false,
-  editing,
   errors = {},
 }) => {
   return (
@@ -22,7 +21,7 @@ const ManageReviewForm = ({
       <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
         <div className="bg-backgroundOffset2 rounded-t-md">
           <p className="text-primary font-semibold text-center text-2xl px-2 py-1">
-            {editing ? `Editing` : "Adding"} review for {film.name}
+            {review.id ? `Editing` : "Adding"} review for {film.name}
           </p>
         </div>
         <div className="p-4">
@@ -83,7 +82,6 @@ ManageReviewForm.propTypes = {
   onSave: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   saving: PropTypes.bool,
-  editing: PropTypes.bool.isRequired,
 };
 
 export default ManageReviewForm;

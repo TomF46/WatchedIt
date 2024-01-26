@@ -1,29 +1,18 @@
-import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-
 import { Navigate } from "react-router-dom";
 import { getCurrentUserIsPublisher } from "./api/usersApi";
+import { useQuery } from "@tanstack/react-query";
 
 const PublisherRoute = ({ children }) => {
-  const [isPublisher, setIsPublisher] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
-
-  useEffect(() => {
-    getCurrentUserIsPublisher()
-      .then((res) => {
-        setIsPublisher(res.canPublish);
-        setIsChecked(true);
-      })
-      .catch(() => {
-        //If call fails then assume they are not publisher
-        setIsChecked(true);
-      });
-  }, []);
+  const { isLoading, data } = useQuery({
+    queryKey: ["is-publisher"],
+    queryFn: () => getCurrentUserIsPublisher(),
+  });
 
   return (
     <>
-      {isChecked && (
-        <>{isPublisher ? children : <Navigate to="/404" replace />}</>
+      {!isLoading && (
+        <>{data.canPublish ? children : <Navigate to="/404" replace />}</>
       )}
     </>
   );

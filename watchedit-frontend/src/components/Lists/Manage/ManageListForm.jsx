@@ -7,7 +7,6 @@ const ManageListForm = ({
   onSave,
   onChange,
   saving = false,
-  editing,
   errors = {},
 }) => {
   return (
@@ -20,7 +19,7 @@ const ManageListForm = ({
       <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
         <div className="bg-backgroundOffset2 rounded-t-md">
           <p className="text-primary font-semibold text-center text-2xl px-2 py-1">
-            {editing ? `Editing ${list.name}` : "Adding list"}
+            {list.id ? `Editing ${list.name}` : "Adding list"}
           </p>
         </div>
         <div className="p-4">
@@ -80,7 +79,6 @@ ManageListForm.propTypes = {
   onSave: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   saving: PropTypes.bool,
-  editing: PropTypes.bool.isRequired,
 };
 
 export default ManageListForm;

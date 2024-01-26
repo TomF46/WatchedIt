@@ -26,7 +26,6 @@ function NewsArticle() {
     queryKey: ["article", id],
     queryFn: () =>
       getNewsArticlesById(id).then((res) => {
-        console.log(res);
         res.content = res.content.replaceAll("\\", "/");
         return res;
       }),

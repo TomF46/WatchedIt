@@ -1,29 +1,26 @@
 import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { getCategories } from "../../../api/categoriesApi";
 import { uploadImage } from "../../../api/imageApi";
 import ManageFilmForm from "../../../components/Films/Manage/ManageFilmForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
+import { useQuery } from "@tanstack/react-query";
 
 function ManageFilm({ film, updateFilm, triggerSave, saving }) {
-  const [categories, setCategories] = useState(null);
   const [errors, setErrors] = useState({});
   const [imageUploading, setImageUploading] = useState(false);
 
-  useEffect(() => {
-    if (!categories) {
-      getCategories()
-        .then((res) => {
-          setCategories(res);
-        })
-        .catch((error) => {
-          toast.error(`Error fetching categories ${error.message}`, {
-            autoClose: false,
-          });
+  const { data: categories } = useQuery({
+    queryKey: ["categories"],
+    queryFn: () =>
+      getCategories().catch((error) => {
+        toast.error(`Error getting categories ${error.data.Exception}`, {
+          autoClose: false,
         });
-    }
-  }, [categories]);
+        return error;
+      }),
+  });
 
   function handleChange(event) {
     const { name, value } = event.target;

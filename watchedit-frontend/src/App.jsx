@@ -15,7 +15,6 @@ import Film from "./pages/films/Film";
 import Films from "./pages/films/Films";
 import Home from "./pages/Home";
 import Lists from "./pages/lists/Lists";
-import ManageList from "./pages/lists/manage/ManageList";
 import AddCreditForPerson from "./pages/people/credits/AddCreditForPerson";
 import PersonCredits from "./pages/people/credits/PersonCredits";
 import People from "./pages/people/People";
@@ -26,16 +25,13 @@ import NotFound from "./pages/status/NotFound";
 import AddFilmToList from "./pages/lists/manage/AddFilmToList";
 import EditCredit from "./pages/credits/manage/EditCredit";
 import Reviews from "./pages/films/reviews/Reviews";
-import ManageReview from "./pages/films/reviews/ManageReview";
 import Review from "./pages/films/reviews/Review";
 import Categories from "./pages/categories/Categories";
 import Category from "./pages/categories/Category";
-import ManageCategory from "./pages/categories/manage/ManageCategory";
 import ManageProfile from "./pages/profile/manage/ManageProfile";
 import UserLikes from "./pages/profile/UserLikes";
 import Notifications from "./pages/notifications/Notifications";
 import FilmTrivia from "./pages/films/trivia/FilmTrivia";
-import ManageFilmTrivia from "./pages/films/trivia/ManageFilmTrivia";
 import Games from "./pages/games/Games";
 import GuessFilmFromCast from "./pages/games/GuessFilmFromCast/GuessFilmFromCast";
 import GuessFilmFromCastGame from "./pages/games/GuessFilmFromCast/GuessFilmFromCastGame";
@@ -46,7 +42,6 @@ import Connections from "./pages/games/Connections/Connections";
 import ConnectionsGame from "./pages/games/Connections/ConnectionsGame";
 import News from "./pages/news/news";
 import NewsArticle from "./pages/news/NewsArticle";
-import ManageNewsArticle from "./pages/news/ManageNewsArticle";
 import PublisherRoute from "./PublisherRoute";
 import UsersNewsArticles from "./pages/news/UsersNewsArticles";
 import UsersReviews from "./pages/profile/reviews/UsersReviews";
@@ -55,6 +50,16 @@ import AddPerson from "./pages/people/manage/AddPerson";
 import EditPerson from "./pages/people/manage/EditPerson";
 import EditFilm from "./pages/films/manage/EditFilm";
 import AddFilm from "./pages/films/manage/AddFilm";
+import EditList from "./pages/lists/manage/EditList";
+import AddList from "./pages/lists/manage/AddList";
+import AddCategory from "./pages/categories/manage/AddCategory";
+import EditCategory from "./pages/categories/manage/EditCategory";
+import EditReview from "./pages/films/reviews/EditReview";
+import AddReview from "./pages/films/reviews/AddReview";
+import EditTrivia from "./pages/films/trivia/EditFilmTrivia";
+import AddTrivia from "./pages/films/trivia/AddFilmTrivia";
+import EditArticle from "./pages/news/EditNewsArticle";
+import AddArticle from "./pages/news/AddNewsArticle";
 
 const App = () => {
   return (
@@ -70,7 +75,7 @@ const App = () => {
               path="/films/:id/reviews/:reviewId/edit"
               element={
                 <AuthenticatedRoute>
-                  <ManageReview />
+                  <EditReview />
                 </AuthenticatedRoute>
               }
             />
@@ -78,7 +83,7 @@ const App = () => {
               path="/films/:id/reviews/add"
               element={
                 <AuthenticatedRoute>
-                  <ManageReview />
+                  <AddReview />
                 </AuthenticatedRoute>
               }
             />
@@ -88,7 +93,7 @@ const App = () => {
               path="/films/:id/trivia/:triviaId/edit"
               element={
                 <AuthenticatedRoute>
-                  <ManageFilmTrivia />
+                  <EditTrivia />
                 </AuthenticatedRoute>
               }
             />
@@ -96,7 +101,7 @@ const App = () => {
               path="/films/:id/trivia/add"
               element={
                 <AuthenticatedRoute>
-                  <ManageFilmTrivia />
+                  <AddTrivia />
                 </AuthenticatedRoute>
               }
             />
@@ -183,7 +188,7 @@ const App = () => {
               path="/lists/:id/edit"
               element={
                 <AuthenticatedRoute>
-                  <ManageList />
+                  <EditList />
                 </AuthenticatedRoute>
               }
             />
@@ -191,7 +196,7 @@ const App = () => {
               path="/lists/add"
               element={
                 <AuthenticatedRoute>
-                  <ManageList />
+                  <AddList />
                 </AuthenticatedRoute>
               }
             />
@@ -253,7 +258,7 @@ const App = () => {
               path="/categories/add"
               element={
                 <AdminRoute>
-                  <ManageCategory />
+                  <AddCategory />
                 </AdminRoute>
               }
             />
@@ -261,7 +266,7 @@ const App = () => {
               path="/categories/:id/edit"
               element={
                 <AdminRoute>
-                  <ManageCategory />
+                  <EditCategory />
                 </AdminRoute>
               }
             />
@@ -328,7 +333,7 @@ const App = () => {
               path="/news/:id/edit"
               element={
                 <PublisherRoute>
-                  <ManageNewsArticle />
+                  <EditArticle />
                 </PublisherRoute>
               }
             />
@@ -336,7 +341,7 @@ const App = () => {
               path="/news/add"
               element={
                 <PublisherRoute>
-                  <ManageNewsArticle />
+                  <AddArticle />
                 </PublisherRoute>
               }
             />

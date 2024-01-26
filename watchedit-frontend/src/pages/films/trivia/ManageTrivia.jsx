@@ -1,29 +1,25 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import ManageReviewForm from "../../../components/Films/Reviews/ManageReviewForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
+import ManageTriviaForm from "../../../components/Films/Trivia/ManageTriviaForm";
 
-function ManageReview({ film, review, updateReview, triggerSave, saving }) {
+function ManageTrivia({ film, trivia, updateTrivia, triggerSave, saving }) {
   const [errors, setErrors] = useState({});
 
   function handleChange(event) {
     const { name, value } = event.target;
-    if (name == "rating" && (value < 0 || value > 10)) return;
-    updateReview((prevReview) => ({
-      ...prevReview,
+    updateTrivia((prevFilmTrivia) => ({
+      ...prevFilmTrivia,
       [name]: value,
     }));
   }
 
   function formIsValid() {
-    const { rating, text } = review;
+    const { text } = trivia;
     const errors = {};
-    if (!rating) errors.rating = "Rating is required";
-    if (rating < 0 || rating > 10)
-      errors.rating = "Rating must be between 0 and 10";
-    if (!text) errors.text = "Review text is required";
-    if (text.length > 8000)
-      errors.text = "Review text cant be longer than 8000 characters";
+    if (!text) errors.text = "Trivia text is required";
+    if (text.length > 1000)
+      errors.text = "Trivia text cant be longer than 1000 characters";
     setErrors(errors);
     return Object.keys(errors).length === 0;
   }
@@ -35,11 +31,11 @@ function ManageReview({ film, review, updateReview, triggerSave, saving }) {
   }
 
   return (
-    <div className="manage-film-review-page">
-      {film && review ? (
+    <div className="manage-film-trivia-page">
+      {film && trivia ? (
         <>
-          <ManageReviewForm
-            review={review}
+          <ManageTriviaForm
+            trivia={trivia}
             film={film}
             onChange={handleChange}
             onSave={handleSave}
@@ -54,12 +50,12 @@ function ManageReview({ film, review, updateReview, triggerSave, saving }) {
   );
 }
 
-ManageReview.propTypes = {
+ManageTrivia.propTypes = {
   film: PropTypes.object.isRequired,
-  review: PropTypes.object.isRequired,
-  updateReview: PropTypes.func.isRequired,
+  trivia: PropTypes.object.isRequired,
+  updateTrivia: PropTypes.func.isRequired,
   triggerSave: PropTypes.func.isRequired,
   saving: PropTypes.bool,
 };
 
-export default ManageReview;
+export default ManageTrivia;

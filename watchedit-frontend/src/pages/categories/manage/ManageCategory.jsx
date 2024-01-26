@@ -1,46 +1,14 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import { getCategoryById, saveCategory } from "../../../api/categoriesApi";
+import PropTypes from "prop-types";
+import { useState } from "react";
 import ManageCategoryForm from "../../../components/Categories/Manage/ManageCategoryForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import { newCategory } from "../../../tools/obJectShapes";
 
-function ManageCategory() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [category, setCategory] = useState({ ...newCategory });
+function ManageCategory({ category, updateCategory, triggerSave, saving }) {
   const [errors, setErrors] = useState({});
-  const [saving, setSaving] = useState(false);
-  const [editing, setEditing] = useState(false);
-
-  useEffect(() => {
-    if (id) {
-      getCategoryById(id)
-        .then((data) => {
-          mapForEditing(data);
-          setEditing(true);
-        })
-        .catch((error) => {
-          toast.error(`Error fetching category ${error.message}`, {
-            autoClose: false,
-          });
-        });
-    } else {
-      setCategory({ ...newCategory });
-    }
-  }, [id]);
-
-  function mapForEditing(data) {
-    setCategory({
-      id: data.id,
-      name: data.name,
-    });
-  }
 
   function handleChange(event) {
     const { name, value } = event.target;
-    setCategory((prevCategory) => ({
+    updateCategory((prevCategory) => ({
       ...prevCategory,
       [name]: value,
     }));
@@ -59,18 +27,7 @@ function ManageCategory() {
   function handleSave(event) {
     event.preventDefault();
     if (!formIsValid()) return;
-    setSaving(true);
-    saveCategory(category)
-      .then((res) => {
-        toast.success("Category saved");
-        navigate(`/categories/${res.id}`);
-      })
-      .catch((err) => {
-        setSaving(false);
-        toast.error(`Error saving ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
+    triggerSave();
   }
 
   return (
@@ -82,7 +39,6 @@ function ManageCategory() {
           onSave={handleSave}
           errors={errors}
           saving={saving}
-          editing={editing}
         />
       ) : (
         <LoadingMessage message={"Loading category"} />
@@ -90,5 +46,12 @@ function ManageCategory() {
     </div>
   );
 }
+
+ManageCategory.propTypes = {
+  category: PropTypes.object.isRequired,
+  updateCategory: PropTypes.func.isRequired,
+  triggerSave: PropTypes.func.isRequired,
+  saving: PropTypes.bool,
+};
 
 export default ManageCategory;

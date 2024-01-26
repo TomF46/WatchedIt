@@ -1,63 +1,30 @@
 import MDEditor from "@uiw/react-md-editor";
-import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { useState } from "react";
 import rehypeSanitize from "rehype-sanitize";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { newArticle } from "../../tools/obJectShapes";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { getNewsArticlesById, saveNewsArticle } from "../../api/newsApi";
 import TextInput from "../../components/Inputs/TextInput";
 import { uploadImage } from "../../api/imageApi";
 import NewsArticlePreview from "../../components/News/NewsArticlePreview";
 
-function ManageNewsArticle() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [article, setArticle] = useState({ ...newArticle });
-  const [saving, setSaving] = useState(false);
-  const [editing, setEditing] = useState(false);
+function ManageNewsArticle({ article, updateArticle, triggerSave, saving }) {
   const [errors, setErrors] = useState({});
   const [imageUploading, setImageUploading] = useState(false);
   const [thumbnailUploading, setThumbnailUploading] = useState(false);
   const [generatedUrl, setGeneratedUrl] = useState(null);
 
-  useEffect(() => {
-    if (id) {
-      getNewsArticlesById(id)
-        .then((data) => {
-          mapForEditing(data);
-          setEditing(true);
-        })
-        .catch((error) => {
-          toast.error(`Error fetching article ${error.message}`, {
-            autoClose: false,
-          });
-        });
-    } else {
-      setArticle({ ...newArticle });
-    }
-  }, [id]);
-
-  function mapForEditing(data) {
-    setArticle({
-      id: data.id,
-      title: data.title,
-      content: data.content,
-      thumbnailUrl: data.thumbnailUrl,
-      publish: data.published,
-    });
-  }
-
   function setContent(value) {
     let formattedValue = value.replaceAll("\\", "/"); // Fixes formatting that md editor adds that breaks preview and article.
-    setArticle((prevState) => ({
+    updateArticle((prevState) => ({
       ...prevState,
       content: formattedValue,
     }));
   }
 
   function setTitle(event) {
-    setArticle((prevState) => ({
+    updateArticle((prevState) => ({
       ...prevState,
       title: event.target.value,
     }));
@@ -66,7 +33,7 @@ function ManageNewsArticle() {
   function handleThumbnailChange(event) {
     if (event == null) {
       article.thumbnailUrl = null;
-      setArticle({ ...article });
+      updateArticle({ ...article });
       return;
     }
 
@@ -75,7 +42,7 @@ function ManageNewsArticle() {
     uploadImage(file, "thumbnails")
       .then((res) => {
         article.thumbnailUrl = res.url;
-        setArticle({ ...article });
+        updateArticle({ ...article });
         setThumbnailUploading(false);
       })
       .catch((error) => {
@@ -119,19 +86,7 @@ function ManageNewsArticle() {
   function handleSave(publish) {
     event.preventDefault();
     if (!formIsValid()) return;
-    setSaving(true);
-
-    saveNewsArticle(article, publish)
-      .then((res) => {
-        toast.success("Article saved");
-        navigate(`/news/${res.id}`);
-      })
-      .catch((err) => {
-        setSaving(false);
-        toast.error(`Error saving ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
+    triggerSave(publish);
   }
 
   return (
@@ -148,7 +103,7 @@ function ManageNewsArticle() {
           <div className="controls bg-backgroundOffset mt-4 rounded-md mb-4 shadow">
             <div className="bg-backgroundOffset2 rounded-t-md">
               <p className="text-primary font-semibold text-center text-2xl px-2 py-1">
-                {editing ? `Editing article` : "Add article"}
+                {article.id ? `Editing article` : "Add article"}
               </p>
             </div>
             <div className="grid grid-cols-12 p-4">
@@ -299,5 +254,12 @@ function ManageNewsArticle() {
     </div>
   );
 }
+
+ManageNewsArticle.propTypes = {
+  article: PropTypes.object.isRequired,
+  updateArticle: PropTypes.func.isRequired,
+  triggerSave: PropTypes.func.isRequired,
+  saving: PropTypes.bool,
+};
 
 export default ManageNewsArticle;

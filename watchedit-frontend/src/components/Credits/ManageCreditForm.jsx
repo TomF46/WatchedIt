@@ -16,7 +16,7 @@ const ManageCreditForm = ({ credit, onChange, errors, onSubmit, saving }) => {
         </div>
       )}
 
-      <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
+      <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4">
         <div className="bg-backgroundOffset2 rounded-t-md">
           <p className="text-primary font-semibold text-center text-2xl px-2 py-1">
             Credit
