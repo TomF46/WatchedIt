@@ -1,30 +1,30 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import ManageCreditForm from "../../../components/Credits/ManageCreditForm";
 import { getCreditById, updateCredit } from "../../../api/creditsApi";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
+import { useQuery } from "@tanstack/react-query";
 
 function EditCredit() {
   const navigate = useNavigate();
   const { creditId } = useParams();
-  const [credit, setCredit] = useState(null);
   const [creditUpdate, setCreditUpdate] = useState(null);
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
 
-  useEffect(() => {
-    getCreditById(creditId)
-      .then((res) => {
-        setCredit(res);
+  const {
+    isLoading,
+    data: credit,
+    error,
+  } = useQuery({
+    queryKey: ["credit", creditId],
+    queryFn: () =>
+      getCreditById(creditId).then((res) => {
         mapForEditing(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting credit ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }, [creditId]);
+        return res;
+      }),
+  });
 
   function mapForEditing(data) {
     setCreditUpdate({
@@ -61,32 +61,34 @@ function EditCredit() {
         navigate(`/films/${credit.film.id}/credits`);
       })
       .catch((err) => {
-        toast.error(`Error getting credit ${err.data.Exception}`, {
+        toast.error(`Error updating credit ${err.data.Exception}`, {
           autoClose: false,
         });
         setSaving(false);
       });
   }
 
+  if (isLoading) return <LoadingMessage message={"Loading credit."} />;
+
+  if (error) {
+    toast.error(`Error getting credit ${error.data.Exception}`, {
+      autoClose: false,
+    });
+    return;
+  }
+
   return (
     <div className="credit-page">
-      {!credit ? (
-        <LoadingMessage message={"Loading credit."} />
-      ) : (
-        <>
-          <h1 className="text-center text-primary text-4xl my-4 font-semibold">
-            Edit role {credit.role} - {credit.person.fullName} -{" "}
-            {credit.film.name}
-          </h1>
-          <ManageCreditForm
-            credit={creditUpdate}
-            onChange={handleChange}
-            onSubmit={handleSubmit}
-            errors={errors}
-            saving={saving}
-          />
-        </>
-      )}
+      <h1 className="text-center text-primary text-4xl my-4 font-semibold">
+        Edit role {credit.role} - {credit.person.fullName} - {credit.film.name}
+      </h1>
+      <ManageCreditForm
+        credit={creditUpdate}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+        errors={errors}
+        saving={saving}
+      />
     </div>
   );
 }

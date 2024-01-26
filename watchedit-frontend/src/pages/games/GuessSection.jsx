@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import debounce from "lodash.debounce";
 import { searchFilmsPaginated } from "../../api/filmsApi";
@@ -6,32 +6,36 @@ import { toast } from "react-toastify";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import SelectFilmWSearch from "../../components/Films/Credits/SelectFilmWSearch";
 import PaginationControls from "../../components/PaginationControls";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 const GuessSection = ({ guess }) => {
-  const [filmsPaginator, setFilmsPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const filmsPerPage = 16;
   const [searchTerm, setSearchTerm] = useState("");
 
-  const search = useCallback(() => {
-    searchFilmsPaginated({ searchTerm: searchTerm }, page, filmsPerPage)
-      .then((res) => {
-        setFilmsPaginator(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting films ${err.data.Exception}`, {
+  const { data: filmsPaginator, refetch } = useQuery({
+    queryKey: ["films", searchTerm, page, filmsPerPage],
+    queryFn: () =>
+      searchFilmsPaginated(
+        { searchTerm: searchTerm },
+        page,
+        filmsPerPage,
+      ).catch((error) => {
+        toast.error(`Error getting films ${error.data.Exception}`, {
           autoClose: false,
         });
-      });
-  }, [page, searchTerm, filmsPerPage]);
+        return error;
+      }),
+    placeholderData: keepPreviousData,
+  });
 
   useEffect(() => {
     let debounced = debounce(() => {
-      search();
+      refetch();
     }, 50);
 
     debounced();
-  }, [page, searchTerm, search]);
+  }, [page, searchTerm, refetch]);
 
   function handleSearchTermChange(event) {
     const { value } = event.target;

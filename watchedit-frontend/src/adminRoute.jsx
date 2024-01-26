@@ -1,28 +1,19 @@
-import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-
 import { Navigate } from "react-router-dom";
 import { getCurrentUserIsAdmin } from "./api/usersApi";
+import { useQuery } from "@tanstack/react-query";
 
 const AdminRoute = ({ children }) => {
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
-
-  useEffect(() => {
-    getCurrentUserIsAdmin()
-      .then((res) => {
-        setIsAdmin(res.isAdmin);
-        setIsChecked(true);
-      })
-      .catch(() => {
-        //If call fails then assume they are not admin
-        setIsChecked(true);
-      });
-  }, []);
+  const { isLoading, data } = useQuery({
+    queryKey: ["is-admin"],
+    queryFn: () => getCurrentUserIsAdmin(),
+  });
 
   return (
     <>
-      {isChecked && <>{isAdmin ? children : <Navigate to="/404" replace />}</>}
+      {!isLoading && (
+        <>{data.isAdmin ? children : <Navigate to="/404" replace />}</>
+      )}
     </>
   );
 };

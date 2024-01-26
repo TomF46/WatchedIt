@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import LoadingMessage from "../Loading/LoadingMessage";
@@ -10,33 +10,28 @@ import {
 } from "../../api/filmReviewApi";
 import CommentsSection from "../Comments/CommentsSection";
 import { confirmAlert } from "react-confirm-alert";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 function ReviewCommentsSection({ review }) {
-  const [comments, setComments] = useState(null);
   const [page, setPage] = useState(1);
   const commentsPerPage = 20;
 
-  const getComments = useCallback(() => {
-    getReviewComments(review.id, page, commentsPerPage)
-      .then((res) => {
-        setComments(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting comments for review ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }, [review, page, commentsPerPage]);
-
-  useEffect(() => {
-    getComments();
-  }, [page, getComments]);
+  const {
+    isLoading,
+    data: comments,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["review-comments", review.id.page, commentsPerPage],
+    queryFn: () => getReviewComments(review.id, page, commentsPerPage),
+    placeholderData: keepPreviousData,
+  });
 
   function handleAddComment(comment) {
     return new Promise((resolve, reject) => {
       addReviewComment(review.id, comment)
         .then((res) => {
-          getComments();
+          refetch();
           resolve(res);
         })
         .catch((err) => {
@@ -49,7 +44,7 @@ function ReviewCommentsSection({ review }) {
     return new Promise((resolve, reject) => {
       updateReviewComment(review.id, comment)
         .then((res) => {
-          getComments();
+          refetch();
           resolve(res);
         })
         .catch((err) => {
@@ -79,7 +74,7 @@ function ReviewCommentsSection({ review }) {
     deleteReviewComment(review.id, comment)
       .then(() => {
         toast.success("Comment removed");
-        getComments();
+        refetch();
       })
       .catch((err) => {
         toast.error(`Error removing comment ${err.data.Exception}`, {
@@ -88,22 +83,27 @@ function ReviewCommentsSection({ review }) {
       });
   }
 
+  if (isLoading) return <LoadingMessage message={"Loading latest comments."} />;
+
+  if (error) {
+    toast.error(`Error getting comments for review ${error.data.Exception}`, {
+      autoClose: false,
+    });
+    return;
+  }
+
   return (
     <div className="review-comments-section">
-      {!comments ? (
-        <LoadingMessage message={"Loading latest comments"} />
-      ) : (
-        <div className="mt-4">
-          <CommentsSection
-            commentsPaginator={comments}
-            currentPage={page}
-            onAddComment={handleAddComment}
-            onDeleteComment={handleDeleteComment}
-            onPageChange={setPage}
-            onUpdateComment={handleUpdateComment}
-          />
-        </div>
-      )}
+      <div className="mt-4">
+        <CommentsSection
+          commentsPaginator={comments}
+          currentPage={page}
+          onAddComment={handleAddComment}
+          onDeleteComment={handleDeleteComment}
+          onPageChange={setPage}
+          onUpdateComment={handleUpdateComment}
+        />
+      </div>
     </div>
   );
 }

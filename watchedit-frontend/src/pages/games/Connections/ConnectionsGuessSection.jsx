@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import debounce from "lodash.debounce";
 import { toast } from "react-toastify";
@@ -6,9 +6,9 @@ import { searchPeoplePaginated } from "../../../api/peopleApi";
 import SelectPersonWSearch from "../../../components/People/Credits/SelectPersonWSearch";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import PaginationControls from "../../../components/PaginationControls";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 const ConnectionsGuessSection = ({ guess }) => {
-  const [peoplePaginator, setPeoplePaginator] = useState(null);
   const [page, setPage] = useState(1);
   const peoplePerPage = 16;
   const [searchTerms, setSearchTerms] = useState({
@@ -17,25 +17,25 @@ const ConnectionsGuessSection = ({ guess }) => {
     stageName: "",
   });
 
-  const search = useCallback(() => {
-    searchPeoplePaginated(searchTerms, page, peoplePerPage)
-      .then((res) => {
-        setPeoplePaginator(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting people ${err.data.Exception}`, {
+  const { data: peoplePaginator, refetch } = useQuery({
+    queryKey: ["people", searchTerms, page, peoplePerPage],
+    queryFn: () =>
+      searchPeoplePaginated(searchTerms, page, peoplePerPage).catch((error) => {
+        toast.error(`Error getting people ${error.data.Exception}`, {
           autoClose: false,
         });
-      });
-  }, [page, searchTerms, peoplePerPage]);
+        return error;
+      }),
+    placeholderData: keepPreviousData,
+  });
 
   useEffect(() => {
     let debounced = debounce(() => {
-      search();
+      refetch();
     }, 50);
 
     debounced();
-  }, [page, searchTerms, search]);
+  }, [page, searchTerms, refetch]);
 
   function handleSearchTermChange(event) {
     const { name, value } = event.target;

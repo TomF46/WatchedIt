@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getUserById, updateCurrentUser } from "../../../api/usersApi";
@@ -6,28 +6,28 @@ import { uploadImage } from "../../../api/imageApi";
 import { useNavigate } from "react-router-dom";
 import ManageUserForm from "../../../components/User/Manage/ManageUserForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
+import { useQuery } from "@tanstack/react-query";
 
 function ManageProfile() {
   const id = useSelector((state) => state.tokens.id);
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
   const [updatedUser, setUpdatedUser] = useState(null);
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
   const [imageUploading, setImageUploading] = useState(false);
 
-  useEffect(() => {
-    getUserById(id)
-      .then((res) => {
-        setUser(res);
+  const {
+    isLoading,
+    data: user,
+    error,
+  } = useQuery({
+    queryKey: ["manage-user", id],
+    queryFn: () =>
+      getUserById(id).then((res) => {
         mapUpdatedUser(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting user ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }, [id]);
+        return res;
+      }),
+  });
 
   function mapUpdatedUser(data) {
     setUpdatedUser({
@@ -94,23 +94,26 @@ function ManageProfile() {
       });
   }
 
+  if (isLoading) return <LoadingMessage message={"Loading form."} />;
+
+  if (error) {
+    toast.error(`Error getting user ${error.data.Exception}`, {
+      autoClose: false,
+    });
+    return;
+  }
+
   return (
     <div className="profile-manage-page">
-      {!user ? (
-        <LoadingMessage message={"Loading form."} />
-      ) : (
-        <div>
-          <ManageUserForm
-            user={updatedUser}
-            onChange={handleChange}
-            onImageChange={handleImageChange}
-            onSave={handleSave}
-            errors={errors}
-            saving={saving}
-            uploadingImage={imageUploading}
-          />
-        </div>
-      )}
+      <ManageUserForm
+        user={updatedUser}
+        onChange={handleChange}
+        onImageChange={handleImageChange}
+        onSave={handleSave}
+        errors={errors}
+        saving={saving}
+        uploadingImage={imageUploading}
+      />
     </div>
   );
 }

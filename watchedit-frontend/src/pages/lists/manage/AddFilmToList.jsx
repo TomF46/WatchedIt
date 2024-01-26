@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -8,6 +8,7 @@ import { addFilmToFilmList, getFilmListById } from "../../../api/filmListsApi";
 import SelectFilmListWSearch from "../../../components/Films/SelectFilmListWSearch";
 import { searchFilmsPaginated } from "../../../api/filmsApi";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 function AddFilmToList() {
   const userId = useSelector((state) =>
@@ -15,48 +16,46 @@ function AddFilmToList() {
   );
   const navigate = useNavigate();
   const { id } = useParams();
-  const [list, setList] = useState(null);
-  const [filmsPaginator, setFilmsPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const filmsPerPage = 20;
   const [searchTerm, setSearchTerm] = useState("");
 
-  const getList = useCallback(() => {
-    getFilmListById(id)
-      .then((res) => {
+  const {
+    data: list,
+    error: listLoadError,
+    refetch: refetchList,
+  } = useQuery({
+    queryKey: ["list", id],
+    queryFn: () =>
+      getFilmListById(id).then((res) => {
         if (res.createdBy.id != userId) navigate(`/lists/${res.id}`);
-        setList(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting list ${err.data.Exception}`, {
+        return res;
+      }),
+  });
+
+  const { data: filmsPaginator, refetch } = useQuery({
+    queryKey: ["films", searchTerm, page, filmsPerPage],
+    queryFn: () =>
+      searchFilmsPaginated(
+        { searchTerm: searchTerm },
+        page,
+        filmsPerPage,
+      ).catch((error) => {
+        toast.error(`Error getting films ${error.data.Exception}`, {
           autoClose: false,
         });
-      });
-  }, [id, navigate, userId]);
-
-  const search = useCallback(() => {
-    searchFilmsPaginated({ searchTerm: searchTerm }, page, filmsPerPage)
-      .then((res) => {
-        setFilmsPaginator(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting films ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }, [page, searchTerm, filmsPerPage]);
-
-  useEffect(() => {
-    getList();
-  }, [id, getList]);
+        return error;
+      }),
+    placeholderData: keepPreviousData,
+  });
 
   useEffect(() => {
     let debounced = debounce(() => {
-      search();
+      refetch();
     }, 50);
 
     debounced();
-  }, [page, searchTerm, search]);
+  }, [page, searchTerm, refetch]);
 
   function handleSearchTermChange(event) {
     const { value } = event.target;
@@ -67,13 +66,20 @@ function AddFilmToList() {
   function handleFilmSelected(film) {
     addFilmToFilmList(list.id, film)
       .then(() => {
-        getList();
+        refetchList();
       })
       .catch((err) => {
         toast.error(`Error adding film to list ${err.data.Exception}`, {
           autoClose: false,
         });
       });
+  }
+
+  if (listLoadError) {
+    toast.error(`Error getting list ${listLoadError.data.Exception}`, {
+      autoClose: false,
+    });
+    return;
   }
 
   return (

@@ -27,7 +27,7 @@ import WatchedList from "./pages/profile/WatchedList";
 import NotFound from "./pages/status/NotFound";
 import AddFilmToList from "./pages/lists/manage/AddFilmToList";
 import EditCredit from "./pages/credits/manage/EditCredit";
-import Reviews from "./pages/films/reviews/reviews";
+import Reviews from "./pages/films/reviews/Reviews";
 import ManageReview from "./pages/films/reviews/ManageReview";
 import Review from "./pages/films/reviews/Review";
 import Categories from "./pages/categories/Categories";

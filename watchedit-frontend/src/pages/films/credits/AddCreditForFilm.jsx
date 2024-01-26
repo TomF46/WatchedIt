@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import debounce from "lodash.debounce";
@@ -11,12 +11,11 @@ import AddCreditForm from "../../../components/Credits/AddCreditForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
 import PersonMiniDetail from "../../../components/People/PersonMiniDetail";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 function AddCreditForFilm() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [film, setFilm] = useState(null);
-  const [peoplePaginator, setPeoplePaginator] = useState(null);
   const [page, setPage] = useState(1);
   const peoplePerPage = 20;
   const [searchTerms, setSearchTerms] = useState({
@@ -27,37 +26,30 @@ function AddCreditForFilm() {
   const [selectedPerson, setSelectedPerson] = useState(null);
   const [saving, setSaving] = useState(false);
 
-  const search = useCallback(() => {
-    searchPeoplePaginated(searchTerms, page, peoplePerPage)
-      .then((res) => {
-        setPeoplePaginator(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting films ${err.data.Exception}`, {
+  const { data: peoplePaginator, refetch } = useQuery({
+    queryKey: ["people", searchTerms, page, peoplePerPage],
+    queryFn: () =>
+      searchPeoplePaginated(searchTerms, page, peoplePerPage).catch((error) => {
+        toast.error(`Error getting people ${error.data.Exception}`, {
           autoClose: false,
         });
-      });
-  }, [page, searchTerms, peoplePerPage]);
+        return error;
+      }),
+    placeholderData: keepPreviousData,
+  });
 
-  useEffect(() => {
-    getFilmById(id)
-      .then((res) => {
-        setFilm(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting film ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }, [id]);
+  const { data: film, error: filmLoadError } = useQuery({
+    queryKey: ["film", id],
+    queryFn: () => getFilmById(id),
+  });
 
   useEffect(() => {
     let debounced = debounce(() => {
-      search();
+      refetch();
     }, 50);
 
     debounced();
-  }, [page, searchTerms, search]);
+  }, [page, searchTerms, refetch]);
 
   function handleSearchTermChange(event) {
     const { name, value } = event.target;
@@ -91,6 +83,13 @@ function AddCreditForFilm() {
           autoClose: false,
         });
       });
+  }
+
+  if (filmLoadError) {
+    toast.error(`Error getting film ${filmLoadError.data.Exception}`, {
+      autoClose: false,
+    });
+    return;
   }
 
   return (
