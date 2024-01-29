@@ -17,7 +17,6 @@ function Reviews() {
   const { data: film, error: filmLoadError } = useQuery({
     queryKey: ["film", id],
     queryFn: () => getFilmById(id),
-    placeholderData: keepPreviousData,
   });
 
   const { data: reviewsPaginator } = useQuery({
@@ -29,6 +28,7 @@ function Reviews() {
         });
         return error;
       }),
+    placeholderData: keepPreviousData,
   });
 
   if (filmLoadError) {

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import debounce from "lodash.debounce";
 import { Link, useParams } from "react-router-dom";
@@ -9,59 +9,55 @@ import FilmGrid from "../../components/Films/FilmGrid";
 import PaginationControls from "../../components/PaginationControls";
 import { searchFilmsPaginated } from "../../api/filmsApi";
 import TextInput from "../../components/Inputs/TextInput";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 function Category() {
   const { id } = useParams();
   const isAdmin = useSelector((state) => state.isAdmin);
   const [searchTerm, setSearchTerm] = useState("");
-  const [category, setCategory] = useState(null);
-  const [filmsPaginator, setFilmsPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const filmsPerPage = 32;
 
-  const getFilms = useCallback(
-    (category) => {
+  const { data: category, error: categoryLoadError } = useQuery({
+    queryKey: ["category", id],
+    queryFn: () => getCategoryById(id),
+  });
+
+  const { data: filmsPaginator, refetch } = useQuery({
+    queryKey: ["category-films", searchTerm, id, page, filmsPerPage],
+    queryFn: () =>
       searchFilmsPaginated(
-        { searchTerm: searchTerm, category: category.id },
+        { searchTerm: searchTerm, category: id },
         page,
         filmsPerPage,
-      )
-        .then((res) => {
-          setFilmsPaginator(res);
-        })
-        .catch((err) => {
-          toast.error(`Error getting films ${err.data.Exception}`, {
-            autoClose: false,
-          });
-        });
-    },
-    [page, searchTerm, filmsPerPage],
-  );
-
-  useEffect(() => {
-    getCategoryById(id)
-      .then((res) => {
-        setCategory(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting category ${err.data.Exception}`, {
+      ).catch((error) => {
+        toast.error(`Error getting films ${error.data.Exception}`, {
           autoClose: false,
         });
-      });
-  }, [id]);
+        return error;
+      }),
+    placeholderData: keepPreviousData,
+  });
 
   useEffect(() => {
     let debounced = debounce(() => {
-      getFilms(category);
+      refetch();
     }, 50);
 
     debounced();
-  }, [page, searchTerm, category, getFilms]);
+  }, [page, searchTerm, category, refetch]);
 
   function handleSearchTermChange(event) {
     const { value } = event.target;
     setSearchTerm(value);
     if (page != 1) setPage(1);
+  }
+
+  if (categoryLoadError) {
+    toast.error(`Error getting film ${categoryLoadError.data.Exception}`, {
+      autoClose: false,
+    });
+    return;
   }
 
   return (

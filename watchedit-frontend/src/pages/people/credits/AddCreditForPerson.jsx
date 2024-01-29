@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import debounce from "lodash.debounce";
@@ -11,49 +11,45 @@ import AddCreditForm from "../../../components/Credits/AddCreditForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import PersonMiniDetail from "../../../components/People/PersonMiniDetail";
 import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 function AddCreditForPerson() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [person, setPerson] = useState(null);
-  const [filmsPaginator, setFilmsPaginator] = useState(null);
   const [page, setPage] = useState(1);
   const filmsPerPage = 20;
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilm, setSelectedFilm] = useState(null);
   const [saving, setSaving] = useState(false);
 
-  const search = useCallback(() => {
-    searchFilmsPaginated({ searchTerm: searchTerm }, page, filmsPerPage)
-      .then((res) => {
-        setFilmsPaginator(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting films ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }, [page, searchTerm]);
+  const { data: person, error: personLoadError } = useQuery({
+    queryKey: ["person", id],
+    queryFn: () => getPersonById(id),
+  });
 
-  useEffect(() => {
-    getPersonById(id)
-      .then((res) => {
-        setPerson(res);
-      })
-      .catch((err) => {
-        toast.error(`Error getting person ${err.data.Exception}`, {
+  const { data: filmsPaginator, refetch } = useQuery({
+    queryKey: ["films", searchTerm, page, filmsPerPage],
+    queryFn: () =>
+      searchFilmsPaginated(
+        { searchTerm: searchTerm },
+        page,
+        filmsPerPage,
+      ).catch((error) => {
+        toast.error(`Error getting people ${error.data.Exception}`, {
           autoClose: false,
         });
-      });
-  }, [id]);
+        return error;
+      }),
+    placeholderData: keepPreviousData,
+  });
 
   useEffect(() => {
     let debounced = debounce(() => {
-      search();
+      refetch();
     }, 50);
 
     debounced();
-  }, [page, searchTerm, search]);
+  }, [page, searchTerm, refetch]);
 
   function handleSearchTermChange(event) {
     const { value } = event.target;
@@ -84,6 +80,13 @@ function AddCreditForPerson() {
           autoClose: false,
         });
       });
+  }
+
+  if (personLoadError) {
+    toast.error(`Error getting film ${personLoadError.data.Exception}`, {
+      autoClose: false,
+    });
+    return;
   }
 
   return (
