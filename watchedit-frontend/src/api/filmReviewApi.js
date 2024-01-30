@@ -50,7 +50,7 @@ export function updateReview(filmId, review) {
     });
 }
 
-export function deleteReview(filmId, review) {
+export function removeReview(filmId, review) {
   return client
     .delete(`/api/films/${filmId}/reviews/${review.id}`)
     .then((response) => {

@@ -8,7 +8,7 @@ import {
 } from "../../../api/games/guessFilmFromDescriptionApi";
 import GuessFilmFromDescriptionGamesList from "./GuessFilmFromDescriptionGamesList";
 import { Link, useNavigate } from "react-router-dom";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 
 function GuessFilmFromDescription() {
   const navigate = useNavigate();
@@ -27,17 +27,17 @@ function GuessFilmFromDescription() {
     placeholderData: keepPreviousData,
   });
 
-  function startNewGame() {
-    startGuessFilmFromDescriptionGame()
-      .then((res) => {
-        navigate(`/games/filmFromDescription/${res.id}`);
-      })
-      .catch((err) => {
-        toast.error(`Error starting new game ${err.data.Exception}`, {
-          autoClose: false,
-        });
+  const startNewGame = useMutation({
+    mutationFn: () => startGuessFilmFromDescriptionGame(),
+    onSuccess: (res) => {
+      navigate(`/games/filmFromDescription/${res.id}`);
+    },
+    onError: (err) => {
+      toast.error(`Error starting new game ${err.data.Exception}`, {
+        autoClose: false,
       });
-  }
+    },
+  });
 
   return (
     <div className="films-from-description-page">
@@ -66,9 +66,7 @@ function GuessFilmFromDescription() {
         </div>
         <div className="col-span-12 md:col-span-2 text-center bg-backgroundOffset p-4 shadow rounded mb-4 ml-1 flex items-center justify-center">
           <button
-            onClick={() => {
-              startNewGame();
-            }}
+            onClick={() => startNewGame.mutate()}
             className="bg-primary text-white text-center rounded py-2 px-4 mb-4 hover:opacity-75"
           >
             New game

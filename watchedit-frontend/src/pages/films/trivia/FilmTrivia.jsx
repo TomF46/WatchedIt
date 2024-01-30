@@ -11,7 +11,7 @@ import {
 } from "../../../api/filmTriviaApi";
 import TriviaList from "../../../components/Films/Trivia/TriviaList";
 import { confirmAlert } from "react-confirm-alert";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 
 function FilmTrivia() {
   const { id } = useParams();
@@ -35,6 +35,19 @@ function FilmTrivia() {
     placeholderData: keepPreviousData,
   });
 
+  const deleteTrivia = useMutation({
+    mutationFn: (triviaToRemove) => deleteFilmTrivia(film.id, triviaToRemove),
+    onSuccess: () => {
+      toast.success("Trivia removed");
+      refetch();
+    },
+    onError: (err) => {
+      toast.error(`Error removing film trivia ${err.data.Exception}`, {
+        autoClose: false,
+      });
+    },
+  });
+
   function handleDelete(trivia) {
     confirmAlert({
       title: "Confirm removal",
@@ -42,7 +55,7 @@ function FilmTrivia() {
       buttons: [
         {
           label: "Yes",
-          onClick: () => deleteTrivia(trivia),
+          onClick: () => deleteTrivia.mutate(trivia),
         },
         {
           label: "No",
@@ -50,19 +63,6 @@ function FilmTrivia() {
         },
       ],
     });
-  }
-
-  function deleteTrivia(trivia) {
-    deleteFilmTrivia(film.id, trivia)
-      .then(() => {
-        toast.success("Trivia removed");
-        refetch();
-      })
-      .catch((err) => {
-        toast.error(`Error removing film trivia ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
   }
 
   if (filmLoadError) {

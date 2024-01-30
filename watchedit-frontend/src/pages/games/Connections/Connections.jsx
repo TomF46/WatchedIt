@@ -8,7 +8,7 @@ import {
 } from "../../../api/games/connectionsGameApi";
 import ConnectionsGamesList from "./ConnectionsGamesList.jsx";
 import { useNavigate } from "react-router-dom";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 
 function Connections() {
   const navigate = useNavigate();
@@ -27,17 +27,17 @@ function Connections() {
     placeholderData: keepPreviousData,
   });
 
-  function startNewGame() {
-    startConnectionsGame()
-      .then((res) => {
-        navigate(`/games/connections/${res.id}`);
-      })
-      .catch((err) => {
-        toast.error(`Error starting new game ${err.data.Exception}`, {
-          autoClose: false,
-        });
+  const startNewGame = useMutation({
+    mutationFn: () => startConnectionsGame(),
+    onSuccess: (res) => {
+      navigate(`/games/connections/${res.id}`);
+    },
+    onError: (err) => {
+      toast.error(`Error starting new game ${err.data.Exception}`, {
+        autoClose: false,
       });
-  }
+    },
+  });
 
   return (
     <div className="connections-page">
@@ -72,9 +72,7 @@ function Connections() {
         </div>
         <div className="col-span-12 md:col-span-4 text-center bg-backgroundOffset p-4 shadow rounded mb-4 ml-1 flex items-center justify-center">
           <button
-            onClick={() => {
-              startNewGame();
-            }}
+            onClick={() => startNewGame.mutate()}
             className="bg-primary text-white text-center rounded py-2 px-4 mb-4 hover:opacity-75"
           >
             New game

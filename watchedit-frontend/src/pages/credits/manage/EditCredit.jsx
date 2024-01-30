@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import ManageCreditForm from "../../../components/Credits/ManageCreditForm";
 import { getCreditById, updateCredit } from "../../../api/creditsApi";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 function EditCredit() {
   const navigate = useNavigate();
@@ -24,6 +24,22 @@ function EditCredit() {
         mapForEditing(res);
         return res;
       }),
+  });
+
+  const editCredit = useMutation({
+    mutationFn: (updatedCredit) => {
+      setSaving(true);
+      return updateCredit(credit.id, updatedCredit);
+    },
+    onSuccess: () => {
+      navigate(`/films/${credit.film.id}/credits`);
+    },
+    onError: (err) => {
+      setSaving(false);
+      toast.error(`Error updating credit ${err.data.Exception}`, {
+        autoClose: false,
+      });
+    },
   });
 
   function mapForEditing(data) {
@@ -54,18 +70,7 @@ function EditCredit() {
   function handleSubmit(event) {
     event.preventDefault();
     if (!formIsValId()) return;
-    setSaving(true);
-
-    updateCredit(credit.id, creditUpdate)
-      .then(() => {
-        navigate(`/films/${credit.film.id}/credits`);
-      })
-      .catch((err) => {
-        toast.error(`Error updating credit ${err.data.Exception}`, {
-          autoClose: false,
-        });
-        setSaving(false);
-      });
+    editCredit.mutate(creditUpdate);
   }
 
   if (isLoading) return <LoadingMessage message={"Loading credit."} />;

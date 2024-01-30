@@ -10,7 +10,7 @@ import {
 } from "../../api/filmReviewApi";
 import CommentsSection from "../Comments/CommentsSection";
 import { confirmAlert } from "react-confirm-alert";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 
 function ReviewCommentsSection({ review }) {
   const [page, setPage] = useState(1);
@@ -25,6 +25,20 @@ function ReviewCommentsSection({ review }) {
     queryKey: ["review-comments", review.id.page, commentsPerPage],
     queryFn: () => getReviewComments(review.id, page, commentsPerPage),
     placeholderData: keepPreviousData,
+  });
+
+  const deleteComment = useMutation({
+    mutationFn: (commentToRemove) =>
+      deleteReviewComment(review.id, commentToRemove),
+    onSuccess: () => {
+      toast.success("Comment removed");
+      refetch();
+    },
+    onError: (err) => {
+      toast.error(`Error removing comment ${err.data.Exception}`, {
+        autoClose: false,
+      });
+    },
   });
 
   function handleAddComment(comment) {
@@ -60,7 +74,7 @@ function ReviewCommentsSection({ review }) {
       buttons: [
         {
           label: "Yes",
-          onClick: () => deleteComment(comment),
+          onClick: () => deleteComment.mutate(comment),
         },
         {
           label: "No",
@@ -68,19 +82,6 @@ function ReviewCommentsSection({ review }) {
         },
       ],
     });
-  }
-
-  function deleteComment(comment) {
-    deleteReviewComment(review.id, comment)
-      .then(() => {
-        toast.success("Comment removed");
-        refetch();
-      })
-      .catch((err) => {
-        toast.error(`Error removing comment ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
   }
 
   if (isLoading) return <LoadingMessage message={"Loading latest comments."} />;

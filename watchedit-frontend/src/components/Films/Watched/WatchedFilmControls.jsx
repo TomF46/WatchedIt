@@ -6,6 +6,7 @@ import {
 } from "../../../api/watchedFilmsApi";
 import { toast } from "react-toastify";
 import LoadingMessage from "../../Loading/LoadingMessage";
+import { useMutation } from "@tanstack/react-query";
 
 const WatchedFilmControls = ({ film, onChange }) => {
   const [hasWatched, setHasWatched] = useState(null);
@@ -14,31 +15,31 @@ const WatchedFilmControls = ({ film, onChange }) => {
     setHasWatched(film.isWatchedByUser);
   }, [film]);
 
-  function setWatched() {
-    setFilmWatchedById(film.id)
-      .then((res) => {
-        setHasWatched(res.watched);
-        onChange();
-      })
-      .catch((err) => {
-        toast.error(`Error setting film watched${err.data.Exception}`, {
-          autoClose: false,
-        });
+  const setWatched = useMutation({
+    mutationFn: (film) => setFilmWatchedById(film.id),
+    onSuccess: (res) => {
+      setHasWatched(res.watched);
+      onChange();
+    },
+    onError: (err) => {
+      toast.error(`Error setting film watched${err.data.Exception}`, {
+        autoClose: false,
       });
-  }
+    },
+  });
 
-  function setNotWatched() {
-    setFilmNotWatchedById(film.id)
-      .then((res) => {
-        setHasWatched(res.watched);
-        onChange();
-      })
-      .catch((err) => {
-        toast.error(`Error setting film not watched${err.data.Exception}`, {
-          autoClose: false,
-        });
+  const setNotWatched = useMutation({
+    mutationFn: (film) => setFilmNotWatchedById(film.id),
+    onSuccess: (res) => {
+      setHasWatched(res.watched);
+      onChange();
+    },
+    onError: (err) => {
+      toast.error(`Error setting film not watched${err.data.Exception}`, {
+        autoClose: false,
       });
-  }
+    },
+  });
 
   return (
     <div>
@@ -48,7 +49,7 @@ const WatchedFilmControls = ({ film, onChange }) => {
         <div className="mt-4">
           {hasWatched ? (
             <button
-              onClick={() => setNotWatched()}
+              onClick={() => setNotWatched.mutate(film)}
               className="bg-success text-white rounded py-2 px-4 hover:opacity-75 inline-flex items-center justify-center w-full"
             >
               <svg
@@ -74,7 +75,7 @@ const WatchedFilmControls = ({ film, onChange }) => {
             </button>
           ) : (
             <button
-              onClick={() => setWatched()}
+              onClick={() => setWatched.mutate(film)}
               className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-flex items-center justify-center w-full"
             >
               <svg

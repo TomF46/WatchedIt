@@ -11,7 +11,7 @@ import AddCreditForm from "../../../components/Credits/AddCreditForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
 import PersonMiniDetail from "../../../components/People/PersonMiniDetail";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 
 function AddCreditForFilm() {
   const navigate = useNavigate();
@@ -43,6 +43,22 @@ function AddCreditForFilm() {
     queryFn: () => getFilmById(id),
   });
 
+  const addFilmCredit = useMutation({
+    mutationFn: (credit) => {
+      setSaving(true);
+      return addCreditForFilm(film.id, credit);
+    },
+    onSuccess: () => {
+      navigate(`/films/${film.id}/credits`);
+    },
+    onError: (err) => {
+      setSaving(false);
+      toast.error(`Error adding credit ${err.data.Exception}`, {
+        autoClose: false,
+      });
+    },
+  });
+
   useEffect(() => {
     let debounced = debounce(() => {
       refetch();
@@ -65,24 +81,12 @@ function AddCreditForFilm() {
   }
 
   function handleSave(credit) {
-    setSaving(true);
-
     let payload = {
       personId: selectedPerson.id,
       role: credit.role,
       type: credit.type,
     };
-
-    addCreditForFilm(film.id, payload)
-      .then(() => {
-        navigate(`/films/${film.id}/credits`);
-      })
-      .catch((err) => {
-        setSaving(false);
-        toast.error(`Error adding credit ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
+    addFilmCredit.mutate(payload);
   }
 
   if (filmLoadError) {

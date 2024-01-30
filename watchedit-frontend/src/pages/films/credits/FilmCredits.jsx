@@ -7,7 +7,7 @@ import FilmCreditsList from "../../../components/Films/Credits/FilmCreditsList";
 import { confirmAlert } from "react-confirm-alert";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 function FilmCredits() {
   const { id } = useParams();
@@ -29,6 +29,19 @@ function FilmCredits() {
       }),
   });
 
+  const deleteCredit = useMutation({
+    mutationFn: (creditToRemove) => removeCredit(creditToRemove),
+    onSuccess: () => {
+      toast.success("Credit removed");
+      refetch();
+    },
+    onError: (err) => {
+      toast.error(`Error removing film credit ${err.data.Exception}`, {
+        autoClose: false,
+      });
+    },
+  });
+
   function handleRemoveCredit(credit) {
     confirmAlert({
       title: "Confirm removal",
@@ -36,7 +49,7 @@ function FilmCredits() {
       buttons: [
         {
           label: "Yes",
-          onClick: () => deleteCredit(credit),
+          onClick: () => deleteCredit.mutate(credit),
         },
         {
           label: "No",
@@ -44,19 +57,6 @@ function FilmCredits() {
         },
       ],
     });
-  }
-
-  function deleteCredit(credit) {
-    removeCredit(credit.id)
-      .then(() => {
-        toast.success("Credit removed");
-        refetch();
-      })
-      .catch((err) => {
-        toast.error(`Error removing film credit ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
   }
 
   if (filmLoadError) {

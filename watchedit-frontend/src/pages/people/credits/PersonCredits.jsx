@@ -7,7 +7,7 @@ import { getPersonById } from "../../../api/peopleApi";
 import PersonCreditsList from "../../../components/People/Credits/PersonCreditsList";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import PersonMiniDetail from "../../../components/People/PersonMiniDetail";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 function PersonCredits() {
   const { id } = useParams();
@@ -29,6 +29,19 @@ function PersonCredits() {
       }),
   });
 
+  const deleteCredit = useMutation({
+    mutationFn: (creditToRemove) => removeCredit(creditToRemove),
+    onSuccess: () => {
+      toast.success("Credit removed");
+      refetch();
+    },
+    onError: (err) => {
+      toast.error(`Error removing persons credit ${err.data.Exception}`, {
+        autoClose: false,
+      });
+    },
+  });
+
   function handleRemoveCredit(credit) {
     confirmAlert({
       title: "Confirm removal",
@@ -36,7 +49,7 @@ function PersonCredits() {
       buttons: [
         {
           label: "Yes",
-          onClick: () => deleteCredit(credit),
+          onClick: () => deleteCredit.mutate(credit),
         },
         {
           label: "No",
@@ -44,19 +57,6 @@ function PersonCredits() {
         },
       ],
     });
-  }
-
-  function deleteCredit(credit) {
-    removeCredit(credit.id)
-      .then(() => {
-        toast.success("Credit removed");
-        refetch();
-      })
-      .catch((err) => {
-        toast.error(`Error removing persons credit ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
   }
 
   if (personLoadError) {

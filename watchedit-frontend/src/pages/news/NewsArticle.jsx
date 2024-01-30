@@ -8,7 +8,7 @@ import {
 import { toast } from "react-toastify";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import rehypeSanitize from "rehype-sanitize";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 function NewsArticle() {
   const { id } = useParams();
@@ -31,23 +31,20 @@ function NewsArticle() {
       }),
   });
 
-  function setArticlePublished(publish) {
-    setNewsArticlePublishedStatusById(article.id, publish)
-      .then(() => {
-        toast.success(`Article ${publish ? "published" : "unpublished"}.`);
-        refetch();
-      })
-      .catch((error) => {
-        toast.error(
-          `Error ${publish ? "publishing" : "unpublishing"} article. ${
-            error.data.Exception
-          }`,
-          {
-            autoClose: false,
-          },
-        );
+  const setArticlePublished = useMutation({
+    mutationFn: (publish) => {
+      return setNewsArticlePublishedStatusById(article.id, publish);
+    },
+    onSuccess: (res) => {
+      toast.success(`Article ${res.publish ? "published" : "unpublished"}.`);
+      refetch();
+    },
+    onError: (err) => {
+      toast.error(`Error updating article. ${err.data.Exception}`, {
+        autoClose: false,
       });
-  }
+    },
+  });
 
   if (isLoading) return <LoadingMessage message={"Loading article."} />;
 
@@ -72,7 +69,9 @@ function NewsArticle() {
           </div>
           <div className="px-2 py-2">
             <button
-              onClick={() => setArticlePublished(!article.published)}
+              onClick={() => {
+                setArticlePublished.mutate(!article.published);
+              }}
               className="bg-backgroundOffset2 text-primary font-semibold rounded py-2 px-4 hover:opacity-75 inline-block"
             >
               {article.published ? "Unpublish" : "Publish"}
@@ -95,7 +94,7 @@ function NewsArticle() {
               Edit article
             </Link>
             <button
-              onClick={() => setArticlePublished(!article.published)}
+              onClick={() => setArticlePublished.mutate(!article.published)}
               className="bg-backgroundOffset2 text-primary font-semibold rounded py-2 px-4 ml-2 hover:opacity-75 inline-block"
             >
               {article.published ? "Unpublish" : "Publish"}

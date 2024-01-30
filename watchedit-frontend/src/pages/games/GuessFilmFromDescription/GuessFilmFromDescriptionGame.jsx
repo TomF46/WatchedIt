@@ -11,7 +11,7 @@ import GameInfoSection from "../GameInfoSection";
 import GuessSection from "../GuessSection";
 import RoundsSection from "./RoundsSection";
 import { confirmAlert } from "react-confirm-alert";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 function GuessFilmFromDescriptionGame() {
   const { id } = useParams();
@@ -28,32 +28,46 @@ function GuessFilmFromDescriptionGame() {
       }),
   });
 
-  function guess(film) {
-    let round = game.rounds[game.rounds.length - 1];
-    makeGuessForGuessFilmFromDescriptionGame(game.id, {
-      roundId: round.id,
-      filmId: film.id,
-    })
-      .then((res) => {
-        setGame(res);
-        roundsRef.current.scrollIntoView({
-          block: "nearest",
-          behavior: "smooth",
-        });
-        if (res.status == 1) toast.success("Correct, on to the next round!");
-        if (res.status == 3)
-          toast.info(`Incorrect, your final score is ${res.score}.`);
-        if (res.status == 5)
-          toast.info(
-            `You've achieved the max score of ${res.score}, as more films get added the max score increases so come back soon.`,
-          );
-      })
-      .catch((err) => {
-        toast.error(`Error submitting guess ${err.data.Exception}`, {
-          autoClose: false,
-        });
+  const guess = useMutation({
+    mutationFn: (film) => {
+      let round = game.rounds[game.rounds.length - 1];
+      return makeGuessForGuessFilmFromDescriptionGame(game.id, {
+        roundId: round.id,
+        filmId: film.id,
       });
-  }
+    },
+    onSuccess: (res) => {
+      setGame(res);
+      roundsRef.current.scrollIntoView({
+        block: "nearest",
+        behavior: "smooth",
+      });
+      if (res.status == 1) toast.success("Correct, on to the next round!");
+      if (res.status == 3)
+        toast.info(`Incorrect, your final score is ${res.score}.`);
+      if (res.status == 5)
+        toast.info(
+          `You've achieved the max score of ${res.score}, as more films get added the max score increases so come back soon.`,
+        );
+    },
+    onError: (err) => {
+      toast.error(`Error submitting guess ${err.data.Exception}`, {
+        autoClose: false,
+      });
+    },
+  });
+
+  const forefeit = useMutation({
+    mutationFn: (game) => forefeitGuessFilmFromDescriptionGameById(game.id),
+    onSuccess: () => {
+      navigate(`/games/filmFromDescription`);
+    },
+    onError: (err) => {
+      toast.error(`Error forefeiting game ${err.data.Exception}`, {
+        autoClose: false,
+      });
+    },
+  });
 
   function confirmForefeit() {
     confirmAlert({
@@ -62,7 +76,7 @@ function GuessFilmFromDescriptionGame() {
       buttons: [
         {
           label: "Yes",
-          onClick: () => forefeit(),
+          onClick: () => forefeit.mutate(game),
         },
         {
           label: "No",
@@ -70,18 +84,6 @@ function GuessFilmFromDescriptionGame() {
         },
       ],
     });
-  }
-
-  function forefeit() {
-    forefeitGuessFilmFromDescriptionGameById(game.id)
-      .then(() => {
-        navigate(`/games/filmFromDescription`);
-      })
-      .catch((err) => {
-        toast.error(`Error forefeiting game ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
   }
 
   function startAgain() {
@@ -134,7 +136,9 @@ function GuessFilmFromDescriptionGame() {
                 <RoundsSection game={game} />
               </div>
               <div className="mt-4">
-                {game.status == 1 && <GuessSection guess={guess} />}
+                {game.status == 1 && (
+                  <GuessSection guess={(film) => guess.mutate(film)} />
+                )}
               </div>
             </>
           )}

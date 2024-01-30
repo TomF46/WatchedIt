@@ -7,7 +7,7 @@ import PersonCreditsOverviewList from "../../components/People/Credits/PersonCre
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import { format, parseISO } from "date-fns";
 import LikedPersonControls from "../../components/People/Likes/LikedPersonControls";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 function Person() {
   const { id } = useParams();
@@ -25,6 +25,19 @@ function Person() {
     queryFn: () => getPersonById(id),
   });
 
+  const deletePerson = useMutation({
+    mutationFn: (personToRemove) => removePerson(personToRemove),
+    onSuccess: () => {
+      toast.success("Person removed");
+      navigate("/people");
+    },
+    onError: (err) => {
+      toast.error(`Error removing person ${err.data.Exception}`, {
+        autoClose: false,
+      });
+    },
+  });
+
   function confirmDelete() {
     confirmAlert({
       title: "Confirm deletion",
@@ -32,7 +45,7 @@ function Person() {
       buttons: [
         {
           label: "Yes",
-          onClick: () => deletePerson(),
+          onClick: () => deletePerson.mutate(person),
         },
         {
           label: "No",
@@ -40,19 +53,6 @@ function Person() {
         },
       ],
     });
-  }
-
-  function deletePerson() {
-    removePerson(person)
-      .then(() => {
-        toast.success("Person removed");
-        navigate("/people");
-      })
-      .catch((err) => {
-        toast.error(`Error removing person ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
   }
 
   function handleLikesCountChange() {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { newTrivia } from "../../../tools/obJectShapes";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { getFilmTriviaById, saveFilmTrivia } from "../../../api/filmTriviaApi";
 import { getFilmById } from "../../../api/filmsApi";
@@ -40,23 +40,25 @@ function EditTrivia() {
       }),
   });
 
+  const editTrivia = useMutation({
+    mutationFn: (updatedTrivia) => {
+      setSaving(true);
+      return saveFilmTrivia(id, updatedTrivia);
+    },
+    onSuccess: () => {
+      toast.success("Trivia saved");
+      navigate(`/films/${id}/trivia`);
+    },
+    onError: (err) => {
+      setSaving(false);
+      toast.error(`Error saving trivia ${err.data.Exception}`, {
+        autoClose: false,
+      });
+    },
+  });
+
   function handleUpdate(updatedTrivia) {
     setTrivia(updatedTrivia);
-  }
-
-  function handleSave() {
-    setSaving(true);
-    saveFilmTrivia(id, trivia)
-      .then(() => {
-        toast.success("Trivia saved");
-        navigate(`/films/${id}/trivia`);
-      })
-      .catch((err) => {
-        setSaving(false);
-        toast.error(`Error saving trivia ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
   }
 
   if (isLoadingFilm) return <LoadingMessage message={"Loading film."} />;
@@ -83,7 +85,9 @@ function EditTrivia() {
         film={film}
         trivia={trivia}
         updateTrivia={handleUpdate}
-        triggerSave={handleSave}
+        triggerSave={() => {
+          editTrivia.mutate(trivia);
+        }}
         saving={saving}
       />
     </div>

@@ -55,9 +55,9 @@ export function addCreditForPerson(id, credit) {
     });
 }
 
-export function removeCredit(id) {
+export function removeCredit(credit) {
   return client
-    .delete(`/api/credits/${id}`)
+    .delete(`/api/credits/${credit.id}`)
     .then((response) => {
       return response.data;
     })

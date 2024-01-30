@@ -9,7 +9,7 @@ import {
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import NotificationsList from "../../components/Notifications/NotificationsList";
 import PaginationControls from "../../components/PaginationControls";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 
 const NotificationsPage = () => {
   const dispatch = useDispatch();
@@ -31,6 +31,19 @@ const NotificationsPage = () => {
     placeholderData: keepPreviousData,
   });
 
+  const setNotificationRead = useMutation({
+    mutationFn: (notification) => readNotification(notification.id),
+    onSuccess: () => {
+      dispatch(decrementNotificationCount());
+      refetch();
+    },
+    onError: (err) => {
+      toast.error(`Error reading notification ${err.message}`, {
+        autoClose: false,
+      });
+    },
+  });
+
   if (isLoading) return <LoadingMessage message={"Loading notifications"} />;
 
   if (error) {
@@ -42,16 +55,7 @@ const NotificationsPage = () => {
 
   function handleReadNotification(notification) {
     if (notification.read) return;
-    readNotification(notification.id)
-      .then(() => {
-        dispatch(decrementNotificationCount());
-        refetch();
-      })
-      .catch((error) => {
-        toast.error(`Error reading notification ${error.message}`, {
-          autoClose: false,
-        });
-      });
+    setNotificationRead.mutate(notification);
   }
 
   return (

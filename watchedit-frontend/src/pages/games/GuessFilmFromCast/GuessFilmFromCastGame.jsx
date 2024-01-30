@@ -13,7 +13,7 @@ import GuessSection from "../GuessSection";
 import CorrectGuessFilm from "../CorrectGuessFilm";
 import GuessFilmFailed from "../GuessFilmFailed";
 import { confirmAlert } from "react-confirm-alert";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 function GuessFilmFromCastGame() {
   const { id } = useParams();
@@ -30,25 +30,39 @@ function GuessFilmFromCastGame() {
       }),
   });
 
-  function guess(film) {
-    makeGuessForGuessFilmFromCastGame(game.id, { filmId: film.id })
-      .then((res) => {
-        setGame(res);
-        cluesRef.current.scrollIntoView({ block: "end", behavior: "smooth" });
-        if (res.status == 1)
-          toast.info("Thats not right, try again with a new clue");
-        if (res.status == 2)
-          toast.error(
-            "Unlucky, you've ran out of clues and still haven't got it correct, you lose!",
-          );
-        if (res.status == 3) toast.success(`Correct the film was ${film.name}`);
-      })
-      .catch((err) => {
-        toast.error(`Error submitting guess ${err.data.Exception}`, {
-          autoClose: false,
-        });
+  const guess = useMutation({
+    mutationFn: (film) =>
+      makeGuessForGuessFilmFromCastGame(game.id, { filmId: film.id }),
+    onSuccess: (res) => {
+      setGame(res);
+      cluesRef.current.scrollIntoView({ block: "end", behavior: "smooth" });
+      if (res.status == 1)
+        toast.info("Thats not right, try again with a new clue");
+      if (res.status == 2)
+        toast.error(
+          "Unlucky, you've ran out of clues and still haven't got it correct, you lose!",
+        );
+      if (res.status == 3)
+        toast.success(`Correct the film was ${res.film.name}`);
+    },
+    onError: (err) => {
+      toast.error(`Error submitting guess ${err.data.Exception}`, {
+        autoClose: false,
       });
-  }
+    },
+  });
+
+  const forefeit = useMutation({
+    mutationFn: (game) => forefeitGuessFilmFromCastGameById(game.id),
+    onSuccess: () => {
+      navigate(`/games/filmFromCast`);
+    },
+    onError: (err) => {
+      toast.error(`Error forefeiting game ${err.data.Exception}`, {
+        autoClose: false,
+      });
+    },
+  });
 
   function confirmForefeit() {
     confirmAlert({
@@ -57,7 +71,7 @@ function GuessFilmFromCastGame() {
       buttons: [
         {
           label: "Yes",
-          onClick: () => forefeit(),
+          onClick: () => forefeit.mutate(game),
         },
         {
           label: "No",
@@ -65,18 +79,6 @@ function GuessFilmFromCastGame() {
         },
       ],
     });
-  }
-
-  function forefeit() {
-    forefeitGuessFilmFromCastGameById(game.id)
-      .then(() => {
-        navigate(`/games/filmFromCast`);
-      })
-      .catch((err) => {
-        toast.error(`Error forefeiting game ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
   }
 
   function startAgain() {
@@ -129,7 +131,9 @@ function GuessFilmFromCastGame() {
                 <ClueSection game={game} />
               </div>
               <div className="mt-4">
-                {game.status == 1 && <GuessSection guess={guess} />}
+                {game.status == 1 && (
+                  <GuessSection guess={(film) => guess.mutate(film)} />
+                )}
                 {game.status == 2 && <GuessFilmFailed />}
                 {game.status == 3 && <CorrectGuessFilm game={game} />}
               </div>

@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { newReview } from "../../../tools/obJectShapes";
 import ManageReview from "./ManageReview";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { getFilmById } from "../../../api/filmsApi";
 import { saveReview } from "../../../api/filmReviewApi";
 
@@ -23,23 +23,25 @@ function AddReview() {
     queryFn: () => getFilmById(id),
   });
 
+  const addReview = useMutation({
+    mutationFn: (newReview) => {
+      setSaving(true);
+      return saveReview(id, newReview);
+    },
+    onSuccess: (res) => {
+      toast.success("Review saved");
+      navigate(`/films/${id}/reviews/${res.id}`);
+    },
+    onError: (err) => {
+      setSaving(false);
+      toast.error(`Error saving review ${err.data.Exception}`, {
+        autoClose: false,
+      });
+    },
+  });
+
   function handleUpdate(updatedReview) {
     setReview(updatedReview);
-  }
-
-  function handleSave() {
-    setSaving(true);
-    saveReview(id, review)
-      .then((res) => {
-        toast.success("Review saved");
-        navigate(`/films/${id}/reviews/${res.id}`);
-      })
-      .catch((err) => {
-        setSaving(false);
-        toast.error(`Error saving review ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
   }
 
   if (isLoading) return <LoadingMessage message={"Loading film."} />;
@@ -57,7 +59,9 @@ function AddReview() {
         film={film}
         review={review}
         updateReview={handleUpdate}
-        triggerSave={handleSave}
+        triggerSave={() => {
+          addReview.mutate(review);
+        }}
         saving={saving}
       ></ManageReview>
     </div>

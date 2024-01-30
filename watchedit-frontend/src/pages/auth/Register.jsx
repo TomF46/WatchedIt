@@ -5,6 +5,7 @@ import RegisterForm from "../../components/Auth/RegisterForm";
 import { register } from "../../api/authenticationApi";
 import { toast } from "react-toastify";
 import ReasonsToLoginSection from "../../components/Home/ReasonsToLoginSection";
+import { useMutation } from "@tanstack/react-query";
 
 function Register() {
   const userIsAuthenticated = useSelector((state) => state.tokens != null);
@@ -17,6 +18,23 @@ function Register() {
   });
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
+
+  const registerUser = useMutation({
+    mutationFn: (newUser) => {
+      setSaving(true);
+      return register(newUser);
+    },
+    onSuccess: () => {
+      toast.success("Successfully registered");
+      navigate("/login");
+    },
+    onError: (err) => {
+      setSaving(false);
+      toast.error(`Error registering ${err.data.Exception}`, {
+        autoClose: false,
+      });
+    },
+  });
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -45,18 +63,7 @@ function Register() {
   function handleSave(event) {
     event.preventDefault();
     if (!formIsValid()) return;
-    setSaving(true);
-    register(user)
-      .then(() => {
-        toast.success("Successfully registered");
-        navigate("/login");
-      })
-      .catch((err) => {
-        setSaving(false);
-        toast.error(`Error registering ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
+    registerUser.mutate(user);
   }
 
   return (

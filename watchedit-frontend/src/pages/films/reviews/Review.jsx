@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { deleteReview, getReviewById } from "../../../api/filmReviewApi";
+import { removeReview, getReviewById } from "../../../api/filmReviewApi";
 import { confirmAlert } from "react-confirm-alert";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import ReviewCommentsSection from "../../../components/Reviews/ReviewCommentsSection";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 function Review() {
   const { id, reviewId } = useParams();
@@ -29,6 +29,19 @@ function Review() {
       }),
   });
 
+  const deleteReview = useMutation({
+    mutationFn: (reviewToRemove) => removeReview(id, reviewToRemove),
+    onSuccess: () => {
+      toast.success("Review removed");
+      navigate(`/films/${id}/reviews`);
+    },
+    onError: (err) => {
+      toast.error(`Error removing review ${err.data.Exception}`, {
+        autoClose: false,
+      });
+    },
+  });
+
   function confirmDelete() {
     confirmAlert({
       title: "Confirm removal",
@@ -36,7 +49,7 @@ function Review() {
       buttons: [
         {
           label: "Yes",
-          onClick: () => removeReview(),
+          onClick: () => deleteReview.mutate(review),
         },
         {
           label: "No",
@@ -44,19 +57,6 @@ function Review() {
         },
       ],
     });
-  }
-
-  function removeReview() {
-    deleteReview(id, review)
-      .then(() => {
-        toast.success("Review removed");
-        navigate(`/films/${id}/reviews`);
-      })
-      .catch((err) => {
-        toast.error(`Error removing review ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
   }
 
   if (isLoading) return <LoadingMessage message={"Loading review."} />;

@@ -8,7 +8,7 @@ import {
 } from "../../../api/games/guessFilmFromCastGameApi";
 import GuessFilmFromCastGamesList from "./GuessFilmFromCastGamesList";
 import { useNavigate } from "react-router-dom";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 
 function GuessFilmFromCast() {
   const navigate = useNavigate();
@@ -27,17 +27,17 @@ function GuessFilmFromCast() {
     placeholderData: keepPreviousData,
   });
 
-  function startNewGame() {
-    startGuessFilmFromCastGame()
-      .then((res) => {
-        navigate(`/games/filmFromCast/${res.id}`);
-      })
-      .catch((err) => {
-        toast.error(`Error starting new game ${err.data.Exception}`, {
-          autoClose: false,
-        });
+  const startNewGame = useMutation({
+    mutationFn: () => startGuessFilmFromCastGame(),
+    onSuccess: (res) => {
+      navigate(`/games/filmFromCast/${res.id}`);
+    },
+    onError: (err) => {
+      toast.error(`Error starting new game ${err.data.Exception}`, {
+        autoClose: false,
       });
-  }
+    },
+  });
 
   return (
     <div className="films-from-cast-page">
@@ -72,9 +72,7 @@ function GuessFilmFromCast() {
         </div>
         <div className="col-span-12 md:col-span-4 text-center bg-backgroundOffset p-4 shadow rounded mb-4 ml-1 flex items-center justify-center">
           <button
-            onClick={() => {
-              startNewGame();
-            }}
+            onClick={() => startNewGame.mutate()}
             className="bg-primary text-white text-center rounded py-2 px-4 mb-4 hover:opacity-75"
           >
             New game

@@ -4,29 +4,32 @@ import { toast } from "react-toastify";
 import { newPerson } from "../../../tools/obJectShapes";
 import ManagePerson from "./ManagePerson";
 import { savePerson } from "../../../api/peopleApi";
+import { useMutation } from "@tanstack/react-query";
 
 function AddPerson() {
   const navigate = useNavigate();
   const [person, setPerson] = useState({ ...newPerson });
   const [saving, setSaving] = useState(false);
 
+  const addPerson = useMutation({
+    mutationFn: (newPerson) => {
+      setSaving(true);
+      return savePerson(newPerson);
+    },
+    onSuccess: (res) => {
+      toast.success("Person saved");
+      navigate(`/people/${res.id}`);
+    },
+    onError: (err) => {
+      setSaving(false);
+      toast.error(`Error saving person ${err.data.Exception}`, {
+        autoClose: false,
+      });
+    },
+  });
+
   function handleUpdate(updatedPerson) {
     setPerson(updatedPerson);
-  }
-
-  function handleSave() {
-    setSaving(true);
-    savePerson(person)
-      .then((res) => {
-        toast.success("Person saved");
-        navigate(`/people/${res.id}`);
-      })
-      .catch((err) => {
-        setSaving(false);
-        toast.error(`Error saving ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
   }
 
   return (
@@ -34,7 +37,9 @@ function AddPerson() {
       <ManagePerson
         person={person}
         updatePerson={handleUpdate}
-        triggerSave={handleSave}
+        triggerSave={() => {
+          addPerson.mutate(person);
+        }}
         saving={saving}
       ></ManagePerson>
     </div>

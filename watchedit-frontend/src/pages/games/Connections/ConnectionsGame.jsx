@@ -13,7 +13,7 @@ import ConnectionsClueSection from "./ConnectionsClueSection";
 import GuessPersonFailed from "../GuessPersonFailed";
 import CorrectGuessPerson from "../CorrectGuessPerson";
 import ConnectionsGuessSection from "./ConnectionsGuessSection";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 function ConnectionsGame() {
   const { id } = useParams();
@@ -30,26 +30,39 @@ function ConnectionsGame() {
       }),
   });
 
-  function guess(person) {
-    makeGuessForConnectionsGame(game.id, { personId: person.id })
-      .then((res) => {
-        setGame(res);
-        cluesRef.current.scrollIntoView({ block: "end", behavior: "smooth" });
-        if (res.status == 1)
-          toast.info("Thats not right, try again with a new clue");
-        if (res.status == 2)
-          toast.error(
-            "Unlucky, you've ran out of clues and still haven't got it correct, you lose!",
-          );
-        if (res.status == 3)
-          toast.success(`Correct the person was ${person.fullName}`);
-      })
-      .catch((err) => {
-        toast.error(`Error submitting guess ${err.data.Exception}`, {
-          autoClose: false,
-        });
+  const guess = useMutation({
+    mutationFn: (person) =>
+      makeGuessForConnectionsGame(game.id, { personId: person.id }),
+    onSuccess: (res) => {
+      setGame(res);
+      cluesRef.current.scrollIntoView({ block: "end", behavior: "smooth" });
+      if (res.status == 1)
+        toast.info("Thats not right, try again with a new clue");
+      if (res.status == 2)
+        toast.error(
+          "Unlucky, you've ran out of clues and still haven't got it correct, you lose!",
+        );
+      if (res.status == 3)
+        toast.success(`Correct the person was ${res.person.fullName}`);
+    },
+    onError: (err) => {
+      toast.error(`Error submitting guess ${err.data.Exception}`, {
+        autoClose: false,
       });
-  }
+    },
+  });
+
+  const forefeit = useMutation({
+    mutationFn: (game) => forefeitConnectionsGameById(game.id),
+    onSuccess: () => {
+      navigate(`/games/connections`);
+    },
+    onError: (err) => {
+      toast.error(`Error forefeiting game ${err.data.Exception}`, {
+        autoClose: false,
+      });
+    },
+  });
 
   function confirmForefeit() {
     confirmAlert({
@@ -58,7 +71,7 @@ function ConnectionsGame() {
       buttons: [
         {
           label: "Yes",
-          onClick: () => forefeit(),
+          onClick: () => forefeit.mutate(game),
         },
         {
           label: "No",
@@ -66,18 +79,6 @@ function ConnectionsGame() {
         },
       ],
     });
-  }
-
-  function forefeit() {
-    forefeitConnectionsGameById(game.id)
-      .then(() => {
-        navigate(`/games/connections`);
-      })
-      .catch((err) => {
-        toast.error(`Error forefeiting game ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
   }
 
   function startAgain() {
@@ -130,7 +131,11 @@ function ConnectionsGame() {
                 <ConnectionsClueSection clues={game.clues} />
               </div>
               <div className="mt-4">
-                {game.status == 1 && <ConnectionsGuessSection guess={guess} />}
+                {game.status == 1 && (
+                  <ConnectionsGuessSection
+                    guess={(person) => guess.mutate(person)}
+                  />
+                )}
                 {game.status == 2 && <GuessPersonFailed />}
                 {game.status == 3 && <CorrectGuessPerson game={game} />}
               </div>

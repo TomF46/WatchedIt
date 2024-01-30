@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { like, removeLike } from "../../../api/LikesApi";
 import LoadingMessage from "../../Loading/LoadingMessage";
+import { useMutation } from "@tanstack/react-query";
 
 const LikedPersonControls = ({ person, onChange }) => {
   const [hasLiked, setHasLiked] = useState(null);
@@ -11,31 +12,31 @@ const LikedPersonControls = ({ person, onChange }) => {
     setHasLiked(person.isLikedByUser);
   }, [person]);
 
-  function setLiked() {
-    like(person.id)
-      .then((res) => {
-        setHasLiked(res.liked);
-        onChange();
-      })
-      .catch((err) => {
-        toast.error(`Error setting person liked ${err.data.Exception}`, {
-          autoClose: false,
-        });
+  const setLiked = useMutation({
+    mutationFn: (person) => like(person.id),
+    onSuccess: (res) => {
+      setHasLiked(res.liked);
+      onChange();
+    },
+    onError: (err) => {
+      toast.error(`Error setting person liked ${err.data.Exception}`, {
+        autoClose: false,
       });
-  }
+    },
+  });
 
-  function setLikeRemoved() {
-    removeLike(person.id)
-      .then((res) => {
-        setHasLiked(res.liked);
-        onChange();
-      })
-      .catch((err) => {
-        toast.error(`Error removing like ${err.data.Exception}`, {
-          autoClose: false,
-        });
+  const setLikeRemoved = useMutation({
+    mutationFn: (person) => removeLike(person.id),
+    onSuccess: (res) => {
+      setHasLiked(res.liked);
+      onChange();
+    },
+    onError: (err) => {
+      toast.error(`Error removing liked ${err.data.Exception}`, {
+        autoClose: false,
       });
-  }
+    },
+  });
 
   return (
     <div>
@@ -45,7 +46,7 @@ const LikedPersonControls = ({ person, onChange }) => {
         <div className="mt-4">
           {hasLiked ? (
             <button
-              onClick={() => setLikeRemoved()}
+              onClick={() => setLikeRemoved.mutate(person)}
               className="bg-success text-white rounded py-2 px-4 hover:opacity-75 inline-flex items-center justify-center w-full"
             >
               <svg
@@ -66,7 +67,7 @@ const LikedPersonControls = ({ person, onChange }) => {
             </button>
           ) : (
             <button
-              onClick={() => setLiked()}
+              onClick={() => setLiked.mutate(person)}
               className="py-2 px-4 rounded bg-primary w-full hover:opacity-75 inline-flex items-center justify-center"
             >
               <svg

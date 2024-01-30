@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { newCategory } from "../../../tools/obJectShapes";
 import ManageCategory from "./ManageCategory";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { getCategoryById, saveCategory } from "../../../api/categoriesApi";
 
@@ -12,6 +12,23 @@ function EditCategory() {
   const navigate = useNavigate();
   const [category, setCategory] = useState({ ...newCategory });
   const [saving, setSaving] = useState(false);
+
+  const editCategory = useMutation({
+    mutationFn: (updatedCategory) => {
+      setSaving(true);
+      return saveCategory(updatedCategory);
+    },
+    onSuccess: (res) => {
+      toast.success("Category saved");
+      navigate(`/categories/${res.id}`);
+    },
+    onError: (err) => {
+      setSaving(false);
+      toast.error(`Error saving ${err.data.Exception}`, {
+        autoClose: false,
+      });
+    },
+  });
 
   const { isLoading, error } = useQuery({
     queryKey: ["category-update", id],
@@ -29,21 +46,6 @@ function EditCategory() {
     setCategory(updatedCategory);
   }
 
-  function handleSave() {
-    setSaving(true);
-    saveCategory(category)
-      .then((res) => {
-        toast.success("Category saved");
-        navigate(`/categories/${res.id}`);
-      })
-      .catch((err) => {
-        setSaving(false);
-        toast.error(`Error saving ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
-  }
-
   if (isLoading) return <LoadingMessage message={"Loading category."} />;
 
   if (error) {
@@ -58,7 +60,7 @@ function EditCategory() {
       <ManageCategory
         category={category}
         updateCategory={handleUpdate}
-        triggerSave={handleSave}
+        triggerSave={() => editCategory.mutate(category)}
         saving={saving}
       ></ManageCategory>
     </div>
