@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmById, saveFilm } from "../../../api/filmsApi";
 import { newFilm } from "../../../tools/obJectShapes";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { parseISO } from "date-fns";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import ManageFilm from "./ManageFilm";
@@ -32,6 +32,23 @@ function EditFilm() {
       }),
   });
 
+  const updateFilm = useMutation({
+    mutationFn: (updatedFilm) => {
+      setSaving(true);
+      return saveFilm(updatedFilm);
+    },
+    onSuccess: (res) => {
+      toast.success("Film saved");
+      navigate(`/films/${res.id}`);
+    },
+    onError: (err) => {
+      setSaving(false);
+      toast.error(`Error saving ${err.data.Exception}`, {
+        autoClose: false,
+      });
+    },
+  });
+
   function handleUpdate(updatedFilm) {
     setFilm(updatedFilm);
   }
@@ -39,18 +56,7 @@ function EditFilm() {
   function handleSave() {
     let filmToPost = { ...film };
     filmToPost.categories = film.categories.map((category) => category.id);
-    setSaving(true);
-    saveFilm(filmToPost)
-      .then((res) => {
-        toast.success("Film saved");
-        navigate(`/films/${res.id}`);
-      })
-      .catch((err) => {
-        setSaving(false);
-        toast.error(`Error saving ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
+    updateFilm.mutate(filmToPost);
   }
 
   if (isLoading) return <LoadingMessage message={"Loading film."} />;

@@ -4,11 +4,29 @@ import { toast } from "react-toastify";
 import { saveFilm } from "../../../api/filmsApi";
 import { newFilm } from "../../../tools/obJectShapes";
 import ManageFilm from "./ManageFilm";
+import { useMutation } from "@tanstack/react-query";
 
 function AddFilm() {
   const navigate = useNavigate();
   const [film, setFilm] = useState({ ...newFilm });
   const [saving, setSaving] = useState(false);
+
+  const addFilm = useMutation({
+    mutationFn: (newFilm) => {
+      setSaving(true);
+      return saveFilm(newFilm);
+    },
+    onSuccess: (res) => {
+      toast.success("Film saved");
+      navigate(`/films/${res.id}`);
+    },
+    onError: (err) => {
+      setSaving(false);
+      toast.error(`Error saving ${err.data.Exception}`, {
+        autoClose: false,
+      });
+    },
+  });
 
   function handleUpdate(updatedFilm) {
     setFilm(updatedFilm);
@@ -17,18 +35,7 @@ function AddFilm() {
   function handleSave() {
     let filmToPost = { ...film };
     filmToPost.categories = film.categories.map((category) => category.id);
-    setSaving(true);
-    saveFilm(filmToPost)
-      .then((res) => {
-        toast.success("Film saved");
-        navigate(`/films/${res.id}`);
-      })
-      .catch((err) => {
-        setSaving(false);
-        toast.error(`Error saving ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
+    addFilm.mutate(filmToPost);
   }
 
   return (

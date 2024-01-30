@@ -11,7 +11,7 @@ import LoadingMessage from "../../components/Loading/LoadingMessage";
 import LatestReviews from "../../components/Reviews/LatestReviews";
 import SimilarFilmsReel from "../../components/Films/SimilarFilmsReel";
 import TriviaOverview from "../../components/Films/Trivia/TriviaOverview";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 function Film() {
   const { id } = useParams();
@@ -29,6 +29,19 @@ function Film() {
     queryFn: () => getFilmById(id),
   });
 
+  const deleteFilm = useMutation({
+    mutationFn: (filmToRemove) => removeFilm(filmToRemove),
+    onSuccess: () => {
+      toast.success("Film removed");
+      navigate("/films");
+    },
+    onError: (err) => {
+      toast.error(`Error removing film ${err.data.Exception}`, {
+        autoClose: false,
+      });
+    },
+  });
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
@@ -40,7 +53,7 @@ function Film() {
       buttons: [
         {
           label: "Yes",
-          onClick: () => deleteFilm(),
+          onClick: () => deleteFilm.mutate(film),
         },
         {
           label: "No",
@@ -48,19 +61,6 @@ function Film() {
         },
       ],
     });
-  }
-
-  function deleteFilm() {
-    removeFilm(film)
-      .then(() => {
-        toast.success("Film removed");
-        navigate("/films");
-      })
-      .catch((err) => {
-        toast.error(`Error removing film ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
   }
 
   function handleWatchedCountChange() {
