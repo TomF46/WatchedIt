@@ -8,12 +8,48 @@ import { toast } from "react-toastify";
 import TextInput from "../../components/Inputs/TextInput";
 import { uploadImage } from "../../api/imageApi";
 import NewsArticlePreview from "../../components/News/NewsArticlePreview";
+import { useMutation } from "@tanstack/react-query";
 
 function ManageNewsArticle({ article, updateArticle, triggerSave, saving }) {
   const [errors, setErrors] = useState({});
   const [imageUploading, setImageUploading] = useState(false);
   const [thumbnailUploading, setThumbnailUploading] = useState(false);
   const [generatedUrl, setGeneratedUrl] = useState(null);
+
+  const uploadThumbnail = useMutation({
+    mutationFn: (file) => {
+      setThumbnailUploading(true);
+      return uploadImage(file, "thumbnails");
+    },
+    onSuccess: (res) => {
+      article.thumbnailUrl = res.url;
+      updateArticle({ ...article });
+      setThumbnailUploading(false);
+    },
+    onError: (err) => {
+      setThumbnailUploading(false);
+      toast.error(`Error uploading thumbnail ${err.message}`, {
+        autoClose: false,
+      });
+    },
+  });
+
+  const uploadArticleImage = useMutation({
+    mutationFn: (file) => {
+      setImageUploading(true);
+      return uploadImage(file, "articles");
+    },
+    onSuccess: (res) => {
+      setGeneratedUrl(res.url);
+      setImageUploading(false);
+    },
+    onError: (err) => {
+      setImageUploading(false);
+      toast.error(`Error uploading image ${err.message}`, {
+        autoClose: false,
+      });
+    },
+  });
 
   function setContent(value) {
     let formattedValue = value.replaceAll("\\", "/"); // Fixes formatting that md editor adds that breaks preview and article.
@@ -38,35 +74,12 @@ function ManageNewsArticle({ article, updateArticle, triggerSave, saving }) {
     }
 
     let file = event.target.files[0];
-    setThumbnailUploading(true);
-    uploadImage(file, "thumbnails")
-      .then((res) => {
-        article.thumbnailUrl = res.url;
-        updateArticle({ ...article });
-        setThumbnailUploading(false);
-      })
-      .catch((error) => {
-        setThumbnailUploading(false);
-        toast.error(`Error uploading thumbnail ${error.message}`, {
-          autoClose: false,
-        });
-      });
+    uploadThumbnail.mutate(file);
   }
 
   function handleImageUpload(event) {
     let file = event.target.files[0];
-    setImageUploading(true);
-    uploadImage(file, "articles")
-      .then((res) => {
-        setGeneratedUrl(res.url);
-        setImageUploading(false);
-      })
-      .catch((error) => {
-        setImageUploading(false);
-        toast.error(`Error uploading image ${error.message}`, {
-          autoClose: false,
-        });
-      });
+    uploadArticleImage.mutate(file);
   }
 
   function formIsValid() {

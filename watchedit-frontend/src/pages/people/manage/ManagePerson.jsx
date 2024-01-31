@@ -4,12 +4,31 @@ import { toast } from "react-toastify";
 import { uploadImage } from "../../../api/imageApi";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import ManagePersonForm from "../../../components/People/Manage/ManagePersonForm";
+import { useMutation } from "@tanstack/react-query";
 
 function ManagePerson({ person, updatePerson, triggerSave, saving }) {
   const [errors, setErrors] = useState({});
   const [imageUploading, setImageUploading] = useState(false);
   const defaultImage =
     "https://watched-it.s3.eu-west-1.amazonaws.com/films/b625dbbe-0a08-4162-9788-cda553551ff4";
+
+  const uploadHeadshot = useMutation({
+    mutationFn: (file) => {
+      setImageUploading(true);
+      return uploadImage(file, "people");
+    },
+    onSuccess: (res) => {
+      person.imageUrl = res.url;
+      updatePerson({ ...person });
+      setImageUploading(false);
+    },
+    onError: (err) => {
+      setImageUploading(false);
+      toast.error(`Error uploading image ${err.message}`, {
+        autoClose: false,
+      });
+    },
+  });
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -32,19 +51,7 @@ function ManagePerson({ person, updatePerson, triggerSave, saving }) {
     }
 
     let file = event.target.files[0];
-    setImageUploading(true);
-    uploadImage(file, "people")
-      .then((res) => {
-        person.imageUrl = res.url;
-        updatePerson({ ...person });
-        setImageUploading(false);
-      })
-      .catch((error) => {
-        setImageUploading(false);
-        toast.error(`Error uploading image ${error.message}`, {
-          autoClose: false,
-        });
-      });
+    uploadHeadshot.mutate(file);
   }
 
   function handleUseDefaultImage() {

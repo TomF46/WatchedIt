@@ -6,7 +6,7 @@ import { uploadImage } from "../../../api/imageApi";
 import { useNavigate } from "react-router-dom";
 import ManageUserForm from "../../../components/User/Manage/ManageUserForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 function ManageProfile() {
   const id = useSelector((state) => state.tokens.id);
@@ -23,6 +23,41 @@ function ManageProfile() {
         mapUpdatedUser(res);
         return res;
       }),
+  });
+
+  const updateUser = useMutation({
+    mutationFn: (updatedUser) => {
+      setSaving(true);
+      return updateCurrentUser(updatedUser);
+    },
+    onSuccess: () => {
+      toast.success("Profile saved");
+      navigate(`/profile`);
+    },
+    onError: (err) => {
+      setSaving(false);
+      toast.error(`Error saving ${err.data.Exception}`, {
+        autoClose: false,
+      });
+    },
+  });
+
+  const uploadProfileImage = useMutation({
+    mutationFn: (file) => {
+      setImageUploading(true);
+      return uploadImage(file, "users");
+    },
+    onSuccess: (res) => {
+      updatedUser.imageUrl = res.url;
+      setUpdatedUser({ ...updatedUser });
+      setImageUploading(false);
+    },
+    onError: (err) => {
+      setImageUploading(false);
+      toast.error(`Error uploading image ${err.message}`, {
+        autoClose: false,
+      });
+    },
   });
 
   function mapUpdatedUser(data) {
@@ -48,19 +83,7 @@ function ManageProfile() {
     }
 
     let file = event.target.files[0];
-    setImageUploading(true);
-    uploadImage(file, "users")
-      .then((res) => {
-        updatedUser.imageUrl = res.url;
-        setUpdatedUser({ ...updatedUser });
-        setImageUploading(false);
-      })
-      .catch((error) => {
-        setImageUploading(false);
-        toast.error(`Error uploading image ${error.message}`, {
-          autoClose: false,
-        });
-      });
+    uploadProfileImage.mutate(file);
   }
 
   function formIsValid() {
@@ -76,18 +99,7 @@ function ManageProfile() {
   function handleSave(event) {
     event.preventDefault();
     if (!formIsValid()) return;
-    setSaving(true);
-    updateCurrentUser(updatedUser)
-      .then(() => {
-        toast.success("Profile saved");
-        navigate(`/profile`);
-      })
-      .catch((err) => {
-        setSaving(false);
-        toast.error(`Error saving ${err.data.Exception}`, {
-          autoClose: false,
-        });
-      });
+    updateUser.mutate(updatedUser);
   }
 
   if (isLoading) return <LoadingMessage message={"Loading form."} />;

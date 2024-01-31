@@ -5,7 +5,7 @@ import { getCategories } from "../../../api/categoriesApi";
 import { uploadImage } from "../../../api/imageApi";
 import ManageFilmForm from "../../../components/Films/Manage/ManageFilmForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 function ManageFilm({ film, updateFilm, triggerSave, saving }) {
   const [errors, setErrors] = useState({});
@@ -20,6 +20,24 @@ function ManageFilm({ film, updateFilm, triggerSave, saving }) {
         });
         return error;
       }),
+  });
+
+  const uploadPoster = useMutation({
+    mutationFn: (file) => {
+      setImageUploading(true);
+      return uploadImage(file, "films");
+    },
+    onSuccess: (res) => {
+      film.posterUrl = res.url;
+      updateFilm({ ...film });
+      setImageUploading(false);
+    },
+    onError: (err) => {
+      setImageUploading(false);
+      toast.error(`Error uploading image ${err.message}`, {
+        autoClose: false,
+      });
+    },
   });
 
   function handleChange(event) {
@@ -50,19 +68,7 @@ function ManageFilm({ film, updateFilm, triggerSave, saving }) {
     }
 
     let file = event.target.files[0];
-    setImageUploading(true);
-    uploadImage(file, "films")
-      .then((res) => {
-        film.posterUrl = res.url;
-        updateFilm({ ...film });
-        setImageUploading(false);
-      })
-      .catch((error) => {
-        setImageUploading(false);
-        toast.error(`Error uploading image ${error.message}`, {
-          autoClose: false,
-        });
-      });
+    uploadPoster.mutate(file);
   }
 
   function handleTrailerChange(url) {
