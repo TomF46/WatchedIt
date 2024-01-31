@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import debounce from "lodash.debounce";
 import FilmGrid from "../../components/Films/FilmGrid";
 import PaginationControls from "../../components/PaginationControls";
 import { Link } from "react-router-dom";
@@ -12,6 +11,7 @@ import SelectInput from "../../components/Inputs/SelectInput";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import RatingInput from "../../components/Inputs/RatingInput";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useDebounce } from "@uidotdev/usehooks";
 
 function Films() {
   const isAdmin = useSelector((state) => state.isAdmin);
@@ -32,20 +32,13 @@ function Films() {
     { id: "watched_asc", name: "Least watched" },
   ];
 
-  const {
-    isLoading,
-    data: filmsPaginator,
-    refetch,
-  } = useQuery({
-    queryKey: [
-      "films",
-      searchTerm,
-      category,
-      sort,
-      ratings,
-      page,
-      filmsPerPage,
-    ],
+  const queryKeyParams = useDebounce(
+    [searchTerm, category, sort, ratings, page, filmsPerPage],
+    100,
+  );
+
+  const { isLoading, data: filmsPaginator } = useQuery({
+    queryKey: ["films", ...queryKeyParams],
     queryFn: () =>
       searchFilmsPaginated(
         {
@@ -64,6 +57,7 @@ function Films() {
         return error;
       }),
     placeholderData: keepPreviousData,
+    staleTime: 100,
   });
 
   const { data: categories } = useQuery({
@@ -80,14 +74,6 @@ function Films() {
           return error;
         }),
   });
-
-  useEffect(() => {
-    let debounced = debounce(() => {
-      refetch();
-    }, 50);
-
-    debounced();
-  }, [page, searchTerm, category, sort, refetch]);
 
   function handleSearchTermChange(event) {
     const { value } = event.target;

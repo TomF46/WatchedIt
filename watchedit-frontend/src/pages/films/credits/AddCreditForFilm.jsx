@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import debounce from "lodash.debounce";
 import { addCreditForFilm } from "../../../api/creditsApi";
 import { getFilmById } from "../../../api/filmsApi";
 import { searchPeoplePaginated } from "../../../api/peopleApi";
@@ -12,6 +11,7 @@ import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
 import PersonMiniDetail from "../../../components/People/PersonMiniDetail";
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
+import { useDebounce } from "@uidotdev/usehooks";
 
 function AddCreditForFilm() {
   const navigate = useNavigate();
@@ -25,9 +25,10 @@ function AddCreditForFilm() {
   });
   const [selectedPerson, setSelectedPerson] = useState(null);
   const [saving, setSaving] = useState(false);
+  const queryKeyParams = useDebounce([searchTerms, page, peoplePerPage], 100);
 
-  const { data: peoplePaginator, refetch } = useQuery({
-    queryKey: ["people", searchTerms, page, peoplePerPage],
+  const { data: peoplePaginator } = useQuery({
+    queryKey: ["people", ...queryKeyParams],
     queryFn: () =>
       searchPeoplePaginated(searchTerms, page, peoplePerPage).catch((error) => {
         toast.error(`Error getting people ${error.data.Exception}`, {
@@ -36,6 +37,7 @@ function AddCreditForFilm() {
         return error;
       }),
     placeholderData: keepPreviousData,
+    staleTime: 100,
   });
 
   const { data: film, error: filmLoadError } = useQuery({
@@ -58,14 +60,6 @@ function AddCreditForFilm() {
       });
     },
   });
-
-  useEffect(() => {
-    let debounced = debounce(() => {
-      refetch();
-    }, 50);
-
-    debounced();
-  }, [page, searchTerms, refetch]);
 
   function handleSearchTermChange(event) {
     const { name, value } = event.target;

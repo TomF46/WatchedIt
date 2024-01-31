@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import debounce from "lodash.debounce";
 import { searchPeoplePaginated } from "../../api/peopleApi";
 import PersonGrid from "../../components/People/PersonGrid";
 import PaginationControls from "../../components/PaginationControls";
@@ -10,6 +9,7 @@ import TextInput from "../../components/Inputs/TextInput";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import SelectInput from "../../components/Inputs/SelectInput";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useDebounce } from "@uidotdev/usehooks";
 
 function People() {
   const isAdmin = useSelector((state) => state.isAdmin);
@@ -31,13 +31,13 @@ function People() {
     { id: "dob_asc", name: "Oldest" },
     { id: "dob_desc", name: "Youngest" },
   ];
+  const queryKeyParams = useDebounce(
+    [searchTerms, sort, page, peoplePerPage],
+    100,
+  );
 
-  const {
-    isLoading,
-    data: peoplePaginator,
-    refetch,
-  } = useQuery({
-    queryKey: ["people", searchTerms, sort, page, peoplePerPage],
+  const { isLoading, data: peoplePaginator } = useQuery({
+    queryKey: ["people", ...queryKeyParams],
     queryFn: () =>
       searchPeoplePaginated(searchTerms, page, peoplePerPage, sort).catch(
         (error) => {
@@ -48,15 +48,8 @@ function People() {
         },
       ),
     placeholderData: keepPreviousData,
+    staleTime: 100,
   });
-
-  useEffect(() => {
-    let debounced = debounce(() => {
-      refetch();
-    }, 50);
-
-    debounced();
-  }, [page, searchTerms, sort, refetch]);
 
   function handleSearchTermChange(event) {
     const { name, value } = event.target;

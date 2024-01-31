@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import debounce from "lodash.debounce";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getCategoryById } from "../../api/categoriesApi";
@@ -10,6 +9,7 @@ import PaginationControls from "../../components/PaginationControls";
 import { searchFilmsPaginated } from "../../api/filmsApi";
 import TextInput from "../../components/Inputs/TextInput";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useDebounce } from "@uidotdev/usehooks";
 
 function Category() {
   const { id } = useParams();
@@ -17,14 +17,15 @@ function Category() {
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
   const filmsPerPage = 32;
+  const queryKeyParams = useDebounce([searchTerm, id, page, filmsPerPage], 100);
 
   const { data: category, error: categoryLoadError } = useQuery({
     queryKey: ["category", id],
     queryFn: () => getCategoryById(id),
   });
 
-  const { data: filmsPaginator, refetch } = useQuery({
-    queryKey: ["category-films", searchTerm, id, page, filmsPerPage],
+  const { data: filmsPaginator } = useQuery({
+    queryKey: ["category-films", ...queryKeyParams],
     queryFn: () =>
       searchFilmsPaginated(
         { searchTerm: searchTerm, category: id },
@@ -37,15 +38,8 @@ function Category() {
         return error;
       }),
     placeholderData: keepPreviousData,
+    staleTime: 100,
   });
-
-  useEffect(() => {
-    let debounced = debounce(() => {
-      refetch();
-    }, 50);
-
-    debounced();
-  }, [page, searchTerm, category, refetch]);
 
   function handleSearchTermChange(event) {
     const { value } = event.target;

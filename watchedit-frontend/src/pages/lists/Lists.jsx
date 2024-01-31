@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import debounce from "lodash.debounce";
 import { searchFilmListsPaginated } from "../../api/filmListsApi";
 import FilmListList from "../../components/Lists/FilmListList";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import PaginationControls from "../../components/PaginationControls";
 import TextInput from "../../components/Inputs/TextInput";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useDebounce } from "@uidotdev/usehooks";
 
 function Lists() {
   const [searchTerms, setSearchTerms] = useState({
@@ -16,13 +16,10 @@ function Lists() {
   });
   const [page, setPage] = useState(1);
   const listsPerPage = 20;
+  const queryKeyParams = useDebounce([searchTerms, page, listsPerPage], 100);
 
-  const {
-    isLoading,
-    data: listsPaginator,
-    refetch,
-  } = useQuery({
-    queryKey: ["lists", searchTerms, page, listsPerPage],
+  const { isLoading, data: listsPaginator } = useQuery({
+    queryKey: ["lists", ...queryKeyParams],
     queryFn: () =>
       searchFilmListsPaginated(
         searchTerms.searchTerm,
@@ -36,15 +33,8 @@ function Lists() {
         return error;
       }),
     placeholderData: keepPreviousData,
+    staleTime: 100,
   });
-
-  useEffect(() => {
-    let debounced = debounce(() => {
-      refetch();
-    }, 50);
-
-    debounced();
-  }, [searchTerms, page, refetch]);
 
   function handleSearchTermChange(event) {
     const { name, value } = event.target;

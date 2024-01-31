@@ -1,20 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
-import debounce from "lodash.debounce";
 import { searchFilmsPaginated } from "../../api/filmsApi";
 import { toast } from "react-toastify";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import SelectFilmWSearch from "../../components/Films/Credits/SelectFilmWSearch";
 import PaginationControls from "../../components/PaginationControls";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useDebounce } from "@uidotdev/usehooks";
 
 const GuessSection = ({ guess }) => {
   const [page, setPage] = useState(1);
   const filmsPerPage = 16;
   const [searchTerm, setSearchTerm] = useState("");
+  const queryKeyParams = useDebounce([searchTerm, page, filmsPerPage], 100);
 
-  const { data: filmsPaginator, refetch } = useQuery({
-    queryKey: ["films", searchTerm, page, filmsPerPage],
+  const { data: filmsPaginator } = useQuery({
+    queryKey: ["films", ...queryKeyParams],
     queryFn: () =>
       searchFilmsPaginated(
         { searchTerm: searchTerm },
@@ -27,15 +28,8 @@ const GuessSection = ({ guess }) => {
         return error;
       }),
     placeholderData: keepPreviousData,
+    staleTime: 100,
   });
-
-  useEffect(() => {
-    let debounced = debounce(() => {
-      refetch();
-    }, 50);
-
-    debounced();
-  }, [page, searchTerm, refetch]);
 
   function handleSearchTermChange(event) {
     const { value } = event.target;

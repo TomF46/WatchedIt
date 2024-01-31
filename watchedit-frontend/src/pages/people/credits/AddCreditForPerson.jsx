@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import debounce from "lodash.debounce";
 import { addCreditForPerson } from "../../../api/creditsApi";
 import { searchFilmsPaginated } from "../../../api/filmsApi";
 import { getPersonById } from "../../../api/peopleApi";
@@ -12,6 +11,7 @@ import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import PersonMiniDetail from "../../../components/People/PersonMiniDetail";
 import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
+import { useDebounce } from "@uidotdev/usehooks";
 
 function AddCreditForPerson() {
   const navigate = useNavigate();
@@ -22,13 +22,18 @@ function AddCreditForPerson() {
   const [selectedFilm, setSelectedFilm] = useState(null);
   const [saving, setSaving] = useState(false);
 
+  const queryKeyParams = useDebounce(
+    [searchTerm, searchTerm, page, filmsPerPage],
+    100,
+  );
+
   const { data: person, error: personLoadError } = useQuery({
     queryKey: ["person", id],
     queryFn: () => getPersonById(id),
   });
 
-  const { data: filmsPaginator, refetch } = useQuery({
-    queryKey: ["films", searchTerm, page, filmsPerPage],
+  const { data: filmsPaginator } = useQuery({
+    queryKey: ["films", ...queryKeyParams],
     queryFn: () =>
       searchFilmsPaginated(
         { searchTerm: searchTerm },
@@ -41,6 +46,7 @@ function AddCreditForPerson() {
         return error;
       }),
     placeholderData: keepPreviousData,
+    staleTime: 100,
   });
 
   const addPersonCredit = useMutation({
@@ -58,14 +64,6 @@ function AddCreditForPerson() {
       });
     },
   });
-
-  useEffect(() => {
-    let debounced = debounce(() => {
-      refetch();
-    }, 50);
-
-    debounced();
-  }, [page, searchTerm, refetch]);
 
   function handleSearchTermChange(event) {
     const { value } = event.target;

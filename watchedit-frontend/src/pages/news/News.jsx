@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { searchNewsPaginated } from "../../api/newsApi";
 import { toast } from "react-toastify";
@@ -7,10 +7,10 @@ import PaginationControls from "../../components/PaginationControls";
 import { Link } from "react-router-dom";
 import NewsList from "../../components/News/NewsList";
 import { getCurrentUserIsPublisher } from "../../api/usersApi";
-import debounce from "lodash.debounce";
 import TextInput from "../../components/Inputs/TextInput";
 import SelectInput from "../../components/Inputs/SelectInput";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useDebounce } from "@uidotdev/usehooks";
 
 function News() {
   const userIsAuthenticated = useSelector((state) => state.tokens != null);
@@ -27,12 +27,13 @@ function News() {
     { id: "created_desc", name: "Latest" },
   ];
 
-  const {
-    isLoading,
-    data: articlesPaginator,
-    refetch,
-  } = useQuery({
-    queryKey: ["people", searchTerms, sort, page, articlesPerPage],
+  const queryKeyParams = useDebounce(
+    [searchTerms, sort, page, articlesPerPage],
+    100,
+  );
+
+  const { isLoading, data: articlesPaginator } = useQuery({
+    queryKey: ["people", ...queryKeyParams],
     queryFn: () =>
       searchNewsPaginated(searchTerms, page, articlesPerPage, sort).catch(
         (error) => {
@@ -43,6 +44,7 @@ function News() {
         },
       ),
     placeholderData: keepPreviousData,
+    staleTime: 100,
   });
 
   const { data: userIsPublisher } = useQuery({
@@ -52,14 +54,6 @@ function News() {
         return res.canPublish;
       }),
   });
-
-  useEffect(() => {
-    let debounced = debounce(() => {
-      refetch();
-    }, 50);
-
-    debounced();
-  }, [searchTerms, sort, page, articlesPerPage, refetch]);
 
   function handleSearchTermChange(event) {
     const { name, value } = event.target;

@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import debounce from "lodash.debounce";
 import PaginationControls from "../../../components/PaginationControls";
 import { addFilmToFilmList, getFilmListById } from "../../../api/filmListsApi";
 import SelectFilmListWSearch from "../../../components/Films/SelectFilmListWSearch";
 import { searchFilmsPaginated } from "../../../api/filmsApi";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useDebounce } from "@uidotdev/usehooks";
 
 function AddFilmToList() {
   const userId = useSelector((state) =>
@@ -19,6 +19,7 @@ function AddFilmToList() {
   const [page, setPage] = useState(1);
   const filmsPerPage = 20;
   const [searchTerm, setSearchTerm] = useState("");
+  const queryKeyParams = useDebounce([searchTerm, page, filmsPerPage], 100);
 
   const {
     data: list,
@@ -33,8 +34,8 @@ function AddFilmToList() {
       }),
   });
 
-  const { data: filmsPaginator, refetch } = useQuery({
-    queryKey: ["films", searchTerm, page, filmsPerPage],
+  const { data: filmsPaginator } = useQuery({
+    queryKey: ["films", ...queryKeyParams],
     queryFn: () =>
       searchFilmsPaginated(
         { searchTerm: searchTerm },
@@ -47,15 +48,8 @@ function AddFilmToList() {
         return error;
       }),
     placeholderData: keepPreviousData,
+    staleTime: 100,
   });
-
-  useEffect(() => {
-    let debounced = debounce(() => {
-      refetch();
-    }, 50);
-
-    debounced();
-  }, [page, searchTerm, refetch]);
 
   function handleSearchTermChange(event) {
     const { value } = event.target;
