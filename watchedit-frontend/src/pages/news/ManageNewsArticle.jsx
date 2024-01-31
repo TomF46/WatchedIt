@@ -28,7 +28,7 @@ function ManageNewsArticle({ article, updateArticle, triggerSave, saving }) {
     },
     onError: (err) => {
       setThumbnailUploading(false);
-      toast.error(`Error uploading thumbnail ${err.message}`, {
+      toast.error(`Error uploading thumbnail ${err.data.Exception}`, {
         autoClose: false,
       });
     },
@@ -45,7 +45,7 @@ function ManageNewsArticle({ article, updateArticle, triggerSave, saving }) {
     },
     onError: (err) => {
       setImageUploading(false);
-      toast.error(`Error uploading image ${err.message}`, {
+      toast.error(`Error uploading image ${err.data.Exception}`, {
         autoClose: false,
       });
     },

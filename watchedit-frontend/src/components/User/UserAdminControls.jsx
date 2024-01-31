@@ -11,9 +11,12 @@ function UserAdminControls({ user, onUserReload }) {
       onUserReload();
     },
     onError: (err) => {
-      toast.error(`Error setting user publisher status. ${err.message}`, {
-        autoClose: false,
-      });
+      toast.error(
+        `Error setting user publisher status. ${err.data.Exception}`,
+        {
+          autoClose: false,
+        },
+      );
     },
   });
 

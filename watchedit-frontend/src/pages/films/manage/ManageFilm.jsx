@@ -34,7 +34,7 @@ function ManageFilm({ film, updateFilm, triggerSave, saving }) {
     },
     onError: (err) => {
       setImageUploading(false);
-      toast.error(`Error uploading image ${err.message}`, {
+      toast.error(`Error uploading image ${err.data.Exception}`, {
         autoClose: false,
       });
     },

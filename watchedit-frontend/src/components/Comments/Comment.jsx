@@ -46,7 +46,7 @@ const Comment = ({ comment, onUpdateComment, onDeleteComment }) => {
       })
       .catch((err) => {
         setSaving(false);
-        toast.error(`Error updating comment ${err.message}`, {
+        toast.error(`Error updating comment ${err.data.Exception}`, {
           autoClose: false,
         });
       });

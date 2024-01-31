@@ -50,7 +50,7 @@ const CommentsSection = ({
       })
       .catch((err) => {
         setSaving(false);
-        toast.error(`Error adding comment ${err.message}`, {
+        toast.error(`Error adding comment ${err.data.Exception}`, {
           autoClose: false,
         });
       });

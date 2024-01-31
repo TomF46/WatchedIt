@@ -34,7 +34,7 @@ const UnreadNotifications = () => {
       refetch();
     },
     onError: (err) => {
-      toast.error(`Error reading notification ${err.message}`, {
+      toast.error(`Error reading notification ${err.data.Exception}`, {
         autoClose: false,
       });
     },

@@ -14,7 +14,6 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 function News() {
   const userIsAuthenticated = useSelector((state) => state.tokens != null);
-  const [userIsPublisher, setUserIsPublisher] = useState(false);
   const [searchTerms, setSearchTerms] = useState({
     title: "",
     publisher: "",
@@ -46,6 +45,14 @@ function News() {
     placeholderData: keepPreviousData,
   });
 
+  const { data: userIsPublisher } = useQuery({
+    queryKey: ["user-is-publisher", userIsAuthenticated],
+    queryFn: () =>
+      getCurrentUserIsPublisher().then((res) => {
+        return res.canPublish;
+      }),
+  });
+
   useEffect(() => {
     let debounced = debounce(() => {
       refetch();
@@ -53,13 +60,6 @@ function News() {
 
     debounced();
   }, [searchTerms, sort, page, articlesPerPage, refetch]);
-
-  //TODO
-  useEffect(() => {
-    getCurrentUserIsPublisher().then((res) => {
-      setUserIsPublisher(res.canPublish);
-    });
-  }, [userIsAuthenticated]);
 
   function handleSearchTermChange(event) {
     const { name, value } = event.target;
