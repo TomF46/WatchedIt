@@ -7,6 +7,7 @@ import { confirmAlert } from "react-confirm-alert";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import ReviewCommentsSection from "../../../components/Reviews/ReviewCommentsSection";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import ErrorMessage from "../../../components/Error/ErrorMessage";
 
 function Review() {
   const { id, reviewId } = useParams();
@@ -62,10 +63,7 @@ function Review() {
   if (isLoading) return <LoadingMessage message={"Loading review."} />;
 
   if (error) {
-    toast.error(`Error getting review ${error.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return <ErrorMessage message={"Error loading review."} error={error} />;
   }
 
   return (

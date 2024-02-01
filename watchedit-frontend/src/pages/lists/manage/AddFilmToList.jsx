@@ -9,6 +9,7 @@ import { searchFilmsPaginated } from "../../../api/filmsApi";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
+import ErrorMessage from "../../../components/Error/ErrorMessage";
 
 function AddFilmToList() {
   const userId = useSelector((state) =>
@@ -70,10 +71,12 @@ function AddFilmToList() {
   }
 
   if (listLoadError) {
-    toast.error(`Error getting list ${listLoadError.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return (
+      <ErrorMessage
+        message={"Error loading list to add films to."}
+        error={listLoadError}
+      />
+    );
   }
 
   return (

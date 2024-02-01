@@ -8,6 +8,7 @@ import { confirmAlert } from "react-confirm-alert";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import ErrorMessage from "../../../components/Error/ErrorMessage";
 
 function FilmCredits() {
   const { id } = useParams();
@@ -60,10 +61,9 @@ function FilmCredits() {
   }
 
   if (filmLoadError) {
-    toast.error(`Error getting film ${filmLoadError.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return (
+      <ErrorMessage message={"Error loading film."} error={filmLoadError} />
+    );
   }
 
   return (

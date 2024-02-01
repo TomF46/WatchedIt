@@ -8,6 +8,7 @@ import PaginationControls from "../../../components/PaginationControls";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import ErrorMessage from "../../../components/Error/ErrorMessage";
 
 function Reviews() {
   const { id } = useParams();
@@ -32,10 +33,9 @@ function Reviews() {
   });
 
   if (filmLoadError) {
-    toast.error(`Error getting film ${filmLoadError.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return (
+      <ErrorMessage message={"Error loading film."} error={filmLoadError} />
+    );
   }
 
   return (

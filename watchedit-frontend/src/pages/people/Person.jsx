@@ -8,6 +8,7 @@ import LoadingMessage from "../../components/Loading/LoadingMessage";
 import { format, parseISO } from "date-fns";
 import LikedPersonControls from "../../components/People/Likes/LikedPersonControls";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import ErrorMessage from "../../components/Error/ErrorMessage";
 
 function Person() {
   const { id } = useParams();
@@ -62,12 +63,8 @@ function Person() {
   if (isLoading) return <LoadingMessage message={"Loading person."} />;
 
   if (error) {
-    toast.error(`Error getting person ${error.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return <ErrorMessage message={"Error loading person."} error={error} />;
   }
-
   return (
     <div className="person-page">
       <h1 className="my-4 text-center text-primary text-4xl font-semibold">

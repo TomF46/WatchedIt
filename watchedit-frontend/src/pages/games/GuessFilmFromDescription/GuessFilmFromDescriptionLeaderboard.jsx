@@ -1,10 +1,10 @@
 import { useState } from "react";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { getGuessFilmFromDescriptionLeaderboard } from "../../../api/games/guessFilmFromDescriptionApi";
-import { toast } from "react-toastify";
 import PaginationControls from "../../../components/PaginationControls";
 import GuessFilmFromDescriptionLeaderboardList from "./GuessFilmFromDescriptionLeaderboardList";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import ErrorMessage from "../../../components/Error/ErrorMessage";
 
 function GuessFilmFromDescriptionLeaderboard() {
   const [page, setPage] = useState(1);
@@ -23,10 +23,9 @@ function GuessFilmFromDescriptionLeaderboard() {
   if (isLoading) return <LoadingMessage message={"Loading leaderboard."} />;
 
   if (error) {
-    toast.error(`Error getting leaderboard ${error.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return (
+      <ErrorMessage message={"Error loading leaderboard."} error={error} />
+    );
   }
 
   return (

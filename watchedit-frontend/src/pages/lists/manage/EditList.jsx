@@ -7,6 +7,7 @@ import { getFilmListById, saveFilmList } from "../../../api/filmListsApi";
 import { useQuery } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
+import ErrorMessage from "../../../components/Error/ErrorMessage";
 
 function EditList() {
   const { id } = useParams();
@@ -53,10 +54,9 @@ function EditList() {
   if (isLoading) return <LoadingMessage message={"Loading list."} />;
 
   if (error) {
-    toast.error(`Error getting list ${error.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return (
+      <ErrorMessage message={"Error loading list for editing."} error={error} />
+    );
   }
 
   return (

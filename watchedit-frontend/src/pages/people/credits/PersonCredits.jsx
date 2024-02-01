@@ -8,6 +8,7 @@ import PersonCreditsList from "../../../components/People/Credits/PersonCreditsL
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import PersonMiniDetail from "../../../components/People/PersonMiniDetail";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import ErrorMessage from "../../../components/Error/ErrorMessage";
 
 function PersonCredits() {
   const { id } = useParams();
@@ -60,10 +61,9 @@ function PersonCredits() {
   }
 
   if (personLoadError) {
-    toast.error(`Error getting film ${personLoadError.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return (
+      <ErrorMessage message={"Error loading person."} error={personLoadError} />
+    );
   }
 
   return (

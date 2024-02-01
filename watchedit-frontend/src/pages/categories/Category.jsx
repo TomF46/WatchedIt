@@ -10,6 +10,7 @@ import { searchFilmsPaginated } from "../../api/filmsApi";
 import TextInput from "../../components/Inputs/TextInput";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
+import ErrorMessage from "../../components/Error/ErrorMessage";
 
 function Category() {
   const { id } = useParams();
@@ -47,11 +48,15 @@ function Category() {
     if (page != 1) setPage(1);
   }
 
+  console.log(categoryLoadError);
+
   if (categoryLoadError) {
-    toast.error(`Error getting film ${categoryLoadError.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return (
+      <ErrorMessage
+        message={"Error loading category"}
+        error={categoryLoadError}
+      />
+    );
   }
 
   return (

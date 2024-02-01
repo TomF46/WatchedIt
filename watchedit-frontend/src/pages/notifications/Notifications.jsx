@@ -10,6 +10,7 @@ import LoadingMessage from "../../components/Loading/LoadingMessage";
 import NotificationsList from "../../components/Notifications/NotificationsList";
 import PaginationControls from "../../components/PaginationControls";
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
+import ErrorMessage from "../../components/Error/ErrorMessage";
 
 const NotificationsPage = () => {
   const dispatch = useDispatch();
@@ -47,10 +48,9 @@ const NotificationsPage = () => {
   if (isLoading) return <LoadingMessage message={"Loading notifications"} />;
 
   if (error) {
-    toast.error(`Error getting notifications ${error.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return (
+      <ErrorMessage message={"Error loading notifications."} error={error} />
+    );
   }
 
   function handleReadNotification(notification) {

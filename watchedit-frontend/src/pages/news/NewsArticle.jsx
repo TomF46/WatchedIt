@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import rehypeSanitize from "rehype-sanitize";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import ErrorMessage from "../../components/Error/ErrorMessage";
 
 function NewsArticle() {
   const { id } = useParams();
@@ -49,10 +50,9 @@ function NewsArticle() {
   if (isLoading) return <LoadingMessage message={"Loading article."} />;
 
   if (error) {
-    toast.error(`Error getting news article ${error.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return (
+      <ErrorMessage message={"Error loading news article."} error={error} />
+    );
   }
 
   return (

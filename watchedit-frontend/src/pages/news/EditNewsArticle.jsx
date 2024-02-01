@@ -6,6 +6,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { getNewsArticlesById, saveNewsArticle } from "../../api/newsApi";
 import ManageNewsArticle from "./ManageNewsArticle";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
+import ErrorMessage from "../../components/Error/ErrorMessage";
 
 function EditArticle() {
   const { id } = useParams();
@@ -52,10 +53,12 @@ function EditArticle() {
   if (isLoading) return <LoadingMessage message={"Loading article."} />;
 
   if (error) {
-    toast.error(`Error getting article ${error.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return (
+      <ErrorMessage
+        message={"Error loading news article for editing."}
+        error={error}
+      />
+    );
   }
 
   return (

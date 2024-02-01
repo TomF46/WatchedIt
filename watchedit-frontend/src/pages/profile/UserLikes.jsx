@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import PersonGrid from "../../components/People/PersonGrid";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import ErrorMessage from "../../components/Error/ErrorMessage";
 
 function UserLikes() {
   const { id } = useParams();
@@ -35,12 +36,10 @@ function UserLikes() {
   });
 
   if (userLoadError) {
-    toast.error(`Error getting user ${userLoadError.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return (
+      <ErrorMessage message={"Error loading user."} error={userLoadError} />
+    );
   }
-
   return (
     <div className="user-likes-page">
       {!user ? (

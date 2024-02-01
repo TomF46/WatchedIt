@@ -7,6 +7,7 @@ import { parseISO } from "date-fns";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import ManagePerson from "./ManagePerson";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
+import ErrorMessage from "../../../components/Error/ErrorMessage";
 
 function EditPerson() {
   const { id } = useParams();
@@ -56,10 +57,12 @@ function EditPerson() {
   if (isLoading) return <LoadingMessage message={"Loading person."} />;
 
   if (error) {
-    toast.error(`Error getting person ${error.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return (
+      <ErrorMessage
+        message={"Error loading person for editing."}
+        error={error}
+      />
+    );
   }
 
   return (

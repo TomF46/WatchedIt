@@ -12,6 +12,7 @@ import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
 import PersonMiniDetail from "../../../components/People/PersonMiniDetail";
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
+import ErrorMessage from "../../../components/Error/ErrorMessage";
 
 function AddCreditForFilm() {
   const navigate = useNavigate();
@@ -84,10 +85,12 @@ function AddCreditForFilm() {
   }
 
   if (filmLoadError) {
-    toast.error(`Error getting film ${filmLoadError.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return (
+      <ErrorMessage
+        message={"Error loading film to add credit to."}
+        error={filmLoadError}
+      />
+    );
   }
 
   return (

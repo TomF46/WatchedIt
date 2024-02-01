@@ -12,6 +12,7 @@ import GuessSection from "../GuessSection";
 import RoundsSection from "./RoundsSection";
 import { confirmAlert } from "react-confirm-alert";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import ErrorMessage from "../../../components/Error/ErrorMessage";
 
 function GuessFilmFromDescriptionGame() {
   const { id } = useParams();
@@ -93,10 +94,7 @@ function GuessFilmFromDescriptionGame() {
   if (isLoading) return <LoadingMessage message={"Loading game."} />;
 
   if (error) {
-    toast.error(`Error getting game ${error.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return <ErrorMessage message={"Error loading game."} error={error} />;
   }
 
   return (

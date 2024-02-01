@@ -14,6 +14,7 @@ import GuessPersonFailed from "../GuessPersonFailed";
 import CorrectGuessPerson from "../CorrectGuessPerson";
 import ConnectionsGuessSection from "./ConnectionsGuessSection";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import ErrorMessage from "../../../components/Error/ErrorMessage";
 
 function ConnectionsGame() {
   const { id } = useParams();
@@ -88,10 +89,7 @@ function ConnectionsGame() {
   if (isLoading) return <LoadingMessage message={"Loading game."} />;
 
   if (error) {
-    toast.error(`Error getting game ${error.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return <ErrorMessage message={"Error loading game."} error={error} />;
   }
 
   return (

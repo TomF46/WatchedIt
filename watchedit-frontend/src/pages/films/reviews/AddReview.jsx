@@ -7,6 +7,7 @@ import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getFilmById } from "../../../api/filmsApi";
 import { saveReview } from "../../../api/filmReviewApi";
+import ErrorMessage from "../../../components/Error/ErrorMessage";
 
 function AddReview() {
   const { id } = useParams();
@@ -47,10 +48,7 @@ function AddReview() {
   if (isLoading) return <LoadingMessage message={"Loading film."} />;
 
   if (error) {
-    toast.error(`Error getting film ${error.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return <ErrorMessage message={"Error loading film."} error={error} />;
   }
 
   return (

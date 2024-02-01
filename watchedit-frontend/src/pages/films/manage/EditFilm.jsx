@@ -7,6 +7,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { parseISO } from "date-fns";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import ManageFilm from "./ManageFilm";
+import ErrorMessage from "../../../components/Error/ErrorMessage";
 
 function EditFilm() {
   const { id } = useParams();
@@ -62,10 +63,7 @@ function EditFilm() {
   if (isLoading) return <LoadingMessage message={"Loading film."} />;
 
   if (error) {
-    toast.error(`Error getting film ${error.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return <ErrorMessage message={"Error loading film."} error={error} />;
   }
 
   return (

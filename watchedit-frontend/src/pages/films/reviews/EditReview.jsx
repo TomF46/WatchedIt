@@ -8,6 +8,7 @@ import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { getReviewById, saveReview } from "../../../api/filmReviewApi";
 import { getFilmById } from "../../../api/filmsApi";
 import { useSelector } from "react-redux";
+import ErrorMessage from "../../../components/Error/ErrorMessage";
 
 function EditReview() {
   const { id, reviewId } = useParams();
@@ -75,10 +76,12 @@ function EditReview() {
   if (isLoading) return <LoadingMessage message={"Loading review."} />;
 
   if (error) {
-    toast.error(`Error getting review ${error.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return (
+      <ErrorMessage
+        message={"Error loading review for editing."}
+        error={error}
+      />
+    );
   }
 
   return (

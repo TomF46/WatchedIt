@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import ManageUserForm from "../../../components/User/Manage/ManageUserForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import ErrorMessage from "../../../components/Error/ErrorMessage";
 
 function ManageProfile() {
   const id = useSelector((state) => state.tokens.id);
@@ -105,10 +106,12 @@ function ManageProfile() {
   if (isLoading) return <LoadingMessage message={"Loading form."} />;
 
   if (error) {
-    toast.error(`Error getting user ${error.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return (
+      <ErrorMessage
+        message={"Error loading user profile for editing."}
+        error={error}
+      />
+    );
   }
 
   return (

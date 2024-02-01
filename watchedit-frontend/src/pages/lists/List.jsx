@@ -12,6 +12,7 @@ import FilmGrid from "../../components/Films/FilmGrid";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import UserMiniDetail from "../../components/User/UserMiniDetail";
 import { useQuery } from "@tanstack/react-query";
+import ErrorMessage from "../../components/Error/ErrorMessage";
 
 function List() {
   const { id } = useParams();
@@ -99,10 +100,7 @@ function List() {
   if (isLoading) return <LoadingMessage message={"Loading list."} />;
 
   if (error) {
-    toast.error(`Error getting list ${error.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return <ErrorMessage message={"Error loading list."} error={error} />;
   }
 
   return (

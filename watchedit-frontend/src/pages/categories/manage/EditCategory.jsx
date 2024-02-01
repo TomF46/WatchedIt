@@ -6,6 +6,7 @@ import ManageCategory from "./ManageCategory";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { getCategoryById, saveCategory } from "../../../api/categoriesApi";
+import ErrorMessage from "../../../components/Error/ErrorMessage";
 
 function EditCategory() {
   const { id } = useParams();
@@ -49,10 +50,12 @@ function EditCategory() {
   if (isLoading) return <LoadingMessage message={"Loading category."} />;
 
   if (error) {
-    toast.error(`Error getting category ${error.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return (
+      <ErrorMessage
+        message={"Error loading category for editing."}
+        error={error}
+      />
+    );
   }
 
   return (

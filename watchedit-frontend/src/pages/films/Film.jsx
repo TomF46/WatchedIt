@@ -12,6 +12,7 @@ import LatestReviews from "../../components/Reviews/LatestReviews";
 import SimilarFilmsReel from "../../components/Films/SimilarFilmsReel";
 import TriviaOverview from "../../components/Films/Trivia/TriviaOverview";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import ErrorMessage from "../../components/Error/ErrorMessage";
 
 function Film() {
   const { id } = useParams();
@@ -70,10 +71,7 @@ function Film() {
   if (isLoading) return <LoadingMessage message={"Loading film."} />;
 
   if (error) {
-    toast.error(`Error getting film ${error.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return <ErrorMessage message={"Error loading film."} error={error} />;
   }
 
   return (

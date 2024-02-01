@@ -12,6 +12,7 @@ import {
 import TriviaList from "../../../components/Films/Trivia/TriviaList";
 import { confirmAlert } from "react-confirm-alert";
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
+import ErrorMessage from "../../../components/Error/ErrorMessage";
 
 function FilmTrivia() {
   const { id } = useParams();
@@ -66,10 +67,9 @@ function FilmTrivia() {
   }
 
   if (filmLoadError) {
-    toast.error(`Error getting film ${filmLoadError.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return (
+      <ErrorMessage message={"Error loading film."} error={filmLoadError} />
+    );
   }
 
   return (

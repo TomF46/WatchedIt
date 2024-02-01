@@ -10,6 +10,7 @@ import UserLatestReviews from "../../components/Reviews/UserLatestReviews";
 import UserAdminControls from "../../components/User/UserAdminControls";
 import UserReviewsReel from "../../components/Reviews/UserReviewReel";
 import { useQuery } from "@tanstack/react-query";
+import ErrorMessage from "../../components/Error/ErrorMessage";
 
 function Profile() {
   const { id } = useParams();
@@ -53,10 +54,7 @@ function Profile() {
   if (isLoading) return <LoadingMessage message={"Loading user."} />;
 
   if (error) {
-    toast.error(`Error getting user ${error.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return <ErrorMessage message={"Error loading profile."} error={error} />;
   }
 
   return (

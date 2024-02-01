@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import NewsList from "../../components/News/NewsList";
 import { getUserById } from "../../api/usersApi";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import ErrorMessage from "../../components/Error/ErrorMessage";
 
 function UsersNewsArticles() {
   const { id } = useParams();
@@ -36,10 +37,9 @@ function UsersNewsArticles() {
   });
 
   if (userLoadError) {
-    toast.error(`Error getting user ${userLoadError.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return (
+      <ErrorMessage message={"Error loading user."} error={userLoadError} />
+    );
   }
 
   return (

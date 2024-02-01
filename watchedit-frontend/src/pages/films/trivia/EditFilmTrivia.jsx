@@ -8,6 +8,7 @@ import { getFilmTriviaById, saveFilmTrivia } from "../../../api/filmTriviaApi";
 import { getFilmById } from "../../../api/filmsApi";
 import { useSelector } from "react-redux";
 import ManageTrivia from "./ManageTrivia";
+import ErrorMessage from "../../../components/Error/ErrorMessage";
 
 function EditTrivia() {
   const { id, triviaId } = useParams();
@@ -64,19 +65,20 @@ function EditTrivia() {
   if (isLoadingFilm) return <LoadingMessage message={"Loading film."} />;
 
   if (filmLoadError) {
-    toast.error(`Error getting film ${filmLoadError.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return (
+      <ErrorMessage message={"Error loading film."} error={filmLoadError} />
+    );
   }
 
   if (isLoading) return <LoadingMessage message={"Loading trivia."} />;
 
   if (error) {
-    toast.error(`Error getting trivia ${error.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return (
+      <ErrorMessage
+        message={"Error loading trivia for editing."}
+        error={error}
+      />
+    );
   }
 
   return (

@@ -7,6 +7,7 @@ import PaginationControls from "../../components/PaginationControls";
 import { useParams } from "react-router-dom";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import ErrorMessage from "../../components/Error/ErrorMessage";
 
 function WatchedList() {
   const { id } = useParams();
@@ -35,10 +36,9 @@ function WatchedList() {
   });
 
   if (userLoadError) {
-    toast.error(`Error getting user ${userLoadError.data.Exception}`, {
-      autoClose: false,
-    });
-    return;
+    return (
+      <ErrorMessage message={"Error loading user."} error={userLoadError} />
+    );
   }
 
   return (
