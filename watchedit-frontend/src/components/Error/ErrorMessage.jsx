@@ -1,8 +1,18 @@
 import PropTypes from "prop-types";
+import ErrorIcon from "../../assets/ErrorIcon.svg";
 
 const ErrorMessage = ({ message, error }) => {
   return (
-    <div className="error-message text-center mt-16">
+    <div className="error-message text-center mt-4">
+      <div className="text-center grid grid-cols-12">
+        <div className="col-span-12 md:col-span-6 md:col-start-4">
+          <img
+            src={ErrorIcon}
+            className="error-icon mx-auto"
+            alt="Error graphic"
+          />
+        </div>
+      </div>
       <h2 className="text-primary text-2xl">{message}</h2>
       <p>{error.data.Exception}</p>
       <div className="flex justify-center my-4">
