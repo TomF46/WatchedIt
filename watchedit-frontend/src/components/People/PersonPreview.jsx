@@ -60,6 +60,9 @@ const PersonPreview = ({ person, isLink }) => {
                 <p className="ml-1">{person.likesCount}</p>
               </div>
             </div>
+            <div className="col-span-12 lg:hidden">
+              <h3 className="text-center text-primary">{person.fullName}</h3>
+            </div>
           </div>
         </div>
       </div>

@@ -79,6 +79,9 @@ const FilmPreview = ({ film, editable, onRemove }) => {
                   <p className="ml-1">{film.watchedCount}</p>
                 </div>
               </div>
+              <div className="col-span-12 lg:hidden">
+                <h3 className="text-center text-primary">{film.name}</h3>
+              </div>
             </div>
           </div>
         </div>
