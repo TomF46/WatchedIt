@@ -19,7 +19,7 @@ const TriviaList = ({ trivia, onRemove, canControl }) => {
                   canControl && triviaItem.user.id == userId
                     ? "col-span-16 md:col-span-20"
                     : "col-span-24"
-                } p-4 bg-backgroundOffset shadow rounded`}
+                } p-2 bg-backgroundOffset shadow rounded`}
               >
                 <p>{triviaItem.text}</p>
                 <Link

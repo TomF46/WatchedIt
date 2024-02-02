@@ -119,7 +119,7 @@ function Person() {
         </div>
         <div className="col-span-12 mt-4 md:col-span-10 md:pl-4 md:mt-0">
           <div className="grid grid-cols-12">
-            <div className="col-span-12 md:col-span-5 bg-backgroundOffset p-4 shadow rounded">
+            <div className="col-span-12 md:col-span-5 bg-backgroundOffset p-2 shadow rounded">
               <h3 className="text-primary text-xl">Details</h3>
               <p>First name: {person.firstName}</p>
               <p>Last name: {person.lastName}</p>
@@ -127,7 +127,7 @@ function Person() {
               {person.stageName && <p>Stage name: {person.stageName}</p>}
               <p>DOB: {format(parseISO(person.dateOfBirth), "dd/MM/yyyy")}</p>
             </div>
-            <div className="col-span-12 md:col-span-5 md:ml-2 bg-backgroundOffset p-4 shadow rounded">
+            <div className="col-span-12 md:col-span-5 md:ml-2 bg-backgroundOffset p-2 shadow rounded">
               <h3 className="text-primary text-xl font-semiboldf">About</h3>
               <p>{person.description}</p>
             </div>

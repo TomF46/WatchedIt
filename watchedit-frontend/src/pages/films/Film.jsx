@@ -140,7 +140,7 @@ function Film() {
         </div>
         <div className="col-span-12 mt-4 md:col-span-10 md:pl-4 md:mt-0">
           <div className="grid grid-cols-12">
-            <div className="col-span-12 md:col-span-8 bg-backgroundOffset p-4 shadow rounded">
+            <div className="col-span-12 md:col-span-8 bg-backgroundOffset p-2 shadow rounded">
               <h3 className="text-primary text-lg font-semibold">Details</h3>
               <p>Name: {film.name}</p>
               <p>
@@ -232,7 +232,7 @@ function Film() {
                 </>
               )}
             </div>
-            <div className="col-span-12 md:col-span-8 bg-backgroundOffset p-4 mt-4 shadow rounded">
+            <div className="col-span-12 md:col-span-8 bg-backgroundOffset p-2 mt-4 shadow rounded">
               <h3 className="text-primary text-lg font-semibold">
                 Description
               </h3>
