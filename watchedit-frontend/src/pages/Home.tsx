@@ -9,10 +9,11 @@ import UnreadNotifications from "../components/Home/UnreadNotifications/UnreadNo
 import FilmsComingSoonReel from "../components/Home/FilmReel/FilmsComingSoonReel";
 
 function Home() {
-  const userIsAuthenticated = useSelector((state) => state.tokens != null);
+  const userIsAuthenticated = useSelector((state : any) => state.tokens != null);
   const username = useSelector((state) =>
     state.tokens ? state.tokens.username : null,
   );
+  
   return (
     <div className="Home">
       <div className="text-center grid grid-cols-12">

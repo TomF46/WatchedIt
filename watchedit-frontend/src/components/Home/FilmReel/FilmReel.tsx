@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 function FilmReel({ title, subtitle, sort, onlyShowReleased }) {
   const page = 1;
   const filmsPerPage = 8;
-  let searchParams = { sort: sort };
+  const searchParams = { sort: sort };
   if (onlyShowReleased)
     searchParams.releasedBeforeDate = new Date().toISOString();
 

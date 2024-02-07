@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import PaginationControls from "../../../components/PaginationControls";
+import LoadingMessage from "../../../components/Loading/LoadingMessage.js";
+import PaginationControls from "../../../components/PaginationControls.js";
 import {
   getConnectionsGames,
   startConnectionsGame,
-} from "../../../api/games/connectionsGameApi";
-import ConnectionsGamesList from "./ConnectionsGamesList.jsx";
+} from "../../../api/games/connectionsGameApi.js";
+import ConnectionsGamesList from "./ConnectionsGamesList";
 import { useNavigate } from "react-router-dom";
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 
