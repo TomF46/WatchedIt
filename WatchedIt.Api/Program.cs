@@ -38,7 +38,7 @@ var corsPolicyName = "_corsPolicy";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: corsPolicyName,
-                      policy  =>
+                      policy =>
                       {
                           policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                       });
@@ -84,7 +84,7 @@ builder.Services.AddAuthentication(x =>
                     ValidateAudience = false
                 };
             });
-            
+
 builder.Services.AddSwaggerGen(c =>
             {
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -120,8 +120,18 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.Configure<AWSConfiguration>(builder.Configuration.GetSection("AWS"));
 builder.Services.Configure<ImagesConfiguration>(builder.Configuration.GetSection("Images"));
 
-builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
-builder.Services.AddAWSService<IAmazonS3>();
+var imagesSettings = builder.Configuration.GetSection("Images").Get<ImagesConfiguration>();
+
+if (imagesSettings.UseS3)
+{
+    builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
+    builder.Services.AddAWSService<IAmazonS3>();
+    builder.Services.AddScoped<IFileService, S3FileService>();
+}
+else
+{
+    builder.Services.AddScoped<IFileService, DiskFileService>();
+}
 
 builder.Services.AddTransient<ExceptionMiddleware>();
 builder.Services.AddTransient<DataSeeder>();
@@ -144,16 +154,6 @@ builder.Services.AddScoped<IGuessFilmFromDescriptionGameService, GuessFilmFromDe
 builder.Services.AddScoped<IConnectionsGameService, ConnectionsGameService>();
 builder.Services.AddScoped<INewsArticleService, NewsArticleService>();
 
-
-
-var imagesSettings = builder.Configuration.GetSection("Images").Get<ImagesConfiguration>();
-
-if(imagesSettings.UseS3){
-    builder.Services.AddScoped<IFileService, S3FileService>();
-}else {
-    builder.Services.AddScoped<IFileService, DiskFileService>();
-
-}
 
 var app = builder.Build();
 app.UseGlobalExceptionHandler();
