@@ -2,8 +2,9 @@ import PropTypes from "prop-types";
 import { Navigate } from "react-router-dom";
 import { getCurrentUserIsAdmin } from "./api/usersApi";
 import { useQuery } from "@tanstack/react-query";
+import { RouteProps } from "./types/routeProps";
 
-const AdminRoute = ({ children }) => {
+const AdminRoute = ({ children } : RouteProps) => {
   const { isLoading, data } = useQuery({
     queryKey: ["is-admin"],
     queryFn: () => getCurrentUserIsAdmin(),

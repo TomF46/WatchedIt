@@ -3,7 +3,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import AdminRoute from "./adminRoute";
 import AuthenticatedRoute from "./authenticatedRoute";
 import Header from "./components/Header/Header";
 import List from "./pages/lists/List";
@@ -40,7 +39,7 @@ import GuessFilmFromDescriptionGame from "./pages/games/GuessFilmFromDescription
 import GuessFilmFromDescriptionLeaderboard from "./pages/games/GuessFilmFromDescription/GuessFilmFromDescriptionLeaderboard";
 import Connections from "./pages/games/Connections/Connections";
 import ConnectionsGame from "./pages/games/Connections/ConnectionsGame";
-import News from "./pages/news/news";
+import News from "./pages/news/News";
 import NewsArticle from "./pages/news/NewsArticle";
 import PublisherRoute from "./PublisherRoute";
 import UsersNewsArticles from "./pages/news/UsersNewsArticles";
@@ -60,6 +59,7 @@ import EditTrivia from "./pages/films/trivia/EditFilmTrivia";
 import AddTrivia from "./pages/films/trivia/AddFilmTrivia";
 import EditArticle from "./pages/news/EditNewsArticle";
 import AddArticle from "./pages/news/AddNewsArticle";
+import AdminRoute from "./AdminRoute";
 
 const App = () => {
   return (

@@ -1,9 +1,9 @@
-import PropTypes from "prop-types";
 import { Navigate } from "react-router-dom";
 import { getCurrentUserIsPublisher } from "./api/usersApi";
 import { useQuery } from "@tanstack/react-query";
+import { RouteProps } from "./types/routeProps";
 
-const PublisherRoute = ({ children }) => {
+const PublisherRoute = ({ children } : RouteProps) => {
   const { isLoading, data } = useQuery({
     queryKey: ["is-publisher"],
     queryFn: () => getCurrentUserIsPublisher(),
@@ -16,10 +16,6 @@ const PublisherRoute = ({ children }) => {
       )}
     </>
   );
-};
-
-PublisherRoute.propTypes = {
-  children: PropTypes.node.isRequired,
 };
 
 export default PublisherRoute;
