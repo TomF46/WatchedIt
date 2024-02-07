@@ -78,3 +78,7 @@ h5 {
 .ReactModal__Content {
   background-color: var(--background-color) !important;
 }
+
+.error-icon {
+  max-height: 40vh;
+}

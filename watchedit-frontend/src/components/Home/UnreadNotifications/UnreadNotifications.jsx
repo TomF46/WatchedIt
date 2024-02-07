@@ -14,7 +14,7 @@ import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 const UnreadNotifications = () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
-  const notificationsPerPage = 8;
+  const notificationsPerPage = 6;
 
   const {
     isLoading,

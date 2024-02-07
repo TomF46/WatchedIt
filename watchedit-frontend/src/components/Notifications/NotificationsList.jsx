@@ -11,14 +11,14 @@ const NotificationsList = ({ notifications, onSetRead }) => {
               onClick={() => onSetRead(notification)}
               className={` ${
                 notification.read ? "" : "hover:opacity-75"
-              } grid grid-cols-24 cursor-pointer shadow rounded-l my-1`}
+              } grid grid-cols-24 cursor-pointer shadow my-1`}
             >
               <div
                 className={`${
                   notification.read
                     ? "col-span-24 bg-backgroundOffset"
                     : "col-span-23 bg-backgroundOffset2"
-                } p-4`}
+                } p-2 rounded-l`}
                 key={notification.id}
               >
                 <p>
@@ -27,7 +27,7 @@ const NotificationsList = ({ notifications, onSetRead }) => {
                 </p>
               </div>
               {!notification.read && (
-                <div className="col-span-1 bg-primary flex items-center">
+                <div className="col-span-1 bg-primary flex items-center rounded-r">
                   <svg
                     className="text-white h-5 w-5 mx-auto"
                     xmlns="http://www.w3.org/2000/svg"

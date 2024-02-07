@@ -142,7 +142,7 @@ function List() {
       <div className="mt-4">
         <div className="grid grid-cols-12 my-4">
           <div className="col-span-8">
-            <div className="bg-backgroundOffset p-4 shadow rounded h-full">
+            <div className="bg-backgroundOffset p-2 shadow rounded h-full">
               <h2 className="text-lg text-primary">Description:</h2>
               <p>{list.description}</p>
             </div>

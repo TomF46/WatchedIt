@@ -27,7 +27,7 @@ const FilmCreditsList = ({ credits, canEdit, onRemove }) => {
                   onClick={() => {
                     navigate(`/people/${credit.person.id}`);
                   }}
-                  className="p-4 inline-flex items-center w-full h-full bg-backgroundOffset cursor-pointer hover:opacity-75"
+                  className="p-2 inline-flex items-center w-full h-full bg-backgroundOffset cursor-pointer hover:opacity-75"
                 >
                   <p>
                     {credit.person.fullName} - {credit.role}
