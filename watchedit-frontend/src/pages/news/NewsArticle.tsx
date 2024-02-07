@@ -10,11 +10,12 @@ import LoadingMessage from "../../components/Loading/LoadingMessage";
 import rehypeSanitize from "rehype-sanitize";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../components/Error/ErrorMessage";
+import { RootState } from "../../redux/store";
 
 function NewsArticle() {
   const { id } = useParams();
-  const isAdmin = useSelector((state) => state.isAdmin);
-  const currentUserId = useSelector((state) =>
+  const isAdmin = useSelector((state : RootState) => state.isAdmin);
+  const currentUserId = useSelector((state : RootState) =>
     state.tokens ? state.tokens.id : null,
   );
 

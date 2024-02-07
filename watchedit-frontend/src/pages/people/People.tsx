@@ -10,9 +10,10 @@ import LoadingMessage from "../../components/Loading/LoadingMessage";
 import SelectInput from "../../components/Inputs/SelectInput";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
+import { RootState } from "../../redux/store";
 
 function People() {
-  const isAdmin = useSelector((state) => state.isAdmin);
+  const isAdmin = useSelector((state : RootState) => state.isAdmin);
   const [searchTerms, setSearchTerms] = useState({
     firstName: "",
     lastName: "",

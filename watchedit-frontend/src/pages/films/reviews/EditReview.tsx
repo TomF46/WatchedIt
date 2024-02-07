@@ -9,10 +9,11 @@ import { getReviewById, saveReview } from "../../../api/filmReviewApi";
 import { getFilmById } from "../../../api/filmsApi";
 import { useSelector } from "react-redux";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
+import { RootState } from "../../../redux/store";
 
 function EditReview() {
   const { id, reviewId } = useParams();
-  const userId = useSelector((state) =>
+  const userId = useSelector((state : RootState) =>
     state.tokens ? state.tokens.id : null,
   );
   const navigate = useNavigate();

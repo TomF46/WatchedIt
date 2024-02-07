@@ -7,10 +7,11 @@ import logo from "../assets/WatchedIt.webp";
 import ReasonsToLoginSection from "../components/Home/ReasonsToLoginSection";
 import UnreadNotifications from "../components/Home/UnreadNotifications/UnreadNotifications";
 import FilmsComingSoonReel from "../components/Home/FilmReel/FilmsComingSoonReel";
+import { RootState } from "../redux/store";
 
 function Home() {
-  const userIsAuthenticated = useSelector((state : any) => state.tokens != null);
-  const username = useSelector((state) =>
+  const userIsAuthenticated = useSelector((state : RootState) => state.tokens != null);
+  const username = useSelector((state: RootState) =>
     state.tokens ? state.tokens.username : null,
   );
   

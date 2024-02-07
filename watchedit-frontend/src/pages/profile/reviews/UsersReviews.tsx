@@ -8,10 +8,11 @@ import { getUserById, getUsersReviewsPaginated } from "../../../api/usersApi";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
+import { RootState } from "../../../redux/store";
 
 function UsersReviews() {
   const { id } = useParams();
-  const currentUserId = useSelector((state) =>
+  const currentUserId = useSelector((state : RootState) =>
     state.tokens ? state.tokens.id : null,
   );
   const userId = id ? id : currentUserId;

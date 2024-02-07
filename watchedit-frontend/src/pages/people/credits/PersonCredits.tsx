@@ -9,10 +9,11 @@ import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import PersonMiniDetail from "../../../components/People/PersonMiniDetail";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
+import { RootState } from "../../../redux/store";
 
 function PersonCredits() {
   const { id } = useParams();
-  const isAdmin = useSelector((state) => state.isAdmin);
+  const isAdmin = useSelector((state : RootState) => state.isAdmin);
 
   const { data: person, error: personLoadError } = useQuery({
     queryKey: ["person", id],

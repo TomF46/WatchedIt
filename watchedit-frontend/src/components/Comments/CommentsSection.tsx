@@ -6,6 +6,7 @@ import CommentForm from "./CommentForm";
 import { toast } from "react-toastify";
 import Comment from "./Comment";
 import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 const CommentsSection = ({
   commentsPaginator,
@@ -15,7 +16,7 @@ const CommentsSection = ({
   onUpdateComment,
   onDeleteComment,
 }) => {
-  const userIsAuthenticated = useSelector((state) => state.tokens != null);
+  const userIsAuthenticated = useSelector((state : RootState) => state.tokens != null);
   const [comment, setComment] = useState({ ...newComment });
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);

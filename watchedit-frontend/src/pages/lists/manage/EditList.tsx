@@ -8,10 +8,11 @@ import { useQuery } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
+import { RootState } from "../../../redux/store";
 
 function EditList() {
   const { id } = useParams();
-  const userId = useSelector((state) =>
+  const userId = useSelector((state : RootState) =>
     state.tokens ? state.tokens.id : null,
   );
   const navigate = useNavigate();

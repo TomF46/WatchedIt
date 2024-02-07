@@ -5,9 +5,10 @@ import { getCategories } from "../../api/categoriesApi";
 import CategoryList from "../../components/Categories/CategoryList";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import { useQuery } from "@tanstack/react-query";
+import { RootState } from "../../redux/store";
 
 function Categories() {
-  const isAdmin = useSelector((state) => state.isAdmin);
+  const isAdmin = useSelector((state: RootState) => state.isAdmin);
 
   const { data: categories } = useQuery({
     queryKey: ["categories"],

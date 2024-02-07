@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { decrementNotificationCount } from "../../redux/actions/notificationCountActions";
 import {
@@ -11,10 +11,11 @@ import NotificationsList from "../../components/Notifications/NotificationsList"
 import PaginationControls from "../../components/PaginationControls";
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../components/Error/ErrorMessage";
+import { AppDispatch, RootState, useAppDispatch } from "../../redux/store";
 
 const NotificationsPage = () => {
-  const dispatch = useDispatch();
-  const notificationCount = useSelector((state) => state.notificationCount);
+  const dispatch: AppDispatch = useAppDispatch();
+  const notificationCount = useSelector((state : RootState) => state.notificationCount);
   const [page, setPage] = useState(1);
   const notificationsPerPage = 32;
 

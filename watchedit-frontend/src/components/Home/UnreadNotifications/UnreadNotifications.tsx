@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { decrementNotificationCount } from "../../../redux/actions/notificationCountActions";
 import {
@@ -10,9 +9,10 @@ import NotificationsList from "../../Notifications/NotificationsList";
 import PaginationControls from "../../PaginationControls";
 import { Link } from "react-router-dom";
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
+import { AppDispatch, useAppDispatch } from "../../../redux/store";
 
 const UnreadNotifications = () => {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useAppDispatch();
   const [page, setPage] = useState(1);
   const notificationsPerPage = 6;
 

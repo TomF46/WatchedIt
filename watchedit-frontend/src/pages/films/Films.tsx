@@ -12,9 +12,10 @@ import LoadingMessage from "../../components/Loading/LoadingMessage";
 import RatingInput from "../../components/Inputs/RatingInput";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
+import { RootState } from "../../redux/store";
 
 function Films() {
-  const isAdmin = useSelector((state) => state.isAdmin);
+  const isAdmin = useSelector((state : RootState) => state.isAdmin);
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("");
   const [ratings, setRatings] = useState({ maxRating: null, minRating: null });

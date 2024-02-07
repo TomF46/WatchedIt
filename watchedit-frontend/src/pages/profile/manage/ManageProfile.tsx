@@ -8,9 +8,10 @@ import ManageUserForm from "../../../components/User/Manage/ManageUserForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
+import { RootState } from "../../../redux/store";
 
 function ManageProfile() {
-  const id = useSelector((state) => state.tokens.id);
+  const id = useSelector((state : RootState) => state.tokens.id);
   const navigate = useNavigate();
   const [updatedUser, setUpdatedUser] = useState(null);
   const [errors, setErrors] = useState({});
@@ -83,7 +84,7 @@ function ManageProfile() {
       return;
     }
 
-    let file = event.target.files[0];
+    const file = event.target.files[0];
     uploadProfileImage.mutate(file);
   }
 

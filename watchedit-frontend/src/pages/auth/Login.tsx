@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { login } from "../../redux/actions/authenticationActions";
 import { toast } from "react-toastify";
 import LoginForm from "../../components/Auth/LoginForm";
 import ReasonsToLoginSection from "../../components/Home/ReasonsToLoginSection";
+import { AppDispatch, RootState, useAppDispatch } from "../../redux/store";
 
 function Login() {
-  const dispatch = useDispatch();
-  const userIsAuthenticated = useSelector((state) => state.tokens != null);
+  const dispatch: AppDispatch = useAppDispatch();
+  const userIsAuthenticated = useSelector((state : RootState) => state.tokens != null);
   const navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",

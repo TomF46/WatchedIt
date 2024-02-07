@@ -10,9 +10,10 @@ import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
+import { RootState } from "../../../redux/store";
 
 function AddFilmToList() {
-  const userId = useSelector((state) =>
+  const userId = useSelector((state : RootState) =>
     state.tokens ? state.tokens.id : null,
   );
   const navigate = useNavigate();

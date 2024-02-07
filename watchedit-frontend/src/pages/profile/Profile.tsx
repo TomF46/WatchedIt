@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getUserById } from "../../api/usersApi";
 import { Link, useParams } from "react-router-dom";
@@ -11,12 +11,13 @@ import UserAdminControls from "../../components/User/UserAdminControls";
 import UserReviewsReel from "../../components/Reviews/UserReviewReel";
 import { useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../components/Error/ErrorMessage";
+import { AppDispatch, RootState, useAppDispatch } from "../../redux/store";
 
 function Profile() {
   const { id } = useParams();
-  const isAdmin = useSelector((state) => state.isAdmin);
-  const dispatch = useDispatch();
-  const currentUserId = useSelector((state) =>
+  const isAdmin = useSelector((state : RootState) => state.isAdmin);
+  const dispatch: AppDispatch = useAppDispatch();
+  const currentUserId = useSelector((state : RootState) =>
     state.tokens ? state.tokens.id : null,
   );
   const userId = id ? id : currentUserId;

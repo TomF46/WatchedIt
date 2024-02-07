@@ -11,10 +11,11 @@ import TextInput from "../../components/Inputs/TextInput";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
 import ErrorMessage from "../../components/Error/ErrorMessage";
+import { RootState } from "../../redux/store";
 
 function Category() {
   const { id } = useParams();
-  const isAdmin = useSelector((state) => state.isAdmin);
+  const isAdmin = useSelector((state: RootState) => state.isAdmin);
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
   const filmsPerPage = 32;

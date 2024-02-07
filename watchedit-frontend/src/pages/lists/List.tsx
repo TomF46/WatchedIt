@@ -13,10 +13,11 @@ import LoadingMessage from "../../components/Loading/LoadingMessage";
 import UserMiniDetail from "../../components/User/UserMiniDetail";
 import { useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../components/Error/ErrorMessage";
+import { RootState } from "../../redux/store";
 
 function List() {
   const { id } = useParams();
-  const userId = useSelector((state) =>
+  const userId = useSelector((state : RootState) =>
     state.tokens ? state.tokens.id : null,
   );
   const navigate = useNavigate();

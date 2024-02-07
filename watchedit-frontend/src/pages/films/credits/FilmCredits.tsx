@@ -9,10 +9,11 @@ import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
+import { RootState } from "../../../redux/store";
 
 function FilmCredits() {
   const { id } = useParams();
-  const isAdmin = useSelector((state) => state.isAdmin);
+  const isAdmin = useSelector((state: RootState) => state.isAdmin);
 
   const { data: film, error: filmLoadError } = useQuery({
     queryKey: ["film", id],

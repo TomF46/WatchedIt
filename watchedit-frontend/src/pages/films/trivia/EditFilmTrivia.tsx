@@ -9,10 +9,11 @@ import { getFilmById } from "../../../api/filmsApi";
 import { useSelector } from "react-redux";
 import ManageTrivia from "./ManageTrivia";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
+import { RootState } from "../../../redux/store";
 
 function EditTrivia() {
   const { id, triviaId } = useParams();
-  const userId = useSelector((state) =>
+  const userId = useSelector((state : RootState) =>
     state.tokens ? state.tokens.id : null,
   );
   const navigate = useNavigate();

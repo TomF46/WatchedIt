@@ -13,11 +13,12 @@ import SimilarFilmsReel from "../../components/Films/SimilarFilmsReel";
 import TriviaOverview from "../../components/Films/Trivia/TriviaOverview";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../components/Error/ErrorMessage";
+import { RootState } from "../../redux/store";
 
 function Film() {
   const { id } = useParams();
-  const userIsAuthenticated = useSelector((state) => state.tokens != null);
-  const isAdmin = useSelector((state) => state.isAdmin);
+  const userIsAuthenticated = useSelector((state: RootState) => state.tokens != null);
+  const isAdmin = useSelector((state: RootState) => state.isAdmin);
   const navigate = useNavigate();
 
   const {

@@ -6,9 +6,10 @@ import { register } from "../../api/authenticationApi";
 import { toast } from "react-toastify";
 import ReasonsToLoginSection from "../../components/Home/ReasonsToLoginSection";
 import { useMutation } from "@tanstack/react-query";
+import { RootState } from "../../redux/store";
 
 function Register() {
-  const userIsAuthenticated = useSelector((state) => state.tokens != null);
+  const userIsAuthenticated = useSelector((state : RootState) => state.tokens != null);
   const navigate = useNavigate();
   const [user, setUser] = useState({
     username: "",

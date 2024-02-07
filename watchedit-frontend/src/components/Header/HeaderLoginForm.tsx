@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { login } from "../../redux/actions/authenticationActions";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import EmailInput from "../Inputs/EmailInput";
 import PasswordInput from "../Inputs/PasswordInput";
+import { AppDispatch, useAppDispatch } from "../../redux/store";
 
 const HeaderLoginForm = () => {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useAppDispatch();
   const [user, setUser] = useState({
     email: "",
     password: "",

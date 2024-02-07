@@ -5,9 +5,10 @@ import CommentForm from "./CommentForm";
 import { format, parseISO } from "date-fns";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../../redux/store";
 
 const Comment = ({ comment, onUpdateComment, onDeleteComment }) => {
-  const userId = useSelector((state) =>
+  const userId = useSelector((state : RootState) =>
     state.tokens ? state.tokens.id : null,
   );
   const navigate = useNavigate();

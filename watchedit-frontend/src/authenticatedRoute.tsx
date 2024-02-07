@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
-import { Navigate } from "react-router-dom";
+import { Navigate, RouteProps } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { RootState } from "./redux/store";
 
-const AuthenticatedRoute = ({ children }) => {
-  const userIsAuthenticated = useSelector((state) => state.tokens != null);
+const AuthenticatedRoute = ({ children } : RouteProps) => {
+  const userIsAuthenticated = useSelector((state : RootState) => state.tokens != null);
   if (!userIsAuthenticated) {
     return <Navigate to="/login" replace />;
   }
