@@ -63,7 +63,10 @@ function FilmCredits() {
 
   if (filmLoadError) {
     return (
-      <ErrorMessage message={"Error loading film."} error={filmLoadError} />
+      <ErrorMessage
+        message={"Error loading film."}
+        error={filmLoadError.data.Exception}
+      />
     );
   }
 

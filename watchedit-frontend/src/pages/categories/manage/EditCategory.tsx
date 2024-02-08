@@ -53,7 +53,7 @@ function EditCategory() {
     return (
       <ErrorMessage
         message={"Error loading category for editing."}
-        error={error}
+        error={error.data.Exception}
       />
     );
   }

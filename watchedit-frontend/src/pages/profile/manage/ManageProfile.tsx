@@ -11,7 +11,7 @@ import ErrorMessage from "../../../components/Error/ErrorMessage";
 import { RootState } from "../../../redux/store";
 
 function ManageProfile() {
-  const id = useSelector((state : RootState) => state.tokens.id);
+  const id = useSelector((state: RootState) => state.tokens.id);
   const navigate = useNavigate();
   const [updatedUser, setUpdatedUser] = useState(null);
   const [errors, setErrors] = useState({});
@@ -110,7 +110,7 @@ function ManageProfile() {
     return (
       <ErrorMessage
         message={"Error loading user profile for editing."}
-        error={error}
+        error={error.data.Exception}
       />
     );
   }

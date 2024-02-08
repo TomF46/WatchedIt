@@ -55,7 +55,7 @@ function Category() {
     return (
       <ErrorMessage
         message={"Error loading category"}
-        error={categoryLoadError}
+        error={categoryLoadError.data.Exception}
       />
     );
   }

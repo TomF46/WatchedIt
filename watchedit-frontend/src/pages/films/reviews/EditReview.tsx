@@ -13,7 +13,7 @@ import { RootState } from "../../../redux/store";
 
 function EditReview() {
   const { id, reviewId } = useParams();
-  const userId = useSelector((state : RootState) =>
+  const userId = useSelector((state: RootState) =>
     state.tokens ? state.tokens.id : null,
   );
   const navigate = useNavigate();
@@ -80,7 +80,7 @@ function EditReview() {
     return (
       <ErrorMessage
         message={"Error loading review for editing."}
-        error={error}
+        error={error.data.Exception}
       />
     );
   }

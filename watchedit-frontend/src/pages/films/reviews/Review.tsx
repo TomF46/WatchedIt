@@ -12,7 +12,7 @@ import { RootState } from "../../../redux/store";
 
 function Review() {
   const { id, reviewId } = useParams();
-  const userId = useSelector((state : RootState) =>
+  const userId = useSelector((state: RootState) =>
     state.tokens ? state.tokens.id : null,
   );
   const navigate = useNavigate();
@@ -64,7 +64,12 @@ function Review() {
   if (isLoading) return <LoadingMessage message={"Loading review."} />;
 
   if (error) {
-    return <ErrorMessage message={"Error loading review."} error={error} />;
+    return (
+      <ErrorMessage
+        message={"Error loading review."}
+        error={error.data.Exception}
+      />
+    );
   }
 
   return (

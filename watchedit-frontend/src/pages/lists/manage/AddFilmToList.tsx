@@ -13,7 +13,7 @@ import ErrorMessage from "../../../components/Error/ErrorMessage";
 import { RootState } from "../../../redux/store";
 
 function AddFilmToList() {
-  const userId = useSelector((state : RootState) =>
+  const userId = useSelector((state: RootState) =>
     state.tokens ? state.tokens.id : null,
   );
   const navigate = useNavigate();
@@ -75,7 +75,7 @@ function AddFilmToList() {
     return (
       <ErrorMessage
         message={"Error loading list to add films to."}
-        error={listLoadError}
+        error={listLoadError.data.Exception}
       />
     );
   }

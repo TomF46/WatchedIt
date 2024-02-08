@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 using WatchedIt.Api.Models.Enums;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.PersonModels;
@@ -27,14 +29,16 @@ namespace WatchedIt.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PaginationResponse<GetFilmOverviewDto>>> Get([FromQuery] FilmSearchWithPaginationParameters parameters){
+        public async Task<ActionResult<PaginationResponse<GetFilmOverviewDto>>> Get([FromQuery] FilmSearchWithPaginationParameters parameters)
+        {
             return Ok(await _filmService.GetAll(parameters));
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<GetFilmDto>> GetSingle(int id){
+        public async Task<ActionResult<GetFilmDto>> GetSingle(int id)
+        {
             var film = await _filmService.GetById(id);
-            if(!HttpContext.User.Identity.IsAuthenticated) return Ok(film);
+            if (!HttpContext.User.Identity.IsAuthenticated) return Ok(film);
             var userId = AuthMapper.MapLoggedInUserId(HttpContext);
             film.IsWatchedByUser = await _watchedFilmService.CurrentUserHasWatchedFilmWithId(film.Id, userId);
             return Ok(film);
@@ -49,19 +53,22 @@ namespace WatchedIt.Api.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpPut("{id}")]
-        public async Task<ActionResult<GetFilmOverviewDto>> UpdateFilm(int id, UpdateFilmDto updatedFilm){
+        public async Task<ActionResult<GetFilmOverviewDto>> UpdateFilm(int id, UpdateFilmDto updatedFilm)
+        {
             return Ok(await _filmService.Update(id, updatedFilm));
         }
 
         [Authorize(Roles = "Administrator")]
         [HttpDelete("{id}")]
-        public ActionResult DeleteFilm(int id){
+        public ActionResult DeleteFilm(int id)
+        {
             _filmService.Delete(id);
             return Ok();
         }
 
         [HttpGet("{id}/similar")]
-        public async Task<ActionResult<PaginationResponse<GetFilmOverviewDto>>> GetSimilar(int id, [FromQuery] FilmSearchWithPaginationParameters parameters){
+        public async Task<ActionResult<PaginationResponse<GetFilmOverviewDto>>> GetSimilar(int id, [FromQuery] FilmSearchWithPaginationParameters parameters)
+        {
             return Ok(await _filmService.GetSimilarFilmsById(id, parameters));
         }
     }

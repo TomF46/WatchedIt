@@ -13,7 +13,7 @@ import { RootState } from "../../../redux/store";
 
 function EditTrivia() {
   const { id, triviaId } = useParams();
-  const userId = useSelector((state : RootState) =>
+  const userId = useSelector((state: RootState) =>
     state.tokens ? state.tokens.id : null,
   );
   const navigate = useNavigate();
@@ -67,7 +67,10 @@ function EditTrivia() {
 
   if (filmLoadError) {
     return (
-      <ErrorMessage message={"Error loading film."} error={filmLoadError} />
+      <ErrorMessage
+        message={"Error loading film."}
+        error={filmLoadError.data.Exception}
+      />
     );
   }
 
@@ -77,7 +80,7 @@ function EditTrivia() {
     return (
       <ErrorMessage
         message={"Error loading trivia for editing."}
-        error={error}
+        error={error.data.Exception}
       />
     );
   }

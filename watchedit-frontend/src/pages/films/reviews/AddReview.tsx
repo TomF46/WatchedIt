@@ -48,7 +48,12 @@ function AddReview() {
   if (isLoading) return <LoadingMessage message={"Loading film."} />;
 
   if (error) {
-    return <ErrorMessage message={"Error loading film."} error={error} />;
+    return (
+      <ErrorMessage
+        message={"Error loading film."}
+        error={error.data.Exception}
+      />
+    );
   }
 
   return (

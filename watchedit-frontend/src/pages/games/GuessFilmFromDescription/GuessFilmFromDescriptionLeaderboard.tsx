@@ -24,7 +24,10 @@ function GuessFilmFromDescriptionLeaderboard() {
 
   if (error) {
     return (
-      <ErrorMessage message={"Error loading leaderboard."} error={error} />
+      <ErrorMessage
+        message={"Error loading leaderboard."}
+        error={error.data.Exception}
+      />
     );
   }
 

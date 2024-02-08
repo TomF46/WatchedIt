@@ -60,7 +60,7 @@ function EditPerson() {
     return (
       <ErrorMessage
         message={"Error loading person for editing."}
-        error={error}
+        error={error.data.Exception}
       />
     );
   }

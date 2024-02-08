@@ -88,7 +88,7 @@ function AddCreditForFilm() {
     return (
       <ErrorMessage
         message={"Error loading film to add credit to."}
-        error={filmLoadError}
+        error={filmLoadError.data.Exception}
       />
     );
   }

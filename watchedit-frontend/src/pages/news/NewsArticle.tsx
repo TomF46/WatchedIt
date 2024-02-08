@@ -14,8 +14,8 @@ import { RootState } from "../../redux/store";
 
 function NewsArticle() {
   const { id } = useParams();
-  const isAdmin = useSelector((state : RootState) => state.isAdmin);
-  const currentUserId = useSelector((state : RootState) =>
+  const isAdmin = useSelector((state: RootState) => state.isAdmin);
+  const currentUserId = useSelector((state: RootState) =>
     state.tokens ? state.tokens.id : null,
   );
 
@@ -52,7 +52,10 @@ function NewsArticle() {
 
   if (error) {
     return (
-      <ErrorMessage message={"Error loading news article."} error={error} />
+      <ErrorMessage
+        message={"Error loading news article."}
+        error={error.data.Exception}
+      />
     );
   }
 

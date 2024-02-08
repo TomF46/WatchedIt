@@ -12,7 +12,7 @@ import { RootState } from "../../../redux/store";
 
 function EditList() {
   const { id } = useParams();
-  const userId = useSelector((state : RootState) =>
+  const userId = useSelector((state: RootState) =>
     state.tokens ? state.tokens.id : null,
   );
   const navigate = useNavigate();
@@ -56,7 +56,10 @@ function EditList() {
 
   if (error) {
     return (
-      <ErrorMessage message={"Error loading list for editing."} error={error} />
+      <ErrorMessage
+        message={"Error loading list for editing."}
+        error={error.data.Exception}
+      />
     );
   }
 

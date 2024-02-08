@@ -56,7 +56,7 @@ function EditArticle() {
     return (
       <ErrorMessage
         message={"Error loading news article for editing."}
-        error={error}
+        error={error.data.Exception}
       />
     );
   }

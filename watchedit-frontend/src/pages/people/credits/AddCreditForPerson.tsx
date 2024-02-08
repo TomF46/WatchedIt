@@ -87,7 +87,10 @@ function AddCreditForPerson() {
 
   if (personLoadError) {
     return (
-      <ErrorMessage message={"Error loading person."} error={personLoadError} />
+      <ErrorMessage
+        message={"Error loading person."}
+        error={personLoadError.data.Exception}
+      />
     );
   }
 

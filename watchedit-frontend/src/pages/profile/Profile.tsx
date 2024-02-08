@@ -15,9 +15,9 @@ import { AppDispatch, RootState, useAppDispatch } from "../../redux/store";
 
 function Profile() {
   const { id } = useParams();
-  const isAdmin = useSelector((state : RootState) => state.isAdmin);
+  const isAdmin = useSelector((state: RootState) => state.isAdmin);
   const dispatch: AppDispatch = useAppDispatch();
-  const currentUserId = useSelector((state : RootState) =>
+  const currentUserId = useSelector((state: RootState) =>
     state.tokens ? state.tokens.id : null,
   );
   const userId = id ? id : currentUserId;
@@ -55,7 +55,12 @@ function Profile() {
   if (isLoading) return <LoadingMessage message={"Loading user."} />;
 
   if (error) {
-    return <ErrorMessage message={"Error loading profile."} error={error} />;
+    return (
+      <ErrorMessage
+        message={"Error loading profile."}
+        error={error.data.Exception}
+      />
+    );
   }
 
   return (

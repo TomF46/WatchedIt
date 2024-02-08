@@ -13,8 +13,10 @@ import { RootState } from "../../redux/store";
 
 function Person() {
   const { id } = useParams();
-  const userIsAuthenticated = useSelector((state : RootState) => state.tokens != null);
-  const isAdmin = useSelector((state : RootState) => state.isAdmin);
+  const userIsAuthenticated = useSelector(
+    (state: RootState) => state.tokens != null,
+  );
+  const isAdmin = useSelector((state: RootState) => state.isAdmin);
   const navigate = useNavigate();
 
   const {
@@ -64,7 +66,12 @@ function Person() {
   if (isLoading) return <LoadingMessage message={"Loading person."} />;
 
   if (error) {
-    return <ErrorMessage message={"Error loading person."} error={error} />;
+    return (
+      <ErrorMessage
+        message={"Error loading person."}
+        error={error.data.Exception}
+      />
+    );
   }
   return (
     <div className="person-page">

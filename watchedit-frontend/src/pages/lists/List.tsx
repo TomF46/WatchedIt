@@ -17,7 +17,7 @@ import { RootState } from "../../redux/store";
 
 function List() {
   const { id } = useParams();
-  const userId = useSelector((state : RootState) =>
+  const userId = useSelector((state: RootState) =>
     state.tokens ? state.tokens.id : null,
   );
   const navigate = useNavigate();
@@ -101,7 +101,12 @@ function List() {
   if (isLoading) return <LoadingMessage message={"Loading list."} />;
 
   if (error) {
-    return <ErrorMessage message={"Error loading list."} error={error} />;
+    return (
+      <ErrorMessage
+        message={"Error loading list."}
+        error={error.data.Exception}
+      />
+    );
   }
 
   return (

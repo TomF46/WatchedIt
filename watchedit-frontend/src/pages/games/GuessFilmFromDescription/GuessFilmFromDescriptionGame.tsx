@@ -94,7 +94,12 @@ function GuessFilmFromDescriptionGame() {
   if (isLoading) return <LoadingMessage message={"Loading game."} />;
 
   if (error) {
-    return <ErrorMessage message={"Error loading game."} error={error} />;
+    return (
+      <ErrorMessage
+        message={"Error loading game."}
+        error={error.data.Exception}
+      />
+    );
   }
 
   return (

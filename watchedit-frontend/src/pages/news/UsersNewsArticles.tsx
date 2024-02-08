@@ -13,7 +13,7 @@ import { RootState } from "../../redux/store";
 
 function UsersNewsArticles() {
   const { id } = useParams();
-  const currentUserId = useSelector((state : RootState) =>
+  const currentUserId = useSelector((state: RootState) =>
     state.tokens ? state.tokens.id : null,
   );
   const userId = id ? id : currentUserId;
@@ -39,7 +39,10 @@ function UsersNewsArticles() {
 
   if (userLoadError) {
     return (
-      <ErrorMessage message={"Error loading user."} error={userLoadError} />
+      <ErrorMessage
+        message={"Error loading user."}
+        error={userLoadError.data.Exception}
+      />
     );
   }
 

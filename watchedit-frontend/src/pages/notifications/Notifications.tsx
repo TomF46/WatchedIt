@@ -50,7 +50,7 @@ const NotificationsPage = () => {
 
   if (error) {
     return (
-      <ErrorMessage message={"Error loading notifications."} error={error} />
+      <ErrorMessage message={"Error loading notifications."} error={error.data.Exception} />
     );
   }
 

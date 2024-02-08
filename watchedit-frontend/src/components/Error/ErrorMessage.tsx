@@ -1,7 +1,11 @@
-import PropTypes from "prop-types";
 import ErrorIcon from "../../assets/ErrorIcon.svg";
 
-const ErrorMessage = ({ message, error }) => {
+type Props = {
+  message: string;
+  error: string;
+};
+
+const ErrorMessage = ({ message, error }: Props) => {
   return (
     <div className="error-message text-center mt-4">
       <div className="text-center grid grid-cols-12">
@@ -14,7 +18,7 @@ const ErrorMessage = ({ message, error }) => {
         </div>
       </div>
       <h2 className="text-primary text-2xl">{message}</h2>
-      <p>{error.data.Exception}</p>
+      <p>{error}</p>
       <div className="flex justify-center my-4">
         <button
           onClick={() => location.reload()}
@@ -39,11 +43,6 @@ const ErrorMessage = ({ message, error }) => {
       </div>
     </div>
   );
-};
-
-ErrorMessage.propTypes = {
-  message: PropTypes.string,
-  error: PropTypes.object.isRequired,
 };
 
 export default ErrorMessage;

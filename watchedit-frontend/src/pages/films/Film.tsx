@@ -17,7 +17,9 @@ import { RootState } from "../../redux/store";
 
 function Film() {
   const { id } = useParams();
-  const userIsAuthenticated = useSelector((state: RootState) => state.tokens != null);
+  const userIsAuthenticated = useSelector(
+    (state: RootState) => state.tokens != null,
+  );
   const isAdmin = useSelector((state: RootState) => state.isAdmin);
   const navigate = useNavigate();
 
@@ -72,7 +74,12 @@ function Film() {
   if (isLoading) return <LoadingMessage message={"Loading film."} />;
 
   if (error) {
-    return <ErrorMessage message={"Error loading film."} error={error} />;
+    return (
+      <ErrorMessage
+        message={"Error loading film."}
+        error={error.data.Exception}
+      />
+    );
   }
 
   return (

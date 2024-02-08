@@ -13,7 +13,7 @@ import { RootState } from "../../../redux/store";
 
 function PersonCredits() {
   const { id } = useParams();
-  const isAdmin = useSelector((state : RootState) => state.isAdmin);
+  const isAdmin = useSelector((state: RootState) => state.isAdmin);
 
   const { data: person, error: personLoadError } = useQuery({
     queryKey: ["person", id],
@@ -63,7 +63,10 @@ function PersonCredits() {
 
   if (personLoadError) {
     return (
-      <ErrorMessage message={"Error loading person."} error={personLoadError} />
+      <ErrorMessage
+        message={"Error loading person."}
+        error={personLoadError.data.Exception}
+      />
     );
   }
 
