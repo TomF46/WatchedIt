@@ -1,15 +1,23 @@
-import PropTypes from "prop-types";
 import EmailInput from "../Inputs/EmailInput";
 import PasswordInput from "../Inputs/PasswordInput";
+import { Registration, RegistrationErrors } from "../../types/AuthDefinitions";
 import TextInput from "../Inputs/TextInput";
+
+type Props = {
+  user: Registration;
+  errors: RegistrationErrors;
+  onSave: (event: React.SyntheticEvent) => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  saving: boolean;
+};
 
 const RegisterForm = ({
   user,
   onSave,
   onChange,
   saving = false,
-  errors = {},
-}) => {
+  errors,
+}: Props) => {
   return (
     <form className="" onSubmit={onSave}>
       {errors.onSave && (
@@ -84,14 +92,6 @@ const RegisterForm = ({
       </div>
     </form>
   );
-};
-
-RegisterForm.propTypes = {
-  user: PropTypes.object.isRequired,
-  errors: PropTypes.object,
-  onSave: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  saving: PropTypes.bool,
 };
 
 export default RegisterForm;

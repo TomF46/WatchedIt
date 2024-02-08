@@ -1,6 +1,13 @@
+import {
+  LoginCredentials,
+  LoginResponse,
+  Registration,
+} from "../types/AuthDefinitions";
 import client from "./client";
 
-export function login(userLoginDetails) {
+export function login(
+  userLoginDetails: LoginCredentials,
+): Promise<LoginResponse> {
   return client
     .post("/api/auth/login", userLoginDetails)
     .then((response) => {
@@ -11,7 +18,7 @@ export function login(userLoginDetails) {
     });
 }
 
-export function register(userRegistrationDetails) {
+export function register(userRegistrationDetails: Registration): Promise<null> {
   return client
     .post("/api/auth/register", userRegistrationDetails)
     .then((response) => {

@@ -1,8 +1,22 @@
-import PropTypes from "prop-types";
 import EmailInput from "../Inputs/EmailInput";
 import PasswordInput from "../Inputs/PasswordInput";
+import { LoginCredentials, LoginErrors } from "../../types/AuthDefinitions";
 
-const LoginForm = ({ user, onSave, onChange, saving = false, errors = {} }) => {
+type Props = {
+  user: LoginCredentials;
+  errors: LoginErrors;
+  onSave: (event: React.SyntheticEvent) => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  saving: boolean;
+};
+
+const LoginForm = ({
+  user,
+  onSave,
+  onChange,
+  saving = false,
+  errors,
+}: Props) => {
   return (
     <form className="" onSubmit={onSave}>
       {errors.onSave && (
@@ -55,14 +69,6 @@ const LoginForm = ({ user, onSave, onChange, saving = false, errors = {} }) => {
       </div>
     </form>
   );
-};
-
-LoginForm.propTypes = {
-  user: PropTypes.object.isRequired,
-  errors: PropTypes.object,
-  onSave: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  saving: PropTypes.bool,
 };
 
 export default LoginForm;

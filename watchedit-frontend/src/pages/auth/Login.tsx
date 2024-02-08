@@ -6,20 +6,23 @@ import { toast } from "react-toastify";
 import LoginForm from "../../components/Auth/LoginForm";
 import ReasonsToLoginSection from "../../components/Home/ReasonsToLoginSection";
 import { AppDispatch, RootState, useAppDispatch } from "../../redux/store";
+import { LoginErrors } from "../../types/AuthDefinitions";
 
 function Login() {
   const dispatch: AppDispatch = useAppDispatch();
-  const userIsAuthenticated = useSelector((state : RootState) => state.tokens != null);
+  const userIsAuthenticated = useSelector(
+    (state: RootState) => state.tokens != null,
+  );
   const navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",
     password: "",
     remember_me: true,
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({} as LoginErrors);
   const [saving, setSaving] = useState(false);
 
-  function handleChange(event) {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
     const { name, value, checked } = event.target;
     setUser((prevUser) => ({
       ...prevUser,
@@ -27,9 +30,9 @@ function Login() {
     }));
   }
 
-  function formIsValid() {
+  function formIsValid(): boolean {
     const { email, password } = user;
-    const errors = {};
+    const errors = {} as LoginErrors;
     if (!email) errors.email = "Email is required";
     if (!password) errors.password = "Password is required";
 
@@ -37,7 +40,7 @@ function Login() {
     return Object.keys(errors).length === 0;
   }
 
-  function handleSave(event) {
+  function handleSave(event: React.SyntheticEvent): void {
     event.preventDefault();
     if (!formIsValid()) return;
     setSaving(true);
@@ -62,7 +65,7 @@ function Login() {
       <div className="login-page pb-4">
         <div className="grid grid-cols-12 p-4 my-4">
           <div className="col-span-12 lg:col-span-4 lg:col-start-5">
-            <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
+            <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4">
               <div className="bg-backgroundOffset2 rounded-t-md">
                 <p className="text-primary font-semibold text-center text-xl px-2 py-1">
                   Login

@@ -15,7 +15,7 @@ import { useDebounce } from "@uidotdev/usehooks";
 import { RootState } from "../../redux/store";
 
 function Films() {
-  const isAdmin = useSelector((state : RootState) => state.isAdmin);
+  const isAdmin = useSelector((state: RootState) => state.isAdmin);
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("");
   const [ratings, setRatings] = useState({ maxRating: null, minRating: null });

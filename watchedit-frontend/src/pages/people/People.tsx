@@ -13,7 +13,7 @@ import { useDebounce } from "@uidotdev/usehooks";
 import { RootState } from "../../redux/store";
 
 function People() {
-  const isAdmin = useSelector((state : RootState) => state.isAdmin);
+  const isAdmin = useSelector((state: RootState) => state.isAdmin);
   const [searchTerms, setSearchTerms] = useState({
     firstName: "",
     lastName: "",

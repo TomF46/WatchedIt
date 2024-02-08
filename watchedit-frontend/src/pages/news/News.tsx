@@ -14,7 +14,9 @@ import { useDebounce } from "@uidotdev/usehooks";
 import { RootState } from "../../redux/store";
 
 function News() {
-  const userIsAuthenticated = useSelector((state : RootState) => state.tokens != null);
+  const userIsAuthenticated = useSelector(
+    (state: RootState) => state.tokens != null,
+  );
   const [searchTerms, setSearchTerms] = useState({
     title: "",
     publisher: "",
