@@ -35,7 +35,7 @@ const SelectInput = ({
           onChange={onChange}
           className="block appearance-none focus:border-primary text-white w-full bg-backgroundOffset2 border border-gray-500 hover:border-gray-500 p-2 pr-8 leading-tight focus:outline-none focus:outline rounded"
         >
-          {defaultText && <option value={null}>{defaultText}</option>}
+          {defaultText && <option value={undefined}>{defaultText}</option>}
           {options &&
             options.map((option) => {
               return (
