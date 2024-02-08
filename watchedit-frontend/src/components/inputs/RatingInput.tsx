@@ -1,4 +1,12 @@
-import PropTypes from "prop-types";
+type Props = {
+  name: string;
+  label?: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  value?: number;
+  required: boolean;
+  error: string;
+};
 
 const RatingInput = ({
   name,
@@ -8,7 +16,7 @@ const RatingInput = ({
   value,
   error,
   required,
-}) => {
+} : Props) => {
   return (
     <div className="field">
       {label && (
@@ -35,16 +43,6 @@ const RatingInput = ({
       </div>
     </div>
   );
-};
-
-RatingInput.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-  placeholder: PropTypes.string,
-  required: PropTypes.bool.isRequired,
-  value: PropTypes.number,
-  error: PropTypes.string,
 };
 
 export default RatingInput;

@@ -1,4 +1,12 @@
-import PropTypes from "prop-types";
+type Props = {
+  name: string;
+  label: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  value?: string;
+  required: boolean;
+  error?: string;
+};
 
 const TextInput = ({
   name,
@@ -8,7 +16,7 @@ const TextInput = ({
   value,
   required,
   error,
-}) => {
+}: Props) => {
   return (
     <div className="field">
       {label && (
@@ -34,16 +42,6 @@ const TextInput = ({
       </div>
     </div>
   );
-};
-
-TextInput.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-  placeholder: PropTypes.string,
-  value: PropTypes.string,
-  required: PropTypes.bool.isRequired,
-  error: PropTypes.string,
 };
 
 export default TextInput;

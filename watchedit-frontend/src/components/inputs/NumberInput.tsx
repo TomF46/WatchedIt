@@ -1,6 +1,20 @@
-import PropTypes from "prop-types";
+type Props = {
+  name: string;
+  label?: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  value?: number;
+  error?: string;
+};
 
-const NumberInput = ({ name, label, onChange, placeholder, value, error }) => {
+const NumberInput = ({
+  name,
+  label,
+  onChange,
+  placeholder,
+  value,
+  error,
+}: Props) => {
   return (
     <div className="field">
       {label && (
@@ -25,15 +39,6 @@ const NumberInput = ({ name, label, onChange, placeholder, value, error }) => {
       </div>
     </div>
   );
-};
-
-NumberInput.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-  placeholder: PropTypes.string,
-  value: PropTypes.number,
-  error: PropTypes.string,
 };
 
 export default NumberInput;

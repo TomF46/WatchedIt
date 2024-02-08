@@ -1,6 +1,20 @@
-import PropTypes from "prop-types";
+type Props = {
+  name: string;
+  label: string;
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  value?: string;
+  required: boolean;
+  error?: string;
+};
 
-const TextAreaInput = ({ name, label, onChange, required, value, error }) => {
+const TextAreaInput = ({
+  name,
+  label,
+  onChange,
+  required,
+  value,
+  error,
+}: Props) => {
   return (
     <div className="field">
       <label
@@ -12,7 +26,7 @@ const TextAreaInput = ({ name, label, onChange, required, value, error }) => {
       <div className="control">
         <textarea
           name={name}
-          className="resize-y border border-gray-500 focus:outline-none focus:border-primary min-w-full rounded focus:outline-none focus:shadow-outline bg-backgroundOffset2 p-2 rounded"
+          className="resize-y border border-gray-500 focus:outline-none focus:border-primary min-w-full rounded focus:shadow-outline bg-backgroundOffset2 p-2"
           value={value ? value : ""}
           onChange={onChange}
           required={required}
@@ -21,15 +35,6 @@ const TextAreaInput = ({ name, label, onChange, required, value, error }) => {
       </div>
     </div>
   );
-};
-
-TextAreaInput.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  required: PropTypes.bool.isRequired,
-  value: PropTypes.string,
-  error: PropTypes.string,
 };
 
 export default TextAreaInput;

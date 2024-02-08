@@ -1,4 +1,15 @@
-import PropTypes from "prop-types";
+import { SelectOption } from "./InputTypes";
+
+type Props = {
+  name: string;
+  defaultText?: string;
+  label: string;
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  defaultOption: string;
+  options: SelectOption[];
+  value?: number;
+  error?: string;
+};
 
 const SelectInput = ({
   name,
@@ -8,7 +19,7 @@ const SelectInput = ({
   value,
   options,
   error,
-}) => {
+}: Props) => {
   return (
     <div className="field">
       <label
@@ -22,7 +33,7 @@ const SelectInput = ({
           name={name}
           value={value ? value : ""}
           onChange={onChange}
-          className="block appearance-none focus:outline-none focus:border-primary text-white w-full bg-backgroundOffset2 border border-gray-500 hover:border-gray-500 p-2 pr-8 leading-tight focus:outline-none focus:outline rounded"
+          className="block appearance-none focus:border-primary text-white w-full bg-backgroundOffset2 border border-gray-500 hover:border-gray-500 p-2 pr-8 leading-tight focus:outline-none focus:outline rounded"
         >
           {defaultText && <option value={null}>{defaultText}</option>}
           {options &&
@@ -47,17 +58,6 @@ const SelectInput = ({
       </div>
     </div>
   );
-};
-
-SelectInput.propTypes = {
-  name: PropTypes.string.isRequired,
-  defaultText: PropTypes.string,
-  label: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  defaultOption: PropTypes.string,
-  value: PropTypes.any,
-  error: PropTypes.string,
-  options: PropTypes.arrayOf(PropTypes.any),
 };
 
 export default SelectInput;

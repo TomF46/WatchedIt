@@ -1,5 +1,16 @@
-import PropTypes from "prop-types";
 import { Multiselect } from "multiselect-react-dropdown";
+import { SelectOption } from "./InputTypes";
+
+type Props = {
+  name: string;
+  label: string;
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  defaultOption: string;
+  options: SelectOption[];
+  value?: SelectOption[];
+  helpText?: string;
+  error?: string;
+};
 
 const MultiSelectInput = ({
   name,
@@ -9,7 +20,7 @@ const MultiSelectInput = ({
   options,
   error,
   helpText,
-}) => {
+}: Props) => {
   return (
     <div className="field">
       <label
@@ -32,17 +43,6 @@ const MultiSelectInput = ({
       </div>
     </div>
   );
-};
-
-MultiSelectInput.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  defaultOption: PropTypes.string,
-  value: PropTypes.any,
-  error: PropTypes.string,
-  helpText: PropTypes.string,
-  options: PropTypes.arrayOf(PropTypes.any),
 };
 
 export default MultiSelectInput;

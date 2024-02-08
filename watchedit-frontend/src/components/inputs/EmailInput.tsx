@@ -1,4 +1,12 @@
-import PropTypes from "prop-types";
+type Props = {
+  name: string;
+  label: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  value?: string;
+  error?: string;
+  showLabel: boolean;
+};
 
 const EmailInput = ({
   name,
@@ -8,7 +16,7 @@ const EmailInput = ({
   value,
   error,
   showLabel,
-}) => {
+}: Props) => {
   return (
     <div className="field">
       {showLabel && (
@@ -33,16 +41,6 @@ const EmailInput = ({
       </div>
     </div>
   );
-};
-
-EmailInput.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  placeholder: PropTypes.string,
-  value: PropTypes.string,
-  error: PropTypes.string,
-  showLabel: PropTypes.bool.isRequired,
 };
 
 export default EmailInput;
