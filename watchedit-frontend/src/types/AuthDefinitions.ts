@@ -1,3 +1,5 @@
+import { onSaveError } from "./forms";
+
 export type LoginCredentials = {
   email: string;
   password: string;
@@ -25,10 +27,4 @@ export type Registration = {
   password_confirmation: string;
 };
 
-export type RegistrationErrors = {
-  onSave: string;
-  username: string;
-  email: string;
-  password: string;
-  password_confirmation: string;
-};
+export type RegistrationErrors = Registration & onSaveError;

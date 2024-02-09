@@ -8,7 +8,6 @@ import ReasonsToLoginSection from "../../components/Home/ReasonsToLoginSection";
 import { useMutation } from "@tanstack/react-query";
 import { RootState } from "../../redux/store";
 import { Registration, RegistrationErrors } from "../../types/AuthDefinitions";
-import { AxiosResponse } from "axios";
 
 function Register() {
   const userIsAuthenticated = useSelector(
@@ -33,7 +32,7 @@ function Register() {
       toast.success("Successfully registered");
       navigate("/login");
     },
-    onError: (err: AxiosResponse) => {
+    onError: (err) => {
       setSaving(false);
       toast.error(`Error registering ${err.data.Exception}`, {
         autoClose: false,
