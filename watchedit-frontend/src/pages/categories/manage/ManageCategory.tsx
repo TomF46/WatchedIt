@@ -1,22 +1,34 @@
-import PropTypes from "prop-types";
 import { useState } from "react";
 import ManageCategoryForm from "../../../components/Categories/Manage/ManageCategoryForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
+import { Category, CategoryFormErrors } from "../../../types/Categories";
 
-function ManageCategory({ category, updateCategory, triggerSave, saving }) {
-  const [errors, setErrors] = useState({});
+type Props = {
+  category: Category;
+  updateCategory: (category: Category) => void;
+  triggerSave: () => void;
+  saving: boolean;
+};
 
-  function handleChange(event) {
+function ManageCategory({
+  category,
+  updateCategory,
+  triggerSave,
+  saving,
+}: Props) {
+  const [errors, setErrors] = useState({} as CategoryFormErrors);
+
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
     const { name, value } = event.target;
-    updateCategory((prevCategory) => ({
+    updateCategory((prevCategory: Category) => ({
       ...prevCategory,
       [name]: value,
     }));
   }
 
-  function formIsValid() {
+  function formIsValid(): boolean {
     const { name } = category;
-    const errors = {};
+    const errors = {} as CategoryFormErrors;
     if (!name) errors.name = "Name is required";
     if (name.length > 30)
       errors.name = "Name can't be longer than 30 characters.";
@@ -24,7 +36,7 @@ function ManageCategory({ category, updateCategory, triggerSave, saving }) {
     return Object.keys(errors).length === 0;
   }
 
-  function handleSave(event) {
+  function handleSave(event: React.SyntheticEvent): void {
     event.preventDefault();
     if (!formIsValid()) return;
     triggerSave();
@@ -46,12 +58,5 @@ function ManageCategory({ category, updateCategory, triggerSave, saving }) {
     </div>
   );
 }
-
-ManageCategory.propTypes = {
-  category: PropTypes.object.isRequired,
-  updateCategory: PropTypes.func.isRequired,
-  triggerSave: PropTypes.func.isRequired,
-  saving: PropTypes.bool,
-};
 
 export default ManageCategory;

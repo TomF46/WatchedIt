@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { Category } from "../../types/Categories";
 
-const CategoryList = ({ categories }) => {
+const CategoryList = ({ categories }: { categories: Category[] }) => {
   const navigate = useNavigate();
   return (
     <div className="grid grid-cols-12">
@@ -21,10 +21,6 @@ const CategoryList = ({ categories }) => {
       })}
     </div>
   );
-};
-
-CategoryList.propTypes = {
-  categories: PropTypes.array.isRequired,
 };
 
 export default CategoryList;

@@ -7,15 +7,16 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { getCategoryById, saveCategory } from "../../../api/categoriesApi";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
+import { Category } from "../../../types/Categories";
 
 function EditCategory() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [category, setCategory] = useState({ ...newCategory });
+  const [category, setCategory] = useState({ ...newCategory } as Category);
   const [saving, setSaving] = useState(false);
 
   const editCategory = useMutation({
-    mutationFn: (updatedCategory) => {
+    mutationFn: (updatedCategory: Category) => {
       setSaving(true);
       return saveCategory(updatedCategory);
     },
@@ -34,7 +35,7 @@ function EditCategory() {
   const { isLoading, error } = useQuery({
     queryKey: ["category-update", id],
     queryFn: () =>
-      getCategoryById(id).then((res) => {
+      getCategoryById(id!).then((res) => {
         setCategory({
           id: res.id,
           name: res.name,
@@ -43,13 +44,14 @@ function EditCategory() {
       }),
   });
 
-  function handleUpdate(updatedCategory) {
+  function handleUpdate(updatedCategory: Category): void {
     setCategory(updatedCategory);
   }
 
   if (isLoading) return <LoadingMessage message={"Loading category."} />;
 
   if (error) {
+    console.log(error);
     return (
       <ErrorMessage
         message={"Error loading category for editing."}

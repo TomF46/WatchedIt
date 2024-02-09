@@ -1,13 +1,21 @@
-import PropTypes from "prop-types";
+import { Category, CategoryFormErrors } from "../../../types/Categories";
 import TextInput from "../../Inputs/TextInput";
+
+type Props = {
+  category: Category;
+  errors: CategoryFormErrors;
+  onSave: (event: React.SyntheticEvent) => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  saving: boolean;
+};
 
 const ManageCategoryForm = ({
   category,
   onSave,
   onChange,
   saving = false,
-  errors = {},
-}) => {
+  errors,
+}: Props) => {
   return (
     <form className="mt-4" onSubmit={onSave}>
       {errors.onSave && (
@@ -66,14 +74,6 @@ const ManageCategoryForm = ({
       </div>
     </form>
   );
-};
-
-ManageCategoryForm.propTypes = {
-  category: PropTypes.object.isRequired,
-  errors: PropTypes.object,
-  onSave: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  saving: PropTypes.bool,
 };
 
 export default ManageCategoryForm;

@@ -23,7 +23,7 @@ function Category() {
 
   const { data: category, error: categoryLoadError } = useQuery({
     queryKey: ["category", id],
-    queryFn: () => getCategoryById(id),
+    queryFn: () => getCategoryById(id!),
   });
 
   const { data: filmsPaginator } = useQuery({
@@ -43,13 +43,13 @@ function Category() {
     staleTime: 100,
   });
 
-  function handleSearchTermChange(event) {
+  function handleSearchTermChange(
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void {
     const { value } = event.target;
     setSearchTerm(value);
     if (page != 1) setPage(1);
   }
-
-  console.log(categoryLoadError);
 
   if (categoryLoadError) {
     return (

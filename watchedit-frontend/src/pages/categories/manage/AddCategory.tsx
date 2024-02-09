@@ -5,6 +5,7 @@ import { newCategory } from "../../../tools/obJectShapes";
 import ManageCategory from "./ManageCategory";
 import { saveCategory } from "../../../api/categoriesApi";
 import { useMutation } from "@tanstack/react-query";
+import { Category } from "../../../types/Categories";
 
 function AddCategory() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ function AddCategory() {
   const [saving, setSaving] = useState(false);
 
   const addCategory = useMutation({
-    mutationFn: (newCategory) => {
+    mutationFn: (newCategory: Category) => {
       setSaving(true);
       return saveCategory(newCategory);
     },
@@ -28,7 +29,7 @@ function AddCategory() {
     },
   });
 
-  function handleUpdate(updatedCategory) {
+  function handleUpdate(updatedCategory: Category): void {
     setCategory(updatedCategory);
   }
 
