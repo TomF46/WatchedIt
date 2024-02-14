@@ -16,7 +16,7 @@ export function getCategories(): Promise<CategoriesPaginationResponse> {
     });
 }
 
-export function getCategoryById(id: string): Promise<Category> {
+export function getCategoryById(id: number): Promise<Category> {
   return client
     .get(`/api/categories/${id}`)
     .then((response) => {

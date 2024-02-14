@@ -35,7 +35,7 @@ function EditCategory() {
   const { isLoading, error } = useQuery({
     queryKey: ["category-update", id],
     queryFn: () =>
-      getCategoryById(id!).then((res) => {
+      getCategoryById(Number(id)).then((res) => {
         setCategory({
           id: res.id,
           name: res.name,

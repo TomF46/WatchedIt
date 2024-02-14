@@ -23,7 +23,7 @@ function Category() {
 
   const { data: category, error: categoryLoadError } = useQuery({
     queryKey: ["category", id],
-    queryFn: () => getCategoryById(id!),
+    queryFn: () => getCategoryById(Number(id)),
   });
 
   const { data: filmsPaginator } = useQuery({
