@@ -1,10 +1,19 @@
+import {
+  Film,
+  FilmSearchParameters,
+  FilmsPaginationResponse,
+} from "../types/Films";
 import client from "./client";
 
-export function saveFilm(film) {
+export function saveFilm(film: Film): Promise<Film> {
   return film.id ? editFilm(film) : addFilm(film);
 }
 
-export function searchFilmsPaginated(parameters, pageNumber, pageSize) {
+export function searchFilmsPaginated(
+  parameters: FilmSearchParameters,
+  pageNumber: number,
+  pageSize: number,
+): Promise<FilmsPaginationResponse> {
   let target = `/api/films?PageNumber=${pageNumber}&PageSize=${pageSize}`;
   if (parameters.searchTerm)
     target = `${target}&searchTerm=${parameters.searchTerm}`;
@@ -29,7 +38,7 @@ export function searchFilmsPaginated(parameters, pageNumber, pageSize) {
     });
 }
 
-export function getFilmById(id) {
+export function getFilmById(id: number): Promise<Film> {
   return client
     .get(`/api/films/${id}`)
     .then((response) => {
@@ -40,7 +49,7 @@ export function getFilmById(id) {
     });
 }
 
-export function addFilm(film) {
+export function addFilm(film: Film): Promise<Film> {
   return client
     .post(`/api/films`, film)
     .then((response) => {
@@ -51,7 +60,7 @@ export function addFilm(film) {
     });
 }
 
-export function editFilm(film) {
+export function editFilm(film: Film): Promise<Film> {
   return client
     .put(`/api/films/${film.id}`, film)
     .then((response) => {
@@ -62,7 +71,7 @@ export function editFilm(film) {
     });
 }
 
-export function removeFilm(film) {
+export function removeFilm(film: Film): Promise<void> {
   return client
     .delete(`/api/films/${film.id}`)
     .then((response) => {
@@ -73,7 +82,11 @@ export function removeFilm(film) {
     });
 }
 
-export function getSimilarFilmsPaginated(id, pageNumber, pageSize) {
+export function getSimilarFilmsPaginated(
+  id: number,
+  pageNumber: number,
+  pageSize: number,
+): Promise<FilmsPaginationResponse> {
   return client
     .get(
       `/api/films/${id}/similar?PageNumber=${pageNumber}&PageSize=${pageSize}`,

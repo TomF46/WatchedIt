@@ -5,9 +5,8 @@ type Props = {
   defaultText?: string;
   label: string;
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  defaultOption: string;
   options: SelectOption[];
-  value?: number;
+  value?: string | number | undefined;
   error?: string;
 };
 

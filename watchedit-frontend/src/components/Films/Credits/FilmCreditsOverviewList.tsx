@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import FilmCreditPreview from "./FIlmCreditPreview";
+import { FilmCredit } from "../../../types/Films";
 
-const FilmCreditsOverviewList = ({ credits }) => {
+const FilmCreditsOverviewList = ({ credits }: { credits: FilmCredit[] }) => {
   return (
     <div className="grid grid-cols-12">
       {credits.map((credit) => {

@@ -5,7 +5,7 @@ type Props = {
   placeholder?: string;
   value?: number;
   required: boolean;
-  error: string;
+  error?: string;
 };
 
 const RatingInput = ({
@@ -16,7 +16,7 @@ const RatingInput = ({
   value,
   error,
   required,
-} : Props) => {
+}: Props) => {
   return (
     <div className="field">
       {label && (

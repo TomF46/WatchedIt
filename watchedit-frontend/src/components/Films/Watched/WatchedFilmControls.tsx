@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import {
   setFilmNotWatchedById,
   setFilmWatchedById,
@@ -7,16 +6,22 @@ import {
 import { toast } from "react-toastify";
 import LoadingMessage from "../../Loading/LoadingMessage";
 import { useMutation } from "@tanstack/react-query";
+import { Film } from "../../../types/Films";
 
-const WatchedFilmControls = ({ film, onChange }) => {
-  const [hasWatched, setHasWatched] = useState(null);
+type Props = {
+  film: Film;
+  onChange: () => void;
+};
+
+const WatchedFilmControls = ({ film, onChange }: Props) => {
+  const [hasWatched, setHasWatched] = useState(false);
 
   useEffect(() => {
     setHasWatched(film.isWatchedByUser);
   }, [film]);
 
   const setWatched = useMutation({
-    mutationFn: (film) => setFilmWatchedById(film.id),
+    mutationFn: (film: Film) => setFilmWatchedById(film.id),
     onSuccess: (res) => {
       setHasWatched(res.watched);
       onChange();
@@ -29,7 +34,7 @@ const WatchedFilmControls = ({ film, onChange }) => {
   });
 
   const setNotWatched = useMutation({
-    mutationFn: (film) => setFilmNotWatchedById(film.id),
+    mutationFn: (film: Film) => setFilmNotWatchedById(film.id),
     onSuccess: (res) => {
       setHasWatched(res.watched);
       onChange();
@@ -104,11 +109,6 @@ const WatchedFilmControls = ({ film, onChange }) => {
       )}
     </div>
   );
-};
-
-WatchedFilmControls.propTypes = {
-  film: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired,
 };
 
 export default WatchedFilmControls;

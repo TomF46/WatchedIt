@@ -1,4 +1,11 @@
-import PropTypes from "prop-types";
+type Props = {
+  from: number;
+  to: number;
+  of: number;
+  currentPage: number;
+  lastPage: number;
+  onPageChange: (amount: number) => void;
+};
 
 const PaginationControls = ({
   from,
@@ -7,8 +14,8 @@ const PaginationControls = ({
   onPageChange,
   currentPage,
   lastPage,
-}) => {
-  function changePageBy(amount) {
+}: Props) => {
+  function changePageBy(amount: number) {
     onPageChange(currentPage + amount);
   }
 
@@ -77,15 +84,6 @@ const PaginationControls = ({
       </div>
     </div>
   );
-};
-
-PaginationControls.propTypes = {
-  from: PropTypes.number,
-  to: PropTypes.number,
-  of: PropTypes.number.isRequired,
-  onPageChange: PropTypes.func.isRequired,
-  currentPage: PropTypes.number.isRequired,
-  lastPage: PropTypes.bool.isRequired,
 };
 
 export default PaginationControls;

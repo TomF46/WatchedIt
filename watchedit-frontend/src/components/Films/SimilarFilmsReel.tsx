@@ -1,18 +1,13 @@
-import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { getSimilarFilmsPaginated } from "../../api/filmsApi";
 import FilmPreview from "./FilmPreview";
 import { useQuery } from "@tanstack/react-query";
 
-function SimilarFilmsReel({ filmId }) {
+function SimilarFilmsReel({ filmId }: { filmId: number }) {
   const page = 1;
   const filmsPerPage = 8;
 
-  const {
-    isLoading,
-    data: filmsPaginator,
-    error,
-  } = useQuery({
+  const { data: filmsPaginator, error } = useQuery({
     queryKey: ["similar-films", filmId, filmsPerPage, page],
     queryFn: () => getSimilarFilmsPaginated(filmId, page, filmsPerPage),
   });
@@ -24,7 +19,7 @@ function SimilarFilmsReel({ filmId }) {
     return;
   }
 
-  if (!isLoading)
+  if (filmsPaginator)
     return (
       <div className="similar-films-reel">
         {filmsPaginator.data.length > 0 && (
@@ -44,9 +39,5 @@ function SimilarFilmsReel({ filmId }) {
       </div>
     );
 }
-
-SimilarFilmsReel.propTypes = {
-  filmId: PropTypes.number.isRequired,
-};
 
 export default SimilarFilmsReel;

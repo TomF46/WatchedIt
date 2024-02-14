@@ -30,7 +30,7 @@ function Category() {
     queryKey: ["category-films", ...queryKeyParams],
     queryFn: () =>
       searchFilmsPaginated(
-        { searchTerm: searchTerm, category: id },
+        { searchTerm: searchTerm, category: Number(id) },
         page,
         filmsPerPage,
       ).catch((error) => {

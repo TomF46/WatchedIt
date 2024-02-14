@@ -17,8 +17,11 @@ import { RootState } from "../../redux/store";
 function Films() {
   const isAdmin = useSelector((state: RootState) => state.isAdmin);
   const [searchTerm, setSearchTerm] = useState("");
-  const [category, setCategory] = useState("");
-  const [ratings, setRatings] = useState({ maxRating: null, minRating: null });
+  const [category, setCategory] = useState<number | undefined>(undefined);
+  const [ratings, setRatings] = useState({
+    maxRating: undefined,
+    minRating: undefined,
+  });
   const [page, setPage] = useState(1);
   const filmsPerPage = 32;
   const [sort, setSort] = useState("rating_desc");
@@ -76,33 +79,40 @@ function Films() {
         }),
   });
 
-  function handleSearchTermChange(event) {
+  function handleSearchTermChange(
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void {
     const { value } = event.target;
     setSearchTerm(value);
     if (page != 1) setPage(1);
   }
 
-  function handleCategoryChange(event) {
+  function handleCategoryChange(
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ): void {
     const { value } = event.target;
-    if (isNaN(value)) {
-      setCategory("");
+    if (isNaN(Number(value))) {
+      setCategory(undefined);
     } else {
-      setCategory(value);
+      setCategory(Number(value));
     }
     if (page != 1) setPage(1);
   }
-  function handleSortChange(event) {
+  function handleSortChange(event: React.ChangeEvent<HTMLSelectElement>): void {
     const { value } = event.target;
     setSort(value);
     if (page != 1) setPage(1);
   }
 
-  function handleRatingsChange(event) {
+  function handleRatingsChange(
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void {
     const { name, value } = event.target;
-    if (value < 0 || value > 10) return;
+    const converted = Number(value);
+    if (converted < 0 || converted > 10) return;
     setRatings((prevRatings) => ({
       ...prevRatings,
-      [name]: value,
+      [name]: Number(value),
     }));
     if (page != 1) setPage(1);
   }
@@ -165,6 +175,7 @@ function Films() {
                   label="Min Rating"
                   value={ratings.minRating}
                   onChange={handleRatingsChange}
+                  required={false}
                 />
               </div>
               <div className="col-span-6 md:col-span-2 lg:col-span-1 px-2">
@@ -173,6 +184,7 @@ function Films() {
                   label="Max Rating"
                   value={ratings.maxRating}
                   onChange={handleRatingsChange}
+                  required={false}
                 />
               </div>
               <div className="col-span-12 md:col-span-3 lg:col-span-2 px-2">

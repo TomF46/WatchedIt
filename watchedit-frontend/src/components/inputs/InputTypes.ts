@@ -1,4 +1,4 @@
 export type SelectOption = {
-  id: number;
+  id: string | number;
   name: string;
 };

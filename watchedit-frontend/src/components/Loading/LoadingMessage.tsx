@@ -1,7 +1,6 @@
-import PropTypes from "prop-types";
 import LoadingSpinner from "./LoadingSpinner";
 
-const LoadingMessage = ({ message }) => {
+const LoadingMessage = ({ message }: { message: string }) => {
   return (
     <div className="flex justify-center mt-4 pt-4">
       <div>
@@ -10,10 +9,6 @@ const LoadingMessage = ({ message }) => {
       </div>
     </div>
   );
-};
-
-LoadingMessage.propTypes = {
-  message: PropTypes.string,
 };
 
 export default LoadingMessage;
