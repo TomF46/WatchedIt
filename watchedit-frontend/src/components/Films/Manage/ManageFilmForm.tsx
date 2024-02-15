@@ -33,7 +33,7 @@ type Props = {
   ) => void;
   onDateChange: (date: Date | null) => void;
   onImageChange: (url: File | null) => void;
-  onCategoryChange: (selected: any[]) => void;
+  onCategoryChange: (selected: any[]) => void; //todo
   onTrailerChange: (url: string | null) => void;
   uploadingImage: boolean;
   saving: boolean;

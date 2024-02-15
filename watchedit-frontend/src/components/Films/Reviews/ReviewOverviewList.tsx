@@ -1,7 +1,12 @@
-import PropTypes from "prop-types";
 import ReviewOverview from "../../Reviews/ReviewOverview";
+import { Review } from "../../../types/Reviews";
 
-const ReviewOverviewList = ({ reviews, showFilm }) => {
+type Props = {
+  reviews: Review[];
+  showFilm: boolean;
+};
+
+const ReviewOverviewList = ({ reviews, showFilm }: Props) => {
   return (
     <div className="grid grid-cols-12">
       {reviews.map((review) => {
@@ -11,11 +16,6 @@ const ReviewOverviewList = ({ reviews, showFilm }) => {
       })}
     </div>
   );
-};
-
-ReviewOverviewList.propTypes = {
-  reviews: PropTypes.array.isRequired,
-  showFilm: PropTypes.bool.isRequired,
 };
 
 export default ReviewOverviewList;

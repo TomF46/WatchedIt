@@ -34,7 +34,7 @@ function AddFilm() {
     setFilm(updatedFilm);
   }
 
-  function handleSave() {
+  function handleSave(): void {
     const filmToPost = { ...film };
     filmToPost.categories = film.categories.map(
       (category: Category) => category.id,

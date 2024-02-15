@@ -27,4 +27,14 @@ export type Registration = {
   password_confirmation: string;
 };
 
+export type User = {
+  id: number;
+  username: string;
+  email: string;
+  watchedFilmCount: number;
+  imageUrl: string;
+  biography: string;
+  canPublish: boolean;
+};
+
 export type RegistrationErrors = Registration & onSaveError;

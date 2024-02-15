@@ -10,6 +10,7 @@ import { getFilmById } from "../../../api/filmsApi";
 import { useSelector } from "react-redux";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
 import { RootState } from "../../../redux/store";
+import { EditableReview } from "../../../types/Reviews";
 
 function EditReview() {
   const { id, reviewId } = useParams();
@@ -17,7 +18,7 @@ function EditReview() {
     state.tokens ? state.tokens.id : null,
   );
   const navigate = useNavigate();
-  const [review, setReview] = useState({ ...newReview });
+  const [review, setReview] = useState<EditableReview>({ ...newReview });
   const [saving, setSaving] = useState(false);
 
   const {
@@ -26,13 +27,13 @@ function EditReview() {
     error: filmLoadError,
   } = useQuery({
     queryKey: ["film", id],
-    queryFn: () => getFilmById(id),
+    queryFn: () => getFilmById(Number(id)),
   });
 
   const { isLoading, error } = useQuery({
     queryKey: ["review-update", id, reviewId],
     queryFn: () =>
-      getReviewById(id, reviewId).then((res) => {
+      getReviewById(Number(id), Number(reviewId)).then((res) => {
         if (res.user.id != userId)
           navigate(`/films/${res.film.id}/reviews/${res.id}`);
         setReview({
@@ -45,9 +46,9 @@ function EditReview() {
   });
 
   const editReview = useMutation({
-    mutationFn: (updatedReview) => {
+    mutationFn: (updatedReview: EditableReview) => {
       setSaving(true);
-      return saveReview(id, updatedReview);
+      return saveReview(Number(id), updatedReview);
     },
     onSuccess: (res) => {
       toast.success("Review saved");
@@ -61,7 +62,7 @@ function EditReview() {
     },
   });
 
-  function handleUpdate(updatedReview) {
+  function handleUpdate(updatedReview: EditableReview) {
     setReview(updatedReview);
   }
 
@@ -85,19 +86,20 @@ function EditReview() {
     );
   }
 
-  return (
-    <div className="Edit-review-page">
-      <ManageReview
-        film={film}
-        review={review}
-        updateReview={handleUpdate}
-        triggerSave={() => {
-          editReview.mutate(review);
-        }}
-        saving={saving}
-      ></ManageReview>
-    </div>
-  );
+  if (film)
+    return (
+      <div className="Edit-review-page">
+        <ManageReview
+          film={film}
+          review={review}
+          updateReview={handleUpdate}
+          triggerSave={() => {
+            editReview.mutate(review);
+          }}
+          saving={saving}
+        ></ManageReview>
+      </div>
+    );
 }
 
 export default EditReview;

@@ -1,6 +1,20 @@
-import PropTypes from "prop-types";
 import RatingInput from "../../Inputs/RatingInput";
 import TextAreaInput from "../../Inputs/TextAreaInput";
+import { EditableReview, ReviewFormErrors } from "../../../types/Reviews";
+import { Film } from "../../../types/Films";
+
+type Props = {
+  review: EditableReview;
+  film: Film;
+  errors: ReviewFormErrors;
+  onSave: (event: React.SyntheticEvent) => void;
+  onChange: (
+    event:
+      | React.ChangeEvent<HTMLTextAreaElement>
+      | React.ChangeEvent<HTMLInputElement>,
+  ) => void;
+  saving: boolean;
+};
 
 const ManageReviewForm = ({
   review,
@@ -8,8 +22,8 @@ const ManageReviewForm = ({
   onSave,
   onChange,
   saving = false,
-  errors = {},
-}) => {
+  errors,
+}: Props) => {
   return (
     <form className="mt-4" onSubmit={onSave}>
       {errors.onSave && (
@@ -18,7 +32,7 @@ const ManageReviewForm = ({
         </div>
       )}
 
-      <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
+      <div className="controls bg-backgroundOffset mt-4 rounded-md mb-4 shadow">
         <div className="bg-backgroundOffset2 rounded-t-md">
           <p className="text-primary font-semibold text-center text-2xl px-2 py-1">
             {review.id ? `Editing` : "Adding"} review for {film.name}
@@ -73,15 +87,6 @@ const ManageReviewForm = ({
       </div>
     </form>
   );
-};
-
-ManageReviewForm.propTypes = {
-  review: PropTypes.object.isRequired,
-  film: PropTypes.object.isRequired,
-  errors: PropTypes.object,
-  onSave: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  saving: PropTypes.bool,
 };
 
 export default ManageReviewForm;

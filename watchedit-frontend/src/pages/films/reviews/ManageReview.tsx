@@ -1,25 +1,45 @@
-import PropTypes from "prop-types";
 import { useState } from "react";
 import ManageReviewForm from "../../../components/Films/Reviews/ManageReviewForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
+import { Film } from "../../../types/Films";
+import { EditableReview, ReviewFormErrors } from "../../../types/Reviews";
 
-function ManageReview({ film, review, updateReview, triggerSave, saving }) {
-  const [errors, setErrors] = useState({});
+type Props = {
+  film: Film;
+  review: EditableReview;
+  updateReview: (review: EditableReview) => void;
+  triggerSave: () => void;
+  saving: boolean;
+};
 
-  function handleChange(event) {
+function ManageReview({
+  film,
+  review,
+  updateReview,
+  triggerSave,
+  saving,
+}: Props) {
+  const [errors, setErrors] = useState({} as ReviewFormErrors);
+
+  function handleChange(
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>,
+  ): void {
     const { name, value } = event.target;
-    if (name == "rating" && (value < 0 || value > 10)) return;
-    updateReview((prevReview) => ({
+    if (name == "rating" && (Number(value) < 0 || Number(value) > 10)) return;
+
+    updateReview((prevReview: EditableReview) => ({
       ...prevReview,
       [name]: value,
     }));
   }
 
-  function formIsValid() {
+  function formIsValid(): boolean {
     const { rating, text } = review;
-    const errors = {};
+    const errors = {} as ReviewFormErrors;
     if (!rating) errors.rating = "Rating is required";
-    if (rating < 0 || rating > 10)
+    if (rating! < 0 || rating! > 10)
       errors.rating = "Rating must be between 0 and 10";
     if (!text) errors.text = "Review text is required";
     if (text.length > 8000)
@@ -28,7 +48,7 @@ function ManageReview({ film, review, updateReview, triggerSave, saving }) {
     return Object.keys(errors).length === 0;
   }
 
-  function handleSave(event) {
+  function handleSave(event: React.SyntheticEvent): void {
     event.preventDefault();
     if (!formIsValid()) return;
     triggerSave();
@@ -53,13 +73,5 @@ function ManageReview({ film, review, updateReview, triggerSave, saving }) {
     </div>
   );
 }
-
-ManageReview.propTypes = {
-  film: PropTypes.object.isRequired,
-  review: PropTypes.object.isRequired,
-  updateReview: PropTypes.func.isRequired,
-  triggerSave: PropTypes.func.isRequired,
-  saving: PropTypes.bool,
-};
 
 export default ManageReview;

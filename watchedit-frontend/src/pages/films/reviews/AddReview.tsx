@@ -8,11 +8,12 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { getFilmById } from "../../../api/filmsApi";
 import { saveReview } from "../../../api/filmReviewApi";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
+import { EditableReview } from "../../../types/Reviews";
 
 function AddReview() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [review, setReview] = useState({ ...newReview });
+  const [review, setReview] = useState<EditableReview>({ ...newReview });
   const [saving, setSaving] = useState(false);
 
   const {
@@ -21,13 +22,13 @@ function AddReview() {
     error,
   } = useQuery({
     queryKey: ["film", id],
-    queryFn: () => getFilmById(id),
+    queryFn: () => getFilmById(Number(id)),
   });
 
   const addReview = useMutation({
-    mutationFn: (newReview) => {
+    mutationFn: (newReview: EditableReview) => {
       setSaving(true);
-      return saveReview(id, newReview);
+      return saveReview(Number(id), newReview);
     },
     onSuccess: (res) => {
       toast.success("Review saved");
@@ -41,7 +42,7 @@ function AddReview() {
     },
   });
 
-  function handleUpdate(updatedReview) {
+  function handleUpdate(updatedReview: EditableReview): void {
     setReview(updatedReview);
   }
 
@@ -56,19 +57,20 @@ function AddReview() {
     );
   }
 
-  return (
-    <div className="Add-review-page">
-      <ManageReview
-        film={film}
-        review={review}
-        updateReview={handleUpdate}
-        triggerSave={() => {
-          addReview.mutate(review);
-        }}
-        saving={saving}
-      ></ManageReview>
-    </div>
-  );
+  if (film)
+    return (
+      <div className="Add-review-page">
+        <ManageReview
+          film={film}
+          review={review}
+          updateReview={handleUpdate}
+          triggerSave={() => {
+            addReview.mutate(review);
+          }}
+          saving={saving}
+        ></ManageReview>
+      </div>
+    );
 }
 
 export default AddReview;

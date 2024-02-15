@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { Film } from "../../types/Films";
 
-const FilmMiniDetail = ({ film }) => {
+const FilmMiniDetail = ({ film }: { film: Film }) => {
   return (
     <div className="grid grid-cols-12">
       <div className="col-span-12 md:col-span-6 lg:col-span-6">
@@ -27,10 +27,6 @@ const FilmMiniDetail = ({ film }) => {
       </div>
     </div>
   );
-};
-
-FilmMiniDetail.propTypes = {
-  film: PropTypes.object.isRequired,
 };
 
 export default FilmMiniDetail;

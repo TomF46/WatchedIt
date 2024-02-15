@@ -27,7 +27,7 @@ export const newList = {
 };
 
 export const newReview = {
-  rating: null,
+  rating: undefined,
   text: "",
 };
 

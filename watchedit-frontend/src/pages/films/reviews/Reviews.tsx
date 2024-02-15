@@ -17,13 +17,13 @@ function Reviews() {
 
   const { data: film, error: filmLoadError } = useQuery({
     queryKey: ["film", id],
-    queryFn: () => getFilmById(id),
+    queryFn: () => getFilmById(Number(id)),
   });
 
   const { data: reviewsPaginator } = useQuery({
     queryKey: ["film-reviews", id, page, reviewsPerPage],
     queryFn: () =>
-      getReviewsByFilmId(id, page, reviewsPerPage).catch((error) => {
+      getReviewsByFilmId(Number(id), page, reviewsPerPage).catch((error) => {
         toast.error(`Error getting film reviews ${error.data.Exception}`, {
           autoClose: false,
         });
