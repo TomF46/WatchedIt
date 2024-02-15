@@ -1,7 +1,6 @@
 import { User } from "./AuthDefinitions";
 import { Film } from "./Films";
 import { PaginationResponse } from "./PaginationResponse";
-import { onSaveError } from "./forms";
 
 export type Review = {
   id?: number;
@@ -34,6 +33,16 @@ export type Comment = {
   createdDate: string;
   updatedDate: string;
   user: user;
+};
+
+export type EditableComment = {
+  id?: number;
+  text?: string;
+};
+
+export type CommentFormErrors = {
+  text?: string;
+  onSubmit?: string;
 };
 
 type Comments = {

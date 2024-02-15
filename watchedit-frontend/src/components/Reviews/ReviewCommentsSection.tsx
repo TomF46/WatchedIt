@@ -1,5 +1,4 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import LoadingMessage from "../Loading/LoadingMessage";
 import {
@@ -11,8 +10,9 @@ import {
 import CommentsSection from "../Comments/CommentsSection";
 import { confirmAlert } from "react-confirm-alert";
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
+import { Comment, EditableComment, Review } from "../../types/Reviews";
 
-function ReviewCommentsSection({ review }) {
+function ReviewCommentsSection({ review }: { review: Review }) {
   const [page, setPage] = useState(1);
   const commentsPerPage = 20;
 
@@ -22,14 +22,14 @@ function ReviewCommentsSection({ review }) {
     error,
     refetch,
   } = useQuery({
-    queryKey: ["review-comments", review.id.page, commentsPerPage],
-    queryFn: () => getReviewComments(review.id, page, commentsPerPage),
+    queryKey: ["review-comments", review.id, page, commentsPerPage],
+    queryFn: () => getReviewComments(Number(review.id), page, commentsPerPage),
     placeholderData: keepPreviousData,
   });
 
   const deleteComment = useMutation({
-    mutationFn: (commentToRemove) =>
-      deleteReviewComment(review.id, commentToRemove),
+    mutationFn: (commentToRemove: Comment) =>
+      deleteReviewComment(Number(review.id), commentToRemove),
     onSuccess: () => {
       toast.success("Comment removed");
       refetch();
@@ -41,9 +41,9 @@ function ReviewCommentsSection({ review }) {
     },
   });
 
-  function handleAddComment(comment) {
+  function handleAddComment(comment: EditableComment): Promise<Comment> {
     return new Promise((resolve, reject) => {
-      addReviewComment(review.id, comment)
+      addReviewComment(Number(review.id), comment)
         .then((res) => {
           refetch();
           resolve(res);
@@ -54,9 +54,9 @@ function ReviewCommentsSection({ review }) {
     });
   }
 
-  function handleUpdateComment(comment) {
+  function handleUpdateComment(comment: Comment): Promise<Comment> {
     return new Promise((resolve, reject) => {
-      updateReviewComment(review.id, comment)
+      updateReviewComment(Number(review.id), comment)
         .then((res) => {
           refetch();
           resolve(res);
@@ -67,7 +67,7 @@ function ReviewCommentsSection({ review }) {
     });
   }
 
-  function handleDeleteComment(comment) {
+  function handleDeleteComment(comment: Comment) {
     confirmAlert({
       title: "Confirm deletion",
       message: `Are you sure you want to remove this comment?`,
@@ -93,24 +93,21 @@ function ReviewCommentsSection({ review }) {
     return;
   }
 
-  return (
-    <div className="review-comments-section">
-      <div className="mt-4">
-        <CommentsSection
-          commentsPaginator={comments}
-          currentPage={page}
-          onAddComment={handleAddComment}
-          onDeleteComment={handleDeleteComment}
-          onPageChange={setPage}
-          onUpdateComment={handleUpdateComment}
-        />
+  if (comments)
+    return (
+      <div className="review-comments-section">
+        <div className="mt-4">
+          <CommentsSection
+            commentsPaginator={comments}
+            currentPage={page}
+            onAddComment={handleAddComment}
+            onDeleteComment={handleDeleteComment}
+            onPageChange={setPage}
+            onUpdateComment={handleUpdateComment}
+          />
+        </div>
       </div>
-    </div>
-  );
+    );
 }
-
-ReviewCommentsSection.propTypes = {
-  review: PropTypes.object.isRequired,
-};
 
 export default ReviewCommentsSection;

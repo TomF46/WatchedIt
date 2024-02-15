@@ -1,12 +1,26 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 import PaginationControls from "../PaginationControls";
 import { newComment } from "../../tools/obJectShapes";
 import CommentForm from "./CommentForm";
 import { toast } from "react-toastify";
-import Comment from "./Comment";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import {
+  Comment as CommentType,
+  CommentFormErrors,
+  CommentsPaginationResponse,
+  EditableComment,
+} from "../../types/Reviews";
+import Comment from "./Comment";
+
+type Props = {
+  commentsPaginator: CommentsPaginationResponse;
+  currentPage: number;
+  onPageChange: (amount: number) => void;
+  onAddComment: (comment: EditableComment) => Promise<CommentType>;
+  onUpdateComment: (comment: CommentType) => Promise<CommentType>;
+  onDeleteComment: (comment: CommentType) => void;
+};
 
 const CommentsSection = ({
   commentsPaginator,
@@ -15,13 +29,15 @@ const CommentsSection = ({
   onAddComment,
   onUpdateComment,
   onDeleteComment,
-}) => {
-  const userIsAuthenticated = useSelector((state : RootState) => state.tokens != null);
-  const [comment, setComment] = useState({ ...newComment });
+}: Props) => {
+  const userIsAuthenticated = useSelector(
+    (state: RootState) => state.tokens != null,
+  );
+  const [comment, setComment] = useState<EditableComment>({ ...newComment });
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
 
-  function handleChange(event) {
+  function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>): void {
     const { name, value } = event.target;
     setComment((prevComment) => ({
       ...prevComment,
@@ -29,17 +45,17 @@ const CommentsSection = ({
     }));
   }
 
-  function formIsValid() {
+  function formIsValid(): boolean {
     const { text } = comment;
-    const errors = {};
+    const errors = {} as CommentFormErrors;
     if (!text) errors.text = "Comment text is required";
-    if (text.length > 600)
-      errors.name = "Comment text cant be longer then 600 characters";
+    if (text!.length > 600)
+      errors.text = "Comment text cant be longer then 600 characters";
     setErrors(errors);
     return Object.keys(errors).length === 0;
   }
 
-  function handleSubmit() {
+  function handleSubmit(event: React.SyntheticEvent): void {
     event.preventDefault();
     if (!formIsValid()) return;
     setSaving(true);
@@ -102,20 +118,12 @@ const CommentsSection = ({
             onSubmit={handleSubmit}
             errors={errors}
             saving={saving}
+            editing={false}
           />
         )}
       </div>
     </div>
   );
-};
-
-CommentsSection.propTypes = {
-  commentsPaginator: PropTypes.object.isRequired,
-  currentPage: PropTypes.number.isRequired,
-  onPageChange: PropTypes.func.isRequired,
-  onAddComment: PropTypes.func.isRequired,
-  onUpdateComment: PropTypes.func.isRequired,
-  onDeleteComment: PropTypes.func.isRequired,
 };
 
 export default CommentsSection;

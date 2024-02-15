@@ -3,7 +3,7 @@ type Props = {
   to: number;
   of: number;
   currentPage: number;
-  lastPage: number;
+  lastPage: boolean;
   onPageChange: (amount: number) => void;
 };
 

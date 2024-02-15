@@ -1,6 +1,7 @@
 import {
   Comment,
   CommentsPaginationResponse,
+  EditableComment,
   EditableReview,
   Review,
   ReviewsPaginationResponse,
@@ -104,7 +105,7 @@ export function getReviewComments(
 
 export function addReviewComment(
   reviewId: number,
-  comment: Comment,
+  comment: EditableComment,
 ): Promise<Comment> {
   return client
     .post(`/api/reviews/${reviewId}/comments`, comment)

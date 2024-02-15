@@ -1,14 +1,23 @@
-import PropTypes from "prop-types";
+import { CommentFormErrors, EditableComment } from "../../types/Reviews";
 import TextAreaInput from "../Inputs/TextAreaInput";
+
+type Props = {
+  comment: EditableComment;
+  errors: CommentFormErrors;
+  onSubmit: (event: React.SyntheticEvent) => void;
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  saving: boolean;
+  editing: boolean;
+};
 
 const CommentForm = ({
   comment,
   onChange,
   onSubmit,
-  errors = {},
+  errors,
   saving = false,
   editing = false,
-}) => {
+}: Props) => {
   return (
     <form className="" onSubmit={onSubmit}>
       {errors.onSubmit && (
@@ -28,7 +37,7 @@ const CommentForm = ({
             value={comment.text}
             required={true}
             onChange={onChange}
-            error={errors.comment}
+            error={errors.text}
           />
         </div>
       </div>
@@ -61,15 +70,6 @@ const CommentForm = ({
       </div>
     </form>
   );
-};
-
-CommentForm.propTypes = {
-  comment: PropTypes.object.isRequired,
-  errors: PropTypes.object,
-  onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  saving: PropTypes.bool,
-  editing: PropTypes.bool,
 };
 
 export default CommentForm;

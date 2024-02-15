@@ -1,14 +1,20 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import CommentForm from "./CommentForm";
 import { format, parseISO } from "date-fns";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../redux/store";
+import { CommentFormErrors, Comment as CommentType } from "../../types/Reviews";
 
-const Comment = ({ comment, onUpdateComment, onDeleteComment }) => {
-  const userId = useSelector((state : RootState) =>
+type Props = {
+  comment: CommentType;
+  onUpdateComment: (comment: CommentType) => Promise<CommentType>;
+  onDeleteComment: (comment: CommentType) => void;
+};
+
+const Comment = ({ comment, onUpdateComment, onDeleteComment }: Props) => {
+  const userId = useSelector((state: RootState) =>
     state.tokens ? state.tokens.id : null,
   );
   const navigate = useNavigate();
@@ -17,7 +23,7 @@ const Comment = ({ comment, onUpdateComment, onDeleteComment }) => {
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
 
-  function handleChange(event) {
+  function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>): void {
     const { name, value } = event.target;
     setUpdatedComment((prevComment) => ({
       ...prevComment,
@@ -25,17 +31,17 @@ const Comment = ({ comment, onUpdateComment, onDeleteComment }) => {
     }));
   }
 
-  function formIsValid() {
+  function formIsValid(): boolean {
     const { text } = updatedComment;
-    const errors = {};
+    const errors = {} as CommentFormErrors;
     if (!text) errors.text = "Comment text is required";
     if (text.length > 600)
-      errors.name = "Comment text cant be longer then 600 characters";
+      errors.text = "Comment text cant be longer then 600 characters";
     setErrors(errors);
     return Object.keys(errors).length === 0;
   }
 
-  function handleSubmit() {
+  function handleSubmit(event: React.SyntheticEvent): void {
     event.preventDefault();
     if (!formIsValid()) return;
     setSaving(true);
@@ -163,12 +169,6 @@ const Comment = ({ comment, onUpdateComment, onDeleteComment }) => {
       )}
     </div>
   );
-};
-
-Comment.propTypes = {
-  comment: PropTypes.object.isRequired,
-  onUpdateComment: PropTypes.func.isRequired,
-  onDeleteComment: PropTypes.func.isRequired,
 };
 
 export default Comment;
