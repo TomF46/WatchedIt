@@ -4,10 +4,10 @@ import { SelectOption } from "./InputTypes";
 type Props = {
   name: string;
   label: string;
-  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  defaultOption: string;
+  onChange: (selected: any[]) => void;
+  defaultOption?: string;
   options: SelectOption[];
-  value?: SelectOption[];
+  value?: any[];
   helpText?: string;
   error?: string;
 };

@@ -10,11 +10,23 @@ export type Film = {
   releaseDate: Date;
   posterUrl: string;
   averageRating: string;
-  trailerUrl: string;
+  trailerUrl?: string;
   credits: FilmCredits;
   categories: Category[];
   watchedByCount: int;
   isWatchedByUser: boolean;
+};
+
+export type EditableFilm = {
+  id?: number;
+  name: string;
+  shortDescription: string;
+  fullDescription: string;
+  runtime: number;
+  releaseDate: Date;
+  posterUrl?: string;
+  trailerUrl?: string;
+  categories: any; //todo
 };
 
 export type FilmCredits = {
@@ -45,3 +57,5 @@ export type FilmSearchParameters = {
   releasedBeforeDate?: Date;
   releasedAfterDate?: Date;
 };
+
+export type FilmFormErrors = EditableFilm & onSaveError;

@@ -1,13 +1,15 @@
+import { EditableFilm } from "../types/Films";
+
 export const newFilm = {
   name: "",
   shortDescription: "",
   fullDescription: "",
   runtime: 0,
   releaseDate: new Date(),
-  posterUrl: null,
-  trailerUrl: null,
+  posterUrl: undefined,
+  trailerUrl: undefined,
   categories: [],
-};
+} as EditableFilm;
 
 export const newPerson = {
   firstName: "",

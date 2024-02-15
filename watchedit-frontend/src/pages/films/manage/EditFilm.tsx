@@ -8,24 +8,26 @@ import { parseISO } from "date-fns";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import ManageFilm from "./ManageFilm";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
+import { EditableFilm } from "../../../types/Films";
+import { Category } from "../../../types/Categories";
 
 function EditFilm() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [film, setFilm] = useState({ ...newFilm });
+  const [film, setFilm] = useState<EditableFilm>({ ...newFilm });
   const [saving, setSaving] = useState(false);
 
   const { isLoading, error } = useQuery({
     queryKey: ["film-update", id],
     queryFn: () =>
-      getFilmById(id).then((res) => {
+      getFilmById(Number(id)).then((res) => {
         setFilm({
           id: res.id,
           name: res.name,
           shortDescription: res.shortDescription,
           fullDescription: res.fullDescription,
           runtime: res.runtime,
-          releaseDate: parseISO(res.releaseDate),
+          releaseDate: parseISO(res.releaseDate.toString()),
           posterUrl: res.posterUrl,
           categories: res.categories,
         });
@@ -34,7 +36,7 @@ function EditFilm() {
   });
 
   const updateFilm = useMutation({
-    mutationFn: (updatedFilm) => {
+    mutationFn: (updatedFilm: EditableFilm) => {
       setSaving(true);
       return saveFilm(updatedFilm);
     },
@@ -50,13 +52,15 @@ function EditFilm() {
     },
   });
 
-  function handleUpdate(updatedFilm) {
+  function handleUpdate(updatedFilm: EditableFilm): void {
     setFilm(updatedFilm);
   }
 
   function handleSave() {
-    let filmToPost = { ...film };
-    filmToPost.categories = film.categories.map((category) => category.id);
+    const filmToPost = { ...film };
+    filmToPost.categories = film.categories.map(
+      (category: Category) => category.id,
+    );
     updateFilm.mutate(filmToPost);
   }
 

@@ -1,11 +1,12 @@
 import {
+  EditableFilm,
   Film,
   FilmSearchParameters,
   FilmsPaginationResponse,
 } from "../types/Films";
 import client from "./client";
 
-export function saveFilm(film: Film): Promise<Film> {
+export function saveFilm(film: EditableFilm): Promise<Film> {
   return film.id ? editFilm(film) : addFilm(film);
 }
 
@@ -49,7 +50,7 @@ export function getFilmById(id: number): Promise<Film> {
     });
 }
 
-export function addFilm(film: Film): Promise<Film> {
+export function addFilm(film: EditableFilm): Promise<Film> {
   return client
     .post(`/api/films`, film)
     .then((response) => {
@@ -60,7 +61,7 @@ export function addFilm(film: Film): Promise<Film> {
     });
 }
 
-export function editFilm(film: Film): Promise<Film> {
+export function editFilm(film: EditableFilm): Promise<Film> {
   return client
     .put(`/api/films/${film.id}`, film)
     .then((response) => {

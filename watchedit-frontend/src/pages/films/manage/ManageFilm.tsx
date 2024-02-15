@@ -6,9 +6,17 @@ import { uploadImage } from "../../../api/imageApi";
 import ManageFilmForm from "../../../components/Films/Manage/ManageFilmForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { EditableFilm, FilmFormErrors } from "../../../types/Films";
 
-function ManageFilm({ film, updateFilm, triggerSave, saving }) {
-  const [errors, setErrors] = useState({});
+type Props = {
+  film: EditableFilm;
+  updateFilm: (film: EditableFilm) => void;
+  triggerSave: () => void;
+  saving: boolean;
+};
+
+function ManageFilm({ film, updateFilm, triggerSave, saving }: Props) {
+  const [errors, setErrors] = useState({} as FilmFormErrors);
   const [imageUploading, setImageUploading] = useState(false);
 
   const { data: categories } = useQuery({
@@ -23,7 +31,7 @@ function ManageFilm({ film, updateFilm, triggerSave, saving }) {
   });
 
   const uploadPoster = useMutation({
-    mutationFn: (file) => {
+    mutationFn: (file: File) => {
       setImageUploading(true);
       return uploadImage(file, "films");
     },
@@ -40,43 +48,49 @@ function ManageFilm({ film, updateFilm, triggerSave, saving }) {
     },
   });
 
-  function handleChange(event) {
+  function handleChange(
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>,
+  ): void {
     const { name, value } = event.target;
-    updateFilm((prevFilm) => ({
+    updateFilm((prevFilm: EditableFilm) => ({
       ...prevFilm,
       [name]: value,
     }));
   }
 
-  function handleDateChange(date) {
+  function handleDateChange(date: Date | null): void {
+    if (!date) return;
     film.releaseDate = date;
     updateFilm({ ...film });
   }
 
-  function handleCategoryChange(selected) {
-    updateFilm((prevFilm) => ({
+  //todo
+  function handleCategoryChange(selected: any[]) {
+    updateFilm((prevFilm: EditableFilm) => ({
       ...prevFilm,
       categories: selected,
     }));
   }
 
-  function handleImageChange(event) {
-    if (event == null) {
-      film.posterUrl = null;
+  function handleImageChange(file: File | null): void {
+    if (file == null) {
+      film.posterUrl = undefined;
       updateFilm({ ...film });
       return;
     }
 
-    let file = event.target.files[0];
     uploadPoster.mutate(file);
   }
 
-  function handleTrailerChange(url) {
+  function handleTrailerChange(url: string | null) {
+    if (!url) return;
     film.trailerUrl = url;
     updateFilm({ ...film });
   }
 
-  function formIsValid() {
+  function formIsValid(): boolean {
     const {
       name,
       shortDescription,
@@ -85,7 +99,7 @@ function ManageFilm({ film, updateFilm, triggerSave, saving }) {
       posterUrl,
       releaseDate,
     } = film;
-    const errors = {};
+    const errors = {} as FilmFormErrors;
     if (!name) errors.name = "Name is required";
     if (name.length > 60)
       errors.name = "Name cant be longer then 60 characters";
@@ -106,7 +120,7 @@ function ManageFilm({ film, updateFilm, triggerSave, saving }) {
     return Object.keys(errors).length === 0;
   }
 
-  function handleSave(event) {
+  function handleSave(event: React.SyntheticEvent): void {
     event.preventDefault();
     if (!formIsValid()) return;
     triggerSave();

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
 import TextInput from "../../Inputs/TextInput";
 import TextAreaInput from "../../Inputs/TextAreaInput";
@@ -7,6 +6,8 @@ import NumberInput from "../../Inputs/NumberInput";
 import MultiSelectInput from "../../Inputs/MultiSelectInput";
 import Modal from "react-modal";
 import FilmMiniDetail from "../FilmMiniDetail";
+import { EditableFilm, FilmFormErrors } from "../../../types/Films";
+import { SelectOption } from "../../Inputs/InputTypes";
 
 const customStyles = {
   content: {
@@ -20,6 +21,24 @@ const customStyles = {
   },
 };
 
+type Props = {
+  film: EditableFilm;
+  categories: SelectOption[];
+  errors: FilmFormErrors;
+  onSave: (event: React.SyntheticEvent) => void;
+  onChange: (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>,
+  ) => void;
+  onDateChange: (date: Date | null) => void;
+  onImageChange: (url: File | null) => void;
+  onCategoryChange: (selected: any[]) => void;
+  onTrailerChange: (url: string | null) => void;
+  uploadingImage: boolean;
+  saving: boolean;
+};
+
 const ManageFilmForm = ({
   film,
   categories,
@@ -31,26 +50,38 @@ const ManageFilmForm = ({
   onTrailerChange,
   saving = false,
   uploadingImage = false,
-  errors = {},
-}) => {
+  errors,
+}: Props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
-  function openModal() {
+  function openModal(): void {
     setIsOpen(true);
   }
 
-  function closeModal() {
+  function closeModal(): void {
     setIsOpen(false);
   }
 
-  function onVideoChange(event) {
+  function onVideoChange(event: React.ChangeEvent<HTMLInputElement>): void {
     const { value } = event.target;
     onTrailerChange(value);
   }
 
-  function onVideoRemoved() {
+  function onVideoRemoved(): void {
     onTrailerChange(null);
     closeModal();
+  }
+
+  function onPosterChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    if (!event.target.files) {
+      onImageChange(null);
+      return;
+    }
+    onImageChange(event.target.files[0]);
+  }
+
+  function onPosterRemoved(): void {
+    onImageChange(null);
   }
 
   return (
@@ -85,7 +116,6 @@ const ManageFilmForm = ({
                 value={film.runtime}
                 onChange={onChange}
                 error={errors.runtime}
-                required={true}
               />
             </div>
           </div>
@@ -150,7 +180,7 @@ const ManageFilmForm = ({
             {film.posterUrl != null ? (
               <button
                 type="button"
-                onClick={() => onImageChange(null)}
+                onClick={() => onPosterRemoved()}
                 className="bg-red-400 text-white rounded py-2 px-4 hover:bg-red-500 shadow inline-flex items-center"
               >
                 Remove image
@@ -182,7 +212,7 @@ const ManageFilmForm = ({
                       type="file"
                       name={`posterUrl`}
                       className=" border-gray-400 p-2 w-full hidden"
-                      onChange={(e) => onImageChange(e)}
+                      onChange={(e) => onPosterChange(e)}
                     />
                   </label>
                 </button>
@@ -354,21 +384,6 @@ const ManageFilmForm = ({
       </div>
     </form>
   );
-};
-
-ManageFilmForm.propTypes = {
-  film: PropTypes.object.isRequired,
-  categories: PropTypes.array,
-  errors: PropTypes.object,
-  onSave: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onDateChange: PropTypes.func.isRequired,
-  onImageChange: PropTypes.func.isRequired,
-  onCategoryChange: PropTypes.func.isRequired,
-  onTrailerChange: PropTypes.func.isRequired,
-  editing: PropTypes.bool.isRequired,
-  saving: PropTypes.bool,
-  uploadingImage: PropTypes.bool,
 };
 
 export default ManageFilmForm;
