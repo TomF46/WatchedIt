@@ -1,5 +1,15 @@
-import PropTypes from "prop-types";
+import { Film } from "../../../types/Films";
+import { EditableTrivia, TriviaFormErrors } from "../../../types/Trivia";
 import TextAreaInput from "../../Inputs/TextAreaInput";
+
+type Props = {
+  trivia: EditableTrivia;
+  film: Film;
+  errors: TriviaFormErrors;
+  onSave: (event: React.SyntheticEvent) => void;
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  saving: boolean;
+};
 
 const ManageTriviaForm = ({
   trivia,
@@ -7,8 +17,8 @@ const ManageTriviaForm = ({
   onSave,
   onChange,
   saving = false,
-  errors = {},
-}) => {
+  errors,
+}: Props) => {
   return (
     <form className="mt-4" onSubmit={onSave}>
       {errors.onSave && (
@@ -62,15 +72,6 @@ const ManageTriviaForm = ({
       </div>
     </form>
   );
-};
-
-ManageTriviaForm.propTypes = {
-  trivia: PropTypes.object.isRequired,
-  film: PropTypes.object.isRequired,
-  errors: PropTypes.object,
-  onSave: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  saving: PropTypes.bool,
 };
 
 export default ManageTriviaForm;

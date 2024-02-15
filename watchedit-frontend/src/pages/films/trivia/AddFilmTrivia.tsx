@@ -8,11 +8,12 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { getFilmById } from "../../../api/filmsApi";
 import { saveFilmTrivia } from "../../../api/filmTriviaApi";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
+import { EditableTrivia } from "../../../types/Trivia";
 
 function AddTrivia() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [trivia, setTrivia] = useState({ ...newTrivia });
+  const [trivia, setTrivia] = useState<EditableTrivia>({ ...newTrivia });
   const [saving, setSaving] = useState(false);
 
   const {
@@ -21,13 +22,13 @@ function AddTrivia() {
     error,
   } = useQuery({
     queryKey: ["film", id],
-    queryFn: () => getFilmById(id),
+    queryFn: () => getFilmById(Number(id)),
   });
 
   const addTrivia = useMutation({
-    mutationFn: (newTrivia) => {
+    mutationFn: (newTrivia: EditableTrivia) => {
       setSaving(true);
-      return saveFilmTrivia(id, newTrivia);
+      return saveFilmTrivia(Number(id), newTrivia);
     },
     onSuccess: () => {
       toast.success("Trivia saved");
@@ -41,7 +42,7 @@ function AddTrivia() {
     },
   });
 
-  function handleUpdate(updatedTrivia) {
+  function handleUpdate(updatedTrivia: EditableTrivia): void {
     setTrivia(updatedTrivia);
   }
 
@@ -59,7 +60,7 @@ function AddTrivia() {
   return (
     <div className="Add-trivia-page">
       <ManageTrivia
-        film={film}
+        film={film!}
         trivia={trivia}
         updateTrivia={handleUpdate}
         triggerSave={() => addTrivia.mutate(trivia)}

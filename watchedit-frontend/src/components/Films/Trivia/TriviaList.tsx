@@ -1,11 +1,17 @@
-import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../../redux/store";
+import { Trivia } from "../../../types/Trivia";
 
-const TriviaList = ({ trivia, onRemove, canControl }) => {
-  const userId = useSelector((state : RootState) =>
+type Props = {
+  trivia: Trivia[];
+  onRemove: (trivia: Trivia) => void;
+  canControl: boolean;
+};
+
+const TriviaList = ({ trivia, onRemove, canControl }: Props) => {
+  const userId = useSelector((state: RootState) =>
     state.tokens ? state.tokens.id : null,
   );
   const navigate = useNavigate();
@@ -60,12 +66,6 @@ const TriviaList = ({ trivia, onRemove, canControl }) => {
       })}
     </div>
   );
-};
-
-TriviaList.propTypes = {
-  trivia: PropTypes.array.isRequired,
-  onRemove: PropTypes.func,
-  canControl: PropTypes.bool.isRequired,
 };
 
 export default TriviaList;

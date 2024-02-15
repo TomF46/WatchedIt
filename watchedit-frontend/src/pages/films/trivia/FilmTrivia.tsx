@@ -13,6 +13,7 @@ import TriviaList from "../../../components/Films/Trivia/TriviaList";
 import { confirmAlert } from "react-confirm-alert";
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
+import { Trivia } from "../../../types/Trivia";
 
 function FilmTrivia() {
   const { id } = useParams();
@@ -21,23 +22,26 @@ function FilmTrivia() {
 
   const { data: film, error: filmLoadError } = useQuery({
     queryKey: ["film", id],
-    queryFn: () => getFilmById(id),
+    queryFn: () => getFilmById(Number(id)),
   });
 
   const { data: filmTriviaPaginator, refetch } = useQuery({
     queryKey: ["film-trivia", id, page, filmTriviaPerPage],
     queryFn: () =>
-      getFilmTriviasByFilmId(id, page, filmTriviaPerPage).catch((error) => {
-        toast.error(`Error getting film trivia ${error.data.Exception}`, {
-          autoClose: false,
-        });
-        return error;
-      }),
+      getFilmTriviasByFilmId(Number(id), page, filmTriviaPerPage).catch(
+        (error) => {
+          toast.error(`Error getting film trivia ${error.data.Exception}`, {
+            autoClose: false,
+          });
+          return error;
+        },
+      ),
     placeholderData: keepPreviousData,
   });
 
   const deleteTrivia = useMutation({
-    mutationFn: (triviaToRemove) => deleteFilmTrivia(film.id, triviaToRemove),
+    mutationFn: (triviaToRemove: Trivia) =>
+      deleteFilmTrivia(Number(id), triviaToRemove),
     onSuccess: () => {
       toast.success("Trivia removed");
       refetch();
@@ -49,7 +53,7 @@ function FilmTrivia() {
     },
   });
 
-  function handleDelete(trivia) {
+  function handleDelete(trivia: Trivia) {
     confirmAlert({
       title: "Confirm removal",
       message: `Are you sure you want to remove this trivia?`,

@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import ManageTrivia from "./ManageTrivia";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
 import { RootState } from "../../../redux/store";
+import { EditableTrivia } from "../../../types/Trivia";
 
 function EditTrivia() {
   const { id, triviaId } = useParams();
@@ -17,7 +18,7 @@ function EditTrivia() {
     state.tokens ? state.tokens.id : null,
   );
   const navigate = useNavigate();
-  const [trivia, setTrivia] = useState({ ...newTrivia });
+  const [trivia, setTrivia] = useState<EditableTrivia>({ ...newTrivia });
   const [saving, setSaving] = useState(false);
 
   const {
@@ -26,13 +27,13 @@ function EditTrivia() {
     error: filmLoadError,
   } = useQuery({
     queryKey: ["film", id],
-    queryFn: () => getFilmById(id),
+    queryFn: () => getFilmById(Number(id)),
   });
 
   const { isLoading, error } = useQuery({
     queryKey: ["trivia-update", id, triviaId],
     queryFn: () =>
-      getFilmTriviaById(id, triviaId).then((res) => {
+      getFilmTriviaById(Number(id), Number(triviaId)).then((res) => {
         if (res.user.id != userId) navigate(`/films/${res.film.id}/trivia`);
         setTrivia({
           id: res.id,
@@ -43,9 +44,9 @@ function EditTrivia() {
   });
 
   const editTrivia = useMutation({
-    mutationFn: (updatedTrivia) => {
+    mutationFn: (updatedTrivia: EditableTrivia) => {
       setSaving(true);
-      return saveFilmTrivia(id, updatedTrivia);
+      return saveFilmTrivia(Number(id), updatedTrivia);
     },
     onSuccess: () => {
       toast.success("Trivia saved");
@@ -59,7 +60,7 @@ function EditTrivia() {
     },
   });
 
-  function handleUpdate(updatedTrivia) {
+  function handleUpdate(updatedTrivia: EditableTrivia): void {
     setTrivia(updatedTrivia);
   }
 
@@ -88,7 +89,7 @@ function EditTrivia() {
   return (
     <div className="Edit-trivia-page">
       <ManageTrivia
-        film={film}
+        film={film!}
         trivia={trivia}
         updateTrivia={handleUpdate}
         triggerSave={() => {

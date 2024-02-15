@@ -1,12 +1,27 @@
-import PropTypes from "prop-types";
 import { useState } from "react";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import ManageTriviaForm from "../../../components/Films/Trivia/ManageTriviaForm";
+import { Film } from "../../../types/Films";
+import { EditableTrivia, TriviaFormErrors } from "../../../types/Trivia";
 
-function ManageTrivia({ film, trivia, updateTrivia, triggerSave, saving }) {
+type Props = {
+  film: Film;
+  trivia: EditableTrivia;
+  updateTrivia: (trivia: EditableTrivia) => void;
+  triggerSave: () => void;
+  saving: boolean;
+};
+
+function ManageTrivia({
+  film,
+  trivia,
+  updateTrivia,
+  triggerSave,
+  saving,
+}: Props) {
   const [errors, setErrors] = useState({});
 
-  function handleChange(event) {
+  function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>): void {
     const { name, value } = event.target;
     updateTrivia((prevFilmTrivia) => ({
       ...prevFilmTrivia,
@@ -14,9 +29,9 @@ function ManageTrivia({ film, trivia, updateTrivia, triggerSave, saving }) {
     }));
   }
 
-  function formIsValid() {
+  function formIsValid(): boolean {
     const { text } = trivia;
-    const errors = {};
+    const errors = {} as TriviaFormErrors;
     if (!text) errors.text = "Trivia text is required";
     if (text.length > 1000)
       errors.text = "Trivia text cant be longer than 1000 characters";
@@ -24,7 +39,7 @@ function ManageTrivia({ film, trivia, updateTrivia, triggerSave, saving }) {
     return Object.keys(errors).length === 0;
   }
 
-  function handleSave(event) {
+  function handleSave(event: React.SyntheticEvent): void {
     event.preventDefault();
     if (!formIsValid()) return;
     triggerSave();
@@ -49,13 +64,4 @@ function ManageTrivia({ film, trivia, updateTrivia, triggerSave, saving }) {
     </div>
   );
 }
-
-ManageTrivia.propTypes = {
-  film: PropTypes.object.isRequired,
-  trivia: PropTypes.object.isRequired,
-  updateTrivia: PropTypes.func.isRequired,
-  triggerSave: PropTypes.func.isRequired,
-  saving: PropTypes.bool,
-};
-
 export default ManageTrivia;
