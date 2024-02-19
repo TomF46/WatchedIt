@@ -1,11 +1,17 @@
-import PropTypes from "prop-types";
 import { setUserCanPublishByUserId } from "../../api/usersApi";
 import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
+import { User } from "../../types/AuthDefinitions";
 
-function UserAdminControls({ user, onUserReload }) {
+type Props = {
+  user: User;
+  onUserReload: () => void;
+};
+
+function UserAdminControls({ user, onUserReload }: Props) {
   const setUserCanPublish = useMutation({
-    mutationFn: (canPublish) => setUserCanPublishByUserId(user.id, canPublish),
+    mutationFn: (canPublish: boolean) =>
+      setUserCanPublishByUserId(user.id, canPublish),
     onSuccess: (res) => {
       toast.success(`User ${res.canPublish ? "set" : "removed"} as publisher.`);
       onUserReload();
@@ -38,10 +44,5 @@ function UserAdminControls({ user, onUserReload }) {
     </div>
   );
 }
-
-UserAdminControls.propTypes = {
-  user: PropTypes.object.isRequired,
-  onUserReload: PropTypes.func.isRequired,
-};
 
 export default UserAdminControls;

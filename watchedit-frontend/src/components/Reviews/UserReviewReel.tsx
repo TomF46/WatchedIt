@@ -1,10 +1,17 @@
-import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { searchUsersReviewsPaginated } from "../../api/usersApi";
 import SimpleReviewPreview from "./SimpleReviewPreview";
 import { useQuery } from "@tanstack/react-query";
+import { Review } from "../../types/Reviews";
+import { User } from "../../types/AuthDefinitions";
 
-function UserReviewsReel({ user, title, sort }) {
+type Props = {
+  user: User;
+  title: string;
+  sort: string;
+};
+
+function UserReviewsReel({ user, title, sort }: Props) {
   const page = 1;
   const reviewsPerPage = 8;
 
@@ -32,7 +39,7 @@ function UserReviewsReel({ user, title, sort }) {
           <div className="mt-4">
             <p className="text-primary text-2xl font-semibold">{title}</p>
             <div className="grid grid-cols-16">
-              {reviewsPaginator.data.map((review) => {
+              {reviewsPaginator.data.map((review: Review) => {
                 return (
                   <SimpleReviewPreview
                     key={review.id}
@@ -47,11 +54,5 @@ function UserReviewsReel({ user, title, sort }) {
       </div>
     );
 }
-
-UserReviewsReel.propTypes = {
-  user: PropTypes.object.isRequired,
-  title: PropTypes.string.isRequired,
-  sort: PropTypes.string.isRequired,
-};
 
 export default UserReviewsReel;
