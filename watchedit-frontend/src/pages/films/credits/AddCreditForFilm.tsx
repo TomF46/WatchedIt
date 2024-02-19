@@ -13,6 +13,8 @@ import PersonMiniDetail from "../../../components/People/PersonMiniDetail";
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
+import { Person } from "../../../types/People";
+import { EditableCredit } from "../../../types/Credits";
 
 function AddCreditForFilm() {
   const navigate = useNavigate();
@@ -24,14 +26,19 @@ function AddCreditForFilm() {
     lastName: "",
     stageName: "",
   });
-  const [selectedPerson, setSelectedPerson] = useState(null);
+  const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
   const [saving, setSaving] = useState(false);
   const queryKeyParams = useDebounce([searchTerms, page, peoplePerPage], 100);
 
   const { data: peoplePaginator } = useQuery({
     queryKey: ["people", ...queryKeyParams],
     queryFn: () =>
-      searchPeoplePaginated(searchTerms, page, peoplePerPage).catch((error) => {
+      searchPeoplePaginated(
+        searchTerms,
+        page,
+        peoplePerPage,
+        "likes_desc",
+      ).catch((error) => {
         toast.error(`Error getting people ${error.data.Exception}`, {
           autoClose: false,
         });
@@ -43,16 +50,16 @@ function AddCreditForFilm() {
 
   const { data: film, error: filmLoadError } = useQuery({
     queryKey: ["film", id],
-    queryFn: () => getFilmById(id),
+    queryFn: () => getFilmById(Number(id)),
   });
 
   const addFilmCredit = useMutation({
-    mutationFn: (credit) => {
+    mutationFn: (credit: EditableCredit) => {
       setSaving(true);
-      return addCreditForFilm(film.id, credit);
+      return addCreditForFilm(Number(film!.id), credit);
     },
     onSuccess: () => {
-      navigate(`/films/${film.id}/credits`);
+      navigate(`/films/${film!.id}/credits`);
     },
     onError: (err) => {
       setSaving(false);
@@ -62,7 +69,9 @@ function AddCreditForFilm() {
     },
   });
 
-  function handleSearchTermChange(event) {
+  function handleSearchTermChange(
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void {
     const { name, value } = event.target;
     setSearchTerms((prevSearchTerms) => ({
       ...prevSearchTerms,
@@ -71,12 +80,13 @@ function AddCreditForFilm() {
     if (page != 1) setPage(1);
   }
 
-  function handlePersonSelected(person) {
+  function handlePersonSelected(person: Person | null) {
     setSelectedPerson(person);
   }
 
-  function handleSave(credit) {
-    let payload = {
+  function handleSave(credit: EditableCredit) {
+    if (!selectedPerson) return;
+    const payload = {
       personId: selectedPerson.id,
       role: credit.role,
       type: credit.type,

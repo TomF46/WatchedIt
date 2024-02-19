@@ -13,6 +13,8 @@ import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
+import { Film } from "../../../types/Films";
+import { EditableCredit } from "../../../types/Credits";
 
 function AddCreditForPerson() {
   const navigate = useNavigate();
@@ -20,7 +22,7 @@ function AddCreditForPerson() {
   const [page, setPage] = useState(1);
   const filmsPerPage = 20;
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedFilm, setSelectedFilm] = useState(null);
+  const [selectedFilm, setSelectedFilm] = useState<Film | null>(null);
   const [saving, setSaving] = useState(false);
 
   const queryKeyParams = useDebounce(
@@ -30,7 +32,7 @@ function AddCreditForPerson() {
 
   const { data: person, error: personLoadError } = useQuery({
     queryKey: ["person", id],
-    queryFn: () => getPersonById(id),
+    queryFn: () => getPersonById(Number(id)),
   });
 
   const { data: filmsPaginator } = useQuery({
@@ -51,12 +53,12 @@ function AddCreditForPerson() {
   });
 
   const addPersonCredit = useMutation({
-    mutationFn: (credit) => {
+    mutationFn: (credit: EditableCredit) => {
       setSaving(true);
-      return addCreditForPerson(person.id, credit);
+      return addCreditForPerson(Number(person!.id), credit);
     },
     onSuccess: () => {
-      navigate(`/people/${person.id}/credits`);
+      navigate(`/people/${person!.id}/credits`);
     },
     onError: (err) => {
       setSaving(false);
@@ -66,18 +68,21 @@ function AddCreditForPerson() {
     },
   });
 
-  function handleSearchTermChange(event) {
+  function handleSearchTermChange(
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void {
     const { value } = event.target;
     setSearchTerm(value);
     if (page != 1) setPage(1);
   }
 
-  function handleFilmSelected(film) {
+  function handleFilmSelected(film: Film | null) {
     setSelectedFilm(film);
   }
 
-  function handleSave(credit) {
-    let payload = {
+  function handleSave(credit: EditableCredit) {
+    if (!selectedFilm) return;
+    const payload = {
       filmId: selectedFilm.id,
       role: credit.role,
       type: credit.type,

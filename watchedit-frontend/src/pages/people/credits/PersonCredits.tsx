@@ -10,6 +10,7 @@ import PersonMiniDetail from "../../../components/People/PersonMiniDetail";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
 import { RootState } from "../../../redux/store";
+import { Credit } from "../../../types/Credits";
 
 function PersonCredits() {
   const { id } = useParams();
@@ -17,13 +18,13 @@ function PersonCredits() {
 
   const { data: person, error: personLoadError } = useQuery({
     queryKey: ["person", id],
-    queryFn: () => getPersonById(id),
+    queryFn: () => getPersonById(Number(id)),
   });
 
   const { data: credits, refetch } = useQuery({
     queryKey: ["person-credits", id],
     queryFn: () =>
-      getCreditsForPersonById(id).catch((error) => {
+      getCreditsForPersonById(Number(id)).catch((error) => {
         toast.error(`Error getting person credits ${error.data.Exception}`, {
           autoClose: false,
         });
@@ -32,7 +33,7 @@ function PersonCredits() {
   });
 
   const deleteCredit = useMutation({
-    mutationFn: (creditToRemove) => removeCredit(creditToRemove),
+    mutationFn: (creditToRemove: Credit) => removeCredit(creditToRemove),
     onSuccess: () => {
       toast.success("Credit removed");
       refetch();
@@ -44,7 +45,7 @@ function PersonCredits() {
     },
   });
 
-  function handleRemoveCredit(credit) {
+  function handleRemoveCredit(credit: Credit): void {
     confirmAlert({
       title: "Confirm removal",
       message: `Are you sure you want to remove this credit?`,

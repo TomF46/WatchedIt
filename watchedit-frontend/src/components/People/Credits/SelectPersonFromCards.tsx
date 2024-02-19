@@ -1,6 +1,11 @@
-import PropTypes from "prop-types";
+import { Person } from "../../../types/People";
 
-const SelectPersonFromCards = ({ people, onPersonSelected }) => {
+type Props = {
+  people: Person[];
+  onPersonSelected: (person: Person) => void;
+};
+
+const SelectPersonFromCards = ({ people, onPersonSelected }: Props) => {
   return (
     <>
       {people.map((person) => {
@@ -37,11 +42,6 @@ const SelectPersonFromCards = ({ people, onPersonSelected }) => {
       })}
     </>
   );
-};
-
-SelectPersonFromCards.propTypes = {
-  people: PropTypes.array.isRequired,
-  onPersonSelected: PropTypes.func.isRequired,
 };
 
 export default SelectPersonFromCards;

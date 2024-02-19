@@ -1,7 +1,15 @@
-import PropTypes from "prop-types";
 import TextInput from "../../Inputs/TextInput";
 import SelectPersonFromCards from "./SelectPersonFromCards";
 import SelectPersonFromList from "./SelectPersonFromList";
+import { PeopleSearchTerms, Person } from "../../../types/People";
+
+type Props = {
+  people: Person[];
+  searchTerms: PeopleSearchTerms;
+  onSearchTermChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onPersonSelected: (person: Person) => void;
+  cardMode: boolean;
+};
 
 const SelectPersonWSearch = ({
   people,
@@ -9,7 +17,7 @@ const SelectPersonWSearch = ({
   onSearchTermChange,
   onPersonSelected,
   cardMode,
-}) => {
+}: Props) => {
   return (
     <>
       <div className="controls bg-backgroundOffset mt-4 rounded-md mb-4 shadow">
@@ -69,14 +77,6 @@ const SelectPersonWSearch = ({
       )}
     </>
   );
-};
-
-SelectPersonWSearch.propTypes = {
-  people: PropTypes.array.isRequired,
-  searchTerms: PropTypes.object.isRequired,
-  onSearchTermChange: PropTypes.func.isRequired,
-  onPersonSelected: PropTypes.func.isRequired,
-  cardMode: PropTypes.bool.isRequired,
 };
 
 export default SelectPersonWSearch;

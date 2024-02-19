@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { format, parseISO } from "date-fns";
+import { Person } from "../../types/People";
 
-const PersonMiniDetail = ({ person }) => {
+const PersonMiniDetail = ({ person }: { person: Person }) => {
   return (
     <div className="grid grid-cols-12">
       <div className="col-span-12 md:col-span-6 lg:col-span-4">
@@ -22,7 +22,10 @@ const PersonMiniDetail = ({ person }) => {
               {person.fullName}
             </Link>
             {person.stageName && <p>Stage name: {person.stageName}</p>}
-            <p>DOB: {format(parseISO(person.dateOfBirth), "dd/MM/yyyy")}</p>
+            <p>
+              DOB:{" "}
+              {format(parseISO(person.dateOfBirth.toString()), "dd/MM/yyyy")}
+            </p>
             {person.credits && (
               <p>
                 Credits:{" "}
@@ -53,10 +56,6 @@ const PersonMiniDetail = ({ person }) => {
       </div>
     </div>
   );
-};
-
-PersonMiniDetail.propTypes = {
-  person: PropTypes.object.isRequired,
 };
 
 export default PersonMiniDetail;

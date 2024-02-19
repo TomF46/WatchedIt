@@ -1,7 +1,13 @@
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { Credit } from "../../../types/Credits";
 
-const FilmCreditsList = ({ credits, canEdit, onRemove }) => {
+type Props = {
+  credits: Credit[];
+  canEdit: boolean;
+  onRemove: (credit: Credit) => void;
+};
+
+const FilmCreditsList = ({ credits, canEdit, onRemove }: Props) => {
   const navigate = useNavigate();
   return (
     <div className="grid grid-cols-12">
@@ -60,12 +66,6 @@ const FilmCreditsList = ({ credits, canEdit, onRemove }) => {
       })}
     </div>
   );
-};
-
-FilmCreditsList.propTypes = {
-  credits: PropTypes.array.isRequired,
-  canEdit: PropTypes.bool.isRequired,
-  onRemove: PropTypes.func.isRequired,
 };
 
 export default FilmCreditsList;

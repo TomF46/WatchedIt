@@ -1,6 +1,11 @@
-import PropTypes from "prop-types";
+import { Film } from "../../../types/Films";
 
-const SelectFilmFromCards = ({ films, onFilmSelected }) => {
+type Props = {
+  films: Film[];
+  onFilmSelected: (film: Film) => void;
+};
+
+const SelectFilmFromCards = ({ films, onFilmSelected }: Props) => {
   return (
     <>
       {films.map((film) => {
@@ -35,11 +40,6 @@ const SelectFilmFromCards = ({ films, onFilmSelected }) => {
       })}
     </>
   );
-};
-
-SelectFilmFromCards.propTypes = {
-  films: PropTypes.array.isRequired,
-  onFilmSelected: PropTypes.func.isRequired,
 };
 
 export default SelectFilmFromCards;

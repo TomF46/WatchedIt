@@ -10,6 +10,7 @@ import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
 import { RootState } from "../../../redux/store";
+import { Credit } from "../../../types/Credits";
 
 function FilmCredits() {
   const { id } = useParams();
@@ -17,13 +18,13 @@ function FilmCredits() {
 
   const { data: film, error: filmLoadError } = useQuery({
     queryKey: ["film", id],
-    queryFn: () => getFilmById(id),
+    queryFn: () => getFilmById(Number(id)),
   });
 
   const { data: credits, refetch } = useQuery({
     queryKey: ["film-credits", id],
     queryFn: () =>
-      getCreditsForFilmById(id).catch((error) => {
+      getCreditsForFilmById(Number(id)).catch((error) => {
         toast.error(`Error getting film credits ${error.data.Exception}`, {
           autoClose: false,
         });
@@ -32,7 +33,7 @@ function FilmCredits() {
   });
 
   const deleteCredit = useMutation({
-    mutationFn: (creditToRemove) => removeCredit(creditToRemove),
+    mutationFn: (creditToRemove: Credit) => removeCredit(creditToRemove),
     onSuccess: () => {
       toast.success("Credit removed");
       refetch();
@@ -44,7 +45,7 @@ function FilmCredits() {
     },
   });
 
-  function handleRemoveCredit(credit) {
+  function handleRemoveCredit(credit: Credit): void {
     confirmAlert({
       title: "Confirm removal",
       message: `Are you sure you want to remove this credit?`,

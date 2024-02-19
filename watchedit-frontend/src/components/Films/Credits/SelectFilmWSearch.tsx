@@ -1,7 +1,15 @@
-import PropTypes from "prop-types";
 import TextInput from "../../Inputs/TextInput";
 import SelectFilmFromList from "./SelectFilmFromList";
 import SelectFilmFromCards from "./SelectFilmFromCards";
+import { Film } from "../../../types/Films";
+
+type Props = {
+  films: Film[];
+  searchTerm: string;
+  onSearchTermChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onFilmSelected: (film: Film) => void;
+  cardMode: boolean;
+};
 
 const SelectFilmWSearch = ({
   films,
@@ -9,10 +17,10 @@ const SelectFilmWSearch = ({
   onSearchTermChange,
   onFilmSelected,
   cardMode,
-}) => {
+}: Props) => {
   return (
     <>
-      <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
+      <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4">
         <div className="bg-backgroundOffset2 rounded-t-md">
           <p className="text-primary font-semibold text-lg px-2 py-1">Search</p>
         </div>
@@ -60,14 +68,6 @@ const SelectFilmWSearch = ({
       )}
     </>
   );
-};
-
-SelectFilmWSearch.propTypes = {
-  films: PropTypes.array.isRequired,
-  searchTerm: PropTypes.string,
-  onSearchTermChange: PropTypes.func.isRequired,
-  onFilmSelected: PropTypes.func.isRequired,
-  cardMode: PropTypes.bool.isRequired,
 };
 
 export default SelectFilmWSearch;

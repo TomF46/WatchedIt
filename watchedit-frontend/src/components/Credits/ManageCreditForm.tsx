@@ -1,8 +1,26 @@
-import PropTypes from "prop-types";
 import SelectInput from "../Inputs/SelectInput";
 import TextInput from "../Inputs/TextInput";
+import { CreditFormErrors, EditableCredit } from "../../types/Credits";
 
-const ManageCreditForm = ({ credit, onChange, errors, onSubmit, saving }) => {
+type Props = {
+  credit: EditableCredit;
+  errors: CreditFormErrors;
+  onChange: (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>,
+  ) => void;
+  onSubmit: (event: React.SyntheticEvent) => void;
+  saving: boolean;
+};
+
+const ManageCreditForm = ({
+  credit,
+  onChange,
+  errors,
+  onSubmit,
+  saving,
+}: Props) => {
   const roleTypes = [
     { id: "Cast", name: "Cast" },
     { id: "Crew", name: "Crew" },
@@ -73,14 +91,6 @@ const ManageCreditForm = ({ credit, onChange, errors, onSubmit, saving }) => {
       </div>
     </form>
   );
-};
-
-ManageCreditForm.propTypes = {
-  credit: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  saving: PropTypes.bool,
-  errors: PropTypes.object,
 };
 
 export default ManageCreditForm;
