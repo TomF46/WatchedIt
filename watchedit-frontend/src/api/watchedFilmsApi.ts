@@ -1,6 +1,10 @@
 import client from "./client";
 
-export function setFilmWatchedById(id) {
+type FilmIsWatchedResponse = {
+  watched: boolean;
+};
+
+export function setFilmWatchedById(id: number): Promise<FilmIsWatchedResponse> {
   return client
     .post(`/api/users/me/watchedFilms`, {
       filmId: id,
@@ -13,7 +17,9 @@ export function setFilmWatchedById(id) {
     });
 }
 
-export function setFilmNotWatchedById(id) {
+export function setFilmNotWatchedById(
+  id: number,
+): Promise<FilmIsWatchedResponse> {
   return client
     .delete(`/api/users/me/watchedFilms/${id}`)
     .then((response) => {

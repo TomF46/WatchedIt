@@ -21,7 +21,7 @@ const WatchedFilmControls = ({ film, onChange }: Props) => {
   }, [film]);
 
   const setWatched = useMutation({
-    mutationFn: (film: Film) => setFilmWatchedById(film.id),
+    mutationFn: (film: Film) => setFilmWatchedById(Number(film.id)),
     onSuccess: (res) => {
       setHasWatched(res.watched);
       onChange();
@@ -34,7 +34,7 @@ const WatchedFilmControls = ({ film, onChange }: Props) => {
   });
 
   const setNotWatched = useMutation({
-    mutationFn: (film: Film) => setFilmNotWatchedById(film.id),
+    mutationFn: (film: Film) => setFilmNotWatchedById(Number(film.id)),
     onSuccess: (res) => {
       setHasWatched(res.watched);
       onChange();
