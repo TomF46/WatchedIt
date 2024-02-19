@@ -1,3 +1,4 @@
+import { PaginationResponse } from "./PaginationResponse";
 import { onSaveError } from "./forms";
 
 export type LoginCredentials = {
@@ -35,6 +36,13 @@ export type User = {
   imageUrl: string;
   biography: string;
   canPublish: boolean;
+  reviewCount?: number;
 };
+
+type Users = {
+  data: User[];
+};
+
+export type UsersPaginationResponse = Users & PaginationResponse;
 
 export type RegistrationErrors = Registration & onSaveError;

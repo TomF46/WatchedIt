@@ -1,6 +1,12 @@
+import { User, UsersPaginationResponse } from "../types/AuthDefinitions";
+import { FilmsPaginationResponse } from "../types/Films";
 import client from "./client";
 
-export function getUsersPaginated(pageNumber, pageSize, sort) {
+export function getUsersPaginated(
+  pageNumber: number,
+  pageSize: number,
+  sort: string,
+): Promise<UsersPaginationResponse> {
   return client
     .get(
       `/api/users?PageNumber=${pageNumber}&PageSize=${pageSize}&Sort=${sort}`,
@@ -13,7 +19,7 @@ export function getUsersPaginated(pageNumber, pageSize, sort) {
     });
 }
 
-export function getUserById(id) {
+export function getUserById(id: number): Promise<User> {
   return client
     .get(`/api/users/${id}`)
     .then((response) => {
@@ -24,7 +30,11 @@ export function getUserById(id) {
     });
 }
 
-export function getWatchedListByUserId(id, pageNumber, pageSize) {
+export function getWatchedListByUserId(
+  id: number,
+  pageNumber: number,
+  pageSize: number,
+): Promise<FilmsPaginationResponse> {
   return client
     .get(
       `/api/users/${id}/watched?PageNumber=${pageNumber}&PageSize=${pageSize}`,

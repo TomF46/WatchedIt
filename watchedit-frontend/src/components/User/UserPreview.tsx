@@ -1,7 +1,12 @@
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { User } from "../../types/AuthDefinitions";
 
-const UserPreview = ({ user, isLink }) => {
+type Props = {
+  user: User;
+  isLink: boolean;
+};
+
+const UserPreview = ({ user, isLink }: Props) => {
   const navigate = useNavigate();
   return (
     <div className="col-span-8 md:col-span-4 lg:col-span-2 mt-2">
@@ -69,11 +74,6 @@ const UserPreview = ({ user, isLink }) => {
       </div>
     </div>
   );
-};
-
-UserPreview.propTypes = {
-  user: PropTypes.object.isRequired,
-  isLink: PropTypes.bool.isRequired,
 };
 
 export default UserPreview;
