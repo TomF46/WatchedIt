@@ -1,7 +1,13 @@
-import PropTypes from "prop-types";
 import FilmPreview from "./FilmPreview";
+import { Film } from "../../types/Films";
 
-const FilmGrid = ({ films, editable, onRemove }) => {
+type Props = {
+  films: Film[];
+  editable: boolean;
+  onRemove: (film: Film) => void;
+};
+
+const FilmGrid = ({ films, editable, onRemove }: Props) => {
   return (
     <div className="grid grid-cols-16">
       {films.map((film) => {
@@ -16,12 +22,6 @@ const FilmGrid = ({ films, editable, onRemove }) => {
       })}
     </div>
   );
-};
-
-FilmGrid.propTypes = {
-  films: PropTypes.array.isRequired,
-  editable: PropTypes.bool.isRequired,
-  onRemove: PropTypes.func,
 };
 
 export default FilmGrid;

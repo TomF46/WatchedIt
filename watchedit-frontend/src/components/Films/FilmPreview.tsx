@@ -1,7 +1,13 @@
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { Film } from "../../types/Films";
 
-const FilmPreview = ({ film, editable, onRemove }) => {
+type Props = {
+  film: Film;
+  editable: boolean;
+  onRemove: (film: Film) => void;
+};
+
+const FilmPreview = ({ film, editable, onRemove }: Props) => {
   const navigate = useNavigate();
   return (
     <div className="col-span-8 md:col-span-4 lg:col-span-2 my-2">
@@ -76,7 +82,7 @@ const FilmPreview = ({ film, editable, onRemove }) => {
                       d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                     />
                   </svg>
-                  <p className="ml-1">{film.watchedCount}</p>
+                  <p className="ml-1">{film.watchedByCount}</p>
                 </div>
               </div>
               <div className="col-span-12 lg:hidden">
@@ -88,12 +94,6 @@ const FilmPreview = ({ film, editable, onRemove }) => {
       </div>
     </div>
   );
-};
-
-FilmPreview.propTypes = {
-  film: PropTypes.object.isRequired,
-  onRemove: PropTypes.func,
-  editable: PropTypes.bool.isRequired,
 };
 
 export default FilmPreview;
