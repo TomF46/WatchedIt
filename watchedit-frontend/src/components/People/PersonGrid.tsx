@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
 import PersonPreview from "./PersonPreview";
+import { Person } from "../../types/People";
 
-const PersonGrid = ({ people }) => {
+const PersonGrid = ({ people }: { people: Person[] }) => {
   return (
     <div className="grid grid-cols-16">
       {people.map((person) => {
@@ -9,10 +9,6 @@ const PersonGrid = ({ people }) => {
       })}
     </div>
   );
-};
-
-PersonGrid.propTypes = {
-  people: PropTypes.array.isRequired,
 };
 
 export default PersonGrid;

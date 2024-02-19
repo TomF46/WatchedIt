@@ -1,7 +1,11 @@
-import PropTypes from "prop-types";
 import PersonCreditPreview from "./PersonCreditPreview";
+import { PersonCredit } from "../../../types/People";
 
-const PersonCreditsOverviewList = ({ credits }) => {
+const PersonCreditsOverviewList = ({
+  credits,
+}: {
+  credits: PersonCredit[];
+}) => {
   return (
     <div className="grid grid-cols-16">
       {credits.map((credit) => {
@@ -16,10 +20,6 @@ const PersonCreditsOverviewList = ({ credits }) => {
       })}
     </div>
   );
-};
-
-PersonCreditsOverviewList.propTypes = {
-  credits: PropTypes.array.isRequired,
 };
 
 export default PersonCreditsOverviewList;

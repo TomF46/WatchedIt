@@ -5,15 +5,23 @@ import { uploadImage } from "../../../api/imageApi";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import ManagePersonForm from "../../../components/People/Manage/ManagePersonForm";
 import { useMutation } from "@tanstack/react-query";
+import { EditablePerson, PersonFormErrors } from "../../../types/People";
 
-function ManagePerson({ person, updatePerson, triggerSave, saving }) {
-  const [errors, setErrors] = useState({});
+type Props = {
+  person: EditablePerson;
+  updatePerson: (person: EditablePerson) => void;
+  triggerSave: () => void;
+  saving: boolean;
+};
+
+function ManagePerson({ person, updatePerson, triggerSave, saving }: Props) {
+  const [errors, setErrors] = useState({} as PersonFormErrors);
   const [imageUploading, setImageUploading] = useState(false);
   const defaultImage =
     "https://watched-it.s3.eu-west-1.amazonaws.com/films/b625dbbe-0a08-4162-9788-cda553551ff4";
 
   const uploadHeadshot = useMutation({
-    mutationFn: (file) => {
+    mutationFn: (file: File) => {
       setImageUploading(true);
       return uploadImage(file, "people");
     },
@@ -30,7 +38,11 @@ function ManagePerson({ person, updatePerson, triggerSave, saving }) {
     },
   });
 
-  function handleChange(event) {
+  function handleChange(
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>,
+  ): void {
     const { name, value } = event.target;
     updatePerson((prevPerson) => ({
       ...prevPerson,
@@ -38,28 +50,31 @@ function ManagePerson({ person, updatePerson, triggerSave, saving }) {
     }));
   }
 
-  function handleDateChange(date) {
+  function handleDateChange(date: Date | null): void {
+    if (!date) return;
     person.dateOfBirth = date;
     updatePerson({ ...person });
   }
 
-  function handleImageChange(event) {
-    if (event == null) {
-      person.imageUrl = null;
+  function handleImageChange(
+    event: React.ChangeEvent<HTMLInputElement> | null,
+  ): void {
+    if (event == null || !event.target.files) {
+      person.imageUrl = undefined;
       updatePerson({ ...person });
       return;
     }
 
-    let file = event.target.files[0];
+    const file = event.target.files[0];
     uploadHeadshot.mutate(file);
   }
 
-  function handleUseDefaultImage() {
+  function handleUseDefaultImage(): void {
     person.imageUrl = defaultImage;
     updatePerson({ ...person });
   }
 
-  function formIsValid() {
+  function formIsValid(): boolean {
     const {
       firstName,
       lastName,
@@ -69,7 +84,7 @@ function ManagePerson({ person, updatePerson, triggerSave, saving }) {
       imageUrl,
       dateOfBirth,
     } = person;
-    const errors = {};
+    const errors = {} as PersonFormErrors;
     if (!firstName) errors.firstName = "First name is required";
     if (firstName.length > 50)
       errors.firstName = "First name cant be longer than 50 characters";
@@ -89,7 +104,7 @@ function ManagePerson({ person, updatePerson, triggerSave, saving }) {
     return Object.keys(errors).length === 0;
   }
 
-  function handleSave(event) {
+  function handleSave(event: React.SyntheticEvent): void {
     event.preventDefault();
     if (!formIsValid()) return;
     triggerSave();

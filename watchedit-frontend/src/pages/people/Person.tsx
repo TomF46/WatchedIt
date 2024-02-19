@@ -10,6 +10,7 @@ import LikedPersonControls from "../../components/People/Likes/LikedPersonContro
 import { useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../components/Error/ErrorMessage";
 import { RootState } from "../../redux/store";
+import { Person as PersonType } from "../../types/People";
 
 function Person() {
   const { id } = useParams();
@@ -26,11 +27,11 @@ function Person() {
     refetch,
   } = useQuery({
     queryKey: ["person", id],
-    queryFn: () => getPersonById(id),
+    queryFn: () => getPersonById(Number(id)),
   });
 
   const deletePerson = useMutation({
-    mutationFn: (personToRemove) => removePerson(personToRemove),
+    mutationFn: (personToRemove: PersonType) => removePerson(personToRemove),
     onSuccess: () => {
       toast.success("Person removed");
       navigate("/people");
@@ -42,14 +43,14 @@ function Person() {
     },
   });
 
-  function confirmDelete() {
+  function confirmDelete(): void {
     confirmAlert({
       title: "Confirm deletion",
-      message: `Are you sure you want to remove ${person.fullName}?`,
+      message: `Are you sure you want to remove ${person!.fullName}?`,
       buttons: [
         {
           label: "Yes",
-          onClick: () => deletePerson.mutate(person),
+          onClick: () => deletePerson.mutate(person!),
         },
         {
           label: "No",
@@ -59,7 +60,7 @@ function Person() {
     });
   }
 
-  function handleLikesCountChange() {
+  function handleLikesCountChange(): void {
     refetch();
   }
 
@@ -73,117 +74,130 @@ function Person() {
       />
     );
   }
-  return (
-    <div className="person-page">
-      <h1 className="my-4 text-center text-primary text-4xl font-semibold">
-        {person.fullName}
-      </h1>
-      {isAdmin && (
-        <div className="admin-controls bg-backgroundOffset mt-4 shadow rounded">
-          <div className="bg-backgroundOffset2 rounded-t-md">
-            <p className="text-primary font-semibold text-lg px-2 py-1">
-              Admin controls
-            </p>
-          </div>
-          <div className="px-2 py-2">
-            <Link
-              to={`/people/${id}/edit`}
-              className="bg-backgroundOffset2 text-primary font-semibold rounded py-2 px-4 hover:opacity-75 inline-block"
-            >
-              Edit person
-            </Link>
-            <button
-              onClick={() => {
-                confirmDelete();
-              }}
-              className="bg-backgroundOffset2 text-red-400 font-semibold rounded py-2 px-4 hover:opacity-75 inline-block ml-2"
-            >
-              Remove
-            </button>
-          </div>
-        </div>
-      )}
-      <div className="grid grid-cols-12 mt-4">
-        <div className="col-span-12 md:col-span-2">
-          <img
-            src={person.imageUrl}
-            className="headshot shadow rounded"
-            alt={`${person.fullName} headshot.`}
-          />
-          <div className="flex flex-col">
-            {userIsAuthenticated && (
-              <LikedPersonControls
-                person={person}
-                onChange={handleLikesCountChange}
-              />
-            )}
-            <Link
-              to={`/people/${id}/credits`}
-              className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 w-full text-center"
-            >
-              Credits
-            </Link>
-          </div>
-        </div>
-        <div className="col-span-12 mt-4 md:col-span-10 md:pl-4 md:mt-0">
-          <div className="grid grid-cols-12">
-            <div className="col-span-12 md:col-span-5 bg-backgroundOffset p-2 shadow rounded">
-              <h3 className="text-primary text-xl">Details</h3>
-              <p>First name: {person.firstName}</p>
-              <p>Last name: {person.lastName}</p>
-              {person.middleNames && <p>Middle names: {person.middleNames}</p>}
-              {person.stageName && <p>Stage name: {person.stageName}</p>}
-              <p>DOB: {format(parseISO(person.dateOfBirth), "dd/MM/yyyy")}</p>
-            </div>
-            <div className="col-span-12 md:col-span-5 md:ml-2 bg-backgroundOffset p-2 shadow rounded">
-              <h3 className="text-primary text-xl font-semiboldf">About</h3>
-              <p>{person.description}</p>
-            </div>
-            <div className="col-span-12 md:col-span-2 md:ml-2 text-center bg-success p-4 shadow rounded">
-              <h3 className="text-black font-semibold text-xl mb-4">Likes</h3>
-              <p className="text-black font-semibold text-2xl">
-                {person.likedByCount}
+  if (person)
+    return (
+      <div className="person-page">
+        <h1 className="my-4 text-center text-primary text-4xl font-semibold">
+          {person.fullName}
+        </h1>
+        {isAdmin && (
+          <div className="admin-controls bg-backgroundOffset mt-4 shadow rounded">
+            <div className="bg-backgroundOffset2 rounded-t-md">
+              <p className="text-primary font-semibold text-lg px-2 py-1">
+                Admin controls
               </p>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-10 h-10 text-black inline-flex items-center mt-4"
+            </div>
+            <div className="px-2 py-2">
+              <Link
+                to={`/people/${id}/edit`}
+                className="bg-backgroundOffset2 text-primary font-semibold rounded py-2 px-4 hover:opacity-75 inline-block"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6.633 10.5c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75A2.25 2.25 0 0116.5 4.5c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904M14.25 9h2.25M5.904 18.75c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 01-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 10.203 4.167 9.75 5 9.75h1.053c.472 0 .745.556.5.96a8.958 8.958 0 00-1.302 4.665c0 1.194.232 2.333.654 3.375z"
-                />
-              </svg>
+                Edit person
+              </Link>
+              <button
+                onClick={() => {
+                  confirmDelete();
+                }}
+                className="bg-backgroundOffset2 text-red-400 font-semibold rounded py-2 px-4 hover:opacity-75 inline-block ml-2"
+              >
+                Remove
+              </button>
             </div>
           </div>
-          <div className="col-span-12">
+        )}
+        <div className="grid grid-cols-12 mt-4">
+          <div className="col-span-12 md:col-span-2">
+            <img
+              src={person.imageUrl}
+              className="headshot shadow rounded"
+              alt={`${person.fullName} headshot.`}
+            />
+            <div className="flex flex-col">
+              {userIsAuthenticated && (
+                <LikedPersonControls
+                  person={person}
+                  onChange={handleLikesCountChange}
+                />
+              )}
+              <Link
+                to={`/people/${id}/credits`}
+                className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 w-full text-center"
+              >
+                Credits
+              </Link>
+            </div>
+          </div>
+          <div className="col-span-12 mt-4 md:col-span-10 md:pl-4 md:mt-0">
             <div className="grid grid-cols-12">
-              <div className="col-span-12">
-                {person.credits.cast.length > 0 && (
-                  <>
-                    <h2 className="mt-4 text-primary text-xl ">As cast</h2>
-                    <PersonCreditsOverviewList credits={person.credits.cast} />
-                  </>
+              <div className="col-span-12 md:col-span-5 bg-backgroundOffset p-2 shadow rounded">
+                <h3 className="text-primary text-xl">Details</h3>
+                <p>First name: {person.firstName}</p>
+                <p>Last name: {person.lastName}</p>
+                {person.middleNames && (
+                  <p>Middle names: {person.middleNames}</p>
                 )}
+                {person.stageName && <p>Stage name: {person.stageName}</p>}
+                <p>
+                  DOB:{" "}
+                  {format(
+                    parseISO(person.dateOfBirth.toString()),
+                    "dd/MM/yyyy",
+                  )}
+                </p>
               </div>
-              <div className="col-span-12 mt-4">
-                {person.credits.crew.length > 0 && (
-                  <>
-                    <h2 className="mt-4 text-primary text-xl ">As crew</h2>
-                    <PersonCreditsOverviewList credits={person.credits.crew} />
-                  </>
-                )}
+              <div className="col-span-12 md:col-span-5 md:ml-2 bg-backgroundOffset p-2 shadow rounded">
+                <h3 className="text-primary text-xl font-semiboldf">About</h3>
+                <p>{person.description}</p>
+              </div>
+              <div className="col-span-12 md:col-span-2 md:ml-2 text-center bg-success p-4 shadow rounded">
+                <h3 className="text-black font-semibold text-xl mb-4">Likes</h3>
+                <p className="text-black font-semibold text-2xl">
+                  {person.likedByCount}
+                </p>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-10 h-10 text-black inline-flex items-center mt-4"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6.633 10.5c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75A2.25 2.25 0 0116.5 4.5c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904M14.25 9h2.25M5.904 18.75c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 01-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 10.203 4.167 9.75 5 9.75h1.053c.472 0 .745.556.5.96a8.958 8.958 0 00-1.302 4.665c0 1.194.232 2.333.654 3.375z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div className="col-span-12">
+              <div className="grid grid-cols-12">
+                <div className="col-span-12">
+                  {person.credits.cast.length > 0 && (
+                    <>
+                      <h2 className="mt-4 text-primary text-xl ">As cast</h2>
+                      <PersonCreditsOverviewList
+                        credits={person.credits.cast}
+                      />
+                    </>
+                  )}
+                </div>
+                <div className="col-span-12 mt-4">
+                  {person.credits.crew.length > 0 && (
+                    <>
+                      <h2 className="mt-4 text-primary text-xl ">As crew</h2>
+                      <PersonCreditsOverviewList
+                        credits={person.credits.crew}
+                      />
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
 }
 
 export default Person;

@@ -1,5 +1,6 @@
 import { Category } from "./Categories";
 import { PaginationResponse } from "./PaginationResponse";
+import { Person } from "./People";
 
 export type Film = {
   id?: number;
@@ -36,8 +37,7 @@ export type FilmCredits = {
 
 export type FilmCredit = {
   id?: number;
-  person: any; //todo
-  film: Film;
+  person: Person;
   role: string;
   type: string;
 };

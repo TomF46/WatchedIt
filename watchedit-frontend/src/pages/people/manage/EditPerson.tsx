@@ -8,24 +8,25 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import ManagePerson from "./ManagePerson";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
+import { EditablePerson } from "../../../types/People";
 
 function EditPerson() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [person, setPerson] = useState({ ...newPerson });
+  const [person, setPerson] = useState<EditablePerson>({ ...newPerson });
   const [saving, setSaving] = useState(false);
 
   const { isLoading, error } = useQuery({
     queryKey: ["person-update", id],
     queryFn: () =>
-      getPersonById(id).then((res) => {
+      getPersonById(Number(id)).then((res) => {
         setPerson({
           id: res.id,
           firstName: res.firstName,
           lastName: res.lastName,
           middleNames: res.middleNames,
           stageName: res.stageName,
-          dateOfBirth: parseISO(res.dateOfBirth),
+          dateOfBirth: parseISO(res.dateOfBirth.toString()),
           description: res.description,
           imageUrl: res.imageUrl,
         });
@@ -34,7 +35,7 @@ function EditPerson() {
   });
 
   const editPerson = useMutation({
-    mutationFn: (updatedPerson) => {
+    mutationFn: (updatedPerson: EditablePerson) => {
       setSaving(true);
       return savePerson(updatedPerson);
     },
@@ -50,7 +51,7 @@ function EditPerson() {
     },
   });
 
-  function handleUpdate(updatedPerson) {
+  function handleUpdate(updatedPerson: EditablePerson) {
     setPerson(updatedPerson);
   }
 

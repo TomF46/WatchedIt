@@ -18,7 +18,7 @@ export const newPerson = {
   stageName: "",
   dateOfBirth: new Date(),
   description: "",
-  imageUrl: null,
+  imageUrl: undefined,
 };
 
 export const newList = {

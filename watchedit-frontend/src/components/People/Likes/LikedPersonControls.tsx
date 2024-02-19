@@ -1,19 +1,24 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { toast } from "react-toastify";
-import { like, removeLike } from "../../../api/LikesApi";
+import { like, removeLike } from "../../../api/likesApi";
 import LoadingMessage from "../../Loading/LoadingMessage";
 import { useMutation } from "@tanstack/react-query";
+import { Person } from "../../../types/People";
 
-const LikedPersonControls = ({ person, onChange }) => {
-  const [hasLiked, setHasLiked] = useState(null);
+type Props = {
+  person: Person;
+  onChange: () => void;
+};
+
+const LikedPersonControls = ({ person, onChange }: Props) => {
+  const [hasLiked, setHasLiked] = useState(false);
 
   useEffect(() => {
     setHasLiked(person.isLikedByUser);
   }, [person]);
 
   const setLiked = useMutation({
-    mutationFn: (person) => like(person.id),
+    mutationFn: (person: Person) => like(Number(person.id)),
     onSuccess: (res) => {
       setHasLiked(res.liked);
       onChange();
@@ -26,7 +31,7 @@ const LikedPersonControls = ({ person, onChange }) => {
   });
 
   const setLikeRemoved = useMutation({
-    mutationFn: (person) => removeLike(person.id),
+    mutationFn: (person: Person) => removeLike(Number(person.id)),
     onSuccess: (res) => {
       setHasLiked(res.liked);
       onChange();
@@ -91,11 +96,6 @@ const LikedPersonControls = ({ person, onChange }) => {
       )}
     </div>
   );
-};
-
-LikedPersonControls.propTypes = {
-  person: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired,
 };
 
 export default LikedPersonControls;

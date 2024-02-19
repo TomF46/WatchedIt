@@ -46,7 +46,7 @@ function Review() {
     },
   });
 
-  function confirmDelete() {
+  function confirmDelete() : void {
     confirmAlert({
       title: "Confirm removal",
       message: `Are you sure you want to remove this review?`,

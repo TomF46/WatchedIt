@@ -11,10 +11,11 @@ import SelectInput from "../../components/Inputs/SelectInput";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
 import { RootState } from "../../redux/store";
+import { PeopleSearchTerms } from "../../types/People";
 
 function People() {
   const isAdmin = useSelector((state: RootState) => state.isAdmin);
-  const [searchTerms, setSearchTerms] = useState({
+  const [searchTerms, setSearchTerms] = useState<PeopleSearchTerms>({
     firstName: "",
     lastName: "",
     stageName: "",
@@ -52,7 +53,9 @@ function People() {
     staleTime: 100,
   });
 
-  function handleSearchTermChange(event) {
+  function handleSearchTermChange(
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void {
     const { name, value } = event.target;
     setSearchTerms((prevSearchTerms) => ({
       ...prevSearchTerms,
@@ -61,7 +64,7 @@ function People() {
     if (page != 1) setPage(1);
   }
 
-  function handleSortChange(event) {
+  function handleSortChange(event: React.ChangeEvent<HTMLSelectElement>): void {
     const { value } = event.target;
     setSort(value);
     if (page != 1) setPage(1);

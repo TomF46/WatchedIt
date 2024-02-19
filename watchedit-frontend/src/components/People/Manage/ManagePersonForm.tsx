@@ -3,6 +3,23 @@ import DatePicker from "react-datepicker";
 import TextInput from "../../Inputs/TextInput";
 import TextAreaInput from "../../Inputs/TextAreaInput";
 import PersonPreviewMini from "./PersonPreviewMini";
+import { EditablePerson, PersonFormErrors } from "../../../types/People";
+
+type Props = {
+  person: EditablePerson;
+  errors: PersonFormErrors;
+  onSave: (event: React.SyntheticEvent) => void;
+  onChange: (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>,
+  ) => void;
+  onDateChange: (date: Date | null) => void;
+  onImageChange: (event: React.ChangeEvent<HTMLInputElement> | null) => void;
+  onUseDefaultImage: () => void;
+  uploadingImage: boolean;
+  saving: boolean;
+};
 
 const ManagePersonForm = ({
   person,
@@ -13,8 +30,8 @@ const ManagePersonForm = ({
   onUseDefaultImage,
   saving = false,
   uploadingImage = false,
-  errors = {},
-}) => {
+  errors,
+}: Props) => {
   return (
     <form className="mt-4" onSubmit={onSave}>
       {errors.onSave && (
@@ -96,7 +113,7 @@ const ManagePersonForm = ({
               onChange={(date) => onDateChange(date)}
               className="border border-gray-500 focus:outline-none focus:border-primary p-2 bg-backgroundOffset2 rounded"
             />
-            {errors.releaseDate && (
+            {errors.dateOfBirth && (
               <div className="text-red-500 text-xs p-1 mt-2">
                 {errors.dateOfBirth}
               </div>

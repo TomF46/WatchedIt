@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { PersonCredit } from "../../../types/People";
 
-const PersonCreditPreview = ({ credit }) => {
+const PersonCreditPreview = ({ credit }: { credit: PersonCredit }) => {
   const navigate = useNavigate();
   return (
     <div className="h-full">
@@ -29,10 +29,6 @@ const PersonCreditPreview = ({ credit }) => {
       </div>
     </div>
   );
-};
-
-PersonCreditPreview.propTypes = {
-  credit: PropTypes.object.isRequired,
 };
 
 export default PersonCreditPreview;

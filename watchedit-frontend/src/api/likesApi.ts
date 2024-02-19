@@ -1,6 +1,10 @@
 import client from "./client";
 
-export function like(id) {
+type PersonIsLikedResponse = {
+  liked: boolean;
+};
+
+export function like(id: number): Promise<PersonIsLikedResponse> {
   return client
     .post(`/api/users/me/likes`, {
       personId: id,
@@ -13,7 +17,7 @@ export function like(id) {
     });
 }
 
-export function removeLike(id) {
+export function removeLike(id: number): Promise<PersonIsLikedResponse> {
   return client
     .delete(`/api/users/me/likes/${id}`)
     .then((response) => {

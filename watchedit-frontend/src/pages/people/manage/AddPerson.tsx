@@ -5,14 +5,15 @@ import { newPerson } from "../../../tools/obJectShapes";
 import ManagePerson from "./ManagePerson";
 import { savePerson } from "../../../api/peopleApi";
 import { useMutation } from "@tanstack/react-query";
+import { EditablePerson } from "../../../types/People";
 
 function AddPerson() {
   const navigate = useNavigate();
-  const [person, setPerson] = useState({ ...newPerson });
+  const [person, setPerson] = useState<EditablePerson>({ ...newPerson });
   const [saving, setSaving] = useState(false);
 
   const addPerson = useMutation({
-    mutationFn: (newPerson) => {
+    mutationFn: (newPerson: EditablePerson) => {
       setSaving(true);
       return savePerson(newPerson);
     },
@@ -28,7 +29,7 @@ function AddPerson() {
     },
   });
 
-  function handleUpdate(updatedPerson) {
+  function handleUpdate(updatedPerson: EditablePerson): void {
     setPerson(updatedPerson);
   }
 

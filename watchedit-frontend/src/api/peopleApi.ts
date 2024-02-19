@@ -1,10 +1,20 @@
+import {
+  EditablePerson,
+  PeoplePaginationResponse,
+  PeopleSearchTerms,
+  Person,
+} from "../types/People";
 import client from "./client";
 
-export function savePerson(person) {
+export function savePerson(person: EditablePerson): Promise<Person> {
   return person.id ? editPerson(person) : addPerson(person);
 }
 
-export function getPeoplePaginated(pageNumber, pageSize, sort) {
+export function getPeoplePaginated(
+  pageNumber: number,
+  pageSize: number,
+  sort: string,
+): Promise<PeoplePaginationResponse> {
   return client
     .get(
       `/api/people?PageNumber=${pageNumber}&PageSize=${pageSize}&Sort=${sort}`,
@@ -17,7 +27,12 @@ export function getPeoplePaginated(pageNumber, pageSize, sort) {
     });
 }
 
-export function searchPeoplePaginated(searchTerms, pageNumber, pageSize, sort) {
+export function searchPeoplePaginated(
+  searchTerms: PeopleSearchTerms,
+  pageNumber: number,
+  pageSize: number,
+  sort: string,
+): Promise<PeoplePaginationResponse> {
   return client
     .get(
       `/api/people?firstName=${searchTerms.firstName}&lastName=${searchTerms.lastName}&stageName=${searchTerms.stageName}&PageNumber=${pageNumber}&PageSize=${pageSize}&Sort=${sort}`,
@@ -30,7 +45,7 @@ export function searchPeoplePaginated(searchTerms, pageNumber, pageSize, sort) {
     });
 }
 
-export function getPersonById(id) {
+export function getPersonById(id: number): Promise<Person> {
   return client
     .get(`/api/people/${id}`)
     .then((response) => {
@@ -41,7 +56,7 @@ export function getPersonById(id) {
     });
 }
 
-export function addPerson(person) {
+export function addPerson(person: EditablePerson): Promise<Person> {
   return client
     .post(`/api/people`, person)
     .then((response) => {
@@ -52,7 +67,7 @@ export function addPerson(person) {
     });
 }
 
-export function editPerson(person) {
+export function editPerson(person: EditablePerson): Promise<Person> {
   return client
     .put(`/api/people/${person.id}`, person)
     .then((response) => {
@@ -63,7 +78,7 @@ export function editPerson(person) {
     });
 }
 
-export function removePerson(person) {
+export function removePerson(person: Person): Promise<void> {
   return client
     .delete(`/api/people/${person.id}`)
     .then((response) => {
