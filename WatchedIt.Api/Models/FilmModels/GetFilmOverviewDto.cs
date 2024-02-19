@@ -7,11 +7,11 @@ namespace WatchedIt.Api.Models.FilmModels
 {
     public class GetFilmOverviewDto
     {
-        public int Id {get;set;}
-        public string? Name {get;set;}
-        public string? ShortDescription {get;set;}
-        public string? PosterUrl {get;set;}
-        public string? AverageRating {get; set;}
-        public int WatchedCount {get; set;}
+        public int Id { get; set; }
+        public string? Name { get; set; }
+        public string? ShortDescription { get; set; }
+        public string? PosterUrl { get; set; }
+        public string? AverageRating { get; set; }
+        public int WatchedByCount { get; set; }
     }
 }
