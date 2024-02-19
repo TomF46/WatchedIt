@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
 import ListPreview from "../Home/ListReel/ListPreview";
+import { List } from "../../types/Lists";
 
-const FilmListList = ({ lists }) => {
+const FilmListList = ({ lists }: { lists: List[] }) => {
   return (
     <div className="grid grid-cols-12">
       {lists.map((list) => {
@@ -9,10 +9,6 @@ const FilmListList = ({ lists }) => {
       })}
     </div>
   );
-};
-
-FilmListList.propTypes = {
-  lists: PropTypes.array.isRequired,
 };
 
 export default FilmListList;

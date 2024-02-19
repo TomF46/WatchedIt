@@ -1,12 +1,23 @@
-import PropTypes from "prop-types";
 import { useState } from "react";
 import ManageListForm from "../../../components/Lists/Manage/ManageListForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
+import { EditableList, ListFormErrors } from "../../../types/Lists";
 
-function ManageList({ list, updateList, triggerSave, saving }) {
-  const [errors, setErrors] = useState({});
+type Props = {
+  list: EditableList;
+  updateList: (list: EditableList) => void;
+  triggerSave: () => void;
+  saving: boolean;
+};
 
-  function handleChange(event) {
+function ManageList({ list, updateList, triggerSave, saving }: Props) {
+  const [errors, setErrors] = useState({} as ListFormErrors);
+
+  function handleChange(
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>,
+  ): void {
     const { name, value } = event.target;
     updateList((prevList) => ({
       ...prevList,
@@ -14,9 +25,9 @@ function ManageList({ list, updateList, triggerSave, saving }) {
     }));
   }
 
-  function formIsValid() {
+  function formIsValid(): boolean {
     const { name, description } = list;
-    const errors = {};
+    const errors = {} as ListFormErrors;
     if (!name) errors.name = "Name is required";
     if (name.length > 60)
       errors.name = "Name can't be longer than 60 characters.";
@@ -27,7 +38,7 @@ function ManageList({ list, updateList, triggerSave, saving }) {
     return Object.keys(errors).length === 0;
   }
 
-  function handleSave(event) {
+  function handleSave(event: React.SyntheticEvent): void {
     event.preventDefault();
     if (!formIsValid()) return;
     triggerSave();
@@ -49,12 +60,5 @@ function ManageList({ list, updateList, triggerSave, saving }) {
     </div>
   );
 }
-
-ManageList.propTypes = {
-  list: PropTypes.object.isRequired,
-  updateList: PropTypes.func.isRequired,
-  triggerSave: PropTypes.func.isRequired,
-  saving: PropTypes.bool,
-};
 
 export default ManageList;

@@ -4,17 +4,18 @@ import { toast } from "react-toastify";
 import { newList } from "../../../tools/obJectShapes";
 import ManageList from "./ManageList";
 import { saveFilmList } from "../../../api/filmListsApi";
+import { EditableList } from "../../../types/Lists";
 
 function AddList() {
   const navigate = useNavigate();
-  const [list, setList] = useState({ ...newList });
+  const [list, setList] = useState<EditableList>({ ...newList });
   const [saving, setSaving] = useState(false);
 
-  function handleUpdate(updatedList) {
+  function handleUpdate(updatedList: EditableList) {
     setList(updatedList);
   }
 
-  function handleSave() {
+  function handleSave(): void {
     setSaving(true);
     saveFilmList(list)
       .then((res) => {

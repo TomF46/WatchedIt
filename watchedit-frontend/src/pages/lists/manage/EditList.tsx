@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
 import { RootState } from "../../../redux/store";
+import { EditableList } from "../../../types/Lists";
 
 function EditList() {
   const { id } = useParams();
@@ -16,13 +17,13 @@ function EditList() {
     state.tokens ? state.tokens.id : null,
   );
   const navigate = useNavigate();
-  const [list, setList] = useState({ ...newList });
+  const [list, setList] = useState<EditableList>({ ...newList });
   const [saving, setSaving] = useState(false);
 
   const { isLoading, error } = useQuery({
     queryKey: ["list-update", id],
     queryFn: () =>
-      getFilmListById(id).then((res) => {
+      getFilmListById(Number(id)).then((res) => {
         if (res.createdBy.id != userId) navigate(`/lists/${id}`);
         setList({
           id: res.id,
@@ -33,11 +34,11 @@ function EditList() {
       }),
   });
 
-  function handleUpdate(updatedList) {
+  function handleUpdate(updatedList: EditableList): void {
     setList(updatedList);
   }
 
-  function handleSave() {
+  function handleSave(): void {
     setSaving(true);
     saveFilmList(list)
       .then((res) => {

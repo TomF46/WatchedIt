@@ -1,5 +1,13 @@
-import PropTypes from "prop-types";
 import TextInput from "../Inputs/TextInput";
+import { Film } from "../../types/Films";
+
+type Props = {
+  currentFilms: Film[];
+  films: Film[];
+  searchTerm: string;
+  onSearchTermChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onFilmSelected: (film: Film) => void;
+};
 
 const SelectFilmListWSearch = ({
   currentFilms,
@@ -7,14 +15,14 @@ const SelectFilmListWSearch = ({
   searchTerm,
   onSearchTermChange,
   onFilmSelected,
-}) => {
-  function isAlreadyInList(film) {
+}: Props) => {
+  function isAlreadyInList(film: Film) {
     return currentFilms.some((x) => x.id == film.id);
   }
 
   return (
     <>
-      <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
+      <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4">
         <div className="bg-backgroundOffset2 rounded-t-md">
           <p className="text-primary font-semibold text-lg px-2 py-1">Search</p>
         </div>
@@ -82,14 +90,6 @@ const SelectFilmListWSearch = ({
       )}
     </>
   );
-};
-
-SelectFilmListWSearch.propTypes = {
-  currentFilms: PropTypes.array.isRequired,
-  films: PropTypes.array.isRequired,
-  searchTerm: PropTypes.string,
-  onSearchTermChange: PropTypes.func.isRequired,
-  onFilmSelected: PropTypes.func.isRequired,
 };
 
 export default SelectFilmListWSearch;

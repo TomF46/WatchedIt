@@ -1,14 +1,27 @@
 import PropTypes from "prop-types";
 import TextInput from "../../Inputs/TextInput";
 import TextAreaInput from "../../Inputs/TextAreaInput";
+import { EditableList, ListFormErrors } from "../../../types/Lists";
+
+type Props = {
+  list: EditableList;
+  errors: ListFormErrors;
+  onSave: (event: React.SyntheticEvent) => void;
+  onChange: (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>,
+  ) => void;
+  saving: boolean;
+};
 
 const ManageListForm = ({
   list,
   onSave,
   onChange,
   saving = false,
-  errors = {},
-}) => {
+  errors,
+}: Props) => {
   return (
     <form className="mt-4" onSubmit={onSave}>
       {errors.onSave && (
@@ -16,7 +29,7 @@ const ManageListForm = ({
           {errors.onSave}
         </div>
       )}
-      <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
+      <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4">
         <div className="bg-backgroundOffset2 rounded-t-md">
           <p className="text-primary font-semibold text-center text-2xl px-2 py-1">
             {list.id ? `Editing ${list.name}` : "Adding list"}

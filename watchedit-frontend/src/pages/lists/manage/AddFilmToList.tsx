@@ -11,6 +11,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
 import { RootState } from "../../../redux/store";
+import { Film } from "../../../types/Films";
 
 function AddFilmToList() {
   const userId = useSelector((state: RootState) =>
@@ -30,7 +31,7 @@ function AddFilmToList() {
   } = useQuery({
     queryKey: ["list", id],
     queryFn: () =>
-      getFilmListById(id).then((res) => {
+      getFilmListById(Number(id)).then((res) => {
         if (res.createdBy.id != userId) navigate(`/lists/${res.id}`);
         return res;
       }),
@@ -53,14 +54,16 @@ function AddFilmToList() {
     staleTime: 100,
   });
 
-  function handleSearchTermChange(event) {
+  function handleSearchTermChange(
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void {
     const { value } = event.target;
     setSearchTerm(value);
     if (page != 1) setPage(1);
   }
 
-  function handleFilmSelected(film) {
-    addFilmToFilmList(list.id, film)
+  function handleFilmSelected(film: Film) {
+    addFilmToFilmList(Number(list!.id), film)
       .then(() => {
         refetchList();
       })

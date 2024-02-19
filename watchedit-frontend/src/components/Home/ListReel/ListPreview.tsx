@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { List } from "../../../types/Lists";
 
-const ListPreview = ({ list }) => {
+const ListPreview = ({ list }: { list: List }) => {
   const navigate = useNavigate();
   return (
     <div
@@ -56,10 +56,6 @@ const ListPreview = ({ list }) => {
       </div>
     </div>
   );
-};
-
-ListPreview.propTypes = {
-  list: PropTypes.object.isRequired,
 };
 
 export default ListPreview;

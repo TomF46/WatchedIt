@@ -6,8 +6,9 @@ import PaginationControls from "../PaginationControls";
 import { getUsersFilmListsPaginated } from "../../api/filmListsApi";
 import LoadingMessage from "../Loading/LoadingMessage";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { User } from "../../types/AuthDefinitions";
 
-function UserLists({ user }) {
+function UserLists({ user }: { user: User }) {
   const [page, setPage] = useState(1);
   const listsPerPage = 8;
 
@@ -36,7 +37,7 @@ function UserLists({ user }) {
         <h2 className="mt-4 text-primary text-xl ">{user.username} lists</h2>
         {listsPaginator.data.length > 0 ? (
           <>
-            <FilmListList lists={listsPaginator.data} showUser={false} />
+            <FilmListList lists={listsPaginator.data} />
             <PaginationControls
               currentPage={page}
               onPageChange={setPage}

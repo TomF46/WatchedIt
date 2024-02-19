@@ -36,7 +36,9 @@ function Lists() {
     staleTime: 100,
   });
 
-  function handleSearchTermChange(event) {
+  function handleSearchTermChange(
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void {
     const { name, value } = event.target;
     setSearchTerms((prevSearchTerms) => ({
       ...prevSearchTerms,
@@ -102,7 +104,7 @@ function Lists() {
             <>
               {listsPaginator.data.length > 0 ? (
                 <>
-                  <FilmListList lists={listsPaginator.data} showUser={true} />
+                  <FilmListList lists={listsPaginator.data} />
                   <PaginationControls
                     currentPage={page}
                     onPageChange={setPage}

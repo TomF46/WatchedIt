@@ -1,10 +1,15 @@
+import { Film } from "../types/Films";
+import { EditableList, List, ListsPaginationResponse } from "../types/Lists";
 import client from "./client";
 
-export function saveFilmList(filmList) {
+export function saveFilmList(filmList: EditableList): Promise<List> {
   return filmList.id ? updateFilmList(filmList) : addFilmList(filmList);
 }
 
-export function getFilmListsPaginated(pageNumber, pageSize) {
+export function getFilmListsPaginated(
+  pageNumber: number,
+  pageSize: number,
+): Promise<ListsPaginationResponse> {
   return client
     .get(`/api/filmLists?PageNumber=${pageNumber}&PageSize=${pageSize}`)
     .then((response) => {
@@ -16,11 +21,11 @@ export function getFilmListsPaginated(pageNumber, pageSize) {
 }
 
 export function searchFilmListsPaginated(
-  searchTerm,
-  username,
-  pageNumber,
-  pageSize,
-) {
+  searchTerm: string,
+  username: string,
+  pageNumber: number,
+  pageSize: number,
+): Promise<ListsPaginationResponse> {
   return client
     .get(
       `/api/filmLists?SearchTerm=${searchTerm}&Username=${username}&PageNumber=${pageNumber}&PageSize=${pageSize}`,
@@ -33,7 +38,7 @@ export function searchFilmListsPaginated(
     });
 }
 
-export function getFilmListById(id) {
+export function getFilmListById(id: number): Promise<List> {
   return client
     .get(`/api/filmLists/${id}`)
     .then((response) => {
@@ -44,7 +49,7 @@ export function getFilmListById(id) {
     });
 }
 
-export function addFilmList(filmList) {
+export function addFilmList(filmList: EditableList): Promise<List> {
   return client
     .post("/api/filmLists", filmList)
     .then((response) => {
@@ -55,7 +60,7 @@ export function addFilmList(filmList) {
     });
 }
 
-export function updateFilmList(filmList) {
+export function updateFilmList(filmList: EditableList): Promise<List> {
   return client
     .put(`/api/filmLists/${filmList.id}`, filmList)
     .then((response) => {
@@ -66,7 +71,7 @@ export function updateFilmList(filmList) {
     });
 }
 
-export function deleteFilmList(id) {
+export function deleteFilmList(id: number) {
   return client
     .delete(`/api/filmLists/${id}`)
     .then((response) => {
@@ -77,7 +82,7 @@ export function deleteFilmList(id) {
     });
 }
 
-export function addFilmToFilmList(id, film) {
+export function addFilmToFilmList(id: number, film: Film): Promise<void> {
   return client
     .post(`/api/filmLists/${id}/films`, { filmId: film.id })
     .then((response) => {
@@ -88,7 +93,7 @@ export function addFilmToFilmList(id, film) {
     });
 }
 
-export function removeFilmFromFilmList(id, film) {
+export function removeFilmFromFilmList(id: number, film: Film): Promise<void> {
   return client
     .post(`/api/filmLists/${id}/films/remove`, { filmId: film.id })
     .then((response) => {
@@ -99,7 +104,11 @@ export function removeFilmFromFilmList(id, film) {
     });
 }
 
-export function getUsersFilmListsPaginated(id, pageNumber, pageSize) {
+export function getUsersFilmListsPaginated(
+  id: number,
+  pageNumber: number,
+  pageSize: number,
+): Promise<ListsPaginationResponse> {
   return client
     .get(
       `/api/users/${id}/filmLists?PageNumber=${pageNumber}&PageSize=${pageSize}`,

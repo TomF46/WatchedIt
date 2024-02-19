@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { User } from "../../types/AuthDefinitions";
 
-const UserMiniDetail = ({ user }) => {
+const UserMiniDetail = ({ user }: { user: User }) => {
   return (
     <div className="grid grid-cols-12 bg-backgroundOffset shadow rounded">
       <div className="col-span-4">
@@ -21,10 +21,6 @@ const UserMiniDetail = ({ user }) => {
       </div>
     </div>
   );
-};
-
-UserMiniDetail.propTypes = {
-  user: PropTypes.object.isRequired,
 };
 
 export default UserMiniDetail;
