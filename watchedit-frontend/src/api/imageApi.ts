@@ -1,6 +1,9 @@
 import client from "./client";
 
-export function uploadImage(file, prefix) {
+export function uploadImage(
+  file: File,
+  prefix: string,
+): Promise<{ url: string }> {
   const data = new FormData();
   data.append("file", file);
 

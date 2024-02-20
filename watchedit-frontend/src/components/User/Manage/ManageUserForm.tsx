@@ -1,6 +1,17 @@
 import PropTypes from "prop-types";
 import TextAreaInput from "../../Inputs/TextAreaInput";
 import UserMiniDetail from "../UserMiniDetail";
+import { EditableUser, UserFormErrors } from "../../../types/AuthDefinitions";
+
+type Props = {
+  user: EditableUser;
+  errors: UserFormErrors;
+  onSave: (event: React.SyntheticEvent) => void;
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onImageChange: (event: React.ChangeEvent<HTMLInputElement> | null) => void;
+  uploadingImage: boolean;
+  saving: boolean;
+};
 
 const ManageUserForm = ({
   user,
@@ -9,8 +20,9 @@ const ManageUserForm = ({
   onImageChange,
   saving = false,
   uploadingImage = false,
-  errors = {},
-}) => {
+  errors,
+}: Props) => {
+  console.log(user);
   return (
     <form className="mt-4" onSubmit={onSave}>
       {errors.onSave && (
@@ -19,7 +31,7 @@ const ManageUserForm = ({
         </div>
       )}
 
-      <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4 shadow">
+      <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4">
         <div className="bg-backgroundOffset2 rounded-t-md">
           <p className="text-primary font-semibold text-center text-2xl px-2 py-1">
             Update profile

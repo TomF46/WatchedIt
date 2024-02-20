@@ -1,4 +1,8 @@
-import { User, UsersPaginationResponse } from "../types/AuthDefinitions";
+import {
+  EditableUser,
+  User,
+  UsersPaginationResponse,
+} from "../types/AuthDefinitions";
 import { FilmsPaginationResponse } from "../types/Films";
 import { PeoplePaginationResponse } from "../types/People";
 import { ReviewsPaginationResponse } from "../types/Reviews";
@@ -64,7 +68,7 @@ export function getLikedPeopleByUserId(
     });
 }
 
-export function getCurrentUserIsAdmin() {
+export function getCurrentUserIsAdmin(): Promise<{ isAdmin: boolean }> {
   return client
     .get(`/api/users/me/admin`)
     .then((response) => {
@@ -75,7 +79,7 @@ export function getCurrentUserIsAdmin() {
     });
 }
 
-export function getCurrentUserIsPublisher() {
+export function getCurrentUserIsPublisher(): Promise<{ canPublish: boolean }> {
   return client
     .get(`/api/users/me/canPublish`)
     .then((response) => {
@@ -86,7 +90,7 @@ export function getCurrentUserIsPublisher() {
     });
 }
 
-export function updateCurrentUser(user) {
+export function updateCurrentUser(user: EditableUser): Promise<User> {
   return client
     .put(`/api/users/me`, user)
     .then((response) => {

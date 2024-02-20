@@ -3,7 +3,7 @@ import { getCurrentUserIsPublisher } from "./api/usersApi";
 import { useQuery } from "@tanstack/react-query";
 import { RouteProps } from "./types/routeProps";
 
-const PublisherRoute = ({ children } : RouteProps) => {
+const PublisherRoute = ({ children }: RouteProps) => {
   const { isLoading, data } = useQuery({
     queryKey: ["is-publisher"],
     queryFn: () => getCurrentUserIsPublisher(),
@@ -12,7 +12,7 @@ const PublisherRoute = ({ children } : RouteProps) => {
   return (
     <>
       {!isLoading && (
-        <>{data.canPublish ? children : <Navigate to="/404" replace />}</>
+        <>{data!.canPublish ? children : <Navigate to="/404" replace />}</>
       )}
     </>
   );

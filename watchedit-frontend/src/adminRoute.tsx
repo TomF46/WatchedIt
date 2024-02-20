@@ -4,7 +4,7 @@ import { getCurrentUserIsAdmin } from "./api/usersApi";
 import { useQuery } from "@tanstack/react-query";
 import { RouteProps } from "./types/routeProps";
 
-const AdminRoute = ({ children } : RouteProps) => {
+const AdminRoute = ({ children }: RouteProps) => {
   const { isLoading, data } = useQuery({
     queryKey: ["is-admin"],
     queryFn: () => getCurrentUserIsAdmin(),
@@ -13,7 +13,7 @@ const AdminRoute = ({ children } : RouteProps) => {
   return (
     <>
       {!isLoading && (
-        <>{data.isAdmin ? children : <Navigate to="/404" replace />}</>
+        <>{data!.isAdmin ? children : <Navigate to="/404" replace />}</>
       )}
     </>
   );

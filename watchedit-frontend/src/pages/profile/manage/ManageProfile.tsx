@@ -9,12 +9,15 @@ import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
 import { RootState } from "../../../redux/store";
+import { EditableUser, UserFormErrors } from "../../../types/AuthDefinitions";
 
 function ManageProfile() {
   const id = useSelector((state: RootState) => state.tokens.id);
   const navigate = useNavigate();
-  const [updatedUser, setUpdatedUser] = useState(null);
-  const [errors, setErrors] = useState({});
+  const [updatedUser, setUpdatedUser] = useState<EditableUser>(
+    {} as EditableUser,
+  );
+  const [errors, setErrors] = useState({} as UserFormErrors);
   const [saving, setSaving] = useState(false);
   const [imageUploading, setImageUploading] = useState(false);
 
@@ -22,13 +25,19 @@ function ManageProfile() {
     queryKey: ["manage-user", id],
     queryFn: () =>
       getUserById(id).then((res) => {
-        mapUpdatedUser(res);
+        setUpdatedUser({
+          id: res.id,
+          username: res.username,
+          email: res.email,
+          biography: res.biography,
+          imageUrl: res.imageUrl,
+        });
         return res;
       }),
   });
 
   const updateUser = useMutation({
-    mutationFn: (updatedUser) => {
+    mutationFn: (updatedUser: EditableUser) => {
       setSaving(true);
       return updateCurrentUser(updatedUser);
     },
@@ -45,13 +54,13 @@ function ManageProfile() {
   });
 
   const uploadProfileImage = useMutation({
-    mutationFn: (file) => {
+    mutationFn: (file: File) => {
       setImageUploading(true);
       return uploadImage(file, "users");
     },
     onSuccess: (res) => {
-      updatedUser.imageUrl = res.url;
-      setUpdatedUser({ ...updatedUser });
+      updatedUser!.imageUrl = res.url;
+      setUpdatedUser({ ...updatedUser! });
       setImageUploading(false);
     },
     onError: (err) => {
@@ -62,14 +71,7 @@ function ManageProfile() {
     },
   });
 
-  function mapUpdatedUser(data) {
-    setUpdatedUser({
-      imageUrl: data.imageUrl,
-      biography: data.biography,
-    });
-  }
-
-  function handleChange(event) {
+  function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>): void {
     const { name, value } = event.target;
     setUpdatedUser((prevUpdatedUser) => ({
       ...prevUpdatedUser,
@@ -77,10 +79,12 @@ function ManageProfile() {
     }));
   }
 
-  function handleImageChange(event) {
-    if (event == null) {
-      updatedUser.imageUrl = null;
-      setUpdatedUser({ ...updatedUser });
+  function handleImageChange(
+    event: React.ChangeEvent<HTMLInputElement> | null,
+  ): void {
+    if (event == null || event.target.files == null) {
+      updatedUser!.imageUrl = undefined;
+      setUpdatedUser({ ...updatedUser! });
       return;
     }
 
@@ -88,17 +92,17 @@ function ManageProfile() {
     uploadProfileImage.mutate(file);
   }
 
-  function formIsValid() {
+  function formIsValid(): boolean {
     const { biography, imageUrl } = updatedUser;
-    const errors = {};
+    const errors = {} as UserFormErrors;
     if (biography && biography.length > 400)
-      errors.firstName = "Biography cant be longer than 400 characters";
+      errors.biography = "Biography cant be longer than 400 characters";
     if (!imageUrl) errors.imageUrl = "Image url is required";
     setErrors(errors);
     return Object.keys(errors).length === 0;
   }
 
-  function handleSave(event) {
+  function handleSave(event: React.SyntheticEvent): void {
     event.preventDefault();
     if (!formIsValid()) return;
     updateUser.mutate(updatedUser);
@@ -118,7 +122,7 @@ function ManageProfile() {
   return (
     <div className="profile-manage-page">
       <ManageUserForm
-        user={updatedUser}
+        user={updatedUser!}
         onChange={handleChange}
         onImageChange={handleImageChange}
         onSave={handleSave}

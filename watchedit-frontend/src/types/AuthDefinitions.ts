@@ -39,6 +39,20 @@ export type User = {
   reviewCount?: number;
 };
 
+export type EditableUser = {
+  id?: number;
+  username: string;
+  email: string;
+  imageUrl?: string;
+  biography?: string;
+};
+
+export type UserFormErrors = {
+  onSave?: string;
+  biography: string;
+  imageUrl: string;
+};
+
 type Users = {
   data: User[];
 };

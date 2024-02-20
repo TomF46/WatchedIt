@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { User } from "../../types/AuthDefinitions";
+import { EditableUser, User } from "../../types/AuthDefinitions";
 
-const UserMiniDetail = ({ user }: { user: User }) => {
+const UserMiniDetail = ({ user }: { user: User | EditableUser }) => {
   return (
     <div className="grid grid-cols-12 bg-backgroundOffset shadow rounded">
       <div className="col-span-4">
