@@ -1,5 +1,4 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import FilmListList from "../Lists/FilmListList";
 import PaginationControls from "../PaginationControls";
@@ -54,9 +53,5 @@ function UserLists({ user }: { user: User }) {
     </div>
   );
 }
-
-UserLists.propTypes = {
-  user: PropTypes.object.isRequired,
-};
 
 export default UserLists;

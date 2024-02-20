@@ -1,5 +1,4 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { uploadImage } from "../../../api/imageApi";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
@@ -130,12 +129,5 @@ function ManagePerson({ person, updatePerson, triggerSave, saving }: Props) {
     </div>
   );
 }
-
-ManagePerson.propTypes = {
-  person: PropTypes.object.isRequired,
-  updatePerson: PropTypes.func.isRequired,
-  triggerSave: PropTypes.func.isRequired,
-  saving: PropTypes.bool,
-};
 
 export default ManagePerson;

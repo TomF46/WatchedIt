@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { GuessFilmFromCastGame } from "../../types/Games";
 
@@ -39,10 +38,6 @@ const CorrectGuessFilm = ({ game }: { game: GuessFilmFromCastGame }) => {
       </div>
     </div>
   );
-};
-
-CorrectGuessFilm.propTypes = {
-  game: PropTypes.object.isRequired,
 };
 
 export default CorrectGuessFilm;

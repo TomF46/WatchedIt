@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { getCategories } from "../../../api/categoriesApi";
@@ -148,10 +147,5 @@ function ManageFilm({ film, updateFilm, triggerSave, saving }: Props) {
     </div>
   );
 }
-ManageFilm.propTypes = {
-  film: PropTypes.object.isRequired,
-  updateFilm: PropTypes.func.isRequired,
-  triggerSave: PropTypes.func.isRequired,
-  saving: PropTypes.bool,
-};
+
 export default ManageFilm;

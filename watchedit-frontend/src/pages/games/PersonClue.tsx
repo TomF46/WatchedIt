@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
+import { Person } from "../../types/People";
 
-const PersonClue = ({ person }) => {
+const PersonClue = ({ person }: { person: Person }) => {
   return (
     <div className="col-span-8 md:col-span-4 lg:col-span-2 mt-2 h-full">
       <div className="mx-2 bg-backgroundOffset cursor-pointer hover:opacity-75 h-full shadow rounded">
@@ -19,10 +19,6 @@ const PersonClue = ({ person }) => {
       </div>
     </div>
   );
-};
-
-PersonClue.propTypes = {
-  person: PropTypes.object.isRequired,
 };
 
 export default PersonClue;

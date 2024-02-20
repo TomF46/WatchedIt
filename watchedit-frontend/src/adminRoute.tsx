@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { Navigate } from "react-router-dom";
 import { getCurrentUserIsAdmin } from "./api/usersApi";
 import { useQuery } from "@tanstack/react-query";
@@ -17,10 +16,6 @@ const AdminRoute = ({ children }: RouteProps) => {
       )}
     </>
   );
-};
-
-AdminRoute.propTypes = {
-  children: PropTypes.node.isRequired,
 };
 
 export default AdminRoute;

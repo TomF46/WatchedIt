@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import TextInput from "../../Inputs/TextInput";
 import TextAreaInput from "../../Inputs/TextAreaInput";
 import { EditableList, ListFormErrors } from "../../../types/Lists";
@@ -84,14 +83,6 @@ const ManageListForm = ({
       </div>
     </form>
   );
-};
-
-ManageListForm.propTypes = {
-  list: PropTypes.object.isRequired,
-  errors: PropTypes.object,
-  onSave: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  saving: PropTypes.bool,
 };
 
 export default ManageListForm;

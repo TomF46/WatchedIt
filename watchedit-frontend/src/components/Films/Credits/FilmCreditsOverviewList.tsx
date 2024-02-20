@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import FilmCreditPreview from "./FIlmCreditPreview";
 import { FilmCredit } from "../../../types/Films";
 
@@ -21,10 +20,6 @@ const FilmCreditsOverviewList = ({ credits }: { credits: FilmCredit[] }) => {
       })}
     </div>
   );
-};
-
-FilmCreditsOverviewList.propTypes = {
-  credits: PropTypes.array.isRequired,
 };
 
 export default FilmCreditsOverviewList;

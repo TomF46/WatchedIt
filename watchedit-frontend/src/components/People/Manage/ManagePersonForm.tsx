@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
 import TextInput from "../../Inputs/TextInput";
 import TextAreaInput from "../../Inputs/TextAreaInput";
@@ -231,18 +230,6 @@ const ManagePersonForm = ({
       </div>
     </form>
   );
-};
-
-ManagePersonForm.propTypes = {
-  person: PropTypes.object.isRequired,
-  errors: PropTypes.object,
-  onSave: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onDateChange: PropTypes.func.isRequired,
-  onImageChange: PropTypes.func.isRequired,
-  onUseDefaultImage: PropTypes.func.isRequired,
-  saving: PropTypes.bool,
-  uploadingImage: PropTypes.bool,
 };
 
 export default ManagePersonForm;

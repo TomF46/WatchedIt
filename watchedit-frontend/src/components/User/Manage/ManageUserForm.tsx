@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import TextAreaInput from "../../Inputs/TextAreaInput";
 import UserMiniDetail from "../UserMiniDetail";
 import { EditableUser, UserFormErrors } from "../../../types/AuthDefinitions";
@@ -140,16 +139,6 @@ const ManageUserForm = ({
       </div>
     </form>
   );
-};
-
-ManageUserForm.propTypes = {
-  user: PropTypes.object.isRequired,
-  errors: PropTypes.object,
-  onSave: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onImageChange: PropTypes.func.isRequired,
-  saving: PropTypes.bool,
-  uploadingImage: PropTypes.bool,
 };
 
 export default ManageUserForm;
