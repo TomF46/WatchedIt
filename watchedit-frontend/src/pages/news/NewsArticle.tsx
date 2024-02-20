@@ -27,18 +27,18 @@ function NewsArticle() {
   } = useQuery({
     queryKey: ["article", id],
     queryFn: () =>
-      getNewsArticlesById(id).then((res) => {
+      getNewsArticlesById(Number(id)).then((res) => {
         res.content = res.content.replaceAll("\\", "/");
         return res;
       }),
   });
 
   const setArticlePublished = useMutation({
-    mutationFn: (publish) => {
-      return setNewsArticlePublishedStatusById(article.id, publish);
+    mutationFn: (publish: boolean) => {
+      return setNewsArticlePublishedStatusById(Number(article!.id), publish);
     },
     onSuccess: (res) => {
-      toast.success(`Article ${res.publish ? "published" : "unpublished"}.`);
+      toast.success(`Article ${res.published ? "published" : "unpublished"}.`);
       refetch();
     },
     onError: (err) => {
@@ -59,63 +59,62 @@ function NewsArticle() {
     );
   }
 
-  return (
-    <div className="article-page">
-      <h1 className="my-4 text-center text-primary text-4xl font-semibold">
-        {article.title}
-      </h1>
-      {isAdmin && (
-        <div className="admin-controls bg-backgroundOffset mt-4 shadow rounded">
-          <div className="bg-backgroundOffset2 rounded-t-md">
-            <p className="text-primary font-semibold text-lg px-2 py-1">
-              Admin controls
-            </p>
+  if (article)
+    return (
+      <div className="article-page">
+        <h1 className="my-4 text-center text-primary text-4xl font-semibold">
+          {article.title}
+        </h1>
+        {isAdmin && (
+          <div className="admin-controls bg-backgroundOffset mt-4 shadow rounded">
+            <div className="bg-backgroundOffset2 rounded-t-md">
+              <p className="text-primary font-semibold text-lg px-2 py-1">
+                Admin controls
+              </p>
+            </div>
+            <div className="px-2 py-2">
+              <button
+                onClick={() => {
+                  setArticlePublished.mutate(!article.published);
+                }}
+                className="bg-backgroundOffset2 text-primary font-semibold rounded py-2 px-4 hover:opacity-75 inline-block"
+              >
+                {article.published ? "Unpublish" : "Publish"}
+              </button>
+            </div>
           </div>
-          <div className="px-2 py-2">
-            <button
-              onClick={() => {
-                setArticlePublished.mutate(!article.published);
-              }}
-              className="bg-backgroundOffset2 text-primary font-semibold rounded py-2 px-4 hover:opacity-75 inline-block"
-            >
-              {article.published ? "Unpublish" : "Publish"}
-            </button>
+        )}
+        {currentUserId == article.author.id && (
+          <div className="admin-controls bg-backgroundOffset mt-4 shadow rounded">
+            <div className="bg-backgroundOffset2 rounded-t-md">
+              <p className="text-primary font-semibold text-lg px-2 py-1">
+                Publisher controls
+              </p>
+            </div>
+            <div className="px-2 py-2">
+              <Link
+                to={`/news/${id}/edit`}
+                className="bg-backgroundOffset2 text-primary font-semibold rounded py-2 px-4 hover:opacity-75 inline-block"
+              >
+                Edit article
+              </Link>
+              <button
+                onClick={() => setArticlePublished.mutate(!article.published)}
+                className="bg-backgroundOffset2 text-primary font-semibold rounded py-2 px-4 ml-2 hover:opacity-75 inline-block"
+              >
+                {article.published ? "Unpublish" : "Publish"}
+              </button>
+            </div>
           </div>
+        )}
+        <div className="bg-backgroundOffset p-4 my-4 shadow rounded">
+          <MDEditor.Markdown
+            source={article.content}
+            rehypePlugins={[rehypeSanitize]}
+          />
         </div>
-      )}
-      {currentUserId == article.author.id && (
-        <div className="admin-controls bg-backgroundOffset mt-4 shadow rounded">
-          <div className="bg-backgroundOffset2 rounded-t-md">
-            <p className="text-primary font-semibold text-lg px-2 py-1">
-              Publisher controls
-            </p>
-          </div>
-          <div className="px-2 py-2">
-            <Link
-              to={`/news/${id}/edit`}
-              className="bg-backgroundOffset2 text-primary font-semibold rounded py-2 px-4 hover:opacity-75 inline-block"
-            >
-              Edit article
-            </Link>
-            <button
-              onClick={() => setArticlePublished.mutate(!article.published)}
-              className="bg-backgroundOffset2 text-primary font-semibold rounded py-2 px-4 ml-2 hover:opacity-75 inline-block"
-            >
-              {article.published ? "Unpublish" : "Publish"}
-            </button>
-          </div>
-        </div>
-      )}
-      <div className="bg-backgroundOffset p-4 my-4 shadow rounded">
-        <MDEditor.Markdown
-          source={article.content}
-          previewOptions={{
-            rehypePlugins: [[rehypeSanitize]],
-          }}
-        />
       </div>
-    </div>
-  );
+    );
 }
 
 export default NewsArticle;

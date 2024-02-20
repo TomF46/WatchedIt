@@ -10,6 +10,6 @@ namespace WatchedIt.Api.Models.News
         public string? Title { get; set; }
         public string? Content { get; set; }
         public string? ThumbnailUrl { get; set; }
-        public bool Publish { get; set; }
+        public bool Published { get; set; }
     }
 }

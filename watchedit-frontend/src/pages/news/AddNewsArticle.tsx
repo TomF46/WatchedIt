@@ -5,16 +5,19 @@ import { newArticle } from "../../tools/obJectShapes";
 import { saveNewsArticle } from "../../api/newsApi";
 import ManageNewsArticle from "./ManageNewsArticle";
 import { useMutation } from "@tanstack/react-query";
+import { EditableNewsArticle, SaveNewsArticleRequest } from "../../types/News";
 
 function AddArticle() {
   const navigate = useNavigate();
-  const [article, setArticle] = useState({ ...newArticle });
+  const [article, setArticle] = useState<EditableNewsArticle>({
+    ...newArticle,
+  });
   const [saving, setSaving] = useState(false);
 
   const addArticle = useMutation({
-    mutationFn: (newArticle, publish) => {
+    mutationFn: (request: SaveNewsArticleRequest) => {
       setSaving(true);
-      return saveNewsArticle(newArticle, publish);
+      return saveNewsArticle(request.article, request.publish);
     },
     onSuccess: (res) => {
       toast.success("Article saved");
@@ -28,7 +31,7 @@ function AddArticle() {
     },
   });
 
-  function handleUpdate(updatedArticle) {
+  function handleUpdate(updatedArticle: EditableNewsArticle): void {
     setArticle(updatedArticle);
   }
 
@@ -38,7 +41,7 @@ function AddArticle() {
         article={article}
         updateArticle={handleUpdate}
         triggerSave={(publish) => {
-          addArticle.mutate(article, publish);
+          addArticle.mutate({ article: article, publish: publish });
         }}
         saving={saving}
       ></ManageNewsArticle>

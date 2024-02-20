@@ -58,7 +58,9 @@ function News() {
       }),
   });
 
-  function handleSearchTermChange(event) {
+  function handleSearchTermChange(
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void {
     const { name, value } = event.target;
     setSearchTerms((prevSearchTerms) => ({
       ...prevSearchTerms,
@@ -67,7 +69,7 @@ function News() {
     if (page != 1) setPage(1);
   }
 
-  function handleSortChange(event) {
+  function handleSortChange(event: React.ChangeEvent<HTMLSelectElement>): void {
     const { value } = event.target;
     setSort(value);
     if (page != 1) setPage(1);

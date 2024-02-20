@@ -102,7 +102,7 @@ namespace WatchedIt.Api.Services.NewsArticleService
             article.Title = updatedArticle.Title;
             article.Content = updatedArticle.Content;
             article.ThumbnailUrl = updatedArticle.ThumbnailUrl;
-            article.Published = updatedArticle.Publish;
+            article.Published = updatedArticle.Published;
             await _context.SaveChangesAsync();
             return NewsArticleMapper.Map(article);
         }

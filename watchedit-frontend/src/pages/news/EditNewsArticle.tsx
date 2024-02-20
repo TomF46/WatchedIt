@@ -7,32 +7,35 @@ import { getNewsArticlesById, saveNewsArticle } from "../../api/newsApi";
 import ManageNewsArticle from "./ManageNewsArticle";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import ErrorMessage from "../../components/Error/ErrorMessage";
+import { EditableNewsArticle, SaveNewsArticleRequest } from "../../types/News";
 
 function EditArticle() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [article, setArticle] = useState({ ...newArticle });
+  const [article, setArticle] = useState<EditableNewsArticle>({
+    ...newArticle,
+  });
   const [saving, setSaving] = useState(false);
 
   const { isLoading, error } = useQuery({
     queryKey: ["article-update", id],
     queryFn: () =>
-      getNewsArticlesById(id).then((res) => {
+      getNewsArticlesById(Number(id)).then((res) => {
         setArticle({
           id: res.id,
           title: res.title,
           content: res.content,
           thumbnailUrl: res.thumbnailUrl,
-          publish: res.published,
+          published: res.published,
         });
         return res;
       }),
   });
 
   const editArticle = useMutation({
-    mutationFn: (updatedArticle, publish) => {
+    mutationFn: (request: SaveNewsArticleRequest) => {
       setSaving(true);
-      return saveNewsArticle(updatedArticle, publish);
+      return saveNewsArticle(request.article, request.publish);
     },
     onSuccess: (res) => {
       toast.success("Article saved");
@@ -46,7 +49,7 @@ function EditArticle() {
     },
   });
 
-  function handleUpdate(updatedArticle) {
+  function handleUpdate(updatedArticle: EditableNewsArticle): void {
     setArticle(updatedArticle);
   }
 
@@ -67,7 +70,7 @@ function EditArticle() {
         article={article}
         updateArticle={handleUpdate}
         triggerSave={(publish) => {
-          editArticle.mutate(article, publish);
+          editArticle.mutate({ article: article, publish: publish });
         }}
         saving={saving}
       ></ManageNewsArticle>

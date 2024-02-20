@@ -1,8 +1,12 @@
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { format, parseISO } from "date-fns";
+import { EditableNewsArticle, NewsArticle } from "../../types/News";
 
-const NewsArticlePreview = ({ article }) => {
+const NewsArticlePreview = ({
+  article,
+}: {
+  article: NewsArticle | EditableNewsArticle;
+}) => {
   const navigate = useNavigate();
   return (
     <div className="col-span-10 md:col-span-5 lg:col-span-4 my-2">
@@ -23,7 +27,10 @@ const NewsArticlePreview = ({ article }) => {
               <div className="col-span-12">
                 <h3 className="text-gray-400 text-sm">
                   {article.createdDate &&
-                    format(parseISO(article.createdDate), "dd/MM/yyyy HH:mm")}
+                    format(
+                      parseISO(article.createdDate.toString()),
+                      "dd/MM/yyyy HH:mm",
+                    )}
                   {!article.published && (
                     <span className="text-primary"> &#40;Unpublished&#41;</span>
                   )}
@@ -38,10 +45,6 @@ const NewsArticlePreview = ({ article }) => {
       </div>
     </div>
   );
-};
-
-NewsArticlePreview.propTypes = {
-  article: PropTypes.object.isRequired,
 };
 
 export default NewsArticlePreview;

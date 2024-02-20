@@ -49,7 +49,7 @@ namespace WatchedIt.Tests.ServiceTests
                 {
                     Title = "Test article",
                     Content = "Some test content",
-                    Publish = true
+                    Published = true
                 };
 
                 await _newsArticleService.Add(user.Id, article);
@@ -70,7 +70,7 @@ namespace WatchedIt.Tests.ServiceTests
                 {
                     Title = "Test article",
                     Content = "Some test content",
-                    Publish = true
+                    Published = true
                 };
 
                 await _newsArticleService.Add(user.Id, article);
@@ -124,7 +124,7 @@ namespace WatchedIt.Tests.ServiceTests
             {
                 Title = newTitle,
                 Content = article.Content,
-                Publish = article.Published
+                Published = article.Published
             };
 
             await _newsArticleService.Update(article.Id, user.Id, updatedArticle);
@@ -150,7 +150,7 @@ namespace WatchedIt.Tests.ServiceTests
             {
                 Title = newTitle,
                 Content = article.Content,
-                Publish = article.Published
+                Published = article.Published
             };
 
             Assert.ThrowsAsync<Api.Exceptions.UnauthorizedAccessException>(async () =>

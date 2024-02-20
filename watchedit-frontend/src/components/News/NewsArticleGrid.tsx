@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
 import NewsArticlePreview from "./NewsArticlePreview";
+import { NewsArticle } from "../../types/News";
 
-const NewsArticleGrid = ({ articles }) => {
+const NewsArticleGrid = ({ articles }: { articles: NewsArticle[] }) => {
   return (
     <div className="grid grid-cols-20">
       {articles.map((article) => {
@@ -9,10 +9,6 @@ const NewsArticleGrid = ({ articles }) => {
       })}
     </div>
   );
-};
-
-NewsArticleGrid.propTypes = {
-  articles: PropTypes.array.isRequired,
 };
 
 export default NewsArticleGrid;

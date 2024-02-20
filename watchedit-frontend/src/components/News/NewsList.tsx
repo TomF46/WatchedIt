@@ -1,9 +1,14 @@
-import PropTypes from "prop-types";
 import { format, parseISO } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import NewsArticleGrid from "./NewsArticleGrid";
+import { NewsArticle } from "../../types/News";
 
-const NewsList = ({ articles, gridMode }) => {
+type Props = {
+  articles: NewsArticle[];
+  gridMode: boolean;
+};
+
+const NewsList = ({ articles, gridMode }: Props) => {
   const navigate = useNavigate();
   return (
     <>
@@ -32,7 +37,10 @@ const NewsList = ({ articles, gridMode }) => {
                     )}
                   </div>
                   <div className="col-span-12 md:col-span-4 text-right">
-                    {format(parseISO(article.createdDate), "dd/MM/yyyy HH:mm")}
+                    {format(
+                      parseISO(article.createdDate.toString()),
+                      "dd/MM/yyyy HH:mm",
+                    )}
                   </div>
                 </div>
               </div>
@@ -42,11 +50,6 @@ const NewsList = ({ articles, gridMode }) => {
       )}
     </>
   );
-};
-
-NewsList.propTypes = {
-  articles: PropTypes.array.isRequired,
-  gridMode: PropTypes.bool.isRequired,
 };
 
 export default NewsList;

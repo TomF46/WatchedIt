@@ -50,7 +50,7 @@ namespace WatchedIt.Api.Services.Mapping
                 Title = newArticle.Title,
                 Content = newArticle.Content,
                 ThumbnailUrl = newArticle.ThumbnailUrl,
-                Published = newArticle.Publish
+                Published = newArticle.Published
             };
         }
     }

@@ -1,5 +1,4 @@
 import MDEditor from "@uiw/react-md-editor";
-import PropTypes from "prop-types";
 import { useState } from "react";
 import rehypeSanitize from "rehype-sanitize";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
@@ -9,15 +8,30 @@ import TextInput from "../../components/Inputs/TextInput";
 import { uploadImage } from "../../api/imageApi";
 import NewsArticlePreview from "../../components/News/NewsArticlePreview";
 import { useMutation } from "@tanstack/react-query";
+import { EditableNewsArticle, NewsArticleFormErrors } from "../../types/News";
 
-function ManageNewsArticle({ article, updateArticle, triggerSave, saving }) {
-  const [errors, setErrors] = useState({});
+type Props = {
+  article: EditableNewsArticle;
+  updateArticle: (article: EditableNewsArticle) => void;
+  triggerSave: (publish: boolean) => void;
+  saving: boolean;
+};
+
+function ManageNewsArticle({
+  article,
+  updateArticle,
+  triggerSave,
+  saving,
+}: Props) {
+  const [errors, setErrors] = useState({} as NewsArticleFormErrors);
   const [imageUploading, setImageUploading] = useState(false);
   const [thumbnailUploading, setThumbnailUploading] = useState(false);
-  const [generatedUrl, setGeneratedUrl] = useState(null);
+  const [generatedUrl, setGeneratedUrl] = useState<string | undefined>(
+    undefined,
+  );
 
   const uploadThumbnail = useMutation({
-    mutationFn: (file) => {
+    mutationFn: (file: File) => {
       setThumbnailUploading(true);
       return uploadImage(file, "thumbnails");
     },
@@ -35,7 +49,7 @@ function ManageNewsArticle({ article, updateArticle, triggerSave, saving }) {
   });
 
   const uploadArticleImage = useMutation({
-    mutationFn: (file) => {
+    mutationFn: (file: File) => {
       setImageUploading(true);
       return uploadImage(file, "articles");
     },
@@ -51,53 +65,55 @@ function ManageNewsArticle({ article, updateArticle, triggerSave, saving }) {
     },
   });
 
-  function setContent(value) {
-    let formattedValue = value.replaceAll("\\", "/"); // Fixes formatting that md editor adds that breaks preview and article.
+  function setContent(value: string): void {
+    const formattedValue = value.replaceAll("\\", "/"); // Fixes formatting that md editor adds that breaks preview and article.
     updateArticle((prevState) => ({
       ...prevState,
       content: formattedValue,
     }));
   }
 
-  function setTitle(event) {
+  function setTitle(event: React.ChangeEvent<HTMLInputElement>): void {
     updateArticle((prevState) => ({
       ...prevState,
       title: event.target.value,
     }));
   }
 
-  function handleThumbnailChange(event) {
-    if (event == null) {
-      article.thumbnailUrl = null;
+  function handleThumbnailChange(
+    event: React.ChangeEvent<HTMLInputElement> | null,
+  ): void {
+    if (event == null || event.target.files == null) {
+      article.thumbnailUrl = undefined;
       updateArticle({ ...article });
       return;
     }
 
-    let file = event.target.files[0];
+    const file = event.target.files[0];
     uploadThumbnail.mutate(file);
   }
 
-  function handleImageUpload(event) {
-    let file = event.target.files[0];
+  function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>): void {
+    if (!event.target.files) return;
+    const file = event.target.files[0];
     uploadArticleImage.mutate(file);
   }
 
-  function formIsValid() {
+  function formIsValid(): boolean {
     const { title, content, thumbnailUrl } = article;
-    const errors = {};
+    const errors = {} as NewsArticleFormErrors;
     if (!title || title.length == 0) errors.title = "Title is required";
     if (title.length > 80)
       errors.title = "Title cant be longer than 80 characters";
     if (!content || title.length == 0) errors.content = "Content is required";
     if (content.length > 8000)
       errors.content = "Article content cant be longer than 8000 characters";
-    if (!thumbnailUrl) errors.imageUrl = "Thumbnail is required";
+    if (!thumbnailUrl) errors.thumbnailUrl = "Thumbnail is required";
     setErrors(errors);
     return Object.keys(errors).length === 0;
   }
 
-  function handleSave(publish) {
-    event.preventDefault();
+  function handleSave(publish: boolean): void {
     if (!formIsValid()) return;
     triggerSave(publish);
   }
@@ -168,15 +184,15 @@ function ManageNewsArticle({ article, updateArticle, triggerSave, saving }) {
                         Add Image
                         <input
                           type="file"
-                          name={`imageUrl`}
+                          name={`thumbnailUrl`}
                           className=" border-gray-500 p-2 w-full hidden"
                           onChange={(e) => handleThumbnailChange(e)}
                         />
                       </label>
                     </button>
-                    {errors.imageUrl && (
+                    {errors.thumbnailUrl && (
                       <div className="text-red-500 text-xs p-1 mt-2">
-                        {errors.imageUrl}
+                        {errors.thumbnailUrl}
                       </div>
                     )}
                   </>
@@ -198,7 +214,7 @@ function ManageNewsArticle({ article, updateArticle, triggerSave, saving }) {
                 </p>
                 <MDEditor
                   value={article.content}
-                  onChange={setContent}
+                  onChange={(value) => setContent(value!)}
                   previewOptions={{
                     rehypePlugins: [[rehypeSanitize]],
                   }}
@@ -229,7 +245,7 @@ function ManageNewsArticle({ article, updateArticle, triggerSave, saving }) {
             </div>
           </div>
           <div className="flex justify-center bg-backgroundOffset p-4 my-4 shadow rounded">
-            {!article.publish && (
+            {!article.published && (
               <button
                 onClick={() => handleSave(false)}
                 disabled={saving}
@@ -256,9 +272,7 @@ function ManageNewsArticle({ article, updateArticle, triggerSave, saving }) {
             <div className="bg-backgroundOffset p-4 my-4 shadow rounded">
               <MDEditor.Markdown
                 source={article.content}
-                previewOptions={{
-                  rehypePlugins: [[rehypeSanitize]],
-                }}
+                rehypePlugins={[rehypeSanitize]}
               />
             </div>
           </div>
@@ -267,12 +281,5 @@ function ManageNewsArticle({ article, updateArticle, triggerSave, saving }) {
     </div>
   );
 }
-
-ManageNewsArticle.propTypes = {
-  article: PropTypes.object.isRequired,
-  updateArticle: PropTypes.func.isRequired,
-  triggerSave: PropTypes.func.isRequired,
-  saving: PropTypes.bool,
-};
 
 export default ManageNewsArticle;

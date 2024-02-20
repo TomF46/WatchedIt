@@ -46,6 +46,6 @@ export const newTrivia = {
 export const newArticle = {
   title: "",
   content: "",
-  thumbnailUrl: null,
-  publish: false,
+  thumbnailUrl: undefined,
+  published: false,
 };
