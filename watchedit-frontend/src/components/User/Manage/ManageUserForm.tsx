@@ -22,7 +22,6 @@ const ManageUserForm = ({
   uploadingImage = false,
   errors,
 }: Props) => {
-  console.log(user);
   return (
     <form className="mt-4" onSubmit={onSave}>
       {errors.onSave && (
