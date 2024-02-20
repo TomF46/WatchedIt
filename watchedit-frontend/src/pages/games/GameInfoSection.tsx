@@ -1,10 +1,20 @@
 import { format, parseISO } from "date-fns";
-import PropTypes from "prop-types";
+import {
+  ConnectionsGame,
+  GuessFilmFromCastGame,
+  GuessFilmFromDescriptionGame,
+} from "../../types/Games";
 
-const GameInfoSection = ({ game, forefeit, startAgain }) => {
+type Props = {
+  game: ConnectionsGame | GuessFilmFromCastGame | GuessFilmFromDescriptionGame;
+  forefeit: () => void;
+  startAgain: () => void;
+};
+
+const GameInfoSection = ({ game, forefeit, startAgain }: Props) => {
   return (
     <div className="grid grid-cols-12 bg-backgroundOffset p-4 shadow rounded text-center">
-      {game.clues != null && (
+      {game.clues != null && ( //todo
         <div className="col-span-12 mb-4">
           <p className="text-lg">Guesses:</p>
           <p className="text-lg text-primary">{game.clues.length}</p>
@@ -19,7 +29,7 @@ const GameInfoSection = ({ game, forefeit, startAgain }) => {
       <div className="col-span-12 mb-4">
         <p className="text-lg">Started:</p>
         <p className="text-lg text-primary">
-          {format(parseISO(game.createdDate), "dd/MM/yyyy HH:mm")}
+          {format(parseISO(game.createdDate.toString()), "dd/MM/yyyy HH:mm")}
         </p>
       </div>
       <div className="col-span-12 mb-4">
@@ -46,12 +56,6 @@ const GameInfoSection = ({ game, forefeit, startAgain }) => {
       )}
     </div>
   );
-};
-
-GameInfoSection.propTypes = {
-  game: PropTypes.object.isRequired,
-  forefeit: PropTypes.func.isRequired,
-  startAgain: PropTypes.func.isRequired,
 };
 
 export default GameInfoSection;

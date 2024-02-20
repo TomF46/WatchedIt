@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
 import FilmCreditPreview from "../../../components/Films/Credits/FIlmCreditPreview";
-const ConnectionsClueSection = ({ clues }) => {
+import { Credit } from "../../../types/Credits";
+const ConnectionsClueSection = ({ clues }: { clues: Credit[] }) => {
   return (
     <>
       <h3 className="text-4xl text-primary text-center mb-2">Clues</h3>
@@ -22,10 +22,6 @@ const ConnectionsClueSection = ({ clues }) => {
       </div>
     </>
   );
-};
-
-ConnectionsClueSection.propTypes = {
-  clues: PropTypes.array.isRequired,
 };
 
 export default ConnectionsClueSection;

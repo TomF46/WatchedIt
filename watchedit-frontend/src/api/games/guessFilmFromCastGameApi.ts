@@ -1,6 +1,13 @@
+import {
+  GuessFilmFromCastGame,
+  GuessFilmFromCastGamesPaginationResponse,
+} from "../../types/Games";
 import client from "../client";
 
-export function getGuessFilmFromCastGames(pageNumber, pageSize) {
+export function getGuessFilmFromCastGames(
+  pageNumber: number,
+  pageSize: number,
+): Promise<GuessFilmFromCastGamesPaginationResponse> {
   return client
     .get(
       `/api/games/GuessFilmFromCastGame?PageNumber=${pageNumber}&PageSize=${pageSize}`,
@@ -13,7 +20,9 @@ export function getGuessFilmFromCastGames(pageNumber, pageSize) {
     });
 }
 
-export function getGuessFilmFromCastGameById(id) {
+export function getGuessFilmFromCastGameById(
+  id: number,
+): Promise<GuessFilmFromCastGame> {
   return client
     .get(`/api/games/GuessFilmFromCastGame/${id}`)
     .then((response) => {
@@ -24,7 +33,7 @@ export function getGuessFilmFromCastGameById(id) {
     });
 }
 
-export function startGuessFilmFromCastGame() {
+export function startGuessFilmFromCastGame(): Promise<GuessFilmFromCastGame> {
   return client
     .post(`/api/games/GuessFilmFromCastGame`, {})
     .then((response) => {
@@ -35,7 +44,10 @@ export function startGuessFilmFromCastGame() {
     });
 }
 
-export function makeGuessForGuessFilmFromCastGame(id, guess) {
+export function makeGuessForGuessFilmFromCastGame(
+  id: number,
+  guess: { filmId: number },
+): Promise<GuessFilmFromCastGame> {
   return client
     .post(`/api/games/GuessFilmFromCastGame/${id}`, guess)
     .then((response) => {
@@ -46,7 +58,9 @@ export function makeGuessForGuessFilmFromCastGame(id, guess) {
     });
 }
 
-export function forefeitGuessFilmFromCastGameById(id) {
+export function forefeitGuessFilmFromCastGameById(
+  id: number,
+): Promise<GuessFilmFromCastGame> {
   return client
     .delete(`/api/games/GuessFilmFromCastGame/${id}`)
     .then((response) => {

@@ -1,6 +1,14 @@
+import {
+  GuessFilmFromDescriptionGame,
+  GuessFilmFromDescriptionGamesLeaderboardPaginationResponse,
+  GuessFilmFromDescriptionGamesPaginationResponse,
+} from "../../types/Games";
 import client from "../client";
 
-export function getGuessFilmFromDescriptionGames(pageNumber, pageSize) {
+export function getGuessFilmFromDescriptionGames(
+  pageNumber: number,
+  pageSize: number,
+): Promise<GuessFilmFromDescriptionGamesPaginationResponse> {
   return client
     .get(
       `/api/games/GuessFilmFromDescriptionGame?PageNumber=${pageNumber}&PageSize=${pageSize}`,
@@ -13,7 +21,9 @@ export function getGuessFilmFromDescriptionGames(pageNumber, pageSize) {
     });
 }
 
-export function getGuessFilmFromDescriptionGameById(id) {
+export function getGuessFilmFromDescriptionGameById(
+  id: number,
+): Promise<GuessFilmFromDescriptionGame> {
   return client
     .get(`/api/games/GuessFilmFromDescriptionGame/${id}`)
     .then((response) => {
@@ -24,7 +34,7 @@ export function getGuessFilmFromDescriptionGameById(id) {
     });
 }
 
-export function startGuessFilmFromDescriptionGame() {
+export function startGuessFilmFromDescriptionGame(): Promise<GuessFilmFromDescriptionGame> {
   return client
     .post(`/api/games/GuessFilmFromDescriptionGame`, {})
     .then((response) => {
@@ -35,7 +45,10 @@ export function startGuessFilmFromDescriptionGame() {
     });
 }
 
-export function makeGuessForGuessFilmFromDescriptionGame(id, guess) {
+export function makeGuessForGuessFilmFromDescriptionGame(
+  id: number,
+  guess: { roundId: number; filmId: number },
+): Promise<GuessFilmFromDescriptionGame> {
   return client
     .post(`/api/games/GuessFilmFromDescriptionGame/${id}`, guess)
     .then((response) => {
@@ -46,7 +59,9 @@ export function makeGuessForGuessFilmFromDescriptionGame(id, guess) {
     });
 }
 
-export function forefeitGuessFilmFromDescriptionGameById(id) {
+export function forefeitGuessFilmFromDescriptionGameById(
+  id: number,
+): Promise<GuessFilmFromDescriptionGame> {
   return client
     .delete(`/api/games/GuessFilmFromDescriptionGame/${id}`)
     .then((response) => {
@@ -57,7 +72,10 @@ export function forefeitGuessFilmFromDescriptionGameById(id) {
     });
 }
 
-export function getGuessFilmFromDescriptionLeaderboard(pageNumber, pageSize) {
+export function getGuessFilmFromDescriptionLeaderboard(
+  pageNumber: number,
+  pageSize: number,
+): Promise<GuessFilmFromDescriptionGamesLeaderboardPaginationResponse> {
   return client
     .get(
       `/api/games/GuessFilmFromDescriptionGame/leaderboard?PageNumber=${pageNumber}&PageSize=${pageSize}`,

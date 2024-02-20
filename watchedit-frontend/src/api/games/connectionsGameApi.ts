@@ -1,6 +1,13 @@
+import {
+  ConnectionsGame,
+  ConnectionsGamesPaginationResponse,
+} from "../../types/Games";
 import client from "../client";
 
-export function getConnectionsGames(pageNumber, pageSize) {
+export function getConnectionsGames(
+  pageNumber: number,
+  pageSize: number,
+): Promise<ConnectionsGamesPaginationResponse> {
   return client
     .get(
       `/api/games/ConnectionsGame?PageNumber=${pageNumber}&PageSize=${pageSize}`,
@@ -13,7 +20,7 @@ export function getConnectionsGames(pageNumber, pageSize) {
     });
 }
 
-export function getConnectionsGameById(id) {
+export function getConnectionsGameById(id: number): Promise<ConnectionsGame> {
   return client
     .get(`/api/games/ConnectionsGame/${id}`)
     .then((response) => {
@@ -24,7 +31,7 @@ export function getConnectionsGameById(id) {
     });
 }
 
-export function startConnectionsGame() {
+export function startConnectionsGame(): Promise<ConnectionsGame> {
   return client
     .post(`/api/games/ConnectionsGame`, {})
     .then((response) => {
@@ -35,7 +42,10 @@ export function startConnectionsGame() {
     });
 }
 
-export function makeGuessForConnectionsGame(id, guess) {
+export function makeGuessForConnectionsGame(
+  id: number,
+  guess: { personId: number },
+): Promise<ConnectionsGame> {
   return client
     .post(`/api/games/ConnectionsGame/${id}`, guess)
     .then((response) => {
@@ -46,7 +56,9 @@ export function makeGuessForConnectionsGame(id, guess) {
     });
 }
 
-export function forefeitConnectionsGameById(id) {
+export function forefeitConnectionsGameById(
+  id: number,
+): Promise<ConnectionsGame> {
   return client
     .delete(`/api/games/ConnectionsGame/${id}`)
     .then((response) => {

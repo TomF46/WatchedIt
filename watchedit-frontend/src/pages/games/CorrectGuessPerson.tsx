@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { ConnectionsGame } from "../../types/Games";
 
-const CorrectGuessPerson = ({ game }) => {
+const CorrectGuessPerson = ({ game }: { game: ConnectionsGame }) => {
   const navigate = useNavigate();
 
   return (
@@ -38,10 +38,6 @@ const CorrectGuessPerson = ({ game }) => {
       </div>
     </div>
   );
-};
-
-CorrectGuessPerson.propTypes = {
-  game: PropTypes.object.isRequired,
 };
 
 export default CorrectGuessPerson;

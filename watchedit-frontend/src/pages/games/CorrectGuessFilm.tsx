@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { GuessFilmFromCastGame } from "../../types/Games";
 
-const CorrectGuessFilm = ({ game }) => {
+const CorrectGuessFilm = ({ game }: { game: GuessFilmFromCastGame }) => {
   const navigate = useNavigate();
 
   return (

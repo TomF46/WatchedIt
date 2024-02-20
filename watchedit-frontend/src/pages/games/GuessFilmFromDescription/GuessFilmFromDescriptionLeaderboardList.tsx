@@ -1,8 +1,12 @@
 import { format, parseISO } from "date-fns";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { GuessFilmFromDescriptionGameLeaderboardEntry } from "../../../types/Games";
 
-const GuessFilmFromDescriptionLeaderboardList = ({ entries }) => {
+const GuessFilmFromDescriptionLeaderboardList = ({
+  entries,
+}: {
+  entries: GuessFilmFromDescriptionGameLeaderboardEntry[];
+}) => {
   return (
     <div className="bg-backgroundOffset p-4 shadow rounded">
       <table className="table-auto w-full">
@@ -27,7 +31,10 @@ const GuessFilmFromDescriptionLeaderboardList = ({ entries }) => {
                   </Link>
                 </td>
                 <td>
-                  {format(parseISO(entry.updatedDate), "dd/MM/yyyy HH:mm")}
+                  {format(
+                    parseISO(entry.updatedDate.toString()),
+                    "dd/MM/yyyy HH:mm",
+                  )}
                 </td>
               </tr>
             );
@@ -36,10 +43,6 @@ const GuessFilmFromDescriptionLeaderboardList = ({ entries }) => {
       </table>
     </div>
   );
-};
-
-GuessFilmFromDescriptionLeaderboardList.propTypes = {
-  entries: PropTypes.array.isRequired,
 };
 
 export default GuessFilmFromDescriptionLeaderboardList;

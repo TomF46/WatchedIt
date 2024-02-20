@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
 import PersonClue from "../PersonClue";
+import { GuessFilmFromCastGame } from "../../../types/Games";
 
-const ClueSection = ({ game }) => {
+const ClueSection = ({ game }: { game: GuessFilmFromCastGame }) => {
   return (
     <div>
       <h3 className="text-4xl text-primary text-center mb-2">Clues</h3>
@@ -19,10 +19,6 @@ const ClueSection = ({ game }) => {
       </div>
     </div>
   );
-};
-
-ClueSection.propTypes = {
-  game: PropTypes.object.isRequired,
 };
 
 export default ClueSection;

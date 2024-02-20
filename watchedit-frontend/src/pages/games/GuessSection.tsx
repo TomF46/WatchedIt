@@ -1,5 +1,4 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 import { searchFilmsPaginated } from "../../api/filmsApi";
 import { toast } from "react-toastify";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
@@ -7,8 +6,9 @@ import SelectFilmWSearch from "../../components/Films/Credits/SelectFilmWSearch"
 import PaginationControls from "../../components/PaginationControls";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
+import { Film } from "../../types/Films";
 
-const GuessSection = ({ guess }) => {
+const GuessSection = ({ guess }: { guess: (film: Film) => void }) => {
   const [page, setPage] = useState(1);
   const filmsPerPage = 16;
   const [searchTerm, setSearchTerm] = useState("");
@@ -31,13 +31,15 @@ const GuessSection = ({ guess }) => {
     staleTime: 100,
   });
 
-  function handleSearchTermChange(event) {
+  function handleSearchTermChange(
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void {
     const { value } = event.target;
     setSearchTerm(value);
     if (page != 1) setPage(1);
   }
 
-  function handleFilmSelected(film) {
+  function handleFilmSelected(film: Film): void {
     guess(film);
   }
 
@@ -69,10 +71,6 @@ const GuessSection = ({ guess }) => {
       </div>
     </div>
   );
-};
-
-GuessSection.propTypes = {
-  guess: PropTypes.func.isRequired,
 };
 
 export default GuessSection;

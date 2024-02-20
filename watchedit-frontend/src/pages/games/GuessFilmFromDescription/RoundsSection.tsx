@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
+import { GuessFilmFromDescriptionGame } from "../../../types/Games";
 
-const RoundsSection = ({ game }) => {
+const RoundsSection = ({ game }: { game: GuessFilmFromDescriptionGame }) => {
   return (
     <div>
       <h3 className="text-4xl text-primary text-center mb-2">Rounds</h3>
@@ -38,10 +38,6 @@ const RoundsSection = ({ game }) => {
       </div>
     </div>
   );
-};
-
-RoundsSection.propTypes = {
-  game: PropTypes.object.isRequired,
 };
 
 export default RoundsSection;

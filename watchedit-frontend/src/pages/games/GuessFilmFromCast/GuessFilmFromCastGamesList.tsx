@@ -1,8 +1,12 @@
 import { format, parseISO } from "date-fns";
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { GuessFilmFromCastGame } from "../../../types/Games";
 
-const GuessFilmFromCastGamesList = ({ games }) => {
+const GuessFilmFromCastGamesList = ({
+  games,
+}: {
+  games: GuessFilmFromCastGame[];
+}) => {
   const navigate = useNavigate();
   return (
     <div className="bg-backgroundOffset p-4 shadow rounded">
@@ -25,7 +29,10 @@ const GuessFilmFromCastGamesList = ({ games }) => {
                 <td className="py-4">{game.statusText}</td>
                 <td>{game.clues.length}</td>
                 <td>
-                  {format(parseISO(game.createdDate), "dd/MM/yyyy HH:mm")}
+                  {format(
+                    parseISO(game.createdDate.toString()),
+                    "dd/MM/yyyy HH:mm",
+                  )}
                 </td>
                 <td>
                   <button
@@ -44,10 +51,6 @@ const GuessFilmFromCastGamesList = ({ games }) => {
       </table>
     </div>
   );
-};
-
-GuessFilmFromCastGamesList.propTypes = {
-  games: PropTypes.array.isRequired,
 };
 
 export default GuessFilmFromCastGamesList;

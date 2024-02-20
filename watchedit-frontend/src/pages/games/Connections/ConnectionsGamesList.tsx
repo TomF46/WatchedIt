@@ -1,8 +1,8 @@
 import { format, parseISO } from "date-fns";
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { ConnectionsGame } from "../../../types/Games";
 
-const ConnectionsGamesList = ({ games }) => {
+const ConnectionsGamesList = ({ games }: { games: ConnectionsGame[] }) => {
   const navigate = useNavigate();
   return (
     <div className="bg-backgroundOffset p-4 shadow rounded">
@@ -25,7 +25,10 @@ const ConnectionsGamesList = ({ games }) => {
                 <td className="py-4">{game.statusText}</td>
                 <td>{game.clues.length}</td>
                 <td>
-                  {format(parseISO(game.createdDate), "dd/MM/yyyy HH:mm")}
+                  {format(
+                    parseISO(game.createdDate.toString()),
+                    "dd/MM/yyyy HH:mm",
+                  )}
                 </td>
                 <td>
                   <button
@@ -44,10 +47,6 @@ const ConnectionsGamesList = ({ games }) => {
       </table>
     </div>
   );
-};
-
-ConnectionsGamesList.propTypes = {
-  games: PropTypes.array.isRequired,
 };
 
 export default ConnectionsGamesList;

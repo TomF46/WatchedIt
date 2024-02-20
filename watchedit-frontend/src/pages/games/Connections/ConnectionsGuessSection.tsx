@@ -1,5 +1,4 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { searchPeoplePaginated } from "../../../api/peopleApi";
 import SelectPersonWSearch from "../../../components/People/Credits/SelectPersonWSearch";
@@ -7,8 +6,13 @@ import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import PaginationControls from "../../../components/PaginationControls";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
+import { Person } from "../../../types/People";
 
-const ConnectionsGuessSection = ({ guess }) => {
+const ConnectionsGuessSection = ({
+  guess,
+}: {
+  guess: (person: Person) => void;
+}) => {
   const [page, setPage] = useState(1);
   const peoplePerPage = 16;
   const [searchTerms, setSearchTerms] = useState({
@@ -21,7 +25,12 @@ const ConnectionsGuessSection = ({ guess }) => {
   const { data: peoplePaginator } = useQuery({
     queryKey: ["people", ...queryKeyParams],
     queryFn: () =>
-      searchPeoplePaginated(searchTerms, page, peoplePerPage).catch((error) => {
+      searchPeoplePaginated(
+        searchTerms,
+        page,
+        peoplePerPage,
+        "likes_desc",
+      ).catch((error) => {
         toast.error(`Error getting people ${error.data.Exception}`, {
           autoClose: false,
         });
@@ -31,7 +40,9 @@ const ConnectionsGuessSection = ({ guess }) => {
     staleTime: 100,
   });
 
-  function handleSearchTermChange(event) {
+  function handleSearchTermChange(
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void {
     const { name, value } = event.target;
     setSearchTerms((prevSearchTerms) => ({
       ...prevSearchTerms,
@@ -40,7 +51,7 @@ const ConnectionsGuessSection = ({ guess }) => {
     if (page != 1) setPage(1);
   }
 
-  function handlePersonSelected(person) {
+  function handlePersonSelected(person: Person): void {
     guess(person);
   }
 
@@ -72,10 +83,6 @@ const ConnectionsGuessSection = ({ guess }) => {
       </div>
     </div>
   );
-};
-
-ConnectionsGuessSection.propTypes = {
-  guess: PropTypes.func.isRequired,
 };
 
 export default ConnectionsGuessSection;
