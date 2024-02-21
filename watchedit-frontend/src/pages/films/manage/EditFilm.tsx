@@ -8,7 +8,8 @@ import { parseISO } from "date-fns";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import ManageFilm from "./ManageFilm";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
-import { EditableFilm } from "../../../types/Films";
+import { EditableFilm, FilmForRequest } from "../../../types/Films";
+import { SelectOption } from "../../../components/Inputs/InputTypes";
 import { Category } from "../../../types/Categories";
 
 function EditFilm() {
@@ -29,14 +30,18 @@ function EditFilm() {
           runtime: res.runtime,
           releaseDate: parseISO(res.releaseDate.toString()),
           posterUrl: res.posterUrl,
-          categories: res.categories,
+          categories: convertToSelectOption(res.categories),
         });
         return res;
       }),
   });
 
+  function convertToSelectOption(categories: Category[]): SelectOption[] {
+    return categories.map((c) => c as SelectOption);
+  }
+
   const updateFilm = useMutation({
-    mutationFn: (updatedFilm: EditableFilm) => {
+    mutationFn: (updatedFilm: FilmForRequest) => {
       setSaving(true);
       return saveFilm(updatedFilm);
     },
@@ -57,9 +62,9 @@ function EditFilm() {
   }
 
   function handleSave() {
-    const filmToPost = { ...film };
+    const filmToPost = { ...film } as FilmForRequest;
     filmToPost.categories = film.categories.map(
-      (category: Category) => category.id,
+      (category: SelectOption) => category.id,
     );
     updateFilm.mutate(filmToPost);
   }

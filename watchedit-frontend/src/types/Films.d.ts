@@ -31,6 +31,18 @@ export type EditableFilm = {
   categories: SelectOption[];
 };
 
+export type FilmForRequest = {
+  id?: number;
+  name: string;
+  shortDescription: string;
+  fullDescription: string;
+  runtime: number;
+  releaseDate: Date;
+  posterUrl?: string;
+  trailerUrl?: string;
+  categories: int[];
+};
+
 export type FilmCredits = {
   cast: FilmCredit[];
   crew: FilmCredit[];

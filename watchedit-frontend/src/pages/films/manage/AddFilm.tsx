@@ -5,8 +5,8 @@ import { saveFilm } from "../../../api/filmsApi";
 import { newFilm } from "../../../tools/obJectShapes";
 import ManageFilm from "./ManageFilm";
 import { useMutation } from "@tanstack/react-query";
-import { EditableFilm } from "../../../types/Films";
-import { Category } from "../../../types/Categories";
+import { EditableFilm, FilmForRequest } from "../../../types/Films";
+import { SelectOption } from "../../../components/Inputs/InputTypes";
 
 function AddFilm() {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ function AddFilm() {
   const [saving, setSaving] = useState(false);
 
   const addFilm = useMutation({
-    mutationFn: (newFilm: EditableFilm) => {
+    mutationFn: (newFilm: FilmForRequest) => {
       setSaving(true);
       return saveFilm(newFilm);
     },
@@ -35,9 +35,9 @@ function AddFilm() {
   }
 
   function handleSave(): void {
-    const filmToPost = { ...film };
+    const filmToPost = { ...film } as FilmForRequest;
     filmToPost.categories = film.categories.map(
-      (category: Category) => category.id,
+      (category: SelectOption) => category.id,
     );
     addFilm.mutate(filmToPost);
   }
