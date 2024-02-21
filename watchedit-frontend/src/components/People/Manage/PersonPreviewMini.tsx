@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
+import { EditablePerson, Person } from "../../../types/People";
 
-const PersonPreviewMini = ({ person }) => {
+const PersonPreviewMini = ({ person }: { person: Person | EditablePerson }) => {
   return (
     <div className="grid grid-cols-12">
       <div className="col-span-12 md:col-span-6 lg:col-span-4">
@@ -22,10 +22,6 @@ const PersonPreviewMini = ({ person }) => {
       </div>
     </div>
   );
-};
-
-PersonPreviewMini.propTypes = {
-  person: PropTypes.object.isRequired,
 };
 
 export default PersonPreviewMini;

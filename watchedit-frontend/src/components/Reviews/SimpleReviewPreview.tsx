@@ -1,7 +1,12 @@
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { Review } from "../../types/Reviews";
 
-const SimpleReviewPreview = ({ review, isLink }) => {
+type Props = {
+  review: Review;
+  isLink: boolean;
+};
+
+const SimpleReviewPreview = ({ review, isLink }: Props) => {
   const navigate = useNavigate();
   return (
     <div className="col-span-8 md:col-span-4 lg:col-span-2 mt-2">
@@ -47,11 +52,6 @@ const SimpleReviewPreview = ({ review, isLink }) => {
       </div>
     </div>
   );
-};
-
-SimpleReviewPreview.propTypes = {
-  review: PropTypes.object.isRequired,
-  isLink: PropTypes.bool.isRequired,
 };
 
 export default SimpleReviewPreview;

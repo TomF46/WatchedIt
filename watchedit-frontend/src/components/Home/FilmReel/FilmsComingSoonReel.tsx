@@ -1,16 +1,25 @@
-import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import LoadingMessage from "../../Loading/LoadingMessage";
 import { searchFilmsPaginated } from "../../../api/filmsApi";
 import FilmPreview from "../../Films/FilmPreview";
 import { useQuery } from "@tanstack/react-query";
+import { FilmSearchParameters } from "../../../types/Films";
 
-function FilmsComingSoonReel({ title, subtitle, sort }) {
+type Props = {
+  title: string;
+  subtitle: string;
+  sort: string;
+};
+
+function FilmsComingSoonReel({ title, subtitle, sort }: Props) {
   const page = 1;
   const filmsPerPage = 8;
-  let currentDate = new Date().toISOString();
-  let searchParams = { releasedAfterDate: currentDate, sort: sort };
+  const currentDate = new Date().toISOString();
+  const searchParams = {
+    releasedAfterDate: currentDate,
+    sort: sort,
+  } as FilmSearchParameters;
 
   const { isLoading, data, error } = useQuery({
     queryKey: ["films-coming-soon", sort, filmsPerPage, page],
@@ -29,32 +38,34 @@ function FilmsComingSoonReel({ title, subtitle, sort }) {
     return;
   }
 
-  return (
-    <div className="films-reel">
-      {data.length > 0 && (
-        <div className="mt-4">
-          <Link
-            to={"/films"}
-            className="text-primary text-2xl hover:opacity-75 inline-flex items-center font-semibold"
-          >
-            {title}
-          </Link>
-          {subtitle && <p>{subtitle}</p>}
-          <div className="grid grid-cols-16">
-            {data.map((film) => {
-              return <FilmPreview key={film.id} film={film} editable={false} />;
-            })}
+  if (data)
+    return (
+      <div className="films-reel">
+        {data.length > 0 && (
+          <div className="mt-4">
+            <Link
+              to={"/films"}
+              className="text-primary text-2xl hover:opacity-75 inline-flex items-center font-semibold"
+            >
+              {title}
+            </Link>
+            {subtitle && <p>{subtitle}</p>}
+            <div className="grid grid-cols-16">
+              {data.map((film) => {
+                return (
+                  <FilmPreview
+                    key={film.id}
+                    film={film}
+                    editable={false}
+                    onRemove={() => {}}
+                  />
+                );
+              })}
+            </div>
           </div>
-        </div>
-      )}
-    </div>
-  );
+        )}
+      </div>
+    );
 }
-
-FilmsComingSoonReel.propTypes = {
-  title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string,
-  sort: PropTypes.string.isRequired,
-};
 
 export default FilmsComingSoonReel;

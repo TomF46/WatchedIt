@@ -10,6 +10,7 @@ import PaginationControls from "../../PaginationControls";
 import { Link } from "react-router-dom";
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 import { AppDispatch, useAppDispatch } from "../../../redux/store";
+import { Notification } from "../../../types/Notifications";
 
 const UnreadNotifications = () => {
   const dispatch: AppDispatch = useAppDispatch();
@@ -28,7 +29,8 @@ const UnreadNotifications = () => {
   });
 
   const setNotificationRead = useMutation({
-    mutationFn: (notification) => readNotification(notification.id),
+    mutationFn: (notification: Notification) =>
+      readNotification(notification.id),
     onSuccess: () => {
       dispatch(decrementNotificationCount());
       refetch();
@@ -40,7 +42,7 @@ const UnreadNotifications = () => {
     },
   });
 
-  function handleReadNotification(notification) {
+  function handleReadNotification(notification: Notification) {
     if (notification.read) return;
     setNotificationRead.mutate(notification);
   }
@@ -52,7 +54,7 @@ const UnreadNotifications = () => {
     return;
   }
 
-  if (!isLoading)
+  if (!isLoading && notificationsPaginator)
     return (
       <div className="Notifications-page">
         <div>

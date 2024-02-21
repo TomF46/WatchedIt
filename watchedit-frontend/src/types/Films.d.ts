@@ -54,8 +54,8 @@ export type FilmSearchParameters = {
   sort?: string;
   maxRating?: number;
   minRating?: number;
-  releasedBeforeDate?: Date;
-  releasedAfterDate?: Date;
+  releasedBeforeDate?: string;
+  releasedAfterDate?: string;
 };
 
 export type FilmFormErrors = EditableFilm & onSaveError;

@@ -1,7 +1,12 @@
-import PropTypes from "prop-types";
 import { format, parseISO } from "date-fns";
+import { Notification } from "../../types/Notifications";
 
-const NotificationsList = ({ notifications, onSetRead }) => {
+type Props = {
+  notifications: Notification[];
+  onSetRead: (notification: Notification) => void;
+};
+
+const NotificationsList = ({ notifications, onSetRead }: Props) => {
   return (
     <div className="grid grid-cols-12">
       {notifications.map((notification) => {
@@ -23,7 +28,10 @@ const NotificationsList = ({ notifications, onSetRead }) => {
               >
                 <p>
                   {notification.text} -{" "}
-                  {format(parseISO(notification.sentDate), "dd/MM/yyyy HH:mm")}{" "}
+                  {format(
+                    parseISO(notification.sentDate.toString()),
+                    "dd/MM/yyyy HH:mm",
+                  )}{" "}
                 </p>
               </div>
               {!notification.read && (
@@ -50,11 +58,6 @@ const NotificationsList = ({ notifications, onSetRead }) => {
       })}
     </div>
   );
-};
-
-NotificationsList.propTypes = {
-  notifications: PropTypes.array.isRequired,
-  onSetRead: PropTypes.func.isRequired,
 };
 
 export default NotificationsList;

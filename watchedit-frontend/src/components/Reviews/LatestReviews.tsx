@@ -1,12 +1,17 @@
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import LoadingMessage from "../Loading/LoadingMessage";
 import { getReviewsByFilmId } from "../../api/filmReviewApi";
 import ReviewOverview from "./ReviewOverview";
 import { useQuery } from "@tanstack/react-query";
+import { Film } from "../../types/Films";
 
-function LatestReviews({ film, totalReviews }) {
+type Props = {
+  film: Film;
+  totalReviews: number;
+};
+
+function LatestReviews({ film, totalReviews }: Props) {
   const {
     isLoading,
     data: reviews,
@@ -14,7 +19,9 @@ function LatestReviews({ film, totalReviews }) {
   } = useQuery({
     queryKey: ["film-latest-reviews", film.id, totalReviews],
     queryFn: () =>
-      getReviewsByFilmId(film.id, 1, totalReviews).then((res) => res.data),
+      getReviewsByFilmId(Number(film.id), 1, totalReviews).then(
+        (res) => res.data,
+      ),
   });
 
   if (isLoading) return <LoadingMessage message={"Loading latest reviews."} />;
@@ -26,38 +33,36 @@ function LatestReviews({ film, totalReviews }) {
     return;
   }
 
-  return (
-    <div className="film-latest-reviews">
-      <div className="mt-4">
-        <h2 className="text-primary text-xl ">Latest reviews</h2>
-        {reviews.length > 0 ? (
-          <div className="grid grid-cols-12">
-            {reviews.map((review) => {
-              return (
-                <ReviewOverview
-                  key={review.id}
-                  review={review}
-                  showFilm={false}
-                />
-              );
-            })}
-          </div>
-        ) : (
-          <p className="text-lg">
-            This film currently has no reviews.{" "}
-            <Link to={`/films/${film.id}/reviews/add`} className="text-primary">
-              Add one now.
-            </Link>
-          </p>
-        )}
+  if (reviews)
+    return (
+      <div className="film-latest-reviews">
+        <div className="mt-4">
+          <h2 className="text-primary text-xl ">Latest reviews</h2>
+          {reviews.length > 0 ? (
+            <div className="grid grid-cols-12">
+              {reviews.map((review) => {
+                return (
+                  <ReviewOverview
+                    key={review.id}
+                    review={review}
+                    showFilm={false}
+                  />
+                );
+              })}
+            </div>
+          ) : (
+            <p className="text-lg">
+              This film currently has no reviews.{" "}
+              <Link
+                to={`/films/${film.id}/reviews/add`}
+                className="text-primary"
+              >
+                Add one now.
+              </Link>
+            </p>
+          )}
+        </div>
       </div>
-    </div>
-  );
+    );
 }
-
-LatestReviews.propTypes = {
-  film: PropTypes.object.isRequired,
-  totalReviews: PropTypes.number.isRequired,
-};
-
 export default LatestReviews;

@@ -12,10 +12,13 @@ import PaginationControls from "../../components/PaginationControls";
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../components/Error/ErrorMessage";
 import { AppDispatch, RootState, useAppDispatch } from "../../redux/store";
+import { Notification } from "../../types/Notifications";
 
 const NotificationsPage = () => {
   const dispatch: AppDispatch = useAppDispatch();
-  const notificationCount = useSelector((state : RootState) => state.notificationCount);
+  const notificationCount = useSelector(
+    (state: RootState) => state.notificationCount,
+  );
   const [page, setPage] = useState(1);
   const notificationsPerPage = 32;
 
@@ -34,7 +37,8 @@ const NotificationsPage = () => {
   });
 
   const setNotificationRead = useMutation({
-    mutationFn: (notification) => readNotification(notification.id),
+    mutationFn: (notification: Notification) =>
+      readNotification(notification.id),
     onSuccess: () => {
       dispatch(decrementNotificationCount());
       refetch();
@@ -46,46 +50,50 @@ const NotificationsPage = () => {
     },
   });
 
-  if (isLoading) return <LoadingMessage message={"Loading notifications"} />;
-
-  if (error) {
-    return (
-      <ErrorMessage message={"Error loading notifications."} error={error.data.Exception} />
-    );
-  }
-
-  function handleReadNotification(notification) {
+  function handleReadNotification(notification: Notification) {
     if (notification.read) return;
     setNotificationRead.mutate(notification);
   }
 
-  return (
-    <div className="Notifications-page">
-      <h1 className="text-center text-primary text-4xl my-4 font-semibold">
-        Notifications {`(${notificationCount})`}
-      </h1>
-      {notificationsPaginator.data.length > 0 ? (
-        <>
-          <NotificationsList
-            notifications={notificationsPaginator.data}
-            onSetRead={handleReadNotification}
-          />
-          <PaginationControls
-            currentPage={page}
-            onPageChange={setPage}
-            of={notificationsPaginator.of}
-            from={notificationsPaginator.from}
-            to={notificationsPaginator.to}
-            lastPage={notificationsPaginator.lastPage}
-          />
-        </>
-      ) : (
-        <p className="text-center text-primary text-2xl">
-          You have no notifications
-        </p>
-      )}
-    </div>
-  );
+  if (isLoading) return <LoadingMessage message={"Loading notifications"} />;
+
+  if (error) {
+    return (
+      <ErrorMessage
+        message={"Error loading notifications."}
+        error={error.data.Exception}
+      />
+    );
+  }
+
+  if (notificationsPaginator)
+    return (
+      <div className="Notifications-page">
+        <h1 className="text-center text-primary text-4xl my-4 font-semibold">
+          Notifications {`(${notificationCount})`}
+        </h1>
+        {notificationsPaginator.data.length > 0 ? (
+          <>
+            <NotificationsList
+              notifications={notificationsPaginator.data}
+              onSetRead={handleReadNotification}
+            />
+            <PaginationControls
+              currentPage={page}
+              onPageChange={setPage}
+              of={notificationsPaginator.of}
+              from={notificationsPaginator.from}
+              to={notificationsPaginator.to}
+              lastPage={notificationsPaginator.lastPage}
+            />
+          </>
+        ) : (
+          <p className="text-center text-primary text-2xl">
+            You have no notifications
+          </p>
+        )}
+      </div>
+    );
 };
 
 export default NotificationsPage;

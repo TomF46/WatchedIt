@@ -1,6 +1,10 @@
+import {
+  Notification,
+  NotificationsPaginationResponse,
+} from "../types/Notifications";
 import client from "./client";
 
-export function getUnreadNotificationCount() {
+export function getUnreadNotificationCount(): Promise<{ count: number }> {
   return client
     .get("/api/users/me/notifications/unread/count")
     .then((response) => {
@@ -11,7 +15,10 @@ export function getUnreadNotificationCount() {
     });
 }
 
-export function getUnreadNotifications(pageNumber, pageSize) {
+export function getUnreadNotifications(
+  pageNumber: number,
+  pageSize: number,
+): Promise<NotificationsPaginationResponse> {
   return client
     .get(
       `/api/users/me/notifications/unread?PageNumber=${pageNumber}&PageSize=${pageSize}`,
@@ -24,7 +31,10 @@ export function getUnreadNotifications(pageNumber, pageSize) {
     });
 }
 
-export function getAllNotifications(pageNumber, pageSize) {
+export function getAllNotifications(
+  pageNumber: number,
+  pageSize: number,
+): Promise<NotificationsPaginationResponse> {
   return client
     .get(
       `/api/users/me/notifications?PageNumber=${pageNumber}&PageSize=${pageSize}`,
@@ -37,7 +47,9 @@ export function getAllNotifications(pageNumber, pageSize) {
     });
 }
 
-export function readNotification(notificationId) {
+export function readNotification(
+  notificationId: number,
+): Promise<Notification> {
   return client
     .put(`/api/users/me/notifications/${notificationId}/read`)
     .then((response) => {

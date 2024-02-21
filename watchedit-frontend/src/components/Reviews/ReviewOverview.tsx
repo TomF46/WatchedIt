@@ -1,7 +1,12 @@
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { Review } from "../../types/Reviews";
 
-const ReviewOverview = ({ review, showFilm }) => {
+type Props = {
+  review: Review;
+  showFilm: boolean;
+};
+
+const ReviewOverview = ({ review, showFilm }: Props) => {
   return (
     <div className="col-span-12 my-2 p-2 bg-backgroundOffset shadow rounded">
       <div className="grid grid-cols-24">
@@ -67,11 +72,6 @@ const ReviewOverview = ({ review, showFilm }) => {
       </div>
     </div>
   );
-};
-
-ReviewOverview.propTypes = {
-  review: PropTypes.object.isRequired,
-  showFilm: PropTypes.bool.isRequired,
 };
 
 export default ReviewOverview;

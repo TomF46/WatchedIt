@@ -1,12 +1,18 @@
-import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import LoadingMessage from "../../Loading/LoadingMessage";
 import { getPeoplePaginated } from "../../../api/peopleApi";
 import PersonPreview from "../../People/PersonPreview";
 import { useQuery } from "@tanstack/react-query";
+import { Person } from "../../../types/People";
 
-function PeopleReel({ title, subtitle, sort }) {
+type Props = {
+  title: string;
+  subtitle: string;
+  sort: string;
+};
+
+function PeopleReel({ title, subtitle, sort }: Props) {
   const page = 1;
   const peoplePerPage = 8;
 
@@ -37,7 +43,7 @@ function PeopleReel({ title, subtitle, sort }) {
         {subtitle && <p>{subtitle}</p>}
         {data.length > 0 ? (
           <div className="grid grid-cols-16">
-            {data.map((person) => {
+            {data.map((person: Person) => {
               return (
                 <PersonPreview key={person.id} person={person} isLink={true} />
               );
@@ -52,11 +58,5 @@ function PeopleReel({ title, subtitle, sort }) {
     </div>
   );
 }
-
-PeopleReel.propTypes = {
-  title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string,
-  sort: PropTypes.string.isRequired,
-};
 
 export default PeopleReel;
