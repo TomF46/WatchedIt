@@ -6,6 +6,7 @@ import ManageFilmForm from "../../../components/Films/Manage/ManageFilmForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { EditableFilm, FilmFormErrors } from "../../../types/Films";
+import { SelectOption } from "../../../components/Inputs/InputTypes";
 
 type Props = {
   film: EditableFilm;
@@ -66,7 +67,7 @@ function ManageFilm({ film, updateFilm, triggerSave, saving }: Props) {
   }
 
   //todo
-  function handleCategoryChange(selected: any[]) {
+  function handleCategoryChange(selected: SelectOption[]) {
     updateFilm((prevFilm: EditableFilm) => ({
       ...prevFilm,
       categories: selected,

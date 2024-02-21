@@ -1,3 +1,4 @@
+import { SelectOption } from "../components/Inputs/InputTypes";
 import { Category } from "./Categories";
 import { PaginationResponse } from "./PaginationResponse";
 import { Person } from "./People";
@@ -27,7 +28,7 @@ export type EditableFilm = {
   releaseDate: Date;
   posterUrl?: string;
   trailerUrl?: string;
-  categories: any; //todo
+  categories: SelectOption[];
 };
 
 export type FilmCredits = {

@@ -4,10 +4,10 @@ import { SelectOption } from "./InputTypes";
 type Props = {
   name: string;
   label: string;
-  onChange: (selected: any[]) => void;
+  onChange: (selected: SelectOption[]) => void;
   defaultOption?: string;
   options: SelectOption[];
-  value?: any[];
+  value?: SelectOption[];
   helpText?: string;
   error?: string;
 };
