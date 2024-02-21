@@ -6,7 +6,7 @@ import { Trivia } from "../../../types/Trivia";
 
 type Props = {
   trivia: Trivia[];
-  onRemove: (trivia: Trivia) => void;
+  onRemove?: (trivia: Trivia) => void;
   canControl: boolean;
 };
 
@@ -36,7 +36,7 @@ const TriviaList = ({ trivia, onRemove, canControl }: Props) => {
                   - {triviaItem.user.username}
                 </Link>
               </div>
-              {canControl && triviaItem.user.id == userId && (
+              {canControl && triviaItem.user.id == userId && onRemove && (
                 <>
                   <div className="col-span-4 md:col-span-2 pl-1">
                     <button

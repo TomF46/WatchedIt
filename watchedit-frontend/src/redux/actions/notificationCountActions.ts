@@ -1,7 +1,8 @@
+import { Dispatch } from "@reduxjs/toolkit";
 import { getUnreadNotificationCount } from "../../api/notificationApi";
 import * as types from "./actionTypes";
 
-const loadNotificationCountSuccess = (notificationCount) => {
+const loadNotificationCountSuccess = (notificationCount: number) => {
   return { type: types.LOAD_NOTIFICATION_COUNT_SUCCESS, notificationCount };
 };
 
@@ -10,7 +11,7 @@ const notificationCountDecrement = () => {
 };
 
 export const loadNotificationCount = () => {
-  return function (dispatch) {
+  return function (dispatch: Dispatch) {
     return getUnreadNotificationCount()
       .then((res) => {
         dispatch(loadNotificationCountSuccess(res.count));
@@ -22,7 +23,7 @@ export const loadNotificationCount = () => {
 };
 
 export const decrementNotificationCount = () => {
-  return function (dispatch) {
+  return function (dispatch: Dispatch) {
     dispatch(notificationCountDecrement());
   };
 };

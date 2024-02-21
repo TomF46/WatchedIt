@@ -12,7 +12,6 @@ export function saveReview(
   filmId: number,
   review: EditableReview,
 ): Promise<Review> {
-  //todo
   return review.id ? updateReview(filmId, review) : addReview(filmId, review);
 }
 

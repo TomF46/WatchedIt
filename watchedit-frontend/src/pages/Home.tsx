@@ -10,11 +10,13 @@ import FilmsComingSoonReel from "../components/Home/FilmReel/FilmsComingSoonReel
 import { RootState } from "../redux/store";
 
 function Home() {
-  const userIsAuthenticated = useSelector((state : RootState) => state.tokens != null);
+  const userIsAuthenticated = useSelector(
+    (state: RootState) => state.tokens != null,
+  );
   const username = useSelector((state: RootState) =>
     state.tokens ? state.tokens.username : null,
   );
-  
+
   return (
     <div className="Home">
       <div className="text-center grid grid-cols-12">

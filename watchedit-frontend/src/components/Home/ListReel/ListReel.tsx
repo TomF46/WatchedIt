@@ -4,6 +4,7 @@ import LoadingMessage from "../../Loading/LoadingMessage";
 import { getFilmListsPaginated } from "../../../api/filmListsApi";
 import ListPreview from "./ListPreview";
 import { useQuery } from "@tanstack/react-query";
+import { List } from "../../../types/Lists";
 
 function ListReel() {
   const page = 1;
@@ -35,7 +36,7 @@ function ListReel() {
         </Link>
         {data.length > 0 ? (
           <div className="grid grid-cols-12">
-            {data.map((list) => {
+            {data.map((list: List) => {
               return <ListPreview key={list.id} list={list} />;
             })}
           </div>

@@ -11,7 +11,7 @@ export const loadState = () => {
   return state;
 };
 
-export const saveTokens = (tokens : Tokens) => {
+export const saveTokens = (tokens: Tokens) => {
   try {
     const serializedState = JSON.stringify(tokens);
     localStorage.setItem("tokens", serializedState);
@@ -28,6 +28,6 @@ export const removeTokens = () => {
   }
 };
 
-export function attatchBearerToken(token: string) {
+export function attatchBearerToken(token: string): void {
   client.defaults.headers.common = { Authorization: `Bearer ${token}` };
 }

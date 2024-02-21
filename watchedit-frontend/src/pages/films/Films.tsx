@@ -205,11 +205,7 @@ function Films() {
           <>
             {filmsPaginator.data.length > 0 ? (
               <>
-                <FilmGrid
-                  films={filmsPaginator.data}
-                  editable={false}
-                  onRemove={() => {}}
-                />
+                <FilmGrid films={filmsPaginator.data} editable={false} />
                 <PaginationControls
                   currentPage={page}
                   onPageChange={setPage}

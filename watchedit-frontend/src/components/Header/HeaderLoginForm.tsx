@@ -5,18 +5,19 @@ import { toast } from "react-toastify";
 import EmailInput from "../Inputs/EmailInput";
 import PasswordInput from "../Inputs/PasswordInput";
 import { AppDispatch, useAppDispatch } from "../../redux/store";
+import { LoginCredentials, LoginErrors } from "../../types/AuthDefinitions";
 
 const HeaderLoginForm = () => {
   const dispatch: AppDispatch = useAppDispatch();
   const [user, setUser] = useState({
     email: "",
     password: "",
-  });
-  const [errors, setErrors] = useState({});
+  } as LoginCredentials);
+  const [errors, setErrors] = useState({} as LoginErrors);
   const [saving, setSaving] = useState(false);
   const navigate = useNavigate();
 
-  function handleChange(event) {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
     const { name, value } = event.target;
     setUser((prevUser) => ({
       ...prevUser,
@@ -24,9 +25,9 @@ const HeaderLoginForm = () => {
     }));
   }
 
-  function formIsValid() {
+  function formIsValid(): boolean {
     const { email, password } = user;
-    const errors = {};
+    const errors = {} as LoginErrors;
     if (!email) errors.email = "Email is required";
     if (!password) errors.password = "Password is required";
 
@@ -34,7 +35,7 @@ const HeaderLoginForm = () => {
     return Object.keys(errors).length === 0;
   }
 
-  function handleSave(event) {
+  function handleSave(event: React.SyntheticEvent): void {
     event.preventDefault();
     if (!formIsValid()) return;
     setSaving(true);

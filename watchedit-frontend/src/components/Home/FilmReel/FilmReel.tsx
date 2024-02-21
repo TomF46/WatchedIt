@@ -8,7 +8,7 @@ import { FilmSearchParameters } from "../../../types/Films";
 
 type Props = {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   sort: string;
   onlyShowReleased: boolean;
 };
@@ -54,12 +54,7 @@ function FilmReel({ title, subtitle, sort, onlyShowReleased }: Props) {
             <div className="grid grid-cols-16">
               {data.map((film) => {
                 return (
-                  <FilmPreview
-                    key={film.id}
-                    film={film}
-                    editable={false}
-                    onRemove={() => {}}
-                  />
+                  <FilmPreview key={film.id} film={film} editable={false} />
                 );
               })}
             </div>

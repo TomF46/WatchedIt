@@ -4,7 +4,7 @@ import { Film } from "../../types/Films";
 type Props = {
   films: Film[];
   editable: boolean;
-  onRemove: (film: Film) => void;
+  onRemove?: (film: Film) => void;
 };
 
 const FilmGrid = ({ films, editable, onRemove }: Props) => {

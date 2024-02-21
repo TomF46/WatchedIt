@@ -4,7 +4,7 @@ import { Film } from "../../types/Films";
 type Props = {
   film: Film;
   editable: boolean;
-  onRemove: (film: Film) => void;
+  onRemove?: (film: Film) => void;
 };
 
 const FilmPreview = ({ film, editable, onRemove }: Props) => {
@@ -12,7 +12,7 @@ const FilmPreview = ({ film, editable, onRemove }: Props) => {
   return (
     <div className="col-span-8 md:col-span-4 lg:col-span-2 my-2">
       <div className="mx-2 bg-backgroundOffset cursor-pointer h-full shadow rounded group">
-        {editable && (
+        {editable && onRemove && (
           <button
             onClick={() => {
               onRemove(film);

@@ -53,12 +53,7 @@ function FilmsComingSoonReel({ title, subtitle, sort }: Props) {
             <div className="grid grid-cols-16">
               {data.map((film) => {
                 return (
-                  <FilmPreview
-                    key={film.id}
-                    film={film}
-                    editable={false}
-                    onRemove={() => {}}
-                  />
+                  <FilmPreview key={film.id} film={film} editable={false} />
                 );
               })}
             </div>

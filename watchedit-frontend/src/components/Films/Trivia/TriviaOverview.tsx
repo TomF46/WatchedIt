@@ -37,11 +37,7 @@ function TriviaOverview({ film, totalItems }: Props) {
           <h2 className="text-primary text-xl ">Trivia</h2>
           {triviaPaginator.data.length > 0 ? (
             <>
-              <TriviaList
-                trivia={triviaPaginator.data}
-                canControl={false}
-                onRemove={() => {}} //todo
-              />
+              <TriviaList trivia={triviaPaginator.data} canControl={false} />
               {triviaPaginator.of > totalItems && (
                 <Link
                   to={`/films/${film.id}/trivia`}

@@ -6,7 +6,7 @@ export type Review = {
   id?: number;
   rating: number;
   text: string;
-  user: User; //todo
+  user: User;
   film: Film;
 };
 
