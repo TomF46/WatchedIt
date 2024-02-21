@@ -5,9 +5,9 @@ import TextAreaInput from "../../Inputs/TextAreaInput";
 import NumberInput from "../../Inputs/NumberInput";
 import MultiSelectInput from "../../Inputs/MultiSelectInput";
 import Modal from "react-modal";
-import FilmMiniDetail from "../FilmMiniDetail";
 import { EditableFilm, FilmFormErrors } from "../../../types/Films";
 import { SelectOption } from "../../Inputs/InputTypes";
+import FilmPreviewMini from "./FilmPreviewMini";
 
 const customStyles = {
   content: {
@@ -355,7 +355,7 @@ const ManageFilmForm = ({
       {film.posterUrl != null && (
         <div className="mt-4">
           <p className="text-sm font-semibold text-primary">Preview</p>
-          <FilmMiniDetail film={film} />
+          <FilmPreviewMini film={film} />
         </div>
       )}
 
