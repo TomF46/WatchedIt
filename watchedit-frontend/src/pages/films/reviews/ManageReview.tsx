@@ -29,10 +29,10 @@ function ManageReview({
     const { name, value } = event.target;
     if (name == "rating" && (Number(value) < 0 || Number(value) > 10)) return;
 
-    updateReview((prevReview: EditableReview) => ({
-      ...prevReview,
+    updateReview({
+      ...review,
       [name]: value,
-    }));
+    });
   }
 
   function formIsValid(): boolean {

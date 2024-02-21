@@ -19,10 +19,10 @@ function ManageList({ list, updateList, triggerSave, saving }: Props) {
       | React.ChangeEvent<HTMLTextAreaElement>,
   ): void {
     const { name, value } = event.target;
-    updateList((prevList) => ({
-      ...prevList,
+    updateList({
+      ...list,
       [name]: value,
-    }));
+    });
   }
 
   function formIsValid(): boolean {

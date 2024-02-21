@@ -54,10 +54,10 @@ function ManageFilm({ film, updateFilm, triggerSave, saving }: Props) {
       | React.ChangeEvent<HTMLTextAreaElement>,
   ): void {
     const { name, value } = event.target;
-    updateFilm((prevFilm: EditableFilm) => ({
-      ...prevFilm,
+    updateFilm({
+      ...film,
       [name]: value,
-    }));
+    });
   }
 
   function handleDateChange(date: Date | null): void {
@@ -66,12 +66,11 @@ function ManageFilm({ film, updateFilm, triggerSave, saving }: Props) {
     updateFilm({ ...film });
   }
 
-  //todo
   function handleCategoryChange(selected: SelectOption[]) {
-    updateFilm((prevFilm: EditableFilm) => ({
-      ...prevFilm,
+    updateFilm({
+      ...film,
       categories: selected,
-    }));
+    });
   }
 
   function handleImageChange(file: File | null): void {

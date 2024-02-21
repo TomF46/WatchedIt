@@ -43,10 +43,10 @@ function ManagePerson({ person, updatePerson, triggerSave, saving }: Props) {
       | React.ChangeEvent<HTMLTextAreaElement>,
   ): void {
     const { name, value } = event.target;
-    updatePerson((prevPerson) => ({
-      ...prevPerson,
+    updatePerson({
+      ...person,
       [name]: value,
-    }));
+    });
   }
 
   function handleDateChange(date: Date | null): void {

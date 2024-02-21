@@ -23,10 +23,10 @@ function ManageTrivia({
 
   function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>): void {
     const { name, value } = event.target;
-    updateTrivia((prevFilmTrivia) => ({
-      ...prevFilmTrivia,
+    updateTrivia({
+      ...trivia,
       [name]: value,
-    }));
+    });
   }
 
   function formIsValid(): boolean {
