@@ -1,4 +1,4 @@
-import { User } from "./AuthDefinitions";
+import { User } from "./Auth";
 import { Film } from "./Films";
 
 export type List = {
@@ -24,8 +24,7 @@ export type EditableList = {
 };
 
 export type ListFormErrors = {
-    onSave?: string;
-    name?: string;
-    description?: string;
-  };
-  
+  onSave?: string;
+  name?: string;
+  description?: string;
+};

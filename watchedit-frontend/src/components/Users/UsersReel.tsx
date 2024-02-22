@@ -4,7 +4,7 @@ import UserPreview from "../User/UserPreview";
 import { getUsersPaginated } from "../../api/usersApi";
 import LoadingMessage from "../Loading/LoadingMessage";
 import { useQuery } from "@tanstack/react-query";
-import { User } from "../../types/AuthDefinitions";
+import { User } from "../../types/Auth";
 
 type Props = {
   title: string;

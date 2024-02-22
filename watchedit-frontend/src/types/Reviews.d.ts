@@ -1,4 +1,4 @@
-import { User } from "./AuthDefinitions";
+import { User } from "./Auth";
 import { Film } from "./Films";
 import { PaginationResponse } from "./PaginationResponse";
 

@@ -3,7 +3,7 @@ import { searchUsersReviewsPaginated } from "../../api/usersApi";
 import SimpleReviewPreview from "./SimpleReviewPreview";
 import { useQuery } from "@tanstack/react-query";
 import { Review } from "../../types/Reviews";
-import { User } from "../../types/AuthDefinitions";
+import { User } from "../../types/Auth";
 
 type Props = {
   user: User;

@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { getCurrentUserIsPublisher } from "./api/usersApi";
 import { useQuery } from "@tanstack/react-query";
-import { RouteProps } from "./types/routeProps";
+import { RouteProps } from "./types/RouteProps";
 
 const PublisherRoute = ({ children }: RouteProps) => {
   const { isLoading, data } = useQuery({

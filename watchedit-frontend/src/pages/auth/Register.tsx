@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import ReasonsToLoginSection from "../../components/Home/ReasonsToLoginSection";
 import { useMutation } from "@tanstack/react-query";
 import { RootState } from "../../redux/store";
-import { Registration, RegistrationErrors } from "../../types/AuthDefinitions";
+import { Registration, RegistrationErrors } from "../../types/Auth";
 
 function Register() {
   const userIsAuthenticated = useSelector(

@@ -1,8 +1,4 @@
-import {
-  LoginCredentials,
-  LoginResponse,
-  Registration,
-} from "../types/AuthDefinitions";
+import { LoginCredentials, LoginResponse, Registration } from "../types/Auth";
 import client from "./client";
 
 export function login(

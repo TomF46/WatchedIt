@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import LoginForm from "../../components/Auth/LoginForm";
 import ReasonsToLoginSection from "../../components/Home/ReasonsToLoginSection";
 import { AppDispatch, RootState, useAppDispatch } from "../../redux/store";
-import { LoginErrors } from "../../types/AuthDefinitions";
+import { LoginErrors } from "../../types/Auth";
 
 function Login() {
   const dispatch: AppDispatch = useAppDispatch();

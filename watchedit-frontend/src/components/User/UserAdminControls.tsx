@@ -1,7 +1,7 @@
 import { setUserCanPublishByUserId } from "../../api/usersApi";
 import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
-import { User } from "../../types/AuthDefinitions";
+import { User } from "../../types/Auth";
 
 type Props = {
   user: User;

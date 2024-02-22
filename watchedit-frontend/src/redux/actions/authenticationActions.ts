@@ -5,7 +5,7 @@ import {
   attatchBearerToken,
 } from "../../tools/localStorage";
 import * as authenticationApi from "../../api/authenticationApi";
-import { LoginCredentials } from "../../types/AuthDefinitions";
+import { LoginCredentials } from "../../types/Auth";
 import { Tokens } from "../../types/Tokens";
 import { Dispatch } from "@reduxjs/toolkit";
 

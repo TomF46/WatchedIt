@@ -51,7 +51,6 @@ function EditCategory() {
   if (isLoading) return <LoadingMessage message={"Loading category."} />;
 
   if (error) {
-    console.log(error);
     return (
       <ErrorMessage
         message={"Error loading category for editing."}

@@ -1,6 +1,6 @@
 import EmailInput from "../Inputs/EmailInput";
 import PasswordInput from "../Inputs/PasswordInput";
-import { LoginCredentials, LoginErrors } from "../../types/AuthDefinitions";
+import { LoginCredentials, LoginErrors } from "../../types/Auth";
 
 type Props = {
   user: LoginCredentials;

@@ -9,7 +9,7 @@ import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
 import { RootState } from "../../../redux/store";
-import { EditableUser, UserFormErrors } from "../../../types/AuthDefinitions";
+import { EditableUser, UserFormErrors } from "../../../types/Auth";
 
 function ManageProfile() {
   const id = useSelector((state: RootState) => state.tokens.id);

@@ -3,7 +3,7 @@ import LoadingMessage from "../Loading/LoadingMessage";
 import ReviewOverview from "./ReviewOverview";
 import { getUsersReviewsPaginated } from "../../api/usersApi";
 import { useQuery } from "@tanstack/react-query";
-import { User } from "../../types/AuthDefinitions";
+import { User } from "../../types/Auth";
 import { Review } from "../../types/Reviews";
 
 type Props = {

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { EditableUser, User } from "../../types/AuthDefinitions";
+import { EditableUser, User } from "../../types/Auth";
 
 const UserMiniDetail = ({ user }: { user: User | EditableUser }) => {
   return (

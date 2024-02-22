@@ -5,7 +5,7 @@ import PaginationControls from "../PaginationControls";
 import { getUsersFilmListsPaginated } from "../../api/filmListsApi";
 import LoadingMessage from "../Loading/LoadingMessage";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { User } from "../../types/AuthDefinitions";
+import { User } from "../../types/Auth";
 
 function UserLists({ user }: { user: User }) {
   const [page, setPage] = useState(1);

@@ -1,4 +1,4 @@
-import { User } from "./AuthDefinitions";
+import { User } from "./Auth";
 import { PaginationResponse } from "./PaginationResponse";
 
 export type NewsArticle = {

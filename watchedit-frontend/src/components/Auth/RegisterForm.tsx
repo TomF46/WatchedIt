@@ -1,6 +1,6 @@
 import EmailInput from "../Inputs/EmailInput";
 import PasswordInput from "../Inputs/PasswordInput";
-import { Registration, RegistrationErrors } from "../../types/AuthDefinitions";
+import { Registration, RegistrationErrors } from "../../types/Auth";
 import TextInput from "../Inputs/TextInput";
 
 type Props = {

@@ -1,6 +1,6 @@
 import TextAreaInput from "../../Inputs/TextAreaInput";
 import UserMiniDetail from "../UserMiniDetail";
-import { EditableUser, UserFormErrors } from "../../../types/AuthDefinitions";
+import { EditableUser, UserFormErrors } from "../../../types/Auth";
 
 type Props = {
   user: EditableUser;

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { User } from "../../types/AuthDefinitions";
+import { User } from "../../types/Auth";
 
 type Props = {
   user: User;
