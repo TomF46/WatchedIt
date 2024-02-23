@@ -1,6 +1,6 @@
 ## WatchedIt web
 
-.Net core web api with React front end, inspired by Letterboxd / Imdb.
+.Net core web api with React (Typescript) front end, inspired by Letterboxd / Imdb.
 
 ### Features
 
@@ -37,6 +37,7 @@
 - .Net core web api.
 - Entity framework core.
 - React front end.
+- Typescript
 - Built using VITE.
 - Tailwind css.
 - Testing with NUnit.
