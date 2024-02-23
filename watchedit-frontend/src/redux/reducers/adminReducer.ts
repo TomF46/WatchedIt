@@ -15,7 +15,6 @@ export const AdminSlice = createSlice({
   reducers: {
     setUserIsAdmin: (state, action: PayloadAction<boolean>) => {
       state.isAdmin = action.payload;
-      console.log(state);
     },
   },
 });

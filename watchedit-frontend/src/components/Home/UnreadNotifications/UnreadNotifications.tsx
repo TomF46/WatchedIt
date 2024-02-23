@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { decrementNotificationCount } from "../../../redux/actions/notificationCountActions";
 import {
   getUnreadNotifications,
   readNotification,
@@ -11,6 +10,7 @@ import { Link } from "react-router-dom";
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 import { AppDispatch, useAppDispatch } from "../../../redux/store";
 import { Notification } from "../../../types/Notifications";
+import { decrementNotificationsCount } from "../../../redux/reducers/notificationsReducer";
 
 const UnreadNotifications = () => {
   const dispatch: AppDispatch = useAppDispatch();
@@ -32,7 +32,7 @@ const UnreadNotifications = () => {
     mutationFn: (notification: Notification) =>
       readNotification(notification.id),
     onSuccess: () => {
-      dispatch(decrementNotificationCount());
+      dispatch(decrementNotificationsCount());
       refetch();
     },
     onError: (err) => {

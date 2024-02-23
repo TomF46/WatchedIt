@@ -1,5 +1,5 @@
 export default {
   tokens: null,
-  isAdminState: false,
-  notificationCount: 0,
+  admin: { isAdmin: false },
+  notifications: { count: 0 },
 };

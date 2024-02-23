@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { decrementNotificationCount } from "../../redux/actions/notificationCountActions";
 import {
   getAllNotifications,
   readNotification,
@@ -11,13 +9,19 @@ import NotificationsList from "../../components/Notifications/NotificationsList"
 import PaginationControls from "../../components/PaginationControls";
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../components/Error/ErrorMessage";
-import { AppDispatch, RootState, useAppDispatch } from "../../redux/store";
+import {
+  AppDispatch,
+  RootState,
+  useAppDispatch,
+  useAppSelector,
+} from "../../redux/store";
 import { Notification } from "../../types/Notifications";
+import { decrementNotificationsCount } from "../../redux/reducers/notificationsReducer";
 
 const NotificationsPage = () => {
   const dispatch: AppDispatch = useAppDispatch();
-  const notificationCount = useSelector(
-    (state: RootState) => state.notificationCount,
+  const notificationCount = useAppSelector(
+    (state: RootState) => state.notifications.count,
   );
   const [page, setPage] = useState(1);
   const notificationsPerPage = 32;
@@ -40,7 +44,7 @@ const NotificationsPage = () => {
     mutationFn: (notification: Notification) =>
       readNotification(notification.id),
     onSuccess: () => {
-      dispatch(decrementNotificationCount());
+      dispatch(decrementNotificationsCount());
       refetch();
     },
     onError: (err) => {

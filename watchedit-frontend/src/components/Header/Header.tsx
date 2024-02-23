@@ -3,17 +3,22 @@ import { useSelector } from "react-redux";
 import { useLocation, Link } from "react-router-dom";
 import HeaderLoginForm from "./HeaderLoginForm";
 import logo from "../../assets/WatchedIt.webp";
-import { loadNotificationCount } from "../../redux/actions/notificationCountActions";
-import { AppDispatch, RootState, useAppDispatch } from "../../redux/store";
+import {
+  AppDispatch,
+  RootState,
+  useAppDispatch,
+  useAppSelector,
+} from "../../redux/store";
 import { checkUserIsAdmin } from "../../redux/reducers/adminReducer";
+import { loadNotificationCount } from "../../redux/reducers/notificationsReducer";
 
 function Header() {
   const dispatch: AppDispatch = useAppDispatch();
   const userIsAuthenticated = useSelector(
     (state: RootState) => state.tokens != null,
   );
-  const notificationCount = useSelector(
-    (state: RootState) => state.notificationCount,
+  const notificationCount = useAppSelector(
+    (state: RootState) => state.notifications.count,
   );
   const [mobileIsOpen, setMobileIsOpen] = useState(false);
   const location = useLocation();
