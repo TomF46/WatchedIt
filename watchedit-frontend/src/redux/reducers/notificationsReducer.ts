@@ -10,7 +10,7 @@ const initialState: NotificationsState = {
 };
 
 export const NotificationsSlice = createSlice({
-  name: "isAdmin",
+  name: "notifications",
   initialState,
   reducers: {
     setNotificationCount: (state, action: PayloadAction<number>) => {

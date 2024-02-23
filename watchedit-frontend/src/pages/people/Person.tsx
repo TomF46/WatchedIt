@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getPersonById, removePerson } from "../../api/peopleApi";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -9,15 +8,15 @@ import { format, parseISO } from "date-fns";
 import LikedPersonControls from "../../components/People/Likes/LikedPersonControls";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../components/Error/ErrorMessage";
-import { RootState } from "../../redux/store";
+import { useAppSelector } from "../../redux/store";
 import { Person as PersonType } from "../../types/People";
 
 function Person() {
   const { id } = useParams();
-  const userIsAuthenticated = useSelector(
-    (state: RootState) => state.tokens != null,
+  const userIsAuthenticated = useAppSelector(
+    (state) => state.authentication.tokens != null,
   );
-  const isAdmin = useSelector((state: RootState) => state.admin.isAdmin);
+  const isAdmin = useAppSelector((state) => state.admin.isAdmin);
   const navigate = useNavigate();
 
   const {

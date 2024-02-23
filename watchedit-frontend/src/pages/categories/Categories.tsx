@@ -1,14 +1,13 @@
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getCategories } from "../../api/categoriesApi";
 import CategoryList from "../../components/Categories/CategoryList";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import { useQuery } from "@tanstack/react-query";
-import { RootState } from "../../redux/store";
+import { useAppSelector } from "../../redux/store";
 
 function Categories() {
-  const isAdmin = useSelector((state: RootState) => state.admin.isAdmin);
+  const isAdmin = useAppSelector((state) => state.admin.isAdmin);
 
   const { data: categories } = useQuery({
     queryKey: ["categories"],

@@ -1,5 +1,4 @@
 import MDEditor from "@uiw/react-md-editor";
-import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import {
   getNewsArticlesById,
@@ -10,13 +9,13 @@ import LoadingMessage from "../../components/Loading/LoadingMessage";
 import rehypeSanitize from "rehype-sanitize";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../components/Error/ErrorMessage";
-import { RootState } from "../../redux/store";
+import { useAppSelector } from "../../redux/store";
 
 function NewsArticle() {
   const { id } = useParams();
-  const isAdmin = useSelector((state: RootState) => state.admin.isAdmin);
-  const currentUserId = useSelector((state: RootState) =>
-    state.tokens ? state.tokens.id : null,
+  const isAdmin = useAppSelector((state) => state.admin.isAdmin);
+  const currentUserId = useAppSelector((state) =>
+    state.authentication.tokens ? state.authentication.tokens.id : null,
   );
 
   const {

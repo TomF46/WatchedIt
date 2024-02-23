@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getUserById, getWatchedListByUserId } from "../../api/usersApi";
 import FilmGrid from "../../components/Films/FilmGrid";
@@ -8,12 +7,12 @@ import { useParams } from "react-router-dom";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../components/Error/ErrorMessage";
-import { RootState } from "../../redux/store";
+import { useAppSelector } from "../../redux/store";
 
 function WatchedList() {
   const { id } = useParams();
-  const currentUserId = useSelector((state: RootState) =>
-    state.tokens ? state.tokens.id : null,
+  const currentUserId = useAppSelector((state) =>
+    state.authentication.tokens ? state.authentication.tokens.id : null,
   );
   const userId = id ? id : currentUserId;
   const [page, setPage] = useState(1);
@@ -21,18 +20,20 @@ function WatchedList() {
 
   const { data: user, error: userLoadError } = useQuery({
     queryKey: ["user", userId],
-    queryFn: () => getUserById(userId),
+    queryFn: () => getUserById(Number(userId)),
   });
 
   const { data: filmsPaginator } = useQuery({
     queryKey: ["user-watchedlist", userId, page, filmsPerPage],
     queryFn: () =>
-      getWatchedListByUserId(userId, page, filmsPerPage).catch((error) => {
-        toast.error(`Error getting films ${error.data.Exception}`, {
-          autoClose: false,
-        });
-        return error;
-      }),
+      getWatchedListByUserId(Number(userId!), page, filmsPerPage).catch(
+        (error) => {
+          toast.error(`Error getting films ${error.data.Exception}`, {
+            autoClose: false,
+          });
+          return error;
+        },
+      ),
     placeholderData: keepPreviousData,
   });
 

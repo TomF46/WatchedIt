@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { removeReview, getReviewById } from "../../../api/filmReviewApi";
@@ -7,14 +6,13 @@ import { confirmAlert } from "react-confirm-alert";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import ReviewCommentsSection from "../../../components/Reviews/ReviewCommentsSection";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import ErrorMessage from "../../../components/Error/ErrorMessage";
-import { RootState } from "../../../redux/store";
+import { useAppSelector } from "../../../redux/store";
 import { Review as ReviewType } from "../../../types/Reviews";
 
 function Review() {
   const { id, reviewId } = useParams();
-  const userId = useSelector((state: RootState) =>
-    state.tokens ? state.tokens.id : null,
+  const userId = useAppSelector((state) =>
+    state.authentication.tokens ? state.authentication.tokens.id : null,
   );
   const navigate = useNavigate();
   const [userCanEdit, setUserCanEdit] = useState(false);
@@ -46,7 +44,7 @@ function Review() {
     },
   });
 
-  function confirmDelete() : void {
+  function confirmDelete(): void {
     confirmAlert({
       title: "Confirm removal",
       message: `Are you sure you want to remove this review?`,

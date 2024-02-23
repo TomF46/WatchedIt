@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { searchPeoplePaginated } from "../../api/peopleApi";
 import PersonGrid from "../../components/People/PersonGrid";
 import PaginationControls from "../../components/PaginationControls";
@@ -10,11 +9,11 @@ import LoadingMessage from "../../components/Loading/LoadingMessage";
 import SelectInput from "../../components/Inputs/SelectInput";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
-import { RootState } from "../../redux/store";
+import { useAppSelector } from "../../redux/store";
 import { PeopleSearchTerms } from "../../types/People";
 
 function People() {
-  const isAdmin = useSelector((state: RootState) => state.admin.isAdmin);
+  const isAdmin = useAppSelector((state) => state.admin.isAdmin);
   const [searchTerms, setSearchTerms] = useState<PeopleSearchTerms>({
     firstName: "",
     lastName: "",

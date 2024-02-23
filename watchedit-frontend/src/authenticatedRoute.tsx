@@ -1,10 +1,9 @@
 import { Navigate, RouteProps } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "./redux/store";
+import { useAppSelector } from "./redux/store";
 
 const AuthenticatedRoute = ({ children }: RouteProps) => {
-  const userIsAuthenticated = useSelector(
-    (state: RootState) => state.tokens != null,
+  const userIsAuthenticated = useAppSelector(
+    (state) => state.authentication.tokens != null,
   );
   if (!userIsAuthenticated) {
     return <Navigate to="/login" replace />;

@@ -10,7 +10,7 @@ const initialState: AdminState = {
 };
 
 export const AdminSlice = createSlice({
-  name: "isAdmin",
+  name: "admin",
   initialState,
   reducers: {
     setUserIsAdmin: (state, action: PayloadAction<boolean>) => {

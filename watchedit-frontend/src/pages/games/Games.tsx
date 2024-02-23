@@ -1,9 +1,10 @@
-import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { RootState } from "../../redux/store";
+import { useAppSelector } from "../../redux/store";
 
 function Games() {
-  const userIsAuthenticated = useSelector((state : RootState) => state.tokens != null);
+  const userIsAuthenticated = useAppSelector(
+    (state) => state.authentication.tokens != null,
+  );
   const navigate = useNavigate();
   return (
     <div className="games-page">

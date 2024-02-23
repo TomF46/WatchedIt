@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getFilmById } from "../../../api/filmsApi";
@@ -9,12 +8,12 @@ import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
-import { RootState } from "../../../redux/store";
+import { useAppSelector } from "../../../redux/store";
 import { Credit } from "../../../types/Credits";
 
 function FilmCredits() {
   const { id } = useParams();
-  const isAdmin = useSelector((state: RootState) => state.admin.isAdmin);
+  const isAdmin = useAppSelector((state) => state.admin.isAdmin);
 
   const { data: film, error: filmLoadError } = useQuery({
     queryKey: ["film", id],

@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { confirmAlert } from "react-confirm-alert";
@@ -13,15 +12,15 @@ import SimilarFilmsReel from "../../components/Films/SimilarFilmsReel";
 import TriviaOverview from "../../components/Films/Trivia/TriviaOverview";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../components/Error/ErrorMessage";
-import { RootState } from "../../redux/store";
+import { useAppSelector } from "../../redux/store";
 import { Film as FilmType } from "../../types/Films";
 
 function Film() {
   const { id } = useParams();
-  const userIsAuthenticated = useSelector(
-    (state: RootState) => state.tokens != null,
+  const userIsAuthenticated = useAppSelector(
+    (state) => state.authentication.tokens != null,
   );
-  const isAdmin = useSelector((state: RootState) => state.admin.isAdmin);
+  const isAdmin = useAppSelector((state) => state.admin.isAdmin);
   const navigate = useNavigate();
 
   const {

@@ -1,17 +1,16 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { login } from "../../redux/actions/authenticationActions";
 import { toast } from "react-toastify";
 import LoginForm from "../../components/Auth/LoginForm";
 import ReasonsToLoginSection from "../../components/Home/ReasonsToLoginSection";
-import { AppDispatch, RootState, useAppDispatch } from "../../redux/store";
+import { AppDispatch, useAppDispatch, useAppSelector } from "../../redux/store";
 import { LoginErrors } from "../../types/Auth";
+import { login } from "../../redux/reducers/authenticationReducer";
 
 function Login() {
   const dispatch: AppDispatch = useAppDispatch();
-  const userIsAuthenticated = useSelector(
-    (state: RootState) => state.tokens != null,
+  const userIsAuthenticated = useAppSelector(
+    (state) => state.authentication.tokens != null,
   );
   const navigate = useNavigate();
   const [user, setUser] = useState({

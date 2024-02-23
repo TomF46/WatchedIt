@@ -7,15 +7,14 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { getReviewById, saveReview } from "../../../api/filmReviewApi";
 import { getFilmById } from "../../../api/filmsApi";
-import { useSelector } from "react-redux";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
-import { RootState } from "../../../redux/store";
+import { useAppSelector } from "../../../redux/store";
 import { EditableReview } from "../../../types/Reviews";
 
 function EditReview() {
   const { id, reviewId } = useParams();
-  const userId = useSelector((state: RootState) =>
-    state.tokens ? state.tokens.id : null,
+  const userId = useAppSelector((state) =>
+    state.authentication.tokens ? state.authentication.tokens.id : null,
   );
   const navigate = useNavigate();
   const [review, setReview] = useState<EditableReview>({ ...newReview });

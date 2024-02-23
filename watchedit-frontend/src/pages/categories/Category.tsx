@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getCategoryById } from "../../api/categoriesApi";
@@ -11,11 +10,11 @@ import TextInput from "../../components/Inputs/TextInput";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
 import ErrorMessage from "../../components/Error/ErrorMessage";
-import { RootState } from "../../redux/store";
+import { useAppSelector } from "../../redux/store";
 
 function Category() {
   const { id } = useParams();
-  const isAdmin = useSelector((state: RootState) => state.admin.isAdmin);
+  const isAdmin = useAppSelector((state) => state.admin.isAdmin);
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
   const filmsPerPage = 32;

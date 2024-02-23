@@ -1,7 +1,6 @@
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { RootState } from "../../../redux/store";
+import { useAppSelector } from "../../../redux/store";
 import { Trivia } from "../../../types/Trivia";
 
 type Props = {
@@ -11,8 +10,8 @@ type Props = {
 };
 
 const TriviaList = ({ trivia, onRemove, canControl }: Props) => {
-  const userId = useSelector((state: RootState) =>
-    state.tokens ? state.tokens.id : null,
+  const userId = useAppSelector((state) =>
+    state.authentication.tokens ? state.authentication.tokens.id : null,
   );
   const navigate = useNavigate();
   return (

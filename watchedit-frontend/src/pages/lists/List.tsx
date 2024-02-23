@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { confirmAlert } from "react-confirm-alert";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -13,13 +12,13 @@ import LoadingMessage from "../../components/Loading/LoadingMessage";
 import UserMiniDetail from "../../components/User/UserMiniDetail";
 import { useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../components/Error/ErrorMessage";
-import { RootState } from "../../redux/store";
+import { useAppSelector } from "../../redux/store";
 import { Film } from "../../types/Films";
 
 function List() {
   const { id } = useParams();
-  const userId = useSelector((state: RootState) =>
-    state.tokens ? state.tokens.id : null,
+  const userId = useAppSelector((state) =>
+    state.authentication.tokens ? state.authentication.tokens.id : null,
   );
   const navigate = useNavigate();
   const [userCanEdit, setUserCanEdit] = useState(false);

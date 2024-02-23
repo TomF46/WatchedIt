@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { getNewsByUserPaginated } from "../../api/newsApi";
 import { toast } from "react-toastify";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
@@ -9,12 +8,12 @@ import NewsList from "../../components/News/NewsList";
 import { getUserById } from "../../api/usersApi";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../components/Error/ErrorMessage";
-import { RootState } from "../../redux/store";
+import { useAppSelector } from "../../redux/store";
 
 function UsersNewsArticles() {
   const { id } = useParams();
-  const currentUserId = useSelector((state: RootState) =>
-    state.tokens ? state.tokens.id : null,
+  const currentUserId = useAppSelector((state) =>
+    state.authentication.tokens ? state.authentication.tokens.id : null,
   );
   const userId = id ? id : currentUserId;
   const [page, setPage] = useState(1);

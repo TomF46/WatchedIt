@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { login } from "../../redux/actions/authenticationActions";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import EmailInput from "../Inputs/EmailInput";
 import PasswordInput from "../Inputs/PasswordInput";
 import { AppDispatch, useAppDispatch } from "../../redux/store";
 import { LoginCredentials, LoginErrors } from "../../types/Auth";
+import { login } from "../../redux/reducers/authenticationReducer";
 
 const HeaderLoginForm = () => {
   const dispatch: AppDispatch = useAppDispatch();

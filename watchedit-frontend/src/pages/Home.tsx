@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import FilmReel from "../components/Home/FilmReel/FilmReel";
 import PeopleReel from "../components/Home/PeopleReel/PeopleReel";
@@ -7,14 +6,14 @@ import logo from "../assets/WatchedIt.webp";
 import ReasonsToLoginSection from "../components/Home/ReasonsToLoginSection";
 import UnreadNotifications from "../components/Home/UnreadNotifications/UnreadNotifications";
 import FilmsComingSoonReel from "../components/Home/FilmReel/FilmsComingSoonReel";
-import { RootState } from "../redux/store";
+import { useAppSelector } from "../redux/store";
 
 function Home() {
-  const userIsAuthenticated = useSelector(
-    (state: RootState) => state.tokens != null,
+  const userIsAuthenticated = useAppSelector(
+    (state) => state.authentication.tokens != null,
   );
-  const username = useSelector((state: RootState) =>
-    state.tokens ? state.tokens.username : null,
+  const username = useAppSelector((state) =>
+    state.authentication.tokens ? state.authentication.tokens.username : null,
   );
 
   return (

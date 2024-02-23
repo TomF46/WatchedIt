@@ -11,10 +11,10 @@ import LoadingMessage from "../../components/Loading/LoadingMessage";
 import RatingInput from "../../components/Inputs/RatingInput";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
-import { RootState, useAppSelector } from "../../redux/store";
+import { useAppSelector } from "../../redux/store";
 
 function Films() {
-  const isAdmin = useAppSelector((state: RootState) => state.admin.isAdmin);
+  const isAdmin = useAppSelector((state) => state.admin.isAdmin);
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState<number | undefined>(undefined);
   const [ratings, setRatings] = useState({

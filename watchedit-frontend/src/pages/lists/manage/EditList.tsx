@@ -5,16 +5,15 @@ import { newList } from "../../../tools/obJectShapes";
 import ManageList from "./ManageList";
 import { getFilmListById, saveFilmList } from "../../../api/filmListsApi";
 import { useQuery } from "@tanstack/react-query";
-import { useSelector } from "react-redux";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
-import { RootState } from "../../../redux/store";
+import { useAppSelector } from "../../../redux/store";
 import { EditableList } from "../../../types/Lists";
 
 function EditList() {
   const { id } = useParams();
-  const userId = useSelector((state: RootState) =>
-    state.tokens ? state.tokens.id : null,
+  const userId = useAppSelector((state) =>
+    state.authentication.tokens ? state.authentication.tokens.id : null,
   );
   const navigate = useNavigate();
   const [list, setList] = useState<EditableList>({ ...newList });

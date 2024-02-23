@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getUserById, updateCurrentUser } from "../../../api/usersApi";
 import { uploadImage } from "../../../api/imageApi";
@@ -8,11 +7,11 @@ import ManageUserForm from "../../../components/User/Manage/ManageUserForm";
 import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
-import { RootState } from "../../../redux/store";
+import { useAppSelector } from "../../../redux/store";
 import { EditableUser, UserFormErrors } from "../../../types/Auth";
 
 function ManageProfile() {
-  const id = useSelector((state: RootState) => state.tokens.id);
+  const id = useAppSelector((state) => state.authentication.tokens!.id);
   const navigate = useNavigate();
   const [updatedUser, setUpdatedUser] = useState<EditableUser>(
     {} as EditableUser,

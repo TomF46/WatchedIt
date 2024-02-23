@@ -7,7 +7,7 @@ export const loadState = () => {
   const tokensState = tokens == null ? null : JSON.parse(tokens);
   if (tokensState != null) attatchBearerToken(tokensState.token); // If we have access tokens add them as bearer token on axios client;
   const state = initialState;
-  state.tokens = tokensState;
+  state.authentication.tokens = tokensState;
   return state;
 };
 

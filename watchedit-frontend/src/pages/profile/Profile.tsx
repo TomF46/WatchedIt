@@ -1,24 +1,23 @@
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getUserById } from "../../api/usersApi";
 import { Link, useParams } from "react-router-dom";
 import UserLists from "../../components/User/UserLists";
 import LoadingMessage from "../../components/Loading/LoadingMessage";
-import { logout } from "../../redux/actions/authenticationActions";
 import { confirmAlert } from "react-confirm-alert";
 import UserLatestReviews from "../../components/Reviews/UserLatestReviews";
 import UserAdminControls from "../../components/User/UserAdminControls";
 import UserReviewsReel from "../../components/Reviews/UserReviewReel";
 import { useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../components/Error/ErrorMessage";
-import { AppDispatch, RootState, useAppDispatch } from "../../redux/store";
+import { AppDispatch, useAppDispatch, useAppSelector } from "../../redux/store";
+import { logout } from "../../redux/reducers/authenticationReducer";
 
 function Profile() {
   const { id } = useParams();
-  const isAdmin = useSelector((state: RootState) => state.admin.isAdmin);
+  const isAdmin = useAppSelector((state) => state.admin.isAdmin);
   const dispatch: AppDispatch = useAppDispatch();
-  const currentUserId = useSelector((state: RootState) =>
-    state.tokens ? state.tokens.id : null,
+  const currentUserId = useAppSelector((state) =>
+    state.authentication.tokens ? state.authentication.tokens.id : null,
   );
   const userId = id ? id : currentUserId;
 
@@ -29,7 +28,7 @@ function Profile() {
     refetch,
   } = useQuery({
     queryKey: ["user", userId],
-    queryFn: () => getUserById(userId),
+    queryFn: () => getUserById(Number(userId)),
   });
 
   function handleLogout() {

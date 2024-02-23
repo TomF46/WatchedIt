@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { confirmAlert } from "react-confirm-alert";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -9,12 +8,12 @@ import LoadingMessage from "../../../components/Loading/LoadingMessage";
 import PersonMiniDetail from "../../../components/People/PersonMiniDetail";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
-import { RootState } from "../../../redux/store";
+import { useAppSelector } from "../../../redux/store";
 import { Credit } from "../../../types/Credits";
 
 function PersonCredits() {
   const { id } = useParams();
-  const isAdmin = useSelector((state: RootState) => state.admin.isAdmin);
+  const isAdmin = useAppSelector((state) => state.admin.isAdmin);
 
   const { data: person, error: personLoadError } = useQuery({
     queryKey: ["person", id],

@@ -1,17 +1,16 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import RegisterForm from "../../components/Auth/RegisterForm";
 import { register } from "../../api/authenticationApi";
 import { toast } from "react-toastify";
 import ReasonsToLoginSection from "../../components/Home/ReasonsToLoginSection";
 import { useMutation } from "@tanstack/react-query";
-import { RootState } from "../../redux/store";
+import { useAppSelector } from "../../redux/store";
 import { Registration, RegistrationErrors } from "../../types/Auth";
 
 function Register() {
-  const userIsAuthenticated = useSelector(
-    (state: RootState) => state.tokens != null,
+  const userIsAuthenticated = useAppSelector(
+    (state) => state.authentication.tokens != null,
   );
   const navigate = useNavigate();
   const [user, setUser] = useState({

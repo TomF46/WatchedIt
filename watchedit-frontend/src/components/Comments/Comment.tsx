@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import CommentForm from "./CommentForm";
 import { format, parseISO } from "date-fns";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { RootState } from "../../redux/store";
+import { useAppSelector } from "../../redux/store";
 import { CommentFormErrors, Comment as CommentType } from "../../types/Reviews";
 
 type Props = {
@@ -14,8 +13,8 @@ type Props = {
 };
 
 const Comment = ({ comment, onUpdateComment, onDeleteComment }: Props) => {
-  const userId = useSelector((state: RootState) =>
-    state.tokens ? state.tokens.id : null,
+  const userId = useAppSelector((state) =>
+    state.authentication.tokens ? state.authentication.tokens.id : null,
   );
   const navigate = useNavigate();
   const [updatedComment, setUpdatedComment] = useState(comment);
