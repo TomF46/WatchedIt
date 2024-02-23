@@ -3,7 +3,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import AuthenticatedRoute from "./authenticatedRoute";
+import AuthenticatedRoute from "./AuthenticatedRoute";
 import Header from "./components/Header/Header";
 import List from "./pages/lists/List";
 import Login from "./pages/auth/Login";

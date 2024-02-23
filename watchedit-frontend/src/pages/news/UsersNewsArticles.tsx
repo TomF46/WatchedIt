@@ -21,18 +21,20 @@ function UsersNewsArticles() {
 
   const { data: user, error: userLoadError } = useQuery({
     queryKey: ["user", userId],
-    queryFn: () => getUserById(userId),
+    queryFn: () => getUserById(Number(userId)),
   });
 
   const { data: articlesPaginator } = useQuery({
     queryKey: ["person-credits", userId, page, articlesPerPage],
     queryFn: () =>
-      getNewsByUserPaginated(userId, page, articlesPerPage).catch((error) => {
-        toast.error(`Error getting users articles ${error.data.Exception}`, {
-          autoClose: false,
-        });
-        return error;
-      }),
+      getNewsByUserPaginated(Number(userId!), page, articlesPerPage).catch(
+        (error) => {
+          toast.error(`Error getting users articles ${error.data.Exception}`, {
+            autoClose: false,
+          });
+          return error;
+        },
+      ),
     placeholderData: keepPreviousData,
   });
 

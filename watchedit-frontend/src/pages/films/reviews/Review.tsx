@@ -8,6 +8,7 @@ import ReviewCommentsSection from "../../../components/Reviews/ReviewCommentsSec
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useAppSelector } from "../../../redux/store";
 import { Review as ReviewType } from "../../../types/Reviews";
+import ErrorMessage from "../../../components/Error/ErrorMessage";
 
 function Review() {
   const { id, reviewId } = useParams();
