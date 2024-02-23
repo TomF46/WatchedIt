@@ -14,7 +14,7 @@ import { RootState } from "../../redux/store";
 
 function NewsArticle() {
   const { id } = useParams();
-  const isAdmin = useSelector((state: RootState) => state.isAdmin);
+  const isAdmin = useSelector((state: RootState) => state.admin.isAdmin);
   const currentUserId = useSelector((state: RootState) =>
     state.tokens ? state.tokens.id : null,
   );

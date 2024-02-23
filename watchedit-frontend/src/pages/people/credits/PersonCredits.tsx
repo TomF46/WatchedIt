@@ -14,7 +14,7 @@ import { Credit } from "../../../types/Credits";
 
 function PersonCredits() {
   const { id } = useParams();
-  const isAdmin = useSelector((state: RootState) => state.isAdmin);
+  const isAdmin = useSelector((state: RootState) => state.admin.isAdmin);
 
   const { data: person, error: personLoadError } = useQuery({
     queryKey: ["person", id],

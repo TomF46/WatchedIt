@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import FilmGrid from "../../components/Films/FilmGrid";
 import PaginationControls from "../../components/PaginationControls";
@@ -12,10 +11,10 @@ import LoadingMessage from "../../components/Loading/LoadingMessage";
 import RatingInput from "../../components/Inputs/RatingInput";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
-import { RootState } from "../../redux/store";
+import { RootState, useAppSelector } from "../../redux/store";
 
 function Films() {
-  const isAdmin = useSelector((state: RootState) => state.isAdmin);
+  const isAdmin = useAppSelector((state: RootState) => state.admin.isAdmin);
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState<number | undefined>(undefined);
   const [ratings, setRatings] = useState({

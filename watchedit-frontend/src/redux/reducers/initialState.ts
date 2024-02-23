@@ -1,5 +1,5 @@
 export default {
   tokens: null,
-  isAdmin: false,
+  isAdminState: false,
   notificationCount: 0,
 };

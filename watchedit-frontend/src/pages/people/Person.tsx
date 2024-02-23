@@ -17,7 +17,7 @@ function Person() {
   const userIsAuthenticated = useSelector(
     (state: RootState) => state.tokens != null,
   );
-  const isAdmin = useSelector((state: RootState) => state.isAdmin);
+  const isAdmin = useSelector((state: RootState) => state.admin.isAdmin);
   const navigate = useNavigate();
 
   const {

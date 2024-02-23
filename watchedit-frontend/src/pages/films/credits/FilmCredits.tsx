@@ -14,7 +14,7 @@ import { Credit } from "../../../types/Credits";
 
 function FilmCredits() {
   const { id } = useParams();
-  const isAdmin = useSelector((state: RootState) => state.isAdmin);
+  const isAdmin = useSelector((state: RootState) => state.admin.isAdmin);
 
   const { data: film, error: filmLoadError } = useQuery({
     queryKey: ["film", id],

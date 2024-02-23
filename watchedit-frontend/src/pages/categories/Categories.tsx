@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { RootState } from "../../redux/store";
 
 function Categories() {
-  const isAdmin = useSelector((state: RootState) => state.isAdmin);
+  const isAdmin = useSelector((state: RootState) => state.admin.isAdmin);
 
   const { data: categories } = useQuery({
     queryKey: ["categories"],

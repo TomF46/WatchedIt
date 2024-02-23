@@ -14,7 +14,7 @@ import { RootState } from "../../redux/store";
 import { PeopleSearchTerms } from "../../types/People";
 
 function People() {
-  const isAdmin = useSelector((state: RootState) => state.isAdmin);
+  const isAdmin = useSelector((state: RootState) => state.admin.isAdmin);
   const [searchTerms, setSearchTerms] = useState<PeopleSearchTerms>({
     firstName: "",
     lastName: "",

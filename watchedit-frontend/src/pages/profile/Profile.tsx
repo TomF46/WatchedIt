@@ -15,7 +15,7 @@ import { AppDispatch, RootState, useAppDispatch } from "../../redux/store";
 
 function Profile() {
   const { id } = useParams();
-  const isAdmin = useSelector((state: RootState) => state.isAdmin);
+  const isAdmin = useSelector((state: RootState) => state.admin.isAdmin);
   const dispatch: AppDispatch = useAppDispatch();
   const currentUserId = useSelector((state: RootState) =>
     state.tokens ? state.tokens.id : null,

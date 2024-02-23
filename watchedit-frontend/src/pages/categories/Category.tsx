@@ -15,7 +15,7 @@ import { RootState } from "../../redux/store";
 
 function Category() {
   const { id } = useParams();
-  const isAdmin = useSelector((state: RootState) => state.isAdmin);
+  const isAdmin = useSelector((state: RootState) => state.admin.isAdmin);
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
   const filmsPerPage = 32;
