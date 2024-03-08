@@ -365,7 +365,7 @@ const ManageFilmForm = ({
         <SubmitButtonWIcon
           text={saving ? "Saving..." : "Save"}
           disabled={saving}
-          icon={<FilmIcon />}
+          icon={<FilmIcon color="white" height={5} width={5} />}
           bgColor="bg-primary"
         />
       </div>

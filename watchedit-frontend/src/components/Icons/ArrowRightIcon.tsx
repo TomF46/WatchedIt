@@ -1,6 +1,6 @@
 import IconProps from "./IconProps";
 
-const PersonIcon = ({ color, height, width, strokeWidth }: IconProps) => {
+const ArrowRightIcon = ({ color, height, width, strokeWidth }: IconProps) => {
   return (
     <svg
       className={`text-${color} h-${height} w-${width}`}
@@ -13,10 +13,10 @@ const PersonIcon = ({ color, height, width, strokeWidth }: IconProps) => {
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={strokeWidth ? strokeWidth : 2}
-        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+        d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
       />
     </svg>
   );
 };
 
-export default PersonIcon;
+export default ArrowRightIcon;

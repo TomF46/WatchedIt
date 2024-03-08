@@ -5,6 +5,7 @@ import { getFilmListsPaginated } from "../../../api/filmListsApi";
 import ListPreview from "./ListPreview";
 import { useQuery } from "@tanstack/react-query";
 import { List } from "../../../types/Lists";
+import ListIcon from "../../Icons/ListIcon";
 
 function ListReel() {
   const page = 1;
@@ -41,9 +42,12 @@ function ListReel() {
             })}
           </div>
         ) : (
-          <p className="text-center text-primary text-2xl">
-            No lists match your search
-          </p>
+          <div className="my-16">
+            <div className="flex justify-center text-center">
+              <ListIcon color="primary" height={14} width={14} />
+            </div>
+            <p className="text-center text-2xl">No lists match your search</p>
+          </div>
         )}
       </div>
     </div>

@@ -58,7 +58,7 @@ const WatchedFilmControls = ({ film, onChange }: Props) => {
             <ButtonWIcon
               text="Watched"
               onClick={() => setNotWatched.mutate(film)}
-              icon={<EyeIcon />}
+              icon={<EyeIcon color="white" height={5} width={5} />}
               bgColor="bg-success"
               additionalClasses="justify-center w-full"
             />
@@ -66,7 +66,7 @@ const WatchedFilmControls = ({ film, onChange }: Props) => {
             <ButtonWIcon
               text="Watch"
               onClick={() => setWatched.mutate(film)}
-              icon={<EyeIcon />}
+              icon={<EyeIcon color="white" height={5} width={5} />}
               bgColor="bg-primary"
               additionalClasses="justify-center w-full"
             />

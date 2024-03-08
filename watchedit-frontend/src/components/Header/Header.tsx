@@ -5,6 +5,8 @@ import logo from "../../assets/WatchedIt.webp";
 import { AppDispatch, useAppDispatch, useAppSelector } from "../../redux/store";
 import { checkUserIsAdmin } from "../../redux/reducers/adminReducer";
 import { loadNotificationCount } from "../../redux/reducers/notificationsReducer";
+import BellIcon from "../Icons/BellIcon";
+import PersonIcon from "../Icons/PersonIcon";
 
 function Header() {
   const dispatch: AppDispatch = useAppDispatch();
@@ -141,20 +143,7 @@ function Header() {
                 to="/notifications"
                 className="text-primary text-sm md:px-4 md:py-2 md:leading-none md:hover:shadow hover:opacity-75 mt-4 md:mt-0 inline-flex items-center mr-2"
               >
-                <svg
-                  className="w-6 h-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                  />
-                </svg>
+                <BellIcon color="primary" height={6} width={6} />
                 {notificationCount > 0 && (
                   <span className="ml-1">{notificationCount}</span>
                 )}
@@ -163,20 +152,12 @@ function Header() {
                 to="/profile"
                 className="mt-4 md:inline-block md:mt-0 text-primary hover:opacity-75 md:mx-4 inline-flex items-center"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
+                <PersonIcon
+                  color="primary"
+                  height={6}
+                  width={6}
                   strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                  />
-                </svg>
+                />
               </Link>
             </>
           )}

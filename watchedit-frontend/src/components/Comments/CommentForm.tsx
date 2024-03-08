@@ -51,7 +51,7 @@ const CommentForm = ({
         <SubmitButtonWIcon
           text={saving ? "Submitting..." : "Submit"}
           disabled={saving}
-          icon={<CommentIcon />}
+          icon={<CommentIcon color="white" height={5} width={10} />}
           bgColor="bg-primary"
         />
       </div>

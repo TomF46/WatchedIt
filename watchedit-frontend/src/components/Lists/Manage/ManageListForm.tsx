@@ -64,7 +64,7 @@ const ManageListForm = ({
         <SubmitButtonWIcon
           text={saving ? "Saving..." : "Save"}
           disabled={saving}
-          icon={<ListIcon />}
+          icon={<ListIcon color="white" height={5} width={5} />}
           bgColor="bg-primary"
         />
       </div>

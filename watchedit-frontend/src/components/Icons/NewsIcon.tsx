@@ -1,12 +1,14 @@
-const NewsIcon = () => {
+import IconProps from "./IconProps";
+
+const NewsIcon = ({ color, height, width, strokeWidth }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1.5}
+      strokeWidth={strokeWidth ? strokeWidth : 1.5}
       stroke="currentColor"
-      className="w-6 h-6"
+      className={`text-${color} h-${height} w-${width}`}
     >
       <path
         strokeLinecap="round"

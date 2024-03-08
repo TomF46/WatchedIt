@@ -252,7 +252,7 @@ function ManageNewsArticle({
                 text="Save"
                 onClick={() => handleSave(false)}
                 disabled={saving}
-                icon={<NewsIcon />}
+                icon={<NewsIcon color="white" height={5} width={5} />}
                 bgColor="bg-primary"
                 additionalClasses="mr-4"
               />
@@ -261,7 +261,7 @@ function ManageNewsArticle({
               text="Save & Publish"
               onClick={() => handleSave(true)}
               disabled={saving}
-              icon={<NewsIcon />}
+              icon={<NewsIcon color="white" height={5} width={5} />}
               bgColor="bg-primary"
             />
           </div>

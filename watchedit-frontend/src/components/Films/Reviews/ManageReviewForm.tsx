@@ -68,7 +68,7 @@ const ManageReviewForm = ({
         <SubmitButtonWIcon
           text={saving ? "Saving..." : "Save"}
           disabled={saving}
-          icon={<StarIcon />}
+          icon={<StarIcon color="white" height={5} width={5} />}
           bgColor="bg-primary"
         />
       </div>

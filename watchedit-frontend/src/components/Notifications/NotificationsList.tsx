@@ -1,5 +1,6 @@
 import { format, parseISO } from "date-fns";
 import { Notification } from "../../types/Notifications";
+import TickIcon from "../Icons/TickIcon";
 
 type Props = {
   notifications: Notification[];
@@ -36,20 +37,9 @@ const NotificationsList = ({ notifications, onSetRead }: Props) => {
               </div>
               {!notification.read && (
                 <div className="col-span-1 bg-primary flex items-center rounded-r">
-                  <svg
-                    className="text-white h-5 w-5 mx-auto"
-                    xmlns="http://www.w3.org/2000/svg"
-                    strokeWidth={2}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M4.5 12.75l6 6 9-13.5"
-                    />
-                  </svg>
+                  <div className="mx-auto">
+                    <TickIcon color="white" height={5} width={5} />
+                  </div>
                 </div>
               )}
             </div>

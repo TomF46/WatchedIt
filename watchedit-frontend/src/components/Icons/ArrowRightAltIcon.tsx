@@ -1,22 +1,27 @@
 import IconProps from "./IconProps";
 
-const PersonIcon = ({ color, height, width, strokeWidth }: IconProps) => {
+const ArrowRightAltIcon = ({
+  color,
+  height,
+  width,
+  strokeWidth,
+}: IconProps) => {
   return (
     <svg
       className={`text-${color} h-${height} w-${width}`}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
+      strokeWidth={strokeWidth ? strokeWidth : 1.5}
       stroke="currentColor"
     >
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth={strokeWidth ? strokeWidth : 2}
-        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
       />
     </svg>
   );
 };
 
-export default PersonIcon;
+export default ArrowRightAltIcon;

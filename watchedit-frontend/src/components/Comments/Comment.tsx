@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../redux/store";
 import { CommentFormErrors, Comment as CommentType } from "../../types/Reviews";
+import EditIcon from "../Icons/EditIcon";
+import DeleteIcon from "../Icons/DeleteIcon";
 
 type Props = {
   comment: CommentType;
@@ -123,22 +125,11 @@ const Comment = ({ comment, onUpdateComment, onDeleteComment }: Props) => {
                 onClick={() => setEditing(!editing)}
                 className="inline-flex items-center justify-center cursor-pointer"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className={`${
-                    editing ? "text-red-400" : "text-primary"
-                  } h-6 w-6`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                  />
-                </svg>
+                <EditIcon
+                  color={editing ? "red-400" : "primary"}
+                  height={6}
+                  width={6}
+                />
                 {editing && (
                   <span className="ml-1 text-red-400 font-semibold">
                     Cancel Editing
@@ -147,21 +138,12 @@ const Comment = ({ comment, onUpdateComment, onDeleteComment }: Props) => {
               </div>
             </div>
             <div className="col-span-6 md:col-span-12 justify-center md:justify-start">
-              <svg
+              <div
                 onClick={() => onDeleteComment(comment)}
-                xmlns="http://www.w3.org/2000/svg"
-                className="text-red-400 h-6 w-6 cursor-pointer"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
+                className="inline-flex items-center justify-center cursor-pointer"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                />
-              </svg>
+                <DeleteIcon color="red-400" height={6} width={6} />
+              </div>
             </div>
           </div>
         </div>

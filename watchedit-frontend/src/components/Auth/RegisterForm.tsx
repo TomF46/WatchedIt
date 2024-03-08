@@ -73,7 +73,7 @@ const RegisterForm = ({
         <SubmitButtonWIcon
           text={saving ? "Registering..." : "Register"}
           disabled={saving}
-          icon={<PersonIcon />}
+          icon={<PersonIcon color="white" height={5} width={5} />}
           bgColor="bg-primary"
         />
       </div>

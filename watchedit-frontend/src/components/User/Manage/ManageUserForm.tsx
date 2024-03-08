@@ -120,7 +120,7 @@ const ManageUserForm = ({
         <SubmitButtonWIcon
           text={saving ? "Saving..." : "Save"}
           disabled={saving}
-          icon={<PersonIcon />}
+          icon={<PersonIcon color="white" height={5} width={5} />}
           bgColor="bg-primary"
         />
       </div>

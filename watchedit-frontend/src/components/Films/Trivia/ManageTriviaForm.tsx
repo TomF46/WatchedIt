@@ -53,7 +53,7 @@ const ManageTriviaForm = ({
         <SubmitButtonWIcon
           text={saving ? "Saving..." : "Save"}
           disabled={saving}
-          icon={<TriviaIcon />}
+          icon={<TriviaIcon color="white" height={5} width={5} />}
           bgColor="bg-primary"
         />
       </div>

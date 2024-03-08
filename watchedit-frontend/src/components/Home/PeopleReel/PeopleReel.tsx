@@ -5,6 +5,7 @@ import { getPeoplePaginated } from "../../../api/peopleApi";
 import PersonPreview from "../../People/PersonPreview";
 import { useQuery } from "@tanstack/react-query";
 import { Person } from "../../../types/People";
+import PersonIcon from "../../Icons/PersonIcon";
 
 type Props = {
   title: string;
@@ -50,9 +51,17 @@ function PeopleReel({ title, subtitle, sort }: Props) {
             })}
           </div>
         ) : (
-          <p className="text-center text-primary text-2xl">
-            No people match your search
-          </p>
+          <div className="my-16">
+            <div className="flex justify-center text-center">
+              <PersonIcon
+                color="primary"
+                height={14}
+                width={14}
+                strokeWidth={1.5}
+              />
+            </div>
+            <p className="text-center text-2xl">No people match your search</p>
+          </div>
         )}
       </div>
     </div>

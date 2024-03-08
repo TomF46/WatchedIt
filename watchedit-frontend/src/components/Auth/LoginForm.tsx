@@ -50,7 +50,7 @@ const LoginForm = ({
         <SubmitButtonWIcon
           text={saving ? "Logging in..." : "Log in"}
           disabled={saving}
-          icon={<EnterIcon />}
+          icon={<EnterIcon color="white" height={5} width={5} />}
           bgColor="bg-primary"
         />
       </div>

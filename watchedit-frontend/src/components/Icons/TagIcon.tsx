@@ -1,8 +1,10 @@
-const TagIcon = () => {
+import IconProps from "./IconProps";
+
+const TagIcon = ({ color, height, width, strokeWidth }: IconProps) => {
   return (
     <svg
-      className="text-white h-5 w-5"
-      strokeWidth={1.5}
+      className={`text-${color} h-${height} w-${width}`}
+      strokeWidth={strokeWidth ? strokeWidth : 1.5}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"

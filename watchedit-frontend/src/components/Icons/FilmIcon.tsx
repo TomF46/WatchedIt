@@ -1,9 +1,11 @@
-const FilmIcon = () => {
+import IconProps from "./IconProps";
+
+const FilmIcon = ({ color, height, width, strokeWidth }: IconProps) => {
   return (
     <svg
-      className="text-white h-5 w-5"
+      className={`text-${color} h-${height} w-${width}`}
       xmlns="http://www.w3.org/2000/svg"
-      strokeWidth={1.5}
+      strokeWidth={strokeWidth ? strokeWidth : 1.5}
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"

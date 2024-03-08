@@ -1,12 +1,14 @@
-const EyeIcon = () => {
+import IconProps from "./IconProps";
+
+const EyeIcon = ({ color, height, width, strokeWidth }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1.5}
+      strokeWidth={strokeWidth ? strokeWidth : 1.5}
       stroke="currentColor"
-      className="text-white h-5 w-5"
+      className={`text-${color} h-${height} w-${width}`}
     >
       <path
         strokeLinecap="round"
