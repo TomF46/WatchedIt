@@ -2,6 +2,8 @@ import EmailInput from "../Inputs/EmailInput";
 import PasswordInput from "../Inputs/PasswordInput";
 import { Registration, RegistrationErrors } from "../../types/Auth";
 import TextInput from "../Inputs/TextInput";
+import SubmitButtonWIcon from "../Buttons/SubmitButtonWIcon";
+import PersonIcon from "../Icons/PersonIcon";
 
 type Props = {
   user: Registration;
@@ -67,28 +69,13 @@ const RegisterForm = ({
         />
       </div>
 
-      <div className="flex justify-center">
-        <button
-          type="submit"
+      <div className="flex justify-center mt-4">
+        <SubmitButtonWIcon
+          text={saving ? "Registering..." : "Register"}
           disabled={saving}
-          className="bg-primary mt-4 text-white rounded py-2 px-4 hover:opacity-75 inline-flex items-center"
-        >
-          <svg
-            className="text-white h-5 w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-            />
-          </svg>
-          <span>{saving ? "Registering..." : "Register"}</span>
-        </button>
+          icon={<PersonIcon />}
+          bgColor="bg-primary"
+        />
       </div>
     </form>
   );

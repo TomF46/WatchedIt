@@ -1,6 +1,8 @@
 import TextAreaInput from "../../Inputs/TextAreaInput";
 import UserMiniDetail from "../UserMiniDetail";
 import { EditableUser, UserFormErrors } from "../../../types/Auth";
+import SubmitButtonWIcon from "../../Buttons/SubmitButtonWIcon";
+import PersonIcon from "../../Icons/PersonIcon";
 
 type Props = {
   user: EditableUser;
@@ -115,27 +117,12 @@ const ManageUserForm = ({
       )}
 
       <div className="flex justify-center bg-backgroundOffset p-4 my-4 shadow rounded">
-        <button
-          type="submit"
+        <SubmitButtonWIcon
+          text={saving ? "Saving..." : "Save"}
           disabled={saving}
-          className="bg-primary  text-white rounded py-2 px-4 hover:opacity-75 inline-flex items-center"
-        >
-          <svg
-            className="text-white h-5 w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-            />
-          </svg>
-          <span>{saving ? "Saving..." : "Save"}</span>
-        </button>
+          icon={<PersonIcon />}
+          bgColor="bg-primary"
+        />
       </div>
     </form>
   );

@@ -1,6 +1,8 @@
 import TextInput from "../../Inputs/TextInput";
 import TextAreaInput from "../../Inputs/TextAreaInput";
 import { EditableList, ListFormErrors } from "../../../types/Lists";
+import SubmitButtonWIcon from "../../Buttons/SubmitButtonWIcon";
+import ListIcon from "../../Icons/ListIcon";
 
 type Props = {
   list: EditableList;
@@ -59,27 +61,12 @@ const ManageListForm = ({
       </div>
 
       <div className="flex justify-center bg-backgroundOffset p-4 my-4 shadow rounded">
-        <button
-          type="submit"
+        <SubmitButtonWIcon
+          text={saving ? "Saving..." : "Save"}
           disabled={saving}
-          className="bg-primary  text-white rounded py-2 px-4 hover:opacity-75 inline-flex items-center"
-        >
-          <svg
-            className="text-white h-5 w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeWidth={2}
-              strokeLinejoin="round"
-              d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-            />
-          </svg>
-          <span className="ml-1">{saving ? "Saving..." : "Save"}</span>
-        </button>
+          icon={<ListIcon />}
+          bgColor="bg-primary"
+        />
       </div>
     </form>
   );

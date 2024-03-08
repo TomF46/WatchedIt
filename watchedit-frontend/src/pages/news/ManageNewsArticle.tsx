@@ -9,6 +9,8 @@ import { uploadImage } from "../../api/imageApi";
 import NewsArticlePreview from "../../components/News/NewsArticlePreview";
 import { useMutation } from "@tanstack/react-query";
 import { EditableNewsArticle, NewsArticleFormErrors } from "../../types/News";
+import ButtonWIcon from "../../components/Buttons/ButtonWIcon";
+import NewsIcon from "../../components/Icons/NewsIcon";
 
 type Props = {
   article: EditableNewsArticle;
@@ -148,7 +150,7 @@ function ManageNewsArticle({
               </div>
               <div className="col-span-12 mb-4">
                 <label className="font-semibold text-xs text-primary">
-                  Headshot image
+                  Thumbnail image
                 </label>
                 <br></br>
                 {article.thumbnailUrl != null ? (
@@ -232,7 +234,7 @@ function ManageNewsArticle({
                       Generate URL for image
                       <input
                         type="file"
-                        name={`posterUrl`}
+                        name={`imageUrl`}
                         className=" border-gray-400 p-2 w-full hidden"
                         onChange={(e) => handleImageUpload(e)}
                       />
@@ -246,21 +248,22 @@ function ManageNewsArticle({
           </div>
           <div className="flex justify-center bg-backgroundOffset p-4 my-4 shadow rounded">
             {!article.published && (
-              <button
+              <ButtonWIcon
+                text="Save"
                 onClick={() => handleSave(false)}
                 disabled={saving}
-                className="bg-primary  text-white rounded py-2 px-4 hover:opacity-75 inline-flex items-center mr-4"
-              >
-                Save
-              </button>
+                icon={<NewsIcon />}
+                bgColor="bg-primary"
+                additionalClasses="mr-4"
+              />
             )}
-            <button
+            <ButtonWIcon
+              text="Save & Publish"
               onClick={() => handleSave(true)}
               disabled={saving}
-              className="bg-primary  text-white rounded py-2 px-4 hover:opacity-75 inline-flex items-center"
-            >
-              Save & Publish
-            </button>
+              icon={<NewsIcon />}
+              bgColor="bg-primary"
+            />
           </div>
           <div className="mt-10">
             <h2 className="text-xl text-center mb-4">Preview</h2>

@@ -1,6 +1,8 @@
 import EmailInput from "../Inputs/EmailInput";
 import PasswordInput from "../Inputs/PasswordInput";
 import { LoginCredentials, LoginErrors } from "../../types/Auth";
+import SubmitButtonWIcon from "../Buttons/SubmitButtonWIcon";
+import EnterIcon from "../Icons/EnterIcon";
 
 type Props = {
   user: LoginCredentials;
@@ -44,28 +46,13 @@ const LoginForm = ({
           showLabel={true}
         />
       </div>
-      <div className="flex justify-center">
-        <button
-          type="submit"
+      <div className="flex justify-center mt-4">
+        <SubmitButtonWIcon
+          text={saving ? "Logging in..." : "Log in"}
           disabled={saving}
-          className="bg-primary mt-4 text-white rounded py-2 px-4 hover:opacity-75 inline-flex items-center"
-        >
-          <svg
-            className="text-white h-5 w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-            />
-          </svg>
-          <span className="ml-1">{saving ? "Logging in..." : "Log in"}</span>
-        </button>
+          icon={<EnterIcon />}
+          bgColor="bg-primary"
+        />
       </div>
     </form>
   );
