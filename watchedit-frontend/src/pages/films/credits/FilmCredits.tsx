@@ -10,6 +10,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
 import { useAppSelector } from "../../../redux/store";
 import { Credit } from "../../../types/Credits";
+import CameraIcon from "../../../components/Icons/CameraIcon";
 
 function FilmCredits() {
   const { id } = useParams();
@@ -102,19 +103,9 @@ function FilmCredits() {
               <>
                 {credits.cast.length + credits.crew.length == 0 && (
                   <div className="my-16">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-14 h-14 text-primary mx-auto text-center"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"
-                      />
-                    </svg>
+                    <div className="flex justify-center text-center">
+                      <CameraIcon color="primary" height={14} width={14} />
+                    </div>
                     <p className="text-center text-xl">
                       This film does not have any credits.
                     </p>

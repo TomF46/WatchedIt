@@ -7,6 +7,7 @@ import { checkUserIsAdmin } from "../../redux/reducers/adminReducer";
 import { loadNotificationCount } from "../../redux/reducers/notificationsReducer";
 import BellIcon from "../Icons/BellIcon";
 import PersonIcon from "../Icons/PersonIcon";
+import EnterIcon from "../Icons/EnterIcon";
 
 function Header() {
   const dispatch: AppDispatch = useAppDispatch();
@@ -118,20 +119,7 @@ function Header() {
                   to="/login"
                   className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-flex items-center"
                 >
-                  <svg
-                    className="text-white h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-                    />
-                  </svg>
+                  <EnterIcon color="white" height={5} width={5} />
                   <span className="ml-1">Login</span>
                 </Link>
               </div>

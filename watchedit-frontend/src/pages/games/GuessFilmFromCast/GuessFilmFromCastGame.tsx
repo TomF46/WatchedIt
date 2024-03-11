@@ -17,6 +17,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import ErrorMessage from "../../../components/Error/ErrorMessage";
 import { Film } from "../../../types/Films";
 import { GuessFilmFromCastGame as GuessFilmFromCastGameType } from "../../../types/Games";
+import NoEntryIcon from "../../../components/Icons/NoEntryIcon";
 
 function GuessFilmFromCastGame() {
   const { id } = useParams();
@@ -115,20 +116,9 @@ function GuessFilmFromCastGame() {
           <div className="col-span-12 mt-4 md:col-span-10 md:pl-4 md:mt-0">
             {game.status == 4 ? (
               <div className="my-16">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-14 h-14 text-primary mx-auto text-center"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
-                  />
-                </svg>
+                <div className="flex justify-center text-center">
+                  <NoEntryIcon color="primary" height={14} width={14} />
+                </div>
                 <p className="text-center text-2xl">
                   You have forefeited this game
                 </p>
