@@ -8,13 +8,13 @@ import LoadingMessage from '../../../components/Loading/LoadingMessage';
 import FilmMiniDetail from '../../../components/Films/FilmMiniDetail';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import ErrorMessage from '../../../components/Error/ErrorMessage';
-import { useAppSelector } from '../../../redux/store';
 import { Credit } from '../../../types/Credits';
 import CameraIcon from '../../../components/Icons/CameraIcon';
+import useIsAdmin from '../../../hooks/useIsAdmin';
 
 function FilmCredits() {
   const { id } = useParams();
-  const isAdmin = useAppSelector((state) => state.admin.isAdmin);
+  const isAdmin = useIsAdmin();
 
   const { data: film, error: filmLoadError } = useQuery({
     queryKey: ['film', id],

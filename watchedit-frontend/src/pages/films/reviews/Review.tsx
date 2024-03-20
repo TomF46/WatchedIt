@@ -6,15 +6,13 @@ import { confirmAlert } from 'react-confirm-alert';
 import LoadingMessage from '../../../components/Loading/LoadingMessage';
 import ReviewCommentsSection from '../../../components/Reviews/ReviewCommentsSection';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { useAppSelector } from '../../../redux/store';
 import { Review as ReviewType } from '../../../types/Reviews';
 import ErrorMessage from '../../../components/Error/ErrorMessage';
+import useCurrentUserId from '../../../hooks/useCurrentUserId';
 
 function Review() {
   const { id, reviewId } = useParams();
-  const userId = useAppSelector((state) =>
-    state.authentication.tokens ? state.authentication.tokens.id : null,
-  );
+  const userId = useCurrentUserId();
   const navigate = useNavigate();
   const [userCanEdit, setUserCanEdit] = useState(false);
 

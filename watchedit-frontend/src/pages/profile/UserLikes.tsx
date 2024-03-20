@@ -7,14 +7,11 @@ import LoadingMessage from '../../components/Loading/LoadingMessage';
 import PersonGrid from '../../components/People/PersonGrid';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import ErrorMessage from '../../components/Error/ErrorMessage';
-import { useAppSelector } from '../../redux/store';
+import usePageTargetUserId from '../../hooks/usePageTargetUserId';
 
 function UserLikes() {
   const { id } = useParams();
-  const currentUserId = useAppSelector((state) =>
-    state.authentication.tokens ? state.authentication.tokens.id : null,
-  );
-  const userId = id ? id : currentUserId;
+  const userId = usePageTargetUserId(Number(id))
   const [page, setPage] = useState(1);
   const peoplePerPage = 32;
 

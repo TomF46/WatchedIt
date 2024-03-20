@@ -9,14 +9,13 @@ import LoadingMessage from '../../components/Loading/LoadingMessage';
 import rehypeSanitize from 'rehype-sanitize';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import ErrorMessage from '../../components/Error/ErrorMessage';
-import { useAppSelector } from '../../redux/store';
+import useIsAdmin from '../../hooks/useIsAdmin';
+import useCurrentUserId from '../../hooks/useCurrentUserId';
 
 function NewsArticle() {
   const { id } = useParams();
-  const isAdmin = useAppSelector((state) => state.admin.isAdmin);
-  const currentUserId = useAppSelector((state) =>
-    state.authentication.tokens ? state.authentication.tokens.id : null,
-  );
+  const isAdmin = useIsAdmin();
+  const currentUserId = useCurrentUserId();
 
   const {
     isLoading,

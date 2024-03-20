@@ -8,14 +8,12 @@ import LoadingMessage from '../../../components/Loading/LoadingMessage';
 import { getReviewById, saveReview } from '../../../api/filmReviewApi';
 import { getFilmById } from '../../../api/filmsApi';
 import ErrorMessage from '../../../components/Error/ErrorMessage';
-import { useAppSelector } from '../../../redux/store';
 import { EditableReview } from '../../../types/Reviews';
+import useCurrentUserId from '../../../hooks/useCurrentUserId';
 
 function EditReview() {
   const { id, reviewId } = useParams();
-  const userId = useAppSelector((state) =>
-    state.authentication.tokens ? state.authentication.tokens.id : null,
-  );
+  const userId = useCurrentUserId();
   const navigate = useNavigate();
   const [review, setReview] = useState<EditableReview>({ ...newReview });
   const [saving, setSaving] = useState(false);

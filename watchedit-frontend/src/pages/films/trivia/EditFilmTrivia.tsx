@@ -8,14 +8,12 @@ import { getFilmTriviaById, saveFilmTrivia } from '../../../api/filmTriviaApi';
 import { getFilmById } from '../../../api/filmsApi';
 import ManageTrivia from './ManageTrivia';
 import ErrorMessage from '../../../components/Error/ErrorMessage';
-import { useAppSelector } from '../../../redux/store';
 import { EditableTrivia } from '../../../types/Trivia';
+import useCurrentUserId from '../../../hooks/useCurrentUserId';
 
 function EditTrivia() {
   const { id, triviaId } = useParams();
-  const userId = useAppSelector((state) =>
-    state.authentication.tokens ? state.authentication.tokens.id : null,
-  );
+  const userId = useCurrentUserId();
   const navigate = useNavigate();
   const [trivia, setTrivia] = useState<EditableTrivia>({ ...newTrivia });
   const [saving, setSaving] = useState(false);

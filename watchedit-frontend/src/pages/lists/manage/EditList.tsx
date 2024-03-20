@@ -7,14 +7,12 @@ import { getFilmListById, saveFilmList } from '../../../api/filmListsApi';
 import { useQuery } from '@tanstack/react-query';
 import LoadingMessage from '../../../components/Loading/LoadingMessage';
 import ErrorMessage from '../../../components/Error/ErrorMessage';
-import { useAppSelector } from '../../../redux/store';
 import { EditableList } from '../../../types/Lists';
+import useCurrentUserId from '../../../hooks/useCurrentUserId';
 
 function EditList() {
   const { id } = useParams();
-  const userId = useAppSelector((state) =>
-    state.authentication.tokens ? state.authentication.tokens.id : null,
-  );
+  const userId = useCurrentUserId();
   const navigate = useNavigate();
   const [list, setList] = useState<EditableList>({ ...newList });
   const [saving, setSaving] = useState(false);

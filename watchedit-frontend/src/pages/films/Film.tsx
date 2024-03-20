@@ -16,13 +16,14 @@ import { useAppSelector } from '../../redux/store';
 import { Film as FilmType } from '../../types/Films';
 import EyeIcon from '../../components/Icons/EyeIcon';
 import StarIcon from '../../components/Icons/StarIcon';
+import useIsAdmin from '../../hooks/useIsAdmin';
 
 function Film() {
   const { id } = useParams();
   const userIsAuthenticated = useAppSelector(
     (state) => state.authentication.tokens != null,
   );
-  const isAdmin = useAppSelector((state) => state.admin.isAdmin);
+  const isAdmin = useIsAdmin();
   const navigate = useNavigate();
 
   const {

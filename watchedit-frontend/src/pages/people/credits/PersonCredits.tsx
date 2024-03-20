@@ -8,13 +8,13 @@ import LoadingMessage from '../../../components/Loading/LoadingMessage';
 import PersonMiniDetail from '../../../components/People/PersonMiniDetail';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import ErrorMessage from '../../../components/Error/ErrorMessage';
-import { useAppSelector } from '../../../redux/store';
 import { Credit } from '../../../types/Credits';
 import CameraIcon from '../../../components/Icons/CameraIcon';
+import useIsAdmin from '../../../hooks/useIsAdmin';
 
 function PersonCredits() {
   const { id } = useParams();
-  const isAdmin = useAppSelector((state) => state.admin.isAdmin);
+  const isAdmin = useIsAdmin();
 
   const { data: person, error: personLoadError } = useQuery({
     queryKey: ['person', id],

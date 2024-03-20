@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../../redux/store';
 import { Trivia } from '../../../types/Trivia';
+import useCurrentUserId from '../../../hooks/useCurrentUserId';
 
 type Props = {
   trivia: Trivia[];
@@ -10,9 +10,7 @@ type Props = {
 };
 
 const TriviaList = ({ trivia, onRemove, canControl }: Props) => {
-  const userId = useAppSelector((state) =>
-    state.authentication.tokens ? state.authentication.tokens.id : null,
-  );
+  const userId = useCurrentUserId();
   const navigate = useNavigate();
   return (
     <div className='grid grid-cols-12'>

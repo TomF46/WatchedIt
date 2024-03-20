@@ -4,10 +4,10 @@ import { getCategories } from '../../api/categoriesApi';
 import CategoryList from '../../components/Categories/CategoryList';
 import LoadingMessage from '../../components/Loading/LoadingMessage';
 import { useQuery } from '@tanstack/react-query';
-import { useAppSelector } from '../../redux/store';
+import useIsAdmin from '../../hooks/useIsAdmin';
 
 function Categories() {
-  const isAdmin = useAppSelector((state) => state.admin.isAdmin);
+  const isAdmin = useIsAdmin();
 
   const { data: categories } = useQuery({
     queryKey: ['categories'],

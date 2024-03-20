@@ -9,13 +9,11 @@ import LoadingMessage from '../../../components/Loading/LoadingMessage';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useDebounce } from '@uidotdev/usehooks';
 import ErrorMessage from '../../../components/Error/ErrorMessage';
-import { useAppSelector } from '../../../redux/store';
 import { Film } from '../../../types/Films';
+import useCurrentUserId from '../../../hooks/useCurrentUserId';
 
 function AddFilmToList() {
-  const userId = useAppSelector((state) =>
-    state.authentication.tokens ? state.authentication.tokens.id : null,
-  );
+  const userId = useCurrentUserId();
   const navigate = useNavigate();
   const { id } = useParams();
   const [page, setPage] = useState(1);

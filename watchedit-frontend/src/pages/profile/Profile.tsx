@@ -9,18 +9,19 @@ import UserAdminControls from '../../components/User/UserAdminControls';
 import UserReviewsReel from '../../components/Reviews/UserReviewReel';
 import { useQuery } from '@tanstack/react-query';
 import ErrorMessage from '../../components/Error/ErrorMessage';
-import { AppDispatch, useAppDispatch, useAppSelector } from '../../redux/store';
+import { AppDispatch, useAppDispatch} from '../../redux/store';
 import { logout } from '../../redux/reducers/authenticationReducer';
 import EyeIcon from '../../components/Icons/EyeIcon';
+import useIsAdmin from '../../hooks/useIsAdmin';
+import useCurrentUserId from '../../hooks/useCurrentUserId';
+import usePageTargetUserId from '../../hooks/usePageTargetUserId';
 
 function Profile() {
   const { id } = useParams();
-  const isAdmin = useAppSelector((state) => state.admin.isAdmin);
+  const isAdmin = useIsAdmin();
   const dispatch: AppDispatch = useAppDispatch();
-  const currentUserId = useAppSelector((state) =>
-    state.authentication.tokens ? state.authentication.tokens.id : null,
-  );
-  const userId = id ? id : currentUserId;
+  const currentUserId = useCurrentUserId();
+  const userId = usePageTargetUserId(Number(id));
 
   const {
     isLoading,

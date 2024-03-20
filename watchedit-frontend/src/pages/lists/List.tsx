@@ -12,15 +12,13 @@ import LoadingMessage from '../../components/Loading/LoadingMessage';
 import UserMiniDetail from '../../components/User/UserMiniDetail';
 import { useQuery } from '@tanstack/react-query';
 import ErrorMessage from '../../components/Error/ErrorMessage';
-import { useAppSelector } from '../../redux/store';
 import { Film } from '../../types/Films';
 import FilmIcon from '../../components/Icons/FilmIcon';
+import useCurrentUserId from '../../hooks/useCurrentUserId';
 
 function List() {
   const { id } = useParams();
-  const userId = useAppSelector((state) =>
-    state.authentication.tokens ? state.authentication.tokens.id : null,
-  );
+  const userId = useCurrentUserId();
   const navigate = useNavigate();
   const [userCanEdit, setUserCanEdit] = useState(false);
 

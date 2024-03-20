@@ -7,11 +7,11 @@ import ManageUserForm from '../../../components/User/Manage/ManageUserForm';
 import LoadingMessage from '../../../components/Loading/LoadingMessage';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import ErrorMessage from '../../../components/Error/ErrorMessage';
-import { useAppSelector } from '../../../redux/store';
 import { EditableUser, UserFormErrors } from '../../../types/Auth';
+import useCurrentUserId from '../../../hooks/useCurrentUserId';
 
 function ManageProfile() {
-  const id = useAppSelector((state) => state.authentication.tokens!.id);
+  const id = useCurrentUserId();
   const navigate = useNavigate();
   const [updatedUser, setUpdatedUser] = useState<EditableUser>(
     {} as EditableUser,
@@ -23,7 +23,7 @@ function ManageProfile() {
   const { isLoading, error } = useQuery({
     queryKey: ['manage-user', id],
     queryFn: () =>
-      getUserById(id).then((res) => {
+      getUserById(id!).then((res) => {
         setUpdatedUser({
           id: res.id,
           username: res.username,

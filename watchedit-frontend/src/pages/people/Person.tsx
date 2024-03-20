@@ -11,13 +11,14 @@ import ErrorMessage from '../../components/Error/ErrorMessage';
 import { useAppSelector } from '../../redux/store';
 import { Person as PersonType } from '../../types/People';
 import ThumbsUpIcon from '../../components/Icons/ThumbsUpIcon';
+import useIsAdmin from '../../hooks/useIsAdmin';
 
 function Person() {
   const { id } = useParams();
   const userIsAuthenticated = useAppSelector(
     (state) => state.authentication.tokens != null,
   );
-  const isAdmin = useAppSelector((state) => state.admin.isAdmin);
+  const isAdmin = useIsAdmin();
   const navigate = useNavigate();
 
   const {
