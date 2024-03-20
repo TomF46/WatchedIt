@@ -12,17 +12,15 @@ import SimilarFilmsReel from '../../components/Films/SimilarFilmsReel';
 import TriviaOverview from '../../components/Films/Trivia/TriviaOverview';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import ErrorMessage from '../../components/Error/ErrorMessage';
-import { useAppSelector } from '../../redux/store';
 import { Film as FilmType } from '../../types/Films';
 import EyeIcon from '../../components/Icons/EyeIcon';
 import StarIcon from '../../components/Icons/StarIcon';
 import useIsAdmin from '../../hooks/useIsAdmin';
+import useIsAuthenticated from '../../hooks/useIsAuthenticated';
 
 function Film() {
   const { id } = useParams();
-  const userIsAuthenticated = useAppSelector(
-    (state) => state.authentication.tokens != null,
-  );
+  const userIsAuthenticated = useIsAuthenticated();
   const isAdmin = useIsAdmin();
   const navigate = useNavigate();
 

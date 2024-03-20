@@ -3,7 +3,6 @@ import PaginationControls from '../PaginationControls';
 import { newComment } from '../../tools/obJectShapes';
 import CommentForm from './CommentForm';
 import { toast } from 'react-toastify';
-import { useAppSelector } from '../../redux/store';
 import {
   Comment as CommentType,
   CommentFormErrors,
@@ -11,6 +10,7 @@ import {
   EditableComment,
 } from '../../types/Reviews';
 import Comment from './Comment';
+import useIsAuthenticated from '../../hooks/useIsAuthenticated';
 
 type Props = {
   commentsPaginator: CommentsPaginationResponse;
@@ -29,9 +29,7 @@ const CommentsSection = ({
   onUpdateComment,
   onDeleteComment,
 }: Props) => {
-  const userIsAuthenticated = useAppSelector(
-    (state) => state.authentication.tokens != null,
-  );
+  const userIsAuthenticated = useIsAuthenticated();
   const [comment, setComment] = useState<EditableComment>({ ...newComment });
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);

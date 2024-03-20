@@ -2,21 +2,19 @@ import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import HeaderLoginForm from './HeaderLoginForm';
 import logo from '../../assets/WatchedIt.webp';
-import { AppDispatch, useAppDispatch, useAppSelector } from '../../redux/store';
+import { AppDispatch, useAppDispatch} from '../../redux/store';
 import { checkUserIsAdmin } from '../../redux/reducers/adminReducer';
 import { loadNotificationCount } from '../../redux/reducers/notificationsReducer';
 import BellIcon from '../Icons/BellIcon';
 import PersonIcon from '../Icons/PersonIcon';
 import EnterIcon from '../Icons/EnterIcon';
+import useIsAuthenticated from '../../hooks/useIsAuthenticated';
+import useNotifictionCount from '../../hooks/useNotificationCount';
 
 function Header() {
   const dispatch: AppDispatch = useAppDispatch();
-  const userIsAuthenticated = useAppSelector(
-    (state) => state.authentication.tokens != null,
-  );
-  const notificationCount = useAppSelector(
-    (state) => state.notifications.count,
-  );
+  const userIsAuthenticated = useIsAuthenticated();
+  const notificationCount = useNotifictionCount();
   const [mobileIsOpen, setMobileIsOpen] = useState(false);
   const location = useLocation();
 

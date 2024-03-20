@@ -10,12 +10,10 @@ import TextInput from '../../components/Inputs/TextInput';
 import SelectInput from '../../components/Inputs/SelectInput';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useDebounce } from '@uidotdev/usehooks';
-import { useAppSelector } from '../../redux/store';
+import useIsAuthenticated from '../../hooks/useIsAuthenticated';
 
 function News() {
-  const userIsAuthenticated = useAppSelector(
-    (state) => state.authentication.tokens != null,
-  );
+  const userIsAuthenticated = useIsAuthenticated();
   const [searchTerms, setSearchTerms] = useState({
     title: '',
     publisher: '',

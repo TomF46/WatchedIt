@@ -7,11 +7,10 @@ import ReasonsToLoginSection from '../components/Home/ReasonsToLoginSection';
 import UnreadNotifications from '../components/Home/UnreadNotifications/UnreadNotifications';
 import FilmsComingSoonReel from '../components/Home/FilmReel/FilmsComingSoonReel';
 import { useAppSelector } from '../redux/store';
+import useIsAuthenticated from '../hooks/useIsAuthenticated';
 
 function Home() {
-  const userIsAuthenticated = useAppSelector(
-    (state) => state.authentication.tokens != null,
-  );
+  const userIsAuthenticated = useIsAuthenticated();
   const username = useAppSelector((state) =>
     state.authentication.tokens ? state.authentication.tokens.username : null,
   );

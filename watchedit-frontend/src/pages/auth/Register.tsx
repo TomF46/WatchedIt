@@ -5,13 +5,11 @@ import { register } from '../../api/authenticationApi';
 import { toast } from 'react-toastify';
 import ReasonsToLoginSection from '../../components/Home/ReasonsToLoginSection';
 import { useMutation } from '@tanstack/react-query';
-import { useAppSelector } from '../../redux/store';
 import { Registration, RegistrationErrors } from '../../types/Auth';
+import useIsAuthenticated from '../../hooks/useIsAuthenticated';
 
 function Register() {
-  const userIsAuthenticated = useAppSelector(
-    (state) => state.authentication.tokens != null,
-  );
+  const userIsAuthenticated = useIsAuthenticated();
   const navigate = useNavigate();
   const [user, setUser] = useState({
     username: '',

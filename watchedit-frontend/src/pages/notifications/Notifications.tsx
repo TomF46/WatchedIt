@@ -9,15 +9,14 @@ import NotificationsList from '../../components/Notifications/NotificationsList'
 import PaginationControls from '../../components/PaginationControls';
 import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
 import ErrorMessage from '../../components/Error/ErrorMessage';
-import { AppDispatch, useAppDispatch, useAppSelector } from '../../redux/store';
+import { AppDispatch, useAppDispatch } from '../../redux/store';
 import { Notification } from '../../types/Notifications';
 import { decrementNotificationsCount } from '../../redux/reducers/notificationsReducer';
+import useNotifictionCount from '../../hooks/useNotificationCount';
 
 const NotificationsPage = () => {
   const dispatch: AppDispatch = useAppDispatch();
-  const notificationCount = useAppSelector(
-    (state) => state.notifications.count,
-  );
+  const notificationCount = useNotifictionCount();
   const [page, setPage] = useState(1);
   const notificationsPerPage = 32;
 

@@ -8,16 +8,14 @@ import { format, parseISO } from 'date-fns';
 import LikedPersonControls from '../../components/People/Likes/LikedPersonControls';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import ErrorMessage from '../../components/Error/ErrorMessage';
-import { useAppSelector } from '../../redux/store';
 import { Person as PersonType } from '../../types/People';
 import ThumbsUpIcon from '../../components/Icons/ThumbsUpIcon';
 import useIsAdmin from '../../hooks/useIsAdmin';
+import useIsAuthenticated from '../../hooks/useIsAuthenticated';
 
 function Person() {
   const { id } = useParams();
-  const userIsAuthenticated = useAppSelector(
-    (state) => state.authentication.tokens != null,
-  );
+  const userIsAuthenticated = useIsAuthenticated();
   const isAdmin = useIsAdmin();
   const navigate = useNavigate();
 

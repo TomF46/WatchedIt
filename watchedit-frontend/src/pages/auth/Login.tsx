@@ -3,15 +3,14 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import LoginForm from '../../components/Auth/LoginForm';
 import ReasonsToLoginSection from '../../components/Home/ReasonsToLoginSection';
-import { AppDispatch, useAppDispatch, useAppSelector } from '../../redux/store';
+import { AppDispatch, useAppDispatch} from '../../redux/store';
 import { LoginErrors } from '../../types/Auth';
 import { login } from '../../redux/reducers/authenticationReducer';
+import useIsAuthenticated from '../../hooks/useIsAuthenticated';
 
 function Login() {
   const dispatch: AppDispatch = useAppDispatch();
-  const userIsAuthenticated = useAppSelector(
-    (state) => state.authentication.tokens != null,
-  );
+  const userIsAuthenticated = useIsAuthenticated();
   const navigate = useNavigate();
   const [user, setUser] = useState({
     email: '',
