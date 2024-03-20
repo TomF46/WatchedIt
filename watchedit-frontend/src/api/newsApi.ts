@@ -3,8 +3,8 @@ import {
   NewsArticle,
   NewsArticleSearchParameters,
   NewsArticlesPaginationResponse,
-} from "../types/News";
-import client from "./client";
+} from '../types/News';
+import client from './client';
 
 export function saveNewsArticle(
   article: EditableNewsArticle,

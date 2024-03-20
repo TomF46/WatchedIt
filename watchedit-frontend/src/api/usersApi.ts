@@ -1,8 +1,8 @@
-import { EditableUser, User, UsersPaginationResponse } from "../types/Auth";
-import { FilmsPaginationResponse } from "../types/Films";
-import { PeoplePaginationResponse } from "../types/People";
-import { ReviewsPaginationResponse } from "../types/Reviews";
-import client from "./client";
+import { EditableUser, User, UsersPaginationResponse } from '../types/Auth';
+import { FilmsPaginationResponse } from '../types/Films';
+import { PeoplePaginationResponse } from '../types/People';
+import { ReviewsPaginationResponse } from '../types/Reviews';
+import client from './client';
 
 export function getUsersPaginated(
   pageNumber: number,

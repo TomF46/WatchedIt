@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import LoginForm from "../../components/Auth/LoginForm";
-import ReasonsToLoginSection from "../../components/Home/ReasonsToLoginSection";
-import { AppDispatch, useAppDispatch, useAppSelector } from "../../redux/store";
-import { LoginErrors } from "../../types/Auth";
-import { login } from "../../redux/reducers/authenticationReducer";
+import { useState } from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import LoginForm from '../../components/Auth/LoginForm';
+import ReasonsToLoginSection from '../../components/Home/ReasonsToLoginSection';
+import { AppDispatch, useAppDispatch, useAppSelector } from '../../redux/store';
+import { LoginErrors } from '../../types/Auth';
+import { login } from '../../redux/reducers/authenticationReducer';
 
 function Login() {
   const dispatch: AppDispatch = useAppDispatch();
@@ -14,8 +14,8 @@ function Login() {
   );
   const navigate = useNavigate();
   const [user, setUser] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
     remember_me: true,
   });
   const [errors, setErrors] = useState({} as LoginErrors);
@@ -25,15 +25,15 @@ function Login() {
     const { name, value, checked } = event.target;
     setUser((prevUser) => ({
       ...prevUser,
-      [name]: name == "remember_me" ? Boolean(checked) : value,
+      [name]: name == 'remember_me' ? Boolean(checked) : value,
     }));
   }
 
   function formIsValid(): boolean {
     const { email, password } = user;
     const errors = {} as LoginErrors;
-    if (!email) errors.email = "Email is required";
-    if (!password) errors.password = "Password is required";
+    if (!email) errors.email = 'Email is required';
+    if (!password) errors.password = 'Password is required';
 
     setErrors(errors);
     return Object.keys(errors).length === 0;
@@ -45,7 +45,7 @@ function Login() {
     setSaving(true);
     dispatch(login(user))
       .then(() => {
-        navigate("/");
+        navigate('/');
       })
       .catch((err) => {
         setSaving(false);
@@ -60,17 +60,17 @@ function Login() {
 
   return (
     <>
-      {userIsAuthenticated && <Navigate to="/" replace />}
-      <div className="login-page pb-4">
-        <div className="grid grid-cols-12 p-4 my-4">
-          <div className="col-span-12 lg:col-span-4 lg:col-start-5">
-            <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4">
-              <div className="bg-backgroundOffset2 rounded-t-md">
-                <p className="text-primary font-semibold text-center text-xl px-2 py-1">
+      {userIsAuthenticated && <Navigate to='/' replace />}
+      <div className='login-page pb-4'>
+        <div className='my-4 grid grid-cols-12 p-4'>
+          <div className='col-span-12 lg:col-span-4 lg:col-start-5'>
+            <div className='controls mb-4 mt-4 rounded-md bg-backgroundOffset shadow'>
+              <div className='rounded-t-md bg-backgroundOffset2'>
+                <p className='px-2 py-1 text-center text-xl font-semibold text-primary'>
                   Login
                 </p>
               </div>
-              <div className="p-4">
+              <div className='p-4'>
                 <LoginForm
                   user={user}
                   onChange={handleChange}
@@ -78,10 +78,10 @@ function Login() {
                   errors={errors}
                   saving={saving}
                 />
-                <div className="flex justify-center mt-4">
+                <div className='mt-4 flex justify-center'>
                   <Link
                     to={`/register`}
-                    className="text-center text-primary hover:text-gray-600 hover:underline"
+                    className='text-center text-primary hover:text-gray-600 hover:underline'
                   >
                     No account? Click here to register
                   </Link>

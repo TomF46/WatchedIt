@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import { newCategory } from "../../../tools/obJectShapes";
-import ManageCategory from "./ManageCategory";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import { getCategoryById, saveCategory } from "../../../api/categoriesApi";
-import ErrorMessage from "../../../components/Error/ErrorMessage";
-import { Category } from "../../../types/Categories";
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { newCategory } from '../../../tools/obJectShapes';
+import ManageCategory from './ManageCategory';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import LoadingMessage from '../../../components/Loading/LoadingMessage';
+import { getCategoryById, saveCategory } from '../../../api/categoriesApi';
+import ErrorMessage from '../../../components/Error/ErrorMessage';
+import { Category } from '../../../types/Categories';
 
 function EditCategory() {
   const { id } = useParams();
@@ -21,7 +21,7 @@ function EditCategory() {
       return saveCategory(updatedCategory);
     },
     onSuccess: (res) => {
-      toast.success("Category saved");
+      toast.success('Category saved');
       navigate(`/categories/${res.id}`);
     },
     onError: (err) => {
@@ -33,7 +33,7 @@ function EditCategory() {
   });
 
   const { isLoading, error } = useQuery({
-    queryKey: ["category-update", id],
+    queryKey: ['category-update', id],
     queryFn: () =>
       getCategoryById(Number(id)).then((res) => {
         setCategory({
@@ -48,19 +48,19 @@ function EditCategory() {
     setCategory(updatedCategory);
   }
 
-  if (isLoading) return <LoadingMessage message={"Loading category."} />;
+  if (isLoading) return <LoadingMessage message={'Loading category.'} />;
 
   if (error) {
     return (
       <ErrorMessage
-        message={"Error loading category for editing."}
+        message={'Error loading category for editing.'}
         error={error.data.Exception}
       />
     );
   }
 
   return (
-    <div className="Edit-category-page">
+    <div className='Edit-category-page'>
       <ManageCategory
         category={category}
         updateCategory={handleUpdate}

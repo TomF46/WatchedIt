@@ -1,8 +1,8 @@
-import EmailInput from "../Inputs/EmailInput";
-import PasswordInput from "../Inputs/PasswordInput";
-import { LoginCredentials, LoginErrors } from "../../types/Auth";
-import SubmitButtonWIcon from "../Buttons/SubmitButtonWIcon";
-import EnterIcon from "../Icons/EnterIcon";
+import EmailInput from '../Inputs/EmailInput';
+import PasswordInput from '../Inputs/PasswordInput';
+import { LoginCredentials, LoginErrors } from '../../types/Auth';
+import SubmitButtonWIcon from '../Buttons/SubmitButtonWIcon';
+import EnterIcon from '../Icons/EnterIcon';
 
 type Props = {
   user: LoginCredentials;
@@ -20,38 +20,38 @@ const LoginForm = ({
   errors,
 }: Props) => {
   return (
-    <form className="" onSubmit={onSave}>
+    <form className='' onSubmit={onSave}>
       {errors.onSave && (
-        <div className="text-red-500 text-xs p-1" role="alert">
+        <div className='p-1 text-xs text-red-500' role='alert'>
           {errors.onSave}
         </div>
       )}
-      <div className="mb-2">
+      <div className='mb-2'>
         <EmailInput
-          name="email"
-          label="Email"
+          name='email'
+          label='Email'
           value={user.email}
           onChange={onChange}
           error={errors.email}
           showLabel={true}
         />
       </div>
-      <div className="mb-2">
+      <div className='mb-2'>
         <PasswordInput
-          name="password"
-          label="Password"
+          name='password'
+          label='Password'
           value={user.password}
           onChange={onChange}
           error={errors.password}
           showLabel={true}
         />
       </div>
-      <div className="flex justify-center mt-4">
+      <div className='mt-4 flex justify-center'>
         <SubmitButtonWIcon
-          text={saving ? "Logging in..." : "Log in"}
+          text={saving ? 'Logging in...' : 'Log in'}
           disabled={saving}
-          icon={<EnterIcon color="white" height={5} width={5} />}
-          bgColor="bg-primary"
+          icon={<EnterIcon color='white' height={5} width={5} />}
+          bgColor='bg-primary'
         />
       </div>
     </form>

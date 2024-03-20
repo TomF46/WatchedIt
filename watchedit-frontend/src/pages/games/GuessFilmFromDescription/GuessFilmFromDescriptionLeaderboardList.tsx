@@ -1,6 +1,6 @@
-import { format, parseISO } from "date-fns";
-import { Link } from "react-router-dom";
-import { GuessFilmFromDescriptionGameLeaderboardEntry } from "../../../types/Games";
+import { format, parseISO } from 'date-fns';
+import { Link } from 'react-router-dom';
+import { GuessFilmFromDescriptionGameLeaderboardEntry } from '../../../types/Games';
 
 const GuessFilmFromDescriptionLeaderboardList = ({
   entries,
@@ -8,9 +8,9 @@ const GuessFilmFromDescriptionLeaderboardList = ({
   entries: GuessFilmFromDescriptionGameLeaderboardEntry[];
 }) => {
   return (
-    <div className="bg-backgroundOffset p-4 shadow rounded">
-      <table className="table-auto w-full">
-        <thead className="text-primary">
+    <div className='rounded bg-backgroundOffset p-4 shadow'>
+      <table className='w-full table-auto'>
+        <thead className='text-primary'>
           <tr>
             <th>Score</th>
             <th>User</th>
@@ -20,12 +20,12 @@ const GuessFilmFromDescriptionLeaderboardList = ({
         <tbody>
           {entries.map((entry) => {
             return (
-              <tr className="text-center" key={entry.id}>
-                <td className="py-4">{entry.score}</td>
+              <tr className='text-center' key={entry.id}>
+                <td className='py-4'>{entry.score}</td>
                 <td>
                   <Link
                     to={`/profile/${entry.user.id}`}
-                    className="text-primary hover:opacity-75"
+                    className='text-primary hover:opacity-75'
                   >
                     {entry.user.username}
                   </Link>
@@ -33,7 +33,7 @@ const GuessFilmFromDescriptionLeaderboardList = ({
                 <td>
                   {format(
                     parseISO(entry.updatedDate.toString()),
-                    "dd/MM/yyyy HH:mm",
+                    'dd/MM/yyyy HH:mm',
                   )}
                 </td>
               </tr>

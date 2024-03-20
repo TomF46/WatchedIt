@@ -16,22 +16,22 @@ const TextAreaInput = ({
   error,
 }: Props) => {
   return (
-    <div className="field">
+    <div className='field'>
       <label
-        className="block mb-1 font-semibold text-xs text-primary"
+        className='mb-1 block text-xs font-semibold text-primary'
         htmlFor={name}
       >
         {label}
       </label>
-      <div className="control">
+      <div className='control'>
         <textarea
           name={name}
-          className="resize-y border border-gray-500 focus:outline-none focus:border-primary min-w-full rounded focus:shadow-outline bg-backgroundOffset2 p-2"
-          value={value ? value : ""}
+          className='focus:shadow-outline min-w-full resize-y rounded border border-gray-500 bg-backgroundOffset2 p-2 focus:border-primary focus:outline-none'
+          value={value ? value : ''}
           onChange={onChange}
           required={required}
         ></textarea>
-        {error && <div className="text-red-500 text-xs p-1 mt-2">{error}</div>}
+        {error && <div className='mt-2 p-1 text-xs text-red-500'>{error}</div>}
       </div>
     </div>
   );

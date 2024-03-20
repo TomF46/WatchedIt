@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { newList } from "../../../tools/obJectShapes";
-import ManageList from "./ManageList";
-import { saveFilmList } from "../../../api/filmListsApi";
-import { EditableList } from "../../../types/Lists";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { newList } from '../../../tools/obJectShapes';
+import ManageList from './ManageList';
+import { saveFilmList } from '../../../api/filmListsApi';
+import { EditableList } from '../../../types/Lists';
 
 function AddList() {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ function AddList() {
     setSaving(true);
     saveFilmList(list)
       .then((res) => {
-        toast.success("List saved");
+        toast.success('List saved');
         navigate(`/lists/${res.id}`);
       })
       .catch((err) => {
@@ -31,7 +31,7 @@ function AddList() {
   }
 
   return (
-    <div className="Add-list-page">
+    <div className='Add-list-page'>
       <ManageList
         list={list}
         updateList={handleUpdate}

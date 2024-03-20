@@ -1,5 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../redux/store";
+import { Link, useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../redux/store';
 
 function Games() {
   const userIsAuthenticated = useAppSelector(
@@ -7,31 +7,31 @@ function Games() {
   );
   const navigate = useNavigate();
   return (
-    <div className="games-page">
-      <h1 className="text-center text-primary text-4xl my-4 font-semibold">
+    <div className='games-page'>
+      <h1 className='my-4 text-center text-4xl font-semibold text-primary'>
         Games
       </h1>
       {!userIsAuthenticated && (
-        <div className="text-center">
-          <p className="text-center text-primary text-lg my-4 font-semibold">
+        <div className='text-center'>
+          <p className='my-4 text-center text-lg font-semibold text-primary'>
             Games are only available for logged in users, register now to play!
           </p>
           <Link
-            to={"/register"}
-            className="bg-primary text-white rounded py-2 px-4 mt-4 hover:opacity-75"
+            to={'/register'}
+            className='mt-4 rounded bg-primary px-4 py-2 text-white hover:opacity-75'
           >
             Register
           </Link>
         </div>
       )}
-      <div className="my-4">
-        <div className="grid grid-cols-12">
-          <div className="col-span-12">
-            <div className="grid grid-cols-12 bg-backgroundOffset shadow rounded">
-              <div className="col-span-9 md:col-span-10 p-4">
+      <div className='my-4'>
+        <div className='grid grid-cols-12'>
+          <div className='col-span-12'>
+            <div className='grid grid-cols-12 rounded bg-backgroundOffset shadow'>
+              <div className='col-span-9 p-4 md:col-span-10'>
                 <Link
-                  to={"/games/connections"}
-                  className="text-primary text-center text-xl"
+                  to={'/games/connections'}
+                  className='text-center text-xl text-primary'
                 >
                   Connections
                 </Link>
@@ -44,18 +44,18 @@ function Games() {
                 onClick={() => {
                   navigate(`/games/connections`);
                 }}
-                className="col-span-3 md:col-span-2 bg-primary flex items-center justify-center cursor-pointer"
+                className='col-span-3 flex cursor-pointer items-center justify-center bg-primary md:col-span-2'
               >
                 <p>Play now</p>
               </div>
             </div>
           </div>
-          <div className="col-span-12 bg-backgroundOffset shadow rounded mt-4">
-            <div className="grid grid-cols-12">
-              <div className="col-span-9 md:col-span-10 p-4">
+          <div className='col-span-12 mt-4 rounded bg-backgroundOffset shadow'>
+            <div className='grid grid-cols-12'>
+              <div className='col-span-9 p-4 md:col-span-10'>
                 <Link
-                  to={"/games/filmFromCast"}
-                  className="text-primary text-center text-xl"
+                  to={'/games/filmFromCast'}
+                  className='text-center text-xl text-primary'
                 >
                   Guess film from cast
                 </Link>
@@ -68,18 +68,18 @@ function Games() {
                 onClick={() => {
                   navigate(`/games/filmFromCast`);
                 }}
-                className="col-span-3 md:col-span-2 bg-primary flex items-center justify-center cursor-pointer"
+                className='col-span-3 flex cursor-pointer items-center justify-center bg-primary md:col-span-2'
               >
                 <p>Play now</p>
               </div>
             </div>
           </div>
-          <div className="col-span-12 mt-4">
-            <div className="grid grid-cols-12 bg-backgroundOffset shadow rounded">
-              <div className="col-span-9 md:col-span-10 p-4">
+          <div className='col-span-12 mt-4'>
+            <div className='grid grid-cols-12 rounded bg-backgroundOffset shadow'>
+              <div className='col-span-9 p-4 md:col-span-10'>
                 <Link
-                  to={"/games/filmFromDescription"}
-                  className="text-primary text-center text-xl"
+                  to={'/games/filmFromDescription'}
+                  className='text-center text-xl text-primary'
                 >
                   Guess film from description
                 </Link>
@@ -92,7 +92,7 @@ function Games() {
                 onClick={() => {
                   navigate(`/games/filmFromDescription`);
                 }}
-                className="col-span-3 md:col-span-2 bg-primary flex items-center justify-center cursor-pointer"
+                className='col-span-3 flex cursor-pointer items-center justify-center bg-primary md:col-span-2'
               >
                 <p>Play now</p>
               </div>

@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import { Review } from "../../types/Reviews";
-import StarIcon from "../Icons/StarIcon";
+import { Link } from 'react-router-dom';
+import { Review } from '../../types/Reviews';
+import StarIcon from '../Icons/StarIcon';
 
 type Props = {
   review: Review;
@@ -9,13 +9,13 @@ type Props = {
 
 const ReviewOverview = ({ review, showFilm }: Props) => {
   return (
-    <div className="col-span-12 my-2 p-2 bg-backgroundOffset shadow rounded">
-      <div className="grid grid-cols-24">
+    <div className='col-span-12 my-2 rounded bg-backgroundOffset p-2 shadow'>
+      <div className='grid grid-cols-24'>
         {showFilm && (
-          <div className="col-span-4 md:col-span-2 lg:col-span-1">
+          <div className='col-span-4 md:col-span-2 lg:col-span-1'>
             <img
               src={review.film.posterUrl}
-              className="w-full poster"
+              className='poster w-full'
               alt={`${review.film.name} poster.`}
             />
           </div>
@@ -23,24 +23,24 @@ const ReviewOverview = ({ review, showFilm }: Props) => {
         <div
           className={`${
             showFilm
-              ? "col-span-20 md:col-span-22 lg:col-span-23"
-              : "col-span-24"
+              ? 'col-span-20 md:col-span-22 lg:col-span-23'
+              : 'col-span-24'
           } ml-2`}
         >
-          <div className="inline-flex items-center">
+          <div className='inline-flex items-center'>
             <Link
               to={`/films/${review.film.id}/reviews/${review.id}`}
-              className="text-rating hover:opacity-75"
+              className='text-rating hover:opacity-75'
             >
               {review.rating}/10
             </Link>
-            <div className="ml-1 inline-flex items-center">
-              <StarIcon color="rating" height={5} width={5} strokeWidth={1.5} />
+            <div className='ml-1 inline-flex items-center'>
+              <StarIcon color='rating' height={5} width={5} strokeWidth={1.5} />
             </div>
-            <p className="ml-2">
-              By{" "}
+            <p className='ml-2'>
+              By{' '}
               <Link
-                className="text-primary hover:opacity-75"
+                className='text-primary hover:opacity-75'
                 to={`/profile/${review.user.id}`}
               >
                 {review.user.username}
@@ -54,7 +54,7 @@ const ReviewOverview = ({ review, showFilm }: Props) => {
           </p>
           <Link
             to={`/films/${review.film.id}/reviews/${review.id}`}
-            className="text-primary hover:opacity-75"
+            className='text-primary hover:opacity-75'
           >
             View full review
           </Link>

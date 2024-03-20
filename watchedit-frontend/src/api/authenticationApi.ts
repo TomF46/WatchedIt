@@ -1,11 +1,11 @@
-import { LoginCredentials, LoginResponse, Registration } from "../types/Auth";
-import client from "./client";
+import { LoginCredentials, LoginResponse, Registration } from '../types/Auth';
+import client from './client';
 
 export function login(
   userLoginDetails: LoginCredentials,
 ): Promise<LoginResponse> {
   return client
-    .post("/api/auth/login", userLoginDetails)
+    .post('/api/auth/login', userLoginDetails)
     .then((response) => {
       return response.data;
     })
@@ -16,7 +16,7 @@ export function login(
 
 export function register(userRegistrationDetails: Registration): Promise<null> {
   return client
-    .post("/api/auth/register", userRegistrationDetails)
+    .post('/api/auth/register', userRegistrationDetails)
     .then((response) => {
       return response.data;
     })

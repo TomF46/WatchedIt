@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import RegisterForm from "../../components/Auth/RegisterForm";
-import { register } from "../../api/authenticationApi";
-import { toast } from "react-toastify";
-import ReasonsToLoginSection from "../../components/Home/ReasonsToLoginSection";
-import { useMutation } from "@tanstack/react-query";
-import { useAppSelector } from "../../redux/store";
-import { Registration, RegistrationErrors } from "../../types/Auth";
+import { useState } from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import RegisterForm from '../../components/Auth/RegisterForm';
+import { register } from '../../api/authenticationApi';
+import { toast } from 'react-toastify';
+import ReasonsToLoginSection from '../../components/Home/ReasonsToLoginSection';
+import { useMutation } from '@tanstack/react-query';
+import { useAppSelector } from '../../redux/store';
+import { Registration, RegistrationErrors } from '../../types/Auth';
 
 function Register() {
   const userIsAuthenticated = useAppSelector(
@@ -14,10 +14,10 @@ function Register() {
   );
   const navigate = useNavigate();
   const [user, setUser] = useState({
-    username: "",
-    email: "",
-    password: "",
-    password_confirmation: "",
+    username: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
   });
   const [errors, setErrors] = useState({} as RegistrationErrors);
   const [saving, setSaving] = useState(false);
@@ -28,8 +28,8 @@ function Register() {
       return register(newUser);
     },
     onSuccess: () => {
-      toast.success("Successfully registered");
-      navigate("/login");
+      toast.success('Successfully registered');
+      navigate('/login');
     },
     onError: (err) => {
       setSaving(false);
@@ -50,14 +50,14 @@ function Register() {
   function formIsValid(): boolean {
     const { username, email, password, password_confirmation } = user;
     const errors = {} as RegistrationErrors;
-    if (!username) errors.username = "Username is required";
-    if (!email) errors.email = "Email is required";
-    if (!password) errors.password = "Password is required";
+    if (!username) errors.username = 'Username is required';
+    if (!email) errors.email = 'Email is required';
+    if (!password) errors.password = 'Password is required';
     if (!password_confirmation)
-      errors.password_confirmation = "Confirmation is required";
+      errors.password_confirmation = 'Confirmation is required';
     if (password_confirmation != password)
       errors.password_confirmation =
-        "Password confirmation does not match password";
+        'Password confirmation does not match password';
 
     setErrors(errors);
     return Object.keys(errors).length === 0;
@@ -71,17 +71,17 @@ function Register() {
 
   return (
     <>
-      {userIsAuthenticated && <Navigate to="/" replace />}
-      <div className="register-page pb-4">
-        <div className="grid grid-cols-12 p-4 my-4">
-          <div className="col-span-12 lg:col-span-4 lg:col-start-5">
-            <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4">
-              <div className="bg-backgroundOffset2 rounded-t-md">
-                <p className="text-primary font-semibold text-center text-xl px-2 py-1">
+      {userIsAuthenticated && <Navigate to='/' replace />}
+      <div className='register-page pb-4'>
+        <div className='my-4 grid grid-cols-12 p-4'>
+          <div className='col-span-12 lg:col-span-4 lg:col-start-5'>
+            <div className='controls mb-4 mt-4 rounded-md bg-backgroundOffset shadow'>
+              <div className='rounded-t-md bg-backgroundOffset2'>
+                <p className='px-2 py-1 text-center text-xl font-semibold text-primary'>
                   Register
                 </p>
               </div>
-              <div className="p-4">
+              <div className='p-4'>
                 <RegisterForm
                   user={user}
                   onChange={handleChange}
@@ -89,10 +89,10 @@ function Register() {
                   errors={errors}
                   saving={saving}
                 />
-                <div className="flex justify-center mt-4">
+                <div className='mt-4 flex justify-center'>
                   <Link
                     to={`/login`}
-                    className="text-center text-primary hover:text-gray-600 hover:underline"
+                    className='text-center text-primary hover:text-gray-600 hover:underline'
                   >
                     Already registered? Login now!
                   </Link>

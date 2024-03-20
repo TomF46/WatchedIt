@@ -1,5 +1,5 @@
-import { Multiselect } from "multiselect-react-dropdown";
-import { SelectOption } from "./InputTypes";
+import { Multiselect } from 'multiselect-react-dropdown';
+import { SelectOption } from './InputTypes';
 
 type Props = {
   name: string;
@@ -22,24 +22,24 @@ const MultiSelectInput = ({
   helpText,
 }: Props) => {
   return (
-    <div className="field">
+    <div className='field'>
       <label
-        className="block mb-1 font-semibold text-xs text-primary"
+        className='mb-1 block text-xs font-semibold text-primary'
         htmlFor={name}
       >
         {label}
       </label>
       <div>
         <Multiselect
-          displayValue="name"
+          displayValue='name'
           options={options}
           selectedValues={value}
           onSelect={onChange}
           onRemove={onChange}
-          className="border border-gray-500 focus:outline-none focus:border-primary bg-backgroundOffset2 rounded"
+          className='rounded border border-gray-500 bg-backgroundOffset2 focus:border-primary focus:outline-none'
         />
-        {helpText && <div className="text-xs p-1">{helpText}</div>}
-        {error && <div className="text-red-500 text-xs p-1 mt-2">{error}</div>}
+        {helpText && <div className='p-1 text-xs'>{helpText}</div>}
+        {error && <div className='mt-2 p-1 text-xs text-red-500'>{error}</div>}
       </div>
     </div>
   );

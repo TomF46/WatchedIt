@@ -1,10 +1,10 @@
-import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
-import UserPreview from "../User/UserPreview";
-import { getUsersPaginated } from "../../api/usersApi";
-import LoadingMessage from "../Loading/LoadingMessage";
-import { useQuery } from "@tanstack/react-query";
-import { User } from "../../types/Auth";
+import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
+import UserPreview from '../User/UserPreview';
+import { getUsersPaginated } from '../../api/usersApi';
+import LoadingMessage from '../Loading/LoadingMessage';
+import { useQuery } from '@tanstack/react-query';
+import { User } from '../../types/Auth';
 
 type Props = {
   title: string;
@@ -16,12 +16,12 @@ function UsersReel({ title, sort }: Props) {
   const usersPerPage = 8;
 
   const { isLoading, data, error } = useQuery({
-    queryKey: ["users", sort, page, usersPerPage],
+    queryKey: ['users', sort, page, usersPerPage],
     queryFn: () =>
       getUsersPaginated(page, usersPerPage, sort).then((res) => res.data),
   });
 
-  if (isLoading) return <LoadingMessage message={"Loading users."} />;
+  if (isLoading) return <LoadingMessage message={'Loading users.'} />;
 
   if (error) {
     toast.error(`Error getting users ${error.data.Exception}`, {
@@ -32,22 +32,22 @@ function UsersReel({ title, sort }: Props) {
 
   if (data)
     return (
-      <div className="users-reel">
-        <div className="mt-4">
+      <div className='users-reel'>
+        <div className='mt-4'>
           <Link
-            to={"/users"}
-            className="text-primary font-semibold text-2xl hover:opacity-75"
+            to={'/users'}
+            className='text-2xl font-semibold text-primary hover:opacity-75'
           >
             {title}
           </Link>
           {data.length > 0 ? (
-            <div className="grid grid-cols-16">
+            <div className='grid grid-cols-16'>
               {data.map((user: User) => {
                 return <UserPreview key={user.id} user={user} isLink={true} />;
               })}
             </div>
           ) : (
-            <p className="text-center text-primary text-2xl">
+            <p className='text-center text-2xl text-primary'>
               No users match your search
             </p>
           )}

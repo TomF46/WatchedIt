@@ -5,8 +5,8 @@ import {
   EditableReview,
   Review,
   ReviewsPaginationResponse,
-} from "../types/Reviews";
-import client from "./client";
+} from '../types/Reviews';
+import client from './client';
 
 export function saveReview(
   filmId: number,

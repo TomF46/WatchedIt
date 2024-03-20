@@ -1,17 +1,17 @@
-import { useState } from "react";
-import { toast } from "react-toastify";
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 import {
   getUnreadNotifications,
   readNotification,
-} from "../../../api/notificationApi";
-import NotificationsList from "../../Notifications/NotificationsList";
-import PaginationControls from "../../PaginationControls";
-import { Link } from "react-router-dom";
-import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
-import { AppDispatch, useAppDispatch } from "../../../redux/store";
-import { Notification } from "../../../types/Notifications";
-import { decrementNotificationsCount } from "../../../redux/reducers/notificationsReducer";
-import BellIcon from "../../Icons/BellIcon";
+} from '../../../api/notificationApi';
+import NotificationsList from '../../Notifications/NotificationsList';
+import PaginationControls from '../../PaginationControls';
+import { Link } from 'react-router-dom';
+import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
+import { AppDispatch, useAppDispatch } from '../../../redux/store';
+import { Notification } from '../../../types/Notifications';
+import { decrementNotificationsCount } from '../../../redux/reducers/notificationsReducer';
+import BellIcon from '../../Icons/BellIcon';
 
 const UnreadNotifications = () => {
   const dispatch: AppDispatch = useAppDispatch();
@@ -24,7 +24,7 @@ const UnreadNotifications = () => {
     error,
     refetch,
   } = useQuery({
-    queryKey: ["unread-notifications", page, notificationsPerPage],
+    queryKey: ['unread-notifications', page, notificationsPerPage],
     queryFn: () => getUnreadNotifications(page, notificationsPerPage),
     placeholderData: keepPreviousData,
   });
@@ -57,16 +57,16 @@ const UnreadNotifications = () => {
 
   if (!isLoading && notificationsPaginator)
     return (
-      <div className="Notifications-page">
+      <div className='Notifications-page'>
         <div>
           {notificationsPaginator.data.length > 0 && (
             <>
               <Link
-                to={"/notifications"}
-                className="text-primary text-2xl hover:opacity-75 inline-flex items-center font-semibold"
+                to={'/notifications'}
+                className='inline-flex items-center text-2xl font-semibold text-primary hover:opacity-75'
               >
-                <BellIcon color="primary" height={6} width={6} />
-                <span className="ml-1">Unread notifications</span>
+                <BellIcon color='primary' height={6} width={6} />
+                <span className='ml-1'>Unread notifications</span>
               </Link>
               <NotificationsList
                 notifications={notificationsPaginator.data}

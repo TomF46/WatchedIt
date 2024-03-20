@@ -1,9 +1,9 @@
-import EmailInput from "../Inputs/EmailInput";
-import PasswordInput from "../Inputs/PasswordInput";
-import { Registration, RegistrationErrors } from "../../types/Auth";
-import TextInput from "../Inputs/TextInput";
-import SubmitButtonWIcon from "../Buttons/SubmitButtonWIcon";
-import PersonIcon from "../Icons/PersonIcon";
+import EmailInput from '../Inputs/EmailInput';
+import PasswordInput from '../Inputs/PasswordInput';
+import { Registration, RegistrationErrors } from '../../types/Auth';
+import TextInput from '../Inputs/TextInput';
+import SubmitButtonWIcon from '../Buttons/SubmitButtonWIcon';
+import PersonIcon from '../Icons/PersonIcon';
 
 type Props = {
   user: Registration;
@@ -21,47 +21,47 @@ const RegisterForm = ({
   errors,
 }: Props) => {
   return (
-    <form className="" onSubmit={onSave}>
+    <form className='' onSubmit={onSave}>
       {errors.onSave && (
-        <div className="text-red-500 text-xs p-1" role="alert">
+        <div className='p-1 text-xs text-red-500' role='alert'>
           {errors.onSave}
         </div>
       )}
 
-      <div className="mb-2">
+      <div className='mb-2'>
         <TextInput
-          name="username"
-          label="Username"
+          name='username'
+          label='Username'
           value={user.username}
           onChange={onChange}
           error={errors.username}
           required={true}
         />
       </div>
-      <div className="mb-2">
+      <div className='mb-2'>
         <EmailInput
-          name="email"
-          label="Email"
+          name='email'
+          label='Email'
           value={user.email}
           onChange={onChange}
           error={errors.email}
           showLabel={true}
         />
       </div>
-      <div className="mb-2">
+      <div className='mb-2'>
         <PasswordInput
-          name="password"
-          label="Password"
+          name='password'
+          label='Password'
           value={user.password}
           onChange={onChange}
           error={errors.password}
           showLabel={true}
         />
       </div>
-      <div className="mb-4">
+      <div className='mb-4'>
         <PasswordInput
-          name="password_confirmation"
-          label="Password confirmation"
+          name='password_confirmation'
+          label='Password confirmation'
           value={user.password_confirmation}
           onChange={onChange}
           error={errors.password_confirmation}
@@ -69,12 +69,12 @@ const RegisterForm = ({
         />
       </div>
 
-      <div className="flex justify-center mt-4">
+      <div className='mt-4 flex justify-center'>
         <SubmitButtonWIcon
-          text={saving ? "Registering..." : "Register"}
+          text={saving ? 'Registering...' : 'Register'}
           disabled={saving}
-          icon={<PersonIcon color="white" height={5} width={5} />}
-          bgColor="bg-primary"
+          icon={<PersonIcon color='white' height={5} width={5} />}
+          bgColor='bg-primary'
         />
       </div>
     </form>

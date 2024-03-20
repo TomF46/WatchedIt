@@ -1,5 +1,5 @@
-import { PaginationResponse } from "./PaginationResponse";
-import { onSaveError } from "./forms";
+import { PaginationResponse } from './PaginationResponse';
+import { onSaveError } from './forms';
 
 export type Category = {
   id?: number;

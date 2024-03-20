@@ -1,4 +1,4 @@
-import { Film } from "./Films";
+import { Film } from './Films';
 
 export type Person = {
   id?: number;

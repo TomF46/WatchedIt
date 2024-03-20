@@ -1,7 +1,7 @@
-import { useState } from "react";
-import ManageListForm from "../../../components/Lists/Manage/ManageListForm";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import { EditableList, ListFormErrors } from "../../../types/Lists";
+import { useState } from 'react';
+import ManageListForm from '../../../components/Lists/Manage/ManageListForm';
+import LoadingMessage from '../../../components/Loading/LoadingMessage';
+import { EditableList, ListFormErrors } from '../../../types/Lists';
 
 type Props = {
   list: EditableList;
@@ -28,10 +28,10 @@ function ManageList({ list, updateList, triggerSave, saving }: Props) {
   function formIsValid(): boolean {
     const { name, description } = list;
     const errors = {} as ListFormErrors;
-    if (!name) errors.name = "Name is required";
+    if (!name) errors.name = 'Name is required';
     if (name.length > 60)
       errors.name = "Name can't be longer than 60 characters.";
-    if (!description) errors.description = "Description is required";
+    if (!description) errors.description = 'Description is required';
     if (description.length > 400)
       errors.description = "Description can't be longer than 400 characters.";
     setErrors(errors);
@@ -45,7 +45,7 @@ function ManageList({ list, updateList, triggerSave, saving }: Props) {
   }
 
   return (
-    <div className="manage-list-page">
+    <div className='manage-list-page'>
       {list ? (
         <ManageListForm
           list={list}
@@ -55,7 +55,7 @@ function ManageList({ list, updateList, triggerSave, saving }: Props) {
           saving={saving}
         />
       ) : (
-        <LoadingMessage message={"Loading form."} />
+        <LoadingMessage message={'Loading form.'} />
       )}
     </div>
   );

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
 
-export type RouteProps =  { 
-    children: ReactNode
-}
+export type RouteProps = {
+  children: ReactNode;
+};

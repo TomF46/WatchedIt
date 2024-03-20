@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { toast } from "react-toastify";
-import LoadingMessage from "../Loading/LoadingMessage";
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import LoadingMessage from '../Loading/LoadingMessage';
 import {
   addReviewComment,
   deleteReviewComment,
   getReviewComments,
   updateReviewComment,
-} from "../../api/filmReviewApi";
-import CommentsSection from "../Comments/CommentsSection";
-import { confirmAlert } from "react-confirm-alert";
-import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
-import { Comment, EditableComment, Review } from "../../types/Reviews";
+} from '../../api/filmReviewApi';
+import CommentsSection from '../Comments/CommentsSection';
+import { confirmAlert } from 'react-confirm-alert';
+import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
+import { Comment, EditableComment, Review } from '../../types/Reviews';
 
 function ReviewCommentsSection({ review }: { review: Review }) {
   const [page, setPage] = useState(1);
@@ -22,7 +22,7 @@ function ReviewCommentsSection({ review }: { review: Review }) {
     error,
     refetch,
   } = useQuery({
-    queryKey: ["review-comments", review.id, page, commentsPerPage],
+    queryKey: ['review-comments', review.id, page, commentsPerPage],
     queryFn: () => getReviewComments(Number(review.id), page, commentsPerPage),
     placeholderData: keepPreviousData,
   });
@@ -31,7 +31,7 @@ function ReviewCommentsSection({ review }: { review: Review }) {
     mutationFn: (commentToRemove: Comment) =>
       deleteReviewComment(Number(review.id), commentToRemove),
     onSuccess: () => {
-      toast.success("Comment removed");
+      toast.success('Comment removed');
       refetch();
     },
     onError: (err) => {
@@ -69,22 +69,22 @@ function ReviewCommentsSection({ review }: { review: Review }) {
 
   function handleDeleteComment(comment: Comment) {
     confirmAlert({
-      title: "Confirm deletion",
+      title: 'Confirm deletion',
       message: `Are you sure you want to remove this comment?`,
       buttons: [
         {
-          label: "Yes",
+          label: 'Yes',
           onClick: () => deleteComment.mutate(comment),
         },
         {
-          label: "No",
+          label: 'No',
           onClick: () => {},
         },
       ],
     });
   }
 
-  if (isLoading) return <LoadingMessage message={"Loading latest comments."} />;
+  if (isLoading) return <LoadingMessage message={'Loading latest comments.'} />;
 
   if (error) {
     toast.error(`Error getting comments for review ${error.data.Exception}`, {
@@ -95,8 +95,8 @@ function ReviewCommentsSection({ review }: { review: Review }) {
 
   if (comments)
     return (
-      <div className="review-comments-section">
-        <div className="mt-4">
+      <div className='review-comments-section'>
+        <div className='mt-4'>
           <CommentsSection
             commentsPaginator={comments}
             currentPage={page}

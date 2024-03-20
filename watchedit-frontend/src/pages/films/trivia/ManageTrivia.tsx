@@ -1,8 +1,8 @@
-import { useState } from "react";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import ManageTriviaForm from "../../../components/Films/Trivia/ManageTriviaForm";
-import { Film } from "../../../types/Films";
-import { EditableTrivia, TriviaFormErrors } from "../../../types/Trivia";
+import { useState } from 'react';
+import LoadingMessage from '../../../components/Loading/LoadingMessage';
+import ManageTriviaForm from '../../../components/Films/Trivia/ManageTriviaForm';
+import { Film } from '../../../types/Films';
+import { EditableTrivia, TriviaFormErrors } from '../../../types/Trivia';
 
 type Props = {
   film: Film;
@@ -32,9 +32,9 @@ function ManageTrivia({
   function formIsValid(): boolean {
     const { text } = trivia;
     const errors = {} as TriviaFormErrors;
-    if (!text) errors.text = "Trivia text is required";
+    if (!text) errors.text = 'Trivia text is required';
     if (text.length > 1000)
-      errors.text = "Trivia text cant be longer than 1000 characters";
+      errors.text = 'Trivia text cant be longer than 1000 characters';
     setErrors(errors);
     return Object.keys(errors).length === 0;
   }
@@ -46,7 +46,7 @@ function ManageTrivia({
   }
 
   return (
-    <div className="manage-film-trivia-page">
+    <div className='manage-film-trivia-page'>
       {film && trivia ? (
         <>
           <ManageTriviaForm
@@ -59,7 +59,7 @@ function ManageTrivia({
           />
         </>
       ) : (
-        <LoadingMessage message={"Loading form."} />
+        <LoadingMessage message={'Loading form.'} />
       )}
     </div>
   );

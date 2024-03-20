@@ -1,21 +1,21 @@
-import { useState } from "react";
-import { searchFilmsPaginated } from "../../api/filmsApi";
-import { toast } from "react-toastify";
-import LoadingMessage from "../../components/Loading/LoadingMessage";
-import SelectFilmWSearch from "../../components/Films/Credits/SelectFilmWSearch";
-import PaginationControls from "../../components/PaginationControls";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { useDebounce } from "@uidotdev/usehooks";
-import { Film } from "../../types/Films";
+import { useState } from 'react';
+import { searchFilmsPaginated } from '../../api/filmsApi';
+import { toast } from 'react-toastify';
+import LoadingMessage from '../../components/Loading/LoadingMessage';
+import SelectFilmWSearch from '../../components/Films/Credits/SelectFilmWSearch';
+import PaginationControls from '../../components/PaginationControls';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { useDebounce } from '@uidotdev/usehooks';
+import { Film } from '../../types/Films';
 
 const GuessSection = ({ guess }: { guess: (film: Film) => void }) => {
   const [page, setPage] = useState(1);
   const filmsPerPage = 16;
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const queryKeyParams = useDebounce([searchTerm, page, filmsPerPage], 100);
 
   const { data: filmsPaginator } = useQuery({
-    queryKey: ["films", ...queryKeyParams],
+    queryKey: ['films', ...queryKeyParams],
     queryFn: () =>
       searchFilmsPaginated(
         { searchTerm: searchTerm },
@@ -45,10 +45,10 @@ const GuessSection = ({ guess }: { guess: (film: Film) => void }) => {
 
   return (
     <div>
-      <h3 className="text-4xl text-primary text-center mb-2">Guess</h3>
+      <h3 className='mb-2 text-center text-4xl text-primary'>Guess</h3>
       <div>
         {!filmsPaginator ? (
-          <LoadingMessage message={"Loading films."} />
+          <LoadingMessage message={'Loading films.'} />
         ) : (
           <>
             <SelectFilmWSearch

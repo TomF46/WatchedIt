@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { getNewsByUserPaginated } from "../../api/newsApi";
-import { toast } from "react-toastify";
-import LoadingMessage from "../../components/Loading/LoadingMessage";
-import PaginationControls from "../../components/PaginationControls";
-import { useParams } from "react-router-dom";
-import NewsList from "../../components/News/NewsList";
-import { getUserById } from "../../api/usersApi";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import ErrorMessage from "../../components/Error/ErrorMessage";
-import { useAppSelector } from "../../redux/store";
+import { useState } from 'react';
+import { getNewsByUserPaginated } from '../../api/newsApi';
+import { toast } from 'react-toastify';
+import LoadingMessage from '../../components/Loading/LoadingMessage';
+import PaginationControls from '../../components/PaginationControls';
+import { useParams } from 'react-router-dom';
+import NewsList from '../../components/News/NewsList';
+import { getUserById } from '../../api/usersApi';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import ErrorMessage from '../../components/Error/ErrorMessage';
+import { useAppSelector } from '../../redux/store';
 
 function UsersNewsArticles() {
   const { id } = useParams();
@@ -20,12 +20,12 @@ function UsersNewsArticles() {
   const articlesPerPage = 32;
 
   const { data: user, error: userLoadError } = useQuery({
-    queryKey: ["user", userId],
+    queryKey: ['user', userId],
     queryFn: () => getUserById(Number(userId)),
   });
 
   const { data: articlesPaginator } = useQuery({
-    queryKey: ["person-credits", userId, page, articlesPerPage],
+    queryKey: ['person-credits', userId, page, articlesPerPage],
     queryFn: () =>
       getNewsByUserPaginated(Number(userId!), page, articlesPerPage).catch(
         (error) => {
@@ -41,25 +41,25 @@ function UsersNewsArticles() {
   if (userLoadError) {
     return (
       <ErrorMessage
-        message={"Error loading user."}
+        message={'Error loading user.'}
         error={userLoadError.data.Exception}
       />
     );
   }
 
   return (
-    <div className="user-news-page">
+    <div className='user-news-page'>
       {!user ? (
-        <LoadingMessage message={"Loading user."} />
+        <LoadingMessage message={'Loading user.'} />
       ) : (
         <>
-          <h1 className="text-center text-primary text-4xl my-4 font-semibold">
+          <h1 className='my-4 text-center text-4xl font-semibold text-primary'>
             News by {user.username}
           </h1>
           {!articlesPaginator ? (
-            <LoadingMessage message={"Loading articles."} />
+            <LoadingMessage message={'Loading articles.'} />
           ) : (
-            <div className="mt-4">
+            <div className='mt-4'>
               {articlesPaginator.data.length > 0 ? (
                 <>
                   <NewsList articles={articlesPaginator.data} gridMode />
@@ -73,8 +73,8 @@ function UsersNewsArticles() {
                   />
                 </>
               ) : (
-                <div className="my-16">
-                  <p className="text-center text-2xl">
+                <div className='my-16'>
+                  <p className='text-center text-2xl'>
                     No articles have been published.
                   </p>
                 </div>

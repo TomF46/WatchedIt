@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { newCategory } from "../../../tools/obJectShapes";
-import ManageCategory from "./ManageCategory";
-import { saveCategory } from "../../../api/categoriesApi";
-import { useMutation } from "@tanstack/react-query";
-import { Category } from "../../../types/Categories";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { newCategory } from '../../../tools/obJectShapes';
+import ManageCategory from './ManageCategory';
+import { saveCategory } from '../../../api/categoriesApi';
+import { useMutation } from '@tanstack/react-query';
+import { Category } from '../../../types/Categories';
 
 function AddCategory() {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ function AddCategory() {
       return saveCategory(newCategory);
     },
     onSuccess: (res) => {
-      toast.success("Category saved");
+      toast.success('Category saved');
       navigate(`/categories/${res.id}`);
     },
     onError: (err) => {
@@ -34,7 +34,7 @@ function AddCategory() {
   }
 
   return (
-    <div className="Add-category-page">
+    <div className='Add-category-page'>
       <ManageCategory
         category={category}
         updateCategory={handleUpdate}

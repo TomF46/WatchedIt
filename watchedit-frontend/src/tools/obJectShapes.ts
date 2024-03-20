@@ -1,9 +1,9 @@
-import { EditableFilm } from "../types/Films";
+import { EditableFilm } from '../types/Films';
 
 export const newFilm = {
-  name: "",
-  shortDescription: "",
-  fullDescription: "",
+  name: '',
+  shortDescription: '',
+  fullDescription: '',
   runtime: 0,
   releaseDate: new Date(),
   posterUrl: undefined,
@@ -12,40 +12,40 @@ export const newFilm = {
 } as EditableFilm;
 
 export const newPerson = {
-  firstName: "",
-  lastName: "",
-  middleNames: "",
-  stageName: "",
+  firstName: '',
+  lastName: '',
+  middleNames: '',
+  stageName: '',
   dateOfBirth: new Date(),
-  description: "",
+  description: '',
   imageUrl: undefined,
 };
 
 export const newList = {
-  name: "",
-  description: "",
+  name: '',
+  description: '',
 };
 
 export const newReview = {
   rating: undefined,
-  text: "",
+  text: '',
 };
 
 export const newCategory = {
-  name: "",
+  name: '',
 };
 
 export const newComment = {
-  text: "",
+  text: '',
 };
 
 export const newTrivia = {
-  text: "",
+  text: '',
 };
 
 export const newArticle = {
-  title: "",
-  content: "",
+  title: '',
+  content: '',
   thumbnailUrl: undefined,
   published: false,
 };

@@ -1,21 +1,21 @@
-import { useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import { confirmAlert } from "react-confirm-alert";
-import { format, parseISO } from "date-fns";
-import { getFilmById, removeFilm } from "../../api/filmsApi";
-import WatchedFilmControls from "../../components/Films/Watched/WatchedFilmControls";
-import FilmCreditsOverviewList from "../../components/Films/Credits/FilmCreditsOverviewList";
-import LoadingMessage from "../../components/Loading/LoadingMessage";
-import LatestReviews from "../../components/Reviews/LatestReviews";
-import SimilarFilmsReel from "../../components/Films/SimilarFilmsReel";
-import TriviaOverview from "../../components/Films/Trivia/TriviaOverview";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import ErrorMessage from "../../components/Error/ErrorMessage";
-import { useAppSelector } from "../../redux/store";
-import { Film as FilmType } from "../../types/Films";
-import EyeIcon from "../../components/Icons/EyeIcon";
-import StarIcon from "../../components/Icons/StarIcon";
+import { useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { confirmAlert } from 'react-confirm-alert';
+import { format, parseISO } from 'date-fns';
+import { getFilmById, removeFilm } from '../../api/filmsApi';
+import WatchedFilmControls from '../../components/Films/Watched/WatchedFilmControls';
+import FilmCreditsOverviewList from '../../components/Films/Credits/FilmCreditsOverviewList';
+import LoadingMessage from '../../components/Loading/LoadingMessage';
+import LatestReviews from '../../components/Reviews/LatestReviews';
+import SimilarFilmsReel from '../../components/Films/SimilarFilmsReel';
+import TriviaOverview from '../../components/Films/Trivia/TriviaOverview';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import ErrorMessage from '../../components/Error/ErrorMessage';
+import { useAppSelector } from '../../redux/store';
+import { Film as FilmType } from '../../types/Films';
+import EyeIcon from '../../components/Icons/EyeIcon';
+import StarIcon from '../../components/Icons/StarIcon';
 
 function Film() {
   const { id } = useParams();
@@ -31,15 +31,15 @@ function Film() {
     error,
     refetch,
   } = useQuery({
-    queryKey: ["film", id],
+    queryKey: ['film', id],
     queryFn: () => getFilmById(Number(id)),
   });
 
   const deleteFilm = useMutation({
     mutationFn: (filmToRemove: FilmType) => removeFilm(filmToRemove),
     onSuccess: () => {
-      toast.success("Film removed");
-      navigate("/films");
+      toast.success('Film removed');
+      navigate('/films');
     },
     onError: (err) => {
       toast.error(`Error removing film ${err.data.Exception}`, {
@@ -54,15 +54,15 @@ function Film() {
 
   function confirmDeleteFilm(): void {
     confirmAlert({
-      title: "Confirm deletion",
+      title: 'Confirm deletion',
       message: `Are you sure you want to remove ${film!.name}?`,
       buttons: [
         {
-          label: "Yes",
+          label: 'Yes',
           onClick: () => deleteFilm.mutate(film!),
         },
         {
-          label: "No",
+          label: 'No',
           onClick: () => {},
         },
       ],
@@ -73,12 +73,12 @@ function Film() {
     refetch();
   }
 
-  if (isLoading) return <LoadingMessage message={"Loading film."} />;
+  if (isLoading) return <LoadingMessage message={'Loading film.'} />;
 
   if (error) {
     return (
       <ErrorMessage
-        message={"Error loading film."}
+        message={'Error loading film.'}
         error={error.data.Exception}
       />
     );
@@ -86,21 +86,21 @@ function Film() {
 
   if (film)
     return (
-      <div className="film-page">
-        <h1 className="my-4 text-center text-primary text-4xl font-semibold">
+      <div className='film-page'>
+        <h1 className='my-4 text-center text-4xl font-semibold text-primary'>
           {film.name}
         </h1>
         {isAdmin && (
-          <div className="admin-controls bg-backgroundOffset mt-4 shadow rounded">
-            <div className="bg-backgroundOffset2 rounded-t-md">
-              <p className="text-primary font-semibold text-lg px-2 py-1">
+          <div className='admin-controls mt-4 rounded bg-backgroundOffset shadow'>
+            <div className='rounded-t-md bg-backgroundOffset2'>
+              <p className='px-2 py-1 text-lg font-semibold text-primary'>
                 Admin controls
               </p>
             </div>
-            <div className="px-2 py-2">
+            <div className='px-2 py-2'>
               <Link
                 to={`/films/${id}/edit`}
-                className="bg-backgroundOffset2 text-primary font-semibold rounded py-2 px-4 hover:opacity-75 inline-block"
+                className='inline-block rounded bg-backgroundOffset2 px-4 py-2 font-semibold text-primary hover:opacity-75'
               >
                 Edit film
               </Link>
@@ -108,21 +108,21 @@ function Film() {
                 onClick={() => {
                   confirmDeleteFilm();
                 }}
-                className="bg-backgroundOffset2 text-red-400 font-semibold rounded py-2 px-4 hover:opacity-75 inline-block ml-2"
+                className='ml-2 inline-block rounded bg-backgroundOffset2 px-4 py-2 font-semibold text-red-400 hover:opacity-75'
               >
                 Remove
               </button>
             </div>
           </div>
         )}
-        <div className="grid grid-cols-12 mt-4">
-          <div className="col-span-12 md:col-span-2">
+        <div className='mt-4 grid grid-cols-12'>
+          <div className='col-span-12 md:col-span-2'>
             <img
               src={film.posterUrl}
-              className="poster shadow rounded"
+              className='poster rounded shadow'
               alt={`${film.name} poster.`}
             />
-            <div className="flex flex-col">
+            <div className='flex flex-col'>
               {userIsAuthenticated && (
                 <WatchedFilmControls
                   film={film}
@@ -131,32 +131,32 @@ function Film() {
               )}
               <Link
                 to={`/films/${id}/credits`}
-                className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 text-center"
+                className='mt-4 inline-block rounded bg-primary px-4 py-2 text-center text-white hover:opacity-75'
               >
                 Cast / Crew
               </Link>
               <Link
                 to={`/films/${id}/reviews`}
-                className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 text-center"
+                className='mt-4 inline-block rounded bg-primary px-4 py-2 text-center text-white hover:opacity-75'
               >
                 Reviews
               </Link>
               <Link
                 to={`/films/${id}/trivia`}
-                className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 text-center"
+                className='mt-4 inline-block rounded bg-primary px-4 py-2 text-center text-white hover:opacity-75'
               >
                 Trivia
               </Link>
             </div>
           </div>
-          <div className="col-span-12 mt-4 md:col-span-10 md:pl-4 md:mt-0">
-            <div className="grid grid-cols-12">
-              <div className="col-span-12 md:col-span-8 bg-backgroundOffset p-2 shadow rounded">
-                <h3 className="text-primary text-lg font-semibold">Details</h3>
+          <div className='col-span-12 mt-4 md:col-span-10 md:mt-0 md:pl-4'>
+            <div className='grid grid-cols-12'>
+              <div className='col-span-12 rounded bg-backgroundOffset p-2 shadow md:col-span-8'>
+                <h3 className='text-lg font-semibold text-primary'>Details</h3>
                 <p>Name: {film.name}</p>
                 <p>
-                  Release date:{" "}
-                  {format(parseISO(film.releaseDate.toString()), "dd/MM/yyyy")}
+                  Release date:{' '}
+                  {format(parseISO(film.releaseDate.toString()), 'dd/MM/yyyy')}
                 </p>
                 <p>tagline: {film.shortDescription}</p>
                 <p>Runtime: {film.runtime} minutes</p>
@@ -168,7 +168,7 @@ function Film() {
                         <li key={category.id}>
                           <Link
                             to={`/categories/${category.id}`}
-                            className="text-primary hover:opacity-75"
+                            className='text-primary hover:opacity-75'
                           >
                             {category.name}
                           </Link>
@@ -180,30 +180,30 @@ function Film() {
                   <p>No categories added</p>
                 )}
               </div>
-              <div className="col-span-12 md:col-span-2 text-center bg-success md:ml-4 mt-4 md:mt-0 p-4 shadow rounded">
-                <h3 className="text-xl text-black font-semibold mb-4">
+              <div className='col-span-12 mt-4 rounded bg-success p-4 text-center shadow md:col-span-2 md:ml-4 md:mt-0'>
+                <h3 className='mb-4 text-xl font-semibold text-black'>
                   Watched by
                 </h3>
-                <p className="text-2xl text-black font-semibold">
+                <p className='text-2xl font-semibold text-black'>
                   {film.watchedByCount} user
-                  {film.watchedByCount == 1 ? "" : "s"}
+                  {film.watchedByCount == 1 ? '' : 's'}
                 </p>
-                <div className="inline-flex items-center mt-4">
-                  <EyeIcon color="black" height={10} width={10} />
+                <div className='mt-4 inline-flex items-center'>
+                  <EyeIcon color='black' height={10} width={10} />
                 </div>
               </div>
-              <div className="col-span-12 md:col-span-2 text-center bg-rating md:ml-4 mt-4 md:mt-0 p-4 shadow rounded">
-                <h3 className="text-black font-semibold text-xl mb-4">
+              <div className='col-span-12 mt-4 rounded bg-rating p-4 text-center shadow md:col-span-2 md:ml-4 md:mt-0'>
+                <h3 className='mb-4 text-xl font-semibold text-black'>
                   Rating
                 </h3>
                 {film.averageRating ? (
                   <div>
-                    <p className="text-2xl text-black font-semibold">
+                    <p className='text-2xl font-semibold text-black'>
                       {film.averageRating} / 10
                     </p>
-                    <div className="inline-flex items-center mt-4">
+                    <div className='mt-4 inline-flex items-center'>
                       <StarIcon
-                        color="black"
+                        color='black'
                         height={10}
                         width={10}
                         strokeWidth={1.5}
@@ -212,65 +212,65 @@ function Film() {
                   </div>
                 ) : (
                   <>
-                    <p className="text-black">
+                    <p className='text-black'>
                       This film has not yet been rated.
                     </p>
                     <Link
                       to={`/films/${id}/reviews/add`}
-                      className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-2"
+                      className='mt-2 inline-block rounded bg-primary px-4 py-2 text-white hover:opacity-75'
                     >
                       Add rating
                     </Link>
                   </>
                 )}
               </div>
-              <div className="col-span-12 md:col-span-8 bg-backgroundOffset p-2 mt-4 shadow rounded">
-                <h3 className="text-primary text-lg font-semibold">
+              <div className='col-span-12 mt-4 rounded bg-backgroundOffset p-2 shadow md:col-span-8'>
+                <h3 className='text-lg font-semibold text-primary'>
                   Description
                 </h3>
                 <p>{film.fullDescription}</p>
               </div>
-              <div className="col-span-12">
+              <div className='col-span-12'>
                 <LatestReviews film={film} totalReviews={3} />
               </div>
-              <div className="col-span-12">
-                <div className="grid grid-cols-12">
-                  <div className="col-span-12">
+              <div className='col-span-12'>
+                <div className='grid grid-cols-12'>
+                  <div className='col-span-12'>
                     {film.credits.cast.length > 0 && (
                       <>
-                        <h2 className="mt-4 text-primary text-xl ">Cast</h2>
+                        <h2 className='mt-4 text-xl text-primary '>Cast</h2>
                         <FilmCreditsOverviewList credits={film.credits.cast} />
                       </>
                     )}
                   </div>
-                  <div className="col-span-12 mt-4">
+                  <div className='col-span-12 mt-4'>
                     {film.credits.crew.length > 0 && (
                       <>
-                        <h2 className="mt-4 text-primary text-xl ">Crew</h2>
+                        <h2 className='mt-4 text-xl text-primary '>Crew</h2>
                         <FilmCreditsOverviewList credits={film.credits.crew} />
                       </>
                     )}
                   </div>
                 </div>
               </div>
-              <div className="col-span-12">
+              <div className='col-span-12'>
                 <TriviaOverview film={film} totalItems={4} />
               </div>
               {film.trailerUrl && (
-                <div className="col-span-12">
-                  <h2 className="mt-4 text-primary text-xl ">Trailer</h2>
-                  <div className="video-container grid grid-cols-12 justify-center">
+                <div className='col-span-12'>
+                  <h2 className='mt-4 text-xl text-primary '>Trailer</h2>
+                  <div className='video-container grid grid-cols-12 justify-center'>
                     <iframe
-                      className="video col-span-12"
+                      className='video col-span-12'
                       src={film.trailerUrl}
-                      frameBorder="0"
-                      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      frameBorder='0'
+                      allow='accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
                       allowFullScreen
                     ></iframe>
                   </div>
                 </div>
               )}
-              <div className="col-span-12">
+              <div className='col-span-12'>
                 <SimilarFilmsReel filmId={film.id!} />
               </div>
             </div>

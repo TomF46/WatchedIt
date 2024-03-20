@@ -1,7 +1,7 @@
-import { Credit, EditableCredit } from "../types/Credits";
-import { FilmCredit, FilmCredits } from "../types/Films";
-import { PersonCredit, PersonCredits } from "../types/People";
-import client from "./client";
+import { Credit, EditableCredit } from '../types/Credits';
+import { FilmCredit, FilmCredits } from '../types/Films';
+import { PersonCredit, PersonCredits } from '../types/People';
+import client from './client';
 
 export function getCreditById(id: number): Promise<Credit> {
   return client

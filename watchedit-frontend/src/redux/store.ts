@@ -1,9 +1,9 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { loadState } from "../tools/localStorage";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import adminReducer from "./reducers/adminReducer";
-import notificationsReducer from "./reducers/notificationsReducer";
-import authenticationReducer from "./reducers/authenticationReducer";
+import { configureStore } from '@reduxjs/toolkit';
+import { loadState } from '../tools/localStorage';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import adminReducer from './reducers/adminReducer';
+import notificationsReducer from './reducers/notificationsReducer';
+import authenticationReducer from './reducers/authenticationReducer';
 const stateWithUser = loadState();
 
 const store = configureStore({

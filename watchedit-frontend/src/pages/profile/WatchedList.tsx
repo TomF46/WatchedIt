@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { toast } from "react-toastify";
-import { getUserById, getWatchedListByUserId } from "../../api/usersApi";
-import FilmGrid from "../../components/Films/FilmGrid";
-import PaginationControls from "../../components/PaginationControls";
-import { useParams } from "react-router-dom";
-import LoadingMessage from "../../components/Loading/LoadingMessage";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import ErrorMessage from "../../components/Error/ErrorMessage";
-import { useAppSelector } from "../../redux/store";
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { getUserById, getWatchedListByUserId } from '../../api/usersApi';
+import FilmGrid from '../../components/Films/FilmGrid';
+import PaginationControls from '../../components/PaginationControls';
+import { useParams } from 'react-router-dom';
+import LoadingMessage from '../../components/Loading/LoadingMessage';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import ErrorMessage from '../../components/Error/ErrorMessage';
+import { useAppSelector } from '../../redux/store';
 
 function WatchedList() {
   const { id } = useParams();
@@ -19,12 +19,12 @@ function WatchedList() {
   const filmsPerPage = 32;
 
   const { data: user, error: userLoadError } = useQuery({
-    queryKey: ["user", userId],
+    queryKey: ['user', userId],
     queryFn: () => getUserById(Number(userId)),
   });
 
   const { data: filmsPaginator } = useQuery({
-    queryKey: ["user-watchedlist", userId, page, filmsPerPage],
+    queryKey: ['user-watchedlist', userId, page, filmsPerPage],
     queryFn: () =>
       getWatchedListByUserId(Number(userId!), page, filmsPerPage).catch(
         (error) => {
@@ -40,20 +40,20 @@ function WatchedList() {
   if (userLoadError) {
     return (
       <ErrorMessage
-        message={"Error loading user."}
+        message={'Error loading user.'}
         error={userLoadError.data.Exception}
       />
     );
   }
 
   return (
-    <div className="watched-films-page">
+    <div className='watched-films-page'>
       {!user ? (
-        <LoadingMessage message={"Loading user"} />
+        <LoadingMessage message={'Loading user'} />
       ) : (
         <>
           <div>
-            <h1 className="text-center text-primary text-4xl my-4 font-semibold">
+            <h1 className='my-4 text-center text-4xl font-semibold text-primary'>
               {user.username} watched films
             </h1>
             {filmsPaginator ? (
@@ -71,13 +71,13 @@ function WatchedList() {
                     />
                   </>
                 ) : (
-                  <p className="text-center text-primary text-2xl">
+                  <p className='text-center text-2xl text-primary'>
                     {user.username} has not watched any films.
                   </p>
                 )}
               </>
             ) : (
-              <LoadingMessage message={"Loading watched films"} />
+              <LoadingMessage message={'Loading watched films'} />
             )}
           </div>
         </>

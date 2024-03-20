@@ -1,17 +1,17 @@
-import { useState } from "react";
-import { toast } from "react-toastify";
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 import {
   getAllNotifications,
   readNotification,
-} from "../../api/notificationApi";
-import LoadingMessage from "../../components/Loading/LoadingMessage";
-import NotificationsList from "../../components/Notifications/NotificationsList";
-import PaginationControls from "../../components/PaginationControls";
-import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
-import ErrorMessage from "../../components/Error/ErrorMessage";
-import { AppDispatch, useAppDispatch, useAppSelector } from "../../redux/store";
-import { Notification } from "../../types/Notifications";
-import { decrementNotificationsCount } from "../../redux/reducers/notificationsReducer";
+} from '../../api/notificationApi';
+import LoadingMessage from '../../components/Loading/LoadingMessage';
+import NotificationsList from '../../components/Notifications/NotificationsList';
+import PaginationControls from '../../components/PaginationControls';
+import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
+import ErrorMessage from '../../components/Error/ErrorMessage';
+import { AppDispatch, useAppDispatch, useAppSelector } from '../../redux/store';
+import { Notification } from '../../types/Notifications';
+import { decrementNotificationsCount } from '../../redux/reducers/notificationsReducer';
 
 const NotificationsPage = () => {
   const dispatch: AppDispatch = useAppDispatch();
@@ -27,7 +27,7 @@ const NotificationsPage = () => {
     error,
     refetch,
   } = useQuery({
-    queryKey: ["notifications", page, notificationsPerPage],
+    queryKey: ['notifications', page, notificationsPerPage],
     queryFn: () =>
       getAllNotifications(page, notificationsPerPage).then((res) => {
         return res;
@@ -54,12 +54,12 @@ const NotificationsPage = () => {
     setNotificationRead.mutate(notification);
   }
 
-  if (isLoading) return <LoadingMessage message={"Loading notifications"} />;
+  if (isLoading) return <LoadingMessage message={'Loading notifications'} />;
 
   if (error) {
     return (
       <ErrorMessage
-        message={"Error loading notifications."}
+        message={'Error loading notifications.'}
         error={error.data.Exception}
       />
     );
@@ -67,8 +67,8 @@ const NotificationsPage = () => {
 
   if (notificationsPaginator)
     return (
-      <div className="Notifications-page">
-        <h1 className="text-center text-primary text-4xl my-4 font-semibold">
+      <div className='Notifications-page'>
+        <h1 className='my-4 text-center text-4xl font-semibold text-primary'>
           Notifications {`(${notificationCount})`}
         </h1>
         {notificationsPaginator.data.length > 0 ? (
@@ -87,7 +87,7 @@ const NotificationsPage = () => {
             />
           </>
         ) : (
-          <p className="text-center text-primary text-2xl">
+          <p className='text-center text-2xl text-primary'>
             You have no notifications
           </p>
         )}

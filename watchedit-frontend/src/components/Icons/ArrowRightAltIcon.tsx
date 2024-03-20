@@ -1,4 +1,4 @@
-import IconProps from "./IconProps";
+import IconProps from './IconProps';
 
 const ArrowRightAltIcon = ({
   color,
@@ -9,16 +9,16 @@ const ArrowRightAltIcon = ({
   return (
     <svg
       className={`text-${color} h-${height} w-${width}`}
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
+      xmlns='http://www.w3.org/2000/svg'
+      fill='none'
+      viewBox='0 0 24 24'
       strokeWidth={strokeWidth ? strokeWidth : 1.5}
-      stroke="currentColor"
+      stroke='currentColor'
     >
       <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        d='M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3'
       />
     </svg>
   );

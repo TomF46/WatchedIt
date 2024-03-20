@@ -1,5 +1,5 @@
-import { Film } from "./Films";
-import { Person } from "./People";
+import { Film } from './Films';
+import { Person } from './People';
 
 export type Credit = {
   id?: number;

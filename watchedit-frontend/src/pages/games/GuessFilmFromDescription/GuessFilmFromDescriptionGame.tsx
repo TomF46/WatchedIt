@@ -1,21 +1,21 @@
-import { useState, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
+import { useState, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import LoadingMessage from '../../../components/Loading/LoadingMessage';
 import {
   forefeitGuessFilmFromDescriptionGameById,
   getGuessFilmFromDescriptionGameById,
   makeGuessForGuessFilmFromDescriptionGame,
-} from "../../../api/games/guessFilmFromDescriptionApi";
-import { toast } from "react-toastify";
-import GameInfoSection from "../GameInfoSection";
-import GuessSection from "../GuessSection";
-import RoundsSection from "./RoundsSection";
-import { confirmAlert } from "react-confirm-alert";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import ErrorMessage from "../../../components/Error/ErrorMessage";
-import { GuessFilmFromDescriptionGame as GuessFilmFromDescriptionGameType } from "../../../types/Games";
-import { Film } from "../../../types/Films";
-import NoEntryIcon from "../../../components/Icons/NoEntryIcon";
+} from '../../../api/games/guessFilmFromDescriptionApi';
+import { toast } from 'react-toastify';
+import GameInfoSection from '../GameInfoSection';
+import GuessSection from '../GuessSection';
+import RoundsSection from './RoundsSection';
+import { confirmAlert } from 'react-confirm-alert';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import ErrorMessage from '../../../components/Error/ErrorMessage';
+import { GuessFilmFromDescriptionGame as GuessFilmFromDescriptionGameType } from '../../../types/Games';
+import { Film } from '../../../types/Films';
+import NoEntryIcon from '../../../components/Icons/NoEntryIcon';
 
 function GuessFilmFromDescriptionGame() {
   const { id } = useParams();
@@ -26,7 +26,7 @@ function GuessFilmFromDescriptionGame() {
   const navigate = useNavigate();
 
   const { isLoading, error } = useQuery({
-    queryKey: ["connections-game", id],
+    queryKey: ['connections-game', id],
     queryFn: () =>
       getGuessFilmFromDescriptionGameById(Number(id)).then((res) => {
         setGame(res);
@@ -46,10 +46,10 @@ function GuessFilmFromDescriptionGame() {
       setGame(res);
       if (roundsRef.current)
         roundsRef.current.scrollIntoView({
-          block: "nearest",
-          behavior: "smooth",
+          block: 'nearest',
+          behavior: 'smooth',
         });
-      if (res.status == 1) toast.success("Correct, on to the next round!");
+      if (res.status == 1) toast.success('Correct, on to the next round!');
       if (res.status == 3)
         toast.info(`Incorrect, your final score is ${res.score}.`);
       if (res.status == 5)
@@ -79,15 +79,15 @@ function GuessFilmFromDescriptionGame() {
 
   function confirmForefeit(): void {
     confirmAlert({
-      title: "Confirm forefeit",
+      title: 'Confirm forefeit',
       message: `Are you sure you want to forefeit this game?`,
       buttons: [
         {
-          label: "Yes",
+          label: 'Yes',
           onClick: () => forefeit.mutate(game!),
         },
         {
-          label: "No",
+          label: 'No',
           onClick: () => {},
         },
       ],
@@ -98,12 +98,12 @@ function GuessFilmFromDescriptionGame() {
     navigate(`/games/filmFromDescription`);
   }
 
-  if (isLoading) return <LoadingMessage message={"Loading game."} />;
+  if (isLoading) return <LoadingMessage message={'Loading game.'} />;
 
   if (error) {
     return (
       <ErrorMessage
-        message={"Error loading game."}
+        message={'Error loading game.'}
         error={error.data.Exception}
       />
     );
@@ -111,31 +111,31 @@ function GuessFilmFromDescriptionGame() {
 
   if (game)
     return (
-      <div className="game-page">
-        <div className="grid grid-cols-12 mt-4">
-          <div className="col-span-12 md:col-span-2">
+      <div className='game-page'>
+        <div className='mt-4 grid grid-cols-12'>
+          <div className='col-span-12 md:col-span-2'>
             <GameInfoSection
               game={game}
               forefeit={confirmForefeit}
               startAgain={startAgain}
             />
           </div>
-          <div className="col-span-12 mt-4 md:col-span-10 md:pl-4 md:mt-0">
+          <div className='col-span-12 mt-4 md:col-span-10 md:mt-0 md:pl-4'>
             {game.status == 4 ? (
-              <div className="my-16">
-                <div className="flex justify-center text-center">
-                  <NoEntryIcon color="primary" height={14} width={14} />
+              <div className='my-16'>
+                <div className='flex justify-center text-center'>
+                  <NoEntryIcon color='primary' height={14} width={14} />
                 </div>
-                <p className="text-center text-2xl">
+                <p className='text-center text-2xl'>
                   You have forefeited this game
                 </p>
               </div>
             ) : (
               <>
-                <div className="mt-4" ref={roundsRef}>
+                <div className='mt-4' ref={roundsRef}>
                   <RoundsSection game={game} />
                 </div>
-                <div className="mt-4">
+                <div className='mt-4'>
                   {game.status == 1 && (
                     <GuessSection guess={(film) => guess.mutate(film)} />
                   )}

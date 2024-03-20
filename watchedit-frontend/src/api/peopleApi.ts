@@ -3,8 +3,8 @@ import {
   PeoplePaginationResponse,
   PeopleSearchTerms,
   Person,
-} from "../types/People";
-import client from "./client";
+} from '../types/People';
+import client from './client';
 
 export function savePerson(person: EditablePerson): Promise<Person> {
   return person.id ? editPerson(person) : addPerson(person);

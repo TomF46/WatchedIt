@@ -1,15 +1,15 @@
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import { newReview } from "../../../tools/obJectShapes";
-import ManageReview from "./ManageReview";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import { getReviewById, saveReview } from "../../../api/filmReviewApi";
-import { getFilmById } from "../../../api/filmsApi";
-import ErrorMessage from "../../../components/Error/ErrorMessage";
-import { useAppSelector } from "../../../redux/store";
-import { EditableReview } from "../../../types/Reviews";
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { newReview } from '../../../tools/obJectShapes';
+import ManageReview from './ManageReview';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import LoadingMessage from '../../../components/Loading/LoadingMessage';
+import { getReviewById, saveReview } from '../../../api/filmReviewApi';
+import { getFilmById } from '../../../api/filmsApi';
+import ErrorMessage from '../../../components/Error/ErrorMessage';
+import { useAppSelector } from '../../../redux/store';
+import { EditableReview } from '../../../types/Reviews';
 
 function EditReview() {
   const { id, reviewId } = useParams();
@@ -25,12 +25,12 @@ function EditReview() {
     data: film,
     error: filmLoadError,
   } = useQuery({
-    queryKey: ["film", id],
+    queryKey: ['film', id],
     queryFn: () => getFilmById(Number(id)),
   });
 
   const { isLoading, error } = useQuery({
-    queryKey: ["review-update", id, reviewId],
+    queryKey: ['review-update', id, reviewId],
     queryFn: () =>
       getReviewById(Number(id), Number(reviewId)).then((res) => {
         if (res.user.id != userId)
@@ -50,7 +50,7 @@ function EditReview() {
       return saveReview(Number(id), updatedReview);
     },
     onSuccess: (res) => {
-      toast.success("Review saved");
+      toast.success('Review saved');
       navigate(`/films/${id}/reviews/${res.id}`);
     },
     onError: (err) => {
@@ -65,7 +65,7 @@ function EditReview() {
     setReview(updatedReview);
   }
 
-  if (isLoadingFilm) return <LoadingMessage message={"Loading film."} />;
+  if (isLoadingFilm) return <LoadingMessage message={'Loading film.'} />;
 
   if (filmLoadError) {
     toast.error(`Error getting film ${filmLoadError.data.Exception}`, {
@@ -74,12 +74,12 @@ function EditReview() {
     return;
   }
 
-  if (isLoading) return <LoadingMessage message={"Loading review."} />;
+  if (isLoading) return <LoadingMessage message={'Loading review.'} />;
 
   if (error) {
     return (
       <ErrorMessage
-        message={"Error loading review for editing."}
+        message={'Error loading review for editing.'}
         error={error.data.Exception}
       />
     );
@@ -87,7 +87,7 @@ function EditReview() {
 
   if (film)
     return (
-      <div className="Edit-review-page">
+      <div className='Edit-review-page'>
         <ManageReview
           film={film}
           review={review}

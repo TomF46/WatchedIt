@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { toast } from "react-toastify";
-import { getUserById, updateCurrentUser } from "../../../api/usersApi";
-import { uploadImage } from "../../../api/imageApi";
-import { useNavigate } from "react-router-dom";
-import ManageUserForm from "../../../components/User/Manage/ManageUserForm";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import ErrorMessage from "../../../components/Error/ErrorMessage";
-import { useAppSelector } from "../../../redux/store";
-import { EditableUser, UserFormErrors } from "../../../types/Auth";
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { getUserById, updateCurrentUser } from '../../../api/usersApi';
+import { uploadImage } from '../../../api/imageApi';
+import { useNavigate } from 'react-router-dom';
+import ManageUserForm from '../../../components/User/Manage/ManageUserForm';
+import LoadingMessage from '../../../components/Loading/LoadingMessage';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import ErrorMessage from '../../../components/Error/ErrorMessage';
+import { useAppSelector } from '../../../redux/store';
+import { EditableUser, UserFormErrors } from '../../../types/Auth';
 
 function ManageProfile() {
   const id = useAppSelector((state) => state.authentication.tokens!.id);
@@ -21,7 +21,7 @@ function ManageProfile() {
   const [imageUploading, setImageUploading] = useState(false);
 
   const { isLoading, error } = useQuery({
-    queryKey: ["manage-user", id],
+    queryKey: ['manage-user', id],
     queryFn: () =>
       getUserById(id).then((res) => {
         setUpdatedUser({
@@ -41,7 +41,7 @@ function ManageProfile() {
       return updateCurrentUser(updatedUser);
     },
     onSuccess: () => {
-      toast.success("Profile saved");
+      toast.success('Profile saved');
       navigate(`/profile`);
     },
     onError: (err) => {
@@ -55,7 +55,7 @@ function ManageProfile() {
   const uploadProfileImage = useMutation({
     mutationFn: (file: File) => {
       setImageUploading(true);
-      return uploadImage(file, "users");
+      return uploadImage(file, 'users');
     },
     onSuccess: (res) => {
       updatedUser!.imageUrl = res.url;
@@ -95,8 +95,8 @@ function ManageProfile() {
     const { biography, imageUrl } = updatedUser;
     const errors = {} as UserFormErrors;
     if (biography && biography.length > 400)
-      errors.biography = "Biography cant be longer than 400 characters";
-    if (!imageUrl) errors.imageUrl = "Image url is required";
+      errors.biography = 'Biography cant be longer than 400 characters';
+    if (!imageUrl) errors.imageUrl = 'Image url is required';
     setErrors(errors);
     return Object.keys(errors).length === 0;
   }
@@ -107,19 +107,19 @@ function ManageProfile() {
     updateUser.mutate(updatedUser);
   }
 
-  if (isLoading) return <LoadingMessage message={"Loading form."} />;
+  if (isLoading) return <LoadingMessage message={'Loading form.'} />;
 
   if (error) {
     return (
       <ErrorMessage
-        message={"Error loading user profile for editing."}
+        message={'Error loading user profile for editing.'}
         error={error.data.Exception}
       />
     );
   }
 
   return (
-    <div className="profile-manage-page">
+    <div className='profile-manage-page'>
       <ManageUserForm
         user={updatedUser!}
         onChange={handleChange}

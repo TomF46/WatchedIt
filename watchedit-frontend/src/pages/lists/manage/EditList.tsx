@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import { newList } from "../../../tools/obJectShapes";
-import ManageList from "./ManageList";
-import { getFilmListById, saveFilmList } from "../../../api/filmListsApi";
-import { useQuery } from "@tanstack/react-query";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import ErrorMessage from "../../../components/Error/ErrorMessage";
-import { useAppSelector } from "../../../redux/store";
-import { EditableList } from "../../../types/Lists";
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { newList } from '../../../tools/obJectShapes';
+import ManageList from './ManageList';
+import { getFilmListById, saveFilmList } from '../../../api/filmListsApi';
+import { useQuery } from '@tanstack/react-query';
+import LoadingMessage from '../../../components/Loading/LoadingMessage';
+import ErrorMessage from '../../../components/Error/ErrorMessage';
+import { useAppSelector } from '../../../redux/store';
+import { EditableList } from '../../../types/Lists';
 
 function EditList() {
   const { id } = useParams();
@@ -20,7 +20,7 @@ function EditList() {
   const [saving, setSaving] = useState(false);
 
   const { isLoading, error } = useQuery({
-    queryKey: ["list-update", id],
+    queryKey: ['list-update', id],
     queryFn: () =>
       getFilmListById(Number(id)).then((res) => {
         if (res.createdBy.id != userId) navigate(`/lists/${id}`);
@@ -41,7 +41,7 @@ function EditList() {
     setSaving(true);
     saveFilmList(list)
       .then((res) => {
-        toast.success("List saved");
+        toast.success('List saved');
         navigate(`/lists/${res.id}`);
       })
       .catch((err) => {
@@ -52,19 +52,19 @@ function EditList() {
       });
   }
 
-  if (isLoading) return <LoadingMessage message={"Loading list."} />;
+  if (isLoading) return <LoadingMessage message={'Loading list.'} />;
 
   if (error) {
     return (
       <ErrorMessage
-        message={"Error loading list for editing."}
+        message={'Error loading list for editing.'}
         error={error.data.Exception}
       />
     );
   }
 
   return (
-    <div className="Edit-list-page">
+    <div className='Edit-list-page'>
       <ManageList
         list={list}
         updateList={handleUpdate}

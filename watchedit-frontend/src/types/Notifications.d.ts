@@ -1,5 +1,5 @@
-import { User } from "./Auth";
-import { PaginationResponse } from "./PaginationResponse";
+import { User } from './Auth';
+import { PaginationResponse } from './PaginationResponse';
 
 export type Notification = {
   id: number;

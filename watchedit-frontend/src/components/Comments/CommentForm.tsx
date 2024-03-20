@@ -1,7 +1,7 @@
-import { CommentFormErrors, EditableComment } from "../../types/Reviews";
-import SubmitButtonWIcon from "../Buttons/SubmitButtonWIcon";
-import CommentIcon from "../Icons/CommentIcon";
-import TextAreaInput from "../Inputs/TextAreaInput";
+import { CommentFormErrors, EditableComment } from '../../types/Reviews';
+import SubmitButtonWIcon from '../Buttons/SubmitButtonWIcon';
+import CommentIcon from '../Icons/CommentIcon';
+import TextAreaInput from '../Inputs/TextAreaInput';
 
 type Props = {
   comment: EditableComment;
@@ -21,21 +21,21 @@ const CommentForm = ({
   editing = false,
 }: Props) => {
   return (
-    <form className="" onSubmit={onSubmit}>
+    <form className='' onSubmit={onSubmit}>
       {errors.onSubmit && (
-        <div className="text-red-500 text-xs p-1" role="alert">
+        <div className='p-1 text-xs text-red-500' role='alert'>
           {errors.onSubmit}
         </div>
       )}
       <div
-        className={`controls bg-backgroundOffset mt-4 mb-4 p-4 ${
-          !editing && "shadow rounded"
+        className={`controls mb-4 mt-4 bg-backgroundOffset p-4 ${
+          !editing && 'rounded shadow'
         }`}
       >
         <div>
           <TextAreaInput
-            name="text"
-            label="Text"
+            name='text'
+            label='Text'
             value={comment.text}
             required={true}
             onChange={onChange}
@@ -44,15 +44,15 @@ const CommentForm = ({
         </div>
       </div>
       <div
-        className={`flex justify-center bg-backgroundOffset p-4 my-4 ${
-          !editing && "shadow rounded"
+        className={`my-4 flex justify-center bg-backgroundOffset p-4 ${
+          !editing && 'rounded shadow'
         }`}
       >
         <SubmitButtonWIcon
-          text={saving ? "Submitting..." : "Submit"}
+          text={saving ? 'Submitting...' : 'Submit'}
           disabled={saving}
-          icon={<CommentIcon color="white" height={5} width={10} />}
-          bgColor="bg-primary"
+          icon={<CommentIcon color='white' height={5} width={10} />}
+          bgColor='bg-primary'
         />
       </div>
     </form>

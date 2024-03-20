@@ -1,8 +1,8 @@
-import { useState } from "react";
-import ManageReviewForm from "../../../components/Films/Reviews/ManageReviewForm";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import { Film } from "../../../types/Films";
-import { EditableReview, ReviewFormErrors } from "../../../types/Reviews";
+import { useState } from 'react';
+import ManageReviewForm from '../../../components/Films/Reviews/ManageReviewForm';
+import LoadingMessage from '../../../components/Loading/LoadingMessage';
+import { Film } from '../../../types/Films';
+import { EditableReview, ReviewFormErrors } from '../../../types/Reviews';
 
 type Props = {
   film: Film;
@@ -27,7 +27,7 @@ function ManageReview({
       | React.ChangeEvent<HTMLTextAreaElement>,
   ): void {
     const { name, value } = event.target;
-    if (name == "rating" && (Number(value) < 0 || Number(value) > 10)) return;
+    if (name == 'rating' && (Number(value) < 0 || Number(value) > 10)) return;
 
     updateReview({
       ...review,
@@ -38,12 +38,12 @@ function ManageReview({
   function formIsValid(): boolean {
     const { rating, text } = review;
     const errors = {} as ReviewFormErrors;
-    if (!rating) errors.rating = "Rating is required";
+    if (!rating) errors.rating = 'Rating is required';
     if (rating! < 0 || rating! > 10)
-      errors.rating = "Rating must be between 0 and 10";
-    if (!text) errors.text = "Review text is required";
+      errors.rating = 'Rating must be between 0 and 10';
+    if (!text) errors.text = 'Review text is required';
     if (text.length > 8000)
-      errors.text = "Review text cant be longer than 8000 characters";
+      errors.text = 'Review text cant be longer than 8000 characters';
     setErrors(errors);
     return Object.keys(errors).length === 0;
   }
@@ -55,7 +55,7 @@ function ManageReview({
   }
 
   return (
-    <div className="manage-film-review-page">
+    <div className='manage-film-review-page'>
       {film && review ? (
         <>
           <ManageReviewForm
@@ -68,7 +68,7 @@ function ManageReview({
           />
         </>
       ) : (
-        <LoadingMessage message={"Loading form."} />
+        <LoadingMessage message={'Loading form.'} />
       )}
     </div>
   );

@@ -1,7 +1,7 @@
-import { useState } from "react";
-import ManageCategoryForm from "../../../components/Categories/Manage/ManageCategoryForm";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import { Category, CategoryFormErrors } from "../../../types/Categories";
+import { useState } from 'react';
+import ManageCategoryForm from '../../../components/Categories/Manage/ManageCategoryForm';
+import LoadingMessage from '../../../components/Loading/LoadingMessage';
+import { Category, CategoryFormErrors } from '../../../types/Categories';
 
 type Props = {
   category: Category;
@@ -29,7 +29,7 @@ function ManageCategory({
   function formIsValid(): boolean {
     const { name } = category;
     const errors = {} as CategoryFormErrors;
-    if (!name) errors.name = "Name is required";
+    if (!name) errors.name = 'Name is required';
     if (name.length > 30)
       errors.name = "Name can't be longer than 30 characters.";
     setErrors(errors);
@@ -43,7 +43,7 @@ function ManageCategory({
   }
 
   return (
-    <div className="manage-category-page">
+    <div className='manage-category-page'>
       {category ? (
         <ManageCategoryForm
           category={category}
@@ -53,7 +53,7 @@ function ManageCategory({
           saving={saving}
         />
       ) : (
-        <LoadingMessage message={"Loading category"} />
+        <LoadingMessage message={'Loading category'} />
       )}
     </div>
   );

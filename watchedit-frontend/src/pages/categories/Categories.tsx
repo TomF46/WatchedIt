@@ -1,16 +1,16 @@
-import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import { getCategories } from "../../api/categoriesApi";
-import CategoryList from "../../components/Categories/CategoryList";
-import LoadingMessage from "../../components/Loading/LoadingMessage";
-import { useQuery } from "@tanstack/react-query";
-import { useAppSelector } from "../../redux/store";
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { getCategories } from '../../api/categoriesApi';
+import CategoryList from '../../components/Categories/CategoryList';
+import LoadingMessage from '../../components/Loading/LoadingMessage';
+import { useQuery } from '@tanstack/react-query';
+import { useAppSelector } from '../../redux/store';
 
 function Categories() {
   const isAdmin = useAppSelector((state) => state.admin.isAdmin);
 
   const { data: categories } = useQuery({
-    queryKey: ["categories"],
+    queryKey: ['categories'],
     queryFn: () =>
       getCategories().catch((error) => {
         toast.error(`Error getting categories ${error.data.Exception}`, {
@@ -21,18 +21,18 @@ function Categories() {
   });
 
   return (
-    <div className="categories-page">
+    <div className='categories-page'>
       {isAdmin && (
-        <div className="admin-controls bg-backgroundOffset mt-4 rounded-md shadow">
-          <div className="bg-backgroundOffset2 rounded-t-md">
-            <p className="text-primary font-semibold text-lg px-2 py-1">
+        <div className='admin-controls mt-4 rounded-md bg-backgroundOffset shadow'>
+          <div className='rounded-t-md bg-backgroundOffset2'>
+            <p className='px-2 py-1 text-lg font-semibold text-primary'>
               Admin controls
             </p>
           </div>
-          <div className="px-2 py-2">
+          <div className='px-2 py-2'>
             <Link
-              to={"/categories/add"}
-              className="bg-backgroundOffset2 text-primary font-semibold rounded py-2 px-4 hover:opacity-75 inline-block"
+              to={'/categories/add'}
+              className='inline-block rounded bg-backgroundOffset2 px-4 py-2 font-semibold text-primary hover:opacity-75'
             >
               Add category
             </Link>
@@ -40,10 +40,10 @@ function Categories() {
         </div>
       )}
       {!categories ? (
-        <LoadingMessage message={"Loading categories."} />
+        <LoadingMessage message={'Loading categories.'} />
       ) : (
         <div>
-          <h1 className="text-center text-primary text-4xl my-4 font-semibold">
+          <h1 className='my-4 text-center text-4xl font-semibold text-primary'>
             Categories
           </h1>
           <CategoryList categories={categories} />

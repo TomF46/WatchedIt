@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import { Person } from "../../types/People";
-import ThumbsUpIcon from "../Icons/ThumbsUpIcon";
-import CameraIcon from "../Icons/CameraIcon";
+import { useNavigate } from 'react-router-dom';
+import { Person } from '../../types/People';
+import ThumbsUpIcon from '../Icons/ThumbsUpIcon';
+import CameraIcon from '../Icons/CameraIcon';
 
 const PersonPreview = ({
   person,
@@ -12,39 +12,39 @@ const PersonPreview = ({
 }) => {
   const navigate = useNavigate();
   return (
-    <div className="col-span-8 md:col-span-4 lg:col-span-2 mt-2">
+    <div className='col-span-8 mt-2 md:col-span-4 lg:col-span-2'>
       <div
         onClick={() => {
           if (isLink) navigate(`/people/${person.id}`);
         }}
-        className="mx-2 bg-backgroundOffset cursor-pointer hover:opacity-75 h-full shadow rounded group"
+        className='group mx-2 h-full cursor-pointer rounded bg-backgroundOffset shadow hover:opacity-75'
       >
-        <div className="relative">
+        <div className='relative'>
           <img
             src={person.imageUrl}
-            className="w-full headshot rounded-t"
+            className='headshot w-full rounded-t'
             alt={`${person.fullName} headshot.`}
           />
-          <div className="absolute bottom-0 invisible p-1 group-hover:visible bg-backgroundOffset2 w-full">
-            <p className="text-center text-primary">{person.fullName}</p>
+          <div className='invisible absolute bottom-0 w-full bg-backgroundOffset2 p-1 group-hover:visible'>
+            <p className='text-center text-primary'>{person.fullName}</p>
           </div>
         </div>
-        <div className="p-2">
-          <div className="grid grid-cols-12">
-            <div className="col-span-6 relative">
-              <div className="text-center inline-flex items-center">
-                <CameraIcon color="primary" height={5} width={5} />
-                <p className="ml-1">{person.creditCount}</p>
+        <div className='p-2'>
+          <div className='grid grid-cols-12'>
+            <div className='relative col-span-6'>
+              <div className='inline-flex items-center text-center'>
+                <CameraIcon color='primary' height={5} width={5} />
+                <p className='ml-1'>{person.creditCount}</p>
               </div>
             </div>
-            <div className="col-span-6 relative">
-              <div className="text-center inline-flex items-center absolute right-0 top-0">
-                <ThumbsUpIcon color="success" height={5} width={5} />
-                <p className="ml-1">{person.likedByCount}</p>
+            <div className='relative col-span-6'>
+              <div className='absolute right-0 top-0 inline-flex items-center text-center'>
+                <ThumbsUpIcon color='success' height={5} width={5} />
+                <p className='ml-1'>{person.likedByCount}</p>
               </div>
             </div>
-            <div className="col-span-12 lg:hidden">
-              <h3 className="text-center text-primary">{person.fullName}</h3>
+            <div className='col-span-12 lg:hidden'>
+              <h3 className='text-center text-primary'>{person.fullName}</h3>
             </div>
           </div>
         </div>

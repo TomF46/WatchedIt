@@ -1,8 +1,8 @@
 import {
   GuessFilmFromCastGame,
   GuessFilmFromCastGamesPaginationResponse,
-} from "../../types/Games";
-import client from "../client";
+} from '../../types/Games';
+import client from '../client';
 
 export function getGuessFilmFromCastGames(
   pageNumber: number,

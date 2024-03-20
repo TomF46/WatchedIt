@@ -1,6 +1,6 @@
-import { User } from "./Auth";
-import { Film } from "./Films";
-import { PaginationResponse } from "./PaginationResponse";
+import { User } from './Auth';
+import { Film } from './Films';
+import { PaginationResponse } from './PaginationResponse';
 
 export type Review = {
   id?: number;

@@ -1,11 +1,11 @@
-import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
-import LoadingMessage from "../../Loading/LoadingMessage";
-import { getPeoplePaginated } from "../../../api/peopleApi";
-import PersonPreview from "../../People/PersonPreview";
-import { useQuery } from "@tanstack/react-query";
-import { Person } from "../../../types/People";
-import PersonIcon from "../../Icons/PersonIcon";
+import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
+import LoadingMessage from '../../Loading/LoadingMessage';
+import { getPeoplePaginated } from '../../../api/peopleApi';
+import PersonPreview from '../../People/PersonPreview';
+import { useQuery } from '@tanstack/react-query';
+import { Person } from '../../../types/People';
+import PersonIcon from '../../Icons/PersonIcon';
 
 type Props = {
   title: string;
@@ -18,12 +18,12 @@ function PeopleReel({ title, subtitle, sort }: Props) {
   const peoplePerPage = 8;
 
   const { isLoading, data, error } = useQuery({
-    queryKey: ["people", sort, peoplePerPage, page],
+    queryKey: ['people', sort, peoplePerPage, page],
     queryFn: () =>
       getPeoplePaginated(page, peoplePerPage, sort).then((res) => res.data),
   });
 
-  if (isLoading) return <LoadingMessage message={"Loading people."} />;
+  if (isLoading) return <LoadingMessage message={'Loading people.'} />;
 
   if (error) {
     toast.error(`Error getting people ${error.data.Exception}`, {
@@ -33,17 +33,17 @@ function PeopleReel({ title, subtitle, sort }: Props) {
   }
 
   return (
-    <div className="people-reel">
-      <div className="mt-4">
+    <div className='people-reel'>
+      <div className='mt-4'>
         <Link
-          to={"/people"}
-          className="text-primary text-2xl hover:opacity-75 font-semibold"
+          to={'/people'}
+          className='text-2xl font-semibold text-primary hover:opacity-75'
         >
           {title}
         </Link>
         {subtitle && <p>{subtitle}</p>}
         {data.length > 0 ? (
-          <div className="grid grid-cols-16">
+          <div className='grid grid-cols-16'>
             {data.map((person: Person) => {
               return (
                 <PersonPreview key={person.id} person={person} isLink={true} />
@@ -51,16 +51,16 @@ function PeopleReel({ title, subtitle, sort }: Props) {
             })}
           </div>
         ) : (
-          <div className="my-16">
-            <div className="flex justify-center text-center">
+          <div className='my-16'>
+            <div className='flex justify-center text-center'>
               <PersonIcon
-                color="primary"
+                color='primary'
                 height={14}
                 width={14}
                 strokeWidth={1.5}
               />
             </div>
-            <p className="text-center text-2xl">No people match your search</p>
+            <p className='text-center text-2xl'>No people match your search</p>
           </div>
         )}
       </div>

@@ -1,7 +1,7 @@
-import { setUserCanPublishByUserId } from "../../api/usersApi";
-import { toast } from "react-toastify";
-import { useMutation } from "@tanstack/react-query";
-import { User } from "../../types/Auth";
+import { setUserCanPublishByUserId } from '../../api/usersApi';
+import { toast } from 'react-toastify';
+import { useMutation } from '@tanstack/react-query';
+import { User } from '../../types/Auth';
 
 type Props = {
   user: User;
@@ -13,7 +13,7 @@ function UserAdminControls({ user, onUserReload }: Props) {
     mutationFn: (canPublish: boolean) =>
       setUserCanPublishByUserId(user.id, canPublish),
     onSuccess: (res) => {
-      toast.success(`User ${res.canPublish ? "set" : "removed"} as publisher.`);
+      toast.success(`User ${res.canPublish ? 'set' : 'removed'} as publisher.`);
       onUserReload();
     },
     onError: (err) => {
@@ -27,18 +27,18 @@ function UserAdminControls({ user, onUserReload }: Props) {
   });
 
   return (
-    <div className="admin-controls bg-backgroundOffset mt-4 shadow rounded">
-      <div className="bg-backgroundOffset2 rounded-t-md">
-        <p className="text-primary font-semibold text-lg px-2 py-1">
+    <div className='admin-controls mt-4 rounded bg-backgroundOffset shadow'>
+      <div className='rounded-t-md bg-backgroundOffset2'>
+        <p className='px-2 py-1 text-lg font-semibold text-primary'>
           Admin controls
         </p>
       </div>
-      <div className="px-2 py-2">
+      <div className='px-2 py-2'>
         <button
           onClick={() => setUserCanPublish.mutate(!user.canPublish)}
-          className="bg-backgroundOffset2 text-primary font-semibold rounded py-2 px-4 hover:opacity-75 inline-block"
+          className='inline-block rounded bg-backgroundOffset2 px-4 py-2 font-semibold text-primary hover:opacity-75'
         >
-          {user.canPublish ? "Remove as publisher" : "Add as publisher"}
+          {user.canPublish ? 'Remove as publisher' : 'Add as publisher'}
         </button>
       </div>
     </div>

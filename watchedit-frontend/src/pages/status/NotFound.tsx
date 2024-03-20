@@ -1,7 +1,7 @@
 function NotFound() {
   return (
-    <div className="not-found-page">
-      <p className="text-center text-primary text-4xl mt-4">Page not found!</p>
+    <div className='not-found-page'>
+      <p className='mt-4 text-center text-4xl text-primary'>Page not found!</p>
     </div>
   );
 }

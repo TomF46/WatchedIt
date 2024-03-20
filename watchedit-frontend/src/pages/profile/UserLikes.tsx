@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { toast } from "react-toastify";
-import { getUserById, getLikedPeopleByUserId } from "../../api/usersApi";
-import PaginationControls from "../../components/PaginationControls";
-import { useParams } from "react-router-dom";
-import LoadingMessage from "../../components/Loading/LoadingMessage";
-import PersonGrid from "../../components/People/PersonGrid";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import ErrorMessage from "../../components/Error/ErrorMessage";
-import { useAppSelector } from "../../redux/store";
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { getUserById, getLikedPeopleByUserId } from '../../api/usersApi';
+import PaginationControls from '../../components/PaginationControls';
+import { useParams } from 'react-router-dom';
+import LoadingMessage from '../../components/Loading/LoadingMessage';
+import PersonGrid from '../../components/People/PersonGrid';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import ErrorMessage from '../../components/Error/ErrorMessage';
+import { useAppSelector } from '../../redux/store';
 
 function UserLikes() {
   const { id } = useParams();
@@ -19,12 +19,12 @@ function UserLikes() {
   const peoplePerPage = 32;
 
   const { data: user, error: userLoadError } = useQuery({
-    queryKey: ["user", userId],
+    queryKey: ['user', userId],
     queryFn: () => getUserById(Number(userId)),
   });
 
   const { data: peoplePaginator } = useQuery({
-    queryKey: ["user-watchedlist", userId, page, peoplePerPage],
+    queryKey: ['user-watchedlist', userId, page, peoplePerPage],
     queryFn: () =>
       getLikedPeopleByUserId(Number(userId!), page, peoplePerPage).catch(
         (error) => {
@@ -40,19 +40,19 @@ function UserLikes() {
   if (userLoadError) {
     return (
       <ErrorMessage
-        message={"Error loading user."}
+        message={'Error loading user.'}
         error={userLoadError.data.Exception}
       />
     );
   }
   return (
-    <div className="user-likes-page">
+    <div className='user-likes-page'>
       {!user ? (
-        <LoadingMessage message={"Loading user"} />
+        <LoadingMessage message={'Loading user'} />
       ) : (
         <>
           <div>
-            <h1 className="text-center text-primary text-4xl my-4 font-semibold">
+            <h1 className='my-4 text-center text-4xl font-semibold text-primary'>
               {user.username} liked people
             </h1>
             {peoplePaginator ? (
@@ -70,13 +70,13 @@ function UserLikes() {
                     />
                   </>
                 ) : (
-                  <p className="text-center text-primary text-2xl">
+                  <p className='text-center text-2xl text-primary'>
                     {user.username} has not liked any people.
                   </p>
                 )}
               </>
             ) : (
-              <LoadingMessage message={"Loading liked people"} />
+              <LoadingMessage message={'Loading liked people'} />
             )}
           </div>
         </>

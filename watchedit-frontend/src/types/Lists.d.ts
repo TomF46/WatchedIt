@@ -1,5 +1,5 @@
-import { User } from "./Auth";
-import { Film } from "./Films";
+import { User } from './Auth';
+import { Film } from './Films';
 
 export type List = {
   id?: number;

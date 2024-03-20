@@ -1,6 +1,6 @@
-import { useState } from "react";
-import ManageCreditForm from "./ManageCreditForm";
-import { CreditFormErrors, EditableCredit } from "../../types/Credits";
+import { useState } from 'react';
+import ManageCreditForm from './ManageCreditForm';
+import { CreditFormErrors, EditableCredit } from '../../types/Credits';
 
 type Props = {
   onSave: (credit: EditableCredit) => void;
@@ -8,7 +8,7 @@ type Props = {
 };
 
 const AddCreditForm = ({ onSave, saving }: Props) => {
-  const [credit, setCredit] = useState<EditableCredit>({ role: "", type: "" });
+  const [credit, setCredit] = useState<EditableCredit>({ role: '', type: '' });
   const [errors, setErrors] = useState({});
 
   function handleChange(
@@ -26,10 +26,10 @@ const AddCreditForm = ({ onSave, saving }: Props) => {
   function formIsValid() {
     const { role, type } = credit;
     const errors = {} as CreditFormErrors;
-    if (!role) errors.role = "Role is required";
+    if (!role) errors.role = 'Role is required';
     if (role.length > 60)
-      errors.role = "Role cant be longer than 60 characters.";
-    if (!type) errors.type = "Role type is required";
+      errors.role = 'Role cant be longer than 60 characters.';
+    if (!type) errors.type = 'Role type is required';
 
     setErrors(errors);
     return Object.keys(errors).length === 0;

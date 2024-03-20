@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { saveFilm } from "../../../api/filmsApi";
-import { newFilm } from "../../../tools/obJectShapes";
-import ManageFilm from "./ManageFilm";
-import { useMutation } from "@tanstack/react-query";
-import { EditableFilm, FilmForRequest } from "../../../types/Films";
-import { SelectOption } from "../../../components/Inputs/InputTypes";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { saveFilm } from '../../../api/filmsApi';
+import { newFilm } from '../../../tools/obJectShapes';
+import ManageFilm from './ManageFilm';
+import { useMutation } from '@tanstack/react-query';
+import { EditableFilm, FilmForRequest } from '../../../types/Films';
+import { SelectOption } from '../../../components/Inputs/InputTypes';
 
 function AddFilm() {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ function AddFilm() {
       return saveFilm(newFilm);
     },
     onSuccess: (res) => {
-      toast.success("Film saved");
+      toast.success('Film saved');
       navigate(`/films/${res.id}`);
     },
     onError: (err) => {
@@ -43,7 +43,7 @@ function AddFilm() {
   }
 
   return (
-    <div className="add-film-page">
+    <div className='add-film-page'>
       <ManageFilm
         film={film}
         updateFilm={handleUpdate}

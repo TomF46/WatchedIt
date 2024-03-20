@@ -1,11 +1,11 @@
-import client from "./client";
+import client from './client';
 
 export function uploadImage(
   file: File,
   prefix: string,
 ): Promise<{ url: string }> {
   const data = new FormData();
-  data.append("file", file);
+  data.append('file', file);
 
   return client
     .post(`/api/files/upload?prefix=${prefix}`, data)

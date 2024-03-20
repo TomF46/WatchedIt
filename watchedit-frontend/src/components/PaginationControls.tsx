@@ -1,5 +1,5 @@
-import ArrowLeftIcon from "./Icons/ArrowLeftIcon";
-import ArrowRightIcon from "./Icons/ArrowRightIcon";
+import ArrowLeftIcon from './Icons/ArrowLeftIcon';
+import ArrowRightIcon from './Icons/ArrowRightIcon';
 
 type Props = {
   from: number;
@@ -23,11 +23,11 @@ const PaginationControls = ({
   }
 
   return (
-    <div className="pagination-controls p-2">
-      <div className="flex justify-between">
+    <div className='pagination-controls p-2'>
+      <div className='flex justify-between'>
         <div>
           {of > 0 && (
-            <p className="text-sm text-secondary">{`Showing ${
+            <p className='text-secondary text-sm'>{`Showing ${
               from ? from : 0
             } to ${to ? to : 0} of ${of}`}</p>
           )}
@@ -35,26 +35,26 @@ const PaginationControls = ({
         <div>
           {currentPage > 1 && (
             <button
-              type="button"
+              type='button'
               onClick={() => {
                 changePageBy(-1);
               }}
-              className="rounded mr-2 inline-flex items-center pointer text-secondary hover:opacity-75"
+              className='pointer text-secondary mr-2 inline-flex items-center rounded hover:opacity-75'
             >
-              <ArrowLeftIcon color="white" height={5} width={5} />
-              <span className="ml-1">Previous</span>
+              <ArrowLeftIcon color='white' height={5} width={5} />
+              <span className='ml-1'>Previous</span>
             </button>
           )}
           {!lastPage && (
             <button
-              type="button"
+              type='button'
               onClick={() => {
                 changePageBy(1);
               }}
-              className="rounded inline-flex items-center pointer text-secondary hover:opacity-75"
+              className='pointer text-secondary inline-flex items-center rounded hover:opacity-75'
             >
-              <ArrowRightIcon color="white" height={5} width={5} />
-              <span className="ml-1">Next</span>
+              <ArrowRightIcon color='white' height={5} width={5} />
+              <span className='ml-1'>Next</span>
             </button>
           )}
         </div>

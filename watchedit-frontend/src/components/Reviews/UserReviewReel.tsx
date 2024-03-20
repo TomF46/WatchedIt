@@ -1,9 +1,9 @@
-import { toast } from "react-toastify";
-import { searchUsersReviewsPaginated } from "../../api/usersApi";
-import SimpleReviewPreview from "./SimpleReviewPreview";
-import { useQuery } from "@tanstack/react-query";
-import { Review } from "../../types/Reviews";
-import { User } from "../../types/Auth";
+import { toast } from 'react-toastify';
+import { searchUsersReviewsPaginated } from '../../api/usersApi';
+import SimpleReviewPreview from './SimpleReviewPreview';
+import { useQuery } from '@tanstack/react-query';
+import { Review } from '../../types/Reviews';
+import { User } from '../../types/Auth';
 
 type Props = {
   user: User;
@@ -20,7 +20,7 @@ function UserReviewsReel({ user, title, sort }: Props) {
     data: reviewsPaginator,
     error,
   } = useQuery({
-    queryKey: ["user-reviews", user.id, page, reviewsPerPage, sort],
+    queryKey: ['user-reviews', user.id, page, reviewsPerPage, sort],
     queryFn: () =>
       searchUsersReviewsPaginated(user.id, page, reviewsPerPage, sort),
   });
@@ -34,11 +34,11 @@ function UserReviewsReel({ user, title, sort }: Props) {
 
   if (!isLoading)
     return (
-      <div className="reviews-reel">
+      <div className='reviews-reel'>
         {reviewsPaginator && reviewsPaginator.data.length > 0 && (
-          <div className="mt-4">
-            <p className="text-primary text-2xl font-semibold">{title}</p>
-            <div className="grid grid-cols-16">
+          <div className='mt-4'>
+            <p className='text-2xl font-semibold text-primary'>{title}</p>
+            <div className='grid grid-cols-16'>
               {reviewsPaginator.data.map((review: Review) => {
                 return (
                   <SimpleReviewPreview

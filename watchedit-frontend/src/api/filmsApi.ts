@@ -4,8 +4,8 @@ import {
   FilmFormErrors,
   FilmSearchParameters,
   FilmsPaginationResponse,
-} from "../types/Films";
-import client from "./client";
+} from '../types/Films';
+import client from './client';
 
 export function saveFilm(film: FilmFormErrors): Promise<Film> {
   return film.id ? editFilm(film) : addFilm(film);

@@ -1,5 +1,5 @@
-import FilmPreview from "./FilmPreview";
-import { Film } from "../../types/Films";
+import FilmPreview from './FilmPreview';
+import { Film } from '../../types/Films';
 
 type Props = {
   films: Film[];
@@ -9,7 +9,7 @@ type Props = {
 
 const FilmGrid = ({ films, editable, onRemove }: Props) => {
   return (
-    <div className="grid grid-cols-16">
+    <div className='grid grid-cols-16'>
       {films.map((film) => {
         return (
           <FilmPreview

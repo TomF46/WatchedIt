@@ -1,4 +1,4 @@
-import { Person } from "../../../types/People";
+import { Person } from '../../../types/People';
 
 type Props = {
   people: Person[];
@@ -12,24 +12,24 @@ const SelectPersonFromCards = ({ people, onPersonSelected }: Props) => {
         return (
           <div
             key={person.id}
-            className="col-span-8 md:col-span-4 lg:col-span-2 my-2"
+            className='col-span-8 my-2 md:col-span-4 lg:col-span-2'
           >
-            <div className="mx-2 bg-backgroundOffset cursor-pointer h-full shadow rounded">
+            <div className='mx-2 h-full cursor-pointer rounded bg-backgroundOffset shadow'>
               <div
                 onClick={() => {
                   onPersonSelected(person);
                 }}
-                className="hover:opacity-75 relative"
+                className='relative hover:opacity-75'
               >
                 <img
                   src={person.imageUrl}
-                  className={`w-full headshot rounded-t`}
+                  className={`headshot w-full rounded-t`}
                   alt={`${person.fullName} headshot.`}
                 />
-                <div className="p-2">
-                  <div className="grid grid-cols-12">
-                    <div className="col-span-12">
-                      <h3 className="text-center text-primary">
+                <div className='p-2'>
+                  <div className='grid grid-cols-12'>
+                    <div className='col-span-12'>
+                      <h3 className='text-center text-primary'>
                         {person.fullName}
                       </h3>
                     </div>

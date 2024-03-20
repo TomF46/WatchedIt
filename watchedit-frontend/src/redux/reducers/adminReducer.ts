@@ -1,5 +1,5 @@
-import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
-import { getCurrentUserIsAdmin } from "../../api/usersApi";
+import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit';
+import { getCurrentUserIsAdmin } from '../../api/usersApi';
 
 interface AdminState {
   isAdmin: boolean;
@@ -10,7 +10,7 @@ const initialState: AdminState = {
 };
 
 export const AdminSlice = createSlice({
-  name: "admin",
+  name: 'admin',
   initialState,
   reducers: {
     setUserIsAdmin: (state, action: PayloadAction<boolean>) => {

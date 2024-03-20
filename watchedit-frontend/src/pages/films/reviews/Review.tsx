@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import { removeReview, getReviewById } from "../../../api/filmReviewApi";
-import { confirmAlert } from "react-confirm-alert";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import ReviewCommentsSection from "../../../components/Reviews/ReviewCommentsSection";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useAppSelector } from "../../../redux/store";
-import { Review as ReviewType } from "../../../types/Reviews";
-import ErrorMessage from "../../../components/Error/ErrorMessage";
+import { useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { removeReview, getReviewById } from '../../../api/filmReviewApi';
+import { confirmAlert } from 'react-confirm-alert';
+import LoadingMessage from '../../../components/Loading/LoadingMessage';
+import ReviewCommentsSection from '../../../components/Reviews/ReviewCommentsSection';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useAppSelector } from '../../../redux/store';
+import { Review as ReviewType } from '../../../types/Reviews';
+import ErrorMessage from '../../../components/Error/ErrorMessage';
 
 function Review() {
   const { id, reviewId } = useParams();
@@ -23,7 +23,7 @@ function Review() {
     data: review,
     error,
   } = useQuery({
-    queryKey: ["review", id, reviewId],
+    queryKey: ['review', id, reviewId],
     queryFn: () =>
       getReviewById(Number(id), Number(reviewId)).then((res) => {
         setUserCanEdit(res.user.id == userId);
@@ -35,7 +35,7 @@ function Review() {
     mutationFn: (reviewToRemove: ReviewType) =>
       removeReview(Number(id), reviewToRemove),
     onSuccess: () => {
-      toast.success("Review removed");
+      toast.success('Review removed');
       navigate(`/films/${id}/reviews`);
     },
     onError: (err) => {
@@ -47,27 +47,27 @@ function Review() {
 
   function confirmDelete(): void {
     confirmAlert({
-      title: "Confirm removal",
+      title: 'Confirm removal',
       message: `Are you sure you want to remove this review?`,
       buttons: [
         {
-          label: "Yes",
+          label: 'Yes',
           onClick: () => deleteReview.mutate(review!),
         },
         {
-          label: "No",
+          label: 'No',
           onClick: () => {},
         },
       ],
     });
   }
 
-  if (isLoading) return <LoadingMessage message={"Loading review."} />;
+  if (isLoading) return <LoadingMessage message={'Loading review.'} />;
 
   if (error) {
     return (
       <ErrorMessage
-        message={"Error loading review."}
+        message={'Error loading review.'}
         error={error.data.Exception}
       />
     );
@@ -75,21 +75,21 @@ function Review() {
 
   if (review)
     return (
-      <div className="film-reviews-page">
-        <h1 className="text-center text-primary text-4xl my-4 font-semibold">
+      <div className='film-reviews-page'>
+        <h1 className='my-4 text-center text-4xl font-semibold text-primary'>
           {review.film.name} review
         </h1>
         {userCanEdit && (
-          <div className="owner-controls bg-backgroundOffset mt-4 shadow rounded">
-            <div className="bg-backgroundOffset2 rounded-t-md">
-              <p className="text-primary font-semibold text-lg px-2 py-1">
+          <div className='owner-controls mt-4 rounded bg-backgroundOffset shadow'>
+            <div className='rounded-t-md bg-backgroundOffset2'>
+              <p className='px-2 py-1 text-lg font-semibold text-primary'>
                 Review owner controls
               </p>
             </div>
-            <div className="px-2 py-2">
+            <div className='px-2 py-2'>
               <Link
                 to={`/films/${review.film.id}/reviews/${reviewId}/edit`}
-                className="bg-backgroundOffset2 text-primary font-semibold rounded py-2 px-4 hover:opacity-75 inline-block"
+                className='inline-block rounded bg-backgroundOffset2 px-4 py-2 font-semibold text-primary hover:opacity-75'
               >
                 Edit review
               </Link>
@@ -97,29 +97,29 @@ function Review() {
                 onClick={() => {
                   confirmDelete();
                 }}
-                className="bg-backgroundOffset2 text-red-400 font-semibold rounded py-2 px-4 hover:opacity-75 inline-block ml-2"
+                className='ml-2 inline-block rounded bg-backgroundOffset2 px-4 py-2 font-semibold text-red-400 hover:opacity-75'
               >
                 Remove
               </button>
             </div>
           </div>
         )}
-        <div className="mt-4 grid grid-cols-12">
-          <div className="col-span-12 md:col-span-2">
-            <p className="text-center text-primary text-2xl">
+        <div className='mt-4 grid grid-cols-12'>
+          <div className='col-span-12 md:col-span-2'>
+            <p className='text-center text-2xl text-primary'>
               {review.film.name}
             </p>
             <img
               src={review.film.posterUrl}
-              className="poster mt-2 rounded"
+              className='poster mt-2 rounded'
               alt={`${review.film.name} poster.`}
             />
           </div>
-          <div className="col-span-12 md:col-span-10 pl-4">
-            <p className="text-rating text-2xl text-center md:text-left my-4 md:my-0">
+          <div className='col-span-12 pl-4 md:col-span-10'>
+            <p className='my-4 text-center text-2xl text-rating md:my-0 md:text-left'>
               Rating {review.rating}/10
             </p>
-            <div className="bg-backgroundOffset p-4 mt-2 shadow rounded">
+            <div className='mt-2 rounded bg-backgroundOffset p-4 shadow'>
               <p>{review.text}</p>
             </div>
             <ReviewCommentsSection review={review} />

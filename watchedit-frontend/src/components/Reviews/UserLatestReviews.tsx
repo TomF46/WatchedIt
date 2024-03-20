@@ -1,10 +1,10 @@
-import { toast } from "react-toastify";
-import LoadingMessage from "../Loading/LoadingMessage";
-import ReviewOverview from "./ReviewOverview";
-import { getUsersReviewsPaginated } from "../../api/usersApi";
-import { useQuery } from "@tanstack/react-query";
-import { User } from "../../types/Auth";
-import { Review } from "../../types/Reviews";
+import { toast } from 'react-toastify';
+import LoadingMessage from '../Loading/LoadingMessage';
+import ReviewOverview from './ReviewOverview';
+import { getUsersReviewsPaginated } from '../../api/usersApi';
+import { useQuery } from '@tanstack/react-query';
+import { User } from '../../types/Auth';
+import { Review } from '../../types/Reviews';
 
 type Props = {
   user: User;
@@ -17,7 +17,7 @@ function UserLatestReviews({ user, totalReviews }: Props) {
     data: reviews,
     error,
   } = useQuery({
-    queryKey: ["user-latest-reviews", user.id, totalReviews],
+    queryKey: ['user-latest-reviews', user.id, totalReviews],
     queryFn: () =>
       getUsersReviewsPaginated(user.id, 1, totalReviews).then(
         (res) => res.data,
@@ -38,13 +38,13 @@ function UserLatestReviews({ user, totalReviews }: Props) {
 
   if (reviews)
     return (
-      <div className="user-latest-reviews">
-        <div className="mt-4">
-          <h2 className="text-primary text-xl ">
+      <div className='user-latest-reviews'>
+        <div className='mt-4'>
+          <h2 className='text-xl text-primary '>
             {user.username} Latest reviews
           </h2>
           {reviews.length > 0 ? (
-            <div className="grid grid-cols-12">
+            <div className='grid grid-cols-12'>
               {reviews.map((review: Review) => {
                 return (
                   <ReviewOverview
@@ -56,7 +56,7 @@ function UserLatestReviews({ user, totalReviews }: Props) {
               })}
             </div>
           ) : (
-            <p className="text-lg">{user.username} currently has no reviews.</p>
+            <p className='text-lg'>{user.username} currently has no reviews.</p>
           )}
         </div>
       </div>

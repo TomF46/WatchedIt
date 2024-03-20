@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import { newTrivia } from "../../../tools/obJectShapes";
-import ManageTrivia from "./ManageTrivia";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { getFilmById } from "../../../api/filmsApi";
-import { saveFilmTrivia } from "../../../api/filmTriviaApi";
-import ErrorMessage from "../../../components/Error/ErrorMessage";
-import { EditableTrivia } from "../../../types/Trivia";
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { newTrivia } from '../../../tools/obJectShapes';
+import ManageTrivia from './ManageTrivia';
+import LoadingMessage from '../../../components/Loading/LoadingMessage';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { getFilmById } from '../../../api/filmsApi';
+import { saveFilmTrivia } from '../../../api/filmTriviaApi';
+import ErrorMessage from '../../../components/Error/ErrorMessage';
+import { EditableTrivia } from '../../../types/Trivia';
 
 function AddTrivia() {
   const { id } = useParams();
@@ -21,7 +21,7 @@ function AddTrivia() {
     data: film,
     error,
   } = useQuery({
-    queryKey: ["film", id],
+    queryKey: ['film', id],
     queryFn: () => getFilmById(Number(id)),
   });
 
@@ -31,7 +31,7 @@ function AddTrivia() {
       return saveFilmTrivia(Number(id), newTrivia);
     },
     onSuccess: () => {
-      toast.success("Trivia saved");
+      toast.success('Trivia saved');
       navigate(`/films/${id}/trivia`);
     },
     onError: (err) => {
@@ -46,19 +46,19 @@ function AddTrivia() {
     setTrivia(updatedTrivia);
   }
 
-  if (isLoading) return <LoadingMessage message={"Loading film."} />;
+  if (isLoading) return <LoadingMessage message={'Loading film.'} />;
 
   if (error) {
     return (
       <ErrorMessage
-        message={"Error loading film."}
+        message={'Error loading film.'}
         error={error.data.Exception}
       />
     );
   }
 
   return (
-    <div className="Add-trivia-page">
+    <div className='Add-trivia-page'>
       <ManageTrivia
         film={film!}
         trivia={trivia}

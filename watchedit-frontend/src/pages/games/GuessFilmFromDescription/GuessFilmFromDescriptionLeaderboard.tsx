@@ -1,10 +1,10 @@
-import { useState } from "react";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import { getGuessFilmFromDescriptionLeaderboard } from "../../../api/games/guessFilmFromDescriptionApi";
-import PaginationControls from "../../../components/PaginationControls";
-import GuessFilmFromDescriptionLeaderboardList from "./GuessFilmFromDescriptionLeaderboardList";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import ErrorMessage from "../../../components/Error/ErrorMessage";
+import { useState } from 'react';
+import LoadingMessage from '../../../components/Loading/LoadingMessage';
+import { getGuessFilmFromDescriptionLeaderboard } from '../../../api/games/guessFilmFromDescriptionApi';
+import PaginationControls from '../../../components/PaginationControls';
+import GuessFilmFromDescriptionLeaderboardList from './GuessFilmFromDescriptionLeaderboardList';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import ErrorMessage from '../../../components/Error/ErrorMessage';
 
 function GuessFilmFromDescriptionLeaderboard() {
   const [page, setPage] = useState(1);
@@ -15,25 +15,25 @@ function GuessFilmFromDescriptionLeaderboard() {
     data: leaderboardPaginator,
     error,
   } = useQuery({
-    queryKey: ["description-game-leaderboard", page, entriesPerPage],
+    queryKey: ['description-game-leaderboard', page, entriesPerPage],
     queryFn: () => getGuessFilmFromDescriptionLeaderboard(page, entriesPerPage),
     placeholderData: keepPreviousData,
   });
 
-  if (isLoading) return <LoadingMessage message={"Loading leaderboard."} />;
+  if (isLoading) return <LoadingMessage message={'Loading leaderboard.'} />;
 
   if (error) {
     return (
       <ErrorMessage
-        message={"Error loading leaderboard."}
+        message={'Error loading leaderboard.'}
         error={error.data.Exception}
       />
     );
   }
 
   return (
-    <div className="leaderboards">
-      <h1 className="text-center text-primary text-4xl my-4 font-semibold">
+    <div className='leaderboards'>
+      <h1 className='my-4 text-center text-4xl font-semibold text-primary'>
         Leaderboard
       </h1>
       <GuessFilmFromDescriptionLeaderboardList

@@ -2,8 +2,8 @@ import {
   GuessFilmFromDescriptionGame,
   GuessFilmFromDescriptionGamesLeaderboardPaginationResponse,
   GuessFilmFromDescriptionGamesPaginationResponse,
-} from "../../types/Games";
-import client from "../client";
+} from '../../types/Games';
+import client from '../client';
 
 export function getGuessFilmFromDescriptionGames(
   pageNumber: number,

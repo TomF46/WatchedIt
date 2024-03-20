@@ -1,28 +1,28 @@
-import { useState } from "react";
-import DatePicker from "react-datepicker";
-import TextInput from "../../Inputs/TextInput";
-import TextAreaInput from "../../Inputs/TextAreaInput";
-import NumberInput from "../../Inputs/NumberInput";
-import MultiSelectInput from "../../Inputs/MultiSelectInput";
-import Modal from "react-modal";
-import { EditableFilm, FilmFormErrors } from "../../../types/Films";
-import { SelectOption } from "../../Inputs/InputTypes";
-import FilmPreviewMini from "./FilmPreviewMini";
-import SubmitButtonWIcon from "../../Buttons/SubmitButtonWIcon";
-import FilmIcon from "../../Icons/FilmIcon";
-import ImageIcon from "../../Icons/ImageIcon";
-import CameraIcon from "../../Icons/CameraIcon";
-import DeleteIcon from "../../Icons/DeleteIcon";
+import { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import TextInput from '../../Inputs/TextInput';
+import TextAreaInput from '../../Inputs/TextAreaInput';
+import NumberInput from '../../Inputs/NumberInput';
+import MultiSelectInput from '../../Inputs/MultiSelectInput';
+import Modal from 'react-modal';
+import { EditableFilm, FilmFormErrors } from '../../../types/Films';
+import { SelectOption } from '../../Inputs/InputTypes';
+import FilmPreviewMini from './FilmPreviewMini';
+import SubmitButtonWIcon from '../../Buttons/SubmitButtonWIcon';
+import FilmIcon from '../../Icons/FilmIcon';
+import ImageIcon from '../../Icons/ImageIcon';
+import CameraIcon from '../../Icons/CameraIcon';
+import DeleteIcon from '../../Icons/DeleteIcon';
 
 const customStyles = {
   content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    minWidth: "60%",
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    minWidth: '60%',
   },
 };
 
@@ -90,34 +90,34 @@ const ManageFilmForm = ({
   }
 
   return (
-    <form className="mt-4" onSubmit={onSave}>
+    <form className='mt-4' onSubmit={onSave}>
       {errors.onSave && (
-        <div className="text-red-500 text-xs p-1" role="alert">
+        <div className='p-1 text-xs text-red-500' role='alert'>
           {errors.onSave}
         </div>
       )}
-      <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4">
-        <div className="bg-backgroundOffset2 rounded-t-md">
-          <p className="text-primary font-semibold text-center text-2xl px-2 py-1">
-            {film.id ? `Editing ${film.name}` : "Adding film"}
+      <div className='controls mb-4 mt-4 rounded-md bg-backgroundOffset shadow'>
+        <div className='rounded-t-md bg-backgroundOffset2'>
+          <p className='px-2 py-1 text-center text-2xl font-semibold text-primary'>
+            {film.id ? `Editing ${film.name}` : 'Adding film'}
           </p>
         </div>
-        <div className="p-4">
-          <div className="grid grid-cols-12">
-            <div className="col-span-12 md:col-span-6 md:pr-2 mb-2">
+        <div className='p-4'>
+          <div className='grid grid-cols-12'>
+            <div className='col-span-12 mb-2 md:col-span-6 md:pr-2'>
               <TextInput
-                name="name"
-                label="Name"
+                name='name'
+                label='Name'
                 value={film.name}
                 onChange={onChange}
                 error={errors.name}
                 required={true}
               />
             </div>
-            <div className="col-span-12 md:col-span-6 md:pl-2 mb-2">
+            <div className='col-span-12 mb-2 md:col-span-6 md:pl-2'>
               <NumberInput
-                name="runtime"
-                label="Runtime (minutes)"
+                name='runtime'
+                label='Runtime (minutes)'
                 value={film.runtime}
                 onChange={onChange}
                 error={errors.runtime}
@@ -125,10 +125,10 @@ const ManageFilmForm = ({
             </div>
           </div>
 
-          <div className="mb-2">
+          <div className='mb-2'>
             <TextInput
-              name="shortDescription"
-              label="Short description"
+              name='shortDescription'
+              label='Short description'
               value={film.shortDescription}
               onChange={onChange}
               error={errors.shortDescription}
@@ -136,10 +136,10 @@ const ManageFilmForm = ({
             />
           </div>
 
-          <div className="mb-2">
+          <div className='mb-2'>
             <TextAreaInput
-              name="fullDescription"
-              label="Full description"
+              name='fullDescription'
+              label='Full description'
               value={film.fullDescription}
               onChange={onChange}
               error={errors.fullDescription}
@@ -148,10 +148,10 @@ const ManageFilmForm = ({
           </div>
 
           {categories && categories.length > 0 && (
-            <div className="mb-2">
+            <div className='mb-2'>
               <MultiSelectInput
-                name="categories"
-                label="Categories"
+                name='categories'
+                label='Categories'
                 value={film.categories}
                 options={categories}
                 onChange={onCategoryChange}
@@ -160,55 +160,55 @@ const ManageFilmForm = ({
             </div>
           )}
 
-          <div className="mb-2">
-            <label className="font-semibold text-xs text-primary">
+          <div className='mb-2'>
+            <label className='text-xs font-semibold text-primary'>
               Release date
             </label>
             <DatePicker
-              dateFormat="dd-MM-yyyy"
-              className="border border-gray-500 focus:outline-none focus:border-primary p-2 bg-backgroundOffset2 rounded"
+              dateFormat='dd-MM-yyyy'
+              className='rounded border border-gray-500 bg-backgroundOffset2 p-2 focus:border-primary focus:outline-none'
               selected={film.releaseDate}
               onChange={(date) => onDateChange(date)}
             />
             {errors.releaseDate && (
-              <div className="text-red-500 text-xs p-1 mt-2">
+              <div className='mt-2 p-1 text-xs text-red-500'>
                 {errors.releaseDate}
               </div>
             )}
           </div>
 
-          <div className="mb-2">
-            <label className="font-semibold text-xs text-primary">
+          <div className='mb-2'>
+            <label className='text-xs font-semibold text-primary'>
               Poster image
             </label>
             <br></br>
             {film.posterUrl != null ? (
               <button
-                type="button"
+                type='button'
                 onClick={() => onPosterRemoved()}
-                className="bg-red-400 text-white rounded py-2 px-4 hover:bg-red-500 shadow inline-flex items-center"
+                className='inline-flex items-center rounded bg-red-400 px-4 py-2 text-white shadow hover:bg-red-500'
               >
                 Remove image
               </button>
             ) : (
               <>
                 <button
-                  type="button"
-                  className="bg-primary pointer text-white rounded py-2 px-4 hover:opacity-75 shadow inline-flex items-center"
+                  type='button'
+                  className='pointer inline-flex items-center rounded bg-primary px-4 py-2 text-white shadow hover:opacity-75'
                 >
-                  <ImageIcon color="white" height={6} width={6} />
-                  <label className="pointer ml-1">
+                  <ImageIcon color='white' height={6} width={6} />
+                  <label className='pointer ml-1'>
                     Add Image
                     <input
-                      type="file"
+                      type='file'
                       name={`posterUrl`}
-                      className=" border-gray-400 p-2 w-full hidden"
+                      className=' hidden w-full border-gray-400 p-2'
                       onChange={(e) => onPosterChange(e)}
                     />
                   </label>
                 </button>
                 {errors.posterUrl && (
-                  <div className="text-red-500 text-xs p-1 mt-2">
+                  <div className='mt-2 p-1 text-xs text-red-500'>
                     {errors.posterUrl}
                   </div>
                 )}
@@ -217,34 +217,34 @@ const ManageFilmForm = ({
             {!!uploadingImage && <p>Uploading...</p>}
           </div>
 
-          <div className="mb-2 trailer-modal">
-            <label className="font-semibold text-xs text-primary">
+          <div className='trailer-modal mb-2'>
+            <label className='text-xs font-semibold text-primary'>
               Trailer
             </label>
             <br></br>
             <button
-              type="button"
+              type='button'
               onClick={openModal}
-              className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 shadow inline-flex items-center"
+              className='inline-flex items-center rounded bg-primary px-4 py-2 text-white shadow hover:opacity-75'
             >
-              <CameraIcon color="white" height={6} width={6} />
-              <span className="ml-1">
-                {film.trailerUrl ? "Manage trailer" : "Add trailer"}
+              <CameraIcon color='white' height={6} width={6} />
+              <span className='ml-1'>
+                {film.trailerUrl ? 'Manage trailer' : 'Add trailer'}
               </span>
             </button>
             <Modal
               isOpen={modalIsOpen}
               onRequestClose={closeModal}
               style={customStyles}
-              contentLabel="Example Modal"
+              contentLabel='Example Modal'
             >
-              <div className="grid grid-cols-12 bg-background p-4">
-                <div className="col-span-12">
-                  <h3 className="font-semibold text-primary text-center text-xl my-4">
+              <div className='grid grid-cols-12 bg-background p-4'>
+                <div className='col-span-12'>
+                  <h3 className='my-4 text-center text-xl font-semibold text-primary'>
                     Manage trailer
                   </h3>
                 </div>
-                <div className="col-span-12 text-white">
+                <div className='col-span-12 text-white'>
                   <p>
                     Please add a valid embed link for your video on your format
                     of choice in the input below, if you add a valid link then a
@@ -257,47 +257,47 @@ const ManageFilmForm = ({
                     <li>Vimeo: https://player.vimeo.com/video/759911151</li>
                   </ul>
                 </div>
-                <div className="col-span-12 mt-4">
+                <div className='col-span-12 mt-4'>
                   <TextInput
                     name={`trailerUrl`}
-                    label="Trailer URL"
+                    label='Trailer URL'
                     value={film.trailerUrl}
                     onChange={(e) => onVideoChange(e)}
                     required={false}
                   />
                 </div>
-                <div className="col-span-12 mt-4">
-                  <p className="text-center text-primary font-semibold">
+                <div className='col-span-12 mt-4'>
+                  <p className='text-center font-semibold text-primary'>
                     Preview
                   </p>
-                  <div className="video-container grid grid-cols-12 justify-center">
+                  <div className='video-container grid grid-cols-12 justify-center'>
                     <iframe
-                      className="video col-span-12 lg:col-start-4 lg:col-span-6"
+                      className='video col-span-12 lg:col-span-6 lg:col-start-4'
                       src={film.trailerUrl}
-                      frameBorder="0"
-                      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      frameBorder='0'
+                      allow='accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
                       allowFullScreen
                     ></iframe>
                   </div>
                 </div>
-                <div className="col-span-12 text-right">
+                <div className='col-span-12 text-right'>
                   <button
-                    type="button"
+                    type='button'
                     onClick={() => {
                       onVideoRemoved();
                     }}
-                    className="bg-red-400 text-white rounded py-2 px-4 mt-4 hover:opacity-75 shadow inline-flex items-center"
+                    className='mt-4 inline-flex items-center rounded bg-red-400 px-4 py-2 text-white shadow hover:opacity-75'
                   >
-                    <DeleteIcon color="white" height={6} width={6} />
-                    <span className="ml-1">Remove video</span>
+                    <DeleteIcon color='white' height={6} width={6} />
+                    <span className='ml-1'>Remove video</span>
                   </button>
                   <button
-                    type="button"
+                    type='button'
                     onClick={closeModal}
-                    className="bg-primary text-white rounded py-2 px-4 mt-4 ml-2 hover:opacity-75 shadow inline-flex items-center"
+                    className='ml-2 mt-4 inline-flex items-center rounded bg-primary px-4 py-2 text-white shadow hover:opacity-75'
                   >
-                    <CameraIcon color="white" height={6} width={6} />
-                    <span className="ml-1">Finish</span>
+                    <CameraIcon color='white' height={6} width={6} />
+                    <span className='ml-1'>Finish</span>
                   </button>
                 </div>
               </div>
@@ -307,18 +307,18 @@ const ManageFilmForm = ({
       </div>
 
       {film.posterUrl != null && (
-        <div className="mt-4">
-          <p className="text-sm font-semibold text-primary">Preview</p>
+        <div className='mt-4'>
+          <p className='text-sm font-semibold text-primary'>Preview</p>
           <FilmPreviewMini film={film} />
         </div>
       )}
 
-      <div className="flex justify-center bg-backgroundOffset p-4 my-4 shadow rounded">
+      <div className='my-4 flex justify-center rounded bg-backgroundOffset p-4 shadow'>
         <SubmitButtonWIcon
-          text={saving ? "Saving..." : "Save"}
+          text={saving ? 'Saving...' : 'Save'}
           disabled={saving}
-          icon={<FilmIcon color="white" height={5} width={5} />}
-          bgColor="bg-primary"
+          icon={<FilmIcon color='white' height={5} width={5} />}
+          bgColor='bg-primary'
         />
       </div>
     </form>

@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import ReviewOverviewList from "../../../components/Films/Reviews/ReviewOverviewList";
-import PaginationControls from "../../../components/PaginationControls";
-import { getUserById, getUsersReviewsPaginated } from "../../../api/usersApi";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import ErrorMessage from "../../../components/Error/ErrorMessage";
-import { useAppSelector } from "../../../redux/store";
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import ReviewOverviewList from '../../../components/Films/Reviews/ReviewOverviewList';
+import PaginationControls from '../../../components/PaginationControls';
+import { getUserById, getUsersReviewsPaginated } from '../../../api/usersApi';
+import LoadingMessage from '../../../components/Loading/LoadingMessage';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import ErrorMessage from '../../../components/Error/ErrorMessage';
+import { useAppSelector } from '../../../redux/store';
 
 function UsersReviews() {
   const { id } = useParams();
@@ -19,12 +19,12 @@ function UsersReviews() {
   const reviewsPerPage = 12;
 
   const { data: user, error: userLoadError } = useQuery({
-    queryKey: ["user", userId],
+    queryKey: ['user', userId],
     queryFn: () => getUserById(Number(userId)),
   });
 
   const { data: reviewsPaginator } = useQuery({
-    queryKey: ["user-reviews", userId, page, reviewsPerPage],
+    queryKey: ['user-reviews', userId, page, reviewsPerPage],
     queryFn: () =>
       getUsersReviewsPaginated(Number(userId!), page, reviewsPerPage).catch(
         (error) => {
@@ -40,20 +40,20 @@ function UsersReviews() {
   if (userLoadError) {
     return (
       <ErrorMessage
-        message={"Error loading user."}
+        message={'Error loading user.'}
         error={userLoadError.data.Exception}
       />
     );
   }
 
   return (
-    <div className="users-reviews-page">
+    <div className='users-reviews-page'>
       {!user ? (
-        <LoadingMessage message={"Loading user."} />
+        <LoadingMessage message={'Loading user.'} />
       ) : (
         <>
           <div>
-            <h1 className="text-center text-primary text-4xl my-4 font-semibold">
+            <h1 className='my-4 text-center text-4xl font-semibold text-primary'>
               {user.username} reviews
             </h1>
             {reviewsPaginator ? (
@@ -74,13 +74,13 @@ function UsersReviews() {
                     />
                   </>
                 ) : (
-                  <p className="text-center text-primary text-2xl">
+                  <p className='text-center text-2xl text-primary'>
                     User has not added any reviews
                   </p>
                 )}
               </>
             ) : (
-              <LoadingMessage message={"Loading reviews."} />
+              <LoadingMessage message={'Loading reviews.'} />
             )}
           </div>
         </>

@@ -1,7 +1,7 @@
-import { AxiosResponse } from "axios";
+import { AxiosResponse } from 'axios';
 
 declare module '@tanstack/react-query' {
-    interface Register {
-      defaultError: AxiosResponse
-    }
+  interface Register {
+    defaultError: AxiosResponse;
   }
+}

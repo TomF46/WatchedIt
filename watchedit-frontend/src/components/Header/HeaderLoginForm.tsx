@@ -1,19 +1,19 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import EmailInput from "../Inputs/EmailInput";
-import PasswordInput from "../Inputs/PasswordInput";
-import { AppDispatch, useAppDispatch } from "../../redux/store";
-import { LoginCredentials, LoginErrors } from "../../types/Auth";
-import { login } from "../../redux/reducers/authenticationReducer";
-import SubmitButtonWIcon from "../Buttons/SubmitButtonWIcon";
-import EnterIcon from "../Icons/EnterIcon";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import EmailInput from '../Inputs/EmailInput';
+import PasswordInput from '../Inputs/PasswordInput';
+import { AppDispatch, useAppDispatch } from '../../redux/store';
+import { LoginCredentials, LoginErrors } from '../../types/Auth';
+import { login } from '../../redux/reducers/authenticationReducer';
+import SubmitButtonWIcon from '../Buttons/SubmitButtonWIcon';
+import EnterIcon from '../Icons/EnterIcon';
 
 const HeaderLoginForm = () => {
   const dispatch: AppDispatch = useAppDispatch();
   const [user, setUser] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   } as LoginCredentials);
   const [errors, setErrors] = useState({} as LoginErrors);
   const [saving, setSaving] = useState(false);
@@ -30,8 +30,8 @@ const HeaderLoginForm = () => {
   function formIsValid(): boolean {
     const { email, password } = user;
     const errors = {} as LoginErrors;
-    if (!email) errors.email = "Email is required";
-    if (!password) errors.password = "Password is required";
+    if (!email) errors.email = 'Email is required';
+    if (!password) errors.password = 'Password is required';
 
     setErrors(errors);
     return Object.keys(errors).length === 0;
@@ -43,7 +43,7 @@ const HeaderLoginForm = () => {
     setSaving(true);
     dispatch(login(user))
       .then(() => {
-        navigate("/");
+        navigate('/');
       })
       .catch((err) => {
         setSaving(false);
@@ -59,35 +59,35 @@ const HeaderLoginForm = () => {
   return (
     <>
       <form onSubmit={handleSave}>
-        <div className="flex flex-row my-2 lg:my-0">
-          <div className="flex-1">
+        <div className='my-2 flex flex-row lg:my-0'>
+          <div className='flex-1'>
             <EmailInput
-              name="email"
-              label="Email"
+              name='email'
+              label='Email'
               value={user.email}
               onChange={handleChange}
               error={errors.email}
               showLabel={false}
-              placeholder={"Email"}
+              placeholder={'Email'}
             />
           </div>
-          <div className="flex-1 mx-4">
+          <div className='mx-4 flex-1'>
             <PasswordInput
-              name="password"
-              label="Password"
+              name='password'
+              label='Password'
               value={user.password}
               onChange={handleChange}
               error={errors.password}
               showLabel={false}
-              placeholder={"Password"}
+              placeholder={'Password'}
             />
           </div>
-          <div className="flex-1">
+          <div className='flex-1'>
             <SubmitButtonWIcon
-              text={saving ? "Logging in..." : "Log in"}
+              text={saving ? 'Logging in...' : 'Log in'}
               disabled={saving}
-              icon={<EnterIcon color="white" height={5} width={5} />}
-              bgColor="bg-primary"
+              icon={<EnterIcon color='white' height={5} width={5} />}
+              bgColor='bg-primary'
             />
           </div>
         </div>

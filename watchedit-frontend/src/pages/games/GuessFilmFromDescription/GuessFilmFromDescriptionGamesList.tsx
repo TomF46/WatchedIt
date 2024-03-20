@@ -1,6 +1,6 @@
-import { format, parseISO } from "date-fns";
-import { useNavigate } from "react-router-dom";
-import { GuessFilmFromDescriptionGame } from "../../../types/Games";
+import { format, parseISO } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
+import { GuessFilmFromDescriptionGame } from '../../../types/Games';
 
 const GuessFilmFromDescriptionGamesList = ({
   games,
@@ -9,12 +9,12 @@ const GuessFilmFromDescriptionGamesList = ({
 }) => {
   const navigate = useNavigate();
   return (
-    <div className="bg-backgroundOffset p-4 shadow rounded">
-      <h3 className="text-center text-primary text-2xl mb-4 font-semibold">
+    <div className='rounded bg-backgroundOffset p-4 shadow'>
+      <h3 className='mb-4 text-center text-2xl font-semibold text-primary'>
         Your games
       </h3>
-      <table className="table-auto w-full">
-        <thead className="text-primary">
+      <table className='w-full table-auto'>
+        <thead className='text-primary'>
           <tr>
             <th>Status</th>
             <th>Score</th>
@@ -25,13 +25,13 @@ const GuessFilmFromDescriptionGamesList = ({
         <tbody>
           {games.map((game) => {
             return (
-              <tr className="text-center" key={game.id}>
-                <td className="py-4">{game.statusText}</td>
+              <tr className='text-center' key={game.id}>
+                <td className='py-4'>{game.statusText}</td>
                 <td>{game.score}</td>
                 <td>
                   {format(
                     parseISO(game.createdDate.toString()),
-                    "dd/MM/yyyy HH:mm",
+                    'dd/MM/yyyy HH:mm',
                   )}
                 </td>
                 <td>
@@ -39,9 +39,9 @@ const GuessFilmFromDescriptionGamesList = ({
                     onClick={() => {
                       navigate(`/games/filmFromDescription/${game.id}`);
                     }}
-                    className="h-full w-full px-4 py-2 bg-primary hover:opacity-75 rounded"
+                    className='h-full w-full rounded bg-primary px-4 py-2 hover:opacity-75'
                   >
-                    {game.status == 1 ? "Play" : "View"}
+                    {game.status == 1 ? 'Play' : 'View'}
                   </button>
                 </td>
               </tr>

@@ -1,27 +1,27 @@
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import { addCreditForPerson } from "../../../api/creditsApi";
-import { searchFilmsPaginated } from "../../../api/filmsApi";
-import { getPersonById } from "../../../api/peopleApi";
-import SelectFilmWSearch from "../../../components/Films/Credits/SelectFilmWSearch";
-import PaginationControls from "../../../components/PaginationControls";
-import AddCreditForm from "../../../components/Credits/AddCreditForm";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import PersonMiniDetail from "../../../components/People/PersonMiniDetail";
-import FilmMiniDetail from "../../../components/Films/FilmMiniDetail";
-import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
-import { useDebounce } from "@uidotdev/usehooks";
-import ErrorMessage from "../../../components/Error/ErrorMessage";
-import { Film } from "../../../types/Films";
-import { EditableCredit } from "../../../types/Credits";
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { addCreditForPerson } from '../../../api/creditsApi';
+import { searchFilmsPaginated } from '../../../api/filmsApi';
+import { getPersonById } from '../../../api/peopleApi';
+import SelectFilmWSearch from '../../../components/Films/Credits/SelectFilmWSearch';
+import PaginationControls from '../../../components/PaginationControls';
+import AddCreditForm from '../../../components/Credits/AddCreditForm';
+import LoadingMessage from '../../../components/Loading/LoadingMessage';
+import PersonMiniDetail from '../../../components/People/PersonMiniDetail';
+import FilmMiniDetail from '../../../components/Films/FilmMiniDetail';
+import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
+import { useDebounce } from '@uidotdev/usehooks';
+import ErrorMessage from '../../../components/Error/ErrorMessage';
+import { Film } from '../../../types/Films';
+import { EditableCredit } from '../../../types/Credits';
 
 function AddCreditForPerson() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [page, setPage] = useState(1);
   const filmsPerPage = 20;
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilm, setSelectedFilm] = useState<Film | null>(null);
   const [saving, setSaving] = useState(false);
 
@@ -31,12 +31,12 @@ function AddCreditForPerson() {
   );
 
   const { data: person, error: personLoadError } = useQuery({
-    queryKey: ["person", id],
+    queryKey: ['person', id],
     queryFn: () => getPersonById(Number(id)),
   });
 
   const { data: filmsPaginator } = useQuery({
-    queryKey: ["films", ...queryKeyParams],
+    queryKey: ['films', ...queryKeyParams],
     queryFn: () =>
       searchFilmsPaginated(
         { searchTerm: searchTerm },
@@ -93,26 +93,26 @@ function AddCreditForPerson() {
   if (personLoadError) {
     return (
       <ErrorMessage
-        message={"Error loading person."}
+        message={'Error loading person.'}
         error={personLoadError.data.Exception}
       />
     );
   }
 
   return (
-    <div className="add-person-credit-page">
+    <div className='add-person-credit-page'>
       {!person ? (
-        <LoadingMessage message={"Loading person"} />
+        <LoadingMessage message={'Loading person'} />
       ) : (
         <div>
-          <h1 className="text-center text-primary text-4xl my-4 font-semibold">
+          <h1 className='my-4 text-center text-4xl font-semibold text-primary'>
             Add Credit for {person.fullName}
           </h1>
           <PersonMiniDetail person={person} />
           {!filmsPaginator ? (
-            <LoadingMessage message={"Loading films."} />
+            <LoadingMessage message={'Loading films.'} />
           ) : (
-            <div className="mt-4">
+            <div className='mt-4'>
               {!selectedFilm ? (
                 <>
                   <SelectFilmWSearch
@@ -133,12 +133,12 @@ function AddCreditForPerson() {
                 </>
               ) : (
                 <div>
-                  <div className="mb-2">
+                  <div className='mb-2'>
                     <FilmMiniDetail film={selectedFilm} />
                     <p>
-                      Film: {selectedFilm.name}{" "}
+                      Film: {selectedFilm.name}{' '}
                       <span
-                        className="cursor-pointer text-primary"
+                        className='cursor-pointer text-primary'
                         onClick={() => {
                           handleFilmSelected(null);
                         }}

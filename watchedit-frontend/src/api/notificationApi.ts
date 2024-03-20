@@ -1,12 +1,12 @@
 import {
   Notification,
   NotificationsPaginationResponse,
-} from "../types/Notifications";
-import client from "./client";
+} from '../types/Notifications';
+import client from './client';
 
 export function getUnreadNotificationCount(): Promise<{ count: number }> {
   return client
-    .get("/api/users/me/notifications/unread/count")
+    .get('/api/users/me/notifications/unread/count')
     .then((response) => {
       return response.data;
     })

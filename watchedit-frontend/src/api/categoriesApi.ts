@@ -1,5 +1,5 @@
-import { CategoriesPaginationResponse, Category } from "../types/Categories";
-import client from "./client";
+import { CategoriesPaginationResponse, Category } from '../types/Categories';
+import client from './client';
 
 export function saveCategory(category: Category): Promise<Category> {
   return category.id ? editCategory(category) : addCategory(category);

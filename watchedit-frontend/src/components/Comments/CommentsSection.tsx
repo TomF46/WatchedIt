@@ -1,16 +1,16 @@
-import { useState } from "react";
-import PaginationControls from "../PaginationControls";
-import { newComment } from "../../tools/obJectShapes";
-import CommentForm from "./CommentForm";
-import { toast } from "react-toastify";
-import { useAppSelector } from "../../redux/store";
+import { useState } from 'react';
+import PaginationControls from '../PaginationControls';
+import { newComment } from '../../tools/obJectShapes';
+import CommentForm from './CommentForm';
+import { toast } from 'react-toastify';
+import { useAppSelector } from '../../redux/store';
 import {
   Comment as CommentType,
   CommentFormErrors,
   CommentsPaginationResponse,
   EditableComment,
-} from "../../types/Reviews";
-import Comment from "./Comment";
+} from '../../types/Reviews';
+import Comment from './Comment';
 
 type Props = {
   commentsPaginator: CommentsPaginationResponse;
@@ -47,9 +47,9 @@ const CommentsSection = ({
   function formIsValid(): boolean {
     const { text } = comment;
     const errors = {} as CommentFormErrors;
-    if (!text) errors.text = "Comment text is required";
+    if (!text) errors.text = 'Comment text is required';
     if (text!.length > 600)
-      errors.text = "Comment text cant be longer then 600 characters";
+      errors.text = 'Comment text cant be longer then 600 characters';
     setErrors(errors);
     return Object.keys(errors).length === 0;
   }
@@ -60,7 +60,7 @@ const CommentsSection = ({
     setSaving(true);
     onAddComment(comment)
       .then(() => {
-        toast.success("Comment added");
+        toast.success('Comment added');
         setSaving(false);
         setComment({ ...newComment });
       })
@@ -74,10 +74,10 @@ const CommentsSection = ({
 
   return (
     <div>
-      <h2 className="text-primary text-2xl text-center md:text-left my-4 md:my-0">
+      <h2 className='my-4 text-center text-2xl text-primary md:my-0 md:text-left'>
         Comments
       </h2>
-      <div className="mt-2">
+      <div className='mt-2'>
         {commentsPaginator.of > 0 ? (
           <div>
             {commentsPaginator.data.map((comment) => {
@@ -101,11 +101,11 @@ const CommentsSection = ({
           </div>
         ) : (
           <>
-            <p className="my-4 text-xl">
+            <p className='my-4 text-xl'>
               {`There are no comments, ${
                 userIsAuthenticated
-                  ? "why not add one below."
-                  : "login to leave a comment."
+                  ? 'why not add one below.'
+                  : 'login to leave a comment.'
               }`}
             </p>
           </>

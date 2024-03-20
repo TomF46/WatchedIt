@@ -1,7 +1,7 @@
-import { SelectOption } from "../components/Inputs/InputTypes";
-import { Category } from "./Categories";
-import { PaginationResponse } from "./PaginationResponse";
-import { Person } from "./People";
+import { SelectOption } from '../components/Inputs/InputTypes';
+import { Category } from './Categories';
+import { PaginationResponse } from './PaginationResponse';
+import { Person } from './People';
 
 export type Film = {
   id?: number;

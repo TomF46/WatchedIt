@@ -18,26 +18,26 @@ const EmailInput = ({
   showLabel,
 }: Props) => {
   return (
-    <div className="field">
+    <div className='field'>
       {showLabel && (
         <label
-          className="block mb-1 font-semibold text-xs text-primary"
+          className='mb-1 block text-xs font-semibold text-primary'
           htmlFor={name}
         >
           {label}
         </label>
       )}
-      <div className="control">
+      <div className='control'>
         <input
-          type="email"
+          type='email'
           name={name}
-          className="border border-gray-500 focus:outline-none focus:border-primary p-2 w-full bg-backgroundOffset2 rounded"
+          className='w-full rounded border border-gray-500 bg-backgroundOffset2 p-2 focus:border-primary focus:outline-none'
           placeholder={placeholder}
           value={value}
           onChange={onChange}
           required
         />
-        {error && <div className="text-red-500 text-xs p-1 mt-2">{error}</div>}
+        {error && <div className='mt-2 p-1 text-xs text-red-500'>{error}</div>}
       </div>
     </div>
   );

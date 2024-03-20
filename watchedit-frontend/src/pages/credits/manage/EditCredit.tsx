@@ -1,15 +1,15 @@
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import ManageCreditForm from "../../../components/Credits/ManageCreditForm";
-import { getCreditById, updateCredit } from "../../../api/creditsApi";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import ManageCreditForm from '../../../components/Credits/ManageCreditForm';
+import { getCreditById, updateCredit } from '../../../api/creditsApi';
+import LoadingMessage from '../../../components/Loading/LoadingMessage';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import {
   Credit,
   CreditFormErrors,
   EditableCredit,
-} from "../../../types/Credits";
+} from '../../../types/Credits';
 
 function EditCredit() {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ function EditCredit() {
     data: credit,
     error,
   } = useQuery({
-    queryKey: ["credit", creditId],
+    queryKey: ['credit', creditId],
     queryFn: () =>
       getCreditById(Number(creditId)).then((res) => {
         mapForEditing(res);
@@ -71,8 +71,8 @@ function EditCredit() {
   function formIsValId(): boolean {
     const { role, type } = creditUpdate;
     const errors = {} as CreditFormErrors;
-    if (!role) errors.role = "Role is required";
-    if (!type) errors.type = "Role type is required";
+    if (!role) errors.role = 'Role is required';
+    if (!type) errors.type = 'Role type is required';
 
     setErrors(errors);
     return Object.keys(errors).length === 0;
@@ -84,7 +84,7 @@ function EditCredit() {
     editCredit.mutate(creditUpdate);
   }
 
-  if (isLoading) return <LoadingMessage message={"Loading credit."} />;
+  if (isLoading) return <LoadingMessage message={'Loading credit.'} />;
 
   if (error) {
     toast.error(`Error getting credit ${error.data.Exception}`, {
@@ -95,9 +95,9 @@ function EditCredit() {
 
   if (credit)
     return (
-      <div className="credit-page">
-        <h1 className="text-center text-primary text-4xl my-4 font-semibold">
-          Edit role {credit.role} - {credit.person.fullName} -{" "}
+      <div className='credit-page'>
+        <h1 className='my-4 text-center text-4xl font-semibold text-primary'>
+          Edit role {credit.role} - {credit.person.fullName} -{' '}
           {credit.film.name}
         </h1>
         <ManageCreditForm

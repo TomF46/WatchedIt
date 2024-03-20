@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 type Props = {
   text: string;
@@ -17,14 +17,14 @@ const SubmitButtonWIcon = ({
 }: Props) => {
   return (
     <button
-      type="submit"
+      type='submit'
       disabled={disabled}
-      className={`${bgColor} text-white rounded py-2 px-4 hover:opacity-75 inline-flex items-center ${
-        additionalClasses ? additionalClasses : ""
+      className={`${bgColor} inline-flex items-center rounded px-4 py-2 text-white hover:opacity-75 ${
+        additionalClasses ? additionalClasses : ''
       }`}
     >
       {icon}
-      <span className="ml-1">{text}</span>
+      <span className='ml-1'>{text}</span>
     </button>
   );
 };

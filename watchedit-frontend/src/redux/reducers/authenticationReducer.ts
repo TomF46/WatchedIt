@@ -1,12 +1,12 @@
-import { Tokens } from "../../types/Tokens";
-import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
-import * as authenticationApi from "../../api/authenticationApi";
+import { Tokens } from '../../types/Tokens';
+import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit';
+import * as authenticationApi from '../../api/authenticationApi';
 import {
   attatchBearerToken,
   removeTokens,
   saveTokens,
-} from "../../tools/localStorage";
-import { LoginCredentials } from "../../types/Auth";
+} from '../../tools/localStorage';
+import { LoginCredentials } from '../../types/Auth';
 
 interface AuthenticationState {
   tokens: Tokens | null;
@@ -17,7 +17,7 @@ const initialState: AuthenticationState = {
 };
 
 export const AuthenticationSlice = createSlice({
-  name: "authentication",
+  name: 'authentication',
   initialState,
   reducers: {
     setUserLoggedIn: (state, action: PayloadAction<Tokens>) => {

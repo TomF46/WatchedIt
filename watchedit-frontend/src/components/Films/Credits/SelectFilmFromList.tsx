@@ -1,4 +1,4 @@
-import { Film } from "../../../types/Films";
+import { Film } from '../../../types/Films';
 
 type Props = {
   films: Film[];
@@ -10,22 +10,22 @@ const SelectFilmFromList = ({ films, onFilmSelected }: Props) => {
     <>
       {films.map((film) => {
         return (
-          <div key={film.id} className="col-span-12 my-2">
+          <div key={film.id} className='col-span-12 my-2'>
             <div
-              className="grid grid-cols-24 bg-backgroundOffset shadow rounded cursor-pointer hover:opacity-75"
+              className='grid cursor-pointer grid-cols-24 rounded bg-backgroundOffset shadow hover:opacity-75'
               onClick={() => {
                 onFilmSelected(film);
               }}
             >
-              <div className="col-span-3 md:col-span-2 lg:col-span-1">
+              <div className='col-span-3 md:col-span-2 lg:col-span-1'>
                 <img
                   src={film.posterUrl}
-                  className="h-full poster rounded-l"
+                  className='poster h-full rounded-l'
                   alt={`${film.name} poster.`}
                 />
               </div>
               <div
-                className={`col-span-21 md:col-span-22 lg:col-span-23 p-4 inline-flex items-center w-full mx-2`}
+                className={`col-span-21 mx-2 inline-flex w-full items-center p-4 md:col-span-22 lg:col-span-23`}
               >
                 <p>{film.name}</p>
               </div>

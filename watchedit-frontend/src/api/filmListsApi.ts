@@ -1,6 +1,6 @@
-import { Film } from "../types/Films";
-import { EditableList, List, ListsPaginationResponse } from "../types/Lists";
-import client from "./client";
+import { Film } from '../types/Films';
+import { EditableList, List, ListsPaginationResponse } from '../types/Lists';
+import client from './client';
 
 export function saveFilmList(filmList: EditableList): Promise<List> {
   return filmList.id ? updateFilmList(filmList) : addFilmList(filmList);
@@ -51,7 +51,7 @@ export function getFilmListById(id: number): Promise<List> {
 
 export function addFilmList(filmList: EditableList): Promise<List> {
   return client
-    .post("/api/filmLists", filmList)
+    .post('/api/filmLists', filmList)
     .then((response) => {
       return response.data;
     })

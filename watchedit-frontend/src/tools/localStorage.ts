@@ -1,9 +1,9 @@
-import initialState from "../redux/reducers/initialState";
-import client from "../api/client";
-import { Tokens } from "../types/Tokens";
+import initialState from '../redux/reducers/initialState';
+import client from '../api/client';
+import { Tokens } from '../types/Tokens';
 
 export const loadState = () => {
-  const tokens = localStorage.getItem("tokens");
+  const tokens = localStorage.getItem('tokens');
   const tokensState = tokens == null ? null : JSON.parse(tokens);
   if (tokensState != null) attatchBearerToken(tokensState.token); // If we have access tokens add them as bearer token on axios client;
   const state = initialState;
@@ -14,7 +14,7 @@ export const loadState = () => {
 export const saveTokens = (tokens: Tokens) => {
   try {
     const serializedState = JSON.stringify(tokens);
-    localStorage.setItem("tokens", serializedState);
+    localStorage.setItem('tokens', serializedState);
   } catch {
     // ignore write errors
   }
@@ -22,7 +22,7 @@ export const saveTokens = (tokens: Tokens) => {
 
 export const removeTokens = () => {
   try {
-    localStorage.removeItem("tokens");
+    localStorage.removeItem('tokens');
   } catch {
     //
   }

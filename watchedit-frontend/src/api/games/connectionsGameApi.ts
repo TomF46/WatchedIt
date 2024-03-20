@@ -1,8 +1,8 @@
 import {
   ConnectionsGame,
   ConnectionsGamesPaginationResponse,
-} from "../../types/Games";
-import client from "../client";
+} from '../../types/Games';
+import client from '../client';
 
 export function getConnectionsGames(
   pageNumber: number,

@@ -1,7 +1,7 @@
-import Person from "../pages/people/Person";
-import { Credit } from "./Credits";
-import { Film } from "./Films";
-import { Person } from "./People";
+import Person from '../pages/people/Person';
+import { Credit } from './Credits';
+import { Film } from './Films';
+import { Person } from './People';
 
 export type ConnectionsGame = {
   id: number;

@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import { newPerson } from "../../../tools/obJectShapes";
-import { getPersonById, savePerson } from "../../../api/peopleApi";
-import { parseISO } from "date-fns";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import ManagePerson from "./ManagePerson";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import ErrorMessage from "../../../components/Error/ErrorMessage";
-import { EditablePerson } from "../../../types/People";
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { newPerson } from '../../../tools/obJectShapes';
+import { getPersonById, savePerson } from '../../../api/peopleApi';
+import { parseISO } from 'date-fns';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import ManagePerson from './ManagePerson';
+import LoadingMessage from '../../../components/Loading/LoadingMessage';
+import ErrorMessage from '../../../components/Error/ErrorMessage';
+import { EditablePerson } from '../../../types/People';
 
 function EditPerson() {
   const { id } = useParams();
@@ -17,7 +17,7 @@ function EditPerson() {
   const [saving, setSaving] = useState(false);
 
   const { isLoading, error } = useQuery({
-    queryKey: ["person-update", id],
+    queryKey: ['person-update', id],
     queryFn: () =>
       getPersonById(Number(id)).then((res) => {
         setPerson({
@@ -40,7 +40,7 @@ function EditPerson() {
       return savePerson(updatedPerson);
     },
     onSuccess: (res) => {
-      toast.success("Person saved");
+      toast.success('Person saved');
       navigate(`/people/${res.id}`);
     },
     onError: (err) => {
@@ -55,19 +55,19 @@ function EditPerson() {
     setPerson(updatedPerson);
   }
 
-  if (isLoading) return <LoadingMessage message={"Loading person."} />;
+  if (isLoading) return <LoadingMessage message={'Loading person.'} />;
 
   if (error) {
     return (
       <ErrorMessage
-        message={"Error loading person for editing."}
+        message={'Error loading person for editing.'}
         error={error.data.Exception}
       />
     );
   }
 
   return (
-    <div className="Edit-person-page">
+    <div className='Edit-person-page'>
       <ManagePerson
         person={person}
         updatePerson={handleUpdate}

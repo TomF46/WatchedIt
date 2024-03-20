@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { toast } from "react-toastify";
-import { searchPeoplePaginated } from "../../../api/peopleApi";
-import SelectPersonWSearch from "../../../components/People/Credits/SelectPersonWSearch";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import PaginationControls from "../../../components/PaginationControls";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { useDebounce } from "@uidotdev/usehooks";
-import { Person } from "../../../types/People";
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+import { searchPeoplePaginated } from '../../../api/peopleApi';
+import SelectPersonWSearch from '../../../components/People/Credits/SelectPersonWSearch';
+import LoadingMessage from '../../../components/Loading/LoadingMessage';
+import PaginationControls from '../../../components/PaginationControls';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { useDebounce } from '@uidotdev/usehooks';
+import { Person } from '../../../types/People';
 
 const ConnectionsGuessSection = ({
   guess,
@@ -16,20 +16,20 @@ const ConnectionsGuessSection = ({
   const [page, setPage] = useState(1);
   const peoplePerPage = 16;
   const [searchTerms, setSearchTerms] = useState({
-    firstName: "",
-    lastName: "",
-    stageName: "",
+    firstName: '',
+    lastName: '',
+    stageName: '',
   });
   const queryKeyParams = useDebounce([searchTerms, page, peoplePerPage], 100);
 
   const { data: peoplePaginator } = useQuery({
-    queryKey: ["people", ...queryKeyParams],
+    queryKey: ['people', ...queryKeyParams],
     queryFn: () =>
       searchPeoplePaginated(
         searchTerms,
         page,
         peoplePerPage,
-        "likes_desc",
+        'likes_desc',
       ).catch((error) => {
         toast.error(`Error getting people ${error.data.Exception}`, {
           autoClose: false,
@@ -57,10 +57,10 @@ const ConnectionsGuessSection = ({
 
   return (
     <div>
-      <h3 className="text-4xl text-primary text-center mb-2">Guess</h3>
+      <h3 className='mb-2 text-center text-4xl text-primary'>Guess</h3>
       <div>
         {!peoplePaginator ? (
-          <LoadingMessage message={"Loading people."} />
+          <LoadingMessage message={'Loading people.'} />
         ) : (
           <>
             <SelectPersonWSearch

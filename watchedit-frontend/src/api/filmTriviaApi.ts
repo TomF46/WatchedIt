@@ -2,8 +2,8 @@ import {
   EditableTrivia,
   Trivia,
   TriviaPaginationResponse,
-} from "../types/Trivia";
-import client from "./client";
+} from '../types/Trivia';
+import client from './client';
 
 export function saveFilmTrivia(filmId: number, filmTrivia: EditableTrivia) {
   return filmTrivia.id

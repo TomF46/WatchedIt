@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { toast } from "react-toastify";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import PaginationControls from "../../../components/PaginationControls";
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import LoadingMessage from '../../../components/Loading/LoadingMessage';
+import PaginationControls from '../../../components/PaginationControls';
 import {
   getGuessFilmFromDescriptionGames,
   startGuessFilmFromDescriptionGame,
-} from "../../../api/games/guessFilmFromDescriptionApi";
-import GuessFilmFromDescriptionGamesList from "./GuessFilmFromDescriptionGamesList";
-import { Link, useNavigate } from "react-router-dom";
-import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
+} from '../../../api/games/guessFilmFromDescriptionApi';
+import GuessFilmFromDescriptionGamesList from './GuessFilmFromDescriptionGamesList';
+import { Link, useNavigate } from 'react-router-dom';
+import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
 
 function GuessFilmFromDescription() {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ function GuessFilmFromDescription() {
   const gamesPerPage = 20;
 
   const { data: gamesPaginator } = useQuery({
-    queryKey: ["description-games", page, gamesPerPage],
+    queryKey: ['description-games', page, gamesPerPage],
     queryFn: () =>
       getGuessFilmFromDescriptionGames(page, gamesPerPage).catch((error) => {
         toast.error(`Error getting games ${error.data.Exception}`, {
@@ -40,17 +40,17 @@ function GuessFilmFromDescription() {
   });
 
   return (
-    <div className="films-from-description-page">
-      <h1 className="text-center text-primary text-4xl my-4 font-semibold">
+    <div className='films-from-description-page'>
+      <h1 className='my-4 text-center text-4xl font-semibold text-primary'>
         Guess the film from its description
       </h1>
-      <div className="grid grid-cols-12">
-        <div className="col-span-12 md:col-span-8">
-          <div className="bg-backgroundOffset p-4 shadow rounded mb-4">
-            <h3 className="text-center text-primary text-2xl mb-4 font-semibold">
+      <div className='grid grid-cols-12'>
+        <div className='col-span-12 md:col-span-8'>
+          <div className='mb-4 rounded bg-backgroundOffset p-4 shadow'>
+            <h3 className='mb-4 text-center text-2xl font-semibold text-primary'>
               Game rules
             </h3>
-            <ul className="list-disc ml-2">
+            <ul className='ml-2 list-disc'>
               <li>When game starts you get the first description.</li>
               <li>
                 Every time you guess correctly you gain a point and a new
@@ -64,18 +64,18 @@ function GuessFilmFromDescription() {
             </ul>
           </div>
         </div>
-        <div className="col-span-12 md:col-span-2 text-center bg-backgroundOffset p-4 shadow rounded mb-4 ml-1 flex items-center justify-center">
+        <div className='col-span-12 mb-4 ml-1 flex items-center justify-center rounded bg-backgroundOffset p-4 text-center shadow md:col-span-2'>
           <button
             onClick={() => startNewGame.mutate()}
-            className="bg-primary text-white text-center rounded py-2 px-4 mb-4 hover:opacity-75"
+            className='mb-4 rounded bg-primary px-4 py-2 text-center text-white hover:opacity-75'
           >
             New game
           </button>
         </div>
-        <div className="col-span-12 md:col-span-2 text-center bg-backgroundOffset p-4 shadow rounded mb-4 ml-1 flex items-center justify-center">
+        <div className='col-span-12 mb-4 ml-1 flex items-center justify-center rounded bg-backgroundOffset p-4 text-center shadow md:col-span-2'>
           <Link
             to={`/games/filmFromDescription/leaderboard`}
-            className="bg-primary text-white text-center rounded py-2 px-4 mb-4 hover:opacity-75"
+            className='mb-4 rounded bg-primary px-4 py-2 text-center text-white hover:opacity-75'
           >
             Leaderboard
           </Link>
@@ -96,13 +96,13 @@ function GuessFilmFromDescription() {
               />
             </>
           ) : (
-            <p className="text-center text-primary text-2xl">
+            <p className='text-center text-2xl text-primary'>
               You have not started any games.
             </p>
           )}
         </>
       ) : (
-        <LoadingMessage message={"Loading games."} />
+        <LoadingMessage message={'Loading games.'} />
       )}
     </div>
   );

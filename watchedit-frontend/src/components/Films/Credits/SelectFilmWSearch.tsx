@@ -1,8 +1,8 @@
-import TextInput from "../../Inputs/TextInput";
-import SelectFilmFromList from "./SelectFilmFromList";
-import SelectFilmFromCards from "./SelectFilmFromCards";
-import { Film } from "../../../types/Films";
-import FilmIcon from "../../Icons/FilmIcon";
+import TextInput from '../../Inputs/TextInput';
+import SelectFilmFromList from './SelectFilmFromList';
+import SelectFilmFromCards from './SelectFilmFromCards';
+import { Film } from '../../../types/Films';
+import FilmIcon from '../../Icons/FilmIcon';
 
 type Props = {
   films: Film[];
@@ -21,15 +21,15 @@ const SelectFilmWSearch = ({
 }: Props) => {
   return (
     <>
-      <div className="controls bg-backgroundOffset mt-4 rounded-md shadow mb-4">
-        <div className="bg-backgroundOffset2 rounded-t-md">
-          <p className="text-primary font-semibold text-lg px-2 py-1">Search</p>
+      <div className='controls mb-4 mt-4 rounded-md bg-backgroundOffset shadow'>
+        <div className='rounded-t-md bg-backgroundOffset2'>
+          <p className='px-2 py-1 text-lg font-semibold text-primary'>Search</p>
         </div>
-        <div className="px-2 py-2">
-          <div className="search-box">
+        <div className='px-2 py-2'>
+          <div className='search-box'>
             <TextInput
-              name="searchTerm"
-              label="Search"
+              name='searchTerm'
+              label='Search'
               value={searchTerm}
               onChange={onSearchTermChange}
               required={false}
@@ -38,7 +38,7 @@ const SelectFilmWSearch = ({
         </div>
       </div>
       {films.length > 0 ? (
-        <div className={`grid  ${cardMode ? "grid-cols-16" : "grid-cols-12"}`}>
+        <div className={`grid  ${cardMode ? 'grid-cols-16' : 'grid-cols-12'}`}>
           {cardMode ? (
             <SelectFilmFromCards
               films={films}
@@ -49,11 +49,11 @@ const SelectFilmWSearch = ({
           )}
         </div>
       ) : (
-        <div className="my-16">
-          <div className="flex justify-center text-center">
-            <FilmIcon color="primary" height={14} width={14} />
+        <div className='my-16'>
+          <div className='flex justify-center text-center'>
+            <FilmIcon color='primary' height={14} width={14} />
           </div>
-          <p className="text-center text-2xl">No films match your search</p>
+          <p className='text-center text-2xl'>No films match your search</p>
         </div>
       )}
     </>

@@ -1,9 +1,9 @@
-import { format, parseISO } from "date-fns";
+import { format, parseISO } from 'date-fns';
 import {
   ConnectionsGame,
   GuessFilmFromCastGame,
   GuessFilmFromDescriptionGame,
-} from "../../types/Games";
+} from '../../types/Games';
 
 type Props = {
   game: ConnectionsGame | GuessFilmFromCastGame | GuessFilmFromDescriptionGame;
@@ -13,42 +13,42 @@ type Props = {
 
 const GameInfoSection = ({ game, forefeit, startAgain }: Props) => {
   return (
-    <div className="grid grid-cols-12 bg-backgroundOffset p-4 shadow rounded text-center">
+    <div className='grid grid-cols-12 rounded bg-backgroundOffset p-4 text-center shadow'>
       {game.clues != null && ( //todo
-        <div className="col-span-12 mb-4">
-          <p className="text-lg">Guesses:</p>
-          <p className="text-lg text-primary">{game.clues.length}</p>
+        <div className='col-span-12 mb-4'>
+          <p className='text-lg'>Guesses:</p>
+          <p className='text-lg text-primary'>{game.clues.length}</p>
         </div>
       )}
       {game.score != null && (
-        <div className="col-span-12 mb-4">
-          <p className="text-lg">Score:</p>
-          <p className="text-lg text-primary">{game.score}</p>
+        <div className='col-span-12 mb-4'>
+          <p className='text-lg'>Score:</p>
+          <p className='text-lg text-primary'>{game.score}</p>
         </div>
       )}
-      <div className="col-span-12 mb-4">
-        <p className="text-lg">Started:</p>
-        <p className="text-lg text-primary">
-          {format(parseISO(game.createdDate.toString()), "dd/MM/yyyy HH:mm")}
+      <div className='col-span-12 mb-4'>
+        <p className='text-lg'>Started:</p>
+        <p className='text-lg text-primary'>
+          {format(parseISO(game.createdDate.toString()), 'dd/MM/yyyy HH:mm')}
         </p>
       </div>
-      <div className="col-span-12 mb-4">
-        <p className="text-lg">Status</p>
-        <p className="text-lg text-primary">{game.statusText}</p>
+      <div className='col-span-12 mb-4'>
+        <p className='text-lg'>Status</p>
+        <p className='text-lg text-primary'>{game.statusText}</p>
       </div>
-      <div className="col-span-12">
+      <div className='col-span-12'>
         <button
           onClick={startAgain}
-          className="bg-primary text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 w-full text-center"
+          className='mt-4 inline-block w-full rounded bg-primary px-4 py-2 text-center text-white hover:opacity-75'
         >
           Start another
         </button>
       </div>
       {game.status == 1 && (
-        <div className="col-span-12">
+        <div className='col-span-12'>
           <button
             onClick={forefeit}
-            className="bg-red-400 text-white rounded py-2 px-4 hover:opacity-75 inline-block mt-4 w-full text-center"
+            className='mt-4 inline-block w-full rounded bg-red-400 px-4 py-2 text-center text-white hover:opacity-75'
           >
             Forefeit
           </button>

@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   setFilmNotWatchedById,
   setFilmWatchedById,
-} from "../../../api/watchedFilmsApi";
-import { toast } from "react-toastify";
-import LoadingMessage from "../../Loading/LoadingMessage";
-import { useMutation } from "@tanstack/react-query";
-import { Film } from "../../../types/Films";
-import ButtonWIcon from "../../Buttons/ButtonWIcon";
-import EyeIcon from "../../Icons/EyeIcon";
+} from '../../../api/watchedFilmsApi';
+import { toast } from 'react-toastify';
+import LoadingMessage from '../../Loading/LoadingMessage';
+import { useMutation } from '@tanstack/react-query';
+import { Film } from '../../../types/Films';
+import ButtonWIcon from '../../Buttons/ButtonWIcon';
+import EyeIcon from '../../Icons/EyeIcon';
 
 type Props = {
   film: Film;
@@ -51,24 +51,24 @@ const WatchedFilmControls = ({ film, onChange }: Props) => {
   return (
     <div>
       {hasWatched == null ? (
-        <LoadingMessage message={"Loading."} />
+        <LoadingMessage message={'Loading.'} />
       ) : (
-        <div className="mt-4">
+        <div className='mt-4'>
           {hasWatched ? (
             <ButtonWIcon
-              text="Watched"
+              text='Watched'
               onClick={() => setNotWatched.mutate(film)}
-              icon={<EyeIcon color="white" height={5} width={5} />}
-              bgColor="bg-success"
-              additionalClasses="justify-center w-full"
+              icon={<EyeIcon color='white' height={5} width={5} />}
+              bgColor='bg-success'
+              additionalClasses='justify-center w-full'
             />
           ) : (
             <ButtonWIcon
-              text="Watch"
+              text='Watch'
               onClick={() => setWatched.mutate(film)}
-              icon={<EyeIcon color="white" height={5} width={5} />}
-              bgColor="bg-primary"
-              additionalClasses="justify-center w-full"
+              icon={<EyeIcon color='white' height={5} width={5} />}
+              bgColor='bg-primary'
+              additionalClasses='justify-center w-full'
             />
           )}
         </div>

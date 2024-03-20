@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import { newArticle } from "../../tools/obJectShapes";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { getNewsArticlesById, saveNewsArticle } from "../../api/newsApi";
-import ManageNewsArticle from "./ManageNewsArticle";
-import LoadingMessage from "../../components/Loading/LoadingMessage";
-import ErrorMessage from "../../components/Error/ErrorMessage";
-import { EditableNewsArticle, SaveNewsArticleRequest } from "../../types/News";
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { newArticle } from '../../tools/obJectShapes';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { getNewsArticlesById, saveNewsArticle } from '../../api/newsApi';
+import ManageNewsArticle from './ManageNewsArticle';
+import LoadingMessage from '../../components/Loading/LoadingMessage';
+import ErrorMessage from '../../components/Error/ErrorMessage';
+import { EditableNewsArticle, SaveNewsArticleRequest } from '../../types/News';
 
 function EditArticle() {
   const { id } = useParams();
@@ -18,7 +18,7 @@ function EditArticle() {
   const [saving, setSaving] = useState(false);
 
   const { isLoading, error } = useQuery({
-    queryKey: ["article-update", id],
+    queryKey: ['article-update', id],
     queryFn: () =>
       getNewsArticlesById(Number(id)).then((res) => {
         setArticle({
@@ -38,7 +38,7 @@ function EditArticle() {
       return saveNewsArticle(request.article, request.publish);
     },
     onSuccess: (res) => {
-      toast.success("Article saved");
+      toast.success('Article saved');
       navigate(`/news/${res.id}`);
     },
     onError: (err) => {
@@ -53,19 +53,19 @@ function EditArticle() {
     setArticle(updatedArticle);
   }
 
-  if (isLoading) return <LoadingMessage message={"Loading article."} />;
+  if (isLoading) return <LoadingMessage message={'Loading article.'} />;
 
   if (error) {
     return (
       <ErrorMessage
-        message={"Error loading news article for editing."}
+        message={'Error loading news article for editing.'}
         error={error.data.Exception}
       />
     );
   }
 
   return (
-    <div className="Edit-article-page">
+    <div className='Edit-article-page'>
       <ManageNewsArticle
         article={article}
         updateArticle={handleUpdate}

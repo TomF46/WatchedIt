@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import { newReview } from "../../../tools/obJectShapes";
-import ManageReview from "./ManageReview";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { getFilmById } from "../../../api/filmsApi";
-import { saveReview } from "../../../api/filmReviewApi";
-import ErrorMessage from "../../../components/Error/ErrorMessage";
-import { EditableReview } from "../../../types/Reviews";
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { newReview } from '../../../tools/obJectShapes';
+import ManageReview from './ManageReview';
+import LoadingMessage from '../../../components/Loading/LoadingMessage';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { getFilmById } from '../../../api/filmsApi';
+import { saveReview } from '../../../api/filmReviewApi';
+import ErrorMessage from '../../../components/Error/ErrorMessage';
+import { EditableReview } from '../../../types/Reviews';
 
 function AddReview() {
   const { id } = useParams();
@@ -21,7 +21,7 @@ function AddReview() {
     data: film,
     error,
   } = useQuery({
-    queryKey: ["film", id],
+    queryKey: ['film', id],
     queryFn: () => getFilmById(Number(id)),
   });
 
@@ -31,7 +31,7 @@ function AddReview() {
       return saveReview(Number(id), newReview);
     },
     onSuccess: (res) => {
-      toast.success("Review saved");
+      toast.success('Review saved');
       navigate(`/films/${id}/reviews/${res.id}`);
     },
     onError: (err) => {
@@ -46,12 +46,12 @@ function AddReview() {
     setReview(updatedReview);
   }
 
-  if (isLoading) return <LoadingMessage message={"Loading film."} />;
+  if (isLoading) return <LoadingMessage message={'Loading film.'} />;
 
   if (error) {
     return (
       <ErrorMessage
-        message={"Error loading film."}
+        message={'Error loading film.'}
         error={error.data.Exception}
       />
     );
@@ -59,7 +59,7 @@ function AddReview() {
 
   if (film)
     return (
-      <div className="Add-review-page">
+      <div className='Add-review-page'>
         <ManageReview
           film={film}
           review={review}

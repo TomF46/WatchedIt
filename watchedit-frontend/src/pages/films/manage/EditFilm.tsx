@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import { getFilmById, saveFilm } from "../../../api/filmsApi";
-import { newFilm } from "../../../tools/obJectShapes";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { parseISO } from "date-fns";
-import LoadingMessage from "../../../components/Loading/LoadingMessage";
-import ManageFilm from "./ManageFilm";
-import ErrorMessage from "../../../components/Error/ErrorMessage";
-import { EditableFilm, FilmForRequest } from "../../../types/Films";
-import { SelectOption } from "../../../components/Inputs/InputTypes";
-import { Category } from "../../../types/Categories";
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { getFilmById, saveFilm } from '../../../api/filmsApi';
+import { newFilm } from '../../../tools/obJectShapes';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { parseISO } from 'date-fns';
+import LoadingMessage from '../../../components/Loading/LoadingMessage';
+import ManageFilm from './ManageFilm';
+import ErrorMessage from '../../../components/Error/ErrorMessage';
+import { EditableFilm, FilmForRequest } from '../../../types/Films';
+import { SelectOption } from '../../../components/Inputs/InputTypes';
+import { Category } from '../../../types/Categories';
 
 function EditFilm() {
   const { id } = useParams();
@@ -19,7 +19,7 @@ function EditFilm() {
   const [saving, setSaving] = useState(false);
 
   const { isLoading, error } = useQuery({
-    queryKey: ["film-update", id],
+    queryKey: ['film-update', id],
     queryFn: () =>
       getFilmById(Number(id)).then((res) => {
         setFilm({
@@ -46,7 +46,7 @@ function EditFilm() {
       return saveFilm(updatedFilm);
     },
     onSuccess: (res) => {
-      toast.success("Film saved");
+      toast.success('Film saved');
       navigate(`/films/${res.id}`);
     },
     onError: (err) => {
@@ -69,19 +69,19 @@ function EditFilm() {
     updateFilm.mutate(filmToPost);
   }
 
-  if (isLoading) return <LoadingMessage message={"Loading film."} />;
+  if (isLoading) return <LoadingMessage message={'Loading film.'} />;
 
   if (error) {
     return (
       <ErrorMessage
-        message={"Error loading film."}
+        message={'Error loading film.'}
         error={error.data.Exception}
       />
     );
   }
 
   return (
-    <div className="edit-film-page">
+    <div className='edit-film-page'>
       <ManageFilm
         film={film}
         updateFilm={handleUpdate}
