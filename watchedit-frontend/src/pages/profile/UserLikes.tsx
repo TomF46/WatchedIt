@@ -11,7 +11,7 @@ import usePageTargetUserId from '../../hooks/usePageTargetUserId';
 
 function UserLikes() {
   const { id } = useParams();
-  const userId = usePageTargetUserId(Number(id))
+  const userId = usePageTargetUserId(Number(id));
   const [page, setPage] = useState(1);
   const peoplePerPage = 32;
 

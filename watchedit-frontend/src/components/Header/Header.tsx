@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import HeaderLoginForm from './HeaderLoginForm';
 import logo from '../../assets/WatchedIt.webp';
-import { AppDispatch, useAppDispatch} from '../../redux/store';
+import { AppDispatch, useAppDispatch } from '../../redux/store';
 import { checkUserIsAdmin } from '../../redux/reducers/adminReducer';
 import { loadNotificationCount } from '../../redux/reducers/notificationsReducer';
 import BellIcon from '../Icons/BellIcon';

@@ -9,7 +9,7 @@ import UserAdminControls from '../../components/User/UserAdminControls';
 import UserReviewsReel from '../../components/Reviews/UserReviewReel';
 import { useQuery } from '@tanstack/react-query';
 import ErrorMessage from '../../components/Error/ErrorMessage';
-import { AppDispatch, useAppDispatch} from '../../redux/store';
+import { AppDispatch, useAppDispatch } from '../../redux/store';
 import { logout } from '../../redux/reducers/authenticationReducer';
 import EyeIcon from '../../components/Icons/EyeIcon';
 import useIsAdmin from '../../hooks/useIsAdmin';

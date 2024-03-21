@@ -15,7 +15,7 @@ import useIsAdmin from '../../hooks/useIsAdmin';
 
 function Category() {
   const { id } = useParams();
-  const isAdmin = useIsAdmin()
+  const isAdmin = useIsAdmin();
   const [searchTerm, setSearchTerm] = useState('');
   const [page, setPage] = useState(1);
   const filmsPerPage = 32;

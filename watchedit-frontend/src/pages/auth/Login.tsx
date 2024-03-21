@@ -3,7 +3,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import LoginForm from '../../components/Auth/LoginForm';
 import ReasonsToLoginSection from '../../components/Home/ReasonsToLoginSection';
-import { AppDispatch, useAppDispatch} from '../../redux/store';
+import { AppDispatch, useAppDispatch } from '../../redux/store';
 import { LoginErrors } from '../../types/Auth';
 import { login } from '../../redux/reducers/authenticationReducer';
 import useIsAuthenticated from '../../hooks/useIsAuthenticated';
