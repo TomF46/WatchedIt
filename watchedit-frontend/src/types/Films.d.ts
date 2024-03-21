@@ -17,6 +17,7 @@ export type Film = {
   categories: Category[];
   watchedByCount: int;
   isWatchedByUser: boolean;
+  isReleased: boolean;
 };
 
 export type EditableFilm = {

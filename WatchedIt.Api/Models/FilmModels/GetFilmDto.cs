@@ -22,5 +22,7 @@ namespace WatchedIt.Api.Models.FilmModels
         public bool IsWatchedByUser {get; set;} = false;
         public IList<GetCategoryDto> Categories {get; set;} = new List<GetCategoryDto>();
         public int WatchedByCount {get; set;}
+        public bool IsReleased {get; set;} = false;
+
     }
 }

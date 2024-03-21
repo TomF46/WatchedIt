@@ -24,7 +24,8 @@ namespace WatchedIt.Api.Services.Mapping
                 AverageRating = string.Format("{0:0.0}", film.AverageRating),
                 Credits = CreditMapper.MapFilmCastCrewCreditDto(film.Credits.ToList()),
                 Categories = film.Categories.Select(x => CategoryMapper.Map(x)).ToList(),
-                WatchedByCount = film.WatchedBy.Count
+                WatchedByCount = film.WatchedBy.Count,
+                IsReleased = DateTime.Now.Date >= film.ReleaseDate.Date
             };
         }
 

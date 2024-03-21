@@ -17,6 +17,7 @@ import EyeIcon from '../../components/Icons/EyeIcon';
 import StarIcon from '../../components/Icons/StarIcon';
 import useIsAdmin from '../../hooks/useIsAdmin';
 import useIsAuthenticated from '../../hooks/useIsAuthenticated';
+import CalendarIcon from '../../components/Icons/CalendarIcon';
 
 function Film() {
   const { id } = useParams();
@@ -72,6 +73,14 @@ function Film() {
     refetch();
   }
 
+  function getDaysTillRelease(releaseDate: Date) : string {
+    const currentDate = new Date();
+    const release = new Date(releaseDate);
+    const difference = release.getTime() - currentDate.getTime();
+    const daysDiff = Math.ceil(difference / (1000 * 3600 * 24));
+    return `${daysDiff} days till release.`
+  }
+
   if (isLoading) return <LoadingMessage message={'Loading film.'} />;
 
   if (error) {
@@ -84,6 +93,7 @@ function Film() {
   }
 
   if (film)
+
     return (
       <div className='film-page'>
         <h1 className='my-4 text-center text-4xl font-semibold text-primary'>
@@ -179,7 +189,9 @@ function Film() {
                   <p>No categories added</p>
                 )}
               </div>
-              <div className='col-span-12 mt-4 rounded bg-success p-4 text-center shadow md:col-span-2 md:ml-4 md:mt-0'>
+              {film.isReleased ? (
+                <>
+                <div className='col-span-12 mt-4 rounded bg-success p-4 text-center shadow md:col-span-2 md:ml-4 md:mt-0'>
                 <h3 className='mb-4 text-xl font-semibold text-black'>
                   Watched by
                 </h3>
@@ -223,6 +235,26 @@ function Film() {
                   </>
                 )}
               </div>
+              </>
+              ) : (
+                <div className='col-span-12 mt-4 rounded bg-primary p-4 text-center shadow md:col-span-4 md:ml-4 md:mt-0'>
+                  <h3 className='mb-4 text-xl font-semibold text-white'>
+                  Release countdown
+                </h3>
+                <p className='text-2xl font-semibold text-white'>
+                  {getDaysTillRelease(film.releaseDate)}
+                </p>
+                <p>{format(parseISO(film.releaseDate.toString()), 'dd/MM/yyyy')}</p>
+                <div className='mt-4 inline-flex items-center'>
+                      <CalendarIcon
+                        color='white'
+                        height={10}
+                        width={10}
+                        strokeWidth={1.5}
+                      />
+                    </div>
+                </div>
+              )}
               <div className='col-span-12 mt-4 rounded bg-backgroundOffset p-2 shadow md:col-span-8'>
                 <h3 className='text-lg font-semibold text-primary'>
                   Description
