@@ -60,6 +60,7 @@ import AddTrivia from './pages/films/trivia/AddFilmTrivia';
 import EditArticle from './pages/news/EditNewsArticle';
 import AddArticle from './pages/news/AddNewsArticle';
 import AdminRoute from './AdminRoute';
+import ReleaseCalendar from './pages/films/ReleaseCalendar';
 
 const App = () => {
   return (
@@ -140,6 +141,7 @@ const App = () => {
               }
             />
             <Route path='/films/:id' element={<Film />} />
+            <Route path='/films/calendar' element={<ReleaseCalendar />} />
             <Route path='/films' element={<Films />} />
             <Route
               path='/people/:id/credits/add'

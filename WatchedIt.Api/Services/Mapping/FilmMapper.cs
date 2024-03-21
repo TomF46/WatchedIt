@@ -38,7 +38,8 @@ namespace WatchedIt.Api.Services.Mapping
                 ShortDescription = film.ShortDescription,
                 PosterUrl = film.PosterUrl,
                 AverageRating = string.Format("{0:0.0}", film.AverageRating),
-                WatchedByCount = film.WatchedBy.Count
+                WatchedByCount = film.WatchedBy.Count,
+                ReleaseDate = film.ReleaseDate
             };
         }
 

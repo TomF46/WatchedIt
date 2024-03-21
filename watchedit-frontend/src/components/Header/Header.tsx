@@ -105,6 +105,12 @@ function Header() {
           >
             Community
           </Link>
+          <Link
+            to='/films/calendar'
+            className='mt-4 block text-primary hover:opacity-75 md:mx-4 md:mt-0 md:inline-block'
+          >
+            Calander
+          </Link>
         </div>
         <div className='mt-2 border-t text-center md:mt-0 md:border-0 md:text-left'>
           {!userIsAuthenticated && (

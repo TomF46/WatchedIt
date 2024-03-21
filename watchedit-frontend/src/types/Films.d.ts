@@ -73,3 +73,8 @@ export type FilmSearchParameters = {
 };
 
 export type FilmFormErrors = EditableFilm & onSaveError;
+
+export type FilmCalendarEntry = {
+  date: string;
+  films: Film[];
+};
