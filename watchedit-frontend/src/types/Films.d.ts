@@ -70,6 +70,7 @@ export type FilmSearchParameters = {
   minRating?: number;
   releasedBeforeDate?: string;
   releasedAfterDate?: string;
+  releasedOnDate?: string;
 };
 
 export type FilmFormErrors = EditableFilm & onSaveError;

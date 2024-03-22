@@ -27,9 +27,11 @@ namespace WatchedIt.Api.Services.FilmService
                 if (category is null) throw new NotFoundException("Category does not exist");
                 query = query.Where(x => x.Categories.Contains(category));
             }
-
+            
+            if (parameters.ReleasedOnDate.HasValue) query = query.Where(f => f.ReleaseDate.Date == parameters.ReleasedOnDate.Value.Date);
             if (parameters.ReleasedBeforeDate.HasValue) query = query.Where(f => f.ReleaseDate.Date <= parameters.ReleasedBeforeDate.Value.Date);
             if (parameters.ReleasedAfterDate.HasValue) query = query.Where(f => f.ReleaseDate.Date > parameters.ReleasedAfterDate.Value.Date);
+
 
             if (parameters.MinRating.HasValue) query = query.Where(f => f.AverageRating >= parameters.MinRating.Value);
             if (parameters.MaxRating.HasValue) query = query.Where(f => f.AverageRating <= parameters.MaxRating.Value);

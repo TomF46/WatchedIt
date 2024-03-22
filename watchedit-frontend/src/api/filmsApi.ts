@@ -25,6 +25,8 @@ export function searchFilmsPaginated(
     target = `${target}&releasedBeforeDate=${parameters.releasedBeforeDate}`;
   if (parameters.releasedAfterDate)
     target = `${target}&releasedAfterDate=${parameters.releasedAfterDate}`;
+  if (parameters.releasedOnDate)
+    target = `${target}&releasedOnDate=${parameters.releasedOnDate}`;
   if (parameters.minRating)
     target = `${target}&minRating=${parameters.minRating}`;
   if (parameters.maxRating)

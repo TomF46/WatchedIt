@@ -12,6 +12,7 @@ namespace WatchedIt.Api.Models
         public string? Sort { get; set; } = "";
         public DateTime? ReleasedAfterDate { get; set; }
         public DateTime? ReleasedBeforeDate { get; set; }
+        public DateTime? ReleasedOnDate { get; set; }
         public int? MaxRating { get; set; }
         public int? MinRating { get; set; }
 
