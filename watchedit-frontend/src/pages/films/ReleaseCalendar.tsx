@@ -1,8 +1,12 @@
 import { toast } from 'react-toastify';
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import LoadingMessage from '../../components/Loading/LoadingMessage';
 import { searchFilmsPaginated } from '../../api/filmsApi';
-import { FilmCalendarEntry, FilmSearchParameters } from '../../types/Films';
+import {
+  Film,
+  FilmCalendarEntry,
+  FilmSearchParameters,
+} from '../../types/Films';
 import { format, parseISO } from 'date-fns';
 import FilmGrid from '../../components/Films/FilmGrid';
 import CalendarIcon from '../../components/Icons/CalendarIcon';
@@ -19,7 +23,7 @@ function ReleaseCalendar() {
 
   const searchParams = {
     releasedAfterDate: currentDate,
-    releasedOnDate: chosenDate?.toISOString(),
+    releasedOnDate: chosenDate?.toDateString(),
     sort: 'release_asc',
   } as FilmSearchParameters;
 
@@ -27,27 +31,33 @@ function ReleaseCalendar() {
     queryKey: ['film-calendar', filmsPerPage, page, chosenDate],
     queryFn: () =>
       searchFilmsPaginated(searchParams, page, filmsPerPage).then((res) => {
-        const dates = [] as FilmCalendarEntry[];
-        res.data.forEach((film) => {
-          const formattedReleaseDate = format(
-            parseISO(film.releaseDate.toString()),
-            'dd/MM/yyyy',
-          );
-          const entry = dates.find((x) => x.date == formattedReleaseDate);
-          if (entry) {
-            entry.films.push(film);
-            return;
-          }
-          const newEntry = {
-            date: formattedReleaseDate,
-            films: [],
-          } as FilmCalendarEntry;
-          newEntry.films.push(film);
-          dates.push(newEntry);
-        });
-        return dates;
+        return formatReleaseDates(res.data);
       }),
+    placeholderData: keepPreviousData,
+    staleTime: 100,
   });
+
+  function formatReleaseDates(data: Film[]): FilmCalendarEntry[] {
+    const dates = [] as FilmCalendarEntry[];
+    data.forEach((film) => {
+      const formattedReleaseDate = format(
+        parseISO(film.releaseDate.toString()),
+        'dd/MM/yyyy',
+      );
+      const entry = dates.find((x) => x.date == formattedReleaseDate);
+      if (entry) {
+        entry.films.push(film);
+        return;
+      }
+      const newEntry = {
+        date: formattedReleaseDate,
+        films: [],
+      } as FilmCalendarEntry;
+      newEntry.films.push(film);
+      dates.push(newEntry);
+    });
+    return dates;
+  }
 
   if (isLoading)
     return <LoadingMessage message={'Loading release calendar.'} />;
