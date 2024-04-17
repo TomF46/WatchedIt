@@ -8,6 +8,8 @@ export type Review = {
   text: string;
   user: User;
   film: Film;
+  createdDate: Date;
+  updatedDate: Date;
 };
 
 export type EditableReview = {

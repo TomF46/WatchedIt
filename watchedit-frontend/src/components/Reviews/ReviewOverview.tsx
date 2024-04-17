@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Review } from '../../types/Reviews';
 import StarIcon from '../Icons/StarIcon';
+import { format, parseISO } from 'date-fns';
 
 type Props = {
   review: Review;
@@ -45,6 +46,10 @@ const ReviewOverview = ({ review, showFilm }: Props) => {
               >
                 {review.user.username}
               </Link>
+              <span className='ml-2 text-slate-400'>
+                -{' '}
+                {format(parseISO(review.createdDate.toString()), 'dd/MM/yyyy')}{' '}
+              </span>
             </p>
           </div>
           <p>

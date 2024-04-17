@@ -18,7 +18,7 @@ namespace WatchedIt.Api.Services.ReviewService
             _context = context;
         }
 
-        public async Task<PaginationResponse<GetReviewOverviewDto>> GetAllForFilm(int id, ReviewSearchWithPaginationParameters parameters)
+        public async Task<PaginationResponse<GetReviewDto>> GetAllForFilm(int id, ReviewSearchWithPaginationParameters parameters)
         {
             var film = await _context.Films.FirstOrDefaultAsync(f => f.Id == id);
             if (film is null) throw new NotFoundException($"Film with Id '{id}' not found.");
@@ -27,11 +27,11 @@ namespace WatchedIt.Api.Services.ReviewService
             query = sortReviews(query, parameters);
             var count = query.Count();
             var reviews = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
-            var mappedReviews = reviews.Select(r => ReviewMapper.MapOverview(r)).ToList();
-            return new PaginationResponse<GetReviewOverviewDto>(mappedReviews, parameters.PageNumber, parameters.PageSize, count);
+            var mappedReviews = reviews.Select(r => ReviewMapper.Map(r)).ToList();
+            return new PaginationResponse<GetReviewDto>(mappedReviews, parameters.PageNumber, parameters.PageSize, count);
         }
 
-        public async Task<PaginationResponse<GetReviewOverviewDto>> GetAllByUser(int id, ReviewSearchWithPaginationParameters parameters)
+        public async Task<PaginationResponse<GetReviewDto>> GetAllByUser(int id, ReviewSearchWithPaginationParameters parameters)
         {
             var user = await _context.Users.FindAsync(id);
             if (user is null) throw new NotFoundException($"user with Id '{id}' not found.");
@@ -40,8 +40,8 @@ namespace WatchedIt.Api.Services.ReviewService
             query = sortReviews(query, parameters);
             var count = query.Count();
             var reviews = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
-            var mappedReviews = reviews.Select(r => ReviewMapper.MapOverview(r)).ToList();
-            return new PaginationResponse<GetReviewOverviewDto>(mappedReviews, parameters.PageNumber, parameters.PageSize, count);
+            var mappedReviews = reviews.Select(r => ReviewMapper.Map(r)).ToList();
+            return new PaginationResponse<GetReviewDto>(mappedReviews, parameters.PageNumber, parameters.PageSize, count);
         }
 
         private IQueryable<Review> sortReviews(IQueryable<Review> query, ReviewSearchWithPaginationParameters parameters)
@@ -82,7 +82,9 @@ namespace WatchedIt.Api.Services.ReviewService
                 User = user,
                 Film = film,
                 Rating = newReview.Rating,
-                Text = newReview.Text
+                Text = newReview.Text,
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now
             };
 
             await _context.Reviews.AddAsync(review);
@@ -102,6 +104,7 @@ namespace WatchedIt.Api.Services.ReviewService
 
             review.Rating = updatedReview.Rating;
             review.Text = updatedReview.Text;
+            review.UpdatedDate = DateTime.Now;
             await _context.SaveChangesAsync();
             await UpdateAverageScore(review.Film);
             return ReviewMapper.Map(review);

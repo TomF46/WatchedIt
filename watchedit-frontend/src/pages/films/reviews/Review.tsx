@@ -9,6 +9,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { Review as ReviewType } from '../../../types/Reviews';
 import ErrorMessage from '../../../components/Error/ErrorMessage';
 import useCurrentUserId from '../../../hooks/useCurrentUserId';
+import { format, parseISO } from 'date-fns/esm';
 
 function Review() {
   const { id, reviewId } = useParams();
@@ -116,6 +117,9 @@ function Review() {
           <div className='col-span-12 pl-4 md:col-span-10'>
             <p className='my-4 text-center text-2xl text-rating md:my-0 md:text-left'>
               Rating {review.rating}/10
+            </p>
+            <p className='text-slate-400'>
+              {format(parseISO(review.createdDate.toString()), 'dd/MM/yyyy')}
             </p>
             <div className='mt-2 rounded bg-backgroundOffset p-4 shadow'>
               <p>{review.text}</p>

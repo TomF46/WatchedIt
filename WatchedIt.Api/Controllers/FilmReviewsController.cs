@@ -23,7 +23,7 @@ namespace WatchedIt.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PaginationResponse<GetReviewOverviewDto>>> GetAll(int id, [FromQuery] ReviewSearchWithPaginationParameters parameters)
+        public async Task<ActionResult<PaginationResponse<GetReviewDto>>> GetAll(int id, [FromQuery] ReviewSearchWithPaginationParameters parameters)
         {
             return Ok(await _reviewService.GetAllForFilm(id, parameters));
         }
