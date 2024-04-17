@@ -19,10 +19,11 @@ export function getReviewsByFilmId(
   filmId: number,
   pageNumber: number,
   pageSize: number,
+  sort: string
 ): Promise<ReviewsPaginationResponse> {
   return client
     .get(
-      `/api/films/${filmId}/reviews?PageNumber=${pageNumber}&PageSize=${pageSize}`,
+      `/api/films/${filmId}/reviews?PageNumber=${pageNumber}&PageSize=${pageSize}&sort=${sort}`,
     )
     .then((response) => {
       return response.data;

@@ -101,10 +101,11 @@ export function getUsersReviewsPaginated(
   id: number,
   pageNumber: number,
   pageSize: number,
+  sort: string,
 ): Promise<ReviewsPaginationResponse> {
   return client
     .get(
-      `/api/users/${id}/reviews?PageNumber=${pageNumber}&PageSize=${pageSize}`,
+      `/api/users/${id}/reviews?PageNumber=${pageNumber}&PageSize=${pageSize}&Sort=${sort}`,
     )
     .then((response) => {
       return response.data;

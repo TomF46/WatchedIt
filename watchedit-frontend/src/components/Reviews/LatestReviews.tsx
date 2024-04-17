@@ -12,6 +12,7 @@ type Props = {
 };
 
 function LatestReviews({ film, totalReviews }: Props) {
+  const sort = 'created_desc';
   const {
     isLoading,
     data: reviews,
@@ -19,7 +20,7 @@ function LatestReviews({ film, totalReviews }: Props) {
   } = useQuery({
     queryKey: ['film-latest-reviews', film.id, totalReviews],
     queryFn: () =>
-      getReviewsByFilmId(Number(film.id), 1, totalReviews).then(
+      getReviewsByFilmId(Number(film.id), 1, totalReviews, sort).then(
         (res) => res.data,
       ),
   });
