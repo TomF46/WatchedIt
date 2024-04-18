@@ -72,7 +72,7 @@ function WatchedList() {
             <FilmSearch
               onQueryChange={updateQuery}
               page={page}
-              onPageChange={(number) => setPage(number)}
+              onPageChange={setPage}
             />
             {filmsPaginator ? (
               <>

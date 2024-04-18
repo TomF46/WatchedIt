@@ -39,10 +39,11 @@ export type PersonCredit = {
   type: string;
 };
 
-export type PeopleSearchTerms = {
+export type PersonSearchParameters = {
   firstName?: string;
   lastName?: string;
   stageName?: string;
+  sort?: string;
 };
 
 type People = {

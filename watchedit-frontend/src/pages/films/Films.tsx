@@ -69,7 +69,7 @@ function Films() {
         <FilmSearch
           onQueryChange={updateQuery}
           page={page}
-          onPageChange={(number) => setPage(number)}
+          onPageChange={setPage}
         />
         {isLoading ? (
           <LoadingMessage message={'Loading films.'} />

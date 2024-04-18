@@ -61,9 +61,9 @@ namespace WatchedIt.Api.Controllers
         }
 
         [HttpGet("{id}/likes")]
-        public async Task<ActionResult<PaginationResponse<GetSimplePersonDto>>> GetLikedPeople(int id, [FromQuery] PaginationParameters paginationParameters)
+        public async Task<ActionResult<PaginationResponse<GetSimplePersonDto>>> GetLikedPeople(int id, [FromQuery] PersonSearchWithPaginationParameters parameters)
         {
-            return Ok(await _userService.GetLikedPeople(id, paginationParameters));
+            return Ok(await _userService.GetLikedPeople(id, parameters));
         }
 
         [HttpGet("me/admin")]

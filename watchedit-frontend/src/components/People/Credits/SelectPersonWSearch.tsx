@@ -1,11 +1,11 @@
 import TextInput from '../../Inputs/TextInput';
 import SelectPersonFromCards from './SelectPersonFromCards';
 import SelectPersonFromList from './SelectPersonFromList';
-import { PeopleSearchTerms, Person } from '../../../types/People';
+import { PersonSearchParameters, Person } from '../../../types/People';
 
 type Props = {
   people: Person[];
-  searchTerms: PeopleSearchTerms;
+  searchTerms: PersonSearchParameters;
   onSearchTermChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onPersonSelected: (person: Person) => void;
   cardMode: boolean;

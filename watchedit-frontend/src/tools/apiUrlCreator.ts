@@ -1,4 +1,5 @@
 import { FilmSearchParameters } from '../types/Films';
+import { PersonSearchParameters } from '../types/People';
 
 export function generateFilmSearchUrl(
   target: string,
@@ -18,5 +19,18 @@ export function generateFilmSearchUrl(
     target = `${target}&minRating=${parameters.minRating}`;
   if (parameters.maxRating)
     target = `${target}&maxRating=${parameters.maxRating}`;
+  return target;
+}
+
+export function generatePersonSearchUrl(
+  target: string,
+  parameters: PersonSearchParameters,
+): string {
+  if (parameters.firstName)
+    target = `${target}&firstName=${parameters.firstName}`;
+  if (parameters.lastName) target = `${target}&lastName=${parameters.lastName}`;
+  if (parameters.stageName)
+    target = `${target}&stageName=${parameters.stageName}`;
+  if (parameters.sort) target = `${target}&sort=${parameters.sort}`;
   return target;
 }

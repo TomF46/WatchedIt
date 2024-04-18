@@ -84,13 +84,15 @@ namespace WatchedIt.Api.Services.UserService
             return UserMapper.Map(user);
         }
 
-        public async Task<PaginationResponse<GetSimplePersonDto>> GetLikedPeople(int id, PaginationParameters paginationParameters)
+        public async Task<PaginationResponse<GetSimplePersonDto>> GetLikedPeople(int id, PersonSearchWithPaginationParameters parameters)
         {
             var user = await _context.Users.Include(u => u.Likes).ThenInclude(x => x.Credits).Include(u => u.Likes).ThenInclude(x => x.LikedBy).FirstOrDefaultAsync(p => p.Id == id);
             if (user is null) throw new NotFoundException($"User with Id '{id}' not found.");
-            var count = user.Likes.Count;
-            var mappedLikesList = user.Likes.Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).Select(p => PersonMapper.MapSimple(p)).ToList();
-            return new PaginationResponse<GetSimplePersonDto>(mappedLikesList, paginationParameters.PageNumber, paginationParameters.PageSize, count);
+            var personSearchHelper = new PersonSearchHelper();
+            var likedPeople = personSearchHelper.searchPeople(user.Likes.AsQueryable(), parameters);
+            var count = likedPeople.Count();
+            var mappedLikesList = likedPeople.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).Select(p => PersonMapper.MapSimple(p)).ToList();
+            return new PaginationResponse<GetSimplePersonDto>(mappedLikesList, parameters.PageNumber, parameters.PageSize, count);
         }
 
         public async Task<PaginationResponse<GetFilmOverviewDto>> GetWatchedFilms(int id, FilmSearchWithPaginationParameters parameters)

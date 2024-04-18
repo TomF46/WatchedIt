@@ -1,7 +1,8 @@
+import { generatePersonSearchUrl } from '../tools/apiUrlCreator';
 import {
   EditablePerson,
   PeoplePaginationResponse,
-  PeopleSearchTerms,
+  PersonSearchParameters,
   Person,
 } from '../types/People';
 import client from './client';
@@ -28,15 +29,16 @@ export function getPeoplePaginated(
 }
 
 export function searchPeoplePaginated(
-  searchTerms: PeopleSearchTerms,
+  searchTerms: PersonSearchParameters,
   pageNumber: number,
   pageSize: number,
-  sort: string,
 ): Promise<PeoplePaginationResponse> {
+  const url = generatePersonSearchUrl(
+    `/api/people?PageNumber=${pageNumber}&PageSize=${pageSize}`,
+    searchTerms,
+  );
   return client
-    .get(
-      `/api/people?firstName=${searchTerms.firstName}&lastName=${searchTerms.lastName}&stageName=${searchTerms.stageName}&PageNumber=${pageNumber}&PageSize=${pageSize}&Sort=${sort}`,
-    )
+    .get(url)
     .then((response) => {
       return response.data;
     })
