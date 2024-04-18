@@ -55,9 +55,9 @@ namespace WatchedIt.Api.Controllers
         }
 
         [HttpGet("{id}/watched")]
-        public async Task<ActionResult<PaginationResponse<GetFilmOverviewDto>>> GetWatchedFilms(int id, [FromQuery] PaginationParameters paginationParameters)
+        public async Task<ActionResult<PaginationResponse<GetFilmOverviewDto>>> GetWatchedFilms(int id, [FromQuery] FilmSearchWithPaginationParameters parameters)
         {
-            return Ok(await _userService.GetWatchedFilms(id, paginationParameters));
+            return Ok(await _userService.GetWatchedFilms(id, parameters));
         }
 
         [HttpGet("{id}/likes")]

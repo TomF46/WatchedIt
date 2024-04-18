@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using WatchedIt.Api.Helpers;
 using WatchedIt.Api.Models.Enums;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.News;
@@ -92,13 +93,15 @@ namespace WatchedIt.Api.Services.UserService
             return new PaginationResponse<GetSimplePersonDto>(mappedLikesList, paginationParameters.PageNumber, paginationParameters.PageSize, count);
         }
 
-        public async Task<PaginationResponse<GetFilmOverviewDto>> GetWatchedFilms(int id, PaginationParameters paginationParameters)
+        public async Task<PaginationResponse<GetFilmOverviewDto>> GetWatchedFilms(int id, FilmSearchWithPaginationParameters parameters)
         {
             var user = await _context.Users.Include(f => f.Watched).ThenInclude(f => f.WatchedBy).FirstOrDefaultAsync(p => p.Id == id);
             if (user is null) throw new NotFoundException($"User with Id '{id}' not found.");
-            var count = user.Watched.Count;
-            var mappedWatchList = user.Watched.Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize).Take(paginationParameters.PageSize).Select(f => FilmMapper.MapOverview(f)).ToList();
-            return new PaginationResponse<GetFilmOverviewDto>(mappedWatchList, paginationParameters.PageNumber, paginationParameters.PageSize, count);
+            var filmSearchHelper = new FilmSearchHelper();
+            var watchedFilms = filmSearchHelper.searchFilms(_context, user.Watched.AsQueryable(), parameters);
+            var count = watchedFilms.Count();
+            var mappedWatchList = watchedFilms.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).Select(f => FilmMapper.MapOverview(f)).ToList();
+            return new PaginationResponse<GetFilmOverviewDto>(mappedWatchList, parameters.PageNumber, parameters.PageSize, count);
         }
 
         public async Task<GetUserDto> SetUserCanPublish(int id, UserCanPublishDto canPublish)

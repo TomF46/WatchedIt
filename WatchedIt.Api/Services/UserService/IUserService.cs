@@ -16,7 +16,7 @@ namespace WatchedIt.Api.Services.UserService
         Task<PaginationResponse<GetUserOverviewDto>> GetAll(UserSearchWithPaginationParameters parameters);
         Task<GetUserDto> GetById(int id);
         Task<GetUserDto> Update(int id, UpdateUserDto updatedUser);
-        Task<PaginationResponse<GetFilmOverviewDto>> GetWatchedFilms(int id, PaginationParameters paginationParameters);
+        Task<PaginationResponse<GetFilmOverviewDto>> GetWatchedFilms(int id, FilmSearchWithPaginationParameters paginationParameters);
         Task<PaginationResponse<GetSimplePersonDto>> GetLikedPeople(int id, PaginationParameters paginationParameters);
         Task<GetIsAdminDto> GetIsUserAdmin(int id);
         Task<GetCanPublishDto> GetCanPublish(int id);

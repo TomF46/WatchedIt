@@ -1,5 +1,6 @@
+import { generateFilmSearchUrl } from '../tools/apiUrlCreator';
 import { EditableUser, User, UsersPaginationResponse } from '../types/Auth';
-import { FilmsPaginationResponse } from '../types/Films';
+import { FilmSearchParameters, FilmsPaginationResponse } from '../types/Films';
 import { PeoplePaginationResponse } from '../types/People';
 import { ReviewsPaginationResponse } from '../types/Reviews';
 import client from './client';
@@ -34,13 +35,16 @@ export function getUserById(id: number): Promise<User> {
 
 export function getWatchedListByUserId(
   id: number,
+  parameters: FilmSearchParameters,
   pageNumber: number,
   pageSize: number,
 ): Promise<FilmsPaginationResponse> {
+  const url = generateFilmSearchUrl(
+    `/api/users/${id}/watched?PageNumber=${pageNumber}&PageSize=${pageSize}`,
+    parameters,
+  );
   return client
-    .get(
-      `/api/users/${id}/watched?PageNumber=${pageNumber}&PageSize=${pageSize}`,
-    )
+    .get(url)
     .then((response) => {
       return response.data;
     })

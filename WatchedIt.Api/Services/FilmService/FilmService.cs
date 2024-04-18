@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using WatchedIt.Api.Helpers;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Services.Mapping;
 
@@ -19,54 +20,8 @@ namespace WatchedIt.Api.Services.FilmService
         {
             var query = _context.Films.Include(f => f.WatchedBy).AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(parameters.SearchTerm)) query = query.Where(f => f.Name.ToLower().Contains(parameters.SearchTerm.Trim().ToLower()));
-
-            if (parameters.Category is not null)
-            {
-                var category = _context.Categories.FirstOrDefault(x => x.Id == parameters.Category);
-                if (category is null) throw new NotFoundException("Category does not exist");
-                query = query.Where(x => x.Categories.Contains(category));
-            }
-            
-            if (parameters.ReleasedOnDate.HasValue) query = query.Where(f => f.ReleaseDate.Date == parameters.ReleasedOnDate.Value.Date);
-            if (parameters.ReleasedBeforeDate.HasValue) query = query.Where(f => f.ReleaseDate.Date <= parameters.ReleasedBeforeDate.Value.Date);
-            if (parameters.ReleasedAfterDate.HasValue) query = query.Where(f => f.ReleaseDate.Date > parameters.ReleasedAfterDate.Value.Date);
-
-
-            if (parameters.MinRating.HasValue) query = query.Where(f => f.AverageRating >= parameters.MinRating.Value);
-            if (parameters.MaxRating.HasValue) query = query.Where(f => f.AverageRating <= parameters.MaxRating.Value);
-
-
-            switch (parameters.Sort)
-            {
-                case "name_desc":
-                    query = query.OrderByDescending(f => f.Name);
-                    break;
-                case "name_asc":
-                    query = query.OrderBy(f => f.Name);
-                    break;
-                case "release_desc":
-                    query = query.OrderByDescending(f => f.ReleaseDate).ThenBy(x => x.Name);
-                    break;
-                case "release_asc":
-                    query = query.OrderBy(f => f.ReleaseDate).ThenBy(x => x.Name);
-                    break;
-                case "rating_desc":
-                    query = query.OrderByDescending(f => f.AverageRating).ThenBy(x => x.Name);
-                    break;
-                case "rating_asc":
-                    query = query.OrderBy(f => f.AverageRating).ThenBy(x => x.Name);
-                    break;
-                case "watched_desc":
-                    query = query.OrderByDescending(f => f.WatchedBy.Count()).ThenBy(x => x.Name);
-                    break;
-                case "watched_asc":
-                    query = query.OrderBy(f => f.WatchedBy.Count()).ThenBy(x => x.Name);
-                    break;
-                default:
-                    query = query.OrderByDescending(f => f.AverageRating).ThenBy(x => x.Name);
-                    break;
-            };
+            var filmSearchHelper = new FilmSearchHelper();
+            query = filmSearchHelper.searchFilms(_context, query, parameters);
 
             var count = query.Count();
             var films = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
