@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -10,17 +10,31 @@ import {
 import FilmGrid from '../../components/Films/FilmGrid';
 import LoadingMessage from '../../components/Loading/LoadingMessage';
 import UserMiniDetail from '../../components/User/UserMiniDetail';
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import ErrorMessage from '../../components/Error/ErrorMessage';
-import { Film } from '../../types/Films';
+import { Film, FilmSearchParameters } from '../../types/Films';
 import FilmIcon from '../../components/Icons/FilmIcon';
 import useCurrentUserId from '../../hooks/useCurrentUserId';
+import PaginationControls from '../../components/PaginationControls';
+import { useDebounce } from '@uidotdev/usehooks';
+import FilmSearch from '../../components/Films/FilmSearch';
 
 function List() {
   const { id } = useParams();
   const userId = useCurrentUserId();
   const navigate = useNavigate();
   const [userCanEdit, setUserCanEdit] = useState(false);
+  const filmsPerPage = 4;
+  const [page, setPage] = useState(1);
+  const [query, setQuery] = useState({
+    searchTerm: '',
+    category: undefined,
+    sort: 'rating_desc',
+    maxRating: undefined,
+    minRating: undefined,
+  } as FilmSearchParameters);
+
+  const queryKeyParams = useDebounce([query, id, filmsPerPage, page], 100);
 
   const {
     isLoading,
@@ -28,12 +42,14 @@ function List() {
     error,
     refetch,
   } = useQuery({
-    queryKey: ['list', id],
+    queryKey: ['list', ...queryKeyParams],
     queryFn: () =>
-      getFilmListById(Number(id)).then((res) => {
+      getFilmListById(Number(id), query, page, filmsPerPage).then((res) => {
         setUserCanEdit(res.createdBy.id == userId);
         return res;
       }),
+    placeholderData: keepPreviousData,
+    staleTime: 100,
   });
 
   function confirmDelete() {
@@ -97,6 +113,10 @@ function List() {
       });
   }
 
+  const updateQuery = useCallback((params: FilmSearchParameters) => {
+    setQuery(params);
+  }, []);
+
   if (isLoading) return <LoadingMessage message={'Loading list.'} />;
 
   if (error) {
@@ -157,12 +177,27 @@ function List() {
               <UserMiniDetail user={list.createdBy} />
             </div>
           </div>
-          {list.films.length > 0 ? (
-            <FilmGrid
-              films={list.films}
-              editable={userCanEdit}
-              onRemove={handleRemove}
-            />
+          <FilmSearch
+            onQueryChange={updateQuery}
+            page={page}
+            onPageChange={setPage}
+          />
+          {list.films.data.length > 0 ? (
+            <>
+              <FilmGrid
+                films={list.films.data}
+                editable={userCanEdit}
+                onRemove={handleRemove}
+              />
+              <PaginationControls
+                currentPage={page}
+                onPageChange={setPage}
+                of={list.films.of}
+                from={list.films.from}
+                to={list.films.to}
+                lastPage={list.films.lastPage}
+              />
+            </>
           ) : (
             <div className='my-16'>
               <div className='flex justify-center text-center'>

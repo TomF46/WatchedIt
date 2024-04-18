@@ -1,5 +1,11 @@
-import { Film } from '../types/Films';
-import { EditableList, List, ListsPaginationResponse } from '../types/Lists';
+import { generateFilmSearchUrl } from '../tools/apiUrlCreator';
+import { Film, FilmSearchParameters } from '../types/Films';
+import {
+  EditableList,
+  List,
+  ListForEdit,
+  ListsPaginationResponse,
+} from '../types/Lists';
 import client from './client';
 
 export function saveFilmList(filmList: EditableList): Promise<List> {
@@ -38,9 +44,18 @@ export function searchFilmListsPaginated(
     });
 }
 
-export function getFilmListById(id: number): Promise<List> {
+export function getFilmListById(
+  id: number,
+  parameters: FilmSearchParameters,
+  pageNumber: number,
+  pageSize: number,
+): Promise<List> {
+  const url = generateFilmSearchUrl(
+    `/api/filmLists/${id}?PageNumber=${pageNumber}&PageSize=${pageSize}`,
+    parameters,
+  );
   return client
-    .get(`/api/filmLists/${id}`)
+    .get(url)
     .then((response) => {
       return response.data;
     })
@@ -52,6 +67,17 @@ export function getFilmListById(id: number): Promise<List> {
 export function addFilmList(filmList: EditableList): Promise<List> {
   return client
     .post('/api/filmLists', filmList)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw error.response;
+    });
+}
+
+export function getFilmListForEditById(id: number): Promise<ListForEdit> {
+  return client
+    .get(`/api/filmLists/${id}/edit`)
     .then((response) => {
       return response.data;
     })

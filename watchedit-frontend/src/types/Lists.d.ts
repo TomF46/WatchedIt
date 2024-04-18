@@ -1,7 +1,17 @@
 import { User } from './Auth';
-import { Film } from './Films';
+import { Film, FilmsPaginationResponse } from './Films';
 
 export type List = {
+  id?: number;
+  name: string;
+  description: string;
+  createdBy: User;
+  films: FilmsPaginationResponse;
+  filmCount: number;
+  thumbnails: string[];
+};
+
+export type ListForEdit = {
   id?: number;
   name: string;
   description: string;

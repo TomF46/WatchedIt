@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using WatchedIt.Api.Models.FilmListModels;
 
 namespace WatchedIt.Api.Services.FilmListService
@@ -9,8 +10,9 @@ namespace WatchedIt.Api.Services.FilmListService
     public interface IFilmListService
     {
         Task<PaginationResponse<GetFilmListOverviewDto>> GetAll(FilmListSearchWithPaginationParameters parameters);
-        Task<GetFilmListDto> GetById(int id);
+        Task<GetFilmListDto> GetById(int id, FilmSearchWithPaginationParameters parameters);
         Task<GetFilmListOverviewDto> Add(int userId, AddFilmListDto newFilmList);
+        Task<GetFilmListForEditDto> GetByIdForEdit(int id);
         Task<GetFilmListOverviewDto> Update(int id, int userId, UpdateFilmListDto updatedFilmList);
         void Delete(int id, int userId);
         Task<GetFilmListDto> AddFilmToListById(int id, int userId, AddFilmToFilmListDto newFilm);

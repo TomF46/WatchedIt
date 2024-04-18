@@ -3,7 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { newList } from '../../../tools/obJectShapes';
 import ManageList from './ManageList';
-import { getFilmListById, saveFilmList } from '../../../api/filmListsApi';
+import {
+  getFilmListForEditById,
+  saveFilmList,
+} from '../../../api/filmListsApi';
 import { useQuery } from '@tanstack/react-query';
 import LoadingMessage from '../../../components/Loading/LoadingMessage';
 import ErrorMessage from '../../../components/Error/ErrorMessage';
@@ -20,7 +23,7 @@ function EditList() {
   const { isLoading, error } = useQuery({
     queryKey: ['list-update', id],
     queryFn: () =>
-      getFilmListById(Number(id)).then((res) => {
+      getFilmListForEditById(Number(id)).then((res) => {
         if (res.createdBy.id != userId) navigate(`/lists/${id}`);
         setList({
           id: res.id,

@@ -2,7 +2,10 @@ import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import PaginationControls from '../../../components/PaginationControls';
-import { addFilmToFilmList, getFilmListById } from '../../../api/filmListsApi';
+import {
+  addFilmToFilmList,
+  getFilmListForEditById,
+} from '../../../api/filmListsApi';
 import SelectFilmListWSearch from '../../../components/Films/SelectFilmListWSearch';
 import { searchFilmsPaginated } from '../../../api/filmsApi';
 import LoadingMessage from '../../../components/Loading/LoadingMessage';
@@ -28,7 +31,7 @@ function AddFilmToList() {
   } = useQuery({
     queryKey: ['list', id],
     queryFn: () =>
-      getFilmListById(Number(id)).then((res) => {
+      getFilmListForEditById(Number(id)).then((res) => {
         if (res.createdBy.id != userId) navigate(`/lists/${res.id}`);
         return res;
       }),

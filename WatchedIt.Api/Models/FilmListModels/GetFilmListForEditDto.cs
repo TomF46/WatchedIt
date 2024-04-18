@@ -8,12 +8,12 @@ using WatchedIt.Api.Models.UserModels;
 
 namespace WatchedIt.Api.Models.FilmListModels
 {
-    public class GetFilmListDto
+    public class GetFilmListForEditDto
     {
         public int Id { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
         public GetSimpleUserDto CreatedBy { get; set; }
-        public PaginationResponse<GetFilmOverviewDto> Films { get; set; }
+        public ICollection<GetFilmOverviewDto> Films { get; set; } = new List<GetFilmOverviewDto>();
     }
 }
