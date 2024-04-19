@@ -22,9 +22,11 @@ namespace WatchedIt.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PaginationResponse<GetNewsArticleOverviewDto>>> Get(int id, [FromQuery] PaginationParameters paginationParameters){
+        public async Task<ActionResult<PaginationResponse<GetNewsArticleOverviewDto>>> Get(int id, [FromQuery] NewsArticleSearchWithPaginationParameters parameters)
+        {
             var userId = AuthMapper.MapLoggedInUserId(HttpContext);
-            return Ok(await _newsArticlesService.GetAllForUser(id, userId , paginationParameters));
+            parameters.Publisher = null; //Ignore any publisher param in this case.
+            return Ok(await _newsArticlesService.GetAllForUser(id, userId, parameters));
         }
     }
 }

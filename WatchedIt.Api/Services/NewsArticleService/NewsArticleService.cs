@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using WatchedIt.Api.Helpers;
 using WatchedIt.Api.Models.Enums;
 using WatchedIt.Api.Models.News;
 using WatchedIt.Api.Services.Mapping;
@@ -21,30 +22,8 @@ namespace WatchedIt.Api.Services.NewsArticleService
         {
             var query = _context.NewsArticles.Include(a => a.User).Where(a => a.Published);
 
-            if (!string.IsNullOrWhiteSpace(parameters.Title))
-            {
-                var searchTitle = parameters.Title.Trim().ToLower();
-                query = query.Where(a => a.Title.ToLower().Contains(searchTitle));
-            }
-
-            if (!string.IsNullOrWhiteSpace(parameters.Publisher))
-            {
-                var searchPublisher = parameters.Publisher.Trim().ToLower();
-                query = query.Where(a => a.User.Username.ToLower().Contains(searchPublisher));
-            }
-
-            switch (parameters.Sort)
-            {
-                case "created_desc":
-                    query = query.OrderByDescending(x => x.CreatedDate);
-                    break;
-                case "created_asc":
-                    query = query.OrderBy(x => x.CreatedDate);
-                    break;
-                default:
-                    query = query.OrderByDescending(x => x.CreatedDate);
-                    break;
-            }
+            var newsArticleSearchHelper = new NewsArticleSearchHelper();
+            query = newsArticleSearchHelper.searchNewsArticles(query, parameters);
 
             var count = query.Count();
             var articles = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
@@ -52,14 +31,14 @@ namespace WatchedIt.Api.Services.NewsArticleService
             return new PaginationResponse<GetNewsArticleOverviewDto>(mappedArticles, parameters.PageNumber, parameters.PageSize, count);
         }
 
-        public async Task<PaginationResponse<GetNewsArticleOverviewDto>> GetAllForUser(int userId, int currentUserId, PaginationParameters parameters)
+        public async Task<PaginationResponse<GetNewsArticleOverviewDto>> GetAllForUser(int userId, int currentUserId, NewsArticleSearchWithPaginationParameters parameters)
         {
             var query = _context.NewsArticles.Include(a => a.User).Where(a => a.User.Id == userId).AsQueryable();
             if (currentUserId != userId) query = query.Where(x => x.Published); // Can see own unpublished articles
-            query = query.OrderByDescending(x => x.CreatedDate);
+            var newsArticleSearchHelper = new NewsArticleSearchHelper();
+            var articles = newsArticleSearchHelper.searchNewsArticles(query, parameters);
             var count = query.Count();
-            var articles = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
-            var mappedArticles = articles.Select(a => NewsArticleMapper.MapOverview(a)).ToList();
+            var mappedArticles = await articles.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).Select(a => NewsArticleMapper.MapOverview(a)).ToListAsync();
             return new PaginationResponse<GetNewsArticleOverviewDto>(mappedArticles, parameters.PageNumber, parameters.PageSize, count);
         }
 

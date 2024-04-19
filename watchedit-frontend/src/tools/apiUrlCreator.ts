@@ -1,4 +1,5 @@
 import { FilmSearchParameters } from '../types/Films';
+import { NewsArticleSearchParameters } from '../types/News';
 import { PersonSearchParameters } from '../types/People';
 
 export function generateFilmSearchUrl(
@@ -31,6 +32,17 @@ export function generatePersonSearchUrl(
   if (parameters.lastName) target = `${target}&lastName=${parameters.lastName}`;
   if (parameters.stageName)
     target = `${target}&stageName=${parameters.stageName}`;
+  if (parameters.sort) target = `${target}&sort=${parameters.sort}`;
+  return target;
+}
+
+export function generateNewsArticleSearchUrl(
+  target: string,
+  parameters: NewsArticleSearchParameters,
+): string {
+  if (parameters.title) target = `${target}&title=${parameters.title}`;
+  if (parameters.publisher)
+    target = `${target}&publisher=${parameters.publisher}`;
   if (parameters.sort) target = `${target}&sort=${parameters.sort}`;
   return target;
 }

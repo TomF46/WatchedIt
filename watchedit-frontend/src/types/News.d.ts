@@ -22,6 +22,7 @@ export type NewsArticlesPaginationResponse = NewsArticles & PaginationResponse;
 export type NewsArticleSearchParameters = {
   title?: string;
   publisher?: string;
+  sort?: string;
 };
 
 export type EditableNewsArticle = {

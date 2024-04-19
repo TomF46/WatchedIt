@@ -1,3 +1,4 @@
+import { generateNewsArticleSearchUrl } from '../tools/apiUrlCreator';
 import {
   EditableNewsArticle,
   NewsArticle,
@@ -30,15 +31,16 @@ export function getNewsPaginated(
 }
 
 export function searchNewsPaginated(
-  searchTerms: NewsArticleSearchParameters,
+  parameters: NewsArticleSearchParameters,
   pageNumber: number,
   pageSize: number,
-  sort: string,
 ): Promise<NewsArticlesPaginationResponse> {
+  const url = generateNewsArticleSearchUrl(
+    `/api/newsArticles?PageNumber=${pageNumber}&PageSize=${pageSize}`,
+    parameters,
+  );
   return client
-    .get(
-      `/api/newsArticles?title=${searchTerms.title}&publisher=${searchTerms.publisher}&PageNumber=${pageNumber}&PageSize=${pageSize}&Sort=${sort}`,
-    )
+    .get(url)
     .then((response) => {
       return response.data;
     })
@@ -104,13 +106,16 @@ export function setNewsArticlePublishedStatusById(
 
 export function getNewsByUserPaginated(
   id: number,
+  parameters: NewsArticleSearchParameters,
   pageNumber: number,
   pageSize: number,
 ): Promise<NewsArticlesPaginationResponse> {
+  const url = generateNewsArticleSearchUrl(
+    `/api/users/${id}/newsArticles?PageNumber=${pageNumber}&PageSize=${pageSize}`,
+    parameters,
+  );
   return client
-    .get(
-      `/api/users/${id}/newsArticles?PageNumber=${pageNumber}&PageSize=${pageSize}`,
-    )
+    .get(url)
     .then((response) => {
       return response.data;
     })
