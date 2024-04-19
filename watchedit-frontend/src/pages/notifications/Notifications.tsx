@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import Switch from 'react-switch';
 import {
   getAllNotifications,
+  getUnreadNotifications,
   readNotification,
 } from '../../api/notificationApi';
 import LoadingMessage from '../../components/Loading/LoadingMessage';
@@ -19,6 +21,7 @@ const NotificationsPage = () => {
   const notificationCount = useNotifictionCount();
   const [page, setPage] = useState(1);
   const notificationsPerPage = 32;
+  const [showAllChecked, setShowAllChecked] = useState(true);
 
   const {
     isLoading,
@@ -26,11 +29,10 @@ const NotificationsPage = () => {
     error,
     refetch,
   } = useQuery({
-    queryKey: ['notifications', page, notificationsPerPage],
-    queryFn: () =>
-      getAllNotifications(page, notificationsPerPage).then((res) => {
-        return res;
-      }),
+    queryKey: ['notifications', page, notificationsPerPage, showAllChecked],
+    queryFn: () => {
+      return getNotifications();
+    },
     placeholderData: keepPreviousData,
   });
 
@@ -48,9 +50,24 @@ const NotificationsPage = () => {
     },
   });
 
+  function getNotifications() {
+    if (showAllChecked)
+      return getAllNotifications(page, notificationsPerPage).then((res) => {
+        return res;
+      });
+
+    return getUnreadNotifications(page, notificationsPerPage).then((res) => {
+      return res;
+    });
+  }
+
   function handleReadNotification(notification: Notification) {
     if (notification.read) return;
     setNotificationRead.mutate(notification);
+  }
+
+  function handleCheckedChange(value: boolean) {
+    setShowAllChecked(value);
   }
 
   if (isLoading) return <LoadingMessage message={'Loading notifications'} />;
@@ -70,6 +87,15 @@ const NotificationsPage = () => {
         <h1 className='my-4 text-center text-4xl font-semibold text-primary'>
           Notifications {`(${notificationCount})`}
         </h1>
+        <label>
+          <Switch
+            onChange={handleCheckedChange}
+            checked={showAllChecked}
+            className='watchedit-switch'
+            onColor='#2e86ab'
+          />
+          <span className='ml-4'>Show all notifications</span>
+        </label>
         {notificationsPaginator.data.length > 0 ? (
           <>
             <NotificationsList
