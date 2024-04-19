@@ -33,7 +33,7 @@ function Header() {
 
   return (
     <nav className='flex flex-wrap items-center justify-between bg-backgroundOffset px-4 py-2 shadow-lg'>
-      <div className='mx-auto flex flex-shrink-0 items-center text-white lg:mr-6'>
+      <div className='flex flex-shrink-0 items-center text-white lg:mr-6'>
         <Link to='/' className='tracking-tight' aria-label='To home'>
           <img
             src={logo}
