@@ -1,4 +1,5 @@
 using Data;
+
 using WatchedIt.Api.Exceptions;
 using WatchedIt.Api.Models;
 using WatchedIt.Api.Models.FilmListModels;
@@ -12,7 +13,7 @@ namespace WatchedIt.Tests.ServiceTests
     {
         private readonly WatchedItContext _context;
         private readonly IFilmListService _filmListService;
-        
+
         public FilmListServiceTests()
         {
             _context = new InMemoryDbContextFactory().GetDBContext();
@@ -38,13 +39,16 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task CanAddFilmList(){
+        public async Task CanAddFilmList()
+        {
             var user = RandomDataGenerator.GenerateUser();
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            Assert.DoesNotThrowAsync(async () => {
-                var list = new AddFilmListDto {
+            Assert.DoesNotThrowAsync(async () =>
+            {
+                var list = new AddFilmListDto
+                {
                     Name = "My film list",
                     Description = "A list of my fave films"
                 };
@@ -54,19 +58,22 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task CanGetExistingFilmList(){
+        public async Task CanGetExistingFilmList()
+        {
             var user = RandomDataGenerator.GenerateUser();
             var list = RandomDataGenerator.GenerateFilmList(user);
             _context.Users.Add(user);
             _context.FilmLists.Add(list);
             await _context.SaveChangesAsync();
 
-            var listFromDb = await _filmListService.GetById(list.Id);
+            var parameters = new FilmSearchWithPaginationParameters();
+            var listFromDb = await _filmListService.GetById(list.Id, parameters);
             Assert.That(listFromDb.Id, Is.EqualTo(list.Id));
         }
 
         [Test]
-        public async Task CanGetMultipleFilmLists(){
+        public async Task CanGetMultipleFilmLists()
+        {
             var user = RandomDataGenerator.GenerateUser();
             var list = RandomDataGenerator.GenerateFilmList(user);
             var list2 = RandomDataGenerator.GenerateFilmList(user);
@@ -80,25 +87,29 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task CanUpdateFilmList(){
+        public async Task CanUpdateFilmList()
+        {
             var user = RandomDataGenerator.GenerateUser();
             var list = RandomDataGenerator.GenerateFilmList(user);
             _context.Users.Add(user);
             _context.FilmLists.Add(list);
             await _context.SaveChangesAsync();
 
-            var updatedList = new UpdateFilmListDto{
+            var updatedList = new UpdateFilmListDto
+            {
                 Name = "My updated list",
                 Description = "With a new description"
             };
             await _filmListService.Update(list.Id, user.Id, updatedList);
-            var listFromDb = await _filmListService.GetById(list.Id);
+            var parameters = new FilmSearchWithPaginationParameters();
+            var listFromDb = await _filmListService.GetById(list.Id, parameters);
             Assert.That(listFromDb.Name, Is.EqualTo(updatedList.Name));
 
         }
 
         [Test]
-        public async Task CanDeleteFilmList(){
+        public async Task CanDeleteFilmList()
+        {
             var user = RandomDataGenerator.GenerateUser();
             var list = RandomDataGenerator.GenerateFilmList(user);
             _context.Users.Add(user);
@@ -106,15 +117,17 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.SaveChangesAsync();
 
             _filmListService.Delete(list.Id, user.Id);
-            
+
             Assert.ThrowsAsync<NotFoundException>(async () =>
             {
-                await _filmListService.GetById(list.Id);
+                var parameters = new FilmSearchWithPaginationParameters();
+                await _filmListService.GetById(list.Id, parameters);
             });
         }
 
         [Test]
-        public async Task CanAddFilmToFilmList(){
+        public async Task CanAddFilmToFilmList()
+        {
             var user = RandomDataGenerator.GenerateUser();
             var list = RandomDataGenerator.GenerateFilmList(user);
             var film = RandomDataGenerator.GenerateFilm();
@@ -123,19 +136,21 @@ namespace WatchedIt.Tests.ServiceTests
             _context.Films.Add(film);
             await _context.SaveChangesAsync();
 
-            var toAdd = new AddFilmToFilmListDto{
+            var toAdd = new AddFilmToFilmListDto
+            {
                 FilmId = film.Id
             };
 
             Assert.That(list.Films, Is.Empty);
 
             await _filmListService.AddFilmToListById(list.Id, user.Id, toAdd);
-            
+
             Assert.That(list.Films, Has.Count.EqualTo(1));
         }
 
         [Test]
-        public async Task CanRemoveFilmFromFilmList(){
+        public async Task CanRemoveFilmFromFilmList()
+        {
             var user = RandomDataGenerator.GenerateUser();
             var list = RandomDataGenerator.GenerateFilmList(user);
             var film = RandomDataGenerator.GenerateFilm();
@@ -145,19 +160,21 @@ namespace WatchedIt.Tests.ServiceTests
             list.Films.Add(film);
             await _context.SaveChangesAsync();
 
-            var toRemove = new RemoveFilmForFilmListDto{
+            var toRemove = new RemoveFilmForFilmListDto
+            {
                 FilmId = film.Id
             };
 
             Assert.That(list.Films, Has.Count.EqualTo(1));
 
             await _filmListService.RemoveFilmFromListById(list.Id, user.Id, toRemove);
-            
+
             Assert.That(list.Films, Is.Empty);
         }
 
         [Test]
-        public async Task CantAddFilmToFilmListNotOwnedByUser(){
+        public async Task CantAddFilmToFilmListNotOwnedByUser()
+        {
             var user = RandomDataGenerator.GenerateUser();
             var user2 = RandomDataGenerator.GenerateUser();
             var list = RandomDataGenerator.GenerateFilmList(user);
@@ -168,7 +185,8 @@ namespace WatchedIt.Tests.ServiceTests
             _context.Films.Add(film);
             await _context.SaveChangesAsync();
 
-            var toAdd = new AddFilmToFilmListDto{
+            var toAdd = new AddFilmToFilmListDto
+            {
                 FilmId = film.Id
             };
 
@@ -179,6 +197,6 @@ namespace WatchedIt.Tests.ServiceTests
             });
         }
 
-        
+
     }
 }

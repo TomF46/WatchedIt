@@ -1,4 +1,5 @@
 using Data;
+
 using WatchedIt.Api.Models;
 using WatchedIt.Api.Models.News;
 using WatchedIt.Api.Services.UserService;
@@ -43,7 +44,8 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task ReturnsUserNotAdminWhenNotAdmin(){
+        public async Task ReturnsUserNotAdminWhenNotAdmin()
+        {
             var user = RandomDataGenerator.GenerateUser();
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
@@ -53,7 +55,8 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task ReturnsUserIsAdminWhenIsAdmin(){
+        public async Task ReturnsUserIsAdminWhenIsAdmin()
+        {
             var user = RandomDataGenerator.GenerateAdminUser();
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
@@ -63,7 +66,8 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task CanGetWatchedFilms(){
+        public async Task CanGetWatchedFilms()
+        {
             var user = RandomDataGenerator.GenerateUser();
             var film = RandomDataGenerator.GenerateFilm();
             var film2 = RandomDataGenerator.GenerateFilm();
@@ -74,35 +78,38 @@ namespace WatchedIt.Tests.ServiceTests
             user.Watched.Add(film2);
             await _context.SaveChangesAsync();
 
-            var watchedFilms = await _userService.GetWatchedFilms(user.Id, new PaginationParameters());
+            var watchedFilms = await _userService.GetWatchedFilms(user.Id, new FilmSearchWithPaginationParameters());
             Assert.That(watchedFilms.Data, Has.Count.EqualTo(2));
         }
 
         [Test]
-        public async Task CanSetCanPublishTrue(){
+        public async Task CanSetCanPublishTrue()
+        {
             var user = RandomDataGenerator.GenerateUser();
             user.CanPublish = false;
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
 
-            var updatedUser = await _userService.SetUserCanPublish(user.Id, new UserCanPublishDto{ UserCanPublish = true});
+            var updatedUser = await _userService.SetUserCanPublish(user.Id, new UserCanPublishDto { UserCanPublish = true });
             Assert.That(updatedUser.CanPublish, Is.True);
         }
 
         [Test]
-        public async Task CanSetCanPublishFalse(){
+        public async Task CanSetCanPublishFalse()
+        {
             var user = RandomDataGenerator.GenerateUser();
             user.CanPublish = true;
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
 
-            var updatedUser = await _userService.SetUserCanPublish(user.Id, new UserCanPublishDto{ UserCanPublish = false});
+            var updatedUser = await _userService.SetUserCanPublish(user.Id, new UserCanPublishDto { UserCanPublish = false });
             Assert.That(updatedUser.CanPublish, Is.False);
         }
 
-        
+
         [Test]
-        public async Task CanGetCanPublishTrue(){
+        public async Task CanGetCanPublishTrue()
+        {
             var user = RandomDataGenerator.GenerateUser();
             user.CanPublish = true;
             await _context.Users.AddAsync(user);
@@ -113,7 +120,8 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
-        public async Task CanGetCanPublishFalse(){
+        public async Task CanGetCanPublishFalse()
+        {
             var user = RandomDataGenerator.GenerateUser();
             user.CanPublish = false;
             await _context.Users.AddAsync(user);

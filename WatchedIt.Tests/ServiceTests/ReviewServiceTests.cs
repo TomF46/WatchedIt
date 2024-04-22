@@ -93,7 +93,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.Reviews.AddAsync(review3);
             await _context.SaveChangesAsync();
 
-            var pagination = new PaginationParameters
+            var pagination = new ReviewSearchWithPaginationParameters
             {
                 PageNumber = 1,
                 PageSize = 20
