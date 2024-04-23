@@ -150,6 +150,12 @@ function Film() {
                 Reviews
               </Link>
               <Link
+                to={`/films/${id}/gallery`}
+                className='mt-4 inline-block rounded bg-primary px-4 py-2 text-center text-white hover:opacity-75'
+              >
+                Gallery
+              </Link>
+              <Link
                 to={`/films/${id}/trivia`}
                 className='mt-4 inline-block rounded bg-primary px-4 py-2 text-center text-white hover:opacity-75'
               >

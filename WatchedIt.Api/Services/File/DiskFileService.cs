@@ -32,6 +32,14 @@ namespace WatchedIt.Api.Services.File
             if (!string.IsNullOrEmpty(prefix)) fileName = $"{prefix}/{fileName}";
             var folderName = Path.Combine("Resources", "Images");
             var path = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+            if (prefix != null)
+            {
+                var folder = Path.Combine(path, prefix);
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+            }
             if (file.Length > 0)
             {
                 var fullPath = Path.Combine(path, fileName);

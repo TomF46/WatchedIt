@@ -236,7 +236,7 @@ const ManageFilmForm = ({
               isOpen={modalIsOpen}
               onRequestClose={closeModal}
               style={customStyles}
-              contentLabel='Example Modal'
+              contentLabel='Video Modal'
             >
               <div className='grid grid-cols-12 bg-background p-4'>
                 <div className='col-span-12'>

@@ -33,7 +33,7 @@ function ManageFilm({ film, updateFilm, triggerSave, saving }: Props) {
   const uploadPoster = useMutation({
     mutationFn: (file: File) => {
       setImageUploading(true);
-      return uploadImage(file, 'films');
+      return uploadImage(file, 'films/posters');
     },
     onSuccess: (res) => {
       film.posterUrl = res.url;

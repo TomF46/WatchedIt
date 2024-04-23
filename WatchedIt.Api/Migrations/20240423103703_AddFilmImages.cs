@@ -11,7 +11,7 @@ namespace WatchedIt.Api.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "FilmImage",
+                name: "FilmImages",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -21,17 +21,17 @@ namespace WatchedIt.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FilmImage", x => x.Id);
+                    table.PrimaryKey("PK_FilmImages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FilmImage_Films_FilmId",
+                        name: "FK_FilmImages_Films_FilmId",
                         column: x => x.FilmId,
                         principalTable: "Films",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_FilmImage_FilmId",
-                table: "FilmImage",
+                name: "IX_FilmImages_FilmId",
+                table: "FilmImages",
                 column: "FilmId");
         }
 
@@ -39,7 +39,7 @@ namespace WatchedIt.Api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "FilmImage");
+                name: "FilmImages");
         }
     }
 }

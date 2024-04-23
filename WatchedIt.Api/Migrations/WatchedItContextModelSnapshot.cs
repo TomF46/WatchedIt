@@ -237,7 +237,7 @@ namespace WatchedIt.Api.Migrations
 
                     b.HasIndex("FilmId");
 
-                    b.ToTable("FilmImage");
+                    b.ToTable("FilmImages");
                 });
 
             modelBuilder.Entity("WatchedIt.Api.Models.FilmListModels.FilmList", b =>

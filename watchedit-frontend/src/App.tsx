@@ -61,6 +61,8 @@ import EditArticle from './pages/news/EditNewsArticle';
 import AddArticle from './pages/news/AddNewsArticle';
 import AdminRoute from './AdminRoute';
 import ReleaseCalendar from './pages/films/ReleaseCalendar';
+import ManageFilmGallery from './pages/films/gallery/ManageFilmGallery';
+import FilmGallery from './pages/films/gallery/FilmGallery';
 
 const App = () => {
   return (
@@ -107,6 +109,15 @@ const App = () => {
               }
             />
             <Route path='/films/:id/trivia' element={<FilmTrivia />} />
+            <Route
+              path='/films/:id/gallery/manage'
+              element={
+                <AdminRoute>
+                  <ManageFilmGallery />
+                </AdminRoute>
+              }
+            />
+            <Route path='/films/:id/gallery' element={<FilmGallery />} />
             <Route
               path='/films/:id/credits/add'
               element={

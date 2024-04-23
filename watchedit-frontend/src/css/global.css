@@ -106,3 +106,21 @@ h5 {
 .w-14 {
   width: 3.5rem;
 }
+
+.image-preview {
+  width: 140px;
+  height: 140px;
+  background-size: cover;
+  object-fit: contain;
+}
+
+.gallery-spotlight {
+  max-width: 80vw;
+  max-height: 80vh;
+  background-size: cover;
+  object-fit: contain;
+}
+
+.ReactModal__Content {
+  background-color: 'rgba(46, 134, 171, 0.75)' !important;
+}

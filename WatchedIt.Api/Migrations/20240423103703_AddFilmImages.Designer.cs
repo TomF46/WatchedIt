@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WatchedIt.Api.Migrations
 {
     [DbContext(typeof(WatchedItContext))]
-    [Migration("20240422111025_AddFilmImages")]
+    [Migration("20240423103703_AddFilmImages")]
     partial class AddFilmImages
     {
         /// <inheritdoc />
@@ -240,7 +240,7 @@ namespace WatchedIt.Api.Migrations
 
                     b.HasIndex("FilmId");
 
-                    b.ToTable("FilmImage");
+                    b.ToTable("FilmImages");
                 });
 
             modelBuilder.Entity("WatchedIt.Api.Models.FilmListModels.FilmList", b =>

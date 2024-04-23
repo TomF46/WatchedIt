@@ -128,5 +128,22 @@ namespace WatchedIt.Tests.ServiceTests
 
         }
 
+        [Test]
+        public async Task CanGetAllImagesForFilmWithNoImages()
+        {
+            var film = RandomDataGenerator.GenerateFilm();
+            await _context.Films.AddAsync(film);
+            await _context.SaveChangesAsync();
+
+            var pagination = new PaginationParameters
+            {
+                PageNumber = 1,
+                PageSize = 20
+            };
+
+            var filmImages = await _filmImageService.GetImages(film.Id, pagination);
+            Assert.That(filmImages.Of, Is.EqualTo(0));
+        }
+
     }
 }
