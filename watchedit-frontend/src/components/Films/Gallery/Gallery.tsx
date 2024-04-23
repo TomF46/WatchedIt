@@ -38,16 +38,16 @@ const Gallery = ({ images }: { images: FilmImage[] }) => {
   }
 
   return (
-    <div className='grid grid-cols-16'>
+    <div className='grid grid-cols-12'>
       {images.map((image: FilmImage) => {
         return (
           <div
             key={image.id}
-            className='col-span-8 m-2 md:col-span-4 lg:col-span-2'
+            className='col-span-12 m-2 md:col-span-4 lg:col-span-2'
           >
             <img
               src={image.url}
-              className='image-preview cursor-pointer'
+              className='image-preview mx-auto cursor-pointer'
               onClick={() => handleImageSelected(image)}
             />
           </div>

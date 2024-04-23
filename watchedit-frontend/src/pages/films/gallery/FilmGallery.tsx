@@ -16,7 +16,7 @@ function FilmGallery() {
   const { id } = useParams();
   const isAdmin = useIsAdmin();
   const [page, setPage] = useState(1);
-  const imagesPerPage = 24;
+  const imagesPerPage = 36;
 
   const { data: film, error: filmLoadError } = useQuery({
     queryKey: ['film', id],
@@ -63,7 +63,7 @@ function FilmGallery() {
                   to={`/films/${id}/gallery/manage`}
                   className='inline-block rounded bg-backgroundOffset2 px-4 py-2 font-semibold text-primary hover:opacity-75'
                 >
-                  Add Images
+                  Manage Images
                 </Link>
               </div>
             </div>

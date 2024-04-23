@@ -155,14 +155,17 @@ function ManageFilmGallery() {
               <>
                 {filmImagePaginator.data.length > 0 ? (
                   <div className='mt-4'>
-                    <div className='grid grid-cols-16'>
+                    <div className='grid grid-cols-12'>
                       {filmImagePaginator.data.map((image: FilmImage) => {
                         return (
                           <div
                             key={image.id}
-                            className='col-span-8 m-2 md:col-span-4 lg:col-span-2'
+                            className='col-span-12 m-2 md:col-span-4 lg:col-span-2'
                           >
-                            <img src={image.url} className='image-preview' />
+                            <img
+                              src={image.url}
+                              className='image-preview mx-auto'
+                            />
                             <button
                               onClick={() => {
                                 confirmRemove(image);
