@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Image } from '../../types/Images';
 import Modal from 'react-modal';
-import CloseIcon from '../Icons/CloseIcon';
 
 const customStyles = {
   content: {
@@ -11,12 +10,11 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    minWidth: '80%',
     border: 'none',
-    backgroundColor: 'rgba(46, 134, 171, 0.75)',
+    padding: '0',
   },
   overlay: {
-    backgroundColor: 'rgba(46, 134, 171, 0.75)',
+    backgroundColor: 'rgba(0, 0, 0, 0.75)',
   },
 };
 
@@ -59,19 +57,18 @@ const Gallery = ({ images }: { images: Image[] }) => {
         style={customStyles}
         contentLabel='gallery Modal'
       >
-        <div className='relative'>
-          <div
-            onClick={closeModal}
-            className='absolute right-0 top-0 cursor-pointer'
-          >
-            <CloseIcon color='white' height={10} width={10} />
-          </div>
+        <div>
           <div className='grid grid-cols-12'>
             <div className='col-span-12'>
               <img
                 className='gallery-spotlight mx-auto'
                 src={selectedImage?.url}
               />
+            </div>
+            <div className='col-span-12'>
+              <button onClick={closeModal} className='w-full bg-primary'>
+                Close
+              </button>
             </div>
           </div>
         </div>
