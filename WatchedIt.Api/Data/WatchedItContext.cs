@@ -56,6 +56,8 @@ namespace Data
         public DbSet<ConnectionsGame> ConnectionsGames => Set<ConnectionsGame>();
         public DbSet<NewsArticle> NewsArticles => Set<NewsArticle>();
         public DbSet<FilmImage> FilmImages => Set<FilmImage>();
+        public DbSet<PersonImage> PersonImages => Set<PersonImage>();
+
 
 
     }

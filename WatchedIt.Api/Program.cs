@@ -32,6 +32,7 @@ using WatchedIt.Api.Services.Games.GuessFilmFromDescription;
 using WatchedIt.Api.Services.Games.Connections;
 using WatchedIt.Api.Services.NewsArticleService;
 using WatchedIt.Api.Services.FilmImageService;
+using WatchedIt.Api.Services.PersonImageService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -155,6 +156,7 @@ builder.Services.AddScoped<IGuessFilmFromDescriptionGameService, GuessFilmFromDe
 builder.Services.AddScoped<IConnectionsGameService, ConnectionsGameService>();
 builder.Services.AddScoped<INewsArticleService, NewsArticleService>();
 builder.Services.AddScoped<IFilmImageService, FilmImageService>();
+builder.Services.AddScoped<IPersonImageService, PersonImageService>();
 
 
 var app = builder.Build();

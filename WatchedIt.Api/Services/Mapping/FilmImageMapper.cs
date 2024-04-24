@@ -7,11 +7,20 @@ using WatchedIt.Api.Models.Files;
 
 namespace WatchedIt.Api.Services.Mapping
 {
-    public class FilmImageMapper
+    public class ImageMapper
     {
-        public static GetFilmImageDto Map(FilmImage image)
+        public static GetImageDto Map(FilmImage image)
         {
-            return new GetFilmImageDto
+            return new GetImageDto
+            {
+                Id = image.Id,
+                Url = image.Url,
+            };
+        }
+
+        public static GetImageDto Map(PersonImage image)
+        {
+            return new GetImageDto
             {
                 Id = image.Id,
                 Url = image.Url,

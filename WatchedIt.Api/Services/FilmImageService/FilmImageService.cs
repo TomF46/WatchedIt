@@ -17,17 +17,17 @@ namespace WatchedIt.Api.Services.FilmImageService
             _context = context;
         }
 
-        public async Task<PaginationResponse<GetFilmImageDto>> GetImages(int filmId, PaginationParameters parameters)
+        public async Task<PaginationResponse<GetImageDto>> GetImages(int filmId, PaginationParameters parameters)
         {
             var film = await _context.Films.Include(f => f.Images).FirstOrDefaultAsync(f => f.Id == filmId);
             if (film is null) throw new NotFoundException($"Film with Id '{filmId}' not found.");
 
             var images = film.Images.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize);
-            var mappedImages = images.Select(i => FilmImageMapper.Map(i)).ToList();
-            return new PaginationResponse<GetFilmImageDto>(mappedImages, parameters.PageNumber, parameters.PageSize, film.Images.Count());
+            var mappedImages = images.Select(i => ImageMapper.Map(i)).ToList();
+            return new PaginationResponse<GetImageDto>(mappedImages, parameters.PageNumber, parameters.PageSize, film.Images.Count());
         }
 
-        public async Task<GetFilmImageDto> Add(int filmId, AddFilmImageDto newFilmImage)
+        public async Task<GetImageDto> Add(int filmId, AddImageDto newFilmImage)
         {
             var film = await _context.Films.Include(f => f.Images).FirstOrDefaultAsync(f => f.Id == filmId);
             if (film is null) throw new NotFoundException($"Film with Id '{filmId}' not found.");
@@ -41,7 +41,7 @@ namespace WatchedIt.Api.Services.FilmImageService
             film.Images.Add(image);
             await _context.SaveChangesAsync();
 
-            return FilmImageMapper.Map(image);
+            return ImageMapper.Map(image);
         }
 
         public void Delete(int id)

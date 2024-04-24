@@ -50,7 +50,7 @@ namespace WatchedIt.Tests.ServiceTests
 
             Assert.DoesNotThrowAsync(async () =>
             {
-                var filmImage = new AddFilmImageDto
+                var filmImage = new AddImageDto
                 {
                     Url = "someUrl."
                 };
@@ -89,7 +89,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.Films.AddAsync(film);
             await _context.SaveChangesAsync();
 
-            var filmImage = new AddFilmImageDto
+            var filmImage = new AddImageDto
             {
                 Url = "someUrl."
             };

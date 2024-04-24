@@ -9,8 +9,8 @@ namespace WatchedIt.Api.Services.FilmImageService
 {
     public interface IFilmImageService
     {
-        Task<PaginationResponse<GetFilmImageDto>> GetImages(int filmId, PaginationParameters parameters);
-        Task<GetFilmImageDto> Add(int filmId, AddFilmImageDto newFilmImage);
+        Task<PaginationResponse<GetImageDto>> GetImages(int filmId, PaginationParameters parameters);
+        Task<GetImageDto> Add(int filmId, AddImageDto newFilmImage);
         void Delete(int id);
     }
 }

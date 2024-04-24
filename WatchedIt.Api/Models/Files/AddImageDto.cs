@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WatchedIt.Api.Models.Files
 {
-    public class AddFilmImageDto
+    public class AddImageDto
     {
         public string? Url { get; set; }
     }

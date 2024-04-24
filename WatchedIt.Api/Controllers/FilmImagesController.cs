@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 using WatchedIt.Api.Models.Files;
 using WatchedIt.Api.Services.FilmImageService;
-using WatchedIt.Api.Services.Mapping;
 
 namespace WatchedIt.Api.Controllers
 {
@@ -24,14 +23,14 @@ namespace WatchedIt.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PaginationResponse<GetFilmImageDto>>> GetAll(int id, [FromQuery] PaginationParameters parameters)
+        public async Task<ActionResult<PaginationResponse<GetImageDto>>> GetAll(int id, [FromQuery] PaginationParameters parameters)
         {
             return Ok(await _filmImageService.GetImages(id, parameters));
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult<GetFilmImageDto>> AddFilmImage(int id, AddFilmImageDto newFilmImage)
+        public async Task<ActionResult<GetImageDto>> AddFilmImage(int id, AddImageDto newFilmImage)
         {
             return Ok(await _filmImageService.Add(id, newFilmImage));
         }

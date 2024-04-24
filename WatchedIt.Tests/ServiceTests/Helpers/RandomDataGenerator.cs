@@ -185,5 +185,13 @@ namespace WatchedIt.Tests.ServiceTests.Helpers
             };
         }
 
+        public static PersonImage GeneratePersonImage()
+        {
+            return new PersonImage
+            {
+                Url = Faker.Internet.Url()
+            };
+        }
+
     }
 }
