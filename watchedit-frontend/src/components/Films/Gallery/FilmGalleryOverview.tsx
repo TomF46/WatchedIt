@@ -1,19 +1,19 @@
-import LoadingMessage from '../../../components/Loading/LoadingMessage';
+import LoadingMessage from '../../Loading/LoadingMessage';
 import { useParams } from 'react-router-dom';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { getFilmImages } from '../../../api/imageApi';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import PaginationControls from '../../../components/PaginationControls';
-import Gallery from '../../../components/Films/Gallery/Gallery';
+import PaginationControls from '../../PaginationControls';
+import Gallery from '../../Gallery/Gallery';
 
-function GalleryOverview({ filmId }: { filmId: number }) {
+function FilmGalleryOverview({ filmId }: { filmId: number }) {
   const { id } = useParams();
   const [page, setPage] = useState(1);
   const imagesPerPage = 6;
 
   const {
-    data: filmImagePaginator,
+    data: imagePaginator,
     isLoading,
     error,
   } = useQuery({
@@ -31,21 +31,21 @@ function GalleryOverview({ filmId }: { filmId: number }) {
     return;
   }
 
-  if (filmImagePaginator && filmImagePaginator.data.length > 0) {
+  if (imagePaginator && imagePaginator.data.length > 0) {
     return (
       <div className='film-galler-overview'>
         <div className='mt-4'>
           <h2 className='text-xl text-primary '>Gallery</h2>
           <div className='rounded bg-backgroundOffset p-2 shadow'>
-            <Gallery images={filmImagePaginator.data} />
+            <Gallery images={imagePaginator.data} />
           </div>
           <PaginationControls
             currentPage={page}
             onPageChange={setPage}
-            of={filmImagePaginator.of}
-            from={filmImagePaginator.from}
-            to={filmImagePaginator.to}
-            lastPage={filmImagePaginator.lastPage}
+            of={imagePaginator.of}
+            from={imagePaginator.from}
+            to={imagePaginator.to}
+            lastPage={imagePaginator.lastPage}
           />
         </div>
       </div>
@@ -53,4 +53,4 @@ function GalleryOverview({ filmId }: { filmId: number }) {
   }
 }
 
-export default GalleryOverview;
+export default FilmGalleryOverview;

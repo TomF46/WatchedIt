@@ -1,15 +1,12 @@
 import { PaginationResponse } from './PaginationResponse';
 
 export type Image = {
+  id?: number;
   url?: string;
 };
 
-export type FilmImage = {
-  id?: number;
-} & Image;
-
-type FilmImages = {
-  data: FilmImage[];
+type Images = {
+  data: Image[];
 };
 
-export type FilmImagePaginationResponse = FilmImages & PaginationResponse;
+export type ImagePaginationResponse = Images & PaginationResponse;

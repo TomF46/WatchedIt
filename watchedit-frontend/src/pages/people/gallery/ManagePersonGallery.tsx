@@ -1,38 +1,38 @@
 import LoadingMessage from '../../../components/Loading/LoadingMessage';
 import { useParams } from 'react-router-dom';
 import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
-import { getFilmById } from '../../../api/filmsApi';
 import ErrorMessage from '../../../components/Error/ErrorMessage';
 import { toast } from 'react-toastify';
 import { Image } from '../../../types/Images';
 import {
-  addFilmImage,
-  getFilmImages,
-  removeFilmImage,
+  addPersonImage,
+  getPersonImages,
+  removePersonImage,
   uploadImage,
 } from '../../../api/imageApi';
 import { useState } from 'react';
-import FilmMiniDetail from '../../../components/Films/FilmMiniDetail';
 import PaginationControls from '../../../components/PaginationControls';
 import { confirmAlert } from 'react-confirm-alert';
 import PhotographyIcon from '../../../components/Icons/PhotographyIcon';
+import PersonMiniDetail from '../../../components/People/PersonMiniDetail';
+import { getPersonById } from '../../../api/peopleApi';
 
-function ManageFilmGallery() {
+function ManagePersonGallery() {
   const { id } = useParams();
   const [imageUploading, setImageUploading] = useState(false);
   const [page, setPage] = useState(1);
   const imagesPerPage = 24;
 
-  const { data: film, error: filmLoadError } = useQuery({
-    queryKey: ['film', id],
-    queryFn: () => getFilmById(Number(id)),
+  const { data: person, error: personLoadError } = useQuery({
+    queryKey: ['person', id],
+    queryFn: () => getPersonById(Number(id)),
   });
 
   const { data: imagePaginator, refetch } = useQuery({
-    queryKey: ['film-images', id, page, imagesPerPage],
+    queryKey: ['person-images', id, page, imagesPerPage],
     queryFn: () =>
-      getFilmImages(Number(id), page, imagesPerPage).catch((error) => {
-        toast.error(`Error getting film images ${error.data.Exception}`, {
+      getPersonImages(Number(id), page, imagesPerPage).catch((error) => {
+        toast.error(`Error getting person images ${error.data.Exception}`, {
           autoClose: false,
         });
         return error;
@@ -40,10 +40,10 @@ function ManageFilmGallery() {
     placeholderData: keepPreviousData,
   });
 
-  const uploadFilmImage = useMutation({
+  const uploadPersonImage = useMutation({
     mutationFn: (file: File) => {
       setImageUploading(true);
-      return uploadImage(file, `films/${id}`);
+      return uploadImage(file, `people/${id}`);
     },
     onSuccess: (res: Image) => {
       addImageToGallery.mutate(res);
@@ -58,7 +58,7 @@ function ManageFilmGallery() {
 
   const addImageToGallery = useMutation({
     mutationFn: (image: Image) => {
-      return addFilmImage(Number(id), image);
+      return addPersonImage(Number(id), image);
     },
     onSuccess: () => {
       setImageUploading(false);
@@ -75,11 +75,12 @@ function ManageFilmGallery() {
   function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>): void {
     if (!event.target.files) return;
     const file = event.target.files[0];
-    uploadFilmImage.mutate(file);
+    uploadPersonImage.mutate(file);
   }
 
   const deleteImage = useMutation({
-    mutationFn: (image: Image) => removeFilmImage(Number(id), Number(image.id)),
+    mutationFn: (image: Image) =>
+      removePersonImage(Number(id), Number(image.id)),
     onSuccess: () => {
       toast.success('Image removed');
       refetch();
@@ -108,21 +109,21 @@ function ManageFilmGallery() {
     });
   }
 
-  if (filmLoadError) {
+  if (personLoadError) {
     return (
       <ErrorMessage
-        message={'Error loading film.'}
-        error={filmLoadError.data.Exception}
+        message={'Error loading person.'}
+        error={personLoadError.data.Exception}
       />
     );
   }
 
   return (
     <div className='manage-gallery-page'>
-      {film ? (
+      {person ? (
         <>
           <h1 className='mb-2 mt-4 text-center text-4xl font-semibold text-primary'>
-            Manage {film.name} gallery
+            Manage {person.fullName} gallery
           </h1>
           <div className='manage-gallery-controls mt-4 rounded-md bg-backgroundOffset'>
             <div className='rounded-t-md bg-backgroundOffset2'>
@@ -149,7 +150,7 @@ function ManageFilmGallery() {
             </div>
           </div>
           <div className='mt-4'>
-            <FilmMiniDetail film={film} />
+            <PersonMiniDetail person={person} />
             {imagePaginator ? (
               <>
                 {imagePaginator.data.length > 0 ? (
@@ -197,20 +198,20 @@ function ManageFilmGallery() {
                       />
                     </div>
                     <p className='text-center text-xl'>
-                      This film has no images
+                      This person has no images
                     </p>
                   </div>
                 )}
               </>
             ) : (
-              <LoadingMessage message={'Loading film gallery'} />
+              <LoadingMessage message={'Loading person gallery'} />
             )}
           </div>
         </>
       ) : (
-        <LoadingMessage message={'Loading film.'} />
+        <LoadingMessage message={'Loading person.'} />
       )}
     </div>
   );
 }
-export default ManageFilmGallery;
+export default ManagePersonGallery;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { FilmImage } from '../../../types/Images';
+import { Image } from '../../types/Images';
 import Modal from 'react-modal';
-import CloseIcon from '../../Icons/CloseIcon';
+import CloseIcon from '../Icons/CloseIcon';
 
 const customStyles = {
   content: {
@@ -20,9 +20,9 @@ const customStyles = {
   },
 };
 
-const Gallery = ({ images }: { images: FilmImage[] }) => {
+const Gallery = ({ images }: { images: Image[] }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [selectedImage, setSelected] = useState<FilmImage | null>(null);
+  const [selectedImage, setSelected] = useState<Image | null>(null);
 
   function openModal(): void {
     setIsOpen(true);
@@ -32,14 +32,14 @@ const Gallery = ({ images }: { images: FilmImage[] }) => {
     setIsOpen(false);
   }
 
-  function handleImageSelected(image: FilmImage): void {
+  function handleImageSelected(image: Image): void {
     setSelected(image);
     openModal();
   }
 
   return (
     <div className='grid grid-cols-12'>
-      {images.map((image: FilmImage) => {
+      {images.map((image: Image) => {
         return (
           <div
             key={image.id}

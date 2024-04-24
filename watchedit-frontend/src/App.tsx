@@ -63,6 +63,8 @@ import AdminRoute from './AdminRoute';
 import ReleaseCalendar from './pages/films/ReleaseCalendar';
 import ManageFilmGallery from './pages/films/gallery/ManageFilmGallery';
 import FilmGallery from './pages/films/gallery/FilmGallery';
+import ManagePersonGallery from './pages/people/gallery/ManagePersonGallery';
+import PersonGallery from './pages/people/gallery/PersonGallery';
 
 const App = () => {
   return (
@@ -154,6 +156,15 @@ const App = () => {
             <Route path='/films/:id' element={<Film />} />
             <Route path='/films/calendar' element={<ReleaseCalendar />} />
             <Route path='/films' element={<Films />} />
+            <Route
+              path='/people/:id/gallery/manage'
+              element={
+                <AdminRoute>
+                  <ManagePersonGallery />
+                </AdminRoute>
+              }
+            />
+            <Route path='/people/:id/gallery' element={<PersonGallery />} />
             <Route
               path='/people/:id/credits/add'
               element={

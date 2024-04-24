@@ -18,7 +18,7 @@ import StarIcon from '../../components/Icons/StarIcon';
 import useIsAdmin from '../../hooks/useIsAdmin';
 import useIsAuthenticated from '../../hooks/useIsAuthenticated';
 import CalendarIcon from '../../components/Icons/CalendarIcon';
-import GalleryOverview from '../../components/Films/Gallery/GalleryOverview';
+import FilmGalleryOverview from '../../components/Films/Gallery/FilmGalleryOverview';
 
 function Film() {
   const { id } = useParams();
@@ -296,7 +296,7 @@ function Film() {
                 </div>
               </div>
               <div className='col-span-12'>
-                <GalleryOverview filmId={Number(film.id)} />
+                <FilmGalleryOverview filmId={Number(film.id)} />
               </div>
               <div className='col-span-12'>
                 <TriviaOverview film={film} totalItems={4} />

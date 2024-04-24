@@ -12,6 +12,7 @@ import { Person as PersonType } from '../../types/People';
 import ThumbsUpIcon from '../../components/Icons/ThumbsUpIcon';
 import useIsAdmin from '../../hooks/useIsAdmin';
 import useIsAuthenticated from '../../hooks/useIsAuthenticated';
+import PersonGalleryOverview from '../../components/People/Gallery/PersonGalleryOverview';
 
 function Person() {
   const { id } = useParams();
@@ -124,6 +125,12 @@ function Person() {
               >
                 Credits
               </Link>
+              <Link
+                to={`/people/${id}/gallery`}
+                className='mt-4 inline-block w-full rounded bg-primary px-4 py-2 text-center text-white hover:opacity-75'
+              >
+                Gallery
+              </Link>
             </div>
           </div>
           <div className='col-span-12 mt-4 md:col-span-10 md:mt-0 md:pl-4'>
@@ -181,6 +188,9 @@ function Person() {
                   )}
                 </div>
               </div>
+            </div>
+            <div className='col-span-12'>
+              <PersonGalleryOverview personId={Number(person.id)} />
             </div>
           </div>
         </div>

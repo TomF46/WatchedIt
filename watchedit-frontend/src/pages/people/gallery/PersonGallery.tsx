@@ -1,33 +1,33 @@
 import LoadingMessage from '../../../components/Loading/LoadingMessage';
 import { Link, useParams } from 'react-router-dom';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { getFilmById } from '../../../api/filmsApi';
 import ErrorMessage from '../../../components/Error/ErrorMessage';
-import { getFilmImages } from '../../../api/imageApi';
+import { getPersonImages } from '../../../api/imageApi';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import PaginationControls from '../../../components/PaginationControls';
-import FilmMiniDetail from '../../../components/Films/FilmMiniDetail';
 import Gallery from '../../../components/Gallery/Gallery';
 import useIsAdmin from '../../../hooks/useIsAdmin';
 import PhotographyIcon from '../../../components/Icons/PhotographyIcon';
+import PersonMiniDetail from '../../../components/People/PersonMiniDetail';
+import { getPersonById } from '../../../api/peopleApi';
 
-function FilmGallery() {
+function PersonGallery() {
   const { id } = useParams();
   const isAdmin = useIsAdmin();
   const [page, setPage] = useState(1);
   const imagesPerPage = 36;
 
-  const { data: film, error: filmLoadError } = useQuery({
-    queryKey: ['film', id],
-    queryFn: () => getFilmById(Number(id)),
+  const { data: person, error: personLoadError } = useQuery({
+    queryKey: ['person', id],
+    queryFn: () => getPersonById(Number(id)),
   });
 
   const { data: imagePaginator } = useQuery({
-    queryKey: ['film-images', id, page, imagesPerPage],
+    queryKey: ['person-images', id, page, imagesPerPage],
     queryFn: () =>
-      getFilmImages(Number(id), page, imagesPerPage).catch((error) => {
-        toast.error(`Error getting film gallery ${error.data.Exception}`, {
+      getPersonImages(Number(id), page, imagesPerPage).catch((error) => {
+        toast.error(`Error getting person gallery ${error.data.Exception}`, {
           autoClose: false,
         });
         return error;
@@ -35,21 +35,21 @@ function FilmGallery() {
     placeholderData: keepPreviousData,
   });
 
-  if (filmLoadError) {
+  if (personLoadError) {
     return (
       <ErrorMessage
-        message={'Error loading film.'}
-        error={filmLoadError.data.Exception}
+        message={'Error loading person.'}
+        error={personLoadError.data.Exception}
       />
     );
   }
 
   return (
-    <div className='film-gallery-page'>
-      {film ? (
+    <div className='person-gallery-page'>
+      {person ? (
         <>
           <h1 className='mb-2 mt-4 text-center text-4xl font-semibold text-primary'>
-            {film.name} gallery
+            {person.fullName} gallery
           </h1>
           {isAdmin && (
             <div className='admin-controls mt-4 rounded bg-backgroundOffset shadow'>
@@ -60,7 +60,7 @@ function FilmGallery() {
               </div>
               <div className='px-2 py-2'>
                 <Link
-                  to={`/films/${id}/gallery/manage`}
+                  to={`/people/${id}/gallery/manage`}
                   className='inline-block rounded bg-backgroundOffset2 px-4 py-2 font-semibold text-primary hover:opacity-75'
                 >
                   Manage Images
@@ -69,7 +69,7 @@ function FilmGallery() {
             </div>
           )}
           <div className='mt-4'>
-            <FilmMiniDetail film={film} />
+            <PersonMiniDetail person={person} />
             {imagePaginator ? (
               <>
                 {imagePaginator.data.length > 0 ? (
@@ -98,20 +98,20 @@ function FilmGallery() {
                       />
                     </div>
                     <p className='text-center text-xl'>
-                      This film has no images
+                      This person has no images
                     </p>
                   </div>
                 )}
               </>
             ) : (
-              <LoadingMessage message={'Loading film gallery'} />
+              <LoadingMessage message={'Loading person gallery'} />
             )}
           </div>
         </>
       ) : (
-        <LoadingMessage message={'Loading film.'} />
+        <LoadingMessage message={'Loading person.'} />
       )}
     </div>
   );
 }
-export default FilmGallery;
+export default PersonGallery;
