@@ -1,4 +1,5 @@
 using Data;
+
 using WatchedIt.Api.Exceptions;
 using WatchedIt.Api.Models;
 using WatchedIt.Api.Models.PersonModels;
@@ -34,8 +35,10 @@ namespace WatchedIt.Tests.ServiceTests
         [Test]
         public void CanAddPerson()
         {
-            Assert.DoesNotThrow(() => {
-                var person = new AddPersonDto {
+            Assert.DoesNotThrow(() =>
+            {
+                var person = new AddPersonDto
+                {
                     FirstName = "Joe",
                     LastName = "Bloggs",
                     DateOfBirth = new DateTime().Date,
@@ -67,7 +70,8 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.People.AddAsync(person2);
             await _context.SaveChangesAsync();
 
-            var pagination = new PersonSearchWithPaginationParameters{
+            var pagination = new PersonSearchWithPaginationParameters
+            {
                 PageNumber = 1,
                 PageSize = 20
             };
@@ -102,7 +106,8 @@ namespace WatchedIt.Tests.ServiceTests
 
             var newName = "Joel";
 
-            var updatedPerson = new UpdatePersonDto{
+            var updatedPerson = new UpdatePersonDto
+            {
                 FirstName = newName,
                 LastName = "Bloggs",
                 DateOfBirth = new DateTime().Date,
@@ -110,7 +115,7 @@ namespace WatchedIt.Tests.ServiceTests
             };
 
             await _personService.Update(person.Id, updatedPerson);
-            
+
             var personFromDB = await _personService.GetById(person.Id);
 
             Assert.Multiple(() =>
@@ -118,6 +123,32 @@ namespace WatchedIt.Tests.ServiceTests
                 Assert.That(personFromDB.Id, Is.EqualTo(person.Id));
                 Assert.That(personFromDB.FirstName, Is.EqualTo(newName));
             });
+        }
+
+        [Test]
+        public async Task CanGetPeopleByBirthdat()
+        {
+            var person = RandomDataGenerator.GeneratePerson();
+            person.DateOfBirth = new DateTime(1994, 12, 13);
+            var person2 = RandomDataGenerator.GeneratePerson();
+            person2.DateOfBirth = new DateTime(1994, 12, 14);
+            var person3 = RandomDataGenerator.GeneratePerson();
+            person3.DateOfBirth = new DateTime(2012, 12, 13);
+            await _context.People.AddAsync(person);
+            await _context.People.AddAsync(person2);
+            await _context.People.AddAsync(person3);
+            await _context.SaveChangesAsync();
+
+            var pagination = new PersonBirthdaySearchWithPaginationParameters
+            {
+                Date = new DateTime(2024, 12, 13),
+                PageNumber = 1,
+                PageSize = 20
+            };
+
+            var allPeople = await _personService.GetByBirthday(pagination);
+
+            Assert.That(allPeople.Data, Has.Count.EqualTo(2));
         }
     }
 }

@@ -8,6 +8,7 @@ import UnreadNotifications from '../components/Home/UnreadNotifications/UnreadNo
 import FilmsComingSoonReel from '../components/Home/FilmReel/FilmsComingSoonReel';
 import { useAppSelector } from '../redux/store';
 import useIsAuthenticated from '../hooks/useIsAuthenticated';
+import BirthdayReel from '../components/Home/BirthdayReel/BirthdayReel';
 
 function Home() {
   const userIsAuthenticated = useIsAuthenticated();
@@ -79,6 +80,9 @@ function Home() {
             subtitle={'Count down the days, these films are coming out next!'}
             sort='release_asc'
           />
+        </div>
+        <div className='col-span-12'>
+          <BirthdayReel />
         </div>
         <div className='col-span-12'>
           <ListReel />

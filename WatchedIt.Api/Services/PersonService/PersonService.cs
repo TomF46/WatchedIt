@@ -38,6 +38,16 @@ namespace WatchedIt.Api.Services.PersonService
             return PersonMapper.Map(person);
         }
 
+        public async Task<PaginationResponse<GetPersonOverviewDto>> GetByBirthday(PersonBirthdaySearchWithPaginationParameters parameters)
+        {
+            var dateParameters = parameters.Date.HasValue ? parameters.Date.Value : DateTime.Now;
+            var query = _context.People.Include(p => p.LikedBy).Include(p => p.Credits).Where(p => p.DateOfBirth.Day == dateParameters.Day && p.DateOfBirth.Month == dateParameters.Month).AsQueryable();
+            var count = query.Count();
+            var people = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
+            var mappedPeople = people.Select(p => PersonMapper.MapOverview(p)).ToList();
+            return new PaginationResponse<GetPersonOverviewDto>(mappedPeople, parameters.PageNumber, parameters.PageSize, count);
+        }
+
         public async Task<GetPersonOverviewDto> Add(AddPersonDto newPerson)
         {
             var person = PersonMapper.MapForAdding(newPerson);

@@ -41,7 +41,7 @@ const Gallery = ({ images }: { images: Image[] }) => {
         return (
           <div
             key={image.id}
-            className='col-span-12 m-2 md:col-span-4 lg:col-span-2'
+            className='col-span-6 m-2 md:col-span-4 lg:col-span-2'
           >
             <img
               src={image.url}

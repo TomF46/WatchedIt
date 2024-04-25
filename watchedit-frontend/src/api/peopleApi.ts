@@ -47,6 +47,23 @@ export function searchPeoplePaginated(
     });
 }
 
+export function searchPeopleByBirthdayPaginated(
+  date: string,
+  pageNumber: number,
+  pageSize: number,
+): Promise<PeoplePaginationResponse> {
+  return client
+    .get(
+      `/api/people/birthdays?PageNumber=${pageNumber}&PageSize=${pageSize}&Date=${date}`,
+    )
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw error.response;
+    });
+}
+
 export function getPersonById(id: number): Promise<Person> {
   return client
     .get(`/api/people/${id}`)
