@@ -21,6 +21,7 @@ using WatchedIt.Api.Models.News;
 using WatchedIt.Api.Models.NotificationModels;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Models.ReviewModels;
+using WatchedIt.Api.Models.TagModels;
 
 namespace Data
 {
@@ -57,6 +58,8 @@ namespace Data
         public DbSet<NewsArticle> NewsArticles => Set<NewsArticle>();
         public DbSet<FilmImage> FilmImages => Set<FilmImage>();
         public DbSet<PersonImage> PersonImages => Set<PersonImage>();
+        public DbSet<Tag> Tags => Set<Tag>();
+
 
 
 

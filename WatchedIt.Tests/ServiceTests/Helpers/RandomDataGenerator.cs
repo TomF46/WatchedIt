@@ -10,6 +10,7 @@ using WatchedIt.Api.Models.FilmTrivia;
 using WatchedIt.Api.Models.News;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Models.ReviewModels;
+using WatchedIt.Api.Models.TagModels;
 
 namespace WatchedIt.Tests.ServiceTests.Helpers
 {
@@ -190,6 +191,15 @@ namespace WatchedIt.Tests.ServiceTests.Helpers
             return new PersonImage
             {
                 Url = Faker.Internet.Url()
+            };
+        }
+
+        public static Tag GenerateTag()
+        {
+            return new Tag
+            {
+                Name = Faker.Lorem.GetFirstWord(),
+                Type = TagType.Language
             };
         }
 

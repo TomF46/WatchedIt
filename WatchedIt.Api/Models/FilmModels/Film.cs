@@ -6,6 +6,7 @@ using WatchedIt.Api.Models.CreditModels;
 using WatchedIt.Api.Models.Files;
 using WatchedIt.Api.Models.FilmListModels;
 using WatchedIt.Api.Models.ReviewModels;
+using WatchedIt.Api.Models.TagModels;
 
 namespace WatchedIt.Api.Models.FilmModels
 {
@@ -30,7 +31,6 @@ namespace WatchedIt.Api.Models.FilmModels
         public ICollection<FilmList> OnLists { get; set; } = new List<FilmList>();
         public ICollection<Category> Categories { get; set; } = new List<Category>();
         public ICollection<FilmImage> Images { get; set; } = new List<FilmImage>();
-
-
+        public ICollection<Tag> Tags { get; set; } = new List<Tag>();
     }
 }

@@ -33,6 +33,7 @@ using WatchedIt.Api.Services.Games.Connections;
 using WatchedIt.Api.Services.NewsArticleService;
 using WatchedIt.Api.Services.FilmImageService;
 using WatchedIt.Api.Services.PersonImageService;
+using WatchedIt.Api.Services.TagService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -157,6 +158,7 @@ builder.Services.AddScoped<IConnectionsGameService, ConnectionsGameService>();
 builder.Services.AddScoped<INewsArticleService, NewsArticleService>();
 builder.Services.AddScoped<IFilmImageService, FilmImageService>();
 builder.Services.AddScoped<IPersonImageService, PersonImageService>();
+builder.Services.AddScoped<ITagService, TagService>();
 
 
 var app = builder.Build();
