@@ -11,6 +11,7 @@ import ErrorMessage from '../../../components/Error/ErrorMessage';
 import { EditableFilm, FilmForRequest } from '../../../types/Films';
 import { SelectOption } from '../../../components/Inputs/InputTypes';
 import { Category } from '../../../types/Categories';
+import { Tag } from '../../../types/Tags';
 
 function EditFilm() {
   const { id } = useParams();
@@ -30,14 +31,20 @@ function EditFilm() {
           runtime: res.runtime,
           releaseDate: parseISO(res.releaseDate.toString()),
           posterUrl: res.posterUrl,
-          categories: convertToSelectOption(res.categories),
+          categories: convertCategoriesToSelectOption(res.categories),
+          tags: convertTagsToSelectOption(res.tags),
         });
         return res;
       }),
   });
 
-  function convertToSelectOption(categories: Category[]): SelectOption[] {
+  function convertCategoriesToSelectOption(
+    categories: Category[],
+  ): SelectOption[] {
     return categories.map((c) => c as SelectOption);
+  }
+  function convertTagsToSelectOption(tags: Tag[]): SelectOption[] {
+    return tags.map((t) => t as SelectOption);
   }
 
   const updateFilm = useMutation({
@@ -66,6 +73,7 @@ function EditFilm() {
     filmToPost.categories = film.categories.map(
       (category: SelectOption) => category.id,
     );
+    filmToPost.tags = film.tags.map((tag: SelectOption) => tag.id);
     updateFilm.mutate(filmToPost);
   }
 

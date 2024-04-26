@@ -39,6 +39,7 @@ function AddFilm() {
     filmToPost.categories = film.categories.map(
       (category: SelectOption) => category.id,
     );
+    filmToPost.tags = film.tags.map((tag: SelectOption) => tag.id);
     addFilm.mutate(filmToPost);
   }
 

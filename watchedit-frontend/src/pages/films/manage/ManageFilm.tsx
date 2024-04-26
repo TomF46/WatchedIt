@@ -7,6 +7,7 @@ import LoadingMessage from '../../../components/Loading/LoadingMessage';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { EditableFilm, FilmFormErrors } from '../../../types/Films';
 import { SelectOption } from '../../../components/Inputs/InputTypes';
+import { getTags } from '../../../api/tagsApi';
 
 type Props = {
   film: EditableFilm;
@@ -24,6 +25,17 @@ function ManageFilm({ film, updateFilm, triggerSave, saving }: Props) {
     queryFn: () =>
       getCategories().catch((error) => {
         toast.error(`Error getting categories ${error.data.Exception}`, {
+          autoClose: false,
+        });
+        return error;
+      }),
+  });
+
+  const { data: tags } = useQuery({
+    queryKey: ['tags'],
+    queryFn: () =>
+      getTags().catch((error) => {
+        toast.error(`Error getting tags ${error.data.Exception}`, {
           autoClose: false,
         });
         return error;
@@ -70,6 +82,13 @@ function ManageFilm({ film, updateFilm, triggerSave, saving }: Props) {
     updateFilm({
       ...film,
       categories: selected,
+    });
+  }
+
+  function handleTagChange(selected: SelectOption[]) {
+    updateFilm({
+      ...film,
+      tags: selected,
     });
   }
 
@@ -131,10 +150,12 @@ function ManageFilm({ film, updateFilm, triggerSave, saving }: Props) {
         <ManageFilmForm
           film={film}
           categories={categories}
+          tags={tags}
           onChange={handleChange}
           onDateChange={handleDateChange}
           onImageChange={handleImageChange}
           onCategoryChange={handleCategoryChange}
+          onTagChange={handleTagChange}
           onTrailerChange={handleTrailerChange}
           onSave={handleSave}
           errors={errors}

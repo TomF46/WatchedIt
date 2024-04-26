@@ -2,6 +2,7 @@ import { SelectOption } from '../components/Inputs/InputTypes';
 import { Category } from './Categories';
 import { PaginationResponse } from './PaginationResponse';
 import { Person } from './People';
+import { Tag } from './Tags';
 
 export type Film = {
   id?: number;
@@ -15,6 +16,7 @@ export type Film = {
   trailerUrl?: string;
   credits: FilmCredits;
   categories: Category[];
+  tags: Tag[];
   watchedByCount: int;
   isWatchedByUser: boolean;
   isReleased: boolean;
@@ -30,6 +32,7 @@ export type EditableFilm = {
   posterUrl?: string;
   trailerUrl?: string;
   categories: SelectOption[];
+  tags: SelectOption[];
 };
 
 export type FilmForRequest = {
@@ -42,6 +45,7 @@ export type FilmForRequest = {
   posterUrl?: string;
   trailerUrl?: string;
   categories: int[];
+  tags: int[];
 };
 
 export type FilmCredits = {

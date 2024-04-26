@@ -194,6 +194,20 @@ function Film() {
                 ) : (
                   <p>No categories added</p>
                 )}
+                {film.tags.length > 0 && (
+                  <>
+                    <p>Tags:</p>
+                    <ul>
+                      {film.tags.map((tag) => {
+                        return (
+                          <li key={tag.id}>
+                            <p className='text-primary'>{tag.name}</p>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </>
+                )}
               </div>
               {film.isReleased ? (
                 <>

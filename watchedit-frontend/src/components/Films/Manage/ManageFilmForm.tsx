@@ -29,6 +29,7 @@ const customStyles = {
 type Props = {
   film: EditableFilm;
   categories: SelectOption[];
+  tags: SelectOption[];
   errors: FilmFormErrors;
   onSave: (event: React.SyntheticEvent) => void;
   onChange: (
@@ -39,6 +40,7 @@ type Props = {
   onDateChange: (date: Date | null) => void;
   onImageChange: (url: File | null) => void;
   onCategoryChange: (selected: SelectOption[]) => void;
+  onTagChange: (selected: SelectOption[]) => void;
   onTrailerChange: (url: string | null) => void;
   uploadingImage: boolean;
   saving: boolean;
@@ -47,11 +49,13 @@ type Props = {
 const ManageFilmForm = ({
   film,
   categories,
+  tags,
   onSave,
   onChange,
   onDateChange,
   onImageChange,
   onCategoryChange,
+  onTagChange,
   onTrailerChange,
   saving = false,
   uploadingImage = false,
@@ -156,6 +160,19 @@ const ManageFilmForm = ({
                 options={categories}
                 onChange={onCategoryChange}
                 error={errors.categories}
+              />
+            </div>
+          )}
+
+          {tags && tags.length > 0 && (
+            <div className='mb-2'>
+              <MultiSelectInput
+                name='tags'
+                label='Tags'
+                value={film.tags}
+                options={tags}
+                onChange={onTagChange}
+                error={errors.tags}
               />
             </div>
           )}
