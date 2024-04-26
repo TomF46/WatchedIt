@@ -49,3 +49,8 @@ export const newArticle = {
   thumbnailUrl: undefined,
   published: false,
 };
+
+export const newTag = {
+  name: '',
+  type: undefined,
+};

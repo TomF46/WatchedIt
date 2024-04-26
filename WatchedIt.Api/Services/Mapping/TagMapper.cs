@@ -15,7 +15,8 @@ namespace WatchedIt.Api.Services.Mapping
             {
                 Id = tag.Id,
                 Name = tag.Name,
-                Type = tag.Type.ToString()
+                Type = tag.Type,
+                TypeText = tag.Type.ToString()
             };
         }
     }

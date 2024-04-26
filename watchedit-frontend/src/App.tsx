@@ -65,6 +65,10 @@ import ManageFilmGallery from './pages/films/gallery/ManageFilmGallery';
 import FilmGallery from './pages/films/gallery/FilmGallery';
 import ManagePersonGallery from './pages/people/gallery/ManagePersonGallery';
 import PersonGallery from './pages/people/gallery/PersonGallery';
+import AddTag from './pages/tags/manage/AddTag';
+import EditTag from './pages/tags/manage/EditTag';
+import Tags from './pages/tags/Tags';
+import Tag from './pages/tags/Tag';
 
 const App = () => {
   return (
@@ -296,6 +300,38 @@ const App = () => {
             />
             <Route path='/categories/:id' element={<Category />} />
             <Route path='/categories' element={<Categories />} />
+            <Route
+              path='/tags/add'
+              element={
+                <AdminRoute>
+                  <AddTag />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path='/tags/:id/edit'
+              element={
+                <AdminRoute>
+                  <EditTag />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path='/tags/:id'
+              element={
+                <AdminRoute>
+                  <Tag />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path='/tags'
+              element={
+                <AdminRoute>
+                  <Tags />
+                </AdminRoute>
+              }
+            />
             <Route
               path='/games/filmFromCast/:id'
               element={
