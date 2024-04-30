@@ -22,7 +22,7 @@ namespace WatchedIt.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GetTagDto>>> Get()
+        public async Task<ActionResult<GetTagsDto>> Get()
         {
             return Ok(await _tagService.GetAll());
         }

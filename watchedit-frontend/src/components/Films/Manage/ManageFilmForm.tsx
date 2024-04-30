@@ -13,6 +13,7 @@ import FilmIcon from '../../Icons/FilmIcon';
 import ImageIcon from '../../Icons/ImageIcon';
 import CameraIcon from '../../Icons/CameraIcon';
 import DeleteIcon from '../../Icons/DeleteIcon';
+import { TagsSelectOptions } from '../../../types/Tags';
 
 const customStyles = {
   content: {
@@ -29,9 +30,7 @@ const customStyles = {
 type Props = {
   film: EditableFilm;
   categories: SelectOption[];
-  languages: SelectOption[];
-  ageRatings: SelectOption[];
-  otherTags: SelectOption[];
+  tags: TagsSelectOptions;
   errors: FilmFormErrors;
   onSave: (event: React.SyntheticEvent) => void;
   onChange: (
@@ -53,9 +52,7 @@ type Props = {
 const ManageFilmForm = ({
   film,
   categories,
-  languages,
-  ageRatings,
-  otherTags,
+  tags,
   onSave,
   onChange,
   onDateChange,
@@ -190,45 +187,46 @@ const ManageFilmForm = ({
           </div>
         </div>
       </div>
-
-      <div className='controls my-4 rounded-md bg-backgroundOffset p-4 shadow'>
-        {languages && languages.length > 0 && (
-          <div className='mb-2'>
-            <MultiSelectInput
-              name='languages'
-              label='Languages'
-              value={film.languages}
-              options={languages}
-              onChange={onLanguagesChange}
-              error={errors.languages}
-            />
-          </div>
-        )}
-        {ageRatings && ageRatings.length > 0 && (
-          <div className='mb-2'>
-            <MultiSelectInput
-              name='ageRatings'
-              label='Age ratings'
-              value={film.ageRatings}
-              options={ageRatings}
-              onChange={onAgeRatingsChange}
-              error={errors.ageRatings}
-            />
-          </div>
-        )}
-        {otherTags && otherTags.length > 0 && (
-          <div className='mb-2'>
-            <MultiSelectInput
-              name='otherTags'
-              label='Other Tags'
-              value={film.otherTags}
-              options={otherTags}
-              onChange={onOtherTagsChange}
-              error={errors.otherTags}
-            />
-          </div>
-        )}
-      </div>
+      {tags && (
+        <div className='controls my-4 rounded-md bg-backgroundOffset p-4 shadow'>
+          {tags.languages && tags.languages.length > 0 && (
+            <div className='mb-2'>
+              <MultiSelectInput
+                name='languages'
+                label='Languages'
+                value={film.languages}
+                options={tags.languages}
+                onChange={onLanguagesChange}
+                error={errors.languages}
+              />
+            </div>
+          )}
+          {tags.ageRatings && tags.ageRatings.length > 0 && (
+            <div className='mb-2'>
+              <MultiSelectInput
+                name='ageRatings'
+                label='Age ratings'
+                value={film.ageRatings}
+                options={tags.ageRatings}
+                onChange={onAgeRatingsChange}
+                error={errors.ageRatings}
+              />
+            </div>
+          )}
+          {tags.otherTags && tags.otherTags.length > 0 && (
+            <div className='mb-2'>
+              <MultiSelectInput
+                name='otherTags'
+                label='Other Tags'
+                value={film.otherTags}
+                options={tags.otherTags}
+                onChange={onOtherTagsChange}
+                error={errors.otherTags}
+              />
+            </div>
+          )}
+        </div>
+      )}
 
       <div className='controls my-4 rounded-md bg-backgroundOffset p-4 shadow'>
         <div className='mb-2'>

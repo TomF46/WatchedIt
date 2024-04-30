@@ -6,7 +6,7 @@ import { newFilm } from '../../../tools/obJectShapes';
 import ManageFilm from './ManageFilm';
 import { useMutation } from '@tanstack/react-query';
 import { EditableFilm, FilmForRequest } from '../../../types/Films';
-import { SelectOption } from '../../../components/Inputs/InputTypes';
+import { mapSelectsForRequest } from '../../../tools/manageFilmHelper';
 
 function AddFilm() {
   const navigate = useNavigate();
@@ -35,14 +35,9 @@ function AddFilm() {
   }
 
   function handleSave(): void {
-    const filmToPost = { ...film } as FilmForRequest;
-    filmToPost.categories = film.categories.map(
-      (category: SelectOption) => category.id,
-    );
-    filmToPost.languages = film.languages.map((tag: SelectOption) => tag.id);
-    filmToPost.ageRatings = film.ageRatings.map((tag: SelectOption) => tag.id);
-    filmToPost.otherTags = film.otherTags.map((tag: SelectOption) => tag.id);
-    addFilm.mutate(filmToPost);
+    let filmForRequest = { ...film } as FilmForRequest;
+    filmForRequest = mapSelectsForRequest(filmForRequest, film);
+    addFilm.mutate(filmForRequest);
   }
 
   return (

@@ -1,11 +1,11 @@
-import { TagsPaginationResponse, Tag } from '../types/Tags';
+import { Tags, Tag } from '../types/Tags';
 import client from './client';
 
 export function saveTag(tag: Tag): Promise<Tag> {
   return tag.id ? editTag(tag) : addTag(tag);
 }
 
-export function getTags(): Promise<TagsPaginationResponse> {
+export function getTags(): Promise<Tags> {
   return client
     .get(`/api/tags`)
     .then((response) => {

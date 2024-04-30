@@ -55,5 +55,5 @@ export const newArticle = {
 
 export const newTag = {
   name: '',
-  type: undefined,
+  type: 1,
 };

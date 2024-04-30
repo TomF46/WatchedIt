@@ -19,9 +19,6 @@ type Props = {
 function ManageFilm({ film, updateFilm, triggerSave, saving }: Props) {
   const [errors, setErrors] = useState({} as FilmFormErrors);
   const [imageUploading, setImageUploading] = useState(false);
-  const [languages, setLanguages] = useState([]);
-  const [ageRatings, setAgeRatings] = useState([]);
-  const [otherTags, setOtherTags] = useState([]);
 
   const { data: categories } = useQuery({
     queryKey: ['categories'],
@@ -44,14 +41,6 @@ function ManageFilm({ film, updateFilm, triggerSave, saving }: Props) {
         return error;
       }),
   });
-
-  useEffect(() => {
-    if (tags) {
-      setLanguages(tags.filter((x) => x.type == 3));
-      setAgeRatings(tags.filter((x) => x.type == 2));
-      setOtherTags(tags.filter((x) => x.type == 1));
-    }
-  }, [tags]);
 
   const uploadPoster = useMutation({
     mutationFn: (file: File) => {
@@ -175,9 +164,7 @@ function ManageFilm({ film, updateFilm, triggerSave, saving }: Props) {
         <ManageFilmForm
           film={film}
           categories={categories}
-          languages={languages}
-          ageRatings={ageRatings}
-          otherTags={otherTags}
+          tags={tags}
           onChange={handleChange}
           onDateChange={handleDateChange}
           onImageChange={handleImageChange}

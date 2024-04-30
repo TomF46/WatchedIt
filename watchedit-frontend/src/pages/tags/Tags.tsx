@@ -46,7 +46,20 @@ function Tags() {
           <h1 className='my-4 text-center text-4xl font-semibold text-primary'>
             Tags
           </h1>
-          <TagList tags={tags} />
+          <div className='mb-4'>
+            <h2 className='text-2xl font-semibold text-primary'>Languages</h2>
+            <TagList tags={tags.languages} />
+          </div>
+          <div className='mb-4'>
+            <h2 className='text-2xl font-semibold text-primary'>Age ratings</h2>
+            <TagList tags={tags.ageRatings} />
+          </div>
+          <div className='mb-4'>
+            <h2 className='text-2xl font-semibold text-primary'>
+              Other ratings
+            </h2>
+            <TagList tags={tags.otherTags} />
+          </div>
         </div>
       )}
     </div>

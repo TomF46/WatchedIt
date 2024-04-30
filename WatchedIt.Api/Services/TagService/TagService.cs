@@ -15,10 +15,10 @@ namespace WatchedIt.Api.Services.TagService
         {
             _context = context;
         }
-        public async Task<List<GetTagDto>> GetAll()
+        public async Task<GetTagsDto> GetAll()
         {
-            var tags = await _context.Tags.OrderBy(t => t.Type).ToListAsync();
-            return tags.Select(t => TagMapper.Map(t)).ToList();
+            var tags = await _context.Tags.OrderBy(t => t.Type).ThenBy(x => x.Name).ToListAsync();
+            return TagMapper.MapAll(tags);
         }
 
         public async Task<GetTagDto> GetById(int id)

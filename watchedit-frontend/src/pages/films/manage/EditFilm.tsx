@@ -12,6 +12,7 @@ import { EditableFilm, FilmForRequest } from '../../../types/Films';
 import { SelectOption } from '../../../components/Inputs/InputTypes';
 import { Category } from '../../../types/Categories';
 import { Tag } from '../../../types/Tags';
+import { mapSelectsForRequest } from '../../../tools/manageFilmHelper';
 
 function EditFilm() {
   const { id } = useParams();
@@ -71,14 +72,9 @@ function EditFilm() {
   }
 
   function handleSave() {
-    const filmToPost = { ...film } as FilmForRequest;
-    filmToPost.categories = film.categories.map(
-      (category: SelectOption) => category.id,
-    );
-    filmToPost.languages = film.languages.map((tag: SelectOption) => tag.id);
-    filmToPost.ageRatings = film.ageRatings.map((tag: SelectOption) => tag.id);
-    filmToPost.otherTags = film.otherTags.map((tag: SelectOption) => tag.id);
-    updateFilm.mutate(filmToPost);
+    let filmForRequest = { ...film } as FilmForRequest;
+    filmForRequest = mapSelectsForRequest(filmForRequest, film);
+    updateFilm.mutate(filmForRequest);
   }
 
   if (isLoading) return <LoadingMessage message={'Loading film.'} />;

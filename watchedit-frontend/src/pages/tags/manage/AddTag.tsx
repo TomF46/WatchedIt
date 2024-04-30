@@ -30,6 +30,7 @@ function AddTag() {
   });
 
   function handleUpdate(updatedTag: Tag): void {
+    console.log(updatedTag);
     setTag(updatedTag);
   }
 
