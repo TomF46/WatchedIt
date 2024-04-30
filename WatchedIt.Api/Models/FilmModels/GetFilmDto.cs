@@ -23,7 +23,9 @@ namespace WatchedIt.Api.Models.FilmModels
         public GetFilmCastCrewCreditsDto Credits { get; set; }
         public bool IsWatchedByUser { get; set; } = false;
         public IList<GetCategoryDto> Categories { get; set; } = new List<GetCategoryDto>();
-        public IList<GetTagDto> Tags { get; set; } = new List<GetTagDto>();
+        public IList<GetTagDto> Languages { get; set; } = new List<GetTagDto>();
+        public IList<GetTagDto> AgeRatings { get; set; } = new List<GetTagDto>();
+        public IList<GetTagDto> OtherTags { get; set; } = new List<GetTagDto>();
         public int WatchedByCount { get; set; }
         public bool IsReleased { get; set; } = false;
 

@@ -9,6 +9,9 @@ export const newFilm = {
   posterUrl: undefined,
   trailerUrl: undefined,
   categories: [],
+  languages: [],
+  ageRatings: [],
+  otherTags: [],
 } as EditableFilm;
 
 export const newPerson = {

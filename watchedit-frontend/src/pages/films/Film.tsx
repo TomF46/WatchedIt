@@ -194,11 +194,39 @@ function Film() {
                 ) : (
                   <p>No categories added</p>
                 )}
-                {film.tags.length > 0 && (
+                {film.languages.length > 0 && (
                   <>
-                    <p>Tags:</p>
+                    <p>Languages:</p>
                     <ul>
-                      {film.tags.map((tag) => {
+                      {film.languages.map((tag) => {
+                        return (
+                          <li key={tag.id}>
+                            <p className='text-primary'>{tag.name}</p>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </>
+                )}
+                {film.ageRatings.length > 0 && (
+                  <>
+                    <p>Age rating:</p>
+                    <ul>
+                      {film.ageRatings.map((tag) => {
+                        return (
+                          <li key={tag.id}>
+                            <p className='text-primary'>{tag.name}</p>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </>
+                )}
+                {film.otherTags.length > 0 && (
+                  <>
+                    <p>Other tags:</p>
+                    <ul>
+                      {film.otherTags.map((tag) => {
                         return (
                           <li key={tag.id}>
                             <p className='text-primary'>{tag.name}</p>

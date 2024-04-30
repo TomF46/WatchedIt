@@ -44,7 +44,7 @@ namespace WatchedIt.Api.Services.FilmService
             {
                 film.Categories.Add(x);
             });
-            var tags = _context.Tags.Where(x => newFilm.Tags.Contains(x.Id));
+            var tags = _context.Tags.Where(x => newFilm.Languages.Contains(x.Id) || newFilm.AgeRatings.Contains(x.Id) || newFilm.OtherTags.Contains(x.Id));
             await tags.ForEachAsync(x =>
             {
                 film.Tags.Add(x);
@@ -56,7 +56,7 @@ namespace WatchedIt.Api.Services.FilmService
 
         public async Task<GetFilmOverviewDto> Update(int id, UpdateFilmDto updatedFilm)
         {
-            var film = await _context.Films.Include(f => f.Categories).FirstOrDefaultAsync(f => f.Id == id);
+            var film = await _context.Films.Include(f => f.Categories).Include(f => f.Tags).FirstOrDefaultAsync(f => f.Id == id);
             if (film is null) throw new NotFoundException($"Film with Id '{id}' not found.");
             film.Name = updatedFilm.Name;
             film.ShortDescription = updatedFilm.ShortDescription;
@@ -71,7 +71,8 @@ namespace WatchedIt.Api.Services.FilmService
             {
                 film.Categories.Add(x);
             });
-            var tags = await _context.Tags.Where(x => updatedFilm.Tags.Contains(x.Id)).ToListAsync();
+            film.Tags.Clear();
+            var tags = await _context.Tags.Where(x => updatedFilm.Languages.Contains(x.Id) || updatedFilm.AgeRatings.Contains(x.Id) || updatedFilm.OtherTags.Contains(x.Id)).ToListAsync();
             tags.ForEach(x =>
             {
                 film.Tags.Add(x);

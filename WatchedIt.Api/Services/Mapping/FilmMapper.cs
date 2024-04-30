@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using WatchedIt.Api.Models.FilmModels;
+using WatchedIt.Api.Models.Enums;
 
 namespace WatchedIt.Api.Services.Mapping
 {
@@ -24,7 +25,9 @@ namespace WatchedIt.Api.Services.Mapping
                 AverageRating = string.Format("{0:0.0}", film.AverageRating),
                 Credits = CreditMapper.MapFilmCastCrewCreditDto(film.Credits.ToList()),
                 Categories = film.Categories.Select(x => CategoryMapper.Map(x)).ToList(),
-                Tags = film.Tags.Select(x => TagMapper.Map(x)).ToList(),
+                Languages = film.Tags.Where(x => x.Type == TagType.Language).Select(x => TagMapper.Map(x)).ToList(),
+                AgeRatings = film.Tags.Where(x => x.Type == TagType.AgeRating).Select(x => TagMapper.Map(x)).ToList(),
+                OtherTags = film.Tags.Where(x => x.Type == TagType.Recommended).Select(x => TagMapper.Map(x)).ToList(),
                 WatchedByCount = film.WatchedBy.Count,
                 IsReleased = DateTime.Now.Date >= film.ReleaseDate.Date
             };

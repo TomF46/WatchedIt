@@ -39,7 +39,9 @@ function AddFilm() {
     filmToPost.categories = film.categories.map(
       (category: SelectOption) => category.id,
     );
-    filmToPost.tags = film.tags.map((tag: SelectOption) => tag.id);
+    filmToPost.languages = film.languages.map((tag: SelectOption) => tag.id);
+    filmToPost.ageRatings = film.ageRatings.map((tag: SelectOption) => tag.id);
+    filmToPost.otherTags = film.otherTags.map((tag: SelectOption) => tag.id);
     addFilm.mutate(filmToPost);
   }
 

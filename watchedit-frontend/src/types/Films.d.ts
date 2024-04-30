@@ -16,7 +16,9 @@ export type Film = {
   trailerUrl?: string;
   credits: FilmCredits;
   categories: Category[];
-  tags: Tag[];
+  languages: Tag[];
+  ageRatings: Tag[];
+  otherTags: Tag[];
   watchedByCount: int;
   isWatchedByUser: boolean;
   isReleased: boolean;
@@ -32,7 +34,9 @@ export type EditableFilm = {
   posterUrl?: string;
   trailerUrl?: string;
   categories: SelectOption[];
-  tags: SelectOption[];
+  languages: SelectOption[];
+  ageRatings: SelectOption[];
+  otherTags: SelectOption[];
 };
 
 export type FilmForRequest = {
@@ -45,7 +49,9 @@ export type FilmForRequest = {
   posterUrl?: string;
   trailerUrl?: string;
   categories: int[];
-  tags: int[];
+  languages: int[];
+  ageRatings: int[];
+  otherTags: int[];
 };
 
 export type FilmCredits = {

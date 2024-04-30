@@ -29,7 +29,9 @@ const customStyles = {
 type Props = {
   film: EditableFilm;
   categories: SelectOption[];
-  tags: SelectOption[];
+  languages: SelectOption[];
+  ageRatings: SelectOption[];
+  otherTags: SelectOption[];
   errors: FilmFormErrors;
   onSave: (event: React.SyntheticEvent) => void;
   onChange: (
@@ -40,7 +42,9 @@ type Props = {
   onDateChange: (date: Date | null) => void;
   onImageChange: (url: File | null) => void;
   onCategoryChange: (selected: SelectOption[]) => void;
-  onTagChange: (selected: SelectOption[]) => void;
+  onLanguagesChange: (selected: SelectOption[]) => void;
+  onAgeRatingsChange: (selected: SelectOption[]) => void;
+  onOtherTagsChange: (selected: SelectOption[]) => void;
   onTrailerChange: (url: string | null) => void;
   uploadingImage: boolean;
   saving: boolean;
@@ -49,13 +53,17 @@ type Props = {
 const ManageFilmForm = ({
   film,
   categories,
-  tags,
+  languages,
+  ageRatings,
+  otherTags,
   onSave,
   onChange,
   onDateChange,
   onImageChange,
   onCategoryChange,
-  onTagChange,
+  onLanguagesChange,
+  onAgeRatingsChange,
+  onOtherTagsChange,
   onTrailerChange,
   saving = false,
   uploadingImage = false,
@@ -100,7 +108,7 @@ const ManageFilmForm = ({
           {errors.onSave}
         </div>
       )}
-      <div className='controls mb-4 mt-4 rounded-md bg-backgroundOffset shadow'>
+      <div className='controls my-4 rounded-md bg-backgroundOffset shadow'>
         <div className='rounded-t-md bg-backgroundOffset2'>
           <p className='px-2 py-1 text-center text-2xl font-semibold text-primary'>
             {film.id ? `Editing ${film.name}` : 'Adding film'}
@@ -164,19 +172,6 @@ const ManageFilmForm = ({
             </div>
           )}
 
-          {tags && tags.length > 0 && (
-            <div className='mb-2'>
-              <MultiSelectInput
-                name='tags'
-                label='Tags'
-                value={film.tags}
-                options={tags}
-                onChange={onTagChange}
-                error={errors.tags}
-              />
-            </div>
-          )}
-
           <div className='mb-2'>
             <label className='text-xs font-semibold text-primary'>
               Release date
@@ -193,133 +188,171 @@ const ManageFilmForm = ({
               </div>
             )}
           </div>
+        </div>
+      </div>
 
+      <div className='controls my-4 rounded-md bg-backgroundOffset p-4 shadow'>
+        {languages && languages.length > 0 && (
           <div className='mb-2'>
-            <label className='text-xs font-semibold text-primary'>
-              Poster image
-            </label>
-            <br></br>
-            {film.posterUrl != null ? (
-              <button
-                type='button'
-                onClick={() => onPosterRemoved()}
-                className='inline-flex items-center rounded bg-red-400 px-4 py-2 text-white shadow hover:bg-red-500'
-              >
-                Remove image
-              </button>
-            ) : (
-              <>
-                <button
-                  type='button'
-                  className='pointer inline-flex items-center rounded bg-primary px-4 py-2 text-white shadow hover:opacity-75'
-                >
-                  <ImageIcon color='white' height={6} width={6} />
-                  <label className='pointer ml-1'>
-                    Add Image
-                    <input
-                      type='file'
-                      name={`posterUrl`}
-                      className=' hidden w-full border-gray-400 p-2'
-                      onChange={(e) => onPosterChange(e)}
-                    />
-                  </label>
-                </button>
-                {errors.posterUrl && (
-                  <div className='mt-2 p-1 text-xs text-red-500'>
-                    {errors.posterUrl}
-                  </div>
-                )}
-              </>
-            )}
-            {!!uploadingImage && <p>Uploading...</p>}
+            <MultiSelectInput
+              name='languages'
+              label='Languages'
+              value={film.languages}
+              options={languages}
+              onChange={onLanguagesChange}
+              error={errors.languages}
+            />
           </div>
+        )}
+        {ageRatings && ageRatings.length > 0 && (
+          <div className='mb-2'>
+            <MultiSelectInput
+              name='ageRatings'
+              label='Age ratings'
+              value={film.ageRatings}
+              options={ageRatings}
+              onChange={onAgeRatingsChange}
+              error={errors.ageRatings}
+            />
+          </div>
+        )}
+        {otherTags && otherTags.length > 0 && (
+          <div className='mb-2'>
+            <MultiSelectInput
+              name='otherTags'
+              label='Other Tags'
+              value={film.otherTags}
+              options={otherTags}
+              onChange={onOtherTagsChange}
+              error={errors.otherTags}
+            />
+          </div>
+        )}
+      </div>
 
-          <div className='trailer-modal mb-2'>
-            <label className='text-xs font-semibold text-primary'>
-              Trailer
-            </label>
-            <br></br>
+      <div className='controls my-4 rounded-md bg-backgroundOffset p-4 shadow'>
+        <div className='mb-2'>
+          <label className='text-xs font-semibold text-primary'>
+            Poster image
+          </label>
+          <br></br>
+          {film.posterUrl != null ? (
             <button
               type='button'
-              onClick={openModal}
-              className='inline-flex items-center rounded bg-primary px-4 py-2 text-white shadow hover:opacity-75'
+              onClick={() => onPosterRemoved()}
+              className='inline-flex items-center rounded bg-red-400 px-4 py-2 text-white shadow hover:bg-red-500'
             >
-              <CameraIcon color='white' height={6} width={6} />
-              <span className='ml-1'>
-                {film.trailerUrl ? 'Manage trailer' : 'Add trailer'}
-              </span>
+              Remove image
             </button>
-            <Modal
-              isOpen={modalIsOpen}
-              onRequestClose={closeModal}
-              style={customStyles}
-              contentLabel='Video Modal'
-            >
-              <div className='grid grid-cols-12 bg-background p-4'>
-                <div className='col-span-12'>
-                  <h3 className='my-4 text-center text-xl font-semibold text-primary'>
-                    Manage trailer
-                  </h3>
-                </div>
-                <div className='col-span-12 text-white'>
-                  <p>
-                    Please add a valid embed link for your video on your format
-                    of choice in the input below, if you add a valid link then a
-                    preview of the video will appear below.
-                  </p>
-                  <br />
-                  <p>Example links include</p>
-                  <ul>
-                    <li>Youtube: https://www.youtube.com/embed/5mGuCdlCcNM</li>
-                    <li>Vimeo: https://player.vimeo.com/video/759911151</li>
-                  </ul>
-                </div>
-                <div className='col-span-12 mt-4'>
-                  <TextInput
-                    name={`trailerUrl`}
-                    label='Trailer URL'
-                    value={film.trailerUrl}
-                    onChange={(e) => onVideoChange(e)}
-                    required={false}
+          ) : (
+            <>
+              <button
+                type='button'
+                className='pointer inline-flex items-center rounded bg-primary px-4 py-2 text-white shadow hover:opacity-75'
+              >
+                <ImageIcon color='white' height={6} width={6} />
+                <label className='pointer ml-1'>
+                  Add Image
+                  <input
+                    type='file'
+                    name={`posterUrl`}
+                    className=' hidden w-full border-gray-400 p-2'
+                    onChange={(e) => onPosterChange(e)}
                   />
+                </label>
+              </button>
+              {errors.posterUrl && (
+                <div className='mt-2 p-1 text-xs text-red-500'>
+                  {errors.posterUrl}
                 </div>
-                <div className='col-span-12 mt-4'>
-                  <p className='text-center font-semibold text-primary'>
-                    Preview
-                  </p>
-                  <div className='video-container grid grid-cols-12 justify-center'>
-                    <iframe
-                      className='video col-span-12 lg:col-span-6 lg:col-start-4'
-                      src={film.trailerUrl}
-                      frameBorder='0'
-                      allow='accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-                      allowFullScreen
-                    ></iframe>
-                  </div>
-                </div>
-                <div className='col-span-12 text-right'>
-                  <button
-                    type='button'
-                    onClick={() => {
-                      onVideoRemoved();
-                    }}
-                    className='mt-4 inline-flex items-center rounded bg-red-400 px-4 py-2 text-white shadow hover:opacity-75'
-                  >
-                    <DeleteIcon color='white' height={6} width={6} />
-                    <span className='ml-1'>Remove video</span>
-                  </button>
-                  <button
-                    type='button'
-                    onClick={closeModal}
-                    className='ml-2 mt-4 inline-flex items-center rounded bg-primary px-4 py-2 text-white shadow hover:opacity-75'
-                  >
-                    <CameraIcon color='white' height={6} width={6} />
-                    <span className='ml-1'>Finish</span>
-                  </button>
+              )}
+            </>
+          )}
+          {!!uploadingImage && <p>Uploading...</p>}
+        </div>
+        <div className='trailer-modal mb-2'>
+          <label className='text-xs font-semibold text-primary'>Trailer</label>
+          <br></br>
+          <button
+            type='button'
+            onClick={openModal}
+            className='inline-flex items-center rounded bg-primary px-4 py-2 text-white shadow hover:opacity-75'
+          >
+            <CameraIcon color='white' height={6} width={6} />
+            <span className='ml-1'>
+              {film.trailerUrl ? 'Manage trailer' : 'Add trailer'}
+            </span>
+          </button>
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            style={customStyles}
+            contentLabel='Video Modal'
+          >
+            <div className='grid grid-cols-12 bg-background p-4'>
+              <div className='col-span-12'>
+                <h3 className='my-4 text-center text-xl font-semibold text-primary'>
+                  Manage trailer
+                </h3>
+              </div>
+              <div className='col-span-12 text-white'>
+                <p>
+                  Please add a valid embed link for your video on your format of
+                  choice in the input below, if you add a valid link then a
+                  preview of the video will appear below.
+                </p>
+                <br />
+                <p>Example links include</p>
+                <ul>
+                  <li>Youtube: https://www.youtube.com/embed/5mGuCdlCcNM</li>
+                  <li>Vimeo: https://player.vimeo.com/video/759911151</li>
+                </ul>
+              </div>
+              <div className='col-span-12 mt-4'>
+                <TextInput
+                  name={`trailerUrl`}
+                  label='Trailer URL'
+                  value={film.trailerUrl}
+                  onChange={(e) => onVideoChange(e)}
+                  required={false}
+                />
+              </div>
+              <div className='col-span-12 mt-4'>
+                <p className='text-center font-semibold text-primary'>
+                  Preview
+                </p>
+                <div className='video-container grid grid-cols-12 justify-center'>
+                  <iframe
+                    className='video col-span-12 lg:col-span-6 lg:col-start-4'
+                    src={film.trailerUrl}
+                    frameBorder='0'
+                    allow='accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                    allowFullScreen
+                  ></iframe>
                 </div>
               </div>
-            </Modal>
-          </div>
+              <div className='col-span-12 text-right'>
+                <button
+                  type='button'
+                  onClick={() => {
+                    onVideoRemoved();
+                  }}
+                  className='mt-4 inline-flex items-center rounded bg-red-400 px-4 py-2 text-white shadow hover:opacity-75'
+                >
+                  <DeleteIcon color='white' height={6} width={6} />
+                  <span className='ml-1'>Remove video</span>
+                </button>
+                <button
+                  type='button'
+                  onClick={closeModal}
+                  className='ml-2 mt-4 inline-flex items-center rounded bg-primary px-4 py-2 text-white shadow hover:opacity-75'
+                >
+                  <CameraIcon color='white' height={6} width={6} />
+                  <span className='ml-1'>Finish</span>
+                </button>
+              </div>
+            </div>
+          </Modal>
         </div>
       </div>
 

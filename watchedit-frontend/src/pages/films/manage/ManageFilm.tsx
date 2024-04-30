@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { getCategories } from '../../../api/categoriesApi';
 import { uploadImage } from '../../../api/imageApi';
@@ -19,6 +19,9 @@ type Props = {
 function ManageFilm({ film, updateFilm, triggerSave, saving }: Props) {
   const [errors, setErrors] = useState({} as FilmFormErrors);
   const [imageUploading, setImageUploading] = useState(false);
+  const [languages, setLanguages] = useState([]);
+  const [ageRatings, setAgeRatings] = useState([]);
+  const [otherTags, setOtherTags] = useState([]);
 
   const { data: categories } = useQuery({
     queryKey: ['categories'],
@@ -41,6 +44,14 @@ function ManageFilm({ film, updateFilm, triggerSave, saving }: Props) {
         return error;
       }),
   });
+
+  useEffect(() => {
+    if (tags) {
+      setLanguages(tags.filter((x) => x.type == 3));
+      setAgeRatings(tags.filter((x) => x.type == 2));
+      setOtherTags(tags.filter((x) => x.type == 1));
+    }
+  }, [tags]);
 
   const uploadPoster = useMutation({
     mutationFn: (file: File) => {
@@ -85,10 +96,24 @@ function ManageFilm({ film, updateFilm, triggerSave, saving }: Props) {
     });
   }
 
-  function handleTagChange(selected: SelectOption[]) {
+  function handleLanguagesChange(selected: SelectOption[]) {
     updateFilm({
       ...film,
-      tags: selected,
+      languages: selected,
+    });
+  }
+
+  function handleAgeRatingsChange(selected: SelectOption[]) {
+    updateFilm({
+      ...film,
+      ageRatings: selected,
+    });
+  }
+
+  function handleOtherTagsChange(selected: SelectOption[]) {
+    updateFilm({
+      ...film,
+      otherTags: selected,
     });
   }
 
@@ -150,12 +175,16 @@ function ManageFilm({ film, updateFilm, triggerSave, saving }: Props) {
         <ManageFilmForm
           film={film}
           categories={categories}
-          tags={tags}
+          languages={languages}
+          ageRatings={ageRatings}
+          otherTags={otherTags}
           onChange={handleChange}
           onDateChange={handleDateChange}
           onImageChange={handleImageChange}
           onCategoryChange={handleCategoryChange}
-          onTagChange={handleTagChange}
+          onLanguagesChange={handleLanguagesChange}
+          onAgeRatingsChange={handleAgeRatingsChange}
+          onOtherTagsChange={handleOtherTagsChange}
           onTrailerChange={handleTrailerChange}
           onSave={handleSave}
           errors={errors}

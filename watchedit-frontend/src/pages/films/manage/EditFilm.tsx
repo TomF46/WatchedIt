@@ -32,7 +32,9 @@ function EditFilm() {
           releaseDate: parseISO(res.releaseDate.toString()),
           posterUrl: res.posterUrl,
           categories: convertCategoriesToSelectOption(res.categories),
-          tags: convertTagsToSelectOption(res.tags),
+          languages: convertTagsToSelectOption(res.languages),
+          ageRatings: convertTagsToSelectOption(res.ageRatings),
+          otherTags: convertTagsToSelectOption(res.otherTags),
         });
         return res;
       }),
@@ -73,7 +75,9 @@ function EditFilm() {
     filmToPost.categories = film.categories.map(
       (category: SelectOption) => category.id,
     );
-    filmToPost.tags = film.tags.map((tag: SelectOption) => tag.id);
+    filmToPost.languages = film.languages.map((tag: SelectOption) => tag.id);
+    filmToPost.ageRatings = film.ageRatings.map((tag: SelectOption) => tag.id);
+    filmToPost.otherTags = film.otherTags.map((tag: SelectOption) => tag.id);
     updateFilm.mutate(filmToPost);
   }
 

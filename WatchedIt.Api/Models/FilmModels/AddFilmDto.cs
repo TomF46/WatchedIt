@@ -15,7 +15,9 @@ namespace WatchedIt.Api.Models.FilmModels
         public string? PosterUrl { get; set; }
         public string? TrailerUrl { get; set; }
         public IList<int> Categories { get; set; } = new List<int>();
-        public IList<int> Tags { get; set; } = new List<int>();
+        public IList<int> Languages { get; set; } = new List<int>();
+        public IList<int> AgeRatings { get; set; } = new List<int>();
+        public IList<int> OtherTags { get; set; } = new List<int>();
 
     }
 }
