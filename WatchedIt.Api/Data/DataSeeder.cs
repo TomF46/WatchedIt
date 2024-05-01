@@ -26,7 +26,11 @@ namespace WatchedIt.Api.Data
             var categorySeeder = new CategorySeeder(_context);
             categorySeeder.Seed();
 
-            if(_env.IsDevelopment()){
+            var tagSeeder = new TagSeeder(_context);
+            tagSeeder.Seed();
+
+            if (_env.IsDevelopment())
+            {
                 var adminSeeder = new AdminSeeder(_context, _config, _authenticationService);
                 adminSeeder.Seed();
 
@@ -36,7 +40,7 @@ namespace WatchedIt.Api.Data
                 var peopleSeeder = new PeopleSeeder(_context, _env);
                 peopleSeeder.Seed();
             }
-            
+
         }
     }
 }
