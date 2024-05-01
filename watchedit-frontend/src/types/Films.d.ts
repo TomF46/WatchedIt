@@ -81,6 +81,7 @@ export type FilmSearchParameters = {
   releasedBeforeDate?: string;
   releasedAfterDate?: string;
   releasedOnDate?: string;
+  tag?: number;
 };
 
 export type FilmFormErrors = EditableFilm & onSaveError;

@@ -20,6 +20,13 @@ namespace WatchedIt.Api.Helpers
                 films = films.Where(x => x.Categories.Contains(category));
             }
 
+            if (parameters.Tag is not null)
+            {
+                var tag = _context.Tags.FirstOrDefault(x => x.Id == parameters.Tag);
+                if (tag is null) throw new NotFoundException("Tag does not exist");
+                films = films.Where(x => x.Tags.Contains(tag));
+            }
+
             if (parameters.ReleasedOnDate.HasValue) films = films.Where(f => f.ReleaseDate.Date == parameters.ReleasedOnDate.Value.Date);
             if (parameters.ReleasedBeforeDate.HasValue) films = films.Where(f => f.ReleaseDate.Date <= parameters.ReleasedBeforeDate.Value.Date);
             if (parameters.ReleasedAfterDate.HasValue) films = films.Where(f => f.ReleaseDate.Date > parameters.ReleasedAfterDate.Value.Date);

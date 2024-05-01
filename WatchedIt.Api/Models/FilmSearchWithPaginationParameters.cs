@@ -15,6 +15,6 @@ namespace WatchedIt.Api.Models
         public DateTime? ReleasedOnDate { get; set; }
         public int? MaxRating { get; set; }
         public int? MinRating { get; set; }
-
+        public int? Tag { get; set; }
     }
 }

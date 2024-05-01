@@ -6,6 +6,7 @@ export type Tag = {
   id?: number;
   name: string;
   type?: number;
+  typeText: string;
 };
 
 type Tags = {

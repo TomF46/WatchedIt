@@ -20,6 +20,7 @@ export function generateFilmSearchUrl(
     target = `${target}&minRating=${parameters.minRating}`;
   if (parameters.maxRating)
     target = `${target}&maxRating=${parameters.maxRating}`;
+  if (parameters.tag) target = `${target}&tag=${parameters.tag}`;
   return target;
 }
 

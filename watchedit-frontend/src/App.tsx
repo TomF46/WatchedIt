@@ -316,22 +316,8 @@ const App = () => {
                 </AdminRoute>
               }
             />
-            <Route
-              path='/tags/:id'
-              element={
-                <AdminRoute>
-                  <Tag />
-                </AdminRoute>
-              }
-            />
-            <Route
-              path='/tags'
-              element={
-                <AdminRoute>
-                  <Tags />
-                </AdminRoute>
-              }
-            />
+            <Route path='/tags/:id' element={<Tag />} />
+            <Route path='/tags' element={<Tags />} />
             <Route
               path='/games/filmFromCast/:id'
               element={

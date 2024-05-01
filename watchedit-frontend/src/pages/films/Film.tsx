@@ -201,7 +201,12 @@ function Film() {
                       {film.languages.map((tag) => {
                         return (
                           <li key={tag.id}>
-                            <p className='text-primary'>{tag.name}</p>
+                            <Link
+                              to={`/tags/${tag.id}`}
+                              className='text-primary hover:opacity-75'
+                            >
+                              {tag.name}
+                            </Link>
                           </li>
                         );
                       })}
@@ -215,7 +220,12 @@ function Film() {
                       {film.ageRatings.map((tag) => {
                         return (
                           <li key={tag.id}>
-                            <p className='text-primary'>{tag.name}</p>
+                            <Link
+                              to={`/tags/${tag.id}`}
+                              className='text-primary hover:opacity-75'
+                            >
+                              {tag.name}
+                            </Link>
                           </li>
                         );
                       })}
@@ -229,7 +239,12 @@ function Film() {
                       {film.otherTags.map((tag) => {
                         return (
                           <li key={tag.id}>
-                            <p className='text-primary'>{tag.name}</p>
+                            <Link
+                              to={`/tags/${tag.id}`}
+                              className='text-primary hover:opacity-75'
+                            >
+                              {tag.name}
+                            </Link>
                           </li>
                         );
                       })}
