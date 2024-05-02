@@ -1,0 +1,20 @@
+[
+  {
+    "Id": "2",
+    "Username": "Hogan202",
+    "Email": "hogan@email.com",
+    "ImageUrl": null
+  },
+  {
+    "Id": "3",
+    "Username": "EllieLovesFilms",
+    "Email": "ellie@email.com",
+    "ImageUrl": null
+  },
+  {
+    "Id": "5",
+    "Username": "Craig1",
+    "Email": "craig@email.com",
+    "ImageUrl": null
+  }
+]

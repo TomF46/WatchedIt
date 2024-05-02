@@ -32,7 +32,7 @@ namespace WatchedIt.Api.Data.Seeders
                     ImageUrl = _config["Images:Defaults:ProfileImage"],
                     Role = Models.Enums.Role.Administrator
                 };
-                _authenticationService.Create(admin, "SomePassword123!");
+                _authenticationService.Create(admin, _config["TestDefaultPassword"]);
             }
         }
     }

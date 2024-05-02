@@ -29,6 +29,7 @@ namespace WatchedIt.Api.Data.Seeders
                 foreach(var person in people)
                 {
                     var p = new Person{
+                        Id = int.Parse(person["Id"]),
                         FirstName = person["FirstName"],
                         LastName = person["LastName"],
                         MiddleNames = person["MiddleNames"],
@@ -38,9 +39,19 @@ namespace WatchedIt.Api.Data.Seeders
                         DateOfBirth = DateTime.Parse(person["DateOfBirth"])
                     };
 
-                    _context.People.Add(p);
+                    _context.Database.OpenConnection();
+                    try
+                    {
+                        _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.People ON");
+                         _context.People.Add(p);
+                        _context.SaveChanges();
+                        _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.People OFF");
+                    }
+                    finally
+                    {
+                        _context.Database.CloseConnection();
+                    }
                 }
-                _context.SaveChanges();
             }
         }
 

@@ -29,6 +29,7 @@ namespace WatchedIt.Api.Data.Seeders
                 foreach(var film in films)
                 {
                     var f = new Film{
+                        Id = int.Parse(film["Id"]),
                         Name = film["Name"],
                         ShortDescription = film["ShortDescription"],
                         FullDescription = film["FullDescription"],
@@ -37,9 +38,20 @@ namespace WatchedIt.Api.Data.Seeders
                         PosterUrl = film["PosterUrl"],
                         TrailerUrl = film["TrailerUrl"]
                     };
-                    _context.Films.Add(f);
+                    
+                    _context.Database.OpenConnection();
+                    try
+                    {
+                        _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.Films ON");
+                         _context.Films.Add(f);
+                        _context.SaveChanges();
+                        _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.Films OFF");
+                    }
+                    finally
+                    {
+                        _context.Database.CloseConnection();
+                    }
                 }
-                _context.SaveChanges();
             }
         }
 

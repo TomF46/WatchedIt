@@ -34,11 +34,18 @@ namespace WatchedIt.Api.Data
                 var adminSeeder = new AdminSeeder(_context, _config, _authenticationService);
                 adminSeeder.Seed();
 
+                var userSeeder = new UserSeeder(_context, _config, _env ,_authenticationService);
+                userSeeder.Seed();
+
                 var filmsSeeder = new FilmSeeder(_context, _env);
                 filmsSeeder.Seed();
 
                 var peopleSeeder = new PeopleSeeder(_context, _env);
                 peopleSeeder.Seed();
+
+                var castCreditSeeder = new CastCreditSeeder(_context, _env);
+                castCreditSeeder.SeedCastCredits();
+                castCreditSeeder.SeedCrewCredits();
             }
 
         }
