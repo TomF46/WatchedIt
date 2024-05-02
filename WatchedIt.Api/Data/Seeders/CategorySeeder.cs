@@ -22,48 +22,72 @@ namespace WatchedIt.Api.Data.Seeders
                 var categories = new List<Category>()
                 {
                     new Category{
+                        Id = 1,
                         Name = "Action"
                     },
                     new Category{
+                        Id = 2,
                         Name = "Horror"
                     },
                     new Category{
+                        Id = 3,
                         Name = "Drama"
                     },
                     new Category{
+                        Id = 4,
                         Name = "Thriller"
                     },
                     new Category{  
+                        Id = 5,
                         Name = "Animation",
                     },
                     new Category{
+                        Id = 6,
                         Name = "Comedy"
                     },
                     new Category{
+                        Id = 7,
                         Name = "Musical"
                     },
                     new Category{
+                        Id = 8,
                         Name = "Crime"
                     },
                     new Category{
+                        Id = 9,
                         Name = "Romance"
                     },
                     new Category{
+                        Id = 10,
                         Name = "Epic"
                     },
                     new Category{
+                        Id = 11,
                         Name = "Science fiction"
                     },
                     new Category{
+                        Id = 12,
                         Name = "Western"
                     },
                     new Category{
+                        Id = 13,
                         Name = "Documentary"
                     }
                 };
+                
 
-                _context.Categories.AddRange(categories);
-                _context.SaveChanges();
+                _context.Database.OpenConnection();
+                try
+                {
+                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.Categories ON");
+                    _context.Categories.AddRange(categories);
+                    _context.SaveChanges();
+                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.Categories OFF");
+                }
+                finally
+                {
+                    _context.Database.CloseConnection();
+                }
             }
         }
     }

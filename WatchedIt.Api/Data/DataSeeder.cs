@@ -46,6 +46,9 @@ namespace WatchedIt.Api.Data
                 var castCreditSeeder = new CastCreditSeeder(_context, _env);
                 castCreditSeeder.SeedCastCredits();
                 castCreditSeeder.SeedCrewCredits();
+
+                var reviewSeeder = new ReviewSeeder(_context, _env);
+                reviewSeeder.Seed();
             }
 
         }

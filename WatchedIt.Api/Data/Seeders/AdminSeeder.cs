@@ -24,7 +24,6 @@ namespace WatchedIt.Api.Data.Seeders
         {
             if(!_context.Users.Any())
             {
-                // TODO Make this info come from config
                 var admin = new User
                 {
                     Email = "admin@email.com",
