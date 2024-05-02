@@ -1,12 +1,12 @@
 [
   {
-    "FilmId": "4",
-    "PersonId": "7",
+    "FilmId": 4,
+    "PersonId": 7,
     "Role": "Executive producer"
   },
   {
-    "FilmId": "3",
-    "PersonId": "9",
+    "FilmId": 3,
+    "PersonId": 9,
     "Role": "Director"
   }
 ]

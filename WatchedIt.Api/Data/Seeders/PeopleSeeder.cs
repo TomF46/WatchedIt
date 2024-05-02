@@ -7,6 +7,11 @@ using WatchedIt.Api.Models.PersonModels;
 
 namespace WatchedIt.Api.Data.Seeders
 {
+    public class PersonTestData : AddPersonDto
+    {
+        public int Id { get; set;}
+    }
+
     public class PeopleSeeder
     {
         private readonly WatchedItContext _context;
@@ -24,19 +29,19 @@ namespace WatchedIt.Api.Data.Seeders
             if(!_context.People.Any())
             {
                 string data = GetData();
-                var people = JsonSerializer.Deserialize<List<Dictionary<string,string>>>(data);
+                var people = JsonSerializer.Deserialize<List<PersonTestData>>(data);
 
                 foreach(var person in people)
                 {
                     var p = new Person{
-                        Id = int.Parse(person["Id"]),
-                        FirstName = person["FirstName"],
-                        LastName = person["LastName"],
-                        MiddleNames = person["MiddleNames"],
-                        StageName = person["StageName"],
-                        Description = person["Description"],
-                        ImageUrl = person["ImageUrl"],
-                        DateOfBirth = DateTime.Parse(person["DateOfBirth"])
+                        Id = person.Id,
+                        FirstName = person.FirstName,
+                        LastName = person.LastName,
+                        MiddleNames = person.MiddleNames,
+                        StageName = person.StageName,
+                        Description = person.Description,
+                        ImageUrl = person.ImageUrl,
+                        DateOfBirth = person.DateOfBirth
                     };
 
                     _context.Database.OpenConnection();

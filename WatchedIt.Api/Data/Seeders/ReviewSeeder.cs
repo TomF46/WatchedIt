@@ -7,6 +7,10 @@ using WatchedIt.Api.Models.ReviewModels;
 
 namespace WatchedIt.Api.Data.Seeders
 {
+    class ReviewTestData : AddReviewDto{
+        public int FilmId { get; set;}
+        public int UserId { get; set;}
+    }
     public class ReviewSeeder
     {
         private readonly WatchedItContext _context;
@@ -24,15 +28,15 @@ namespace WatchedIt.Api.Data.Seeders
             if(!_context.Reviews.Any())
             {
                 string data = GetData();
-                var reviews = JsonSerializer.Deserialize<List<Dictionary<string,string>>>(data);
+                var reviews = JsonSerializer.Deserialize<List<ReviewTestData>>(data);
 
                 foreach(var review in reviews)
                 {
                     var r = new Review{
-                        Film = _context.Films.FirstOrDefault(x => x.Id == int.Parse(review["FilmId"])),
-                        User = _context.Users.FirstOrDefault(x => x.Id == int.Parse(review["UserId"])),
-                        Rating = int.Parse(review["Rating"]),
-                        Text = review["Text"],
+                        Film = _context.Films.FirstOrDefault(x => x.Id == review.FilmId),
+                        User = _context.Users.FirstOrDefault(x => x.Id == review.UserId),
+                        Rating = review.Rating,
+                        Text = review.Text,
                         CreatedDate = DateTime.Now,
                         UpdatedDate = DateTime.Now
 

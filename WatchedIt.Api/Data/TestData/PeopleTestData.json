@@ -1,6 +1,6 @@
 [
   {
-    "Id": "1",
+    "Id": 1,
     "FirstName": "John",
     "LastName": "Travolta",
     "MiddleNames": null,
@@ -10,7 +10,7 @@
     "DateOfBirth": "0001-01-01T00:00:00"
   },
   {
-    "Id": "2",
+    "Id": 2,
     "FirstName": "Samuel",
     "LastName": "Jackson",
     "MiddleNames": "L",
@@ -20,7 +20,7 @@
     "DateOfBirth": "0001-01-01T00:00:00"
   },
   {
-    "Id": "3",
+    "Id": 3,
     "FirstName": "Robert",
     "LastName": "De Niro",
     "MiddleNames": "Anthony",
@@ -30,7 +30,7 @@
     "DateOfBirth": "1943-08-17T14:59:28"
   },
   {
-    "Id": "4",
+    "Id": 4,
     "FirstName": "David",
     "LastName": "Hasselhoff",
     "MiddleNames": null,
@@ -40,7 +40,7 @@
     "DateOfBirth": "1952-07-17T10:56:55"
   },
   {
-    "Id": "5",
+    "Id": 5,
     "FirstName": "Joe",
     "LastName": "Pesci",
     "MiddleNames": null,
@@ -50,7 +50,7 @@
     "DateOfBirth": "1943-02-08T23:00:00"
   },
   {
-    "Id": "6",
+    "Id": 6,
     "FirstName": "Margot",
     "LastName": "Robbie",
     "MiddleNames": "Elise",
@@ -60,7 +60,7 @@
     "DateOfBirth": "1990-07-01T23:00:00"
   },
   {
-    "Id": "7",
+    "Id": 7,
     "FirstName": "Grace",
     "LastName": "Kelly",
     "MiddleNames": "Patricia",
@@ -70,7 +70,7 @@
     "DateOfBirth": "1929-11-12T00:00:00"
   },
   {
-    "Id": "8",
+    "Id": 8,
     "FirstName": "James",
     "LastName": "Stewart",
     "MiddleNames": null,
@@ -80,7 +80,7 @@
     "DateOfBirth": "1908-05-20T00:00:00"
   },
   {
-    "Id": "9",
+    "Id": 9,
     "FirstName": "Marlon",
     "LastName": "Brando",
     "MiddleNames": null,
@@ -90,7 +90,7 @@
     "DateOfBirth": "1924-04-03T00:00:00"
   },
   {
-    "Id": "10",
+    "Id": 10,
     "FirstName": "Michael",
     "LastName": "Cera",
     "MiddleNames": "Austin",
@@ -100,7 +100,7 @@
     "DateOfBirth": "1988-07-06T23:00:00"
   },
   {
-    "Id": "11",
+    "Id": 11,
     "FirstName": "Sharon",
     "LastName": "Stone",
     "MiddleNames": null,
@@ -110,7 +110,7 @@
     "DateOfBirth": "1958-03-10T00:00:00"
   },
   {
-    "Id": "12",
+    "Id": 12,
     "FirstName": "Alfredo",
     "LastName": "Pacino",
     "MiddleNames": null,
@@ -120,7 +120,7 @@
     "DateOfBirth": "1940-04-24T23:00:00"
   },
   {
-    "Id": "13",
+    "Id": 13,
     "FirstName": "Val",
     "LastName": "Kilmer",
     "MiddleNames": null,
@@ -130,7 +130,7 @@
     "DateOfBirth": "1959-12-31T13:27:09"
   },
   {
-    "Id": "14",
+    "Id": 14,
     "FirstName": "Angelina",
     "LastName": "Jolie",
     "MiddleNames": null,

@@ -7,6 +7,9 @@ using WatchedIt.Api.Models.FilmModels;
 
 namespace WatchedIt.Api.Data.Seeders
 {
+    class FilmTestData : AddFilmDto{
+        public int Id { get; set;}
+    }
     public class FilmSeeder
     {
         private readonly WatchedItContext _context;
@@ -24,21 +27,21 @@ namespace WatchedIt.Api.Data.Seeders
             if(!_context.Films.Any())
             {
                 string data = GetData();
-                var films = JsonSerializer.Deserialize<List<Dictionary<string,string>>>(data);
+                var films = JsonSerializer.Deserialize<List<FilmTestData>>(data);
 
                 foreach(var film in films)
                 {
                     var f = new Film{
-                        Id = int.Parse(film["Id"]),
-                        Name = film["Name"],
-                        ShortDescription = film["ShortDescription"],
-                        FullDescription = film["FullDescription"],
-                        Runtime = int.Parse(film["Runtime"]),
-                        ReleaseDate = DateTime.Parse(film["ReleaseDate"]),
-                        PosterUrl = film["PosterUrl"],
-                        TrailerUrl = film["TrailerUrl"]
+                        Id = film.Id,
+                        Name = film.Name,
+                        ShortDescription = film.ShortDescription,
+                        FullDescription = film.FullDescription,
+                        Runtime = film.Runtime,
+                        ReleaseDate = film.ReleaseDate,
+                        PosterUrl = film.PosterUrl,
+                        TrailerUrl = film.TrailerUrl
                     };
-                    
+
                     _context.Database.OpenConnection();
                     try
                     {

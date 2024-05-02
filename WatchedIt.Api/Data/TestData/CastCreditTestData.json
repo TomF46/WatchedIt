@@ -1,12 +1,12 @@
 [
   {
-    "FilmId": "1",
-    "PersonId": "1",
+    "FilmId": 1,
+    "PersonId": 1,
     "Role": "Othelo"
   },
   {
-    "FilmId": "2",
-    "PersonId": "4",
+    "FilmId": 2,
+    "PersonId": 4,
     "Role": "Raul"
   }
 ]

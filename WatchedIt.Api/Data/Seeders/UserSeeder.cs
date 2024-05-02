@@ -34,15 +34,15 @@ namespace WatchedIt.Api.Data.Seeders
             if(!_context.Users.Where(x => x.Role == Models.Enums.Role.User).Any())
             {
                 string data = GetData();
-                var users = JsonSerializer.Deserialize<List<Dictionary<string,string>>>(data);
+                var users = JsonSerializer.Deserialize<List<User>>(data);
 
                 foreach(var user in users)
                 {
                     var u = new User{
-                        Id = int.Parse(user["Id"]),
-                        Username = user["Username"],
-                        Email = user["Email"],
-                        ImageUrl = user["ImageUrl"].IsNullOrEmpty() ?  _config["Images:Defaults:ProfileImage"] : user["ImageUrl"],
+                        Id = user.Id,
+                        Username = user.Username,
+                        Email = user.Email,
+                        ImageUrl = user.ImageUrl.IsNullOrEmpty() ?  _config["Images:Defaults:ProfileImage"] : user.ImageUrl,
                         Role = Models.Enums.Role.User
                     };
 

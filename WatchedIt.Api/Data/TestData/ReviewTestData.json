@@ -1,14 +1,14 @@
 [
   {
-    "UserId": "1",
-    "FilmId": "1",
-    "Rating": "8",
+    "UserId": 1,
+    "FilmId": 1,
+    "Rating": 8,
     "Text": "Great film!"
   },
   {
-    "UserId": "2",
-    "FilmId": "3",
-    "Rating": "4",
+    "UserId": 2,
+    "FilmId": 3,
+    "Rating": 4,
     "Text": "Meh"
   }
 ]

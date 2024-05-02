@@ -1,18 +1,18 @@
 [
   {
-    "Id": "2",
+    "Id": 2,
     "Username": "Hogan202",
     "Email": "hogan@email.com",
     "ImageUrl": null
   },
   {
-    "Id": "3",
+    "Id": 3,
     "Username": "EllieLovesFilms",
     "Email": "ellie@email.com",
     "ImageUrl": null
   },
   {
-    "Id": "5",
+    "Id": 4,
     "Username": "Craig1",
     "Email": "craig@email.com",
     "ImageUrl": null

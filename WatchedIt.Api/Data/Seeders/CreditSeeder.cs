@@ -23,15 +23,15 @@ namespace WatchedIt.Api.Data.Seeders
             if(!_context.Credits.Where(x => x.Type == CreditType.Cast).Any())
             {
                 string data = GetData("CastCreditTestData.json");
-                var credits = JsonSerializer.Deserialize<List<Dictionary<string,string>>>(data);
+                var credits = JsonSerializer.Deserialize<List<AddCreditDto>>(data);
 
                 foreach(var credit in credits)
                 {
                     var c = new Credit{
-                        FilmId = int.Parse(credit["FilmId"]),
-                        PersonId = int.Parse(credit["PersonId"]),
+                        FilmId = credit.FilmId,
+                        PersonId = credit.PersonId,
                         Type = CreditType.Cast,
-                        Role = credit["Role"]
+                        Role = credit.Role
                     };
                     _context.Credits.Add(c);
                 }
@@ -44,15 +44,15 @@ namespace WatchedIt.Api.Data.Seeders
             if(!_context.Credits.Where(x => x.Type == CreditType.Crew).Any())
             {
                 string data = GetData("CrewCreditTestData.json");
-                var credits = JsonSerializer.Deserialize<List<Dictionary<string,string>>>(data);
+                var credits = JsonSerializer.Deserialize<List<AddCreditDto>>(data);
 
                 foreach(var credit in credits)
                 {
                     var c = new Credit{
-                        FilmId = int.Parse(credit["FilmId"]),
-                        PersonId = int.Parse(credit["PersonId"]),
+                        FilmId = credit.FilmId,
+                        PersonId = credit.PersonId,
                         Type = CreditType.Crew,
-                        Role = credit["Role"]
+                        Role = credit.Role
                     };
                     _context.Credits.Add(c);
                 }
