@@ -1,5 +1,4 @@
 import { SelectOption } from '../components/Inputs/InputTypes';
-import { PaginationResponse } from './PaginationResponse';
 import { onSaveError } from './forms';
 
 export type Tag = {
