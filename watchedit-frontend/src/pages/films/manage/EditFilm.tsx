@@ -32,6 +32,7 @@ function EditFilm() {
           runtime: res.runtime,
           releaseDate: parseISO(res.releaseDate.toString()),
           posterUrl: res.posterUrl,
+          trailerUrl: res.trailerUrl,
           categories: convertCategoriesToSelectOption(res.categories),
           languages: convertTagsToSelectOption(res.languages),
           ageRatings: convertTagsToSelectOption(res.ageRatings),

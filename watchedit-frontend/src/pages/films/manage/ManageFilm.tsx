@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { getCategories } from '../../../api/categoriesApi';
 import { uploadImage } from '../../../api/imageApi';
@@ -117,8 +117,7 @@ function ManageFilm({ film, updateFilm, triggerSave, saving }: Props) {
   }
 
   function handleTrailerChange(url: string | null) {
-    if (!url) return;
-    film.trailerUrl = url;
+    film.trailerUrl = url ? url : undefined;
     updateFilm({ ...film });
   }
 
