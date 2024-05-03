@@ -1,0 +1,14 @@
+[
+  {
+    "UserId": 3,
+    "Name": "My fave films",
+    "Description": "All my favourite films",
+    "Films": [1, 3, 5, 7, 8]
+  },
+  {
+    "UserId": 2,
+    "Name": "Film night",
+    "Description": "The perfect film night",
+    "Films": [2, 4, 5, 6, 9]
+  }
+]

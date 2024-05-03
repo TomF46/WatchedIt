@@ -34,14 +34,14 @@ namespace WatchedIt.Api.Data
                 var adminSeeder = new AdminSeeder(_context, _config, _authenticationService);
                 adminSeeder.Seed();
 
-                var userSeeder = new UserSeeder(_context, _config, _env ,_authenticationService);
-                userSeeder.Seed();
-
                 var filmsSeeder = new FilmSeeder(_context, _env);
                 filmsSeeder.Seed();
 
                 var peopleSeeder = new PeopleSeeder(_context, _env);
                 peopleSeeder.Seed();
+
+                var userSeeder = new UserSeeder(_context, _config, _env ,_authenticationService);
+                userSeeder.Seed();
 
                 var castCreditSeeder = new CastCreditSeeder(_context, _env);
                 castCreditSeeder.SeedCastCredits();
@@ -49,6 +49,12 @@ namespace WatchedIt.Api.Data
 
                 var reviewSeeder = new ReviewSeeder(_context, _env);
                 reviewSeeder.Seed();
+
+                var filmListSeeder = new FilmListSeeder(_context, _env);
+                filmListSeeder.Seed();
+
+                var newsArticleSeeder = new NewsArticleSeeder(_context, _env);
+                newsArticleSeeder.Seed();
             }
 
         }

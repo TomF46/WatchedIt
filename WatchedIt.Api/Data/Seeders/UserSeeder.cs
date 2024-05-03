@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 
 using WatchedIt.Api.Models.Authentication;
-using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Services.AuthenticationService;
 
 namespace WatchedIt.Api.Data.Seeders
 {
+    class UserTestData: User{
+        public new IList<int> Watched { get; set; } = new List<int>();
+        public new IList<int> Likes { get; set; } = new List<int>();
+    }
     public class UserSeeder
     {
         private readonly WatchedItContext _context;
@@ -34,7 +37,7 @@ namespace WatchedIt.Api.Data.Seeders
             if(!_context.Users.Where(x => x.Role == Models.Enums.Role.User).Any())
             {
                 string data = GetData();
-                var users = JsonSerializer.Deserialize<List<User>>(data);
+                var users = JsonSerializer.Deserialize<List<UserTestData>>(data);
 
                 foreach(var user in users)
                 {
@@ -43,7 +46,9 @@ namespace WatchedIt.Api.Data.Seeders
                         Username = user.Username,
                         Email = user.Email,
                         ImageUrl = user.ImageUrl.IsNullOrEmpty() ?  _config["Images:Defaults:ProfileImage"] : user.ImageUrl,
-                        Role = Models.Enums.Role.User
+                        Role = Models.Enums.Role.User,
+                        Watched = _context.Films.Where(x => user.Watched.Contains(x.Id)).ToList(),
+                        Likes = _context.People.Where(x => user.Likes.Contains(x.Id)).ToList()
                     };
 
                     _context.Database.OpenConnection();
