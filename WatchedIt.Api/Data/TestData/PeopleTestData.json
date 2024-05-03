@@ -5,9 +5,9 @@
     "LastName": "Travolta",
     "MiddleNames": null,
     "StageName": null,
-    "Description": "He was in Pulp fiction",
-    "ImageUrl": "https://imgs.smoothradio.com/images/560179?width=1200&crop=1_1&signature=8xu-wVFad3mKOSLmbVrznwAG3Hg=",
-    "DateOfBirth": "0001-01-01T00:00:00"
+    "Description": "John Joseph Travolta is an American actor. Travolta began acting in television before transitioning into a leading man in films. His accolades include a Primetime Emmy Award and a Golden Globe Award, in addition to nominations for two Academy Awards and a BAFTA Award.",
+    "ImageUrl": "https://i.ibb.co/r3ZjGYk/Travolta.jpg",
+    "DateOfBirth": "1954-02-18T00:00:00"
   },
   {
     "Id": 2,
@@ -15,9 +15,9 @@
     "LastName": "Jackson",
     "MiddleNames": "L",
     "StageName": null,
-    "Description": "Another from pulp fiction",
-    "ImageUrl": "https://hips.hearstapps.com/hmg-prod/images/gettyimages-648731684.jpg",
-    "DateOfBirth": "0001-01-01T00:00:00"
+    "Description": "Samuel Leroy Jackson is an American actor. One of the most widely recognized actors of his generation, the films in which he has appeared have collectively grossed over $27 billion worldwide, making him the highest-grossing actor of all time.",
+    "ImageUrl": "https://i.ibb.co/Qr5NQtj/SamLJ.jpg",
+    "DateOfBirth": "1948-12-21T00:00:00"
   },
   {
     "Id": 3,
@@ -26,7 +26,7 @@
     "MiddleNames": "Anthony",
     "StageName": null,
     "Description": "Robert Anthony De Niro Jr. is an American actor. Known for his collaborations with Martin Scorsese, he is considered to be one of the best actors of his generation.",
-    "ImageUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/people/06c5af9f-754e-449a-a76a-156e321ed08d",
+    "ImageUrl": "https://i.ibb.co/2vdjSNG/DeNiro.png",
     "DateOfBirth": "1943-08-17T14:59:28"
   },
   {
@@ -36,7 +36,7 @@
     "MiddleNames": null,
     "StageName": null,
     "Description": "David Michael Hasselhoff, nicknamed \"The Hoff\", is an American actor, singer, and television personality. He has set a Guinness World Record as the most watched man on TV. Hasselhoff first gained recognition on The Young and The Restless, playing the role of Dr. Snapper Foster.",
-    "ImageUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/people/196eea49-41e1-4390-a891-75992f573cbe",
+    "ImageUrl": "https://i.ibb.co/SXHD7Vf/Hoff.jpg",
     "DateOfBirth": "1952-07-17T10:56:55"
   },
   {
@@ -46,7 +46,7 @@
     "MiddleNames": null,
     "StageName": null,
     "Description": "Joseph Frank Pesci is an American actor and musician. He is known for portraying tough, volatile characters in a variety of genres and for his collaborations with Robert De Niro and Martin Scorsese in the films Raging Bull, Goodfellas, Casino, and The Irishman.",
-    "ImageUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/people/2d1230bb-d6b3-4c3e-a73d-ebbb744232d8",
+    "ImageUrl": "https://i.ibb.co/4Tw0vVj/Pesci.jpg",
     "DateOfBirth": "1943-02-08T23:00:00"
   },
   {
@@ -56,7 +56,7 @@
     "MiddleNames": "Elise",
     "StageName": null,
     "Description": "Margot Elise Robbie is an Australian actress and producer. Known for her work in both blockbuster and independent films, she has received various awards and nominations, including nominations for two Academy Awards, four Golden Globe Awards, and five British Academy Film Awards.",
-    "ImageUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/people/6420d163-54b8-4e3e-af53-06a0902bd609",
+    "ImageUrl": "https://i.ibb.co/M7b8y1q/Margot.jpg",
     "DateOfBirth": "1990-07-01T23:00:00"
   },
   {
@@ -66,7 +66,7 @@
     "MiddleNames": "Patricia",
     "StageName": null,
     "Description": "Grace Patricia Kelly was an American actress who, after starring in several significant films in the early to mid-1950s, became Princess of Monaco by marrying Prince Rainier III in April 1956. Kelly was born into a prominent Catholic family in Philadelphia. ",
-    "ImageUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/people/f040ffab-c26e-4f4f-9fab-b6cdb2d64d85",
+    "ImageUrl": "https://i.ibb.co/nrpBSXQ/Grace.jpg",
     "DateOfBirth": "1929-11-12T00:00:00"
   },
   {
@@ -76,7 +76,7 @@
     "MiddleNames": null,
     "StageName": null,
     "Description": "James Maitland \"Jimmy\" Stewart was an American actor. Known for his distinctive drawl and everyman screen persona, Stewart's film career spanned 80 films from 1935 to 1991. With the strong morality he portrayed both on and off the screen, he epitomized the \"American ideal\" in the mid-twentieth century.",
-    "ImageUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/people/45eb6a29-d3ec-4010-bd4d-b920f95c8ae8",
+    "ImageUrl": "https://i.ibb.co/ZzHZxTk/Jim.jpg",
     "DateOfBirth": "1908-05-20T00:00:00"
   },
   {
@@ -86,7 +86,7 @@
     "MiddleNames": null,
     "StageName": null,
     "Description": "Marlon Brando Jr. was an American actor. Considered one of the most influential actors of the 20th century, he received numerous accolades throughout his career, which spanned six decades, including two Academy Awards, two Golden Globe Awards, one Cannes Film Festival Award and three British Academy Film Awards. ",
-    "ImageUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/people/5434cf1d-8a91-4994-83b8-f43c7a670e41",
+    "ImageUrl": "https://i.ibb.co/KbrbvV5/Brando.webp",
     "DateOfBirth": "1924-04-03T00:00:00"
   },
   {
@@ -96,7 +96,7 @@
     "MiddleNames": "Austin",
     "StageName": null,
     "Description": "Michael Austin Cera is a Canadian actor and musician. He is known for his awkward, offbeat characters in coming of age comedy films and for portraying George Michael Bluth in the sitcom Arrested Development.",
-    "ImageUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/people/ffd99e87-fce4-46ce-88f6-7d689d95af23",
+    "ImageUrl": "https://i.ibb.co/vdvCXv8/Cera.webp",
     "DateOfBirth": "1988-07-06T23:00:00"
   },
   {
@@ -106,7 +106,7 @@
     "MiddleNames": null,
     "StageName": null,
     "Description": "Sharon Vonne Stone is an American actress. Known for primarily playing femme fatales and women of mystery on film and television, she became one of the most popular sex symbols of the 1990s.",
-    "ImageUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/people/5eda9225-b641-4ff7-a32d-33016ce90370",
+    "ImageUrl": "https://i.ibb.co/6yWBnn7/Stone.webp",
     "DateOfBirth": "1958-03-10T00:00:00"
   },
   {
@@ -116,7 +116,7 @@
     "MiddleNames": null,
     "StageName": "Al",
     "Description": "Alfredo James Pacino is an American actor. Considered one of the greatest and most influential actors of the 20th century, he has received numerous accolades: including an Academy Award, two Tony Awards, and two Primetime Emmy Awards, making him one of the few performers to have achieved the Triple Crown of Acting",
-    "ImageUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/people/95e5e2c0-0c17-405a-af7a-36364f1bf10c",
+    "ImageUrl": "https://i.ibb.co/KNw1ySZ/Pacino.jpg",
     "DateOfBirth": "1940-04-24T23:00:00"
   },
   {
@@ -126,7 +126,7 @@
     "MiddleNames": null,
     "StageName": null,
     "Description": "Val Edward Kilmer is an American actor. Originally a stage actor, Kilmer found fame after appearances in comedy films, starting with Top Secret! and Real Genius, as well as the military action film Top Gun and the fantasy film Willow. Kilmer gained acclaim for his portrayal of Jim Morrison in Oliver Stone's The Doors.",
-    "ImageUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/people/319b39ed-89b1-4d30-b81d-ece148fb1410",
+    "ImageUrl": "https://i.ibb.co/ckG7Yg1/Kilmer.jpg",
     "DateOfBirth": "1959-12-31T13:27:09"
   },
   {
@@ -136,7 +136,67 @@
     "MiddleNames": null,
     "StageName": null,
     "Description": "Angelina Jolie DCMG is an American actress, filmmaker, and humanitarian. The recipient of numerous accolades, including an Academy Award and three Golden Globe Awards, she has been named Hollywood's highest-paid actress multiple times.",
-    "ImageUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/people/50f3e934-c8ad-4f25-bb6d-d02715f93ae8",
+    "ImageUrl": "https://i.ibb.co/R25QQbz/Jolie.jpg",
     "DateOfBirth": "1975-06-03T23:00:00"
+  },
+  {
+    "Id": 15,
+    "FirstName": "Martin",
+    "LastName": "Scorsese",
+    "MiddleNames": "Charles",
+    "StageName": null,
+    "Description": "Martin Charles Scorsese is an American filmmaker. He emerged as one of the major figures of the New Hollywood era. He has received many accolades, including an Academy Award, four BAFTA Awards, three Emmy Awards, a Grammy Award, and three Golden Globe Awards.",
+    "ImageUrl": "https://i.ibb.co/r2tYmYv/Martin-Scorsese-2008.webp",
+    "DateOfBirth": "1942-11-17T23:00:00"
+  },
+  {
+    "Id": 16,
+    "FirstName": "Thelma",
+    "LastName": "Schoonmaker",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Thelma Schoonmaker is an American film editor, best known for her collaboration over five decades with director Martin Scorsese. She is the recipient of numerous accolades, including three Academy Awards, two BAFTA Awards, and four ACE Eddie Awards.",
+    "ImageUrl": "https://i.ibb.co/gP7QLF0/Thelma.jpg",
+    "DateOfBirth": "1940-01-03T23:00:00"
+  },
+  {
+    "Id": 17,
+    "FirstName": "Margaret",
+    "LastName": "Qualley",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Sarah Margaret Qualley is an American actress. The daughter of actress Andie MacDowell and the sister of actress Rainey Qualley, she trained as a ballerina in her youth.",
+    "ImageUrl": "https://i.ibb.co/8zQSGzN/Quall.jpg",
+    "DateOfBirth": "1994-10-23T23:00:00"
+  },
+  {
+    "Id": 18,
+    "FirstName": "Vanessa",
+    "LastName": "Kirby",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Vanessa Nuala Kirby is an English actress. She made her professional acting debut on stage, with acclaimed performances in the plays All My Sons, A Midsummer Night's Dream, Women Beware Women, Three Sisters, and as Stella Kowalski in A Streetcar Named Desire.",
+    "ImageUrl": "https://i.ibb.co/wpMxdsx/Kirby.jpg",
+    "DateOfBirth": "1988-04-18T23:00:00"
+  },
+  {
+    "Id": 19,
+    "FirstName": "Tom",
+    "LastName": "Cruise",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Thomas Cruise Mapother IV is an American actor and producer. Regarded as a Hollywood icon, he has received various accolades, including an Honorary Palme d'Or and three Golden Globe Awards, in addition to nominations for four Academy Awards.",
+    "ImageUrl": "https://i.ibb.co/3yyYzYn/Cruise.jpg",
+    "DateOfBirth": "1962-07-03T23:00:00"
+  },
+  {
+    "Id": 20,
+    "FirstName": "Emma",
+    "LastName": "Stone",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Emily Jean 'Emma' Stone is an American actress and producer. She has received many accolades, including two Academy Awards, two British Academy Film Awards, and two Golden Globe Awards. In 2017, she was the world's highest-paid actress and named by Time magazine as one of the 100 most influential people in the world.",
+    "ImageUrl": "https://i.ibb.co/6rsFNCF/Stone.jpg",
+    "DateOfBirth": "1988-11-06T23:00:00"
   }
 ]
