@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
+using WatchedIt.Api.Helpers;
+
 using WatchedIt.Api.Models.FilmListModels;
 
 namespace WatchedIt.Api.Data.Seeders
@@ -30,7 +32,7 @@ namespace WatchedIt.Api.Data.Seeders
         {
             if(!_context.FilmLists.Any())
             {
-                string data = GetData();
+                string data = FileHelper.GetJSONData(_env.ContentRootPath, "FilmListTestData.json");
                 var lists = JsonSerializer.Deserialize<List<FilmListTestData>>(data);
 
                 foreach(var list in lists)
@@ -45,18 +47,6 @@ namespace WatchedIt.Api.Data.Seeders
                     _context.FilmLists.Add(l);
                 }
                 _context.SaveChanges();
-            }
-        }
-
-        private string GetData()
-        {
-            string rootPath = _env.ContentRootPath;
-            string filePath = Path.GetFullPath(Path.Combine(rootPath, "Data/TestData", "FilmListTestData.json"));
-
-            using (var r = new StreamReader(filePath))
-            {
-                string json = r.ReadToEnd();
-                return json;
             }
         }
     }

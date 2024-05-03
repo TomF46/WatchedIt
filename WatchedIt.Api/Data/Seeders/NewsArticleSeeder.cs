@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+
+using WatchedIt.Api.Helpers;
 using WatchedIt.Api.Models.News;
 
 namespace WatchedIt.Api.Data.Seeders
@@ -26,7 +28,7 @@ namespace WatchedIt.Api.Data.Seeders
         {
             if(!_context.NewsArticles.Any())
             {
-                string data = GetData();
+                string data = FileHelper.GetJSONData(_env.ContentRootPath, "NewsArticleTestData.json");
                 var newsArticles = JsonSerializer.Deserialize<List<NewsArticleTestData>>(data);
 
                 foreach(var article in newsArticles)
@@ -43,18 +45,6 @@ namespace WatchedIt.Api.Data.Seeders
                     _context.NewsArticles.Add(a);
                 }
                 _context.SaveChanges();
-            }
-        }
-
-        private string GetData()
-        {
-            string rootPath = _env.ContentRootPath;
-            string filePath = Path.GetFullPath(Path.Combine(rootPath, "Data/TestData", "NewsArticleTestData.json"));
-
-            using (var r = new StreamReader(filePath))
-            {
-                string json = r.ReadToEnd();
-                return json;
             }
         }
     }

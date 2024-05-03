@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+
+using WatchedIt.Api.Helpers;
 using WatchedIt.Api.Models.FilmModels;
 
 namespace WatchedIt.Api.Data.Seeders
@@ -27,7 +29,7 @@ namespace WatchedIt.Api.Data.Seeders
         {
             if(!_context.Films.Any())
             {
-                string data = GetData();
+                string data = FileHelper.GetJSONData(_env.ContentRootPath, "FilmTestData.json");
                 var films = JsonSerializer.Deserialize<List<FilmTestData>>(data);
 
                 foreach(var film in films)
@@ -58,18 +60,6 @@ namespace WatchedIt.Api.Data.Seeders
                         _context.Database.CloseConnection();
                     }
                 }
-            }
-        }
-
-        private string GetData()
-        {
-            string rootPath = _env.ContentRootPath;
-            string filePath = Path.GetFullPath(Path.Combine(rootPath, "Data/TestData", "FilmTestData.json"));
-
-            using (var r = new StreamReader(filePath))
-            {
-                string json = r.ReadToEnd();
-                return json;
             }
         }
     }

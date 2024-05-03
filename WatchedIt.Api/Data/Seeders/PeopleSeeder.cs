@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+
+using WatchedIt.Api.Helpers;
 using WatchedIt.Api.Models.PersonModels;
 
 namespace WatchedIt.Api.Data.Seeders
@@ -28,7 +30,7 @@ namespace WatchedIt.Api.Data.Seeders
         {
             if(!_context.People.Any())
             {
-                string data = GetData();
+                string data = FileHelper.GetJSONData(_env.ContentRootPath, "PeopleTestData.json");
                 var people = JsonSerializer.Deserialize<List<PersonTestData>>(data);
 
                 foreach(var person in people)
@@ -57,18 +59,6 @@ namespace WatchedIt.Api.Data.Seeders
                         _context.Database.CloseConnection();
                     }
                 }
-            }
-        }
-
-        private string GetData()
-        {
-            string rootPath = _env.ContentRootPath;
-            string filePath = Path.GetFullPath(Path.Combine(rootPath, "Data/TestData", "PeopleTestData.json"));
-
-            using (var r = new StreamReader(filePath))
-            {
-                string json = r.ReadToEnd();
-                return json;
             }
         }
     }

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using Microsoft.IdentityModel.Tokens;
 
+using WatchedIt.Api.Helpers;
+
 using WatchedIt.Api.Models.Authentication;
 using WatchedIt.Api.Services.AuthenticationService;
 
@@ -36,7 +38,7 @@ namespace WatchedIt.Api.Data.Seeders
         {
             if(!_context.Users.Where(x => x.Role == Models.Enums.Role.User).Any())
             {
-                string data = GetData();
+                string data = FileHelper.GetJSONData(_env.ContentRootPath, "UserTestData.json");
                 var users = JsonSerializer.Deserialize<List<UserTestData>>(data);
 
                 foreach(var user in users)
@@ -63,18 +65,6 @@ namespace WatchedIt.Api.Data.Seeders
                         _context.Database.CloseConnection();
                     }
                 }
-            }
-        }
-
-        private string GetData()
-        {
-            string rootPath = _env.ContentRootPath;
-            string filePath = Path.GetFullPath(Path.Combine(rootPath, "Data/TestData", "UserTestData.json"));
-
-            using (var r = new StreamReader(filePath))
-            {
-                string json = r.ReadToEnd();
-                return json;
             }
         }
     }

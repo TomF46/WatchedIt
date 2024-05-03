@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+
+using WatchedIt.Api.Helpers;
 using WatchedIt.Api.Models.ReviewModels;
 
 namespace WatchedIt.Api.Data.Seeders
@@ -27,7 +29,7 @@ namespace WatchedIt.Api.Data.Seeders
         {
             if(!_context.Reviews.Any())
             {
-                string data = GetData();
+                string data = FileHelper.GetJSONData(_env.ContentRootPath, "ReviewTestData.json");
                 var reviews = JsonSerializer.Deserialize<List<ReviewTestData>>(data);
 
                 foreach(var review in reviews)
@@ -44,18 +46,6 @@ namespace WatchedIt.Api.Data.Seeders
                     _context.Reviews.Add(r);
                 }
                 _context.SaveChanges();
-            }
-        }
-
-        private string GetData()
-        {
-            string rootPath = _env.ContentRootPath;
-            string filePath = Path.GetFullPath(Path.Combine(rootPath, "Data/TestData", "ReviewTestData.json"));
-
-            using (var r = new StreamReader(filePath))
-            {
-                string json = r.ReadToEnd();
-                return json;
             }
         }
     }
