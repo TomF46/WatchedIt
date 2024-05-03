@@ -9,6 +9,7 @@ namespace WatchedIt.Api.Data.Seeders
 {
     class FilmTestData : AddFilmDto{
         public int Id { get; set;}
+        public IList<int> Tags { get; set; } = new List<int>();
     }
     public class FilmSeeder
     {
@@ -39,7 +40,9 @@ namespace WatchedIt.Api.Data.Seeders
                         Runtime = film.Runtime,
                         ReleaseDate = film.ReleaseDate,
                         PosterUrl = film.PosterUrl,
-                        TrailerUrl = film.TrailerUrl
+                        TrailerUrl = film.TrailerUrl,
+                        Categories =  _context.Categories.Where(x => film.Categories.Contains(x.Id)).ToList(),
+                        Tags =  _context.Tags.Where(x => film.Tags.Contains(x.Id)).ToList()
                     };
 
                     _context.Database.OpenConnection();

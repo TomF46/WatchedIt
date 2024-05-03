@@ -39,16 +39,8 @@ namespace WatchedIt.Api.Services.FilmService
         public async Task<GetFilmOverviewDto> Add(AddFilmDto newFilm)
         {
             var film = FilmMapper.MapForAdding(newFilm);
-            var categories = _context.Categories.Where(x => newFilm.Categories.Contains(x.Id));
-            await categories.ForEachAsync(x =>
-            {
-                film.Categories.Add(x);
-            });
-            var tags = _context.Tags.Where(x => newFilm.Languages.Contains(x.Id) || newFilm.AgeRatings.Contains(x.Id) || newFilm.OtherTags.Contains(x.Id));
-            await tags.ForEachAsync(x =>
-            {
-                film.Tags.Add(x);
-            });
+            film.Categories = await _context.Categories.Where(x => newFilm.Categories.Contains(x.Id)).ToListAsync();
+            film.Tags = await _context.Tags.Where(x => newFilm.Languages.Contains(x.Id) || newFilm.AgeRatings.Contains(x.Id) || newFilm.OtherTags.Contains(x.Id)).ToListAsync();
             await _context.Films.AddAsync(film);
             await _context.SaveChangesAsync();
             return FilmMapper.MapOverview(film);
@@ -65,18 +57,8 @@ namespace WatchedIt.Api.Services.FilmService
             film.ReleaseDate = updatedFilm.ReleaseDate;
             film.PosterUrl = updatedFilm.PosterUrl;
             film.TrailerUrl = updatedFilm.TrailerUrl;
-            film.Categories.Clear();
-            var categories = await _context.Categories.Where(x => updatedFilm.Categories.Contains(x.Id)).ToListAsync();
-            categories.ForEach(x =>
-            {
-                film.Categories.Add(x);
-            });
-            film.Tags.Clear();
-            var tags = await _context.Tags.Where(x => updatedFilm.Languages.Contains(x.Id) || updatedFilm.AgeRatings.Contains(x.Id) || updatedFilm.OtherTags.Contains(x.Id)).ToListAsync();
-            tags.ForEach(x =>
-            {
-                film.Tags.Add(x);
-            });
+            film.Categories = await _context.Categories.Where(x => updatedFilm.Categories.Contains(x.Id)).ToListAsync();
+            film.Tags = await _context.Tags.Where(x => updatedFilm.Languages.Contains(x.Id) || updatedFilm.AgeRatings.Contains(x.Id) || updatedFilm.OtherTags.Contains(x.Id)).ToListAsync();
             await _context.SaveChangesAsync();
             return FilmMapper.MapOverview(film);
         }
