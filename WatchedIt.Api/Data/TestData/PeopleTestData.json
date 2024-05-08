@@ -198,5 +198,35 @@
     "Description": "Emily Jean 'Emma' Stone is an American actress and producer. She has received many accolades, including two Academy Awards, two British Academy Film Awards, and two Golden Globe Awards. In 2017, she was the world's highest-paid actress and named by Time magazine as one of the 100 most influential people in the world.",
     "ImageUrl": "https://i.ibb.co/6rsFNCF/Stone.jpg",
     "DateOfBirth": "1988-11-06T23:00:00"
+  },
+  {
+    "Id": 21,
+    "FirstName": "Ryan",
+    "LastName": "Gosling",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Ryan Thomas Gosling is a Canadian actor. Prominent in both independent films and major studio features, his films have grossed over $2 billion worldwide. Gosling has received various accolades, including a Golden Globe Award, and nominations for three Academy Awards and two British Academy Film Awards.",
+    "ImageUrl": "https://i.ibb.co/x8k6fyZ/Gos.jpg",
+    "DateOfBirth": "1980-11-12T23:00:00"
+  },
+  {
+    "Id": 22,
+    "FirstName": "Francis Ford",
+    "LastName": "Coppola",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Francis Ford Coppola is an American film director, producer, and screenwriter. He is considered one of the leading figures of the New Hollywood film movement of the 1960s and 1970s and is widely considered one of the greatest directors of all time.",
+    "ImageUrl": "https://i.ibb.co/yXLHFKb/FFCop.webp",
+    "DateOfBirth": "1939-04-07T23:00:00"
+  },
+  {
+    "Id": 23,
+    "FirstName": "Robert",
+    "LastName": "Downey J.r",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Robert John Downey Jr. is an American actor. His films as a leading actor have grossed over $14 billion worldwide, making him one of the highest-grossing actors of all time.",
+    "ImageUrl": "https://i.ibb.co/48m0M8C/Downey.jpg",
+    "DateOfBirth": "1965-04-04T23:00:00"
   }
 ]

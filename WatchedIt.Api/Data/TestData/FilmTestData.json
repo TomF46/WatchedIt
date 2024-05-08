@@ -8,8 +8,8 @@
     "ReleaseDate": "1975-12-26T00:11:15",
     "PosterUrl": "https://i.ibb.co/nwLb8jY/f5bbfbac-8dd3-4294-869b-ba49d659c118.jpg",
     "TrailerUrl": "https://www.youtube.com/embed/U1fu_sA7XhE",
-    "Categories": [1, 3],
-    "Tags": [1, 3]
+    "Categories": [4, 2],
+    "Tags": [1, 3, 9]
   },
   {
     "Id": 2,
@@ -20,8 +20,8 @@
     "ReleaseDate": "2005-12-15T00:00:00",
     "PosterUrl": "https://i.ibb.co/N7Yvsdj/792d0555-a877-470c-82ce-5eec17174022.jpg",
     "TrailerUrl": "https://www.youtube.com/embed/1TSidCNA7mQ",
-    "Categories": [1, 5],
-    "Tags": [6, 12]
+    "Categories": [1, 14],
+    "Tags": [3, 10]
   },
   {
     "Id": 3,
@@ -32,8 +32,8 @@
     "ReleaseDate": "1989-03-03T00:00:00",
     "PosterUrl": "https://i.ibb.co/yNWRmsV/rainman.jpg",
     "TrailerUrl": "https://www.youtube.com/embed/mlNwXuHUA8I",
-    "Categories": [2, 3],
-    "Tags": [3, 5]
+    "Categories": [3],
+    "Tags": [3, 12]
   },
   {
     "Id": 4,
@@ -44,7 +44,7 @@
     "ReleaseDate": "2008-05-01T23:00:00",
     "PosterUrl": "https://i.ibb.co/zVrLGF3/IronMan.jpg",
     "TrailerUrl": "https://www.youtube.com/embed/8ugaeA-nMTc",
-    "Categories": [5],
+    "Categories": [3, 11],
     "Tags": [6]
   },
   {
@@ -56,20 +56,20 @@
     "ReleaseDate": "2015-09-17T23:00:00",
     "PosterUrl": "https://i.ibb.co/L0trJhd/Sicario.jpg",
     "TrailerUrl": "https://www.youtube.com/embed/G8tlEcnrGnU",
-    "Categories": [8, 3],
-    "Tags": [8, 11]
+    "Categories": [1, 8],
+    "Tags": [1, 3, 4, 12]
   },
   {
     "Id": 6,
-    "Name": "Batman",
+    "Name": "The Batman",
     "ShortDescription": "When a sadistic serial killer begins murdering key political figures in Gotham, Batman is forced to investigate the city's hidden corruption and question his family's involvement.",
     "FullDescription": "Two years of nights have turned Bruce Wayne into a nocturnal animal. But as he continues to find his way as Gotham's dark knight Bruce is forced into a game of cat and mouse with his biggest threat so far, a manic killer known as The Riddler who is filled with rage and determined to expose the corrupt system whilst picking off all of Gotham's key political figures. Working with both established and new allies, Bruce must track down the killer and see him brought to justice, while investigating his father's true legacy and questioning the effect that he has had on Gotham so far as The Batman.",
     "Runtime": 100,
     "ReleaseDate": "2022-03-04T00:00:00",
     "PosterUrl": "https://i.ibb.co/S63RwKc/Batman.jpg",
     "TrailerUrl": "https://www.youtube.com/embed/mqqft2x_Aa4",
-    "Categories": [9],
-    "Tags": [5, 12]
+    "Categories": [1, 3, 4, 8, 11],
+    "Tags": [3, 12]
   },
   {
     "Id": 7,
@@ -80,8 +80,8 @@
     "ReleaseDate": "1981-03-27T14:06:30",
     "PosterUrl": "https://i.ibb.co/F8fHbHv/MadMax.jpg",
     "TrailerUrl": "https://www.youtube.com/embed/caHnaRq8Qlg",
-    "Categories": [13],
-    "Tags": [11, 12]
+    "Categories": [1, 4],
+    "Tags": [3, 12]
   },
   {
     "Id": 8,
@@ -92,8 +92,8 @@
     "ReleaseDate": "2010-04-29T23:00:00",
     "PosterUrl": "https://i.ibb.co/vm34CS2/IronMan2.jpg",
     "TrailerUrl": "https://www.youtube.com/embed/wKtcmiifycU",
-    "Categories": [6, 7],
-    "Tags": [8, 9]
+    "Categories": [3, 11],
+    "Tags": [3, 10]
   },
   {
     "Id": 9,
@@ -104,8 +104,8 @@
     "ReleaseDate": "1972-08-24T12:04:55",
     "PosterUrl": "https://i.ibb.co/8D4t4z8/The-Godfather.jpg",
     "TrailerUrl": "https://www.youtube.com/embed/UaVTIH8mujA",
-    "Categories": [3, 7],
-    "Tags": [4, 6, 9]
+    "Categories": [8, 3],
+    "Tags": [1, 2, 3, 12]
   },
   {
     "Id": 10,
@@ -116,7 +116,67 @@
     "ReleaseDate": "2010-07-27T09:37:07",
     "PosterUrl": "https://i.ibb.co/F6LSmYk/Scott-Pilgrim.jpg",
     "TrailerUrl": "https://www.youtube.com/embed/7wd5KEaOtm4",
-    "Categories": [9, 10],
-    "Tags": [8, 6]
+    "Categories": [1, 6, 7],
+    "Tags": [1, 3, 10]
+  },
+  {
+    "Id": 11,
+    "Name": "La La Land",
+    "ShortDescription": "While navigating their careers in Los Angeles, a pianist and an actress fall in love while attempting to reconcile their aspirations for the future.",
+    "FullDescription": "Aspiring actress serves lattes to movie stars in between auditions and jazz musician Sebastian scrapes by playing cocktail-party gigs in dingy bars. But as success mounts, they are faced with decisions that fray the fragile fabric of their love affair, and the dreams they worked so hard to maintain in each other threaten to rip them apart.",
+    "Runtime": 128,
+    "ReleaseDate": "2017-01-13T09:37:07",
+    "PosterUrl": "https://i.ibb.co/n3PkS4P/Lala.jpg",
+    "TrailerUrl": "https://www.youtube.com/embed/0pdqf4P9MB8",
+    "Categories": [3, 7, 9],
+    "Tags": [3, 10]
+  },
+  {
+    "Id": 12,
+    "Name": "Top Gun",
+    "ShortDescription": "As students at the United States Navy's elite fighter weapons school compete to be best.",
+    "FullDescription": "US Navy Lieutenant Pete Mitchell, call sign Maverick--an impetuous, daredevil pilot ace--is accepted into Top Gun, Miramar's elite Fighter School. But there, the impulsive young pilot will have to compete with the best of the best, including Iceman, a brilliant and highly competitive fellow student. Now, Mitchell must give his all; however, his father's mysterious and untimely demise still haunts him. Can Maverick prove his worth to Charlie, the flying school's no-nonsense astrophysics instructor? Will he be able to suppress his wild nature to win the prestigious Top Gun Trophy?",
+    "Runtime": 109,
+    "ReleaseDate": "1986-10-03T09:37:07",
+    "PosterUrl": "https://i.ibb.co/XX2nnQt/topgun.jpg",
+    "TrailerUrl": "https://www.youtube.com/embed/xa_z57UatDY",
+    "Categories": [1, 3, 15],
+    "Tags": [3, 12]
+  },
+  {
+    "Id": 13,
+    "Name": "Casino",
+    "ShortDescription": "In Las Vegas, two best friends - a casino executive and a mafia enforcer - compete for a gambling empire and a fast-living, fast-loving socialite.",
+    "FullDescription": "This Martin Scorsese film depicts the Janus-like quality of Las Vegas--it has a glittering, glamorous face, as well as a brutal, cruel one. Ace Rothstein and Nicky Santoro, mobsters who move to Las Vegas to make their mark, live and work in this paradoxical world. Seen through their eyes, each as a foil to the other, the details of mob involvement in the casinos of the 1970s and '80s are revealed. Ace is the smooth operator of the Tangiers casino, while Nicky is his boyhood friend and tough strongman, robbing and shaking down the locals. However, they each have a tragic flaw--Ace falls in love with a hustler, Ginger, and Nicky falls into an ever-deepening spiral of drugs and violence.",
+    "Runtime": 178,
+    "ReleaseDate": "1996-02-23T09:37:07",
+    "PosterUrl": "https://i.ibb.co/VV5F2j9/Casino.png",
+    "TrailerUrl": "https://www.youtube.com/embed/EJXDMwGWhoA",
+    "Categories": [8, 4],
+    "Tags": [1, 2, 3, 13]
+  },
+  {
+    "Id": 14,
+    "Name": "Rear window",
+    "ShortDescription": "A wheelchair-bound photographer spies on his neighbors from his Greenwich Village courtyard apartment window, and becomes convinced one of them has committed murder.",
+    "FullDescription": "Professional photographer L.B. \"Jeff\" Jefferies breaks his leg while getting an action shot at an auto race. Confined to his New York apartment, he spends his time looking out of the rear window observing the neighbors. He begins to suspect that a man across the courtyard may have murdered his wife. Jeff enlists the help of his high society fashion-consultant girlfriend Lisa Fremont and his visiting nurse Stella to investigate.",
+    "Runtime": 112,
+    "ReleaseDate": "1954-09-01T09:37:07",
+    "PosterUrl": "https://i.ibb.co/6FFTZmh/rearwindow.jpg",
+    "TrailerUrl": "https://www.youtube.com/embed/m01YktiEZCw",
+    "Categories": [4, 16],
+    "Tags": [1, 2, 3, 9]
+  },
+  {
+    "Id": 15,
+    "Name": "GoodFellas",
+    "ShortDescription": "he story of Henry Hill and his life in the mafia, covering his relationship with his wife Karen and his mob partners Jimmy Conway and Tommy DeVito.",
+    "FullDescription": "Henry Hill might be a small time gangster, who may have taken part in a robbery with Jimmy Conway and Tommy De Vito, two other gangsters who might have set their sights a bit higher. His two partners could kill off everyone else involved in the robbery, and slowly start to think about climbing up through the hierarchy of the Mob. Henry, however, might be badly affected by his partners' success, but will he consider stooping low enough to bring about the downfall of Jimmy and Tommy?",
+    "Runtime": 145,
+    "ReleaseDate": "1990-10-26T09:37:07",
+    "PosterUrl": "https://i.ibb.co/0q6wjQM/Good-Fellas.jpg",
+    "TrailerUrl": "https://www.youtube.com/embed/2ilzidi_J8Q",
+    "Categories": [8, 3],
+    "Tags": [1, 2, 3, 13]
   }
 ]
