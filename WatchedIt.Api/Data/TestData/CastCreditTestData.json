@@ -153,5 +153,150 @@
     "FilmId": 23,
     "PersonId": 8,
     "Role": "John Ferguson"
+  },
+  {
+    "FilmId": 24,
+    "PersonId": 33,
+    "Role": "Man with No Name"
+  },
+  {
+    "FilmId": 25,
+    "PersonId": 33,
+    "Role": "William Munny"
+  },
+  {
+    "FilmId": 25,
+    "PersonId": 34,
+    "Role": "Ned Logan"
+  },
+  {
+    "FilmId": 26,
+    "PersonId": 6,
+    "Role": "Naomi Lapaglia"
+  },
+  {
+    "FilmId": 26,
+    "PersonId": 35,
+    "Role": "Jordan Belfort"
+  },
+  {
+    "FilmId": 27,
+    "PersonId": 35,
+    "Role": "Ernest Burkhart"
+  },
+  {
+    "FilmId": 27,
+    "PersonId": 36,
+    "Role": "Mollie Burkhart"
+  },
+  {
+    "FilmId": 27,
+    "PersonId": 3,
+    "Role": "William Hale"
+  },
+  {
+    "FilmId": 27,
+    "PersonId": 37,
+    "Role": "Tom White"
+  },
+  {
+    "FilmId": 27,
+    "PersonId": 15,
+    "Role": "Radio show host"
+  },
+  {
+    "FilmId": 28,
+    "PersonId": 37,
+    "Role": "Jake"
+  },
+  {
+    "FilmId": 28,
+    "PersonId": 38,
+    "Role": "Lucy"
+  },
+  {
+    "FilmId": 28,
+    "PersonId": 6,
+    "Role": "Barbie"
+  },
+  {
+    "FilmId": 28,
+    "PersonId": 21,
+    "Role": "Ken"
+  },
+  {
+    "FilmId": 28,
+    "PersonId": 10,
+    "Role": "Allan"
+  },
+  {
+    "FilmId": 30,
+    "PersonId": 40,
+    "Role": "J. Robert Oppenheimer"
+  },
+  {
+    "FilmId": 30,
+    "PersonId": 23,
+    "Role": "Lewis Strauss"
+  },
+  {
+    "FilmId": 30,
+    "PersonId": 39,
+    "Role": "Gen. Leslie R. Groves"
+  },
+  {
+    "FilmId": 30,
+    "PersonId": 31,
+    "Role": "Kitty Oppenheimer"
+  },
+  {
+    "FilmId": 30,
+    "PersonId": 41,
+    "Role": "Jean Tatlock"
+  },
+  {
+    "FilmId": 31,
+    "PersonId": 19,
+    "Role": "Ethan Hunt"
+  },
+  {
+    "FilmId": 31,
+    "PersonId": 18,
+    "Role": "Alanna Mitsopolis"
+  },
+  {
+    "FilmId": 32,
+    "PersonId": 43,
+    "Role": "Cliff Booth"
+  },
+  {
+    "FilmId": 32,
+    "PersonId": 35,
+    "Role": "Rick Dalton"
+  },
+  {
+    "FilmId": 32,
+    "PersonId": 6,
+    "Role": "Sharon Tate"
+  },
+  {
+    "FilmId": 32,
+    "PersonId": 17,
+    "Role": "Pussycat"
+  },
+  {
+    "FilmId": 33,
+    "PersonId": 14,
+    "Role": "Fox"
+  },
+  {
+    "FilmId": 33,
+    "PersonId": 34,
+    "Role": "Mr. Sloan"
+  },
+  {
+    "FilmId": 33,
+    "PersonId": 44,
+    "Role": "Wesley Gibson"
   }
 ]

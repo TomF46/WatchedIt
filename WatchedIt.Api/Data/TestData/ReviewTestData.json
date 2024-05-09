@@ -1,14 +1,92 @@
 [
   {
-    "UserId": 1,
+    "UserId": 2,
     "FilmId": 1,
     "Rating": 8,
-    "Text": "Great film!"
+    "Text": "Forever changing the course of history for kickstarting mainstream summer blockbuster films, Jaws set the standard for being the highest grossing film of its time and one of the finest achievements in bringing killer sharks to the big screen. After its success, several sequels have followed, all of which failed to reach the same level of quality as the original, as well as toys, a theme park ride at Universal Studios, and even its own line of spoofs taking a similar approach in depicting killer animals. Despite carrying a PG rating at the time, this is a film that feels like a hard R rating due to the level of blood and mature themes featured throughout and targets more towards young adults."
+  },
+  {
+    "UserId": 4,
+    "FilmId": 1,
+    "Rating": 7,
+    "Text": "I thought that it was a very good movie. It kept you on the edge of your seat most of the time and the characters did a nice job of carrying out their roles in the movie. I just finished up watching all three movies of Jaws and I found them  interesting but, Jaws 1 of course took top billing and the other two, well they kind of lost ground in trying to remain as being as effective as Jaws 1. Jaws II  wasn't bad but, by the time Jaws lll came along it really went I thought downhill! Jaws III was to me just another movie about a shark and not as exciting I thought! However, I did enjoy revisiting the movies once again."
+  },
+  {
+    "UserId": 2,
+    "FilmId": 2,
+    "Rating": 5,
+    "Text": "This movie is all right, I personally love the 2017 Kong: skull island movie much more but this one is still good, I wish there was more time on the island and less time on the boat and in New York. The main problem is is just how long it is. But all in all its a good movie."
   },
   {
     "UserId": 2,
     "FilmId": 3,
-    "Rating": 4,
-    "Text": "Meh"
+    "Rating": 7,
+    "Text": "Saw Rain Man again last night. I have seen it a few times. It is still fresh and relevant after all these years. It hasn't really aged. Tom Cruise gives an excellent performance of a selfish greedy man who comes into his own as he cares for Raymond and comes to realise his own failure in keeping in touch with his father and his selfish ways. By the end of the movie Charlie is not the same person and is no longer just interested in the financial gain. It is a great example of a character arc. What can you say about Dustin Hoffman and his devotion to the role and staying on point throughout the whole movie. His body language and the tilting of his head. This movie was so satisfying. Funny heartfelt and totally authentic. Totally believable ending. Great reference to Qantas never having an accident. We see Charlie in a totally different light at the end of the movie. Mature and enlightened."
+  },
+  {
+    "UserId": 6,
+    "FilmId": 3,
+    "Rating": 8,
+    "Text": "The movie was enjoyable and interesting. It had interesting points in the direction and script. But it was very Hollywood. Apart from the good acting of the actors and the finesse of the director, it has the stereotype of Hollywood."
+  },
+  {
+    "UserId": 7,
+    "FilmId": 4,
+    "Rating": 7,
+    "Text": "Ah. Iron Man 2008. Aka Not Only The First Iron Man Film In the Franchise, but also the Very First MCU Film and where it all began. This was released in 2008. Does it still hold up today in 2021 13 years later? Well. Yes Actually. In fact, this is a very Enjoyable film Where It tells a story Of Iron Man Gaining a Suit to fight against Evil and becomes “IronMan” For the film itself, I’m giving it some major praise because the film itself was Put together very well. The technology of this film feels like a future generation of our lives in the 2050’s. Which sets up a very good tone of showing the other suit wearing that Tony Stark uses in his home. Robert Downey Jr Truly shows off how well An Iron man actor can truly Be. In this film, he’s just as phenomenal as some of the other movies that Robert Played in. There are also some other very good actors like Jon Favreau, Gwyneth Paltrow and of course Samuel L. Jackson(Nick Furry). The Movie’s CGI Was Also Portrayed extremely well. It looked very realistic with those flight scenes. The Music Score was phenomenal, the action Sequences were amazing, the post credits scene was amazing. With Nick Furry hinting us that iron man isn’t the only avenger. And Finally, this is amazing cuz it (1) tells the origin of iron man, and (2) It was were it all began. My Complaints about this film is that we don’t get to the actual iron man suit playing around halfway through the movie, some of the scenes kinda failed in comparison to the comic’s, the Dialogue was humorous(mind you, this for most of the other marvel films) and this maybe just me, but I feel Nick Fury Should have gotten some more screen time since I love Nick Fury. A lot. Despite that, Iron Man is truly a fairly great film that started this franchise. Although there are some better ones out there that you should be on the lookout for. Nevertheless, I highly recommend this to any Iron Man Fans Out there."
+  },
+  {
+    "UserId": 8,
+    "FilmId": 4,
+    "Rating": 5,
+    "Text": "Even though it's not THE most cinematic experience like the other MCU movies, it's still a straight-up masterpiece as the MCU's 1st movie. I only give it 3 stars because I hate the villain and the extremely long (to me) love scenes between Pepper and Tony. But the gags are just as good as the special effects, and Iron Man is an awesome, but not perfect, cinematic event. GO MARVEL!"
+  },
+  {
+    "UserId": 8,
+    "FilmId": 5,
+    "Rating": 9,
+    "Text": "These are one of those movies which are silent and have no redemption, just cold thriller no banging background music. Denis's film style is easy to catch, with wide shots trying to capture the environment in the background, and kind of feels like a documentary. The story is shown to us through Emily Blunt's character 'Kate', and from that pov, we don't know what's actually happening or what's coming next, just feels real. Because Kate is never shot anybody and worst of worst brutal scenes so it actually feels terrifying when we see the things which shock us for a moment, I Denis's movie never hides anything, no matter how brutal it is, and tells a lot through simple visuals. I was shocked to see Jon Bernthal, it reminded me of Marvel-Netflix's Punisher, lol. I'm recently watching crime-thriller movies, maybe because I like how characters act in certain situations. I'll recommend this if you want to watch but it feels slow and maybe you'll feel bored because most of the we are just following the character who doesn't know what's next and where she's headed. So if you like watching crime thrillers, probably this you can watch them."
+  },
+  {
+    "UserId": 2,
+    "FilmId": 6,
+    "Rating": 9,
+    "Text": "There is sometimes a moment when after so many other previous iterations of the same story comes one that stands out for truly looking deeper into a character than all others combined. This was easily one of those few. Director Matt Reeves came onto this project with probably one of the most original approaches to a superhero I’ve ever seen. He stuck with a 70s dark cinema technique blended with an 80s- early 90s- comic book writing and pacing style that really pulls you in and feels worth the ticket and fun. The cinematography is beautiful and well-thought out through most of the film, the Batmobile scene was sublime, the score (Nirvana!! Need I say more?), and every character had incredible depth that can be hard for some directors. And the biggest selling point? Batman is finally the detective here!! He’s in crime scenes, uses tech to find clues, even uses people to help him figure out the mystery. It’s a great feeling when after all the Batman Detective comics you’ve read as a kid finally hit the big screen in the coolest way possible."
+  },
+  {
+    "UserId": 4,
+    "FilmId": 6,
+    "Rating": 7,
+    "Text": "Matt Reeves has always managed to stamp a distinctive storytelling and aesthetic signature to each of his works, despite remaking classics like the “Planet of the Apes” franchise and continues on the same vein now, with “Batman”. Robert Pattinson’s rendering of the Dark Knight is everything we wanted Ben Affleck’s broken, cynical and disillusioned mature Batman to be and so much more!"
+  },
+  {
+    "UserId": 9,
+    "FilmId": 7,
+    "Rating": 7,
+    "Text": "I can see why this is a bit of a cult classic.  A 2020 remake would be incredible.  Gave 4 out of 5 stars due to the time the movie was made, 1979.  Film was much different then"
+  },
+  {
+    "UserId": 4,
+    "FilmId": 8,
+    "Rating": 6,
+    "Text": "Iron Man 2 isn't as good as the first film but it's still a lot of fun.  There's twice as much action, twice as much jokes and introduces us to one my favourite underutilized Marvel heroes, War Machine.  The story is alright, pretty believable if not slightly slow and sadly Mickey Rourke as Whiplash is a pretty dull character, although his action scenes are still fun.  I'm terms of its place in the MCU it's sort of forgettable because story-wise nothing that happens here really carries over to any other films.  Taken as a standalone film however, I still really enjoyed it.  It does come across as more cartoony and less serious than the first film but I didn't mind it as much as others apparently.  One of my favourite scenes was Whiplash making his entrance at the Monaco Grand Prix and cutting cars in half with his arc-powered whips.  The character may have been dull but he caused a lot of damage and he looked cool with his orange overalls burning off!"
+  },
+  {
+    "UserId": 2,
+    "FilmId": 9,
+    "Rating": 10,
+    "Text": "The best movie ever, it's a GREAT movie! Marlon Brando gives a great performance as Don Vito Corleone, so does Al Pacino and Robert Duvall, it is the best drama in history, it is a classic! I absolutely loved the story! A Mafia known as the \"Godfather\" who hands over his criminal empire to his son, Micheal (Al Pacino) and things go wrong! Brilliant! SO brilliant! It's very long but very good, Francis Ford Coppola, thank you So much for directing this masterpiece back in the 70s,  and bringing the best actors: Pacino and Brando, especially Robert Duvall ! I wish that there were more but to-be-fair, if they brought more, the newer movies would probably be like 1% on Rotten Tomatoes! And also, fun fact: Francis Ford Coppola is still alive and 80 years old right now! It's good to hear that, man!"
+  },
+  {
+    "UserId": 4,
+    "FilmId": 9,
+    "Rating": 10,
+    "Text": "This might quite possibly be the best movie ever made. It has completely replaced Terminator 2 and Pulp Fiction as my favourite film. Its combination of great acting, cinematography, dialogue, storytelling and other things make this movie a perfect movie. It also manages to keep a very slow, steady pace without being boring, which is not an easy feat to achieve."
+  },
+  {
+    "UserId": 7,
+    "FilmId": 9,
+    "Rating": 9,
+    "Text": "I purchased this movie along with the Godfather 2, 8 months ago back in April. For some reason, I kept putting this franchise off to watch other movies. Last night I finally decided to sit down and watch this incredible movie and it simply did NOT disappoint. From the opening scene to the last, I was constantly at the edge of my seat. This is now my favorite movie of all time. Watching the transformation of Michael from being a family man to slowly becoming a cold blooded, heartless killer was spectacular. The baptism scene finale along with the restaurant scene built so much suspense and I loved it. And of course Marlon Brando's role as Vito was amazing as well, along with James Caan, John Cazale, and Robert Duvall. I'm going to watch Godfather Part 2 in a couple of days and I've heard a lot of great things about it, many say its better than the original and I'm excited to see what happens. Overall the original is amazing and spectacular and I strongly recommend watching this at least once in your lifetime."
   }
 ]

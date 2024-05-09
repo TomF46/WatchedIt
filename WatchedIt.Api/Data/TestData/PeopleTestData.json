@@ -27,7 +27,7 @@
     "StageName": null,
     "Description": "Robert Anthony De Niro Jr. is an American actor. Known for his collaborations with Martin Scorsese, he is considered to be one of the best actors of his generation.",
     "ImageUrl": "https://i.ibb.co/2vdjSNG/DeNiro.png",
-    "DateOfBirth": "1943-08-17T14:59:28"
+    "DateOfBirth": "1943-08-17T00:00:00"
   },
   {
     "Id": 4,
@@ -37,7 +37,7 @@
     "StageName": null,
     "Description": "David Michael Hasselhoff, nicknamed \"The Hoff\", is an American actor, singer, and television personality. He has set a Guinness World Record as the most watched man on TV. Hasselhoff first gained recognition on The Young and The Restless, playing the role of Dr. Snapper Foster.",
     "ImageUrl": "https://i.ibb.co/SXHD7Vf/Hoff.jpg",
-    "DateOfBirth": "1952-07-17T10:56:55"
+    "DateOfBirth": "1952-07-17T00:00:00"
   },
   {
     "Id": 5,
@@ -47,7 +47,7 @@
     "StageName": null,
     "Description": "Joseph Frank Pesci is an American actor and musician. He is known for portraying tough, volatile characters in a variety of genres and for his collaborations with Robert De Niro and Martin Scorsese in the films Raging Bull, Goodfellas, Casino, and The Irishman.",
     "ImageUrl": "https://i.ibb.co/4Tw0vVj/Pesci.jpg",
-    "DateOfBirth": "1943-02-08T23:00:00"
+    "DateOfBirth": "1943-02-08T00:00:00"
   },
   {
     "Id": 6,
@@ -57,7 +57,7 @@
     "StageName": null,
     "Description": "Margot Elise Robbie is an Australian actress and producer. Known for her work in both blockbuster and independent films, she has received various awards and nominations, including nominations for two Academy Awards, four Golden Globe Awards, and five British Academy Film Awards.",
     "ImageUrl": "https://i.ibb.co/M7b8y1q/Margot.jpg",
-    "DateOfBirth": "1990-07-01T23:00:00"
+    "DateOfBirth": "1990-07-01T00:00:00"
   },
   {
     "Id": 7,
@@ -97,7 +97,7 @@
     "StageName": null,
     "Description": "Michael Austin Cera is a Canadian actor and musician. He is known for his awkward, offbeat characters in coming of age comedy films and for portraying George Michael Bluth in the sitcom Arrested Development.",
     "ImageUrl": "https://i.ibb.co/vdvCXv8/Cera.webp",
-    "DateOfBirth": "1988-07-06T23:00:00"
+    "DateOfBirth": "1988-07-06T00:00:00"
   },
   {
     "Id": 11,
@@ -117,7 +117,7 @@
     "StageName": "Al",
     "Description": "Alfredo James Pacino is an American actor. Considered one of the greatest and most influential actors of the 20th century, he has received numerous accolades: including an Academy Award, two Tony Awards, and two Primetime Emmy Awards, making him one of the few performers to have achieved the Triple Crown of Acting",
     "ImageUrl": "https://i.ibb.co/KNw1ySZ/Pacino.jpg",
-    "DateOfBirth": "1940-04-24T23:00:00"
+    "DateOfBirth": "1940-04-24T00:00:00"
   },
   {
     "Id": 13,
@@ -127,7 +127,7 @@
     "StageName": null,
     "Description": "Val Edward Kilmer is an American actor. Originally a stage actor, Kilmer found fame after appearances in comedy films, starting with Top Secret! and Real Genius, as well as the military action film Top Gun and the fantasy film Willow. Kilmer gained acclaim for his portrayal of Jim Morrison in Oliver Stone's The Doors.",
     "ImageUrl": "https://i.ibb.co/ckG7Yg1/Kilmer.jpg",
-    "DateOfBirth": "1959-12-31T13:27:09"
+    "DateOfBirth": "1959-12-31T00:00:00"
   },
   {
     "Id": 14,
@@ -137,7 +137,7 @@
     "StageName": null,
     "Description": "Angelina Jolie DCMG is an American actress, filmmaker, and humanitarian. The recipient of numerous accolades, including an Academy Award and three Golden Globe Awards, she has been named Hollywood's highest-paid actress multiple times.",
     "ImageUrl": "https://i.ibb.co/R25QQbz/Jolie.jpg",
-    "DateOfBirth": "1975-06-03T23:00:00"
+    "DateOfBirth": "1975-06-03T00:00:00"
   },
   {
     "Id": 15,
@@ -147,7 +147,7 @@
     "StageName": null,
     "Description": "Martin Charles Scorsese is an American filmmaker. He emerged as one of the major figures of the New Hollywood era. He has received many accolades, including an Academy Award, four BAFTA Awards, three Emmy Awards, a Grammy Award, and three Golden Globe Awards.",
     "ImageUrl": "https://i.ibb.co/r2tYmYv/Martin-Scorsese-2008.webp",
-    "DateOfBirth": "1942-11-17T23:00:00"
+    "DateOfBirth": "1942-11-17T00:00:00"
   },
   {
     "Id": 16,
@@ -157,7 +157,7 @@
     "StageName": null,
     "Description": "Thelma Schoonmaker is an American film editor, best known for her collaboration over five decades with director Martin Scorsese. She is the recipient of numerous accolades, including three Academy Awards, two BAFTA Awards, and four ACE Eddie Awards.",
     "ImageUrl": "https://i.ibb.co/gP7QLF0/Thelma.jpg",
-    "DateOfBirth": "1940-01-03T23:00:00"
+    "DateOfBirth": "1940-01-03T00:00:00"
   },
   {
     "Id": 17,
@@ -167,7 +167,7 @@
     "StageName": null,
     "Description": "Sarah Margaret Qualley is an American actress. The daughter of actress Andie MacDowell and the sister of actress Rainey Qualley, she trained as a ballerina in her youth.",
     "ImageUrl": "https://i.ibb.co/8zQSGzN/Quall.jpg",
-    "DateOfBirth": "1994-10-23T23:00:00"
+    "DateOfBirth": "1994-10-23T00:00:00"
   },
   {
     "Id": 18,
@@ -177,7 +177,7 @@
     "StageName": null,
     "Description": "Vanessa Nuala Kirby is an English actress. She made her professional acting debut on stage, with acclaimed performances in the plays All My Sons, A Midsummer Night's Dream, Women Beware Women, Three Sisters, and as Stella Kowalski in A Streetcar Named Desire.",
     "ImageUrl": "https://i.ibb.co/wpMxdsx/Kirby.jpg",
-    "DateOfBirth": "1988-04-18T23:00:00"
+    "DateOfBirth": "1988-04-18T00:00:00"
   },
   {
     "Id": 19,
@@ -187,7 +187,7 @@
     "StageName": null,
     "Description": "Thomas Cruise Mapother IV is an American actor and producer. Regarded as a Hollywood icon, he has received various accolades, including an Honorary Palme d'Or and three Golden Globe Awards, in addition to nominations for four Academy Awards.",
     "ImageUrl": "https://i.ibb.co/3yyYzYn/Cruise.jpg",
-    "DateOfBirth": "1962-07-03T23:00:00"
+    "DateOfBirth": "1962-07-03T00:00:00"
   },
   {
     "Id": 20,
@@ -197,7 +197,7 @@
     "StageName": null,
     "Description": "Emily Jean 'Emma' Stone is an American actress and producer. She has received many accolades, including two Academy Awards, two British Academy Film Awards, and two Golden Globe Awards. In 2017, she was the world's highest-paid actress and named by Time magazine as one of the 100 most influential people in the world.",
     "ImageUrl": "https://i.ibb.co/6rsFNCF/Stone.jpg",
-    "DateOfBirth": "1988-11-06T23:00:00"
+    "DateOfBirth": "1988-11-06T00:00:00"
   },
   {
     "Id": 21,
@@ -207,7 +207,7 @@
     "StageName": null,
     "Description": "Ryan Thomas Gosling is a Canadian actor. Prominent in both independent films and major studio features, his films have grossed over $2 billion worldwide. Gosling has received various accolades, including a Golden Globe Award, and nominations for three Academy Awards and two British Academy Film Awards.",
     "ImageUrl": "https://i.ibb.co/x8k6fyZ/Gos.jpg",
-    "DateOfBirth": "1980-11-12T23:00:00"
+    "DateOfBirth": "1980-11-12T00:00:00"
   },
   {
     "Id": 22,
@@ -217,7 +217,7 @@
     "StageName": null,
     "Description": "Francis Ford Coppola is an American film director, producer, and screenwriter. He is considered one of the leading figures of the New Hollywood film movement of the 1960s and 1970s and is widely considered one of the greatest directors of all time.",
     "ImageUrl": "https://i.ibb.co/yXLHFKb/FFCop.webp",
-    "DateOfBirth": "1939-04-07T23:00:00"
+    "DateOfBirth": "1939-04-07T00:00:00"
   },
   {
     "Id": 23,
@@ -227,7 +227,7 @@
     "StageName": null,
     "Description": "Robert John Downey Jr. is an American actor. His films as a leading actor have grossed over $14 billion worldwide, making him one of the highest-grossing actors of all time.",
     "ImageUrl": "https://i.ibb.co/48m0M8C/Downey.jpg",
-    "DateOfBirth": "1965-04-04T23:00:00"
+    "DateOfBirth": "1965-04-04T00:00:00"
   },
   {
     "Id": 24,
@@ -237,7 +237,7 @@
     "StageName": null,
     "Description": "Sergio Leone was an Italian filmmaker, credited as the pioneer of the spaghetti Western genre. He is widely regarded as one of the most influential directors in the history of cinema. Leone's film-making style includes juxtaposing extreme close-up shots with lengthy long shots.",
     "ImageUrl": "https://i.ibb.co/zS0WDyG/sergio-leone.jpg",
-    "DateOfBirth": "1929-01-03T23:00:00"
+    "DateOfBirth": "1929-01-03T00:00:00"
   },
   {
     "Id": 25,
@@ -247,7 +247,7 @@
     "StageName": null,
     "Description": "Macaulay Macaulay Culkin Culkin is an American actor and musician. He rose to prominence as a child actor starring as Kevin McCallister in the first two films of the Home Alone film series. One of the most successful child actors of the 1990s, Culkin was placed 2nd on VH1's 2005 list of the \"100 Greatest Kid-Stars\".",
     "ImageUrl": "https://i.ibb.co/N6qtsPq/Culkin.jpg",
-    "DateOfBirth": "1980-08-26T23:00:00"
+    "DateOfBirth": "1980-08-26T00:00:00"
   },
   {
     "Id": 26,
@@ -257,7 +257,7 @@
     "StageName": null,
     "Description": "Juliette Lake Lewis is an American actress and singer. She is known for her portrayals of offbeat characters, often in projects with dark themes. Lewis became an \"it girl\" of American cinema in the early 1990s, appearing in various independent and arthouse films.",
     "ImageUrl": "https://i.ibb.co/thTxKtD/Juliette-Lewis.jpg",
-    "DateOfBirth": "1973-06-21T23:00:00"
+    "DateOfBirth": "1973-06-21T00:00:00"
   },
   {
     "Id": 27,
@@ -267,7 +267,7 @@
     "StageName": null,
     "Description": "Robert Douglas Thomas Pattinson is an English actor. Known for starring in both big-budget and independent films, Pattinson has ranked among the world's highest-paid actors. In 2010, Time magazine named him one of the 100 most influential people in the world, and he was featured in the Forbes Celebrity 100 list.",
     "ImageUrl": "https://i.ibb.co/YRQh3vT/attison.webp",
-    "DateOfBirth": "1986-05-13T23:00:00"
+    "DateOfBirth": "1986-05-13T00:00:00"
   },
   {
     "Id": 28,
@@ -277,7 +277,7 @@
     "StageName": null,
     "Description": "Paul Franklin Dano is an American actor and comic book writer. He won the Independent Spirit Award for Best Debut Performance for his role in L.I.E. and gained wider recognition for playing a troubled teenager in Little Miss Sunshine.",
     "ImageUrl": "https://i.ibb.co/drG9VJh/Dano.jpg",
-    "DateOfBirth": "1984-06-19T23:00:00"
+    "DateOfBirth": "1984-06-19T00:00:00"
   },
   {
     "Id": 29,
@@ -287,7 +287,7 @@
     "StageName": null,
     "Description": "Quentin Jerome Tarantino is an American film director, screenwriter, and actor. His films are characterized by stylized violence, extended dialogue including a pervasive use of profanity, and references to popular culture.",
     "ImageUrl": "https://i.ibb.co/YpPQnWj/Tarantino.jpg",
-    "DateOfBirth": "1963-03-27T23:00:00"
+    "DateOfBirth": "1963-03-27T00:00:00"
   },
   {
     "Id": 30,
@@ -297,7 +297,7 @@
     "StageName": null,
     "Description": "Dame Olivia Newton-John AC DBE was a British and Australian singer and actress. She was a four-time Grammy Award winner whose music career included fifteen top-ten singles, including five number-ones.",
     "ImageUrl": "https://i.ibb.co/y4C1ym0/OliviaNJ.jpg",
-    "DateOfBirth": "1948-09-26T23:00:00"
+    "DateOfBirth": "1948-09-26T00:00:00"
   },
   {
     "Id": 31,
@@ -307,7 +307,7 @@
     "StageName": null,
     "Description": "Emily Olivia Laura Blunt is a British actress. She is the recipient of several accolades, including a Golden Globe Award and two Screen Actors Guild Awards, in addition to nominations for an Academy Award and four British Academy Film Awards. Forbes ranked her as one of the highest-paid actresses in the world in 2020.",
     "ImageUrl": "https://i.ibb.co/wrwMn2d/Emily-Blunt.webp",
-    "DateOfBirth": "1983-02-23T23:00:00"
+    "DateOfBirth": "1983-02-23T00:00:00"
   },
   {
     "Id": 32,
@@ -317,6 +317,126 @@
     "StageName": null,
     "Description": "Sir Alfred Joseph Hitchcock KBE was an English film director. He is widely regarded as one of the most influential figures in the history of cinema. In a career spanning six decades, he directed over 50 feature films, many of which are still widely watched and studied today.",
     "ImageUrl": "https://i.ibb.co/j8Yx49g/Hitchcock.jpg",
-    "DateOfBirth": "1899-08-13T23:00:00"
+    "DateOfBirth": "1899-08-13T00:00:00"
+  },
+  {
+    "Id": 33,
+    "FirstName": "Clint",
+    "LastName": "Eastwood",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Clinton Eastwood Jr. is an American actor and film director. After achieving success in the Western TV series Rawhide, Eastwood rose to international fame with his role as the \"Man with No Name\"",
+    "ImageUrl": "https://i.ibb.co/qrtZ87m/Clint.webp",
+    "DateOfBirth": "1930-05-31T00:00:00"
+  },
+  {
+    "Id": 34,
+    "FirstName": "Morgan",
+    "LastName": "Freeman",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Morgan Freeman is an American actor, producer, and narrator. Throughout a career spanning five decades and multiple film genres, he has received numerous accolades, including an Academy Award, a Golden Globe Award, and a Screen Actors Guild Award as well as a nomination for a Tony Award.",
+    "ImageUrl": "https://i.ibb.co/hgyZQ4T/morganfreeman.jpg",
+    "DateOfBirth": "1937-06-01T00:00:00"
+  },
+  {
+    "Id": 35,
+    "FirstName": "Leonardo",
+    "LastName": "DiCaprio",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Leonardo Wilhelm DiCaprio is an American actor and film producer. Known for his work in biographical and period films, he is the recipient of numerous accolades, including an Academy Award, a British Academy Film Award, and three Golden Globe Awards.",
+    "ImageUrl": "https://i.ibb.co/dmZ9qQs/Leo.webp",
+    "DateOfBirth": "1974-11-11T00:00:00"
+  },
+  {
+    "Id": 36,
+    "FirstName": "Lily",
+    "LastName": "Gladstone",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Lily Gladstone is an American actress. Raised on the Blackfeet Reservation, Gladstone is of Piegan Blackfeet, Nez Perce, and European heritage.",
+    "ImageUrl": "https://i.ibb.co/pxYtFQL/LilyGlad.jpg",
+    "DateOfBirth": "1986-08-02T00:00:00"
+  },
+  {
+    "Id": 37,
+    "FirstName": "Jesse",
+    "LastName": "Plemons",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Jesse Plemons is an American actor. He began his career as a child actor and achieved a breakthrough with his role as Landry Clarke in the NBC drama series Friday Night Lights.",
+    "ImageUrl": "https://i.ibb.co/BnfH0j7/jessePle.webp",
+    "DateOfBirth": "1988-04-02T00:00:00"
+  },
+  {
+    "Id": 38,
+    "FirstName": "Jessie",
+    "LastName": "Buckley",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Jessie Buckley is an Irish actress and singer. She is the recipient of a Laurence Olivier Award, in addition to nominations for an Academy Award and three BAFTA Awards.",
+    "ImageUrl": "https://i.ibb.co/37CnfXH/Buckley.jpg",
+    "DateOfBirth": "1989-12-28T00:00:00"
+  },
+  {
+    "Id": 39,
+    "FirstName": "Matt",
+    "LastName": "Damon",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Matthew Paige Damon is an American actor, film producer, and screenwriter. He was ranked among Forbes' most bankable stars in 2007, and in 2010 was one of the highest-grossing actors of all time.",
+    "ImageUrl": "https://i.ibb.co/rmHTQkX/Damon.webp",
+    "DateOfBirth": "1970-10-08T00:00:00"
+  },
+  {
+    "Id": 40,
+    "FirstName": "Cillian",
+    "LastName": "Murphy",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Cillian Murphy is an Irish actor. He made his professional debut in Enda Walsh's 1996 play Disco Pigs, a role he later reprised in the 2001 screen adaptation.",
+    "ImageUrl": "https://i.ibb.co/cQ1qGCV/Cillian.webp",
+    "DateOfBirth": "1976-05-25T00:00:00"
+  },
+  {
+    "Id": 41,
+    "FirstName": "Florence",
+    "LastName": "Pugh",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Florence Pugh is an English actress. She made her acting debut in 2014 in the drama film The Falling.",
+    "ImageUrl": "https://i.ibb.co/nLxkgbr/Pugh.webp",
+    "DateOfBirth": "1996-01-03T00:00:00"
+  },
+  {
+    "Id": 42,
+    "FirstName": "Christopher",
+    "LastName": "Nolan",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Christopher Nolan is the internationally celebrated writer-director behind the Batman trilogy, Memento, Inception, Interstellar and Tenet.",
+    "ImageUrl": "https://i.ibb.co/BypSGPw/Nolan.webp",
+    "DateOfBirth": "1970-07-30T00:00:00"
+  },
+  {
+    "Id": 43,
+    "FirstName": "Brad",
+    "LastName": "Pitt",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "William Bradley Pitt is an American actor and film producer. He is the recipient of various accolades, including two Academy Awards, two British Academy Film Awards, two Golden Globe Awards, and a Primetime Emmy Award.",
+    "ImageUrl": "https://i.ibb.co/54Twz6r/Pitt.jpg",
+    "DateOfBirth": "1963-12-18T00:00:00"
+  },
+  {
+    "Id": 44,
+    "FirstName": "James",
+    "LastName": "McAvoy",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "James McAvoy is a Scottish actor. He made his acting debut as a teen in The Near Room and appeared mostly on television until 2003, when his feature film career began.",
+    "ImageUrl": "https://i.ibb.co/fqnxRFz/Mcavoy.webp",
+    "DateOfBirth": "1979-04-21T00:00:00"
   }
 ]
