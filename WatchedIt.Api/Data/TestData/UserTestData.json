@@ -3,24 +3,54 @@
     "Id": 2,
     "Username": "Hogan202",
     "Email": "hogan@email.com",
-    "ImageUrl": "https://i.ibb.co/HPNRyzf/ashton-bingham-EQFt-Ez-JGERg-unsplash.jpg",
-    "Watched": [2, 3, 5, 7],
-    "Likes": [1, 4, 6, 7, 8]
+    "ImageUrl": "https://i.ibb.co/HPNRyzf/ashton-bingham-EQFt-Ez-JGERg-unsplash.jpg"
   },
   {
     "Id": 3,
     "Username": "EllieLovesFilms",
     "Email": "ellie@email.com",
-    "ImageUrl": "https://i.ibb.co/RjN0wWG/kimson-doan-HD8-Kly-WRYYM-unsplash.jpg",
-    "Watched": [1, 2, 3, 4, 9],
-    "Likes": [1, 2, 4, 5, 8]
+    "ImageUrl": "https://i.ibb.co/RjN0wWG/kimson-doan-HD8-Kly-WRYYM-unsplash.jpg"
   },
   {
     "Id": 4,
     "Username": "Craig1",
     "Email": "craig@email.com",
-    "ImageUrl": "https://i.ibb.co/X3Qnc5f/ayo-ogunseinde-sib-Vw-ORYqs0-unsplash.jpg",
-    "Watched": [5, 7],
-    "Likes": [1, 8]
+    "ImageUrl": "https://i.ibb.co/X3Qnc5f/ayo-ogunseinde-sib-Vw-ORYqs0-unsplash.jpg"
+  },
+  {
+    "Id": 5,
+    "Username": "Halie1",
+    "Email": "halie@email.com",
+    "ImageUrl": null
+  },
+  {
+    "Id": 6,
+    "Username": "GOTAddict",
+    "Email": "got@email.com",
+    "ImageUrl": null
+  },
+  {
+    "Id": 7,
+    "Username": "xTimx",
+    "Email": "xtim@email.com",
+    "ImageUrl": null
+  },
+  {
+    "Id": 8,
+    "Username": "Potterfan11",
+    "Email": "potter@email.com",
+    "ImageUrl": null
+  },
+  {
+    "Id": 9,
+    "Username": "Emma34",
+    "Email": "emma34@email.com",
+    "ImageUrl": null
+  },
+  {
+    "Id": 10,
+    "Username": "Paige",
+    "Email": "paige@email.com",
+    "ImageUrl": null
   }
 ]

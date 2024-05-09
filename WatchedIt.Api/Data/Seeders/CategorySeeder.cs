@@ -88,6 +88,18 @@ namespace WatchedIt.Api.Data.Seeders
                     new Category{
                         Id = 17,
                         Name = "Family"
+                    },
+                    new Category{
+                        Id = 18,
+                        Name = "Biography"
+                    },
+                    new Category{
+                        Id = 19,
+                        Name = "Fantasy"
+                    },
+                    new Category{
+                        Id = 20,
+                        Name = "Historical"
                     }
                 };
                 

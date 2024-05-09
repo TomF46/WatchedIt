@@ -9,22 +9,18 @@ using Microsoft.IdentityModel.Tokens;
 using WatchedIt.Api.Helpers;
 
 using WatchedIt.Api.Models.Authentication;
+using WatchedIt.Api.Models.FilmModels;
+using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Services.AuthenticationService;
 
 namespace WatchedIt.Api.Data.Seeders
 {
-    class UserTestData: User{
-        public new IList<int> Watched { get; set; } = new List<int>();
-        public new IList<int> Likes { get; set; } = new List<int>();
-    }
     public class UserSeeder
     {
         private readonly WatchedItContext _context;
         private readonly IConfiguration _config;
         private readonly IHostEnvironment _env;
         private readonly IAuthenticationService _authenticationService;
-
-
 
         public UserSeeder(WatchedItContext context, IConfiguration config, IHostEnvironment env, IAuthenticationService authenticationService)
         {
@@ -34,12 +30,13 @@ namespace WatchedIt.Api.Data.Seeders
             _authenticationService = authenticationService;
         }
 
+
         public void Seed()
         {
             if(!_context.Users.Where(x => x.Role == Models.Enums.Role.User).Any())
             {
                 string data = FileHelper.GetJSONData(_env.ContentRootPath, "UserTestData.json");
-                var users = JsonSerializer.Deserialize<List<UserTestData>>(data);
+                var users = JsonSerializer.Deserialize<List<User>>(data);
 
                 foreach(var user in users)
                 {
@@ -49,8 +46,8 @@ namespace WatchedIt.Api.Data.Seeders
                         Email = user.Email,
                         ImageUrl = user.ImageUrl.IsNullOrEmpty() ?  _config["Images:Defaults:ProfileImage"] : user.ImageUrl,
                         Role = Models.Enums.Role.User,
-                        Watched = _context.Films.Where(x => user.Watched.Contains(x.Id)).ToList(),
-                        Likes = _context.People.Where(x => user.Likes.Contains(x.Id)).ToList()
+                        Watched = GenerateRandomWatchedList(),
+                        Likes = GenerateRandomLikedList()
                     };
 
                     _context.Database.OpenConnection();
@@ -67,5 +64,24 @@ namespace WatchedIt.Api.Data.Seeders
                 }
             }
         }
+
+        private ICollection<Film> GenerateRandomWatchedList()
+        {
+            var watchedIds = new List<int>();
+            Random r = new Random();
+            int rInt = r.Next(0, _context.Films.Count());
+            watchedIds = _context.Films.OrderBy(x => Guid.NewGuid()).Select(x => x.Id).Take(rInt).ToList();
+            return _context.Films.Where(x => watchedIds.Contains(x.Id)).ToList();
+        }
+
+        private ICollection<Person> GenerateRandomLikedList()
+        {
+            var likedUsers = new List<int>();
+            Random r = new Random();
+            int rInt = r.Next(0, _context.People.Count());
+            likedUsers = _context.People.OrderBy(x => Guid.NewGuid()).Select(x => x.Id).Take(rInt).ToList();
+            return _context.People.Where(x => likedUsers.Contains(x.Id)).ToList();
+        }
     }
 }
+
