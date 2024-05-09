@@ -23,5 +23,40 @@
     "FilmId": 15,
     "PersonId": 16,
     "Role": "Editor"
+  },
+  {
+    "FilmId": 16,
+    "PersonId": 24,
+    "Role": "Director"
+  },
+  {
+    "FilmId": 17,
+    "PersonId": 24,
+    "Role": "Director"
+  },
+  {
+    "FilmId": 20,
+    "PersonId": 15,
+    "Role": "Director"
+  },
+  {
+    "FilmId": 20,
+    "PersonId": 16,
+    "Role": "Editor"
+  },
+  {
+    "FilmId": 21,
+    "PersonId": 29,
+    "Role": "Director"
+  },
+  {
+    "FilmId": 14,
+    "PersonId": 32,
+    "Role": "Director"
+  },
+  {
+    "FilmId": 23,
+    "PersonId": 32,
+    "Role": "Director"
   }
 ]

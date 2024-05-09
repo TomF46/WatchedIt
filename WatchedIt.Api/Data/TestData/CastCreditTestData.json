@@ -78,5 +78,80 @@
     "FilmId": 15,
     "PersonId": 5,
     "Role": "Tommy Devito"
+  },
+  {
+    "FilmId": 17,
+    "PersonId": 3,
+    "Role": "David \"Noodles\" Aaronson"
+  },
+  {
+    "FilmId": 18,
+    "PersonId": 5,
+    "Role": "Harry Lime"
+  },
+  {
+    "FilmId": 18,
+    "PersonId": 25,
+    "Role": "Kevin McCallister"
+  },
+  {
+    "FilmId": 19,
+    "PersonId": 11,
+    "Role": "Catherine Tramell"
+  },
+  {
+    "FilmId": 20,
+    "PersonId": 3,
+    "Role": "Max Cady"
+  },
+  {
+    "FilmId": 20,
+    "PersonId": 26,
+    "Role": "Danielle Bowden"
+  },
+  {
+    "FilmId": 6,
+    "PersonId": 27,
+    "Role": "Batman"
+  },
+  {
+    "FilmId": 6,
+    "PersonId": 28,
+    "Role": "Riddler"
+  },
+  {
+    "FilmId": 3,
+    "PersonId": 19,
+    "Role": "Charlie Babbit"
+  },
+  {
+    "FilmId": 21,
+    "PersonId": 1,
+    "Role": "Vincent Vega"
+  },
+  {
+    "FilmId": 21,
+    "PersonId": 2,
+    "Role": "Jules Winnfield"
+  },
+  {
+    "FilmId": 22,
+    "PersonId": 1,
+    "Role": "Danny Zuko"
+  },
+  {
+    "FilmId": 22,
+    "PersonId": 30,
+    "Role": "Sandy Olsson"
+  },
+  {
+    "FilmId": 5,
+    "PersonId": 31,
+    "Role": "Kate Macer"
+  },
+  {
+    "FilmId": 23,
+    "PersonId": 8,
+    "Role": "John Ferguson"
   }
 ]

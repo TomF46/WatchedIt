@@ -170,7 +170,7 @@
   {
     "Id": 15,
     "Name": "GoodFellas",
-    "ShortDescription": "he story of Henry Hill and his life in the mafia, covering his relationship with his wife Karen and his mob partners Jimmy Conway and Tommy DeVito.",
+    "ShortDescription": "The story of Henry Hill and his life in the mafia, covering his relationship with his wife Karen and his mob partners Jimmy Conway and Tommy DeVito.",
     "FullDescription": "Henry Hill might be a small time gangster, who may have taken part in a robbery with Jimmy Conway and Tommy De Vito, two other gangsters who might have set their sights a bit higher. His two partners could kill off everyone else involved in the robbery, and slowly start to think about climbing up through the hierarchy of the Mob. Henry, however, might be badly affected by his partners' success, but will he consider stooping low enough to bring about the downfall of Jimmy and Tommy?",
     "Runtime": 145,
     "ReleaseDate": "1990-10-26T09:37:07",
@@ -178,5 +178,101 @@
     "TrailerUrl": "https://www.youtube.com/embed/2ilzidi_J8Q",
     "Categories": [8, 3],
     "Tags": [1, 2, 3, 13]
+  },
+  {
+    "Id": 16,
+    "Name": "Once Upon a Time in the West",
+    "ShortDescription": "A mysterious stranger with a harmonica joins forces with a notorious desperado to protect a beautiful widow from a ruthless assassin working for the railroad.",
+    "FullDescription": "Story of a young woman, Mrs. McBain, who moves from New Orleans to frontier Utah, on the very edge of the American West. She arrives to find her new husband and family slaughtered, but by whom? The prime suspect, coffee-lover Cheyenne, befriends her and offers to go after the real killer, assassin gang leader Frank, in her honor. He is accompanied by Harmonica, a man already on a quest to get even.",
+    "Runtime": 166,
+    "ReleaseDate": "1968-12-20T09:37:07",
+    "PosterUrl": "https://i.ibb.co/8Knk9Wr/Oncepon-West.jpg",
+    "TrailerUrl": "https://www.youtube.com/embed/c8CJ6L0I6W8",
+    "Categories": [12, 3],
+    "Tags": [1, 2, 3, 12, 16]
+  },
+  {
+    "Id": 17,
+    "Name": "Once Upon a Time in America",
+    "ShortDescription": "A former Prohibition-era Jewish gangster returns to the Lower East Side of Manhattan 35 years later, where he must once again confront the ghosts and regrets of his old life.",
+    "FullDescription": "Epic, episodic tale of the lives of a small group of New York City Jewish gangsters spanning over 40 years. Told mostly in flashbacks and flash-forwards, the movie centers on small-time hood David 'Noodles' Aaronson and his lifelong partners in crime: Max, Cockeye, and Patsy, and their friends from growing up in the rough Jewish neighborhood of New York's Lower East Side in the 1920s to the last years of Prohibition in the early 1930s, through to the late 1960s, where an elderly Noodles returns to New York after many years in hiding to look into the past.",
+    "Runtime": 229,
+    "ReleaseDate": "1984-05-20T09:37:07",
+    "PosterUrl": "https://i.ibb.co/JySBkqz/Once-Upon-America.webp",
+    "TrailerUrl": "https://www.youtube.com/embed/LcpCRyNo8T8",
+    "Categories": [8, 3],
+    "Tags": [1, 2, 3, 13]
+  },
+  {
+    "Id": 18,
+    "Name": "Home Alone",
+    "ShortDescription": "An eight-year-old troublemaker, mistakenly left home alone, must defend his home against a pair of burglars on Christmas Eve.",
+    "FullDescription": "At fever pitch for the long-awaited Christmas vacation in picturesque Paris, the McCallister family inadvertently leave behind their eight-year-old son, Kevin, while rushing off to catch their plane. With his parents already in France, much to his delight, young Kevin can finally indulge himself in all the guilty pleasures he was denied, unbeknownst to him that a criminal duo of not-so-capable burglars is preying on the neighbourhood's vacant houses. Of course, the McCallisters' residence is no exception, and before long, the dauntless robbers will visit Kevin, keen on cleaning out his seemingly uninhabited home. Is Kevin, the man of the house, prepared to defend his castle?",
+    "Runtime": 103,
+    "ReleaseDate": "1990-11-10T09:37:07",
+    "PosterUrl": "https://i.ibb.co/PxjwzQm/Homealone.jpg",
+    "TrailerUrl": "https://www.youtube.com/embed/jEDaVHmw7r4",
+    "Categories": [6, 17],
+    "Tags": [1, 3, 9]
+  },
+  {
+    "Id": 19,
+    "Name": "Basic Instinct",
+    "ShortDescription": "A violent police detective investigates a brutal murder that might involve a manipulative and seductive novelist.",
+    "FullDescription": "Former rock star and San Francisco nightclub owner Johnny Boz is found murdered in his bed. Detective Nick Curran is assigned to the case; he has a history of alcoholism and drug abuse although he is clean now. The prime suspect is Catherine Tramell, an attractive and manipulative novelist who had been seeing Boz for a while. Police psychiatrist Beth Gardner (who happens to be Nick's ex-girlfriend) is brought in on the case when it is discovered that Boz's murder was copied directly from one of Catherine's novels. Nick starts to get too involved and everyone seems to be a suspect.",
+    "Runtime": 127,
+    "ReleaseDate": "1992-05-08T09:37:07",
+    "PosterUrl": "https://i.ibb.co/ZSskLWM/BasicIn.jpg",
+    "TrailerUrl": "https://www.youtube.com/embed/Jh6JwQ8XPK0",
+    "Categories": [3, 4, 16],
+    "Tags": [3, 13]
+  },
+  {
+    "Id": 20,
+    "Name": "Cape Fear",
+    "ShortDescription": "A convicted rapist, released from prison after serving a fourteen-year sentence, stalks the family of the lawyer who originally defended him.",
+    "FullDescription": "Imprisoned for brutally assaulting a young girl, Max Cady spends his time in jail wisely - reading literature, sculpting his body to perfection and planning his violent revenge on the defence lawyer who put him behind bars. After serving his fourteen year sentence, Cady is released from prison and his rampage begins.",
+    "Runtime": 128,
+    "ReleaseDate": "1992-03-06T09:37:07",
+    "PosterUrl": "https://i.ibb.co/gzNcSGM/Capefear.jpg",
+    "TrailerUrl": "https://www.youtube.com/embed/mPsOIhZJug4",
+    "Categories": [8, 4],
+    "Tags": [3, 13]
+  },
+  {
+    "Id": 21,
+    "Name": "Pulp fiction",
+    "ShortDescription": "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
+    "FullDescription": "Jules Winnfield (Samuel L. Jackson) and Vincent Vega (John Travolta) are two hitmen who are out to retrieve a suitcase stolen from their employer, mob boss Marsellus Wallace (Ving Rhames). Wallace has also asked Vincent to take his wife Mia (Uma Thurman) out a few days later when Wallace himself will be out of town. Butch Coolidge (Bruce Willis) is an aging boxer who is paid by Wallace to lose his fight. The lives of these seemingly unrelated people are woven together comprising of a series of funny, bizarre and uncalled-for incidents.",
+    "Runtime": 154,
+    "ReleaseDate": "1994-10-21T09:37:07",
+    "PosterUrl": "https://i.ibb.co/B6YTHcR/PulpFic.jpg",
+    "TrailerUrl": "https://www.youtube.com/embed/s7EdQ4FqbhY",
+    "Categories": [8, 3],
+    "Tags": [3, 13]
+  },
+  {
+    "Id": 22,
+    "Name": "Grease",
+    "ShortDescription": "Good girl Sandy Olsson and greaser Danny Zuko fell in love over the summer. When they unexpectedly discover they're now in the same high school, will they be able to rekindle their romance?",
+    "FullDescription": "Sandy Olsson (Olivia Newton-John) is a goody two-shoes from Australia, Danny Zuko (John Travolta) is the head T-Bird from Rydell High School. However, when the two meet up during the summer, they fall in love. But when the summer ends, the two think they'll never see each other again. However, they're both wrong, Sandy and her parents have moved to America and she is now attending Danny's school. When the two discover that they attend the same school, there is a lot of debate over whether they can still be together since it's uncool for Danny to be in love with a \"goody goody\" like Sandy. However, the two, against all odds, manage to stay together. Then graduation comes and Sandy is about to change in a way no one expected.",
+    "Runtime": 110,
+    "ReleaseDate": "1978-09-14T09:37:07",
+    "PosterUrl": "https://i.ibb.co/sqmKRZH/grease.webp",
+    "TrailerUrl": "https://www.youtube.com/embed/qDKo8DNpwOw",
+    "Categories": [6, 7, 9],
+    "Tags": [3, 9]
+  },
+  {
+    "Id": 23,
+    "Name": "Vertigo",
+    "ShortDescription": "A former San Francisco police detective juggles wrestling with his personal demons and becoming obsessed with the hauntingly beautiful woman he has been hired to trail, who may be deeply disturbed.",
+    "FullDescription": "John \"Scottie\" Ferguson is a retired San Francisco police detective who suffers from acrophobia, and Madeleine is the lady who leads him to high places. A wealthy shipbuilder who is an acquaintance from college days approaches Scottie and asks him to follow his beautiful wife, Madeleine. He fears she is going insane, maybe even contemplating suicide, as he believes she has been possessed by a dead ancestor who committed suicide. Scottie is skeptical, but agrees to the assignment after he sees the beautiful Madeleine.",
+    "Runtime": 128,
+    "ReleaseDate": "1958-05-22T09:37:07",
+    "PosterUrl": "https://i.ibb.co/LvmbZV4/Vetigo.webp",
+    "TrailerUrl": "https://www.youtube.com/embed/Z5jvQwwHQNY",
+    "Categories": [16, 4, 9],
+    "Tags": [3, 9]
   }
 ]

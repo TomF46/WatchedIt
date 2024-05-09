@@ -228,5 +228,95 @@
     "Description": "Robert John Downey Jr. is an American actor. His films as a leading actor have grossed over $14 billion worldwide, making him one of the highest-grossing actors of all time.",
     "ImageUrl": "https://i.ibb.co/48m0M8C/Downey.jpg",
     "DateOfBirth": "1965-04-04T23:00:00"
+  },
+  {
+    "Id": 24,
+    "FirstName": "Sergio",
+    "LastName": "Leone",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Sergio Leone was an Italian filmmaker, credited as the pioneer of the spaghetti Western genre. He is widely regarded as one of the most influential directors in the history of cinema. Leone's film-making style includes juxtaposing extreme close-up shots with lengthy long shots.",
+    "ImageUrl": "https://i.ibb.co/zS0WDyG/sergio-leone.jpg",
+    "DateOfBirth": "1929-01-03T23:00:00"
+  },
+  {
+    "Id": 25,
+    "FirstName": "Macaulay",
+    "LastName": "Culkin",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Macaulay Macaulay Culkin Culkin is an American actor and musician. He rose to prominence as a child actor starring as Kevin McCallister in the first two films of the Home Alone film series. One of the most successful child actors of the 1990s, Culkin was placed 2nd on VH1's 2005 list of the \"100 Greatest Kid-Stars\".",
+    "ImageUrl": "https://i.ibb.co/N6qtsPq/Culkin.jpg",
+    "DateOfBirth": "1980-08-26T23:00:00"
+  },
+  {
+    "Id": 26,
+    "FirstName": "Juliette",
+    "LastName": "Lewis",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Juliette Lake Lewis is an American actress and singer. She is known for her portrayals of offbeat characters, often in projects with dark themes. Lewis became an \"it girl\" of American cinema in the early 1990s, appearing in various independent and arthouse films.",
+    "ImageUrl": "https://i.ibb.co/thTxKtD/Juliette-Lewis.jpg",
+    "DateOfBirth": "1973-06-21T23:00:00"
+  },
+  {
+    "Id": 27,
+    "FirstName": "Robert",
+    "LastName": "Pattinson",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Robert Douglas Thomas Pattinson is an English actor. Known for starring in both big-budget and independent films, Pattinson has ranked among the world's highest-paid actors. In 2010, Time magazine named him one of the 100 most influential people in the world, and he was featured in the Forbes Celebrity 100 list.",
+    "ImageUrl": "https://i.ibb.co/YRQh3vT/attison.webp",
+    "DateOfBirth": "1986-05-13T23:00:00"
+  },
+  {
+    "Id": 28,
+    "FirstName": "Paul",
+    "LastName": "Dano",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Paul Franklin Dano is an American actor and comic book writer. He won the Independent Spirit Award for Best Debut Performance for his role in L.I.E. and gained wider recognition for playing a troubled teenager in Little Miss Sunshine.",
+    "ImageUrl": "https://i.ibb.co/drG9VJh/Dano.jpg",
+    "DateOfBirth": "1984-06-19T23:00:00"
+  },
+  {
+    "Id": 29,
+    "FirstName": "Quentin",
+    "LastName": "Tarantino",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Quentin Jerome Tarantino is an American film director, screenwriter, and actor. His films are characterized by stylized violence, extended dialogue including a pervasive use of profanity, and references to popular culture.",
+    "ImageUrl": "https://i.ibb.co/YpPQnWj/Tarantino.jpg",
+    "DateOfBirth": "1963-03-27T23:00:00"
+  },
+  {
+    "Id": 30,
+    "FirstName": "Olivia",
+    "LastName": "Newton-John",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Dame Olivia Newton-John AC DBE was a British and Australian singer and actress. She was a four-time Grammy Award winner whose music career included fifteen top-ten singles, including five number-ones.",
+    "ImageUrl": "https://i.ibb.co/y4C1ym0/OliviaNJ.jpg",
+    "DateOfBirth": "1948-09-26T23:00:00"
+  },
+  {
+    "Id": 31,
+    "FirstName": "Emily",
+    "LastName": "Blunt",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Emily Olivia Laura Blunt is a British actress. She is the recipient of several accolades, including a Golden Globe Award and two Screen Actors Guild Awards, in addition to nominations for an Academy Award and four British Academy Film Awards. Forbes ranked her as one of the highest-paid actresses in the world in 2020.",
+    "ImageUrl": "https://i.ibb.co/wrwMn2d/Emily-Blunt.webp",
+    "DateOfBirth": "1983-02-23T23:00:00"
+  },
+  {
+    "Id": 32,
+    "FirstName": "Alfred",
+    "LastName": "Hitchcock",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Sir Alfred Joseph Hitchcock KBE was an English film director. He is widely regarded as one of the most influential figures in the history of cinema. In a career spanning six decades, he directed over 50 feature films, many of which are still widely watched and studied today.",
+    "ImageUrl": "https://i.ibb.co/j8Yx49g/Hitchcock.jpg",
+    "DateOfBirth": "1899-08-13T23:00:00"
   }
 ]

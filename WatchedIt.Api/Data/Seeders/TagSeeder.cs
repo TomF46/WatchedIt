@@ -98,6 +98,11 @@ namespace WatchedIt.Api.Data.Seeders
                         Name = "NC-17",
                         Type = TagType.AgeRating
                     },
+                    new Tag{
+                        Id = 16,
+                        Name = "Italian",
+                        Type = TagType.Language
+                    },
                 };
 
                 _context.Database.OpenConnection();
