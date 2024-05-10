@@ -34,8 +34,9 @@ namespace WatchedIt.Api.Data.Seeders
 
                 foreach(var review in reviews)
                 {
+                    var film =  _context.Films.FirstOrDefault(x => x.Id == review.FilmId);
                     var r = new Review{
-                        Film = _context.Films.FirstOrDefault(x => x.Id == review.FilmId),
+                        Film = film,
                         User = _context.Users.FirstOrDefault(x => x.Id == review.UserId),
                         Rating = review.Rating,
                         Text = review.Text,
@@ -44,6 +45,7 @@ namespace WatchedIt.Api.Data.Seeders
 
                     };
                     _context.Reviews.Add(r);
+                    if(film != null) film.CalculateAverageRating();
                 }
                 _context.SaveChanges();
             }

@@ -32,5 +32,12 @@ namespace WatchedIt.Api.Models.FilmModels
         public ICollection<Category> Categories { get; set; } = new List<Category>();
         public ICollection<FilmImage> Images { get; set; } = new List<FilmImage>();
         public ICollection<Tag> Tags { get; set; } = new List<Tag>();
+
+        public void CalculateAverageRating()
+        {
+            var ratings = Reviews.Select(x => x.Rating);
+            var average = ratings.Average();
+            AverageRating = average;
+        }
     }
 }
