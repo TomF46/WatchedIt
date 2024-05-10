@@ -394,5 +394,41 @@
     "TrailerUrl": "https://www.youtube.com/embed/edpEspHOeVU",
     "Categories": [1, 4, 8],
     "Tags": [3, 13]
+  },
+  {
+    "Id": 34,
+    "Name": "The Godfather Part II",
+    "ShortDescription": "The early life and career of Vito Corleone in 1920s New York City is portrayed, while his son, Michael, expands and tightens his grip on the family crime syndicate.",
+    "FullDescription": "The childhood of Vito Corleone and his rise from a petty criminal to the most powerful don in New York City during the early 20th century is depicted, whilst his son Don Michael Corleone succumbs to power, greed, and ruthlessness, all for the sake of pride and keeping the Corleone family intact.",
+    "Runtime": 202,
+    "ReleaseDate": "1975-05-15T00:00:00",
+    "PosterUrl": "https://i.ibb.co/JzGB5VG/Godfather2.jpg",
+    "TrailerUrl": "https://www.youtube.com/embed/9O1Iy9od7-A",
+    "Categories": [8, 3, 10],
+    "Tags": [1, 2, 3, 13, 16]
+  },
+  {
+    "Id": 35,
+    "Name": "The Godfather Part III",
+    "ShortDescription": "Follows Michael Corleone, now in his 60s, as he seeks to free his family from crime and find a suitable successor to his empire.",
+    "FullDescription": "In the final installment of the Godfather Trilogy, an aging Don Michael Corleone seeks to legitimize his crime family's interests and remove himself from the violent underworld but is kept back by the ambitions of the young. While he attempts to link the Corleone's finances with the Vatican, Michael must deal with the machinations of a hungrier gangster seeking to upset the existing Mafioso order and a young protege's love affair with his daughter.",
+    "Runtime": 162,
+    "ReleaseDate": "1991-03-08T00:00:00",
+    "PosterUrl": "https://i.ibb.co/MBvFxW0/Godather3.jpg",
+    "TrailerUrl": "https://www.youtube.com/embed/UUkG37KSWf0",
+    "Categories": [8, 3],
+    "Tags": [3, 12, 16]
+  },
+  {
+    "Id": 36,
+    "Name": "The Irishman",
+    "ShortDescription": "An illustration of Frank Sheeran's life, from W.W.II veteran to hit-man for the Bufalino crime family and his alleged assassination of his close friend Jimmy Hoffa.",
+    "FullDescription": "Frank \"The Irishman\" Sheeran is a man with a lot on his mind. The former labor union high official and hitman, learned to kill serving in Italy during the Second World War. He now looks back on his life and the hits that defined his mob career, maintaining connections with the Bufalino crime family. In particular, the part he claims to have played in the disappearance of his life-long friend, Jimmy Hoffa, the former president of the International Brotherhood of Teamsters, who mysteriously vanished in late July 1975 at the age of 62.",
+    "Runtime": 209,
+    "ReleaseDate": "2019-09-27T00:00:00",
+    "PosterUrl": "https://i.ibb.co/grFJwC3/Irishman.jpg",
+    "TrailerUrl": "https://www.youtube.com/embed/WHXxVmeGQUc",
+    "Categories": [18, 8, 3, 10],
+    "Tags": [1, 3, 12]
   }
 ]

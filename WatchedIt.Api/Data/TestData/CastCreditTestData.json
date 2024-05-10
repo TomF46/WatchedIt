@@ -298,5 +298,40 @@
     "FilmId": 33,
     "PersonId": 44,
     "Role": "Wesley Gibson"
+  },
+  {
+    "FilmId": 34,
+    "PersonId": 12,
+    "Role": "Michael Corleone"
+  },
+  {
+    "FilmId": 34,
+    "PersonId": 3,
+    "Role": "Vito Corleone"
+  },
+  {
+    "FilmId": 35,
+    "PersonId": 12,
+    "Role": "Michael Corleone"
+  },
+  {
+    "FilmId": 32,
+    "PersonId": 12,
+    "Role": "Marvin Schwarz"
+  },
+  {
+    "FilmId": 36,
+    "PersonId": 3,
+    "Role": "Frank Sheeran"
+  },
+  {
+    "FilmId": 36,
+    "PersonId": 12,
+    "Role": "Jimmy Hoffa"
+  },
+  {
+    "FilmId": 36,
+    "PersonId": 5,
+    "Role": "Russell Bufalino"
   }
 ]

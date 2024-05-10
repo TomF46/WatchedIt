@@ -98,5 +98,25 @@
     "FilmId": 32,
     "PersonId": 29,
     "Role": "Director"
+  },
+  {
+    "FilmId": 34,
+    "PersonId": 22,
+    "Role": "Director"
+  },
+  {
+    "FilmId": 35,
+    "PersonId": 22,
+    "Role": "Director"
+  },
+  {
+    "FilmId": 36,
+    "PersonId": 15,
+    "Role": "Director"
+  },
+  {
+    "FilmId": 36,
+    "PersonId": 16,
+    "Role": "Editor"
   }
 ]
