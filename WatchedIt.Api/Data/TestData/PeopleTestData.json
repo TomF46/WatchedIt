@@ -438,5 +438,65 @@
     "Description": "James McAvoy is a Scottish actor. He made his acting debut as a teen in The Near Room and appeared mostly on television until 2003, when his feature film career began.",
     "ImageUrl": "https://i.ibb.co/fqnxRFz/Mcavoy.webp",
     "DateOfBirth": "1979-04-21T00:00:00"
+  },
+  {
+    "Id": 45,
+    "FirstName": "Zoë",
+    "LastName": "Kravitz",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Zoë Isabella Kravitz is an American actress, director, model, and singer. She made her acting debut in the romantic comedy film No Reservations. Her breakthrough came with portraying Angel Salvadore in the superhero film X-Men: First Class, which earned her nominations for a Teen Choice Award and a Scream Award.",
+    "ImageUrl": "https://i.ibb.co/GT2NwkN/ZoeKrav.webp",
+    "DateOfBirth": "1988-12-01T00:00:00"
+  },
+  {
+    "Id": 46,
+    "FirstName": "George",
+    "LastName": "Clooney",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "George Timothy Clooney is an American actor and filmmaker. He is the recipient of numerous accolades, including a British Academy Film Award, four Golden Globe Awards, and two Academy Awards.",
+    "ImageUrl": "https://i.ibb.co/VTjqXdc/Clooney.jpg",
+    "DateOfBirth": "1961-05-06T00:00:00"
+  },
+  {
+    "Id": 47,
+    "FirstName": "Julia",
+    "LastName": "Roberts",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Julia Fiona Roberts is an American actress. Known for her leading roles in films encompassing a variety of genres, she has received multiple accolades, including an Academy Award, a British Academy Film Award, and three Golden Globe Awards.",
+    "ImageUrl": "https://i.ibb.co/RP4SkxW/Roberts.webp",
+    "DateOfBirth": "1967-10-28T00:00:00"
+  },
+  {
+    "Id": 48,
+    "FirstName": "Andy",
+    "LastName": "Garcia",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Andrés Arturo García Menéndez, known professionally as Andy García, is an American actor, director and producer. He first rose to prominence acting in Brian De Palma's The Untouchables alongside Kevin Costner, Sean Connery, and Robert De Niro.",
+    "ImageUrl": "https://i.ibb.co/Fs94Vy4/Andy-Garvia.jpg",
+    "DateOfBirth": "1956-04-12T00:00:00"
+  },
+  {
+    "Id": 49,
+    "FirstName": "Bernie",
+    "LastName": "Mac",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Bernard Jeffrey McCullough, better known by his stage name Bernie Mac, was an American comedian and actor. Born and raised on Chicago's South Side, Mac gained popularity as a stand-up comedian. He joined fellow comedians Steve Harvey, Cedric the Entertainer, and D. L. Hughley in the film The Original Kings of Comedy.",
+    "ImageUrl": "https://i.ibb.co/Gn0fv0s/Mac.jpg",
+    "DateOfBirth": "1957-10-05T00:00:00"
+  },
+  {
+    "Id": 50,
+    "FirstName": "Qin",
+    "LastName": "Shaobo",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Qin Shaobo is a Chinese actor, acrobat and contortionist. His first performance took place when he was 11 years old which resulted in him wanting to make acting a career. Qin's motion picture debut was in 2001, playing The Amazing Yen, Danny Ocean's \"grease man\", in the remake of Ocean's Eleven.",
+    "ImageUrl": "https://i.ibb.co/brkRkww/Qin.jpg",
+    "DateOfBirth": "1981-11-30T00:00:00"
   }
 ]

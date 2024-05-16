@@ -333,5 +333,50 @@
     "FilmId": 36,
     "PersonId": 5,
     "Role": "Russell Bufalino"
+  },
+  {
+    "FilmId": 6,
+    "PersonId": 45,
+    "Role": "Selina Kyle"
+  },
+  {
+    "FilmId": 37,
+    "PersonId": 46,
+    "Role": "Danny Ocean"
+  },
+  {
+    "FilmId": 37,
+    "PersonId": 47,
+    "Role": "Tess Ocean"
+  },
+  {
+    "FilmId": 37,
+    "PersonId": 39,
+    "Role": "Linus Caldwell"
+  },
+  {
+    "FilmId": 37,
+    "PersonId": 43,
+    "Role": "Rusty Ryan"
+  },
+  {
+    "FilmId": 37,
+    "PersonId": 48,
+    "Role": "Terry Benedict"
+  },
+  {
+    "FilmId": 37,
+    "PersonId": 49,
+    "Role": "Frank Catton"
+  },
+  {
+    "FilmId": 37,
+    "PersonId": 50,
+    "Role": "Yen"
+  },
+  {
+    "FilmId": 35,
+    "PersonId": 48,
+    "Role": "Vincent Corleone"
   }
 ]
