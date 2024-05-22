@@ -378,5 +378,100 @@
     "FilmId": 35,
     "PersonId": 48,
     "Role": "Vincent Corleone"
+  },
+  {
+    "FilmId": 38,
+    "PersonId": 3,
+    "Role": "Travis Bickle"
+  },
+  {
+    "FilmId": 38,
+    "PersonId": 51,
+    "Role": "Iris"
+  },
+  {
+    "FilmId": 38,
+    "PersonId": 52,
+    "Role": "Matthew Higgins"
+  },
+  {
+    "FilmId": 38,
+    "PersonId": 15,
+    "Role": "Passenger"
+  },
+  {
+    "FilmId": 21,
+    "PersonId": 52,
+    "Role": "Winston Wolf"
+  },
+  {
+    "FilmId": 36,
+    "PersonId": 52,
+    "Role": "Angelo Bruno"
+  },
+  {
+    "FilmId": 39,
+    "PersonId": 3,
+    "Role": "Neil McCauley"
+  },
+  {
+    "FilmId": 39,
+    "PersonId": 12,
+    "Role": "Lt. Vincent Hanna"
+  },
+  {
+    "FilmId": 39,
+    "PersonId": 13,
+    "Role": "Chris Shiherlis"
+  },
+  {
+    "FilmId": 40,
+    "PersonId": 3,
+    "Role": "Johnny boy"
+  },
+  {
+    "FilmId": 40,
+    "PersonId": 52,
+    "Role": "Charlie Cappa"
+  },
+  {
+    "FilmId": 41,
+    "PersonId": 3,
+    "Role": "Michael"
+  },
+  {
+    "FilmId": 41,
+    "PersonId": 53,
+    "Role": "Nick"
+  },
+  {
+    "FilmId": 41,
+    "PersonId": 54,
+    "Role": "Stanley"
+  },
+  {
+    "FilmId": 41,
+    "PersonId": 55,
+    "Role": "Linda"
+  },
+  {
+    "FilmId": 9,
+    "PersonId": 54,
+    "Role": "Fredo Corleone"
+  },
+  {
+    "FilmId": 34,
+    "PersonId": 54,
+    "Role": "Fredo Corleone"
+  },
+  {
+    "FilmId": 42,
+    "PersonId": 56,
+    "Role": "Arthur Fleck"
+  },
+  {
+    "FilmId": 42,
+    "PersonId": 3,
+    "Role": "Murray Franklin"
   }
 ]

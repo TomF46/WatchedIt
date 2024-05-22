@@ -442,5 +442,65 @@
     "TrailerUrl": "https://www.youtube.com/embed/imm6OR605UI",
     "Categories": [8, 4],
     "Tags": [3, 10]
+  },
+  {
+    "Id": 38,
+    "Name": "Taxi Driver",
+    "ShortDescription": "A mentally unstable veteran works as a nighttime taxi driver in New York City, where the perceived decadence and sleaze fuels his urge for violent action.",
+    "FullDescription": "Travis Bickle is an ex-Marine and Vietnam War veteran living in New York City. As he suffers from insomnia, he spends his time working as a taxi driver at night, watching porn movies at seedy cinemas during the day, or thinking about how the world, New York in particular, has deteriorated into a cesspool. He's a loner who has strong opinions about what is right and wrong with mankind. For him, the one bright spot in humanity is Betsy, a worker on the presidential nomination campaign of Senator Charles Palantine. After an incident, he believes he has to do whatever he needs to make the world a better place.",
+    "Runtime": 114,
+    "ReleaseDate": "1976-08-19T00:00:00",
+    "PosterUrl": "https://i.ibb.co/XDtZBGz/Taxi-Drive.jpg",
+    "TrailerUrl": "https://www.youtube.com/embed/T5IligQP7Fo",
+    "Categories": [8, 3],
+    "Tags": [1, 2, 3, 13]
+  },
+  {
+    "Id": 39,
+    "Name": "Heat",
+    "ShortDescription": "A group of high-end professional thieves start to feel the heat from the LAPD when they unknowingly leave a verbal clue at their latest heist.",
+    "FullDescription": "Hunters and their prey--Neil and his professional criminal crew hunt to score big money targets (banks, vaults, armored cars) and are, in turn, hunted by Lt. Vincent Hanna and his team of cops in the Robbery/Homicide police division. A botched job puts Hanna onto their trail while they regroup and try to put together one last big 'retirement' score. Neil and Vincent are similar in many ways, including their troubled personal lives. At a crucial moment in his life, Neil disobeys the dictum taught to him long ago by his criminal mentor--'Never have anything in your life that you can't walk out on in thirty seconds flat, if you spot the heat coming around the corner'--as he falls in love. Thus the stage is set for the suspenseful ending...",
+    "Runtime": 170,
+    "ReleaseDate": "1996-02-02T00:00:00",
+    "PosterUrl": "https://i.ibb.co/Ntc686X/Heat.jpg",
+    "TrailerUrl": "https://www.youtube.com/embed/2GfZl4kuVNI",
+    "Categories": [1, 8, 3],
+    "Tags": [1, 2, 3, 12]
+  },
+  {
+    "Id": 40,
+    "Name": "Mean Streets",
+    "ShortDescription": "In New York City's Little Italy, a devoutly Catholic mobster must reconcile his desire for power, his feelings for his epileptic lover, and his devotion to his troublesome friend.",
+    "FullDescription": "The future is set for Tony and Michael -- owning a neighborhood bar and making deals in the mean streets of New York City's Little Italy. For Charlie, the future is less clearly defined. A small-time hood, he works for his uncle, making collections and reclaiming bad debts. In love with a woman of whom his uncle disapproves (due to her epilepsy) and a friend of her disturbed cousin, Johnny Boy, a near psychotic whose trouble-making threatens them all -- Charlie just cannot reconcile opposing values. A failed attempt to escape (to Brooklyn) moves them all a step closer to a bitter, almost preordained future.",
+    "Runtime": 112,
+    "ReleaseDate": "1974-04-12T00:00:00",
+    "PosterUrl": "https://i.ibb.co/h77NRfp/Mean-Streets.jpg",
+    "TrailerUrl": "https://www.youtube.com/embed/g9xHpS10CZ0",
+    "Categories": [8, 3, 4],
+    "Tags": [3, 13]
+  },
+  {
+    "Id": 41,
+    "Name": "The Deer Hunter",
+    "ShortDescription": "An in-depth examination of the ways in which the Vietnam War impacts and disrupts the lives of several friends in a small steel mill town in Pennsylvania.",
+    "FullDescription": "Michael, Steven and Nicky are 3 best friends who enjoy going deer hunting quite often. These men get enlisted to head to Vietnam to fight for their country and celebrate with a farewell party, as well as Steven marrying a pregnant woman named \"Angela.\" After the horrors during the war and edge-grabbing games of Russian Roulette that these men are forced to play, Michael returns home and realizes that his deer hunting outings aren't the same as they used to be, because of the war and he eventually finds out that Steven is handicapped and Nicky hasn't returned from Vietnam, and in response, he heads back to Vietnam to rescue him.",
+    "Runtime": 182,
+    "ReleaseDate": "1979-02-27T00:00:00",
+    "PosterUrl": "https://i.ibb.co/4WhWJ22/The-Deer-Hunter.jpg",
+    "TrailerUrl": "https://www.youtube.com/embed/g7q1SjVdsNk",
+    "Categories": [3, 15],
+    "Tags": [1, 2, 3, 13]
+  },
+  {
+    "Id": 42,
+    "Name": "Joker",
+    "ShortDescription": "During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure.",
+    "FullDescription": "A socially inept clown for hire - Arthur Fleck aspires to be a stand up comedian among his small job working dressed as a clown holding a sign for advertising. He takes care of his mother, Penny Fleck, and as he learns more about his mental illness, he learns more about his past. Dealing with all the negativity and bullying from society, he heads downwards on a spiral, in turn showing how his alter ego, \"Joker,\" came to be.",
+    "Runtime": 122,
+    "ReleaseDate": "2019-10-04T00:00:00",
+    "PosterUrl": "https://i.ibb.co/vvn3x6J/Joker.webp",
+    "TrailerUrl": "https://www.youtube.com/embed/t433PEQGErc",
+    "Categories": [8, 3, 4],
+    "Tags": [3, 12]
   }
 ]

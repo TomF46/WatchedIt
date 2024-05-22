@@ -498,5 +498,65 @@
     "Description": "Qin Shaobo is a Chinese actor, acrobat and contortionist. His first performance took place when he was 11 years old which resulted in him wanting to make acting a career. Qin's motion picture debut was in 2001, playing The Amazing Yen, Danny Ocean's \"grease man\", in the remake of Ocean's Eleven.",
     "ImageUrl": "https://i.ibb.co/brkRkww/Qin.jpg",
     "DateOfBirth": "1981-11-30T00:00:00"
+  },
+  {
+    "Id": 51,
+    "FirstName": "Jodie",
+    "LastName": "Foster",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Alicia Christian \"Jodie\" Foster is an American actress and filmmaker. She is the recipient of numerous accolades, including two Academy Awards, three BAFTA Awards, and three Golden Globe Awards.",
+    "ImageUrl": "https://i.ibb.co/RhgZr8F/JFoster.webp",
+    "DateOfBirth": "1962-11-19T00:00:00"
+  },
+  {
+    "Id": 52,
+    "FirstName": "Harvey",
+    "LastName": "Keitel",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Harvey Keitel is an American actor known for his portrayal of morally ambiguous and \"tough guy\" characters.",
+    "ImageUrl": "https://i.ibb.co/VNCz3fc/HKeitel.jpg",
+    "DateOfBirth": "1939-05-13T00:00:00"
+  },
+  {
+    "Id": 53,
+    "FirstName": "Christopher",
+    "LastName": "Walken",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Christopher Walken is an American actor. Prolific in film, television, and on stage, Walken is the recipient of numerous accolades. He has earned an Academy Award, a BAFTA Award, a Screen Actors Guild Award, as well as nominations for two Primetime Emmy Awards and two Tony Awards.",
+    "ImageUrl": "https://i.ibb.co/pr1V3WB/Walken.webp",
+    "DateOfBirth": "1943-03-31T00:00:00"
+  },
+  {
+    "Id": 54,
+    "FirstName": "John",
+    "LastName": "Cazale",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "John Holland Cazale was an American actor. He appeared in five films over seven years: The Godfather, The Conversation, The Godfather Part II, Dog Day Afternoon, and The Deer Hunter.",
+    "ImageUrl": "https://i.ibb.co/KwW7nRY/Cazale.jpg",
+    "DateOfBirth": "1935-08-12T00:00:00"
+  },
+  {
+    "Id": 55,
+    "FirstName": "Meryl",
+    "LastName": "Streep",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Mary Louise \"Meryl\" Streep is an American actress. Known for her versatility and accent adaptability, she has been described as \"the best actress of her generation\".",
+    "ImageUrl": "https://i.ibb.co/wQV6JS9/MerylS.jpg",
+    "DateOfBirth": "1949-06-22T00:00:00"
+  },
+  {
+    "Id": 56,
+    "FirstName": "Joaquin",
+    "LastName": "Phoenix",
+    "MiddleNames": null,
+    "StageName": null,
+    "Description": "Joaquin Rafael Phoenix is an American actor. Known for his roles as dark, unconventional and eccentric characters in independent film, in particular period dramas, he has received various accolades, including an Academy Award, a British Academy Film Award, a Grammy Award, and two Golden Globe Awards.",
+    "ImageUrl": "https://i.ibb.co/CJsYvV2/Jp.webp",
+    "DateOfBirth": "1974-10-28T00:00:00"
   }
 ]

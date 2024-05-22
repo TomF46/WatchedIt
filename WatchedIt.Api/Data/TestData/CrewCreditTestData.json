@@ -118,5 +118,15 @@
     "FilmId": 36,
     "PersonId": 16,
     "Role": "Editor"
+  },
+  {
+    "FilmId": 38,
+    "PersonId": 15,
+    "Role": "Director"
+  },
+  {
+    "FilmId": 40,
+    "PersonId": 15,
+    "Role": "Director"
   }
 ]
