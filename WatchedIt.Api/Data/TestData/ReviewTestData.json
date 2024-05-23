@@ -388,5 +388,29 @@
     "FilmId": 42,
     "Rating": 8,
     "Text": "Following the vapidness that is the recent technicolor yawn of “superhero” films in the Marvel franchise, where the characters are often clumsily thrown together, it’s nice to see a stand-alone character, this time from the DC universe, given proper, serious biopic treatment by director and co-writer, Todd Phillips. The enigmatic Joaquin Phoenix stars as Arthur Fleck, an ill-fated wannabe comedian bullied by those around him and afflicted with a condition whereby he lets out an uncontrollable, maniacal laugh at the most inappropriate of moments."
+  },
+  {
+    "UserId": 2,
+    "FilmId": 43,
+    "Rating": 10,
+    "Text": "Apocalypse Now is an absolute masterpiece that deserves every bit of praise that it has received. From the stunning visuals to the incredible performances, everything about this film is top-notch."
+  },
+  {
+    "UserId": 4,
+    "FilmId": 43,
+    "Rating": 8,
+    "Text": "Finally came about to watch this classic! The plot of the movie is quite intriguing, to see how war can change people. Robert Duvall is just remarkable as the gung ho captain. The scene with all helicopters flying in with the Ride of the Valkyries is just breath-taking!"
+  },
+  {
+    "UserId": 9,
+    "FilmId": 44,
+    "Rating": 6,
+    "Text": "The movie has a Broadway Theater flow to it. The scenes flow into each other and everything that the characters say to each other in some way pushes the plot forward. It's not a bad thing at all, but it's just noticeable. All of the actors were phenomenal. The chemistry was just spectacular. The singing is what turns a lot of people off from watching this, but I actually like it. At times it can seem a bit overwhelming, but the songs are there to push the plot forward."
+  },
+  {
+    "UserId": 9,
+    "FilmId": 45,
+    "Rating": 7,
+    "Text": "Harry is maturing and becoming more and more involved in that past that has brought him here. Sirius Black becomes the spoken adversary, but his presence is a bit obvious and we moviegoers are a suspicious lot. The three comrades begin to work together in more productive ways, moving the action rather than being moved by it."
   }
 ]

@@ -128,5 +128,10 @@
     "FilmId": 40,
     "PersonId": 15,
     "Role": "Director"
+  },
+  {
+    "FilmId": 43,
+    "PersonId": 22,
+    "Role": "Director"
   }
 ]

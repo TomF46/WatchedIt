@@ -55,6 +55,9 @@ namespace WatchedIt.Api.Data
 
                 var newsArticleSeeder = new NewsArticleSeeder(_context, _env);
                 newsArticleSeeder.Seed();
+
+                var filmTriviaSeeder = new FilmTriviaSeeder(_context, _env);
+                filmTriviaSeeder.Seed();
             }
 
         }

@@ -215,17 +215,17 @@
     "Role": "Lucy"
   },
   {
-    "FilmId": 28,
+    "FilmId": 29,
     "PersonId": 6,
     "Role": "Barbie"
   },
   {
-    "FilmId": 28,
+    "FilmId": 29,
     "PersonId": 21,
     "Role": "Ken"
   },
   {
-    "FilmId": 28,
+    "FilmId": 29,
     "PersonId": 10,
     "Role": "Allan"
   },
@@ -473,5 +473,185 @@
     "FilmId": 42,
     "PersonId": 3,
     "Role": "Murray Franklin"
+  },
+  {
+    "FilmId": 9,
+    "PersonId": 57,
+    "Role": "Santino \"Sonny\" Corleone"
+  },
+  {
+    "FilmId": 34,
+    "PersonId": 57,
+    "Role": "Santino \"Sonny\" Corleone"
+  },
+  {
+    "FilmId": 9,
+    "PersonId": 58,
+    "Role": "Connie Corleone"
+  },
+  {
+    "FilmId": 34,
+    "PersonId": 58,
+    "Role": "Connie Corleone"
+  },
+  {
+    "FilmId": 35,
+    "PersonId": 58,
+    "Role": "Connie Corleone"
+  },
+  {
+    "FilmId": 9,
+    "PersonId": 59,
+    "Role": "Kay Adams Corleone"
+  },
+  {
+    "FilmId": 34,
+    "PersonId": 59,
+    "Role": "Kay Adams Corleone"
+  },
+  {
+    "FilmId": 35,
+    "PersonId": 59,
+    "Role": "Kay Adams Corleone"
+  },
+  {
+    "FilmId": 9,
+    "PersonId": 60,
+    "Role": "Tom Hagen"
+  },
+  {
+    "FilmId": 34,
+    "PersonId": 60,
+    "Role": "Tom Hagen"
+  },
+  {
+    "FilmId": 9,
+    "PersonId": 61,
+    "Role": "Peter Clemenza"
+  },
+  {
+    "FilmId": 43,
+    "PersonId": 9,
+    "Role": "Colonel Walter Kurtz"
+  },
+  {
+    "FilmId": 43,
+    "PersonId": 62,
+    "Role": "Captain Benjamin L. Willard"
+  },
+  {
+    "FilmId": 43,
+    "PersonId": 60,
+    "Role": "Lieutenant Colonel Bill Kilgore"
+  },
+  {
+    "FilmId": 43,
+    "PersonId": 63,
+    "Role": "Tyrone Miller"
+  },
+  {
+    "FilmId": 43,
+    "PersonId": 64,
+    "Role": "Colonel G. Lucas"
+  },
+  {
+    "FilmId": 44,
+    "PersonId": 55,
+    "Role": "Donna Sheridan"
+  },
+  {
+    "FilmId": 44,
+    "PersonId": 65,
+    "Role": "Sam Carmichael"
+  },
+  {
+    "FilmId": 44,
+    "PersonId": 66,
+    "Role": "Harry Bright"
+  },
+  {
+    "FilmId": 44,
+    "PersonId": 67,
+    "Role": "Bill Anderson"
+  },
+  {
+    "FilmId": 44,
+    "PersonId": 69,
+    "Role": "Rosie Mulligan"
+  },
+  {
+    "FilmId": 44,
+    "PersonId": 68,
+    "Role": "Sophie Sheridan"
+  },
+  {
+    "FilmId": 45,
+    "PersonId": 70,
+    "Role": "Harry Potter"
+  },
+  {
+    "FilmId": 45,
+    "PersonId": 71,
+    "Role": "Hermione Granger"
+  },
+  {
+    "FilmId": 45,
+    "PersonId": 72,
+    "Role": "Ron Weasley"
+  },
+  {
+    "FilmId": 45,
+    "PersonId": 73,
+    "Role": "Sirius Black"
+  },
+  {
+    "FilmId": 45,
+    "PersonId": 74,
+    "Role": "Albus Dumbledore"
+  },
+  {
+    "FilmId": 45,
+    "PersonId": 75,
+    "Role": "Remus Lupin"
+  },
+  {
+    "FilmId": 28,
+    "PersonId": 75,
+    "Role": "Father"
+  },
+  {
+    "FilmId": 28,
+    "PersonId": 76,
+    "Role": "Mother"
+  },
+  {
+    "FilmId": 45,
+    "PersonId": 77,
+    "Role": "Draco Malfoy"
+  },
+  {
+    "FilmId": 45,
+    "PersonId": 78,
+    "Role": "Severus Snape"
+  },
+  {
+    "FilmId": 45,
+    "PersonId": 78,
+    "Role": "Severus Snape"
+  },
+  {
+    "FilmId": 45,
+    "PersonId": 79,
+    "Role": "Minerva McGonagall"
+  },
+  {
+    "FilmId": 45,
+    "PersonId": 80,
+    "Role": "Rubeus Hagrid"
+  },
+  {
+    "FilmId": 45,
+    "PersonId": 69,
+    "Role": "Molly Weasley"
   }
 ]

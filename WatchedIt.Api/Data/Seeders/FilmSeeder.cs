@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 
 using WatchedIt.Api.Helpers;
+using WatchedIt.Api.Models.Files;
 using WatchedIt.Api.Models.FilmModels;
 
 namespace WatchedIt.Api.Data.Seeders
@@ -12,6 +13,7 @@ namespace WatchedIt.Api.Data.Seeders
     class FilmTestData : AddFilmDto{
         public int Id { get; set;}
         public IList<int> Tags { get; set; } = new List<int>();
+        public IList<string> Images { get; set; } = new List<string>();
     }
     public class FilmSeeder
     {
@@ -46,6 +48,15 @@ namespace WatchedIt.Api.Data.Seeders
                         Categories =  _context.Categories.Where(x => film.Categories.Contains(x.Id)).ToList(),
                         Tags =  _context.Tags.Where(x => film.Tags.Contains(x.Id)).ToList()
                     };
+
+                     foreach(var image in film.Images){
+                        var filmImage = new FilmImage{
+                            Film = f,
+                            Url = image
+                        };
+                        _context.FilmImages.Add(filmImage);
+                    }
+
 
                     _context.Database.OpenConnection();
                     try
