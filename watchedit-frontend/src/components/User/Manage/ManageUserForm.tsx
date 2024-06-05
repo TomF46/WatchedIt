@@ -46,6 +46,7 @@ const ManageUserForm = ({
               value={user.biography}
               onChange={onChange}
               error={errors.biography}
+              maxLength={400}
               required={false}
             />
           </div>

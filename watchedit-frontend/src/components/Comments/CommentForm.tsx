@@ -40,6 +40,7 @@ const CommentForm = ({
             required={true}
             onChange={onChange}
             error={errors.text}
+            maxLength={600}
           />
         </div>
       </div>

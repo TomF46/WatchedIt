@@ -101,6 +101,7 @@ const ManagePersonForm = ({
               value={person.description}
               onChange={onChange}
               error={errors.description}
+              maxLength={800}
               required={true}
             />
           </div>

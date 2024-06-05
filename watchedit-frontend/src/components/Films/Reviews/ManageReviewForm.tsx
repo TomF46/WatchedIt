@@ -58,6 +58,7 @@ const ManageReviewForm = ({
               value={review.text}
               onChange={onChange}
               error={errors.text}
+              maxLength={8000}
               required={true}
             />
           </div>

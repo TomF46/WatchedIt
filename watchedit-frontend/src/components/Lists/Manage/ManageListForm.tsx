@@ -54,6 +54,7 @@ const ManageListForm = ({
               value={list.description}
               onChange={onChange}
               error={errors.description}
+              maxLength={400}
               required={true}
             />
           </div>

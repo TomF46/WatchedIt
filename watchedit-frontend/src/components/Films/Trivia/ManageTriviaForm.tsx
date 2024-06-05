@@ -43,6 +43,7 @@ const ManageTriviaForm = ({
               value={trivia.text}
               onChange={onChange}
               error={errors.text}
+              maxLength={1000}
               required={true}
             />
           </div>

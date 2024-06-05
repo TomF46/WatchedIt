@@ -5,6 +5,7 @@ type Props = {
   value?: string;
   required: boolean;
   error?: string;
+  maxLength?: number;
 };
 
 const TextAreaInput = ({
@@ -14,6 +15,7 @@ const TextAreaInput = ({
   required,
   value,
   error,
+  maxLength,
 }: Props) => {
   return (
     <div className='field'>
@@ -21,7 +23,16 @@ const TextAreaInput = ({
         className='mb-1 block text-xs font-semibold text-primary'
         htmlFor={name}
       >
-        {label}
+        {label}{' '}
+        {maxLength && value && (
+          <span
+            className={
+              value.length > maxLength ? 'text-red-600' : 'text-primary'
+            }
+          >
+            &#40;{value?.length}/{maxLength}&#41;
+          </span>
+        )}
       </label>
       <div className='control'>
         <textarea

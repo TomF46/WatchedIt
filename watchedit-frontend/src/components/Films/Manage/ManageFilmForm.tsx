@@ -152,6 +152,7 @@ const ManageFilmForm = ({
               value={film.fullDescription}
               onChange={onChange}
               error={errors.fullDescription}
+              maxLength={800}
               required={true}
             />
           </div>
