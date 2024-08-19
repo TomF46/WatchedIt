@@ -20,13 +20,14 @@ function EditArticle() {
   const { isLoading, error } = useQuery({
     queryKey: ['article-update', id],
     queryFn: () =>
-      getNewsArticlesById(Number(id)).then((res) => {
+      getNewsArticlesById(Number(id), false).then((res) => {
         setArticle({
           id: res.id,
           title: res.title,
           content: res.content,
           thumbnailUrl: res.thumbnailUrl,
           published: res.published,
+          readCount: res.readCount,
         });
         return res;
       }),

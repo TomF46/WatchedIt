@@ -15,6 +15,8 @@ namespace WatchedIt.Api.Models.News
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public bool Published { get; set; }
+        public int ReadCount {get; set;}
+
     }
 
     public class AuthorDto

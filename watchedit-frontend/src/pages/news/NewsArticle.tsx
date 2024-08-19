@@ -25,7 +25,7 @@ function NewsArticle() {
   } = useQuery({
     queryKey: ['article', id],
     queryFn: () =>
-      getNewsArticlesById(Number(id)).then((res) => {
+      getNewsArticlesById(Number(id), true).then((res) => {
         res.content = res.content.replaceAll('\\', '/');
         return res;
       }),

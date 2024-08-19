@@ -49,9 +49,12 @@ export function searchNewsPaginated(
     });
 }
 
-export function getNewsArticlesById(id: number): Promise<NewsArticle> {
+export function getNewsArticlesById(
+  id: number,
+  reading: boolean,
+): Promise<NewsArticle> {
   return client
-    .get(`/api/newsArticles/${id}`)
+    .get(`/api/newsArticles/${id}?reading=${reading}`)
     .then((response) => {
       return response.data;
     })

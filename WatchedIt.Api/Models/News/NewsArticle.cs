@@ -21,5 +21,6 @@ namespace WatchedIt.Api.Models.News
         public DateTime UpdatedDate { get; set; }
         public bool Published { get; set; } = false;
         public string? ThumbnailUrl { get; set; }
+        public int ReadCount {get; set;} = 0;
     }
 }

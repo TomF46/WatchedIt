@@ -11,6 +11,7 @@ export type NewsArticle = {
   createdDate: Date;
   updatedDate: Date;
   published: boolean;
+  readCount: number;
 };
 
 type NewsArticles = {
@@ -33,6 +34,7 @@ export type EditableNewsArticle = {
   published: boolean;
   createdDate?: Date;
   updatedDate?: Date;
+  readCount: number;
 };
 
 export type NewsArticleFormErrors = {

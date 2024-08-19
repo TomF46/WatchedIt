@@ -11,7 +11,7 @@ namespace WatchedIt.Api.Services.NewsArticleService
     {
         Task<PaginationResponse<GetNewsArticleOverviewDto>> GetAll(NewsArticleSearchWithPaginationParameters parameters);
         Task<PaginationResponse<GetNewsArticleOverviewDto>> GetAllForUser(int userId, int currentUserId, NewsArticleSearchWithPaginationParameters parameters);
-        Task<GetNewsArticleDto> GetById(int id);
+        Task<GetNewsArticleDto> GetById(int id, bool reading);
         Task<GetNewsArticleDto> Add(int userId, AddNewsArticleDto newArticle);
         Task<GetNewsArticleDto> Update(int id, int userId, UpdateNewsArticleDto updatedArticle);
         Task<GetNewsArticleDto> SetArticlePublished(int id, int userId, bool isPublished);

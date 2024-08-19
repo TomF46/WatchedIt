@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -26,8 +27,8 @@ namespace WatchedIt.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<GetNewsArticleDto>> GetSingle(int id){
-            return Ok(await _newsArticlesService.GetById(id));
+        public async Task<ActionResult<GetNewsArticleDto>> GetSingle(int id, [FromQuery] bool reading){
+            return Ok(await _newsArticlesService.GetById(id, reading));
         }
 
         [HttpPost]

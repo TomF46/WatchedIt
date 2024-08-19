@@ -31,6 +31,12 @@ namespace WatchedIt.Api.Helpers
                 case "created_asc":
                     articles = articles.OrderBy(x => x.CreatedDate);
                     break;
+                case "read_desc":
+                    articles = articles.OrderByDescending(x => x.ReadCount);
+                    break;
+                case "read_asc":
+                    articles = articles.OrderBy(x => x.ReadCount);
+                    break;
                 default:
                     articles = articles.OrderByDescending(x => x.CreatedDate);
                     break;

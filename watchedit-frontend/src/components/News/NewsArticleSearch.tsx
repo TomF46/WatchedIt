@@ -25,6 +25,8 @@ const NewsArticleSearch = ({
   const sortOptions = [
     { id: 'created_asc', name: 'Oldest' },
     { id: 'created_desc', name: 'Latest' },
+    { id: 'read_desc', name: 'Most read' },
+    { id: 'read_asc', name: 'Least read' },
   ];
 
   useEffect(() => {

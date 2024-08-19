@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
 import { EditableNewsArticle, NewsArticle } from '../../types/News';
+import CalendarIcon from '../Icons/CalendarIcon';
+import EyeIcon from '../Icons/EyeIcon';
 
 const NewsArticlePreview = ({
   article,
@@ -24,18 +26,33 @@ const NewsArticlePreview = ({
           />
           <div className='p-2'>
             <div className='grid grid-cols-12'>
-              <div className='col-span-12'>
-                <h3 className='text-sm text-gray-400'>
-                  {article.createdDate &&
-                    format(
-                      parseISO(article.createdDate.toString()),
-                      'dd/MM/yyyy HH:mm',
-                    )}
-                  {!article.published && (
-                    <span className='text-primary'> &#40;Unpublished&#41;</span>
-                  )}
-                </h3>
+              <div className='relative col-span-12 lg:col-span-8'>
+                {article.createdDate && (
+                  <div className='inline-flex items-center text-center'>
+                    <CalendarIcon color='primary' height={5} width={5} />
+                    <p className='ml-1 text-sm'>
+                      {article.createdDate &&
+                        format(
+                          parseISO(article.createdDate.toString()),
+                          'dd/MM/yyyy HH:mm',
+                        )}
+                    </p>
+                  </div>
+                )}
               </div>
+              <div className='relative col-span-12 lg:col-span-4'>
+                {article.readCount && (
+                  <div className='right-0 top-0 block inline-flex items-center text-center lg:absolute'>
+                    <EyeIcon color='success' height={5} width={5} />
+                    <p className='ml-1'>{article.readCount}</p>
+                  </div>
+                )}
+              </div>
+              {!article.published && (
+                <div className='col-span-12'>
+                  <span className='text-primary'> &#40;Unpublished&#41;</span>
+                </div>
+              )}
               <div className='col-span-12'>
                 <h3 className='text-lg text-primary'>{article.title}</h3>
               </div>

@@ -42,10 +42,15 @@ namespace WatchedIt.Api.Services.NewsArticleService
             return new PaginationResponse<GetNewsArticleOverviewDto>(mappedArticles, parameters.PageNumber, parameters.PageSize, count);
         }
 
-        public async Task<GetNewsArticleDto> GetById(int id)
+        public async Task<GetNewsArticleDto> GetById(int id, bool reading)
         {
             var article = await _context.NewsArticles.Include(a => a.User).FirstOrDefaultAsync(a => a.Id == id);
             if (article is null) throw new BadRequestException($"Article with Id '{id}' not found.");
+
+            if(reading){
+                article.ReadCount = article.ReadCount + 1;
+                await _context.SaveChangesAsync();
+            }
 
             return NewsArticleMapper.Map(article);
         }

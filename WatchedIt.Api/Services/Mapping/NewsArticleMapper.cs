@@ -25,7 +25,8 @@ namespace WatchedIt.Api.Services.Mapping
                 },
                 CreatedDate = article.CreatedDate,
                 UpdatedDate = article.UpdatedDate,
-                Published = article.Published
+                Published = article.Published,
+                ReadCount = article.ReadCount
             };
         }
 
@@ -39,7 +40,8 @@ namespace WatchedIt.Api.Services.Mapping
                 AuthorName = article.User.Username,
                 CreatedDate = article.CreatedDate,
                 UpdatedDate = article.UpdatedDate,
-                Published = article.Published
+                Published = article.Published,
+                ReadCount = article.ReadCount
             };
         }
 
