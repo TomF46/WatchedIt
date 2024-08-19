@@ -3,19 +3,19 @@
     "Id": 2,
     "Username": "Hogan202",
     "Email": "hogan@email.com",
-    "ImageUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/test-data/ashton-bingham-EQFtEzJGERg-unsplash.jpg"
+    "ImageUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/test-data/ashton-bingham-EQFtEzJGERg-unsplash.webp"
   },
   {
     "Id": 3,
     "Username": "EllieLovesFilms",
     "Email": "ellie@email.com",
-    "ImageUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/test-data/kimson-doan-HD8KlyWRYYM-unsplash.jpg"
+    "ImageUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/test-data/kimson-doan-HD8KlyWRYYM-unsplash.webp"
   },
   {
     "Id": 4,
     "Username": "Craig1",
     "Email": "craig@email.com",
-    "ImageUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/test-data/ayo-ogunseinde-sib-Vw-ORYqs0-unsplash.jpg"
+    "ImageUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/test-data/ayo-ogunseinde-sib-Vw-ORYqs0-unsplash.webp"
   },
   {
     "Id": 5,
