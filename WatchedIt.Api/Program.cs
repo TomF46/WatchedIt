@@ -138,6 +138,7 @@ else
 
 builder.Services.AddTransient<ExceptionMiddleware>();
 builder.Services.AddTransient<DataSeeder>();
+builder.Services.AddTransient<BulkDataSeeder>();
 builder.Services.AddScoped<IFilmService, FilmService>();
 builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<ICreditService, CreditService>();
@@ -200,5 +201,20 @@ void SeedData(IHost app)
         service.Seed();
     }
 }
+
+if (args.Length == 1 && args[0].ToLower() == "bulkseeddata")
+    BulkSeedData(app);
+
+void BulkSeedData(IHost app)
+{
+    var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
+
+    using (var scope = scopedFactory.CreateScope())
+    {
+        var service = scope.ServiceProvider.GetService<BulkDataSeeder>();
+        service.Seed();
+    }
+}
+
 
 app.Run();
