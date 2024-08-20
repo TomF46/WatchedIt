@@ -85,7 +85,7 @@ function News() {
           showSearchByPublisher
         />
         {isLoading ? (
-          <LoadingMessage message={'Loading people.'} />
+          <LoadingMessage message={'Loading news.'} />
         ) : (
           <>
             {articlesPaginator.data.length > 0 ? (

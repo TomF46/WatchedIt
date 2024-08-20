@@ -1,9 +1,18 @@
 [
   {
-    "UserId": 2,
+    "UserId": 1,
     "Title": "Watched It is live!",
-    "Content": "#WatchedIt is live now.",
-    "ThumbnailUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/films/6a2b704c-0145-45e4-aea5-4336998bd91d",
-    "Published": true
+    "Content": "# WatchedIt is now live.\n\nWatchedIt is now here, discover new films, find the latest project by your favourite actor, and much more.\n\nFeatures include\n\n- Track your watched films\n.- Like, rate and review films.\n- Various ways to search and discover films or people.\n- Create lists.\n- See other users and what they like.\n- Much more.",
+    "ThumbnailUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/test-data/WatchedItBlock.webp",
+    "Published": true,
+    "ReadCount": 246
+  },
+  {
+    "UserId": 1,
+    "Title": "Kauhu Entertainment presents",
+    "Content": "# Kauhu Entertainment presents... freight night coming soon.\nHorror film aficionados Kauhu Entertainment is back with a 5 night run at the Teatteri theater with 'Kauhu Entertainment presents... freight night' from October 27th. Watch back to back to back to back horror all night long.\n Doors: 6pm\n Film 1: 7pm\n Interval: 9:30pm\n Film 2: 10pm\n Interval: Midnight\n Film 3: 0:30am\n Interval: 3am\n Film 4: 3:30am\n End: 6am.",
+    "ThumbnailUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/test-data/cinema.webp",
+    "Published": true,
+    "ReadCount": 98
   }
 ]

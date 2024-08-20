@@ -11,6 +11,7 @@ namespace WatchedIt.Api.Data.Seeders
 {
     class NewsArticleTestData : AddNewsArticleDto{
         public int UserId { get; set;}
+        public int ReadCount {get; set;}
     }
     public class NewsArticleSeeder
     {
@@ -40,7 +41,8 @@ namespace WatchedIt.Api.Data.Seeders
                         ThumbnailUrl = article.ThumbnailUrl,
                         Published = article.Published,
                         CreatedDate = DateTime.Now,
-                        UpdatedDate = DateTime.Now
+                        UpdatedDate = DateTime.Now,
+                        ReadCount = article.ReadCount
                     };
                     _context.NewsArticles.Add(a);
                 }

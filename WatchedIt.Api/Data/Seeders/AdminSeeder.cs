@@ -29,7 +29,8 @@ namespace WatchedIt.Api.Data.Seeders
                     Email = "admin@email.com",
                     Username = "Admin",
                     ImageUrl = _config["Images:Defaults:ProfileImage"],
-                    Role = Models.Enums.Role.Administrator
+                    Role = Models.Enums.Role.Administrator,
+                    CanPublish = true
                 };
                 _authenticationService.Create(admin, _config["TestDefaultPassword"]);
             }

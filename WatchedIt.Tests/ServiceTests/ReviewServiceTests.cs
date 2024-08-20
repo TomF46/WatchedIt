@@ -74,6 +74,36 @@ namespace WatchedIt.Tests.ServiceTests
         }
 
         [Test]
+        public async Task CanGetAllReviews()
+        {
+            var user1 = RandomDataGenerator.GenerateUser();
+            var user2 = RandomDataGenerator.GenerateUser();
+            var film = RandomDataGenerator.GenerateFilm();
+            var film2 = RandomDataGenerator.GenerateFilm();
+            var review1 = RandomDataGenerator.GenerateReview(film, user1);
+            var review2 = RandomDataGenerator.GenerateReview(film2, user1);
+            var review3 = RandomDataGenerator.GenerateReview(film, user2);
+
+            await _context.Films.AddAsync(film);
+            await _context.Films.AddAsync(film2);
+            await _context.Users.AddAsync(user1);
+            await _context.Users.AddAsync(user2);
+            await _context.Reviews.AddAsync(review1);
+            await _context.Reviews.AddAsync(review2);
+            await _context.Reviews.AddAsync(review3);
+            await _context.SaveChangesAsync();
+
+            var pagination = new ReviewSearchWithPaginationParameters
+            {
+                PageNumber = 1,
+                PageSize = 20
+            };
+
+            var reviews = await _reviewService.GetAll(pagination);
+            Assert.That(reviews.Data, Has.Count.EqualTo(3));
+        }
+
+        [Test]
         public async Task CanGetAllReviewsForFilm()
         {
             var user1 = RandomDataGenerator.GenerateUser();

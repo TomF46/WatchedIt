@@ -18,6 +18,16 @@ namespace WatchedIt.Api.Services.ReviewService
             _context = context;
         }
 
+        public async Task<PaginationResponse<GetReviewDto>> GetAll(ReviewSearchWithPaginationParameters parameters)
+        {
+            var query = _context.Reviews.Include(r => r.Film).Include(r => r.User).AsQueryable();
+            query = sortReviews(query, parameters);
+            var count = query.Count();
+            var reviews = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
+            var mappedReviews = reviews.Select(r => ReviewMapper.Map(r)).ToList();
+            return new PaginationResponse<GetReviewDto>(mappedReviews, parameters.PageNumber, parameters.PageSize, count);
+        }
+
         public async Task<PaginationResponse<GetReviewDto>> GetAllForFilm(int id, ReviewSearchWithPaginationParameters parameters)
         {
             var film = await _context.Films.FirstOrDefaultAsync(f => f.Id == id);

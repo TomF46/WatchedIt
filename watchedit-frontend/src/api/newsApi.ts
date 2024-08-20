@@ -19,9 +19,12 @@ export function saveNewsArticle(
 export function getNewsPaginated(
   pageNumber: number,
   pageSize: number,
+  sort: string,
 ): Promise<NewsArticlesPaginationResponse> {
   return client
-    .get(`/api/newsArticles?PageNumber=${pageNumber}&PageSize=${pageSize}`)
+    .get(
+      `/api/newsArticles?PageNumber=${pageNumber}&PageSize=${pageSize}&Sort=${sort}`,
+    )
     .then((response) => {
       return response.data;
     })

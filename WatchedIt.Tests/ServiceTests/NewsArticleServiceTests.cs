@@ -84,7 +84,7 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.NewsArticles.AddAsync(article);
             await _context.SaveChangesAsync();
 
-            var articleFromDb = await _newsArticleService.GetById(article.Id);
+            var articleFromDb = await _newsArticleService.GetById(article.Id, true);
             Assert.That(articleFromDb.Id, Is.EqualTo(article.Id));
         }
 
@@ -129,7 +129,7 @@ namespace WatchedIt.Tests.ServiceTests
 
             await _newsArticleService.Update(article.Id, user.Id, updatedArticle);
 
-            var articleFromDb = await _newsArticleService.GetById(article.Id);
+            var articleFromDb = await _newsArticleService.GetById(article.Id, false);
             Assert.That(articleFromDb.Title, Is.EqualTo(newTitle));
         }
 

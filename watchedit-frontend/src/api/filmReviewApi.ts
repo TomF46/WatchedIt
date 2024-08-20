@@ -15,11 +15,28 @@ export function saveReview(
   return review.id ? updateReview(filmId, review) : addReview(filmId, review);
 }
 
+export function getReviews(
+  pageNumber: number,
+  pageSize: number,
+  sort: string,
+): Promise<ReviewsPaginationResponse> {
+  return client
+    .get(
+      `/api/reviews?PageNumber=${pageNumber}&PageSize=${pageSize}&sort=${sort}`,
+    )
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw error.response;
+    });
+}
+
 export function getReviewsByFilmId(
   filmId: number,
   pageNumber: number,
   pageSize: number,
-  sort: string
+  sort: string,
 ): Promise<ReviewsPaginationResponse> {
   return client
     .get(

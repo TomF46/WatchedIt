@@ -45,7 +45,7 @@ namespace WatchedIt.Api.Controllers
 
         [Authorize]
         [HttpPut("{reviewId}")]
-        public async Task<ActionResult<GetReviewDto>> UpdateReview(int id, int reviewId, UpdateReviewDto updatedReview)
+        public async Task<ActionResult<GetReviewDto>> UpdateReview(int reviewId, UpdateReviewDto updatedReview)
         {
             var userId = AuthMapper.MapLoggedInUserId(HttpContext);
             return Ok(await _reviewService.Update(reviewId, userId, updatedReview));

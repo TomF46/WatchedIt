@@ -51,6 +51,7 @@ export const newArticle = {
   content: '',
   thumbnailUrl: undefined,
   published: false,
+  readCount: 0,
 };
 
 export const newTag = {

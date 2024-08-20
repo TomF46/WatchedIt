@@ -10,6 +10,7 @@ namespace WatchedIt.Api.Services.ReviewService
 {
     public interface IReviewService
     {
+        Task<PaginationResponse<GetReviewDto>> GetAll(ReviewSearchWithPaginationParameters parameters);
         Task<PaginationResponse<GetReviewDto>> GetAllForFilm(int id, ReviewSearchWithPaginationParameters parameters);
         Task<PaginationResponse<GetReviewDto>> GetAllByUser(int id, ReviewSearchWithPaginationParameters parameters);
         Task<GetReviewDto> GetById(int id);

@@ -71,7 +71,9 @@ namespace WatchedIt.Tests.ServiceTests
             await _context.SaveChangesAsync();
 
             var allTags = await _tagService.GetAll();
-            Assert.That(allTags, Has.Count.EqualTo(2));
+
+            var totalTags = allTags.Languages.Count + allTags.OtherTags.Count + allTags.AgeRatings.Count;
+            Assert.That(totalTags, Is.EqualTo(2));
 
         }
 

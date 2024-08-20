@@ -9,6 +9,8 @@ import FilmsComingSoonReel from '../components/Home/FilmReel/FilmsComingSoonReel
 import { useAppSelector } from '../redux/store';
 import useIsAuthenticated from '../hooks/useIsAuthenticated';
 import BirthdayReel from '../components/Home/BirthdayReel/BirthdayReel';
+import NewsReel from '../components/Home/NewsReel/NewsReel';
+import ReviewReel from '../components/Home/ReviewReel/ReviewReel';
 
 function Home() {
   const userIsAuthenticated = useIsAuthenticated();
@@ -51,19 +53,22 @@ function Home() {
           <FilmReel title='Latest films' sort='release_desc' onlyShowReleased />
         </div>
         <div className='col-span-12'>
-          <PeopleReel
-            title={'Most liked people'}
-            subtitle={
-              'The most liked people according to the WatchedIt community.'
-            }
-            sort='likes_desc'
-          />
+          <NewsReel title='Latest news' sort='created_desc' />
         </div>
         <div className='col-span-12'>
           <FilmReel
             title='Most watched films'
             sort='watched_desc'
             onlyShowReleased
+          />
+        </div>
+        <div className='col-span-12'>
+          <PeopleReel
+            title={'Most liked people'}
+            subtitle={
+              'The most liked people according to the WatchedIt community.'
+            }
+            sort='likes_desc'
           />
         </div>
         <div className='col-span-12'>
@@ -83,6 +88,9 @@ function Home() {
         </div>
         <div className='col-span-12'>
           <BirthdayReel />
+        </div>
+        <div className='col-span-12'>
+          <ReviewReel title='Latest reviews' sort='created_desc' />
         </div>
         <div className='col-span-12'>
           <ListReel />

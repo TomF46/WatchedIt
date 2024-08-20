@@ -41,7 +41,7 @@ const NewsArticlePreview = ({
                 )}
               </div>
               <div className='relative col-span-12 lg:col-span-4'>
-                {article.readCount && (
+                {!!article.readCount && (
                   <div className='right-0 top-0 block inline-flex items-center text-center lg:absolute'>
                     <EyeIcon color='success' height={5} width={5} />
                     <p className='ml-1'>{article.readCount}</p>
