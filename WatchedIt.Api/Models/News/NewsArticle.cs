@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using WatchedIt.Api.Models.Authentication;
+using WatchedIt.Api.Models.Enums;
+using WatchedIt.Api.Models.NewsCategoryModels;
 
 namespace WatchedIt.Api.Models.News
 {
@@ -22,5 +24,7 @@ namespace WatchedIt.Api.Models.News
         public bool Published { get; set; } = false;
         public string? ThumbnailUrl { get; set; }
         public int ReadCount {get; set;} = 0;
+        public ICollection<NewsCategory> Categories { get; set; } = new List<NewsCategory>();
+    
     }
 }

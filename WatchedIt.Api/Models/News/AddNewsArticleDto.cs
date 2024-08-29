@@ -11,5 +11,7 @@ namespace WatchedIt.Api.Models.News
         public string? Content { get; set; }
         public string? ThumbnailUrl { get; set; }
         public bool Published { get; set; }
+        public IList<int> Categories { get; set; } = new List<int>();
+
     }
 }

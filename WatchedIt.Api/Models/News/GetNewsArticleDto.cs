@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using WatchedIt.Api.Models.NewsCategoryModels;
+
 namespace WatchedIt.Api.Models.News
 {
     public class GetNewsArticleDto
@@ -16,7 +18,7 @@ namespace WatchedIt.Api.Models.News
         public DateTime UpdatedDate { get; set; }
         public bool Published { get; set; }
         public int ReadCount {get; set;}
-
+        public IList<GetNewsCategoryDto> Categories { get; set; } = new List<GetNewsCategoryDto>();
     }
 
     public class AuthorDto

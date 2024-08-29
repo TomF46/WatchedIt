@@ -26,7 +26,8 @@ namespace WatchedIt.Api.Services.Mapping
                 CreatedDate = article.CreatedDate,
                 UpdatedDate = article.UpdatedDate,
                 Published = article.Published,
-                ReadCount = article.ReadCount
+                ReadCount = article.ReadCount,
+                Categories = article.Categories.Select(x => NewsCategoryMapper.Map(x)).ToList(),
             };
         }
 

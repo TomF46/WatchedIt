@@ -44,7 +44,7 @@ namespace WatchedIt.Api.Services.NewsArticleService
 
         public async Task<GetNewsArticleDto> GetById(int id, bool reading)
         {
-            var article = await _context.NewsArticles.Include(a => a.User).FirstOrDefaultAsync(a => a.Id == id);
+            var article = await _context.NewsArticles.Include(a => a.User).Include(a => a.Categories).FirstOrDefaultAsync(a => a.Id == id);
             if (article is null) throw new BadRequestException($"Article with Id '{id}' not found.");
 
             if(reading){
@@ -65,6 +65,7 @@ namespace WatchedIt.Api.Services.NewsArticleService
             article.User = user;
             article.CreatedDate = DateTime.Now;
             article.UpdatedDate = DateTime.Now;
+            article.Categories = await _context.NewsCategories.Where(x => newArticle.Categories.Contains(x.Id)).ToListAsync();
 
             await _context.NewsArticles.AddAsync(article);
             await _context.SaveChangesAsync();
@@ -87,6 +88,7 @@ namespace WatchedIt.Api.Services.NewsArticleService
             article.Content = updatedArticle.Content;
             article.ThumbnailUrl = updatedArticle.ThumbnailUrl;
             article.Published = updatedArticle.Published;
+            article.Categories = await _context.NewsCategories.Where(x => updatedArticle.Categories.Contains(x.Id)).ToListAsync();
             await _context.SaveChangesAsync();
             return NewsArticleMapper.Map(article);
         }

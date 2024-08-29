@@ -8,6 +8,7 @@ using WatchedIt.Api.Models.FilmListModels;
 using WatchedIt.Api.Models.FilmModels;
 using WatchedIt.Api.Models.FilmTrivia;
 using WatchedIt.Api.Models.News;
+using WatchedIt.Api.Models.NewsCategoryModels;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Models.ReviewModels;
 using WatchedIt.Api.Models.TagModels;
@@ -200,6 +201,14 @@ namespace WatchedIt.Tests.ServiceTests.Helpers
             {
                 Name = Faker.Lorem.GetFirstWord(),
                 Type = TagType.Language
+            };
+        }
+
+        public static NewsCategory GenerateNewsCategory()
+        {
+            return new NewsCategory
+            {
+                Name = Faker.Lorem.GetFirstWord(),
             };
         }
 

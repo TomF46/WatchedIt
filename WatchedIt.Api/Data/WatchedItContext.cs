@@ -18,6 +18,7 @@ using WatchedIt.Api.Models.Games.Connections;
 using WatchedIt.Api.Models.Games.GuessFilmFromCast;
 using WatchedIt.Api.Models.Games.GuessFilmFromDescription;
 using WatchedIt.Api.Models.News;
+using WatchedIt.Api.Models.NewsCategoryModels;
 using WatchedIt.Api.Models.NotificationModels;
 using WatchedIt.Api.Models.PersonModels;
 using WatchedIt.Api.Models.ReviewModels;
@@ -59,9 +60,6 @@ namespace Data
         public DbSet<FilmImage> FilmImages => Set<FilmImage>();
         public DbSet<PersonImage> PersonImages => Set<PersonImage>();
         public DbSet<Tag> Tags => Set<Tag>();
-
-
-
-
+        public DbSet<NewsCategory> NewsCategories => Set<NewsCategory>();
     }
 }
