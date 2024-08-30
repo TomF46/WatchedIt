@@ -7,7 +7,13 @@ import { getNewsArticlesById, saveNewsArticle } from '../../api/newsApi';
 import ManageNewsArticle from './ManageNewsArticle';
 import LoadingMessage from '../../components/Loading/LoadingMessage';
 import ErrorMessage from '../../components/Error/ErrorMessage';
-import { EditableNewsArticle, SaveNewsArticleRequest } from '../../types/News';
+import {
+  EditableNewsArticle,
+  NewsArticleForRequest,
+  SaveNewsArticleRequest,
+} from '../../types/News';
+import { NewsCategory } from '../../types/newsCategories';
+import { SelectOption } from '../../components/Inputs/InputTypes';
 
 function EditArticle() {
   const { id } = useParams();
@@ -28,10 +34,17 @@ function EditArticle() {
           thumbnailUrl: res.thumbnailUrl,
           published: res.published,
           readCount: res.readCount,
+          categories: convertCategoriesToSelectOption(res.categories),
         });
         return res;
       }),
   });
+
+  function convertCategoriesToSelectOption(
+    categories: NewsCategory[],
+  ): SelectOption[] {
+    return categories.map((c) => c as SelectOption);
+  }
 
   const editArticle = useMutation({
     mutationFn: (request: SaveNewsArticleRequest) => {
@@ -54,6 +67,14 @@ function EditArticle() {
     setArticle(updatedArticle);
   }
 
+  function handleSave(publish: boolean): void {
+    const articleForRequest = { ...article } as NewsArticleForRequest;
+    articleForRequest.categories = article.categories.map(
+      (category: SelectOption) => category.id,
+    );
+    editArticle.mutate({ article: articleForRequest, publish: publish });
+  }
+
   if (isLoading) return <LoadingMessage message={'Loading article.'} />;
 
   if (error) {
@@ -70,9 +91,7 @@ function EditArticle() {
       <ManageNewsArticle
         article={article}
         updateArticle={handleUpdate}
-        triggerSave={(publish) => {
-          editArticle.mutate({ article: article, publish: publish });
-        }}
+        triggerSave={(publish) => handleSave(publish)}
         saving={saving}
       ></ManageNewsArticle>
     </div>

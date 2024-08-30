@@ -5,7 +5,12 @@ import { newArticle } from '../../tools/obJectShapes';
 import { saveNewsArticle } from '../../api/newsApi';
 import ManageNewsArticle from './ManageNewsArticle';
 import { useMutation } from '@tanstack/react-query';
-import { EditableNewsArticle, SaveNewsArticleRequest } from '../../types/News';
+import {
+  EditableNewsArticle,
+  NewsArticleForRequest,
+  SaveNewsArticleRequest,
+} from '../../types/News';
+import { SelectOption } from '../../components/Inputs/InputTypes';
 
 function AddArticle() {
   const navigate = useNavigate();
@@ -35,14 +40,20 @@ function AddArticle() {
     setArticle(updatedArticle);
   }
 
+  function handleSave(publish: boolean): void {
+    const articleForRequest = { ...article } as NewsArticleForRequest;
+    articleForRequest.categories = article.categories.map(
+      (category: SelectOption) => category.id,
+    );
+    addArticle.mutate({ article: articleForRequest, publish: publish });
+  }
+
   return (
     <div className='Add-article-page'>
       <ManageNewsArticle
         article={article}
         updateArticle={handleUpdate}
-        triggerSave={(publish) => {
-          addArticle.mutate({ article: article, publish: publish });
-        }}
+        triggerSave={(publish) => handleSave(publish)}
         saving={saving}
       ></ManageNewsArticle>
     </div>

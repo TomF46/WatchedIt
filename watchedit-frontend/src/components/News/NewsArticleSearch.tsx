@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import SelectInput from '../Inputs/SelectInput';
 import TextInput from '../Inputs/TextInput';
 import { NewsArticleSearchParameters } from '../../types/News';
+import { useQuery } from '@tanstack/react-query';
+import { getNewsCategories } from '../../api/newsCategoriesApi';
+import { toast } from 'react-toastify';
 
 type Props = {
   page: number;
@@ -20,6 +23,7 @@ const NewsArticleSearch = ({
     title: '',
     publisher: '',
     sort: 'created_desc',
+    category: undefined,
   });
 
   const sortOptions = [
@@ -28,6 +32,21 @@ const NewsArticleSearch = ({
     { id: 'read_desc', name: 'Most read' },
     { id: 'read_asc', name: 'Least read' },
   ];
+
+  const { data: categories } = useQuery({
+    queryKey: ['categories'],
+    queryFn: () =>
+      getNewsCategories()
+        .then((res) => {
+          return res;
+        })
+        .catch((error) => {
+          toast.error(`Error getting categories ${error.data.Exception}`, {
+            autoClose: false,
+          });
+          return error;
+        }),
+  });
 
   useEffect(() => {
     onQueryChange(searchTerms);
@@ -40,6 +59,23 @@ const NewsArticleSearch = ({
     setSearchTerms((prevSearchTerms) => ({
       ...prevSearchTerms,
       [name]: value,
+    }));
+    if (page != 1) onPageChange(1);
+  }
+
+  function handleCategoryChange(
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ): void {
+    const { value } = event.target;
+    let c = undefined;
+    if (isNaN(Number(value))) {
+      c = undefined;
+    } else {
+      c = Number(value);
+    }
+    setSearchTerms((prevSearchTerms) => ({
+      ...prevSearchTerms,
+      category: c,
     }));
     if (page != 1) onPageChange(1);
   }
@@ -77,6 +113,18 @@ const NewsArticleSearch = ({
                 value={searchTerms.publisher}
                 onChange={handleSearchTermChange}
                 required={false}
+              />
+            </div>
+          )}
+          {categories && categories.length > 0 && (
+            <div className='ml-2'>
+              <SelectInput
+                name='category'
+                label='Category'
+                defaultText='All'
+                value={searchTerms.category}
+                options={categories}
+                onChange={handleCategoryChange}
               />
             </div>
           )}

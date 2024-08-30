@@ -9,12 +9,19 @@ namespace WatchedIt.Api.Helpers
 {
     public class NewsArticleSearchHelper
     {
-        public IQueryable<NewsArticle> searchNewsArticles(IQueryable<NewsArticle> articles, NewsArticleSearchWithPaginationParameters parameters)
+        public IQueryable<NewsArticle> searchNewsArticles(WatchedItContext _context, IQueryable<NewsArticle> articles, NewsArticleSearchWithPaginationParameters parameters)
         {
             if (!string.IsNullOrWhiteSpace(parameters.Title))
             {
                 var searchTitle = parameters.Title.Trim().ToLower();
                 articles = articles.Where(a => a.Title.ToLower().Contains(searchTitle));
+            }
+
+            if (parameters.Category is not null)
+            {
+                var category = _context.NewsCategories.FirstOrDefault(x => x.Id == parameters.Category);
+                if (category is null) throw new NotFoundException("Category does not exist");
+                articles = articles.Where(x => x.Categories.Contains(category));
             }
 
             if (!string.IsNullOrWhiteSpace(parameters.Publisher))

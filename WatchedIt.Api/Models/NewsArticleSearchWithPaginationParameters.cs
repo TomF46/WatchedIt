@@ -10,6 +10,6 @@ namespace WatchedIt.Api.Models
         public string? Title {get; set;} = "";
         public string? Publisher {get; set;} = "";
         public string? Sort {get; set;} = "";
-
+        public int? Category { get; set; }
     }
 }

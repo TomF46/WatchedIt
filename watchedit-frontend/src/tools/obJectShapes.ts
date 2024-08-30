@@ -52,6 +52,7 @@ export const newArticle = {
   thumbnailUrl: undefined,
   published: false,
   readCount: 0,
+  categories: [],
 };
 
 export const newTag = {

@@ -7,11 +7,14 @@ import { toast } from 'react-toastify';
 import TextInput from '../../components/Inputs/TextInput';
 import { uploadImage } from '../../api/imageApi';
 import NewsArticlePreview from '../../components/News/NewsArticlePreview';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { EditableNewsArticle, NewsArticleFormErrors } from '../../types/News';
 import ButtonWIcon from '../../components/Buttons/ButtonWIcon';
 import NewsIcon from '../../components/Icons/NewsIcon';
 import ImageIcon from '../../components/Icons/ImageIcon';
+import { getNewsCategories } from '../../api/newsCategoriesApi';
+import MultiSelectInput from '../../components/Inputs/MultiSelectInput';
+import { SelectOption } from '../../components/Inputs/InputTypes';
 
 type Props = {
   article: EditableNewsArticle;
@@ -32,6 +35,17 @@ function ManageNewsArticle({
   const [generatedUrl, setGeneratedUrl] = useState<string | undefined>(
     undefined,
   );
+
+  const { data: categories } = useQuery({
+    queryKey: ['categories'],
+    queryFn: () =>
+      getNewsCategories().catch((error) => {
+        toast.error(`Error getting categories ${error.data.Exception}`, {
+          autoClose: false,
+        });
+        return error;
+      }),
+  });
 
   const uploadThumbnail = useMutation({
     mutationFn: (file: File) => {
@@ -96,6 +110,13 @@ function ManageNewsArticle({
     uploadThumbnail.mutate(file);
   }
 
+  function handleCategoryChange(selected: SelectOption[]) {
+    updateArticle({
+      ...article,
+      categories: selected,
+    });
+  }
+
   function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>): void {
     if (!event.target.files) return;
     const file = event.target.files[0];
@@ -149,6 +170,18 @@ function ManageNewsArticle({
                   required={true}
                 />
               </div>
+              {categories && categories.length > 0 && (
+                <div className='col-span-12 mb-4'>
+                  <MultiSelectInput
+                    name='categories'
+                    label='Categories'
+                    value={article.categories}
+                    options={categories}
+                    onChange={handleCategoryChange}
+                    error={errors.categories}
+                  />
+                </div>
+              )}
               <div className='col-span-12 mb-4'>
                 <label className='text-xs font-semibold text-primary'>
                   Thumbnail image

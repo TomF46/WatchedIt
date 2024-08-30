@@ -34,6 +34,7 @@ using WatchedIt.Api.Services.NewsArticleService;
 using WatchedIt.Api.Services.FilmImageService;
 using WatchedIt.Api.Services.PersonImageService;
 using WatchedIt.Api.Services.TagService;
+using WatchedIt.Api.Services.NewsCategoryService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -160,6 +161,7 @@ builder.Services.AddScoped<INewsArticleService, NewsArticleService>();
 builder.Services.AddScoped<IFilmImageService, FilmImageService>();
 builder.Services.AddScoped<IPersonImageService, PersonImageService>();
 builder.Services.AddScoped<ITagService, TagService>();
+builder.Services.AddScoped<INewsCategoryService, NewsCategoryService>();
 
 
 var app = builder.Build();

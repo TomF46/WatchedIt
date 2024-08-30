@@ -23,7 +23,7 @@ namespace WatchedIt.Api.Services.NewsArticleService
             var query = _context.NewsArticles.Include(a => a.User).Where(a => a.Published);
 
             var newsArticleSearchHelper = new NewsArticleSearchHelper();
-            query = newsArticleSearchHelper.searchNewsArticles(query, parameters);
+            query = newsArticleSearchHelper.searchNewsArticles(_context, query, parameters);
 
             var count = query.Count();
             var articles = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
@@ -36,7 +36,7 @@ namespace WatchedIt.Api.Services.NewsArticleService
             var query = _context.NewsArticles.Include(a => a.User).Where(a => a.User.Id == userId).AsQueryable();
             if (currentUserId != userId) query = query.Where(x => x.Published); // Can see own unpublished articles
             var newsArticleSearchHelper = new NewsArticleSearchHelper();
-            var articles = newsArticleSearchHelper.searchNewsArticles(query, parameters);
+            var articles = newsArticleSearchHelper.searchNewsArticles(_context, query, parameters);
             var count = query.Count();
             var mappedArticles = await articles.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).Select(a => NewsArticleMapper.MapOverview(a)).ToListAsync();
             return new PaginationResponse<GetNewsArticleOverviewDto>(mappedArticles, parameters.PageNumber, parameters.PageSize, count);
@@ -79,7 +79,7 @@ namespace WatchedIt.Api.Services.NewsArticleService
             if (user is null) throw new NotFoundException($"user with Id '{userId}' not found.");
             if (!user.CanPublish) throw new Exceptions.UnauthorizedAccessException("User can not publish.");
 
-            var article = await _context.NewsArticles.Include(a => a.User).FirstOrDefaultAsync(x => x.Id == id);
+            var article = await _context.NewsArticles.Include(a => a.User).Include(f => f.Categories).FirstOrDefaultAsync(x => x.Id == id);
             if (article is null) throw new NotFoundException($"Article with Id '{id}' not found.");
 
             if (article.User.Id != user.Id) throw new Exceptions.UnauthorizedAccessException("User does not have permission to update this article.");

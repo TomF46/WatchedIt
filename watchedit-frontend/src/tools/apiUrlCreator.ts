@@ -44,6 +44,7 @@ export function generateNewsArticleSearchUrl(
   if (parameters.title) target = `${target}&title=${parameters.title}`;
   if (parameters.publisher)
     target = `${target}&publisher=${parameters.publisher}`;
+  if (parameters.category) target = `${target}&category=${parameters.category}`;
   if (parameters.sort) target = `${target}&sort=${parameters.sort}`;
   return target;
 }

@@ -18,6 +18,7 @@ function News() {
     title: '',
     publisher: '',
     sort: 'created_desc',
+    category: undefined,
   });
   const [page, setPage] = useState(1);
   const articlesPerPage = 32;

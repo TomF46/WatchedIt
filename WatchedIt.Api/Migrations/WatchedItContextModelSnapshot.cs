@@ -587,7 +587,7 @@ namespace WatchedIt.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("NewsCategory");
+                    b.ToTable("NewsCategories");
                 });
 
             modelBuilder.Entity("WatchedIt.Api.Models.NotificationModels.Notification", b =>

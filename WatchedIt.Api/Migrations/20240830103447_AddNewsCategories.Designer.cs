@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WatchedIt.Api.Migrations
 {
     [DbContext(typeof(WatchedItContext))]
-    [Migration("20240829103334_AddNewsCategories")]
+    [Migration("20240830103447_AddNewsCategories")]
     partial class AddNewsCategories
     {
         /// <inheritdoc />
@@ -590,7 +590,7 @@ namespace WatchedIt.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("NewsCategory");
+                    b.ToTable("NewsCategories");
                 });
 
             modelBuilder.Entity("WatchedIt.Api.Models.NotificationModels.Notification", b =>

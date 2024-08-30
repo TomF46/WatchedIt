@@ -11,7 +11,7 @@ namespace WatchedIt.Api.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "NewsCategory",
+                name: "NewsCategories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -20,7 +20,7 @@ namespace WatchedIt.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_NewsCategory", x => x.Id);
+                    table.PrimaryKey("PK_NewsCategories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -40,9 +40,9 @@ namespace WatchedIt.Api.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_NewsArticleNewsCategory_NewsCategory_CategoriesId",
+                        name: "FK_NewsArticleNewsCategory_NewsCategories_CategoriesId",
                         column: x => x.CategoriesId,
-                        principalTable: "NewsCategory",
+                        principalTable: "NewsCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -60,7 +60,7 @@ namespace WatchedIt.Api.Migrations
                 name: "NewsArticleNewsCategory");
 
             migrationBuilder.DropTable(
-                name: "NewsCategory");
+                name: "NewsCategories");
         }
     }
 }

@@ -69,6 +69,10 @@ import AddTag from './pages/tags/manage/AddTag';
 import EditTag from './pages/tags/manage/EditTag';
 import Tags from './pages/tags/Tags';
 import Tag from './pages/tags/Tag';
+import AddNewsCategory from './pages/news/categories/manage/AddNewsCategory';
+import EditNewsCategory from './pages/news/categories/manage/EditNewsCategory';
+import NewsCategories from './pages/news/categories/NewsCategories';
+import NewsCategory from './pages/news/categories/NewsCategory';
 
 const App = () => {
   return (
@@ -375,6 +379,24 @@ const App = () => {
               }
             />
             <Route path='/games' element={<Games />} />
+            <Route
+              path='/news/categories/add'
+              element={
+                <AdminRoute>
+                  <AddNewsCategory />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path='/news/categories/:id/edit'
+              element={
+                <AdminRoute>
+                  <EditNewsCategory />
+                </AdminRoute>
+              }
+            />
+            <Route path='/news/categories/:id' element={<NewsCategory />} />
+            <Route path='/news/categories' element={<NewsCategories />} />
             <Route
               path='/news/:id/edit'
               element={
