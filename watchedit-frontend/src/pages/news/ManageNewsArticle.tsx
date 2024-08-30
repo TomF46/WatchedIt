@@ -137,8 +137,10 @@ function ManageNewsArticle({
     return Object.keys(errors).length === 0;
   }
 
-  function handleSave(publish: boolean): void {
+  function handleSave(event: React.SyntheticEvent, publish: boolean): void {
+    event.preventDefault();
     if (!formIsValid()) return;
+    console.log('Test');
     triggerSave(publish);
   }
 
@@ -270,7 +272,7 @@ function ManageNewsArticle({
             {!article.published && (
               <ButtonWIcon
                 text='Save'
-                onClick={() => handleSave(false)}
+                onClick={(e) => handleSave(e, false)}
                 disabled={saving}
                 icon={<NewsIcon color='white' height={5} width={5} />}
                 bgColor='bg-primary'
@@ -279,7 +281,7 @@ function ManageNewsArticle({
             )}
             <ButtonWIcon
               text='Save & Publish'
-              onClick={() => handleSave(true)}
+              onClick={(e) => handleSave(e, true)}
               disabled={saving}
               icon={<NewsIcon color='white' height={5} width={5} />}
               bgColor='bg-primary'

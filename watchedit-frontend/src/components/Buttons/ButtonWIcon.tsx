@@ -4,7 +4,7 @@ type Props = {
   text: string;
   icon: ReactNode;
   bgColor: string;
-  onClick: () => void;
+  onClick: (event: React.SyntheticEvent) => void;
   additionalClasses?: string;
   disabled?: boolean;
 };
