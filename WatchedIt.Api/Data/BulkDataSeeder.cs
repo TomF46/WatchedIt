@@ -29,6 +29,9 @@ namespace WatchedIt.Api.Data
             var tagSeeder = new TagSeeder(_context);
             tagSeeder.Seed();
 
+            var newsCategorySeeder = new NewsCategorySeeder(_context);
+            newsCategorySeeder.Seed();
+
             if (_env.IsDevelopment())
             {
                 var adminSeeder = new AdminSeeder(_context, _config, _authenticationService);

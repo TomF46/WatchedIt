@@ -17,7 +17,7 @@ namespace WatchedIt.Api.Services.NewsCategoryService
         }
         public async Task<List<GetNewsCategoryDto>> GetAll()
         {
-            var NewsCategories = await _context.NewsCategories.OrderBy(c => c.Name).ToListAsync();
+            var NewsCategories = await _context.NewsCategories.ToListAsync();
             return NewsCategories.Select(c => NewsCategoryMapper.Map(c)).ToList();
         }
 

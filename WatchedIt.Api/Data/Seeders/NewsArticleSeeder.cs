@@ -42,7 +42,8 @@ namespace WatchedIt.Api.Data.Seeders
                         Published = article.Published,
                         CreatedDate = DateTime.Now,
                         UpdatedDate = DateTime.Now,
-                        ReadCount = article.ReadCount
+                        ReadCount = article.ReadCount,
+                        Categories =  _context.NewsCategories.Where(x => article.Categories.Contains(x.Id)).ToList(),
                     };
                     _context.NewsArticles.Add(a);
                 }
