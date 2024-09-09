@@ -11,3 +11,7 @@
 .wmde-markdown h5 {
   color: var(--primary-color);
 }
+
+.wmde-markdown ol {
+  list-style: decimal;
+}

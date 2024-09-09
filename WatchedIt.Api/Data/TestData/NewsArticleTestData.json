@@ -16,5 +16,32 @@
     "Published": true,
     "ReadCount": 98,
     "Categories": [1, 6]
+  },
+  {
+    "UserId": 1,
+    "Title": "Editors picks #1 Crime",
+    "Content": "Heres our first in a series of WatchedIt editors picks articles. In the first part we'll be looking at crime films.\n\n1. Goodfellas\n2. The Godfather part 2\n3. The Godfather\n4. Casino\n5. Snatch",
+    "ThumbnailUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/test-data/WatchedItEditorsPicks.webp",
+    "Published": true,
+    "ReadCount": 107,
+    "Categories": [1, 3]
+  },
+  {
+    "UserId": 1,
+    "Title": "WatchedIt lifetime achievement ",
+    "Content": "# Watched.It presents lifetime achievement award to Robert De Niro\n\nBig congratulations to Robert De Niro who is the inaugural recipient of the Watched.IT lifetime achievement award.\n\nHis first credit screen role was in Brian de Palma's Greetings (1968). De Niro's first collaboration with Scorsese was with the crime drama film Mean Streets (1973). De Niro earned two Academy Awards, one for Best Supporting Actor for his role as Vito Corleone in Francis Ford Coppola's The Godfather Part II (1974) and the other for Best Actor portraying Jake LaMotta in Scorsese's drama Raging Bull (1980). De Niro was Oscar-nominated for his performances in Taxi Driver (1976), The Deer Hunter (1978), Awakenings (1990), Cape Fear (1991), Silver Linings Playbook (2012), and Killers of the Flower Moon (2023).",
+    "ThumbnailUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/test-data/DeNiro.webp",
+    "Published": true,
+    "ReadCount": 70,
+    "Categories": [2, 3]
+  },
+  {
+    "UserId": 1,
+    "Title": "Editors picks #2 Horror",
+    "Content": "Heres our second entry in a series of WatchedIt editors picks articles. In this part we'll be looking at horror films.\n\n1. Alien\n2. The Exoricst\n3. Jaws\n4. Psycho\n5. Rosemarys baby",
+    "ThumbnailUrl": "https://watched-it.s3.eu-west-1.amazonaws.com/test-data/WatchedItEditorsPicks.webp",
+    "Published": true,
+    "ReadCount": 142,
+    "Categories": [1, 3]
   }
 ]
